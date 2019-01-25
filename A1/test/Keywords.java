@@ -1,4 +1,4 @@
-public abstract class SimpleKeywords {
+public abstract class Keywords {
     int integer;
     short shortNum;
     char character;
