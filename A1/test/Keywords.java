@@ -38,5 +38,4 @@ public abstract class SimpleKeywords {
     protected int dump(int x, int y) {
         return y;
     }
-
 }

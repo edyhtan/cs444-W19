@@ -57,10 +57,17 @@ public class JoosScan {
          * @return next available character or 0.
          */
         char nextChar() {
-            if (curString.length() <= 0) {
-                if (scanner.hasNextLine()) {
+            if (curString.length() == 0) {
+                boolean hasNext = false;
+                while (scanner.hasNextLine()) {
                     curString = scanner.nextLine();
-                } else {
+                    if (curString.length() > 0) {
+                        hasNext = true;
+                        break;
+                    }
+                }
+
+                if (!hasNext) {
                     return 0;
                 }
             }
