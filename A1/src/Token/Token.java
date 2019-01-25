@@ -1,5 +1,7 @@
 package Token;
 
 public class Token {
-    String lexeme;
+    private String lexeme;
+    private String kind;
 }
+

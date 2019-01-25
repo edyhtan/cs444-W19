@@ -46,3 +46,6 @@ continue
 goto
 package
 synchronized
+true
+false
+null
