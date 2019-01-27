@@ -1,13 +1,17 @@
-2
+3
 start
-done
-1
-done
-7
-start A Z done
-start a z done
-start $ done
-done A Z done
-done a z done
-done $ done
-done 0 9 done
+id_keyword
+separator
+2
+id_keyword
+separator
+8
+start A Z id_keyword
+start a z id_keyword
+start $ id_keyword
+start ; separator
+done A Z id_keyword
+done a z id_keyword
+done $ id_keyword
+done 0 9 id_keyword
+
