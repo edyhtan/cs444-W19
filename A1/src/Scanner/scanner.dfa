@@ -10,8 +10,8 @@ start A Z id_keyword
 start a z id_keyword
 start $ id_keyword
 start ; separator
-done A Z id_keyword
-done a z id_keyword
-done $ id_keyword
-done 0 9 id_keyword
+id_keyword A Z id_keyword
+id_keyword a z id_keyword
+id_keyword $ id_keyword
+id_keyword 0 9 id_keyword
 
