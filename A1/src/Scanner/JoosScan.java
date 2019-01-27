@@ -7,6 +7,7 @@
 package Scanner;
 
 import Exceptions.InvalidCharacterException;
+import Exceptions.InvalidTokenException;
 import Token.Token;
 
 import java.io.File;
@@ -22,7 +23,12 @@ public class JoosScan {
         reader = new FileScan(file);
     }
 
-    public void scan() throws InvalidCharacterException{
+    public void scan() throws InvalidCharacterException, FileNotFoundException, InvalidTokenException {
+        DFA dfa = new DFA();
+        int lastFinalState = 0;
+        String lastFinalStateLexeme = "";
+
+        // maximal munch scanning
         while (reader.hasNext()) {
             char c = reader.nextChar();
 
@@ -30,9 +36,27 @@ public class JoosScan {
                 throw new InvalidCharacterException(c);
             }
 
-            System.out.printf("%c : %d\n", c, (int) c);
+            if (c != 32 && c != 9 && c != 10 ) {
+                dfa.next(c);
 
-            //TODO: get a DFA please....
+                if (dfa.isFinal()) {
+                    lastFinalState = dfa.getState();
+                    lastFinalStateLexeme = dfa.getLexeme();
+                }
+
+                if (dfa.isErr()) {
+                    output.add(new Token(lastFinalStateLexeme));
+                    reader.curString = dfa.breakLexeme(lastFinalStateLexeme) + reader.curString;
+                    dfa.reset();
+                }
+            } else {
+                // stuck
+                if (!dfa.isFinal()) {
+                    throw new InvalidTokenException(dfa.getLexeme());
+                }
+                output.add(new Token(dfa.getLexeme()));
+                dfa.reset();
+            }
         }
     }
 
@@ -70,6 +94,7 @@ public class JoosScan {
                 if (!hasNext) {
                     return 0;
                 }
+                curString += " ";
             }
             char ret = curString.charAt(0);
             curString = curString.substring(1);

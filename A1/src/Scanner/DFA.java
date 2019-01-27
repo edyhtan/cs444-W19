@@ -10,8 +10,9 @@ public class DFA {
     private HashMap<String, Integer> states = new HashMap<>();
     private HashSet<Integer> finishing = new HashSet<>();
     private HashMap<Integer, HashMap<Character, Integer>> transitions = new HashMap<>();
-    private int startScanner = 0;
     private int currentState = 0;
+
+    private String lexeme = "";
 
     public DFA() throws FileNotFoundException {
         loadDFA();
@@ -26,7 +27,6 @@ public class DFA {
         int cur = 0;
 
         while (cur < numOfState && scan.hasNextLine()) {
-            System.out.printf("%d %d \n", numOfState, cur);
             scanLine = new Scanner(getLine(scan));
             String state = scanLine.next();
             states.put(state, cur);
@@ -43,8 +43,6 @@ public class DFA {
             finishing.add(states.get(state));
             cur++;
         }
-
-        System.out.println("2");
 
         scanLine = new Scanner(getLine(scan));
         int numOfTrans = scanLine.nextInt();
@@ -94,11 +92,22 @@ public class DFA {
         return currentState == -1;
     }
 
-    public void setState(int state) {
-        currentState = state;
-    }
-
     public void next(char input) {
         currentState = transitions.get(currentState).get(input);
+        lexeme += input;
+    }
+
+    public String getLexeme() {
+        return lexeme;
+    }
+
+    public void reset() {
+        currentState = 0;
+        lexeme = "";
+    }
+
+    // cut the lexeme into two piece based on the prefix, return its suffix
+    public String breakLexeme(String prefix) {
+        return lexeme.substring(prefix.length());
     }
 }

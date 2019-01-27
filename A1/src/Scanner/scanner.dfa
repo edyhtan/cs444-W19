@@ -9,6 +9,7 @@ separator
 start A Z id_keyword
 start a z id_keyword
 start $ id_keyword
+start _ id_keyword
 start ; separator
 id_keyword A Z id_keyword
 id_keyword a z id_keyword
