@@ -2,7 +2,6 @@ package Scanner;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.sql.Array;
 import java.util.*;
 
 public class DFA {
@@ -54,7 +53,7 @@ public class DFA {
 
         transitions = new ArrayList<>();
         for (int i = 0; i < states.size(); i++) {
-            transitions.add(new ArrayList<>(Collections.nCopies(127, -1)));
+            transitions.add(new ArrayList<>(Collections.nCopies(128, -1)));
         }
 
         while (cur < numOfTrans) {
