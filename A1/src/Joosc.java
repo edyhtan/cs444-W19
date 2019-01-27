@@ -21,7 +21,7 @@ public class Joosc {
 
             // TODO: add parsing
             for (Token token: tokens) {
-                System.out.println(token.getLexeme());
+                System.out.printf("%-9s :  %15s\n", token.getLexeme(), token.getKind());
             }
 
         } catch (FileNotFoundException e) {
@@ -31,6 +31,7 @@ public class Joosc {
             System.err.printf("ERROR: invalid characters\n", e.getInvalidChar());
             System.exit(42);
         } catch (Exception e) {
+            e.printStackTrace();
             System.err.printf("ERROR: %s \n", e.getStackTrace());
             System.exit(2);
         }

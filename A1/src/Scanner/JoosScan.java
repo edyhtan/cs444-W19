@@ -38,23 +38,21 @@ public class JoosScan {
 
             if (c != 32 && c != 9 && c != 10 ) {
                 dfa.next(c);
-
                 if (dfa.isFinal()) {
-                    lastFinalState = dfa.getState();
+                    lastFinalState = dfa.getState(); // used for Kind.
                     lastFinalStateLexeme = dfa.getLexeme();
                 }
 
                 if (dfa.isErr()) {
-                    output.add(new Token(lastFinalStateLexeme));
+                    output.add(new Token(lastFinalStateLexeme, dfa.getKind(lastFinalState)));
                     reader.curString = dfa.breakLexeme(lastFinalStateLexeme) + reader.curString;
                     dfa.reset();
                 }
-            } else {
-                // stuck
+            } else { // stuck
                 if (!dfa.isFinal()) {
                     throw new InvalidTokenException(dfa.getLexeme());
                 }
-                output.add(new Token(dfa.getLexeme()));
+                output.add(new Token(dfa.getLexeme(), dfa.getKind()));
                 dfa.reset();
             }
         }

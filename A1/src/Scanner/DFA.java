@@ -2,14 +2,14 @@ package Scanner;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Scanner;
+import java.sql.Array;
+import java.util.*;
 
 public class DFA {
     private HashMap<String, Integer> states = new HashMap<>();
-    private HashSet<Integer> finishing = new HashSet<>();
-    private HashMap<Integer, HashMap<Character, Integer>> transitions = new HashMap<>();
+    private HashMap<Integer, String> kinds = new HashMap<>();
+    private HashSet<Integer> finalStates = new HashSet<>();
+    private ArrayList<ArrayList<Integer>> transitions;
     private int currentState = 0;
 
     private String lexeme = "";
@@ -22,6 +22,7 @@ public class DFA {
     private void loadDFA() throws FileNotFoundException {
         Scanner scan = new Scanner(new File(("src/Scanner/scanner.dfa")));
 
+        // All states
         Scanner scanLine = new Scanner(getLine(scan));
         int numOfState = scanLine.nextInt();
         int cur = 0;
@@ -33,27 +34,27 @@ public class DFA {
             cur++;
         }
 
+        // Final States
         scanLine = new Scanner(getLine(scan));
-        int numOfFinishing = scanLine.nextInt();
+        int numOfFinal = scanLine.nextInt();
         cur = 0;
 
-        while (cur < numOfFinishing && scan.hasNextLine()) {
+        while (cur < numOfFinal && scan.hasNextLine()) {
             scanLine = new Scanner(getLine(scan));
             String state = scanLine.next();
-            finishing.add(states.get(state));
+            finalStates.add(states.get(state));
+            kinds.put(states.get(state), state);
             cur++;
         }
 
+        // Transition Table
         scanLine = new Scanner(getLine(scan));
         int numOfTrans = scanLine.nextInt();
         cur = 0;
 
-        // set all state transition to null
+        transitions = new ArrayList<>();
         for (int i = 0; i < states.size(); i++) {
-            transitions.put(i, new HashMap<>());
-            for (int j = 0 ; j <= 127 ; j++ ) {
-                transitions.get(i).put((char) j, -1);
-            }
+            transitions.add(new ArrayList<>(Collections.nCopies(127, -1)));
         }
 
         while (cur < numOfTrans) {
@@ -61,7 +62,7 @@ public class DFA {
             if (line.length == 3) {
                  int preState = states.get(line[0]);
                  int nextState = states.get(line[2]);
-                 transitions.get(preState).put(line[1].charAt(0), nextState);
+                 transitions.get(preState).set(line[1].charAt(0), nextState);
             } else if (line.length == 4) {
                  int preState = states.get(line[0]);
                  int nextState = states.get(line[3]);
@@ -69,7 +70,7 @@ public class DFA {
                  char upper = line[2].charAt(0);
 
                  for (; lower <= upper ; lower++ ) {
-                     transitions.get(preState).put(lower, nextState);
+                     transitions.get(preState).set(lower, nextState);
                  }
             }
             cur++;
@@ -84,8 +85,16 @@ public class DFA {
         return currentState;
     }
 
+    public String getKind() {
+        return kinds.get(currentState);
+    }
+
+    public String getKind(int state) {
+        return kinds.get(state);
+    }
+
     public boolean isFinal() {
-        return finishing.contains(currentState);
+        return finalStates.contains(currentState);
     }
 
     public boolean isErr() {
