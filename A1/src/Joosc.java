@@ -1,5 +1,4 @@
 import Exceptions.InvalidCharacterException;
-import Scanner.DFA;
 import Scanner.JoosScan;
 import Token.Token;
 
@@ -19,10 +18,11 @@ public class Joosc {
             scan.scan();
             ArrayList<Token> tokens = scan.getOutput();
 
-            // TODO: add parsing
             for (Token token: tokens) {
                 System.out.printf("%-9s :  %15s\n", token.getLexeme(), token.getKind());
             }
+
+            // TODO: add parsing
 
         } catch (FileNotFoundException e) {
             System.err.printf("ERROR: file %s not found\n", args[0]);
