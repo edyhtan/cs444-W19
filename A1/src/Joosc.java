@@ -1,4 +1,5 @@
 import Exceptions.InvalidCharacterException;
+import Exceptions.InvalidTokenException;
 import Scanner.JoosScan;
 import Token.Token;
 
@@ -25,14 +26,15 @@ public class Joosc {
             // TODO: add parsing
 
         } catch (FileNotFoundException e) {
-            System.err.printf("ERROR: file %s not found\n", args[0]);
+            System.err.printf("ERROR: file %s not found %d\n", args[0]);
             System.exit(2);
         } catch (InvalidCharacterException e) {
-            System.err.printf("ERROR: invalid characters\n", e.getInvalidChar());
+            System.err.printf("ERROR: invalid characters %s\n", e.getInvalidChar());
             System.exit(42);
+        } catch (InvalidTokenException e) {
+            System.err.printf("ERROR: invalid lexeme: %s\n", e.getInvalidLexeme());
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.printf("ERROR: %s \n", e.getStackTrace());
             System.exit(2);
         }
     }
