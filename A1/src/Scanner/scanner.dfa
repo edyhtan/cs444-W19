@@ -1,20 +1,22 @@
-4
+5
 start
 id_keyword
 separator
 int
-int0
-3
+int_0
+4
 id_keyword
 separator
 int
-10
+int_0
+11
 start A Z id_keyword
 start a z id_keyword
 start $ id_keyword
 start _ id_keyword
 start ; separator
 start 1 9 int
+start 0 int_0
 int 0 9 int
 id_keyword A Z id_keyword
 id_keyword a z id_keyword
