@@ -11,10 +11,21 @@ public class DFA {
     private ArrayList<ArrayList<Integer>> transitions;
     private int currentState = 0;
 
+    private HashSet<String> keywordSets = new HashSet<>();
+
     private String lexeme = "";
 
     public DFA() throws FileNotFoundException {
         loadDFA();
+        loadKeywords();
+    }
+
+    private void loadKeywords() throws FileNotFoundException {
+        Scanner scan = new Scanner(new File(("src/Scanner/keywords.txt")));
+
+        while (scan.hasNextLine()) {
+            keywordSets.add(scan.nextLine());
+        }
     }
 
     // Read .dfa file
@@ -85,11 +96,22 @@ public class DFA {
     }
 
     public String getKind() {
-        return kinds.get(currentState);
+        String kind = kinds.get(currentState).split("\\$")[0];
+        if (kind.equals("id_keyword")) {
+            kind = keywordSets.contains(kind) ? "identifier" : "keyword";
+        }
+
+        return kind;
     }
 
     public String getKind(int state) {
-        return kinds.get(state);
+        String kind = kinds.get(state).split("\\$")[0];
+
+        if (kind.equals("id_keyword")) {
+            kind = keywordSets.contains(kind) ? "keyword" : "identifier";
+        }
+
+        return kind;
     }
 
     public boolean isFinal() {
