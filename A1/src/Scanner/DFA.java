@@ -9,13 +9,12 @@ public class DFA {
     private HashMap<Integer, String> kinds = new HashMap<>();
     private HashSet<Integer> finalStates = new HashSet<>();
     private ArrayList<ArrayList<Integer>> transitions;
-    private int currentState = 0;
-
     private HashSet<String> keywordSets = new HashSet<>();
 
+    private int currentState = 0;
     private String lexeme = "";
 
-    public DFA() throws FileNotFoundException {
+    DFA() throws FileNotFoundException {
         loadDFA();
         loadKeywords();
     }
@@ -103,6 +102,7 @@ public class DFA {
 
         return kind;
     }
+
 
     public String getKind(int state) {
         String kind = kinds.get(state).split("\\$")[0];

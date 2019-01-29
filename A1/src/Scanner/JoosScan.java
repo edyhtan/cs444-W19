@@ -47,6 +47,7 @@ public class JoosScan {
                     if (lastFinalState == 0) {
                         throw new InvalidTokenException(dfa.getLexeme());
                     }
+
                     output.add(new Token(lastFinalStateLexeme, dfa.getKind(lastFinalState)));
                     reader.curString = dfa.breakLexeme(lastFinalStateLexeme) + reader.curString;
                     lastFinalState = 0;
