@@ -1,0 +1,126 @@
+32
+start
+int0
+int1
+int2
+operator
+operator:>
+operator:<
+operator:!
+operator:=
+operator:&
+operator:|
+operator:/
+operator:*
+separator
+comment://
+comment:/*
+comment:*/
+comment:/**
+string:\
+string:"
+string
+char
+char:'
+char:\
+char:\2
+char:\1
+char:filled
+string
+string:"
+string:\
+string:\2
+string:\1
+17
+int0
+int1
+int2
+operator
+operator:>
+operator:<
+operator:!
+operator:=
+operator:/
+operator:*
+separator
+comment://
+comment:/*
+comment:*/
+comment:/**
+char
+string
+74
+start 0 int0
+start 1 9 int1
+int1 0 9 int1
+int1 I int2
+start + operator
+start - operator
+start * operator:*
+start / operator:/
+start % operator
+start & operator:&
+operator:& & operator
+start ! operator:!
+operator:! = operator
+start | operator:|
+operator:| | operator
+start < operator:<
+operator:< = operator
+start > operator:>
+operator:> = operator
+operator = operator:=
+operator:= = operator
+start ( separator
+start ) separator
+start ; separator
+start { separator
+start } separator
+start [ separator
+start ] separator
+start . separator
+start , separator
+operator:/ / comment://
+operator:/ * comment:/*
+operator:* / comment:*/
+comment:/* * comment:/**
+start ' char:'
+char:' space del char:filled
+char:filled ' char
+char:filled ' char
+char:' \ char:\
+char:\ b char:filled
+char:\ t char:filled
+char:\ n char:filled
+char:\ f char:filled
+char:\ r char:filled
+char:\ " char:filled
+char:\ ' char:filled
+char:\ \ char:filled
+start " string:"
+string:" space del string:"
+string:" " string
+string:" \ string:\
+string:\ b string:"
+string:\ t string:"
+string:\ n string:"
+string:\ f string:"
+string:\ r string:"
+string:\ " string:"
+string:\ ' string:"
+string:\ \ string:"
+string:\ 0 3 string:\2
+string:\ 4 7 string:\1
+string:\2 0 7 string:\1
+string:\2 space / string:"
+string:\2 : del string:"
+string:\1 space del string:"
+start A Z id_keyword
+start a z id_keyword
+start $ id_keyword
+start _ id_keyword
+id_keyword A Z id_keyword
+id_keyword a z id_keyword
+id_keyword $ id_keyword
+id_keyword _ id_keyword
+id_keyword 0 9 id_keyword
