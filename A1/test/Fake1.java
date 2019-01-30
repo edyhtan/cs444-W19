@@ -12,6 +12,4 @@ interface int
 123___123
 
 
-"hehe\n"
-"hehe\"
-"hehe\hhehe"
+integer.int = int;

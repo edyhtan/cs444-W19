@@ -1,4 +1,4 @@
-32
+30
 start
 int0
 int1
@@ -17,9 +17,6 @@ comment://
 comment:/*
 comment:*/
 comment:/**
-string:\
-string:"
-string
 char
 char:'
 char:\
@@ -31,7 +28,8 @@ string:"
 string:\
 string:\2
 string:\1
-17
+id_keyword
+18
 int0
 int1
 int2
@@ -49,6 +47,7 @@ comment:*/
 comment:/**
 char
 string
+id_keyword
 74
 start 0 int0
 start 1 9 int1
@@ -69,7 +68,7 @@ start < operator:<
 operator:< = operator
 start > operator:>
 operator:> = operator
-operator = operator:=
+start = operator:=
 operator:= = operator
 start ( separator
 start ) separator

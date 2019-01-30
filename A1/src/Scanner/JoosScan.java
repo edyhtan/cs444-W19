@@ -36,7 +36,7 @@ public class JoosScan {
                 throw new InvalidCharacterException(c);
             }
 
-            if (c != 32 && c != 9 && c != 10 ) {
+            if (c != 32 && c != '\t' ) {
                 dfa.next(c);
                 if (dfa.isFinal()) {
                     lastFinalState = dfa.getState(); // used for Kind.
@@ -45,9 +45,8 @@ public class JoosScan {
 
                 if (dfa.isErr()) {
                     if (lastFinalState == 0) {
-                        throw new InvalidTokenException(dfa.getLexeme());
+                        throw new InvalidTokenException(dfa.getLexeme(), output, c);
                     }
-
                     output.add(new Token(lastFinalStateLexeme, dfa.getKind(lastFinalState)));
                     reader.curString = dfa.breakLexeme(lastFinalStateLexeme) + reader.curString;
                     lastFinalState = 0;
@@ -55,10 +54,16 @@ public class JoosScan {
                     dfa.reset();
                 }
             } else { // stuck
+                if (dfa.getState() == 0) {
+                    dfa.reset();
+                    continue;
+                }
                 if (!dfa.isFinal()) {
-                    throw new InvalidTokenException(dfa.getLexeme());
+                    throw new InvalidTokenException(dfa.getLexeme(), output, c);
                 }
                 output.add(new Token(dfa.getLexeme(), dfa.getKind()));
+                lastFinalState = 0;
+                lastFinalStateLexeme = "";
                 dfa.reset();
             }
         }

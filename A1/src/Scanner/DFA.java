@@ -31,6 +31,7 @@ public class DFA {
         while (cur < numOfState && scan.hasNextLine()) {
             scanLine = new Scanner(getLine(scan));
             String state = scanLine.next();
+
             states.put(state, cur);
             cur++;
         }
@@ -63,6 +64,7 @@ public class DFA {
             if (line.length == 3) {
                  int preState = states.get(line[0]);
                  int nextState = states.get(line[2]);
+
                  // space for ' ', del for '\177'
                  char transitionChar = line[1].length() == 1 ? line[1].charAt(0) :
                          line[1].equals("space") ? ' ' : '\177';
@@ -72,7 +74,7 @@ public class DFA {
                  int nextState = states.get(line[3]);
                  char lower = line[1].length() == 1 ? line[1].charAt(0) :
                          line[1].equals("space") ? ' ' : '\177';
-                 char upper = line[2].length() == 1 ? line[1].charAt(0) :
+                 char upper = line[2].length() == 1 ? line[2].charAt(0) :
                          line[2].equals("space") ? ' ' : '\177';
                  for (; lower <= upper ; lower++ ) {
                      transitions.get(preState).set(lower, nextState);
