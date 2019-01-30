@@ -9,28 +9,19 @@ public class DFA {
     private HashMap<Integer, String> kinds = new HashMap<>();
     private HashSet<Integer> finalStates = new HashSet<>();
     private ArrayList<ArrayList<Integer>> transitions;
-    private int currentState = 0;
-
     private HashSet<String> keywordSets = new HashSet<>();
+
+    private int currentState = 0;
 
     private String lexeme = "";
 
-    public DFA() throws FileNotFoundException {
+    DFA() throws FileNotFoundException {
         loadDFA();
-        loadKeywords();
-    }
-
-    private void loadKeywords() throws FileNotFoundException {
-        Scanner scan = new Scanner(new File(("src/Scanner/keywords.txt")));
-
-        while (scan.hasNextLine()) {
-            keywordSets.add(scan.nextLine());
-        }
     }
 
     // Read .dfa file
     private void loadDFA() throws FileNotFoundException {
-        Scanner scan = new Scanner(new File(("src/Scanner/scanner.dfa")));
+        Scanner scan = new Scanner(new File(("src/Scanner/lexer.dfa")));
 
         // All states
         Scanner scanLine = new Scanner(getLine(scan));
@@ -40,6 +31,7 @@ public class DFA {
         while (cur < numOfState && scan.hasNextLine()) {
             scanLine = new Scanner(getLine(scan));
             String state = scanLine.next();
+
             states.put(state, cur);
             cur++;
         }
@@ -72,13 +64,18 @@ public class DFA {
             if (line.length == 3) {
                  int preState = states.get(line[0]);
                  int nextState = states.get(line[2]);
-                 transitions.get(preState).set(line[1].charAt(0), nextState);
+
+                 // space for ' ', del for '\177'
+                 char transitionChar = line[1].length() == 1 ? line[1].charAt(0) :
+                         line[1].equals("space") ? ' ' : '\177';
+                 transitions.get(preState).set(transitionChar, nextState);
             } else if (line.length == 4) {
                  int preState = states.get(line[0]);
                  int nextState = states.get(line[3]);
-                 char lower = line[1].charAt(0);
-                 char upper = line[2].charAt(0);
-
+                 char lower = line[1].length() == 1 ? line[1].charAt(0) :
+                         line[1].equals("space") ? ' ' : '\177';
+                 char upper = line[2].length() == 1 ? line[2].charAt(0) :
+                         line[2].equals("space") ? ' ' : '\177';
                  for (; lower <= upper ; lower++ ) {
                      transitions.get(preState).set(lower, nextState);
                  }
@@ -96,22 +93,12 @@ public class DFA {
     }
 
     public String getKind() {
-        String kind = kinds.get(currentState).split("\\$")[0];
-        if (kind.equals("id_keyword")) {
-            kind = keywordSets.contains(kind) ? "identifier" : "keyword";
-        }
-
-        return kind;
+        return kinds.get(currentState);
     }
 
+
     public String getKind(int state) {
-        String kind = kinds.get(state).split("\\$")[0];
-
-        if (kind.equals("id_keyword")) {
-            kind = keywordSets.contains(kind) ? "keyword" : "identifier";
-        }
-
-        return kind;
+        return kinds.get(state);
     }
 
     public boolean isFinal() {

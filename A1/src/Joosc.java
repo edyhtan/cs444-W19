@@ -32,7 +32,8 @@ public class Joosc {
             System.err.printf("ERROR: invalid characters %s\n", e.getInvalidChar());
             System.exit(42);
         } catch (InvalidTokenException e) {
-            System.err.printf("ERROR: invalid lexeme: %s\n", e.getInvalidLexeme());
+            System.err.printf("ERROR: invalid lexeme: %s(%c, %d)\n", e.getInvalidLexeme(), e.getCurChar(), (int) e.getCurChar());
+            e.printExistingTokens();
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(2);
