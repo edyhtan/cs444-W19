@@ -22,4 +22,8 @@ public class Transition {
     public int getTo() {
         return to;
     }
+
+    public void print() {
+        System.out.print(input+" " + action + " " + to + "\n");
+    }
 }
