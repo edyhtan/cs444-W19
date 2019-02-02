@@ -1,5 +1,8 @@
 import Exceptions.InvalidCharacterException;
+import Exceptions.InvalidSyntaxException;
 import Exceptions.InvalidTokenException;
+import Parser.JoosParse;
+import Parser.ParseTree;
 import Scanner.JoosScan;
 import Token.Token;
 
@@ -24,6 +27,10 @@ public class Joosc {
             }
 
             // TODO: add parsing
+            JoosParse parse = new JoosParse("src/Parser/sample.lr1");
+            parse.printGrammar();
+            parse.parse(tokens);
+            ParseTree tree = parse.getTree();
 
         } catch (FileNotFoundException e) {
             System.err.printf("ERROR: file %s not found %d\n", args[0]);
@@ -34,6 +41,9 @@ public class Joosc {
         } catch (InvalidTokenException e) {
             System.err.printf("ERROR: invalid lexeme: %s(%c, %d)\n", e.getInvalidLexeme(), e.getCurChar(), (int) e.getCurChar());
             e.printExistingTokens();
+        } catch (InvalidSyntaxException e) {
+            System.err.printf("ERROR: invalid syntax at %d\n", e.getLocation());
+            System.exit(2);
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(2);
