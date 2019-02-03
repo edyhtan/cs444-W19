@@ -18,11 +18,20 @@ public class DFA {
 
     DFA() throws FileNotFoundException {
         loadDFA();
+        loadKeyword();
+    }
+
+    private void loadKeyword() throws FileNotFoundException {
+        Scanner scan = new Scanner(new File("src/Scanner/keywords.txt"));
+
+        while (scan.hasNextLine()) {
+            keywordSets.add(scan.nextLine());
+        }
     }
 
     // Read .dfa file
     private void loadDFA() throws FileNotFoundException {
-        Scanner scan = new Scanner(new File(("src/Scanner/lexer.dfa")));
+        Scanner scan = new Scanner(new File("src/Scanner/lexer.dfa"));
 
         // All states
         Scanner scanLine = new Scanner(getLine(scan));
@@ -105,11 +114,20 @@ public class DFA {
     }
 
     public String getKind() {
+        if (kinds.get(currentState).equals("id_keyword")) {
+            return keywordSets.contains(lexeme) ? "keyword" : "identifier";
+        }
         return kinds.get(currentState).split("\\$")[0];
     }
 
 
     public String getKind(int state) {
+        if (state == -1) {
+            return "error";
+        }
+        if (kinds.get(state).equals("id_keyword")) {
+            return keywordSets.contains(lexeme) ? "keyword" : "identifier";
+        }
         return kinds.get(state).split("\\$")[0];
     }
 

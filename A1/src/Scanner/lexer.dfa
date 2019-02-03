@@ -1,8 +1,8 @@
 31
 start
-int0
-int1
-int2
+int$0
+int$1
+int$2
 operator
 operator$>
 operator$<
@@ -31,9 +31,9 @@ string$\2
 string$\1
 id_keyword
 16
-int0
-int1
-int2
+int$0
+int$1
+int$2
 operator
 operator$>
 operator$<
@@ -48,10 +48,10 @@ char
 string
 id_keyword
 89
-start 0 int0
-start 1 9 int1
-int1 0 9 int1
-int1 I int2
+start 0 int$0
+start 1 9 int$1
+int$1 0 9 int$1
+int$1 I int$2
 start + operator
 start - operator
 start * operator$*
