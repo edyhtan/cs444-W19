@@ -56,6 +56,7 @@ public class JoosScan {
             if (isValidChar(c)) {
                 dfa.next(c);
 
+                // check for conditions to start special scanning mode
                 if (dfa.getStateName().equals("char$'") || dfa.getStateName().equals("string$\"")) {
                     mode = Mode.STR_LITERAL;
                 } else if (dfa.getStateName().equals("comment$/*")) {
@@ -67,16 +68,17 @@ public class JoosScan {
                     reader.nextLine();
                 }
 
+                // reach a final state (currently largest acceptable token)
                 if (dfa.isFinal()) {
-                    lastFinalState = dfa.getState(); // used for Kind.
+                    lastFinalState = dfa.getState();
                     lastFinalStateLexeme = dfa.getLexeme();
                 }
 
+                // backtracking
                 if (dfa.isErr()) {
                     if (lastFinalState == 0) {
                         throw new InvalidTokenException(dfa.getLexeme(), output, c);
                     }
-
                     if (!dfa.getKind(lastFinalState).equals("comment")) {
                         output.add(new Token(lastFinalStateLexeme, dfa.getKind(lastFinalState)));
                     }
@@ -87,7 +89,8 @@ public class JoosScan {
                     lastFinalStateLexeme = "";
                     dfa.reset();
                 }
-            } else { // stuck
+            } else {
+                // stuck
                 if (dfa.getState() == 0) {
                     dfa.reset();
                     continue;
@@ -98,6 +101,8 @@ public class JoosScan {
                 if (!dfa.getKind().equals("comment")) {
                     output.add(new Token(dfa.getLexeme(), dfa.getKind()));
                 }
+
+                // reset dfa
                 lastFinalState = 0;
                 lastFinalStateLexeme = "";
                 dfa.reset();

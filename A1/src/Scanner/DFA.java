@@ -90,6 +90,7 @@ public class DFA {
         }
     }
 
+    // transition parsing
     private char getTransitionChar(String str) {
         if (str.length() == 1) {
             return str.charAt(0);
@@ -122,9 +123,6 @@ public class DFA {
 
 
     public String getKind(int state) {
-        if (state == -1) {
-            return "error";
-        }
         if (kinds.get(state).equals("id_keyword")) {
             return keywordSets.contains(lexeme) ? "keyword" : "identifier";
         }

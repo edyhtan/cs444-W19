@@ -25,7 +25,7 @@ public class Joosc {
             // TODO: add parsing
 
         } catch (FileNotFoundException e) {
-            System.err.printf("ERROR: file %s not found\n", args[0]);
+            System.err.printf("ERROR: file not found, %s\n", e.getCause());
             System.exit(2);
         } catch (InvalidCharacterException e) {
             System.err.printf("ERROR: invalid characters %s\n", e.getInvalidChar());
