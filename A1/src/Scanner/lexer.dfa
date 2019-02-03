@@ -1,75 +1,74 @@
-30
+31
 start
 int0
 int1
 int2
 operator
-operator:>
-operator:<
-operator:!
-operator:=
-operator:&
-operator:|
-operator:/
-operator:*
+operator$>
+operator$<
+operator$!
+operator$=
+operator$&
+operator$|
+operator$/
+operator$*
 separator
-comment://
-comment:/*
-comment:*/
-comment:/**
+comment$//
+comment$/*
+comment$/*+
+comment$/*+*
+comment
 char
-char:'
-char:\
-char:\2
-char:\1
-char:filled
+char$'
+char$\
+char$\2
+char$\1
+char$filled
 string
-string:"
-string:\
-string:\2
-string:\1
+string$"
+string$\
+string$\2
+string$\1
 id_keyword
-18
+16
 int0
 int1
 int2
 operator
-operator:>
-operator:<
-operator:!
-operator:=
-operator:/
-operator:*
+operator$>
+operator$<
+operator$!
+operator$=
+operator$/
+operator$*
 separator
-comment://
-comment:/*
-comment:*/
-comment:/**
+comment$//
+comment
 char
 string
 id_keyword
-74
+89
 start 0 int0
 start 1 9 int1
 int1 0 9 int1
 int1 I int2
 start + operator
 start - operator
-start * operator:*
-start / operator:/
+start * operator$*
+start / operator$/
 start % operator
-start & operator:&
-operator:& & operator
-start ! operator:!
-operator:! = operator
-start | operator:|
-operator:| | operator
-start < operator:<
-operator:< = operator
-start > operator:>
-operator:> = operator
-start = operator:=
-operator:= = operator
+start & operator$&
+operator$& & operator
+start ! operator$!
+operator$! = operator
+start | operator$|
+operator$| | operator
+start < operator$<
+operator$< = operator
+start > operator$>
+operator$> = operator
+start = operator$=
+operator$= = operator
 start ( separator
 start ) separator
 start ; separator
@@ -79,41 +78,57 @@ start [ separator
 start ] separator
 start . separator
 start , separator
-operator:/ / comment://
-operator:/ * comment:/*
-operator:* / comment:*/
-comment:/* * comment:/**
-start ' char:'
-char:' space del char:filled
-char:filled ' char
-char:filled ' char
-char:' \ char:\
-char:\ b char:filled
-char:\ t char:filled
-char:\ n char:filled
-char:\ f char:filled
-char:\ r char:filled
-char:\ " char:filled
-char:\ ' char:filled
-char:\ \ char:filled
-start " string:"
-string:" space del string:"
-string:" " string
-string:" \ string:\
-string:\ b string:"
-string:\ t string:"
-string:\ n string:"
-string:\ f string:"
-string:\ r string:"
-string:\ " string:"
-string:\ ' string:"
-string:\ \ string:"
-string:\ 0 3 string:\2
-string:\ 4 7 string:\1
-string:\2 0 7 string:\1
-string:\2 space / string:"
-string:\2 : del string:"
-string:\1 space del string:"
+operator$/ / comment$//
+operator$/ * comment$/*
+comment$/* 000 127 comment$/*+
+comment$/* * comment$/*+*
+comment$/*+ 000 127 comment$/*+
+comment$/*+ * comment$/*+*
+comment$/*+* / comment
+start ' char$'
+char$' 000 011 char$filled
+char$' 013 127 char$filled
+char$filled ' char
+char$filled ' char
+char$' \ char$\
+char$\ b char$filled
+char$\ t char$filled
+char$\ n char$filled
+char$\ f char$filled
+char$\ r char$filled
+char$\ " char$filled
+char$\ ' char$filled
+char$\ \ char$filled
+char$\ 0 3 char$\2
+char$\ 4 7 char$\1
+char$\2 0 7 char$\1
+char$\2 ' char
+string$\1 0 7 char$filled
+char$\1 ' char
+start " string$"
+string$" 000 011 string$"
+string$" 013 127 string$"
+string$" " string
+string$" \ string$\
+string$\ b string$"
+string$\ t string$"
+string$\ n string$"
+string$\ f string$"
+string$\ r string$"
+string$\ " string$"
+string$\ ' string$"
+string$\ \ string$"
+string$\ 0 3 string$\2
+string$\ 4 7 string$\1
+string$\2 000 011 string$"
+string$\2 013 127 string$"
+string$\2 0 7 string$\1
+string$\2 " string
+string$\2 \ string$\
+string$\1 000 011 string$"
+string$\1 013 127 string$"
+string$\1 " string
+string$\1 \ string$\
 start A Z id_keyword
 start a z id_keyword
 start $ id_keyword

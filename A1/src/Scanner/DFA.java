@@ -9,6 +9,7 @@ public class DFA {
     private HashMap<Integer, String> kinds = new HashMap<>();
     private HashSet<Integer> finalStates = new HashSet<>();
     private ArrayList<ArrayList<Integer>> transitions;
+    private ArrayList<String> stateNames = new ArrayList<>();
     private HashSet<String> keywordSets = new HashSet<>();
 
     private int currentState = 0;
@@ -33,6 +34,7 @@ public class DFA {
             String state = scanLine.next();
 
             states.put(state, cur);
+            stateNames.add(state);
             cur++;
         }
 
@@ -64,23 +66,28 @@ public class DFA {
             if (line.length == 3) {
                  int preState = states.get(line[0]);
                  int nextState = states.get(line[2]);
-
-                 // space for ' ', del for '\177'
-                 char transitionChar = line[1].length() == 1 ? line[1].charAt(0) :
-                         line[1].equals("space") ? ' ' : '\177';
+                 char transitionChar = getTransitionChar(line[1]);
                  transitions.get(preState).set(transitionChar, nextState);
             } else if (line.length == 4) {
                  int preState = states.get(line[0]);
                  int nextState = states.get(line[3]);
-                 char lower = line[1].length() == 1 ? line[1].charAt(0) :
-                         line[1].equals("space") ? ' ' : '\177';
-                 char upper = line[2].length() == 1 ? line[2].charAt(0) :
-                         line[2].equals("space") ? ' ' : '\177';
+                 char lower = getTransitionChar(line[1]);
+                 char upper = getTransitionChar(line[2]);
                  for (; lower <= upper ; lower++ ) {
                      transitions.get(preState).set(lower, nextState);
                  }
             }
             cur++;
+        }
+    }
+
+    private char getTransitionChar(String str) {
+        if (str.length() == 1) {
+            return str.charAt(0);
+        } else if (str.length() == 3) {
+            return (char) Integer.parseInt(str);
+        } else {
+            return 0;
         }
     }
 
@@ -92,13 +99,18 @@ public class DFA {
         return currentState;
     }
 
+    // expensive, use wisely.
+    public String getStateName() {
+        return currentState == -1 ? "error" : stateNames.get(currentState);
+    }
+
     public String getKind() {
-        return kinds.get(currentState);
+        return kinds.get(currentState).split("\\$")[0];
     }
 
 
     public String getKind(int state) {
-        return kinds.get(state);
+        return kinds.get(state).split("\\$")[0];
     }
 
     public boolean isFinal() {

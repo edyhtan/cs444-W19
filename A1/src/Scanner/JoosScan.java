@@ -16,14 +16,31 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class JoosScan {
+    enum Mode {
+      REG, STR_LITERAL, COMMENTS
+    };
+
     private FileScan reader;
     private ArrayList<Token> output = new ArrayList<>();
+
+    private Mode mode = Mode.REG;
 
     public JoosScan (File file) throws FileNotFoundException {
         reader = new FileScan(file);
     }
 
-    public void scan() throws InvalidCharacterException, FileNotFoundException, InvalidTokenException {
+    public boolean isValidChar(char c) {
+        boolean isValid = true;
+        switch (mode) {
+            case REG:
+                isValid = (c != 32 && c != '\t');
+            case STR_LITERAL:
+                isValid = isValid && (c != '\n');
+        }
+        return isValid;
+    }
+
+    public void scan() throws InvalidCharacterException, FileNotFoundException, InvalidTokenException{
         DFA dfa = new DFA();
         int lastFinalState = 0;
         String lastFinalStateLexeme = "";
@@ -36,8 +53,20 @@ public class JoosScan {
                 throw new InvalidCharacterException(c);
             }
 
-            if (c != 32 && c != '\t' ) {
+            if (isValidChar(c)) {
                 dfa.next(c);
+
+                if (dfa.getStateName().equals("char$'") || dfa.getStateName().equals("string$\"")) {
+                    mode = Mode.STR_LITERAL;
+                } else if (dfa.getStateName().equals("comment$/*")) {
+                    mode = Mode.COMMENTS;
+                } else if (dfa.getStateName().equals("char") || dfa.getStateName().equals("string") ||
+                        dfa.getStateName().equals("comment")) {
+                    mode = Mode.REG;
+                } else if (dfa.getStateName().equals("comment$//")) {
+                    reader.nextLine();
+                }
+
                 if (dfa.isFinal()) {
                     lastFinalState = dfa.getState(); // used for Kind.
                     lastFinalStateLexeme = dfa.getLexeme();
@@ -47,7 +76,12 @@ public class JoosScan {
                     if (lastFinalState == 0) {
                         throw new InvalidTokenException(dfa.getLexeme(), output, c);
                     }
-                    output.add(new Token(lastFinalStateLexeme, dfa.getKind(lastFinalState)));
+
+                    if (!dfa.getKind(lastFinalState).equals("comment")) {
+                        output.add(new Token(lastFinalStateLexeme, dfa.getKind(lastFinalState)));
+                    }
+
+                    // reset dfa
                     reader.curString = dfa.breakLexeme(lastFinalStateLexeme) + reader.curString;
                     lastFinalState = 0;
                     lastFinalStateLexeme = "";
@@ -61,7 +95,9 @@ public class JoosScan {
                 if (!dfa.isFinal()) {
                     throw new InvalidTokenException(dfa.getLexeme(), output, c);
                 }
-                output.add(new Token(dfa.getLexeme(), dfa.getKind()));
+                if (!dfa.getKind().equals("comment")) {
+                    output.add(new Token(dfa.getLexeme(), dfa.getKind()));
+                }
                 lastFinalState = 0;
                 lastFinalStateLexeme = "";
                 dfa.reset();
@@ -77,6 +113,7 @@ public class JoosScan {
     private class FileScan {
         Scanner scanner;
         String curString;
+        boolean outputNewLine = false;
 
         FileScan(File file) throws FileNotFoundException {
             scanner = new Scanner(file);
@@ -91,6 +128,10 @@ public class JoosScan {
          */
         char nextChar() {
             if (curString.length() == 0) {
+                if (!outputNewLine) {
+                    outputNewLine = true;
+                    return '\n';
+                }
                 boolean hasNext = false;
                 while (scanner.hasNextLine()) {
                     curString = scanner.nextLine();
@@ -108,6 +149,10 @@ public class JoosScan {
             char ret = curString.charAt(0);
             curString = curString.substring(1);
             return ret;
+        }
+
+        void nextLine() {
+            curString = scanner.hasNextLine() ?  scanner.nextLine() : "";
         }
 
         boolean hasNext() {

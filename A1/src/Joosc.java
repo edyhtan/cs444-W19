@@ -10,7 +10,6 @@ import java.util.ArrayList;
 public class Joosc {
     public static void main(String args[]) {
         try {
-
             if (args.length != 1) {
                 throw new Exception("ERROR: incorrect number of parameter, the size should be 1.");
             }
@@ -26,13 +25,13 @@ public class Joosc {
             // TODO: add parsing
 
         } catch (FileNotFoundException e) {
-            System.err.printf("ERROR: file %s not found %d\n", args[0]);
+            System.err.printf("ERROR: file %s not found\n", args[0]);
             System.exit(2);
         } catch (InvalidCharacterException e) {
             System.err.printf("ERROR: invalid characters %s\n", e.getInvalidChar());
             System.exit(42);
         } catch (InvalidTokenException e) {
-            System.err.printf("ERROR: invalid lexeme: %s(%c, %d)\n", e.getInvalidLexeme(), e.getCurChar(), (int) e.getCurChar());
+            System.err.printf("ERROR: invalid lexeme: {%s} (%c, %d)\n", e.getInvalidLexeme(), e.getCurChar(), (int) e.getCurChar());
             e.printExistingTokens();
         } catch (Exception e) {
             e.printStackTrace();
