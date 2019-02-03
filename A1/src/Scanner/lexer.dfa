@@ -30,7 +30,7 @@ string$\
 string$\2
 string$\1
 id_keyword
-16
+18
 int$0
 int$1
 int$2
@@ -41,13 +41,15 @@ operator$!
 operator$=
 operator$/
 operator$*
+operator$&
+operator$|
 separator
 comment$//
 comment
 char
 string
 id_keyword
-89
+92
 start 0 int$0
 start 1 9 int$1
 int$1 0 9 int$1
@@ -84,6 +86,8 @@ comment$/* 000 127 comment$/*+
 comment$/* * comment$/*+*
 comment$/*+ 000 127 comment$/*+
 comment$/*+ * comment$/*+*
+comment$/*+* 000 127 comment$/*+
+comment$/*+* * comment$/*+*
 comment$/*+* / comment
 start ' char$'
 char$' 000 011 char$filled
