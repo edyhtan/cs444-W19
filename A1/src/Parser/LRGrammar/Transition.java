@@ -1,21 +1,21 @@
-package Parser;
+package Parser.LRGrammar;
 
 public class Transition {
     private String input;
     private String action;
     private int to;
 
-    Transition(String input, String action, int to) {
+    public Transition(String input, String action, int to) {
         this.input = input;
         this.action = action;
         this.to = to;
     }
 
-    String getAction() {
+    public String getAction() {
         return action;
     }
 
-    String getInput() {
+    public String getInput() {
         return input;
     }
 

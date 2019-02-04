@@ -187,7 +187,7 @@ public class JoosParse {
         Token inputToken = unreadStack.pop();
         String input = inputToken.getKind();
 
-//        Rule startRule = searchRule(rules, start);
+        // Rule startRule = searchRule(rules, start);
 
         ParseTree tree = new ParseTree("", new ArrayList<>());
         boolean check = true;
@@ -253,7 +253,7 @@ public class JoosParse {
                 case "ERROR":
                     check = false;
                     // reject and output ERROR
-//                    tree = new ParseTree("ERROR", new ArrayList<>());
+                    // tree = new ParseTree("ERROR", new ArrayList<>());
                     throw new InvalidSyntaxException(i);
 
                 case "ACCEPT":
