@@ -19,7 +19,7 @@ public class Joosc {
             ArrayList<Token> tokens = scan.getOutput();
 
             for (Token token: tokens) {
-                System.out.printf("%-9s :  %15s\n", token.getLexeme(), token.getKind());
+                System.out.printf("%-15s :  %15s\n", token.getLexeme(), token.getKind());
             }
 
             // TODO: add parsing
