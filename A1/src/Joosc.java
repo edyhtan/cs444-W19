@@ -2,7 +2,7 @@ import Exceptions.InvalidCharacterException;
 import Exceptions.InvalidSyntaxException;
 import Exceptions.InvalidTokenException;
 import Parser.JoosParse;
-import Parser.ParseTree;
+import Parser.LRGrammar.ParseTree;
 import Scanner.JoosScan;
 import Token.Token;
 
@@ -21,12 +21,12 @@ public class Joosc {
             scan.scan();
             ArrayList<Token> tokens = scan.getOutput();
 
-            for (Token token: tokens) {
+            for (Token token : tokens) {
                 System.out.printf("%-9s :  %15s\n", token.getLexeme(), token.getKind());
             }
 
             // TODO: add parsing
-            JoosParse parse = new JoosParse("src/Parser/sample.lr1");
+            JoosParse parse = new JoosParse();
             parse.printGrammar();
             parse.parse(tokens);
             ParseTree tree = parse.getTree();
