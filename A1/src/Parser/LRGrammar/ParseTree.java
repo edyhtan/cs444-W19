@@ -1,24 +1,20 @@
-package Parser;
+package Parser.LRGrammar;
 
 import java.util.List;
-
 public class ParseTree {
     private String symbol;
     private List<ParseTree> children;
 
-    public ParseTree(String symbol, List<ParseTree> children) {
+    ParseTree(String symbol, List<ParseTree> children) {
         this.symbol = symbol;
         this.children = children;
     }
-
     public String getSymbol() {
         return symbol;
     }
-
     public List<ParseTree> getChildren() {
         return children;
     }
-
     public void print(List<String> terminals) {
         if (!terminals.contains(symbol)) {
             for (ParseTree c : children) System.out.print(c.symbol + " ");
@@ -31,4 +27,3 @@ public class ParseTree {
         }
     }
 }
-
