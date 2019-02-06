@@ -11,7 +11,9 @@ public class CFGGen {
         ArrayList<String> writingBuffer = new ArrayList<>();
 
         while (terminalRead.hasNextLine()) {
-            writingBuffer.add(terminalRead.nextLine());
+            String str = terminalRead.nextLine();
+            if (str.length() > 0 && !str.contains("#"))
+                writingBuffer.add(str);
         }
         writeAll(writingBuffer);
     }
@@ -21,7 +23,9 @@ public class CFGGen {
         ArrayList<String> writingBuffer = new ArrayList<>();
 
         while (terminalRead.hasNextLine()) {
-            writingBuffer.add(terminalRead.nextLine());
+            String str = terminalRead.nextLine();
+            if (str.length() > 0 && !str.contains("#"))
+                writingBuffer.add(str);
         }
         writeAll(writingBuffer);
     }
@@ -32,10 +36,11 @@ public class CFGGen {
 
         while (terminalRead.hasNextLine()) {
             String str = terminalRead.nextLine();
-            java.lang.System.out.println(str);
-            str = str.replace(":", "").replaceAll("\040+", " ");
-            java.lang.System.out.println(str);
-            writingBuffer.add(str);
+            if (str.length() > 0) {
+                str = str.replace(":", "").replaceAll("\040+", " ");
+            }
+            if (str.length() > 0 && !str.contains("#"))
+                writingBuffer.add(str);
         }
         writeAll(writingBuffer);
     }
@@ -43,7 +48,8 @@ public class CFGGen {
     private static void writeAll(ArrayList<String> writeList) throws IOException{
         writer.append(Integer.toString(writeList.size()) + "\n");
         for (String str: writeList) {
-            writer.append(str + "\n");
+            if (str.length() > 0 && !str.contains("#"))
+                writer.append(str + "\n");
         }
     }
 

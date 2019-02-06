@@ -1,29 +1,311 @@
-7
+59
 BOF
 EOF
 import
-;
+package
 .
 *
+;
 id
-8
+class
+extends
+interface
+,
+{
+}
+=
+void
+throws
+this
+super
+implements
+[
+]
+boolean
+byte
+short
+int
+long
+char
+(
+)
+public
+protected
+static
+final
+native
+intLiteral
+charLiteral
+string
+null
+true
+false
+new
++
+-
+!
+/
+%
+>
+<
+>=
+<=
+==
+!=
+instanceof
+&
+^
+|
+&&
+||
+76
 S'
 S
+PackageDeclr
 ImportDeclr
-SingleTypeImport
+TypeDeclr
+ImportDeclrs
+SingleTypeImportDeclr
 TypeImportOnDemand
+ClassDeclr
 Name
 SimpleName
 QualifiedName
+Modifiers
+Modifier
+Super
+Interfaces
+InterfaceTypeList
+ClassBody
+ClassBodyDeclrs
+ClassBodyDeclr
+ClassMemberDeclr
+ConstructorDeclr
+MethodDeclr
+FieldDeclr
+Type
+VariableDeclr
+VariableInit
+MethodHeader
+MethodBody
+MethodDeclrtor
+Throws
+FormalParamList
+FormalParam
+ClassTypeList
+ArgList
+ConstructorBody
+ExplicitCtorInvoke
+PrimitiveType
+NumericType
+ReferenceType
+ClassOrInterfaceType
+ClassType
+InterfaceType
+ArrayType
+InterfaceDeclr
+ExtendsInterfaceType
+InterfaceBody
+InterfaceMemberDeclr
+AbstractMethodDeclr
+Expression
+ArrayInit
+Literal
+BooleanLiteral
+Primary
+ArrayCreation
+PrimaryNoNewArray
+ClassInstanceCreation
+FieldAccess
+MethodInvocation
+ArrayAccess
+PostFixExpression
+UnaryExpression
+UnaryExpressionNot+-
+CastExpression
+MultExpression
+AddExpression
+RelationalExpression
+EqualityExpression
+AndExpression
+ExorExpression
+OrExpression
+CondAndExpression
+CondOrExpression
+AssignmentExpression
+LHS
+Assignment
 S'
-10
+172
 S' BOF S EOF
-S ImportDeclr
-ImportDeclr SingleTypeImport
+S PackageDeclr ImportDeclrs TypeDeclr
+S PackageDeclr ImportDeclrs
+S PackageDeclr
+S ImportDeclrs TypeDeclr
+S ImportDeclrs
+S TypeDeclr
+S 
+ImportDeclrs ImportDeclrs ImportDeclr
+ImportDeclrs ImportDeclr
+PackageDeclr package Name ;
+ImportDeclr SingleTypeImportDeclr
 ImportDeclr TypeImportOnDemand
-SingleTypeImport import Name ;
+SingleTypeImportDeclr import Name ;
 TypeImportOnDemand import Name . * ;
+TypeDeclr ClassDeclr
+TypeDeclr InterfaceDeclr
 Name SimpleName
 Name QualifiedName
 SimpleName id
 QualifiedName Name . id
+ClassDeclr Modifiers class id Super Interfaces ClassBody
+ClassDeclr Modifiers class id Interfaces ClassBody
+ClassDeclr Modifiers class id Super ClassBody
+ClassDeclr Modifiers class id ClassBody
+Super extends ClassType
+Interfaces implements InterfaceTypeList
+InterfaceTypeList InterfaceType
+InterfaceTypeList InterfaceType , InterfaceTypeList
+ClassBody { ClassBodyDeclrs }
+ClassBodyDeclrs ClassBodyDeclr ClassBodyDeclrs
+ClassBodyDeclrs ClassBodyDeclr
+ClassBodyDeclr ClassMemberDeclr
+ClassBodyDeclr ConstructorDeclr
+ClassMemberDeclr MethodDeclr
+ClassMemberDeclr FieldDeclr
+FieldDeclr Modifiers Type VariableDeclr ;
+VariableDeclr id
+VariableDeclr id = VariableInit
+VariableInit Expression
+VariableInit ArrayInit
+MethodDeclr MethodHeader MethodBody
+MethodHeader Modifiers Type MethodDeclrtor Throws
+MethodHeader Modifiers Type MethodDeclrtor
+MethodHeader Modifiers void MethodDeclrtor Throws
+MethodHeader Modifiers void MethodDeclrtor
+MethodDeclrtor id ( FormalParamList )
+MethodDeclrtor id ( )
+FormalParamList FormalParamList , FormalParam
+FormalParam Type id
+Throws throws ClassTypeList
+ClassTypeList ClassType
+ClassTypeList ClassTypeList , ClassType
+MethodBody ;
+ConstructorDeclr Modifiers SimpleName ( FormalParamList ) Throws ConstructorBody
+ConstructorDeclr Modifiers SimpleName ( ) Throws ConstructorBody
+ConstructorDeclr Modifiers SimpleName ( ) ConstructorBody
+ConstructorBody { ExplicitCtorInvoke }
+ConstructorBody { }
+ExplicitCtorInvoke this ( ArgList ) ;
+ExplicitCtorInvoke super ( ArgList ) ;
+ExplicitCtorInvoke this ( ) ;
+ExplicitCtorInvoke super ( ) ;
+Literal intLiteral
+Literal BooleanLiteral
+Literal charLiteral
+Literal string
+Literal null
+BooleanLiteral true
+BooleanLiteral false
+Type PrimitiveType
+Type ReferenceType
+PrimitiveType NumericType
+PrimitiveType boolean
+NumericType byte
+NumericType short
+NumericType int
+NumericType long
+NumericType char
+ReferenceType ClassOrInterfaceType
+ReferenceType ArrayType
+ClassOrInterfaceType Name
+ClassType ClassOrInterfaceType
+InterfaceType ClassOrInterfaceType
+ArrayType PrimitiveType [ ]
+ArrayType Name [ ]
+Modifiers Modifier
+Modifiers Modifiers Modifier
+Modifier public
+Modifier protected
+Modifier static
+Modifier final
+Modifier native
+InterfaceDeclr Modifiers interface id ExtendsInterfaceType InterfaceBody
+InterfaceDeclr Modifiers interface id InterfaceBody
+ExtendsInterfaceType extends InterfaceType
+ExtendsInterfaceType ExtendsInterfaceType , InterfaceType
+InterfaceBody { InterfaceMemberDeclr }
+InterfaceBody { }
+InterfaceMemberDeclr AbstractMethodDeclr
+InterfaceMemberDeclr AbstractMethodDeclr InterfaceMemberDeclr
+AbstractMethodDeclr MethodHeader ;
+Primary PrimaryNoNewArray
+Primary ArrayCreation
+PrimaryNoNewArray Literal
+PrimaryNoNewArray this
+PrimaryNoNewArray ( Expression )
+PrimaryNoNewArray ClassInstanceCreation
+PrimaryNoNewArray FieldAccess
+PrimaryNoNewArray MethodInvocation
+PrimaryNoNewArray ArrayAccess
+ClassInstanceCreation new ClassType ( ArgList )
+ClassInstanceCreation new ClassType ( )
+ArgList Expression
+ArgList ArgList , Expression
+ArrayCreation new PrimitiveType [ Expression ]
+ArrayCreation new ClassOrInterfaceType [ Expression ]
+FieldAccess Primary . id
+FieldAccess super . id
+MethodInvocation Name ( ArgList )
+MethodInvocation Name ( )
+MethodInvocation Primary . id ( ArgList )
+MethodInvocation Primary . id ( )
+MethodInvocation super . id ( ArgList )
+MethodInvocation super . id ( )
+ArrayAccess Name [ Expression ]
+ArrayAccess PrimaryNoNewArray [ Expression ]
+PostFixExpression Primary
+PostFixExpression Name
+UnaryExpression + UnaryExpression
+UnaryExpression - UnaryExpression
+UnaryExpression UnaryExpressionNot+-
+UnaryExpressionNot+- ! UnaryExpression
+UnaryExpressionNot+- CastExpression
+UnaryExpressionNot+- PostFixExpression
+CastExpression ( PrimitiveType [ ] ) UnaryExpression
+CastExpression ( PrimitiveType ) UnaryExpression
+CastExpression ( Expression ) UnaryExpressionNot+-
+CastExpression ( Name [ ] ) UnaryExpressionNot+-
+MultExpression UnaryExpression
+MultExpression MultExpression * UnaryExpression
+MultExpression MultExpression / UnaryExpression
+MultExpression MultExpression % UnaryExpression
+AddExpression MultExpression
+AddExpression AddExpression + MultExpression
+AddExpression AddExpression - MultExpression
+RelationalExpression AddExpression
+RelationalExpression RelationalExpression < AddExpression
+RelationalExpression RelationalExpression > AddExpression
+RelationalExpression RelationalExpression >= AddExpression
+RelationalExpression RelationalExpression <= AddExpression
+RelationalExpression RelationalExpression instanceof AddExpression
+EqualityExpression RelationalExpression
+EqualityExpression EqualityExpression == RelationalExpression
+EqualityExpression EqualityExpression != RelationalExpression
+AndExpression EqualityExpression
+AndExpression AndExpression & EqualityExpression
+ExorExpression AndExpression
+ExorExpression ExorExpression ^ AndExpression
+OrExpression ExorExpression
+OrExpression OrExpression | ExorExpression
+CondAndExpression OrExpression
+CondAndExpression CondAndExpression && OrExpression
+CondOrExpression CondAndExpression
+CondOrExpression CondOrExpression || CondAndExpression
+AssignmentExpression CondOrExpression
+AssignmentExpression Assignment
+Assignment LHS = AssignmentExpression
+LHS Name
+LHS FieldAccess
+LHS ArrayAccess
+Expression AssignmentExpression
