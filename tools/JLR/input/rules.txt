@@ -76,8 +76,8 @@ MethodBody              : ;
 ConstructorDeclr        : Modifiers SimpleName ( FormalParamList ) Throws ConstructorBody
 ConstructorDeclr        : Modifiers SimpleName ( ) Throws ConstructorBody
 ConstructorDeclr        : Modifiers SimpleName ( ) ConstructorBody
-#ConstructorBody         : { ExplicitCtorInvoke BlockStatements }
-#ConstructorBody         : { BlockStatements }
+#ConstructorBody        : { ExplicitCtorInvoke BlockStatements }
+#ConstructorBody        : { BlockStatements }
 ConstructorBody         : { ExplicitCtorInvoke }
 ConstructorBody         : { }
 ExplicitCtorInvoke      : this ( ArgList ) ;
