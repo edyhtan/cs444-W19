@@ -57,3 +57,10 @@ instanceof
 |
 &&
 ||
+while
+for
+if
+else
+break
+continue
+return

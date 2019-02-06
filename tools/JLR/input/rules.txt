@@ -38,7 +38,7 @@ Interfaces              : implements InterfaceTypeList
 InterfaceTypeList       : InterfaceType
 InterfaceTypeList       : InterfaceType , InterfaceTypeList
 ClassBody               : { ClassBodyDeclrs }
-ClassBodyDeclrs         : ClassBodyDeclr ClassBodyDeclrs
+ClassBodyDeclrs         : ClassBodyDeclrs ClassBodyDeclr
 ClassBodyDeclrs         : ClassBodyDeclr
 ClassBodyDeclr          : ClassMemberDeclr
 ClassBodyDeclr          : ConstructorDeclr
@@ -51,7 +51,6 @@ FieldDeclr              : Modifiers Type VariableDeclr ;
 VariableDeclr           : id
 VariableDeclr           : id = VariableInit
 VariableInit            : Expression
-VariableInit            : ArrayInit
 
 ## 19.8.3   Method
 
@@ -63,11 +62,12 @@ MethodHeader            : Modifiers void MethodDeclrtor
 MethodDeclrtor          : id ( FormalParamList )
 MethodDeclrtor          : id ( )
 FormalParamList         : FormalParamList , FormalParam
+FormalParamList         : FormalParam
 FormalParam             : Type id
 Throws                  : throws ClassTypeList
 ClassTypeList           : ClassType
 ClassTypeList           : ClassTypeList , ClassType
-#MethodBody              : Block
+MethodBody              : Block
 MethodBody              : ;
 
 
@@ -116,9 +116,10 @@ InterfaceType          : ClassOrInterfaceType
 ArrayType              : PrimitiveType [ ]
 ArrayType              : Name [ ]
 
+
 ## 19.7     Modifiers
 
-## every field / method should have exactly one access modifiers (public/private)
+### every field / method should have exactly one access modifiers (public/private)
 
 Modifiers              : Modifier
 Modifiers              : Modifiers Modifier
@@ -127,6 +128,7 @@ Modifier               : protected
 Modifier               : static
 Modifier               : final
 Modifier               : native
+
 
 ## 19.9     InterfaceDeclr
 
@@ -139,6 +141,54 @@ InterfaceBody          : { }
 InterfaceMemberDeclr   : AbstractMethodDeclr
 InterfaceMemberDeclr   : AbstractMethodDeclr InterfaceMemberDeclr
 AbstractMethodDeclr    : MethodHeader ;
+
+
+## 19.11    Blocks and Statements
+
+### Check if break/continue belongs to while/for loop
+
+Block                  : { }
+Block                  : { BlockStatements }
+BlockStatements        : BlockStatements BlockStatement
+BlockStatements        : BlockStatement
+BlockStatement         : LocalVarDeclrStatement
+BlockStatement         : Statement
+LocalVarDeclrStatement : LocalVarDeclr ;
+LocalVarDeclr          : Type VariableDeclr
+Statement              : StatementNoTrailingSub
+Statement              : IfThenStatement
+Statement              : IfThenElseStatement
+Statement              : WhileStatement
+Statement              : ForStatement
+StatementNoShortIf     : StatementNoTrailingSub
+StatementNoShortIf     : IfThenElseNoShortIf
+StatementNoShortIf     : WhileNoShortIf
+StatementNoShortIf     : ForNoShortIf
+StatementNoTrailingSub : Block
+StatementNoTrailingSub : EmptyStatement
+StatementNoTrailingSub : ExpressionStatement
+StatementNoTrailingSub : BreakStatement
+StatementNoTrailingSub : ContinueStatement
+StatementNoTrailingSub : ReturnStatement
+EmptyStatement         : ;
+ExpressionStatement    : StatementExpression ;
+StatementExpression    : Assignment
+StatementExpression    : MethodInvocation
+StatementExpression    : ClassInstanceCreation
+IfThenStatement        : if ( Expression ) Statement
+IfThenElseStatement    : if ( Expression ) StatementNoShortIf else Statement
+IfThenElseNoShortIf    : if ( Expression ) StatementNoShortIf else StatementNoShortIf
+WhileStatement         : while ( Expression ) Statement
+WhileNoShortIf         : while ( Expression ) StatementNoShortIf
+ForStatement           : for ( ForInit ; Expression ; ForUpdate ) Statement
+ForNoShortIf           : for ( ForInit ; Expression ; ForUpdate ) StatementNoShortIf
+ForInit                : LocalVarDeclr
+ForUpdate              : StatementExpression
+BreakStatement         : break ;
+ContinueStatement      : continue ;
+ReturnStatement        : return ;
+ReturnStatement        : return Expression ;
+
 
 ## 19.12    Expression
 
