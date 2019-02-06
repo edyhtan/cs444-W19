@@ -185,13 +185,13 @@ public class Grammar {
             Transition nextTrans = searchTransition(stateStack.peek(), strInput);
             while (nextTrans.action == Action.REDUCE) {
                 Rule rule = rules.get(nextTrans.to);
-                LinkedList<ParseTree> childrean = new LinkedList<>();
+                LinkedList<ParseTree> children = new LinkedList<>();
                 for (int i = rule.rhs.size(); i > 0 ; i--) {
                     stateStack.pop();
-                    childrean.addFirst(treeStack.pop());
+                    children.addFirst(treeStack.pop());
                 }
 
-                treeStack.push(new ParseTree(rule.lhs, childrean));
+                treeStack.push(new ParseTree(rule.lhs, children));
                 nextTrans = searchTransition(stateStack.peek(), rule.lhs);
                 stateStack.push(nextTrans.to);
 
