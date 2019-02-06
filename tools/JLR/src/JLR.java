@@ -1,35 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-/*
-   Copyright 2006,2008,2009 Ondrej Lhotak. All rights reserved.
 
-   Permission is granted for study use by
-   students registered in CS 444, Winter 2019
-   term.
-
-   The contents of this file may not be
-   published, in whole or in part, in print
-   or electronic form.
-
-   The contents of this file may be included
-   in work submitted for CS 444 assignments in
-   Winter 2019.  The contents of this file may
-   not be submitted, in whole or in part, for
-   credit in any other course.
-
-*/
-
-/*
- * JLALR constructs LALR(1) and SLR(1) parse tables from a grammar, using
- * the algorithms described in chapter 3 of Appel, _Modern Compiler
- * Implementation in Java, second edition_, 2002. JLALR reads a grammar
- * on standard input, and writes the generated grammar and parse tables on
- * standard output.
- *
- */
-
-/** Represents an item (a dotted production). */
 class Item {
     Production rule; // the production
     int pos; // position of the dot (0 <= pos <= rule.rhs.size())
@@ -685,7 +657,7 @@ class Jlalr1 {
     public static final void main(String[] args) {
         Grammar grammar;
         try {
-            grammar = Util.readGrammar(new Scanner(JLR.INPUT_PATH));
+            grammar = Util.readGrammar(new Scanner(new File(JLR.INPUT_PATH)));
             Util.writeGrammar(grammar);
         } catch(Error e) {
             System.err.println("Error reading grammar: "+e);
@@ -701,8 +673,13 @@ class Jlalr1 {
             jlalr.computeFirstFollowNullable();
             jlalr.generateLALR1Table();
             jlalr.generateOutput();
+            System.out.flush();
         } catch(Error e) {
             System.err.println("Error performing LALR(1) construction: "+e);
+            System.exit(1);
+            return;
+        } catch (Exception e) {
+            e.printStackTrace();
             System.exit(1);
             return;
         }
@@ -766,6 +743,11 @@ class FileWrite {
 
     public void println() {
         println("");
+    }
+
+    public void flush() throws IOException {
+        writer.flush();
+        writer.close();
     }
 }
 

@@ -1,0 +1,10 @@
+S'                  : BOF S EOF
+S                   : ImportDeclr
+ImportDeclr         : SingleTypeImport
+ImportDeclr         : TypeImportOnDemand
+SingleTypeImport    : import Name ;
+TypeImportOnDemand  : import Name . * ;
+Name                : SimpleName
+Name                : QualifiedName
+SimpleName          : id
+QualifiedName       : Name . id

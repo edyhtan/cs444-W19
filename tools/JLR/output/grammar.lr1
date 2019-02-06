@@ -1,0 +1,61 @@
+7
+BOF
+EOF
+import
+;
+.
+*
+id
+8
+S'
+S
+ImportDeclr
+SingleTypeImport
+TypeImportOnDemand
+Name
+SimpleName
+QualifiedName
+S'
+10
+S' BOF S EOF
+S ImportDeclr
+ImportDeclr SingleTypeImport
+ImportDeclr TypeImportOnDemand
+SingleTypeImport import Name ;
+TypeImportOnDemand import Name . * ;
+Name SimpleName
+Name QualifiedName
+SimpleName id
+QualifiedName Name . id
+17
+30
+10 EOF shift 1
+9 import shift 2
+2 Name shift 3
+9 ImportDeclr shift 4
+7 EOF reduce 5
+16 . reduce 8
+5 EOF reduce 4
+3 ; shift 5
+13 id shift 6
+12 ; shift 7
+4 EOF reduce 1
+2 SimpleName shift 8
+0 BOF shift 9
+15 . reduce 7
+9 S shift 10
+9 SingleTypeImport shift 11
+13 * shift 12
+3 . shift 13
+6 ; reduce 9
+9 TypeImportOnDemand shift 14
+8 ; reduce 6
+6 . reduce 9
+15 ; reduce 7
+2 QualifiedName shift 15
+14 EOF reduce 3
+2 id shift 16
+8 . reduce 6
+11 EOF reduce 2
+16 ; reduce 8
+1 BOF reduce 0
