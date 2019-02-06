@@ -195,18 +195,27 @@ public class Grammar {
                 nextTrans = searchTransition(stateStack.peek(), rule.lhs);
                 stateStack.push(nextTrans.to);
 
+                printStack(stateStack);
                 // next instance
                 nextTrans = searchTransition(stateStack.peek(), strInput);
             }
 
             treeStack.push(new ParseTree(strInput, new ArrayList<>()));
             if (nextTrans.action == Action.ERROR) {
-                throw new InvalidSyntaxException(c);
+                printStack(stateStack);
+                throw new InvalidSyntaxException(c, treeStack, stateStack.peek(), strInput);
             }
             c++;
             stateStack.push(nextTrans.to);
         }
         return treeStack.get(1);
+    }
+
+    private void printStack(List<Integer> stack) {
+        for (int each: stack) {
+            System.err.print(each + " ");
+        }
+        System.err.println();
     }
 
     private class Rule {

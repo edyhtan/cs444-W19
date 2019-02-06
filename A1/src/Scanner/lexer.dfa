@@ -1,8 +1,8 @@
 31
 start
-int$0
-int$1
-int$2
+intLiteral$0
+intLiteral$1
+intLiteral$2
 operator
 operator$>
 operator$<
@@ -18,12 +18,12 @@ comment$/*
 comment$/*+
 comment$/*+*
 comment
-char
-char$'
-char$\
-char$\2
-char$\1
-char$filled
+charLiteral
+charLiteral$'
+charLiteral$\
+charLiteral$\2
+charLiteral$\1
+charLiteral$filled
 string
 string$"
 string$\
@@ -31,9 +31,9 @@ string$\2
 string$\1
 id_keyword
 18
-int$0
-int$1
-int$2
+intLiteral$0
+intLiteral$1
+intLiteral$2
 operator
 operator$>
 operator$<
@@ -46,14 +46,14 @@ operator$|
 separator
 comment$//
 comment
-char
+charLiteral
 string
 id_keyword
 92
-start 0 int$0
-start 1 9 int$1
-int$1 0 9 int$1
-int$1 I int$2
+start 0 intLiteral$0
+start 1 9 intLiteral$1
+intLiteral$1 0 9 intLiteral$1
+intLiteral$1 I intLiteral$2
 start + operator
 start - operator
 start * operator$*
@@ -89,26 +89,26 @@ comment$/*+ * comment$/*+*
 comment$/*+* 000 127 comment$/*+
 comment$/*+* * comment$/*+*
 comment$/*+* / comment
-start ' char$'
-char$' 000 011 char$filled
-char$' 013 127 char$filled
-char$filled ' char
-char$filled ' char
-char$' \ char$\
-char$\ b char$filled
-char$\ t char$filled
-char$\ n char$filled
-char$\ f char$filled
-char$\ r char$filled
-char$\ " char$filled
-char$\ ' char$filled
-char$\ \ char$filled
-char$\ 0 3 char$\2
-char$\ 4 7 char$\1
-char$\2 0 7 char$\1
-char$\2 ' char
-string$\1 0 7 char$filled
-char$\1 ' char
+start ' charLiteral$'
+charLiteral$' 000 011 charLiteral$filled
+charLiteral$' 013 127 charLiteral$filled
+charLiteral$filled ' charLiteral
+charLiteral$filled ' charLiteral
+charLiteral$' \ charLiteral$\
+charLiteral$\ b charLiteral$filled
+charLiteral$\ t charLiteral$filled
+charLiteral$\ n charLiteral$filled
+charLiteral$\ f charLiteral$filled
+charLiteral$\ r charLiteral$filled
+charLiteral$\ " charLiteral$filled
+charLiteral$\ ' charLiteral$filled
+charLiteral$\ \ charLiteral$filled
+charLiteral$\ 0 3 charLiteral$\2
+charLiteral$\ 4 7 charLiteral$\1
+charLiteral$\2 0 7 charLiteral$\1
+charLiteral$\2 ' charLiteral
+string$\1 0 7 charLiteral$filled
+charLiteral$\1 ' charLiteral
 start " string$"
 string$" 000 011 string$"
 string$" 013 127 string$"
