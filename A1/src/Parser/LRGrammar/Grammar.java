@@ -191,7 +191,7 @@ public class Grammar {
                     children.addFirst(treeStack.pop());
                 }
 
-                treeStack.push(new ParseTree(rule.lhs, children));
+                treeStack.push(new ParseTree(rule.lhs, rule.lhs, children));
                 nextTrans = searchTransition(stateStack.peek(), rule.lhs);
                 stateStack.push(nextTrans.to);
 
@@ -200,7 +200,7 @@ public class Grammar {
                 nextTrans = searchTransition(stateStack.peek(), strInput);
             }
 
-            treeStack.push(new ParseTree(strInput, new ArrayList<>()));
+            treeStack.push(new ParseTree(token.getLexeme(), token.getKind(), new ArrayList<>()));
             if (nextTrans.action == Action.ERROR) {
                 printStack(stateStack);
                 throw new InvalidSyntaxException(c, treeStack, stateStack.peek(), strInput);

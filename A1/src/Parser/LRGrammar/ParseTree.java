@@ -3,18 +3,20 @@ package Parser.LRGrammar;
 import java.util.Arrays;
 import java.util.List;
 public class ParseTree {
-    private String symbol;
+    private String lexeme;
+    private String kind;
     private List<ParseTree> children;
 
     private static String TREEITEM = "|--";
     private static String TREELEVEL = "|  ";
 
-    ParseTree(String symbol, List<ParseTree> children) {
-        this.symbol = symbol;
+    ParseTree(String lexeme, String kind, List<ParseTree> children) {
+        this.lexeme = lexeme;
+        this.kind = kind;
         this.children = children;
     }
     public String getSymbol() {
-        return symbol;
+        return lexeme;
     }
 
     public List<ParseTree> getChildren() {
@@ -22,7 +24,7 @@ public class ParseTree {
     }
 
     public void print() {
-        System.out.println(TREEITEM + symbol);
+        System.out.printf("%s%s : %s\n", TREEITEM, kind, lexeme);
         for (ParseTree each: children) {
             each.print(1);
         }
@@ -32,7 +34,7 @@ public class ParseTree {
         for (int i = 0; i < level; i++) {
             System.out.print(TREELEVEL);
         }
-        System.out.println(TREEITEM + symbol);
+        System.out.printf("%s%s : %s\n", TREEITEM, kind, lexeme);
         for (ParseTree each: children) {
             each.print(level + 1);
         }

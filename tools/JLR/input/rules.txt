@@ -120,6 +120,9 @@ ArrayType              : Name [ ]
 ## 19.7     Modifiers
 
 ### every field / method should have exactly one access modifiers (public/private)
+### abstract class must have at least 1 abstract method
+### abstract methods only occurs in abstract class
+###
 
 Modifiers              : Modifier
 Modifiers              : Modifiers Modifier
@@ -128,6 +131,7 @@ Modifier               : protected
 Modifier               : static
 Modifier               : final
 Modifier               : native
+Modifier               : abstract
 
 
 ## 19.9     InterfaceDeclr
