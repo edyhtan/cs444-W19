@@ -824,16 +824,16 @@ class Util {
     }
     public static Grammar readGrammar(Scanner in) {
         Grammar grammar = new Grammar();
-        String line = readLine(in, "Expecting number of non-terminals");
-        int nterm = toInt(line, "number of non-terminals");
+        String line = readLine(in, "Expecting number of non-terminals.txt");
+        int nterm = toInt(line, "number of non-terminals.txt");
         for(int i = 0; i < nterm; i++) {
             String term = readLine(in, "Expecting a non-terminal").intern();
             if(!grammar.terminals.add(term))
                 throw new Error("Duplicate terminal: "+term);
         }
 
-        line = readLine(in, "Expecting number of non-terminals");
-        int nnonterm = toInt(line, "number of non-terminals");
+        line = readLine(in, "Expecting number of non-terminals.txt");
+        int nnonterm = toInt(line, "number of non-terminals.txt");
         for(int i = 0; i < nnonterm; i++) {
             String nonterm = readLine(in, "Expecting a non-terminal").intern();
             if(!grammar.nonterminals.add(nonterm))
