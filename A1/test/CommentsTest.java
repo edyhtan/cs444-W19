@@ -1,7 +1,6 @@
 /** A Javadoc comment starts with a slash and two asterisks. */
-123
-string
-boolean
-int int1
+public interface PlayableInterface {
+    public int getInt();
+}
 /* This is a comment. */
 // This is another comment.

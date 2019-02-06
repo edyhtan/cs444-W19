@@ -3,3 +3,4 @@
 public class JavaDoc {
     public JavaDoc() {}
 }
+
