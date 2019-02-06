@@ -27,7 +27,7 @@ public class Joosc {
 
             // TODO: add parsing
             JoosParse parse = new JoosParse();
-            parse.printGrammar();
+            //parse.printGrammar();
             parse.parse(tokens);
             ParseTree tree = parse.getTree();
 

@@ -9,7 +9,7 @@ import java.util.*;
 
 public class Grammar {
     enum Action {
-        REDUCE, SHIFT, ACCEPT, ERROR;
+        REDUCE, SHIFT, ERROR;
     }
 
     private ArrayList<String> terminals;
@@ -35,7 +35,7 @@ public class Grammar {
     }
 
     private void initGrammar() throws FileNotFoundException {
-        File file = new File("src/Parser/LRGrammar/sample.lr1");
+        File file = new File("src/Parser/LRGrammar/grammar.lr1");
         Scanner scanner = new Scanner(file);
         String line;
         ArrayList<String> grammar = new ArrayList<>();
@@ -158,122 +158,55 @@ public class Grammar {
         return transitions;
     }
 
-    private Transition searchState(HashMap<String, Transition> states, String input) {
-        for (Map.Entry s : states.entrySet()) {
-            if (s.getKey().equals(input)) return (Transition) s.getValue();
-        }
-        return ERROR_STATE;
+    private Transition searchTransition(int curState, String input) {
+        return transitions.get(curState).getOrDefault(input, ERROR_STATE);
+    }
+
+    private String getInput(Token token) {
+        String kind = token.getKind();
+        return kind.equals("separator") | kind.equals("operator") | kind.equals("keyword") ?
+                token.getLexeme() : token.getKind();
     }
 
     public ParseTree buildTree(List<Token> tokens) throws InvalidSyntaxException {
-        Stack<Token> unreadStack = new Stack<>();
-        unreadStack.push(EMPTY_TOKEN);
-
-        // adding BOF and EOF to tokens
-        tokens.add(0, BOF);
-        tokens.add(tokens.size() - 1, EOF);
-
-        // reverse the list before pushing to unreadStack
-        Collections.reverse(tokens);
-        for (Token t : tokens) {
-            unreadStack.push(t);
-        }
+        LinkedList<Token> inputs = new LinkedList<>(tokens);
+        inputs.addFirst(BOF);
+        inputs.addLast(EOF);
 
         Stack<Integer> stateStack = new Stack<>();
-        Stack<String> mainStack = new Stack<>();
-        mainStack.push("");
-
-        // counter
-        int i = 0;
-
         Stack<ParseTree> treeStack = new Stack<>();
 
-        curState = 0;
+        //counter
+        int c = 0;
+        stateStack.push(0); // current state
 
-        // init input
-        Token inputToken = unreadStack.pop();
-        String input = inputToken.getKind();
+        for (Token token: inputs) {
+            String strInput = getInput(token);
+            Transition nextTrans = searchTransition(stateStack.peek(), strInput);
+            while (nextTrans.action == Action.REDUCE) {
+                Rule rule = rules.get(nextTrans.to);
+                LinkedList<ParseTree> children = new LinkedList<>();
+                for (int i = rule.rhs.size(); i > 0 ; i--) {
+                    stateStack.pop();
+                    children.addFirst(treeStack.pop());
+                }
 
-        ParseTree tree = new ParseTree("", new ArrayList<>());
-        boolean check = true;
-        Deque<ParseTree> children;
-        List<ParseTree> temp;
+                treeStack.push(new ParseTree(rule.lhs, children));
+                nextTrans = searchTransition(stateStack.peek(), rule.lhs);
+                stateStack.push(nextTrans.to);
 
-        while (check) {
-            // push current state to stateStack
-            stateStack.push(curState);
-
-            // find current transition
-            curTrans = searchState(transitions.get(curState), input);
-
-            switch (curTrans.getAction()) {
-                case REDUCE:
-                    Rule rule = rules.get(curTrans.getTo());
-                    int popCount = rule.getRhs().size();
-
-                    for (int j = 1; j <= popCount; ++j) {
-                        // pop reduced symbols from mainStack
-                        mainStack.pop();
-                        // pop stateStack
-                        stateStack.pop();
-                    }
-
-                    // push new symbol to mainStack
-                    mainStack.push(rule.getLhs());
-
-                    children = new ArrayDeque<>();
-                    for (int j = 1; j <= popCount; ++j) {
-                        children.addFirst(treeStack.pop());
-                    }
-
-                    temp = Arrays.asList(children.toArray(new ParseTree[children.size()]));
-                    // push to treeStack
-                    treeStack.push(new ParseTree(rule.getLhs(), temp));
-
-                    curState = stateStack.pop();
-
-                    // reset input
-                    unreadStack.push(inputToken);
-                    input = mainStack.peek();
-
-                    // reset counter
-                    i--;
-                    break;
-
-                case SHIFT:
-                    // push to treeStack, no children
-                    if (terminals.contains(input)) {
-                        ParseTree item = new ParseTree(inputToken.getKind(),
-                                Collections.singletonList(new ParseTree(inputToken.getLexeme(), new ArrayList<>())));
-                        treeStack.push(item);
-                    }
-
-                    curState = curTrans.getTo();
-
-                    mainStack.push(input);
-                    inputToken = unreadStack.pop();
-                    input = inputToken.getKind();
-
-                    i++;
-                    break;
-
-                case ERROR:
-                    check = false;
-                    throw new InvalidSyntaxException(i);
-
-                case ACCEPT:
-                    check = false;
-                    int treeSize = treeStack.size();
-                    children = new ArrayDeque<>();
-                    for (int j = 1; j <= treeSize; ++j) {
-                        children.addFirst(treeStack.pop());
-                    }
-                    temp = Arrays.asList(children.toArray(new ParseTree[children.size()]));
-                    tree = new ParseTree("start", temp);
+                // next instance
+                nextTrans = searchTransition(stateStack.peek(), strInput);
             }
-        }
 
-        return tree;
+            treeStack.push(new ParseTree(strInput, new ArrayList<>()));
+            if (nextTrans.action == Action.ERROR) {
+                throw new InvalidSyntaxException(c);
+            }
+            c++;
+            stateStack.push(nextTrans.to);
+        }
+        return treeStack.get(1);
     }
 
     private class Rule {
@@ -283,14 +216,6 @@ public class Grammar {
         Rule(String lhs, List<String> rhs) {
             this.lhs = lhs;
             this.rhs = rhs;
-        }
-
-        String getLhs() {
-            return lhs;
-        }
-
-        List<String> getRhs() {
-            return rhs;
         }
 
         void print() {
@@ -321,22 +246,7 @@ public class Grammar {
                     break;
                 case "ERROR":
                     this.action = Action.ERROR;
-                    break;
-                case "ACCEPT":
-                    this.action = Action.ACCEPT;
             }
-        }
-
-        Action getAction() {
-            return action;
-        }
-
-        String getInput() {
-            return input;
-        }
-
-        int getTo() {
-            return to;
         }
 
         void print() {

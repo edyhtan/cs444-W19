@@ -116,7 +116,7 @@ public class DFA {
 
     public String getKind() {
         if (kinds.get(currentState).equals("id_keyword")) {
-            return keywordSets.contains(lexeme) ? "keyword" : "identifier";
+            return keywordSets.contains(lexeme) ? "keyword" : "id";
         }
         return kinds.get(currentState).split("\\$")[0];
     }
@@ -124,7 +124,7 @@ public class DFA {
 
     public String getKind(int state) {
         if (kinds.get(state).equals("id_keyword")) {
-            return keywordSets.contains(lexeme) ? "keyword" : "identifier";
+            return keywordSets.contains(lexeme) ? "keyword" : "id";
         }
         return kinds.get(state).split("\\$")[0];
     }
