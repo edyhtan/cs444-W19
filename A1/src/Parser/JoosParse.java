@@ -28,7 +28,7 @@ public class JoosParse {
         ParseTree tree = JoosGrammar.buildTree(tokens);
 
         if (!tree.getSymbol().equals("ERROR")) {
-            tree.print(JoosGrammar.getTerminals());
+            tree.print();
             this.tree = tree;
         }
     }
