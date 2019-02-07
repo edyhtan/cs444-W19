@@ -23,10 +23,9 @@ public class Joosc {
 
             int i = 1;
             for (Token token : tokens) {
-                System.out.printf("%d. %-9s :  %15s\n", i, token.getLexeme(), token.getKind());
+                System.out.printf("%d. %-30s :  %15s\n", i, token.getLexeme(), token.getKind());
                 i++;
             }
-
             System.out.println();
 
             // TODO: add parsing
@@ -43,10 +42,11 @@ public class Joosc {
         } catch (InvalidTokenException e) {
             System.err.printf("ERROR: invalid lexeme: {%s} (%c, %d)\n", e.getInvalidLexeme(), e.getCurChar(), (int) e.getCurChar());
             e.printExistingTokens();
+            System.exit(42);
         } catch (InvalidSyntaxException e) {
             System.err.printf("ERROR: invalid syntax at %d, on state %d, with input %s\n", e.getLocation(), e.getState(), e.getInput());
             e.printParseTree();
-            System.exit(2);
+            System.exit(42);
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(2);
