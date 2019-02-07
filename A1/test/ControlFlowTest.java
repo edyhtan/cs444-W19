@@ -1,6 +1,6 @@
-public class A {
+public class ControlFlowTest {
 
-    protected A() {
+    protected ControlFlowTest() {
     }
 
     public int m(int x) {

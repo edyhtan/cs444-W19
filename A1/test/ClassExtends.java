@@ -1,5 +1,5 @@
-public class A extends java.lang.Thread {
-    public A() {
+public class ClassExtends extends java.lang.Thread {
+    public ClassExtends() {
     }
 
     protected int x;

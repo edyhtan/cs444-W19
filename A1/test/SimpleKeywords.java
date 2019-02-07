@@ -1,3 +1,3 @@
-class Simple {
-    public Simple () {}
+class SimpleKeywords {
+    public SimpleKeywords () {}
 }

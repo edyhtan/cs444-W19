@@ -1,5 +1,5 @@
-public final class A extends java.lang.Thread implements java.io.Serializable {
-    public A() {
+public final class KeywordsTest extends java.lang.Thread implements java.io.Serializable {
+    public KeywordsTest() {
         // 1234444
         return 42;
     }

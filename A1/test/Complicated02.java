@@ -1,12 +1,12 @@
-public final class A {
-    protected A() {
+public final class Complicated02 {
+    protected Complicated02() {
     }
 
     protected int x = 42;
 
-    protected A a = null;
+    protected Complicated02 a = null;
 
-    public A returnThis() {
+    public Complicated02 returnThis() {
         return this;
     }
 

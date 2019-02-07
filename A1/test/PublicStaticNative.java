@@ -1,4 +1,4 @@
-public class A {
+public class PublicStaticNative {
 
     protected static int x;
 
