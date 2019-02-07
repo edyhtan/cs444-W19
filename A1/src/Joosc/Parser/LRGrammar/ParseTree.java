@@ -1,6 +1,5 @@
-package Parser.LRGrammar;
+package Joosc.Parser.LRGrammar;
 
-import java.util.Arrays;
 import java.util.List;
 public class ParseTree {
     private String lexeme;

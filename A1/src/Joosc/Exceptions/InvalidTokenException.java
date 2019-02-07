@@ -1,6 +1,6 @@
-package Exceptions;
+package Joosc.Exceptions;
 
-import Token.Token;
+import Joosc.Token.Token;
 
 import java.util.ArrayList;
 

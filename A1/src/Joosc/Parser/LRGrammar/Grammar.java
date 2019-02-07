@@ -1,7 +1,8 @@
-package Parser.LRGrammar;
+package Joosc.Parser.LRGrammar;
 
-import Exceptions.InvalidSyntaxException;
-import Token.Token;
+import Joosc.Joosc;
+import Joosc.Exceptions.InvalidSyntaxException;
+import Joosc.Token.Token;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -35,7 +36,7 @@ public class Grammar {
     }
 
     private void initGrammar() throws FileNotFoundException {
-        File file = new File("src/Parser/LRGrammar/grammar.lr1");
+        File file = new File((Joosc.IDE_FLAG ? "src/" : "") + "Joosc/Parser/LRGrammar/grammar.lr1");
         Scanner scanner = new Scanner(file);
         String line;
         ArrayList<String> grammar = new ArrayList<>();

@@ -1,8 +1,8 @@
-package Parser;
+package Joosc.Parser;
 
-import Exceptions.InvalidSyntaxException;
-import Parser.LRGrammar.*;
-import Token.Token;
+import Joosc.Exceptions.InvalidSyntaxException;
+import Joosc.Parser.LRGrammar.*;
+import Joosc.Token.Token;
 
 import java.io.*;
 import java.util.*;

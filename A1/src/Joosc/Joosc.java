@@ -1,19 +1,23 @@
-import Exceptions.InvalidCharacterException;
-import Exceptions.InvalidSyntaxException;
-import Exceptions.InvalidTokenException;
-import Parser.JoosParse;
-import Parser.LRGrammar.ParseTree;
-import Scanner.JoosScan;
-import Token.Token;
+package Joosc;
+
+import Joosc.Exceptions.InvalidCharacterException;
+import Joosc.Exceptions.InvalidSyntaxException;
+import Joosc.Exceptions.InvalidTokenException;
+import Joosc.Parser.JoosParse;
+import Joosc.Parser.LRGrammar.ParseTree;
+import Joosc.Scanner.JoosScan;
+import Joosc.Token.Token;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class Joosc {
+    public static boolean IDE_FLAG = false; // turn off when compiling with make
+
     public static void main(String args[]) {
         try {
-            if (args.length != 1) {
+            if (args.length > 1) {
                 throw new Exception("ERROR: incorrect number of parameter, the size should be 1.");
             }
 
@@ -34,7 +38,7 @@ public class Joosc {
             ParseTree tree = parse.getTree();
 
         } catch (FileNotFoundException e) {
-            System.err.printf("ERROR: file not found, %s\n", e.getCause());
+            System.err.printf("ERROR: file not found: %s\n", e.getLocalizedMessage());
             System.exit(2);
         } catch (InvalidCharacterException e) {
             System.err.printf("ERROR: invalid characters %s\n", e.getInvalidChar());

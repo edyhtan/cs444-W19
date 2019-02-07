@@ -1,4 +1,4 @@
-package Exceptions;
+package Joosc.Exceptions;
 
 public class InvalidCharacterException extends Exception {
     private final char invalidChar;

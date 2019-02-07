@@ -1,14 +1,14 @@
 /*
-    Main Scanner Class
+    Main joosc.Scanner Class
 
     Created by : Ye Hua (Edward) Tan
  */
 
-package Scanner;
+package Joosc.Scanner;
 
-import Exceptions.InvalidCharacterException;
-import Exceptions.InvalidTokenException;
-import Token.Token;
+import Joosc.Exceptions.InvalidCharacterException;
+import Joosc.Exceptions.InvalidTokenException;
+import Joosc.Token.Token;
 
 import java.io.File;
 import java.io.FileNotFoundException;

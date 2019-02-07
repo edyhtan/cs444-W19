@@ -1,6 +1,6 @@
-package Exceptions;
+package Joosc.Exceptions;
 
-import Parser.LRGrammar.ParseTree;
+import Joosc.Parser.LRGrammar.ParseTree;
 import java.util.List;
 
 public class InvalidSyntaxException extends Exception {

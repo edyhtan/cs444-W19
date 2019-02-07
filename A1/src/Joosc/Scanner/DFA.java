@@ -1,4 +1,6 @@
-package Scanner;
+package Joosc.Scanner;
+
+import Joosc.Joosc;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,7 +24,7 @@ public class DFA {
     }
 
     private void loadKeyword() throws FileNotFoundException {
-        Scanner scan = new Scanner(new File("src/Scanner/keywords.txt"));
+        Scanner scan = new Scanner(new File((Joosc.IDE_FLAG ? "src/" : "") + "Joosc/Scanner/keywords.txt"));
 
         while (scan.hasNextLine()) {
             keywordSets.add(scan.nextLine());
@@ -31,7 +33,7 @@ public class DFA {
 
     // Read .dfa file
     private void loadDFA() throws FileNotFoundException {
-        Scanner scan = new Scanner(new File("src/Scanner/lexer.dfa"));
+        Scanner scan = new Scanner(new File((Joosc.IDE_FLAG ? "src/" : "") + "Joosc/Scanner/lexer.dfa"));
 
         // All states
         Scanner scanLine = new Scanner(getLine(scan));
@@ -116,7 +118,6 @@ public class DFA {
 
     public String getKind() {
         if (kinds.get(currentState).equals("id_keyword")) {
-            System.err.println(lexeme);
             return keywordSets.contains(lexeme) ? lexeme : "id";
         }
         return kinds.get(currentState).split("\\$")[0];

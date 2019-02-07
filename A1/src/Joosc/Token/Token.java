@@ -1,4 +1,4 @@
-package Token;
+package Joosc.Token;
 
 public class Token {
     private String lexeme;
