@@ -1,9 +1,9 @@
-public class A {
+public class OverloadingTest {
 
-    public A() {
+    public OverloadingTest() {
     }
 
-    public A(int x) {
+    public OverloadingTest(int x) {
     }
 
     public int m1(int x) {

@@ -3,13 +3,13 @@ package test;
 import java.lang.*;
 import java.io.*;
 
-public class Complicated extends java.lang.Serializable implements Object {
+public class Complicated01 extends java.lang.Serializable implements Object {
 
     public String num = " ";
     protected static Object obj = new Object();
     public final byte[] arg = new byte[3];
 
-    public Complicated() {
+    public Complicated01() {
     }
 
     protected int x;

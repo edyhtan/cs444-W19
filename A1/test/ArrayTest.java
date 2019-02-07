@@ -1,5 +1,5 @@
-public class A {
-    public A() {
+public class ArrayTest {
+    public ArrayTest() {
     }
     protected int[] x;
     public int m() {

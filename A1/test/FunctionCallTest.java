@@ -1,5 +1,5 @@
-public class A {
-    public A() {
+public class FunctionCallTest {
+    public FunctionCallTest() {
     }
 
     protected int x;
