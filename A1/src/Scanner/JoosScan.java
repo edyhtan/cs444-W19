@@ -29,7 +29,7 @@ public class JoosScan {
         reader = new FileScan(file);
     }
 
-    public boolean isValidChar(char c) {
+    private boolean isValidChar(char c) {
         boolean isValid = true;
         switch (mode) {
             case REG:
@@ -65,6 +65,9 @@ public class JoosScan {
                         dfa.getStateName().equals("comment")) {
                     mode = Mode.REG;
                 } else if (dfa.getStateName().equals("comment$//")) {
+                    lastFinalState = 0;
+                    lastFinalStateLexeme = "";
+                    dfa.reset();
                     reader.nextLine();
                 }
 
@@ -79,12 +82,12 @@ public class JoosScan {
                     if (lastFinalState == 0) {
                         throw new InvalidTokenException(dfa.getLexeme(), output, c);
                     }
+                    reader.curString = dfa.breakLexeme(lastFinalStateLexeme) + reader.curString;
                     if (!dfa.getKind(lastFinalState).equals("comment")) {
                         output.add(new Token(lastFinalStateLexeme, dfa.getKind(lastFinalState)));
                     }
 
                     // reset dfa
-                    reader.curString = dfa.breakLexeme(lastFinalStateLexeme) + reader.curString;
                     lastFinalState = 0;
                     lastFinalStateLexeme = "";
                     dfa.reset();
@@ -157,7 +160,7 @@ public class JoosScan {
         }
 
         void nextLine() {
-            curString = scanner.hasNextLine() ?  scanner.nextLine() : "";
+            curString = scanner.hasNextLine() ?  scanner.nextLine() + "\n" : "";
         }
 
         boolean hasNext() {

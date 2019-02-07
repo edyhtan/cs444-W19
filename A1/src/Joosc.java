@@ -1,5 +1,8 @@
 import Exceptions.InvalidCharacterException;
+import Exceptions.InvalidSyntaxException;
 import Exceptions.InvalidTokenException;
+import Parser.JoosParse;
+import Parser.LRGrammar.ParseTree;
 import Scanner.JoosScan;
 import Token.Token;
 
@@ -18,11 +21,18 @@ public class Joosc {
             scan.scan();
             ArrayList<Token> tokens = scan.getOutput();
 
-            for (Token token: tokens) {
-                System.out.printf("%-15s :  %15s\n", token.getLexeme(), token.getKind());
+            int i = 1;
+            for (Token token : tokens) {
+                System.out.printf("%d. %-9s :  %15s\n", i, token.getLexeme(), token.getKind());
+                i++;
             }
 
+            System.out.println();
+
             // TODO: add parsing
+            JoosParse parse = new JoosParse();
+            parse.parse(tokens);
+            ParseTree tree = parse.getTree();
 
         } catch (FileNotFoundException e) {
             System.err.printf("ERROR: file not found, %s\n", e.getCause());
@@ -33,6 +43,10 @@ public class Joosc {
         } catch (InvalidTokenException e) {
             System.err.printf("ERROR: invalid lexeme: {%s} (%c, %d)\n", e.getInvalidLexeme(), e.getCurChar(), (int) e.getCurChar());
             e.printExistingTokens();
+        } catch (InvalidSyntaxException e) {
+            System.err.printf("ERROR: invalid syntax at %d, on state %d, with input %s\n", e.getLocation(), e.getState(), e.getInput());
+            e.printParseTree();
+            System.exit(2);
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(2);
