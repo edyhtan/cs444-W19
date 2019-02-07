@@ -82,12 +82,12 @@ public class JoosScan {
                     if (lastFinalState == 0) {
                         throw new InvalidTokenException(dfa.getLexeme(), output, c);
                     }
+                    reader.curString = dfa.breakLexeme(lastFinalStateLexeme) + reader.curString;
                     if (!dfa.getKind(lastFinalState).equals("comment")) {
                         output.add(new Token(lastFinalStateLexeme, dfa.getKind(lastFinalState)));
                     }
 
                     // reset dfa
-                    reader.curString = dfa.breakLexeme(lastFinalStateLexeme) + reader.curString;
                     lastFinalState = 0;
                     lastFinalStateLexeme = "";
                     dfa.reset();

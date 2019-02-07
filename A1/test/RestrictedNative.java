@@ -1,3 +1,6 @@
-public class RestrictedNative {
-    public int id(int a, int b) { }
+public abstract class RestrictedNative {
+    public RestrictedNative(int a, int b) {
+        super();
+        this.a = 0;
+    }
 }

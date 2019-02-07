@@ -116,15 +116,15 @@ public class DFA {
 
     public String getKind() {
         if (kinds.get(currentState).equals("id_keyword")) {
-            return keywordSets.contains(lexeme) ? "keyword" : "id";
+            System.err.println(lexeme);
+            return keywordSets.contains(lexeme) ? lexeme : "id";
         }
         return kinds.get(currentState).split("\\$")[0];
     }
 
-
     public String getKind(int state) {
         if (kinds.get(state).equals("id_keyword")) {
-            return keywordSets.contains(lexeme) ? "keyword" : "id";
+            return keywordSets.contains(lexeme) ? lexeme : "id";
         }
         return kinds.get(state).split("\\$")[0];
     }
@@ -153,6 +153,8 @@ public class DFA {
 
     // cut the lexeme into two piece based on the prefix, return its suffix
     public String breakLexeme(String prefix) {
-        return lexeme.substring(prefix.length());
+        String originalLex = lexeme;
+        lexeme = prefix;
+        return originalLex.substring(prefix.length());
     }
 }
