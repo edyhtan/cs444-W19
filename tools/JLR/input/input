@@ -1,4 +1,4 @@
-67
+66
 BOF
 EOF
 import
@@ -17,7 +17,6 @@ interface
 void
 throws
 this
-super
 implements
 [
 ]
@@ -66,7 +65,7 @@ break
 continue
 return
 abstract
-99
+98
 S'
 S
 PackageDeclr
@@ -97,7 +96,6 @@ VariableInit
 MethodHeader
 MethodBody
 MethodDeclrtor
-Throws
 FormalParamList
 FormalParam
 ClassTypeList
@@ -167,7 +165,7 @@ ForUpdate
 BlockStatement
 StatementExpression
 S'
-215
+204
 S' BOF S EOF
 S PackageDeclr ImportDeclrs TypeDeclr
 S PackageDeclr ImportDeclrs
@@ -209,29 +207,21 @@ VariableDeclr id
 VariableDeclr id = VariableInit
 VariableInit Expression
 MethodDeclr MethodHeader MethodBody
-MethodHeader Modifiers Type MethodDeclrtor Throws
 MethodHeader Modifiers Type MethodDeclrtor
-MethodHeader Modifiers void MethodDeclrtor Throws
 MethodHeader Modifiers void MethodDeclrtor
 MethodDeclrtor id ( FormalParamList )
 MethodDeclrtor id ( )
 FormalParamList FormalParamList , FormalParam
 FormalParamList FormalParam
 FormalParam Type id
-Throws throws ClassTypeList
 ClassTypeList ClassType
 ClassTypeList ClassTypeList , ClassType
 MethodBody Block
 MethodBody ;
-ConstructorDeclr Modifiers SimpleName ( FormalParamList ) Throws ConstructorBody
-ConstructorDeclr Modifiers SimpleName ( ) Throws ConstructorBody
+ConstructorDeclr Modifiers SimpleName ( FormalParamList ) ConstructorBody
 ConstructorDeclr Modifiers SimpleName ( ) ConstructorBody
-ConstructorBody { ExplicitCtorInvoke }
+ConstructorBody { BlockStatements }
 ConstructorBody { }
-ExplicitCtorInvoke this ( ArgList ) ;
-ExplicitCtorInvoke super ( ArgList ) ;
-ExplicitCtorInvoke this ( ) ;
-ExplicitCtorInvoke super ( ) ;
 Literal intLiteral
 Literal BooleanLiteral
 Literal charLiteral
@@ -329,13 +319,10 @@ ArgList ArgList , Expression
 ArrayCreation new PrimitiveType [ Expression ]
 ArrayCreation new ClassOrInterfaceType [ Expression ]
 FieldAccess Primary . id
-FieldAccess super . id
 MethodInvocation Name ( ArgList )
 MethodInvocation Name ( )
 MethodInvocation Primary . id ( ArgList )
 MethodInvocation Primary . id ( )
-MethodInvocation super . id ( ArgList )
-MethodInvocation super . id ( )
 ArrayAccess Name [ Expression ]
 ArrayAccess PrimaryNoNewArray [ Expression ]
 PostFixExpression Primary

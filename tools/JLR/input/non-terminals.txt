@@ -28,7 +28,6 @@ VariableInit
 MethodHeader
 MethodBody
 MethodDeclrtor
-Throws
 FormalParamList
 FormalParam
 ClassTypeList

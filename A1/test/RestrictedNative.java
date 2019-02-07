@@ -1,4 +1,3 @@
 public class RestrictedNative {
-    public static native int m(int i) {
-    }
+    public int id(int a, int b) { }
 }

@@ -20,6 +20,7 @@ TypeImportOnDemand      : import Name . * ;
 TypeDeclr               : ClassDeclr
 TypeDeclr               : InterfaceDeclr
 
+
 ## 19.6 Name
 
 Name                    : SimpleName
@@ -27,7 +28,10 @@ Name                    : QualifiedName
 SimpleName              : id
 QualifiedName           : Name . id
 
+
 ## 19.8.1   Class Declarations
+
+### req 9 : class must be declared in a .java file with the same base name as the class
 
 ClassDeclr              : Modifiers class id Super Interfaces ClassBody
 ClassDeclr              : Modifiers class id Interfaces ClassBody
@@ -47,6 +51,8 @@ ClassMemberDeclr        : FieldDeclr
 
 ## 19.8.2   Field Declarations
 
+### req 14 : No field can be final.
+
 FieldDeclr              : Modifiers Type VariableDeclr ;
 VariableDeclr           : id
 VariableDeclr           : id = VariableInit
@@ -54,17 +60,16 @@ VariableInit            : Expression
 
 ## 19.8.3   Method
 
+### Req 3: a method has body if it neither abstract nor native.
+
 MethodDeclr             : MethodHeader MethodBody
-MethodHeader            : Modifiers Type MethodDeclrtor Throws
 MethodHeader            : Modifiers Type MethodDeclrtor
-MethodHeader            : Modifiers void MethodDeclrtor Throws
 MethodHeader            : Modifiers void MethodDeclrtor
 MethodDeclrtor          : id ( FormalParamList )
 MethodDeclrtor          : id ( )
 FormalParamList         : FormalParamList , FormalParam
 FormalParamList         : FormalParam
 FormalParam             : Type id
-Throws                  : throws ClassTypeList
 ClassTypeList           : ClassType
 ClassTypeList           : ClassTypeList , ClassType
 MethodBody              : Block
@@ -73,17 +78,12 @@ MethodBody              : ;
 
 ## 19.8.5 Constructor Declaration
 
-ConstructorDeclr        : Modifiers SimpleName ( FormalParamList ) Throws ConstructorBody
-ConstructorDeclr        : Modifiers SimpleName ( ) Throws ConstructorBody
+### req 13 : Every class must contain at least one explicit constructor.
+
+ConstructorDeclr        : Modifiers SimpleName ( FormalParamList ) ConstructorBody
 ConstructorDeclr        : Modifiers SimpleName ( ) ConstructorBody
-#ConstructorBody        : { ExplicitCtorInvoke BlockStatements }
-#ConstructorBody        : { BlockStatements }
-ConstructorBody         : { ExplicitCtorInvoke }
+ConstructorBody         : { BlockStatements }
 ConstructorBody         : { }
-ExplicitCtorInvoke      : this ( ArgList ) ;
-ExplicitCtorInvoke      : super ( ArgList ) ;
-ExplicitCtorInvoke      : this ( ) ;
-ExplicitCtorInvoke      : super ( ) ;
 
 
 ## 19.3     Literals
@@ -121,8 +121,11 @@ ArrayType              : Name [ ]
 
 ### every field / method should have exactly one access modifiers (public/private)
 ### abstract class must have at least 1 abstract method
-### abstract methods only occurs in abstract class
-###
+### Req 2: class cannot be both abstract and final
+### Req 3: a method has body if it neither abstract nor native.
+### Req 4: an abstract method cannot be final static or final
+### Req 5: static method cannot be final
+### Req 6: native method must be static
 
 Modifiers              : Modifier
 Modifiers              : Modifiers Modifier
@@ -135,6 +138,10 @@ Modifier               : abstract
 
 
 ## 19.9     InterfaceDeclr
+
+### req 9 : interface must be declared in a .java file with the same base name as the interface
+### req 11: An interface method cannot be static, final, or native.
+
 
 InterfaceDeclr         : Modifiers interface id ExtendsInterfaceType InterfaceBody
 InterfaceDeclr         : Modifiers interface id InterfaceBody
@@ -196,6 +203,8 @@ ReturnStatement        : return Expression ;
 
 ## 19.12    Expression
 
+### req 16: No explicit call of this()
+
 Primary                : PrimaryNoNewArray
 Primary                : ArrayCreation
 PrimaryNoNewArray      : Literal
@@ -212,13 +221,10 @@ ArgList                : ArgList , Expression
 ArrayCreation          : new PrimitiveType [ Expression ]
 ArrayCreation          : new ClassOrInterfaceType [ Expression ]
 FieldAccess            : Primary . id
-FieldAccess            : super . id
 MethodInvocation       : Name ( ArgList )
 MethodInvocation       : Name ( )
 MethodInvocation       : Primary . id ( ArgList )
 MethodInvocation       : Primary . id ( )
-MethodInvocation       : super . id ( ArgList )
-MethodInvocation       : super . id ( )
 ArrayAccess            : Name [ Expression ]
 ArrayAccess            : PrimaryNoNewArray [ Expression ]
 PostFixExpression      : Primary

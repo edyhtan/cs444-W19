@@ -16,7 +16,6 @@ interface
 void
 throws
 this
-super
 implements
 [
 ]
