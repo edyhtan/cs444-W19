@@ -13,7 +13,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class Joosc {
-    public static boolean IDE_FLAG = false; // turn off when compiling with make
+    public static boolean IDE_FLAG = true; // turn off when compiling with make
 
     public static void main(String args[]) {
         try {
