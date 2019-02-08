@@ -41,7 +41,6 @@ public class Joosc {
             JoosParse parse = new JoosParse();
             parse.parse(tokens);
             ParseTree tree = parse.getTree();
-
         } catch (FileNotFoundException e) {
             System.err.printf("ERROR: file not found: %s\n", e.getLocalizedMessage());
             System.exit(2);
