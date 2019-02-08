@@ -11,17 +11,22 @@ import Joosc.Token.Token;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Joosc {
-    public static boolean IDE_FLAG = true; // turn off when compiling with make
+    public static boolean IDE_FLAG = true;
 
     public static void main(String args[]) {
+        ArrayList<String> argList = new ArrayList<>(Arrays.asList(args));
+        IDE_FLAG = !argList.contains("-t");
+        argList.remove("-t");
+
         try {
-            if (args.length > 1) {
+            if (argList.size() > 1) {
                 throw new Exception("ERROR: incorrect number of parameter, the size should be 1.");
             }
 
-            JoosScan scan = new JoosScan(new File(args[0]));
+            JoosScan scan = new JoosScan(new File(argList.get(0)));
             scan.scan();
             ArrayList<Token> tokens = scan.getOutput();
 

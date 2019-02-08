@@ -1,15 +1,12 @@
 class IntLiteral {
-    int a = 0;
-    int b = -909123213;
+    public int a = 0;
+    public int b = -909123213;
     public IntLiteral() {}
 
-    String inte = "int a = 1123;";
-    char i = ' ';
+    public String inte = "int a = 1123;";
+    public char i = ' ';
 
-    /* 123
-
-
-    1414 */ int i = 0;
+    protected int i = 0;
     public boolean run() {
         return a * b + a - b + a / b + a % b == a;
     }

@@ -1,14 +1,14 @@
 make:
-	touch joosc
+	[ -f "joosc" ] && rm joosc
 
+	touch joosc
 	echo "#!/bin/${0}" > joosc
 	echo "" > joosc
-	echo "java -cp out/Joosc Joosc \$$1" > Joosc
-	
-	rm -r out
-	mkdir out
-	javac -d out *.java ./Joosc/Token/*.java ./Joosc/Scanner/*.java ./Joosc/Parser/*.java ./Joosc/Parser/LRGrammar/*.java ./Joosc/Exceptions/*.java
+	echo "java -cp out Joosc.Joosc -t \$$1" > joosc
+	chmod u+x joosc
+
+	javac -d out ./Joosc/*.java ./Joosc/Token/*.java ./Joosc/Scanner/*.java ./Joosc/Parser/*.java ./Joosc/Parser/LRGrammar/*.java ./Joosc/Exceptions/*.java
 
 clean:
-	rm -r out
+	rm -rf out
 
