@@ -17,6 +17,9 @@ public class ParseTree {
     public String getSymbol() {
         return lexeme;
     }
+    public String getKind() {
+        return kind;
+    }
 
     public List<ParseTree> getChildren() {
         return children;
