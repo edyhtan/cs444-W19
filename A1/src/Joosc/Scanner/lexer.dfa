@@ -49,7 +49,7 @@ comment
 charLiteral
 string
 id_keyword
-93
+94
 start 0 intLiteral$0
 start 1 9 intLiteral$1
 intLiteral$1 0 9 intLiteral$1
@@ -110,6 +110,7 @@ charLiteral$\2 0 7 charLiteral$\1
 charLiteral$\2 ' charLiteral
 string$\1 0 7 charLiteral$filled
 charLiteral$\1 ' charLiteral
+charLiteral$\1 0 7 charLiteral$\2
 start " string$"
 string$" 000 011 string$"
 string$" 013 127 string$"
