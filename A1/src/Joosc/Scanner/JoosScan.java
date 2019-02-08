@@ -33,7 +33,7 @@ public class JoosScan {
         boolean isValid = true;
         switch (mode) {
             case REG:
-                isValid = (c != 32 && c != '\t');
+                isValid = (c != 32 && c != '\t' && c != '\u0000');
             case STR_LITERAL:
                 isValid = isValid && (c != '\n');
         }
