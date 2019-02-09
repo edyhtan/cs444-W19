@@ -250,6 +250,7 @@ UnaryExpressionNot+-   : CastExpression
 UnaryExpressionNot+-   : PostFixExpression
 CastExpression         : ( PrimitiveType [ ] ) UnaryExpression
 CastExpression         : ( PrimitiveType ) UnaryExpression
+CastExpression         : ( Expression ) UnaryExpressionNot+-
 CastExpression         : ( Name [ ] ) UnaryExpressionNot+-
 MultExpression         : UnaryExpression
 MultExpression         : MultExpression * UnaryExpression
