@@ -1,11 +1,9 @@
 package Joosc;
 
 import Joosc.Exceptions.InvalidCharacterException;
-<<<<<<< HEAD
 import Joosc.Exceptions.InvalidParseTreeStructureException;
-=======
 import Joosc.Exceptions.InvalidParseTreeException;
->>>>>>> A1
+
 import Joosc.Exceptions.InvalidSyntaxException;
 import Joosc.Exceptions.InvalidTokenException;
 import Joosc.Parser.JoosParse;
