@@ -1,8 +1,6 @@
 package Joosc.Parser;
 
-import Joosc.AST.NonTerminals;
 import Joosc.Exceptions.InvalidParseTreeException;
-import Joosc.Exceptions.InvalidSyntaxException;
 import Joosc.Parser.LRGrammar.*;
 import Joosc.Token.Token;
 

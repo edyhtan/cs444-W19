@@ -1,6 +1,9 @@
-package Joosc.AST;
+package Joosc.AST.Constants;
 
-public enum NonTerminals {
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public enum NonTerminals implements Symbol {
     SPrime,
     S,
     PackageDeclr,
@@ -100,7 +103,14 @@ public enum NonTerminals {
     BlockStatement,
     StatementExpression;
 
-    public static NonTerminals fromString(String str) {
-        return valueOf(str);
+    static {
+        new ArrayList<>(Arrays.asList(values())).forEach(
+                (nt) -> Symbol.allContent.put(nt.name(), nt)
+        );
+    }
+
+    @Override
+    public String toStringSymbol() {
+        return this.name();
     }
 }
