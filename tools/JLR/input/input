@@ -129,7 +129,7 @@ MethodInvocation
 ArrayAccess
 PostFixExpression
 UnaryExpression
-UnaryExpressionNot+-
+UnaryExpressionNotMinus
 CastExpression
 MultExpression
 AddExpression
@@ -342,14 +342,14 @@ ArrayAccess PrimaryNoNewArray [ Expression ]
 PostFixExpression Primary
 PostFixExpression Name
 UnaryExpression - UnaryExpression
-UnaryExpression UnaryExpressionNot+-
-UnaryExpressionNot+- ! UnaryExpression
-UnaryExpressionNot+- CastExpression
-UnaryExpressionNot+- PostFixExpression
+UnaryExpression UnaryExpressionNotMinus
+UnaryExpressionNotMinus ! UnaryExpression
+UnaryExpressionNotMinus CastExpression
+UnaryExpressionNotMinus PostFixExpression
 CastExpression ( PrimitiveType [ ] ) UnaryExpression
 CastExpression ( PrimitiveType ) UnaryExpression
-CastExpression ( Expression ) UnaryExpressionNot+-
-CastExpression ( Name [ ] ) UnaryExpressionNot+-
+CastExpression ( Expression ) UnaryExpressionNotMinus
+CastExpression ( Name [ ] ) UnaryExpressionNotMinus
 MultExpression UnaryExpression
 MultExpression MultExpression * UnaryExpression
 MultExpression MultExpression / UnaryExpression

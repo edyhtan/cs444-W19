@@ -29,6 +29,10 @@ public class ParseTree {
         }
     }
 
+    public String getLexeme() {
+        return lexeme;
+    }
+
     private void print(int level) {
         for (int i = 0; i < level; i++) {
             System.out.print(TREELEVEL);

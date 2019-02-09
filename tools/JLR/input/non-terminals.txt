@@ -61,7 +61,7 @@ MethodInvocation
 ArrayAccess
 PostFixExpression
 UnaryExpression
-UnaryExpressionNot+-
+UnaryExpressionNotMinus
 CastExpression
 MultExpression
 AddExpression
