@@ -71,7 +71,7 @@ public enum Terminals implements Symbol {
     Abstract("abstract");
 
     static {
-        new ArrayList<>(Arrays.asList(values())).forEach(
+        Arrays.asList(values()).forEach(
                 (t) -> Symbol.allContent.put(t.kind, t)
         );
     }

@@ -104,7 +104,7 @@ public enum NonTerminals implements Symbol {
     StatementExpression;
 
     static {
-        new ArrayList<>(Arrays.asList(values())).forEach(
+        Arrays.asList(values()).forEach(
                 (nt) -> Symbol.allContent.put(nt.name(), nt)
         );
     }
