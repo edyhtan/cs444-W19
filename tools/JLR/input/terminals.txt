@@ -23,7 +23,6 @@ boolean
 byte
 short
 int
-long
 char
 (
 )

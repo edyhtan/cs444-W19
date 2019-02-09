@@ -1,7 +1,11 @@
 package Joosc;
 
 import Joosc.Exceptions.InvalidCharacterException;
+<<<<<<< HEAD
 import Joosc.Exceptions.InvalidParseTreeStructureException;
+=======
+import Joosc.Exceptions.InvalidParseTreeException;
+>>>>>>> A1
 import Joosc.Exceptions.InvalidSyntaxException;
 import Joosc.Exceptions.InvalidTokenException;
 import Joosc.Parser.JoosParse;
@@ -12,17 +16,22 @@ import Joosc.Token.Token;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Joosc {
-    public static boolean IDE_FLAG = false; // turn off when compiling with make
+    public static boolean IDE_FLAG = true;
 
     public static void main(String args[]) {
+        ArrayList<String> argList = new ArrayList<>(Arrays.asList(args));
+        IDE_FLAG = !argList.contains("-t");
+        argList.remove("-t");
+
         try {
-            if (args.length > 1) {
+            if (argList.size() > 1) {
                 throw new Exception("ERROR: incorrect number of parameter, the size should be 1.");
             }
 
-            JoosScan scan = new JoosScan(new File(args[0]));
+            JoosScan scan = new JoosScan(new File(argList.get(0)));
             scan.scan();
             ArrayList<Token> tokens = scan.getOutput();
 
@@ -37,7 +46,6 @@ public class Joosc {
             JoosParse parse = new JoosParse();
             parse.parse(tokens);
             ParseTree tree = parse.getTree();
-
         } catch (FileNotFoundException e) {
             System.err.printf("ERROR: file not found: %s\n", e.getLocalizedMessage());
             System.exit(2);
@@ -55,7 +63,10 @@ public class Joosc {
         } catch (InvalidParseTreeStructureException e) {
             System.err.printf("ERROR: %s", e.getLocalizedMessage());
             System.exit(42);
-        }catch (Exception e) {
+        } catch (InvalidParseTreeException e) {
+           System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
+           System.exit(42);
+        } catch (Exception e) {
             e.printStackTrace();
             System.exit(2);
         }

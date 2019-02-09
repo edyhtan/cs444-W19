@@ -6,6 +6,7 @@ S'                      : BOF S EOF
 S                       : PackageDeclr ImportDeclrs TypeDeclr
 S                       : PackageDeclr ImportDeclrs
 S                       : PackageDeclr
+S                       : PackageDeclr TypeDeclr
 S                       : ImportDeclrs TypeDeclr
 S                       : ImportDeclrs
 S                       : TypeDeclr
@@ -106,7 +107,6 @@ PrimitiveType          : boolean
 NumericType            : byte
 NumericType            : short
 NumericType            : int
-NumericType            : long
 NumericType            : char
 ReferenceType          : ClassOrInterfaceType
 ReferenceType          : ArrayType
@@ -193,7 +193,20 @@ WhileStatement         : while ( Expression ) Statement
 WhileNoShortIf         : while ( Expression ) StatementNoShortIf
 ForStatement           : for ( ForInit ; Expression ; ForUpdate ) Statement
 ForNoShortIf           : for ( ForInit ; Expression ; ForUpdate ) StatementNoShortIf
+ForStatement           : for ( ; Expression ; ForUpdate ) Statement
+ForNoShortIf           : for ( ; Expression ; ForUpdate ) StatementNoShortIf
+ForStatement           : for ( ; ; ForUpdate ) Statement
+ForNoShortIf           : for ( ; ; ForUpdate ) StatementNoShortIf
+ForStatement           : for ( ; ; ) Statement
+ForNoShortIf           : for ( ; ; ) StatementNoShortIf
+ForStatement           : for ( ForInit ; ; ForUpdate ) Statement
+ForNoShortIf           : for ( ForInit ; ; ForUpdate ) StatementNoShortIf
+ForStatement           : for ( ForInit ; Expression ; ) Statement
+ForNoShortIf           : for ( ForInit ; Expression ; ) StatementNoShortIf
+ForStatement           : for ( ; Expression ; ) Statement
+ForNoShortIf           : for ( ; Expression ; ) StatementNoShortIf
 ForInit                : LocalVarDeclr
+ForInit                : StatementExpression
 ForUpdate              : StatementExpression
 BreakStatement         : break ;
 ContinueStatement      : continue ;
@@ -229,16 +242,15 @@ ArrayAccess            : Name [ Expression ]
 ArrayAccess            : PrimaryNoNewArray [ Expression ]
 PostFixExpression      : Primary
 PostFixExpression      : Name
-UnaryExpression        : + UnaryExpression
 UnaryExpression        : - UnaryExpression
-UnaryExpression        : UnaryExpressionNot+-
-UnaryExpressionNot+-   : ! UnaryExpression
-UnaryExpressionNot+-   : CastExpression
-UnaryExpressionNot+-   : PostFixExpression
+UnaryExpression        : UnaryExpressionNotMinus
+UnaryExpressionNotMinus: ! UnaryExpression
+UnaryExpressionNotMinus: CastExpression
+UnaryExpressionNotMinus: PostFixExpression
 CastExpression         : ( PrimitiveType [ ] ) UnaryExpression
 CastExpression         : ( PrimitiveType ) UnaryExpression
-CastExpression         : ( Expression ) UnaryExpressionNot+-
-CastExpression         : ( Name [ ] ) UnaryExpressionNot+-
+CastExpression         : ( Expression ) UnaryExpressionNotMinus
+CastExpression         : ( Name [ ] ) UnaryExpressionNotMinus
 MultExpression         : UnaryExpression
 MultExpression         : MultExpression * UnaryExpression
 MultExpression         : MultExpression / UnaryExpression

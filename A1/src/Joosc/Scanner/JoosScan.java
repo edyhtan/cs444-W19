@@ -33,7 +33,7 @@ public class JoosScan {
         boolean isValid = true;
         switch (mode) {
             case REG:
-                isValid = (c != 32 && c != '\t');
+                isValid = (c != 32 && c != '\t' && c != '\u0000');
             case STR_LITERAL:
                 isValid = isValid && (c != '\n');
         }
@@ -57,11 +57,11 @@ public class JoosScan {
                 dfa.next(c);
 
                 // check for conditions to start special scanning mode
-                if (dfa.getStateName().equals("char$'") || dfa.getStateName().equals("string$\"")) {
+                if (dfa.getStateName().equals("charLiteral$'") || dfa.getStateName().equals("string$\"")) {
                     mode = Mode.STR_LITERAL;
                 } else if (dfa.getStateName().equals("comment$/*")) {
                     mode = Mode.COMMENTS;
-                } else if (dfa.getStateName().equals("char") || dfa.getStateName().equals("string") ||
+                } else if (dfa.getStateName().equals("charLiteral") || dfa.getStateName().equals("string") ||
                         dfa.getStateName().equals("comment")) {
                     mode = Mode.REG;
                 } else if (dfa.getStateName().equals("comment$//")) {

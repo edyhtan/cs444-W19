@@ -1,5 +1,7 @@
 package Joosc.Parser;
 
+import Joosc.AST.NonTerminals;
+import Joosc.Exceptions.InvalidParseTreeException;
 import Joosc.Exceptions.InvalidSyntaxException;
 import Joosc.Parser.LRGrammar.*;
 import Joosc.Token.Token;
@@ -24,13 +26,40 @@ public class JoosParse {
         JoosGrammar.printGrammar();
     }
 
-    public void parse(List<Token> tokens) throws InvalidSyntaxException {
+    public void parse(List<Token> tokens) throws InvalidParseTreeException, Exception {
         ParseTree tree = JoosGrammar.buildTree(tokens);
 
         if (!tree.getSymbol().equals("ERROR")) {
             tree.print();
             this.tree = tree;
         }
+
+        preASTWeeding(tree);
     }
 
+    // this has to be done explicitly
+    private void preASTWeeding(ParseTree tree) throws InvalidParseTreeException {
+        if (tree.getLexeme().equals("CastExpression") && tree.getChildren().get(1).getLexeme().equals("Expression")) {
+            nameOnlyExpression(tree.getChildren().get(1));
+        } else {
+            for (ParseTree node: tree.getChildren()) {
+                preASTWeeding(node);
+            }
+        }
+    }
+
+    private void nameOnlyExpression(ParseTree tree) throws InvalidParseTreeException {
+        if (tree.getChildren().size() > 1) {
+            if (!tree.getLexeme().equals("Name")) {
+                throw new InvalidParseTreeException("Bad Casting");
+            }
+        } else {
+            if (tree.getLexeme().equals("Name")) {
+                return;
+            }
+            for (ParseTree node:tree.getChildren()) {
+                nameOnlyExpression(node);
+            }
+        }
+    }
 }
