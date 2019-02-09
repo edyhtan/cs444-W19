@@ -1,4 +1,4 @@
-66
+65
 BOF
 EOF
 import
@@ -24,7 +24,6 @@ boolean
 byte
 short
 int
-long
 char
 (
 )
@@ -165,7 +164,7 @@ ForUpdate
 BlockStatement
 StatementExpression
 S'
-217
+216
 S' BOF S EOF
 S PackageDeclr ImportDeclrs TypeDeclr
 S PackageDeclr ImportDeclrs
@@ -237,7 +236,6 @@ PrimitiveType boolean
 NumericType byte
 NumericType short
 NumericType int
-NumericType long
 NumericType char
 ReferenceType ClassOrInterfaceType
 ReferenceType ArrayType

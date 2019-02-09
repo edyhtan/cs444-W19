@@ -107,7 +107,6 @@ PrimitiveType          : boolean
 NumericType            : byte
 NumericType            : short
 NumericType            : int
-NumericType            : long
 NumericType            : char
 ReferenceType          : ClassOrInterfaceType
 ReferenceType          : ArrayType
