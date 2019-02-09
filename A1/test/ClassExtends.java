@@ -5,6 +5,6 @@ public class ClassExtends extends java.lang.Thread {
     protected int x;
 
     public int m(Java.util.Vector x) {
-        return x.size();
+        return ((Object)) x;
     }
 }

@@ -165,7 +165,7 @@ ForUpdate
 BlockStatement
 StatementExpression
 S'
-217
+216
 S' BOF S EOF
 S PackageDeclr ImportDeclrs TypeDeclr
 S PackageDeclr ImportDeclrs
@@ -348,7 +348,6 @@ UnaryExpressionNot+- CastExpression
 UnaryExpressionNot+- PostFixExpression
 CastExpression ( PrimitiveType [ ] ) UnaryExpression
 CastExpression ( PrimitiveType ) UnaryExpression
-CastExpression ( Expression ) UnaryExpressionNot+-
 CastExpression ( Name [ ] ) UnaryExpressionNot+-
 MultExpression UnaryExpression
 MultExpression MultExpression * UnaryExpression
