@@ -1,6 +1,7 @@
 package Joosc;
 
 import Joosc.Exceptions.InvalidCharacterException;
+import Joosc.Exceptions.InvalidParseTreeStructureException;
 import Joosc.Exceptions.InvalidSyntaxException;
 import Joosc.Exceptions.InvalidTokenException;
 import Joosc.Parser.JoosParse;
@@ -51,7 +52,10 @@ public class Joosc {
             System.err.printf("ERROR: invalid syntax at %d, on state %d, with input %s\n", e.getLocation(), e.getState(), e.getInput());
             e.printParseTree();
             System.exit(42);
-        } catch (Exception e) {
+        } catch (InvalidParseTreeStructureException e) {
+            System.err.printf("ERROR: %s", e.getLocalizedMessage());
+            System.exit(42);
+        }catch (Exception e) {
             e.printStackTrace();
             System.exit(2);
         }
