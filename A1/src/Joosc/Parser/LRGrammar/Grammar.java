@@ -196,14 +196,14 @@ public class Grammar {
                 nextTrans = searchTransition(stateStack.peek(), rule.lhs);
                 stateStack.push(nextTrans.to);
 
-                printStack(stateStack);
+                //printStack(stateStack);
                 // next instance
                 nextTrans = searchTransition(stateStack.peek(), strInput);
             }
 
             treeStack.push(new ParseTree(token.getLexeme(), token.getKind(), new ArrayList<>()));
             if (nextTrans.action == Action.ERROR) {
-                printStack(stateStack);
+                //printStack(stateStack);
                 throw new InvalidSyntaxException(c, treeStack, stateStack.peek(), strInput);
             }
             c++;

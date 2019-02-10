@@ -1,9 +1,11 @@
 package Joosc.Parser.LRGrammar;
 
+import Joosc.AST.Constants.Symbol;
+
 import java.util.List;
 public class ParseTree {
     private String lexeme;
-    private String kind;
+    private Symbol kind;
     private List<ParseTree> children;
 
     private static String TREEITEM = "|--";
@@ -11,13 +13,16 @@ public class ParseTree {
 
     ParseTree(String lexeme, String kind, List<ParseTree> children) {
         this.lexeme = lexeme;
-        this.kind = kind;
+        this.kind = Symbol.fromString(
+                kind.equals("separator") | kind.equals("operator") | kind.equals("keyword") ? lexeme : kind);
         this.children = children;
     }
+
     public String getSymbol() {
         return lexeme;
     }
-    public String getKind() {
+
+    public Symbol getKind() {
         return kind;
     }
 

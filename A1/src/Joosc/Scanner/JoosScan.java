@@ -114,7 +114,17 @@ public class JoosScan {
     }
 
     public ArrayList<Token> getOutput() {
+        //printTokens();
         return output;
+    }
+
+    private void printTokens() {
+        int i = 1;
+        for (Token token : output) {
+            System.out.printf("%d. %-30s :  %15s\n", i, token.getLexeme(), token.getKind());
+            i++;
+        }
+        System.out.println();
     }
 
     //Reader class to read characters one by one, automatically skips line separators

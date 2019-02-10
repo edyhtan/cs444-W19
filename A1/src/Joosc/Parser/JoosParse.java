@@ -20,15 +20,11 @@ public class JoosParse {
         return tree;
     }
 
-    public void printGrammar() {
-        JoosGrammar.printGrammar();
-    }
-
     public void parse(List<Token> tokens) throws InvalidParseTreeException, Exception {
         ParseTree tree = JoosGrammar.buildTree(tokens);
 
         if (!tree.getSymbol().equals("ERROR")) {
-            tree.print();
+            //tree.print();
             this.tree = tree;
         }
 

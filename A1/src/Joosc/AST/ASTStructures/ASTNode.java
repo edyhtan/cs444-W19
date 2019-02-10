@@ -1,10 +1,11 @@
-package Joosc.AST;
+package Joosc.AST.ASTStructures;
 
 import Joosc.Exceptions.InvalidParseTreeStructureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
 abstract class ASTNode {
     protected ParseTree parseTree;
+
     private void checkParseTreeChildIndex(int index) throws  InvalidParseTreeStructureException {
         if (index >= parseTree.getChildren().size()) {
             String errMsg = "Trying to get child of index:" + index + " out of the parse tree. Out of bound.";
@@ -26,5 +27,7 @@ abstract class ASTNode {
         checkParseTreeChildKind(child, kind);
         return parseTree.getChildren().get(index);
     }
+
     abstract void weed();
+    abstract void printInfo();
 }

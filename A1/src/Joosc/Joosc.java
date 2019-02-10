@@ -1,5 +1,6 @@
 package Joosc;
 
+import Joosc.AST.JoosAST;
 import Joosc.Exceptions.InvalidCharacterException;
 import Joosc.Exceptions.InvalidParseTreeStructureException;
 import Joosc.Exceptions.InvalidParseTreeException;
@@ -33,17 +34,15 @@ public class Joosc {
             scan.scan();
             ArrayList<Token> tokens = scan.getOutput();
 
-            int i = 1;
-            for (Token token : tokens) {
-                System.out.printf("%d. %-30s :  %15s\n", i, token.getLexeme(), token.getKind());
-                i++;
-            }
-            System.out.println();
 
-            // TODO: add parsing
+            // Parsing
             JoosParse parse = new JoosParse();
             parse.parse(tokens);
             ParseTree tree = parse.getTree();
+
+            // AST and weeding
+            JoosAST ast = new JoosAST(tree);
+
         } catch (FileNotFoundException e) {
             System.err.printf("ERROR: file not found: %s\n", e.getLocalizedMessage());
             System.exit(2);

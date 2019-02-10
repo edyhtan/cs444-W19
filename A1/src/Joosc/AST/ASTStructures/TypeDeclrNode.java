@@ -1,9 +1,10 @@
-package Joosc.AST;
+package Joosc.AST.ASTStructures;
 
 import Joosc.Exceptions.InvalidParseTreeStructureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
 abstract class TypeDeclrNode extends ASTNode {
+
     static protected TypeDeclrNode resolveTypeDeclrNode (ParseTree parseTree) throws InvalidParseTreeStructureException {
         ParseTree actualNode = parseTree.getChildren().get(0);
         if (actualNode.getKind().equals("ClassDeclr")) {
@@ -12,10 +13,13 @@ abstract class TypeDeclrNode extends ASTNode {
             return new InterfaceDeclrNode();
         } else {
             throw new InvalidParseTreeStructureException(
-                    parseTree, "ClassDeclr or InterfaceDeclr", actualNode.getKind());
+                    parseTree, "ClassDeclr or InterfaceDeclr", actualNode.getKind().getSymbolString());
         }
     }
-    public void weed(){
 
-    }
+    @Override
+    public void weed(){ }
+
+    @Override
+    public void printInfo() {}
 }
