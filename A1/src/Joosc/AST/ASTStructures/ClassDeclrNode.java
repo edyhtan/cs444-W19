@@ -20,15 +20,14 @@ public class ClassDeclrNode extends TypeDeclrNode {
     ClassDeclrNode(ParseTree parseTree) throws ASTException {
 
         this.parseTree = parseTree;
-        classModifiers = null;
-        parentClassIdentifier = null;
-        interfaceTypes = null;
-        classBodyDeclrNodes = null;
+        classModifiers = new ArrayList<>();
+        parentClassIdentifier = new ArrayList<>();
+        interfaceTypes = new ArrayList<>();
+        classBodyDeclrNodes = new ArrayList<>();
 
         for(ParseTree child : parseTree.getChildren()) {
             switch (child.getKind()) {
                 case Modifiers:
-                    classModifiers = new ArrayList<>();
                     RecursionResolve.resolveNodes(
                             child,
                             classModifiers,
@@ -41,7 +40,6 @@ public class ClassDeclrNode extends TypeDeclrNode {
                     classIdentifier = child.getLexeme();
                     break;
                 case ClassBody:
-                    classBodyDeclrNodes = new ArrayList<>();
                     ParseTree classBodyDeclrsPT = child.getChild(1, Symbol.ClassBodyDeclrs);
                     RecursionResolve.resolveNodes(
                             classBodyDeclrsPT,
@@ -52,7 +50,6 @@ public class ClassDeclrNode extends TypeDeclrNode {
                     );
                     break;
                 case Super:
-                    parentClassIdentifier = new ArrayList<>();
                     RecursionResolve.resolveName
                             (child.getChild(1, Symbol.ClassType)
                                   .getChild(0, Symbol.ClassOrInterfaceType)
@@ -60,7 +57,6 @@ public class ClassDeclrNode extends TypeDeclrNode {
                             ,parentClassIdentifier);
                     break;
                 case Interfaces:
-                    interfaceTypes = new ArrayList<>();
                     RecursionResolve.resolveNodes(
                             child.getChild(1, Symbol.InterfaceTypeList),
                             interfaceTypes,
