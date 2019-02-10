@@ -1,8 +1,8 @@
 package Joosc.AST.ASTStructures;
 
-import Joosc.AST.ASTStructures.TypeDeclrNode;
 import Joosc.AST.Constants.RecursionResolve;
 import Joosc.AST.Constants.Symbol;
+import Joosc.Exceptions.ASTException;
 import Joosc.Exceptions.InvalidParseTreeStructureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
@@ -14,16 +14,16 @@ public class ClassDeclrNode extends TypeDeclrNode {
     private String classIdentifier;
     private ArrayList<String> parentClassIdentifier;
     private ArrayList<ArrayList<String>> interfaceTypes;
-    private ClassBodyNode classBody;
+    private ArrayList<ClassBodyDeclrNode> classBodyDeclrNodes;
 
 
-    public ClassDeclrNode(ParseTree parseTree) throws InvalidParseTreeStructureException {
+    ClassDeclrNode(ParseTree parseTree) throws ASTException {
 
         this.parseTree = parseTree;
         classModifiers = null;
         parentClassIdentifier = null;
         interfaceTypes = null;
-        classBody = null;
+        classBodyDeclrNodes = null;
 
         for(ParseTree child : parseTree.getChildren()) {
             switch (child.getKind()) {
@@ -41,7 +41,15 @@ public class ClassDeclrNode extends TypeDeclrNode {
                     classIdentifier = child.getLexeme();
                     break;
                 case ClassBody:
-                    classBody = new ClassBodyNode(child);
+                    classBodyDeclrNodes = new ArrayList<>();
+                    ParseTree classBodyDeclrsPT = child.getChild(1, Symbol.ClassBodyDeclrs);
+                    RecursionResolve.resolveNodes(
+                            classBodyDeclrsPT,
+                            classBodyDeclrNodes,
+                            Symbol.ClassBodyDeclrs,
+                            Symbol.ClassBodyDeclr,
+                            ClassBodyDeclrNode::resolveClassBodyDeclrNode
+                    );
                     break;
                 case Super:
                     parentClassIdentifier = new ArrayList<>();
@@ -89,23 +97,27 @@ public class ClassDeclrNode extends TypeDeclrNode {
         String prefix = new String(new char[level+1]).replace("\0", TREELEVEL);
         if (classModifiers != null && classModifiers.size() > 0) {
             System.out.println(prefix + TREEITEM + "Modifiers:");
-            System.out.println(prefix + TREESPACE + TREESPACE + classModifiers);
+            System.out.println(prefix + TREELEVEL + TREESPACE + classModifiers);
         }
         if (classIdentifier != null) {
             System.out.println(prefix + TREEITEM + "Class Identifier:");
-            System.out.println(prefix + TREESPACE + TREESPACE + classIdentifier);
+            System.out.println(prefix + TREELEVEL + TREESPACE + classIdentifier);
         }
         if (parentClassIdentifier != null && parentClassIdentifier.size() > 0) {
             System.out.println(prefix + TREEITEM + "Parent Class Identifier:");
-            System.out.println(prefix + TREESPACE + TREESPACE + parentClassIdentifier);
+            System.out.println(prefix + TREELEVEL + TREESPACE + parentClassIdentifier);
         }
         if (interfaceTypes != null && interfaceTypes.size() > 0) {
             System.out.println(prefix + TREEITEM + "Interface Types:");
             for(ArrayList<String> interfaceName : interfaceTypes) {
-                System.out.println(prefix + TREESPACE + TREESPACE + interfaceName);
+                System.out.println(prefix + TREELEVEL + TREESPACE + interfaceName);
             }
-
         }
-        classBody.printInfo(level + 1);
+        if (classBodyDeclrNodes != null && classBodyDeclrNodes.size() > 0) {
+            System.out.println(prefix + TREEITEM + "Class Body Declr Nodes:");
+            for(ClassBodyDeclrNode node : classBodyDeclrNodes) {
+                node.printInfo(level + 2);
+            }
+        }
     }
 }

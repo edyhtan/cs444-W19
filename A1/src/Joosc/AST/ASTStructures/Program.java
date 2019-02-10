@@ -2,6 +2,7 @@ package Joosc.AST.ASTStructures;
 
 import Joosc.AST.Constants.RecursionResolve;
 import Joosc.AST.Constants.Symbol;
+import Joosc.Exceptions.ASTException;
 import Joosc.Exceptions.InvalidParseTreeStructureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
@@ -19,7 +20,7 @@ public class Program extends ASTNode {
 
     private TypeDeclrNode typeDeclr;
 
-    public Program(ParseTree parseTree) throws InvalidParseTreeStructureException {
+    public Program(ParseTree parseTree) throws ASTException {
         this.parseTree = parseTree;
         packageDeclr = null;
         singleTypeImport = new ArrayList<>();
@@ -83,18 +84,18 @@ public class Program extends ASTNode {
         String prefix = new String(new char[level+1]).replace("\0", TREELEVEL);
         if (packageDeclr != null) {
             System.out.println(prefix + TREEITEM + "Package:");
-            System.out.println(prefix + TREESPACE + TREESPACE + packageDeclr);
+            System.out.println(prefix + TREELEVEL + TREESPACE + packageDeclr);
         }
         if (singleTypeImport != null && singleTypeImport.size() > 0) {
             System.out.println(prefix + TREEITEM + "Single type Imports:");
             for (ArrayList<String> p : singleTypeImport) {
-                System.out.println(prefix + TREESPACE + TREESPACE + p);
+                System.out.println(prefix + TREELEVEL + TREESPACE + p);
             }
         }
         if (onDemandTypeImport != null && onDemandTypeImport.size() > 0) {
             System.out.println(prefix + TREEITEM + "On Demand Type Imports:");
             for (ArrayList<String> p: onDemandTypeImport) {
-                System.out.println(prefix + TREESPACE + TREESPACE + p);
+                System.out.println(prefix + TREELEVEL + TREESPACE + p);
             }
         }
         typeDeclr.printInfo(level + 1);

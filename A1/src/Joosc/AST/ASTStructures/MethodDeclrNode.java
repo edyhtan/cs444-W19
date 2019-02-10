@@ -2,9 +2,9 @@ package Joosc.AST.ASTStructures;
 
 import Joosc.Parser.LRGrammar.ParseTree;
 
-public class ClassBodyNode extends ASTNode {
+public class MethodDeclrNode extends ClassMemberDeclrNode {
 
-    public ClassBodyNode(ParseTree parseTree) {
+    public MethodDeclrNode(ParseTree parseTree) {
         this.parseTree = parseTree;
     }
 
@@ -18,7 +18,8 @@ public class ClassBodyNode extends ASTNode {
         for (int i = 0; i < level; i += 1) {
             System.out.print(TREELEVEL);
         }
-        System.out.println(TREEITEM + "Class Body Node:");
+        System.out.println(TREEITEM + "Method Declr Node:");
         String prefix = new String(new char[level+1]).replace("\0", TREELEVEL);
+
     }
 }

@@ -2,13 +2,14 @@ package Joosc.AST;
 
 import Joosc.AST.ASTStructures.Program;
 import Joosc.AST.Constants.Symbol;
+import Joosc.Exceptions.ASTException;
 import Joosc.Exceptions.InvalidParseTreeStructureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
 public class JoosAST {
     private Program root;
 
-    public JoosAST(ParseTree parseTree) throws InvalidParseTreeStructureException {
+    public JoosAST(ParseTree parseTree) throws ASTException {
         if (parseTree.getKind() != Symbol.S) {
             throw new InvalidParseTreeStructureException(parseTree, "Expecting S, got " + parseTree.getKind() + ".");
         }

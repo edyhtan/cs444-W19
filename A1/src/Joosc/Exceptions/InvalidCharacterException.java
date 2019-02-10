@@ -1,6 +1,6 @@
 package Joosc.Exceptions;
 
-public class InvalidCharacterException extends Exception {
+public class InvalidCharacterException extends JoosException {
     private final char invalidChar;
 
     public InvalidCharacterException(char invalidChar) {

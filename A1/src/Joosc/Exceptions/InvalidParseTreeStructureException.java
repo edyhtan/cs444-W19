@@ -2,7 +2,7 @@ package Joosc.Exceptions;
 
 import Joosc.Parser.LRGrammar.ParseTree;
 
-public class InvalidParseTreeStructureException extends Exception {
+public class InvalidParseTreeStructureException extends ASTException {
     private ParseTree faultyParseTree;
     private String errMsg;
     private boolean urusaiSwitch = true;    // This switch prints the whole parse tree

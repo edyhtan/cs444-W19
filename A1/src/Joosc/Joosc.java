@@ -1,12 +1,8 @@
 package Joosc;
 
 import Joosc.AST.JoosAST;
-import Joosc.Exceptions.InvalidCharacterException;
-import Joosc.Exceptions.InvalidParseTreeStructureException;
-import Joosc.Exceptions.InvalidParseTreeException;
+import Joosc.Exceptions.*;
 
-import Joosc.Exceptions.InvalidSyntaxException;
-import Joosc.Exceptions.InvalidTokenException;
 import Joosc.Parser.JoosParse;
 import Joosc.Parser.LRGrammar.ParseTree;
 import Joosc.Scanner.JoosScan;
@@ -67,6 +63,11 @@ public class Joosc {
         } catch (InvalidParseTreeException e) {
            System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
            System.exit(42);
+        } catch (JoosException e) {
+            e.printStackTrace();
+            System.err.println("Something wrong with Joosc...");
+            System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
+            System.exit(42);
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(2);

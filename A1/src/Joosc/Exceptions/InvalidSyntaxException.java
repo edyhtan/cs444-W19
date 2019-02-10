@@ -3,7 +3,7 @@ package Joosc.Exceptions;
 import Joosc.Parser.LRGrammar.ParseTree;
 import java.util.List;
 
-public class InvalidSyntaxException extends Exception {
+public class InvalidSyntaxException extends JoosException {
     private int location;
     private List<ParseTree> trees;
     private int state;

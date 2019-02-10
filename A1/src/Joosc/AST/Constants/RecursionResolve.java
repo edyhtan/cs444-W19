@@ -1,10 +1,10 @@
 package Joosc.AST.Constants;
 
+import Joosc.Exceptions.ASTException;
 import Joosc.Exceptions.InvalidParseTreeStructureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
 import java.util.ArrayList;
-import java.util.function.Function;
 
 public class RecursionResolve {
 
@@ -25,7 +25,7 @@ public class RecursionResolve {
 
     @FunctionalInterface
     public interface ASTExceptionCheckedFunction<T, R> {
-        R apply(T t) throws InvalidParseTreeStructureException;
+        R apply(T t) throws ASTException;
     }
     /**
      * A -> AB , where B is content: B->do_some_shit
@@ -33,7 +33,7 @@ public class RecursionResolve {
     public static <T> void resolveNodes
             (ParseTree tree, ArrayList<T> list, Symbol recurrentSymbol,
              Symbol contentSymbol, ASTExceptionCheckedFunction<ParseTree, T> contentLambda)
-            throws InvalidParseTreeStructureException
+            throws ASTException
     {
         for(ParseTree child : tree.getChildren()) {
             if (child.getKind().equals(recurrentSymbol)) {

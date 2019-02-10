@@ -4,7 +4,7 @@ import Joosc.Token.Token;
 
 import java.util.ArrayList;
 
-public class InvalidTokenException extends Exception{
+public class InvalidTokenException extends JoosException{
     private final String lexeme;
     private ArrayList<Token> tokens;
     private char curChar;
