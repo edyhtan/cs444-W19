@@ -2,9 +2,9 @@ package Joosc.AST.ASTStructures;
 
 import Joosc.Parser.LRGrammar.ParseTree;
 
-public class IntTypeNode extends TypeNode {
+public class PrimitiveTypeNode extends TypeNode {
 
-    public IntTypeNode(ParseTree parseTree) {
+    public PrimitiveTypeNode(ParseTree parseTree) {
         this.parseTree = parseTree;
     }
 
@@ -18,7 +18,7 @@ public class IntTypeNode extends TypeNode {
         for (int i = 0; i < level; i += 1) {
             System.out.print(TREELEVEL);
         }
-        System.out.println(TREEITEM + "Int Type Node:");
+        System.out.println(TREEITEM + "Primitive Type Node:");
         String prefix = new String(new char[level+1]).replace("\0", TREELEVEL);
     }
 }

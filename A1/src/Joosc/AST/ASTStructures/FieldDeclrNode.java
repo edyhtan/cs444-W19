@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import static Joosc.AST.Constants.Symbol.*;
 
 public class FieldDeclrNode extends ClassMemberDeclrNode {
-
     private ArrayList<Symbol> fieldModifiers;
     private TypeNode fieldTypeNode;
     private String fieldIdentifier;
@@ -21,6 +20,7 @@ public class FieldDeclrNode extends ClassMemberDeclrNode {
 
         this.parseTree = parseTree;
         fieldModifiers = new ArrayList<>();
+        fieldInitExpression = null;
 
         for (ParseTree child : parseTree.getChildren()) {
             switch (child.getKind()) {

@@ -5,7 +5,7 @@ import Joosc.Parser.LRGrammar.ParseTree;
 abstract class TypeNode extends ASTNode {
 
     protected static TypeNode resolveTypeNode(ParseTree parseTree) {
-        return new IntTypeNode(parseTree);
+        return new PrimitiveTypeNode(parseTree);
     }
 
     @Override
