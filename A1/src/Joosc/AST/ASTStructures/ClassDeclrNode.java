@@ -1,18 +1,111 @@
 package Joosc.AST.ASTStructures;
 
 import Joosc.AST.ASTStructures.TypeDeclrNode;
+import Joosc.AST.Constants.RecursionResolve;
+import Joosc.AST.Constants.Symbol;
 import Joosc.Exceptions.InvalidParseTreeStructureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
+import java.util.ArrayList;
+
 public class ClassDeclrNode extends TypeDeclrNode {
+
+    private ArrayList<Symbol> classModifiers;
+    private String classIdentifier;
+    private ArrayList<String> parentClassIdentifier;
+    private ArrayList<ArrayList<String>> interfaceTypes;
+    private ClassBodyNode classBody;
+
 
     public ClassDeclrNode(ParseTree parseTree) throws InvalidParseTreeStructureException {
 
+        this.parseTree = parseTree;
+        classModifiers = null;
+        parentClassIdentifier = null;
+        interfaceTypes = null;
+        classBody = null;
+
+        for(ParseTree child : parseTree.getChildren()) {
+            switch (child.getKind()) {
+                case Modifiers:
+                    classModifiers = new ArrayList<>();
+                    RecursionResolve.resolveNodes(
+                            child,
+                            classModifiers,
+                            Symbol.Modifiers,
+                            Symbol.Modifier,
+                            node -> node.getChild(0).getKind()
+                    );
+                    break;
+                case ID:
+                    classIdentifier = child.getLexeme();
+                    break;
+                case ClassBody:
+                    classBody = new ClassBodyNode(child);
+                    break;
+                case Super:
+                    parentClassIdentifier = new ArrayList<>();
+                    RecursionResolve.resolveName
+                            (child.getChild(1, Symbol.ClassType)
+                                  .getChild(0, Symbol.ClassOrInterfaceType)
+                                  .getChild(0, Symbol.Name)
+                            ,parentClassIdentifier);
+                    break;
+                case Interfaces:
+                    interfaceTypes = new ArrayList<>();
+                    RecursionResolve.resolveNodes(
+                            child.getChild(1, Symbol.InterfaceTypeList),
+                            interfaceTypes,
+                            Symbol.InterfaceTypeList,
+                            Symbol.InterfaceType,
+                            node -> {
+                                ArrayList<String> interfaceName = new ArrayList<>();
+                                RecursionResolve.resolveName(
+                                        node.getChild(0, Symbol.ClassOrInterfaceType)
+                                            .getChild(0, Symbol.Name),
+                                        interfaceName);
+                                return interfaceName;
+                            }
+                    );
+                    break;
+                case Class:
+                    break;
+                default:
+                    throw new InvalidParseTreeStructureException(parseTree, "Illegal tree node \"" +
+                            child.getKind() + "\" found for a ClassDeclrNode");
+            }
+        }
     }
 
     @Override
     public void weed(){ }
 
     @Override
-    public void printInfo(int indent) {}
+    public void printInfo(int level) {
+        for (int i = 0; i < level; i += 1) {
+            System.out.print(TREELEVEL);
+        }
+        System.out.println(TREEITEM + "Class Declr Node:");
+        String prefix = new String(new char[level+1]).replace("\0", TREELEVEL);
+        if (classModifiers != null && classModifiers.size() > 0) {
+            System.out.println(prefix + TREEITEM + "Modifiers:");
+            System.out.println(prefix + TREESPACE + TREESPACE + classModifiers);
+        }
+        if (classIdentifier != null) {
+            System.out.println(prefix + TREEITEM + "Class Identifier:");
+            System.out.println(prefix + TREESPACE + TREESPACE + classIdentifier);
+        }
+        if (parentClassIdentifier != null && parentClassIdentifier.size() > 0) {
+            System.out.println(prefix + TREEITEM + "Parent Class Identifier:");
+            System.out.println(prefix + TREESPACE + TREESPACE + parentClassIdentifier);
+        }
+        if (interfaceTypes != null && interfaceTypes.size() > 0) {
+            System.out.println(prefix + TREEITEM + "Interface Types:");
+            for(ArrayList<String> interfaceName : interfaceTypes) {
+                System.out.println(prefix + TREESPACE + TREESPACE + interfaceName);
+            }
+
+        }
+        classBody.printInfo(level + 1);
+    }
 }

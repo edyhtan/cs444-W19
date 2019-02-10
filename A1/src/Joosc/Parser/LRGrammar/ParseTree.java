@@ -60,7 +60,7 @@ public class ParseTree {
     }
     private void checkParseTreeChildKind(ParseTree parseTree, Symbol kind) throws InvalidParseTreeStructureException {
         if (!parseTree.getKind().equals(kind)) {
-            String errMsg = "Child should be of kind:" + kind + ", got kind:" + parseTree.getKind() + "in parse tree.";
+            String errMsg = "Child should be of kind:" + kind + ", got kind:" + parseTree.getKind() + " in parse tree.";
             throw new InvalidParseTreeStructureException(parseTree, errMsg);
         }
     }
