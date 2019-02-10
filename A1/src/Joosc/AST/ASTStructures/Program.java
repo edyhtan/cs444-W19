@@ -1,10 +1,13 @@
 package Joosc.AST.ASTStructures;
 
 import Joosc.AST.Constants.RecursionResolve;
+import Joosc.AST.Constants.Symbol;
 import Joosc.Exceptions.InvalidParseTreeStructureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * The base of any Joos program
@@ -28,11 +31,11 @@ public class Program extends ASTNode {
                 case PackageDeclr:
                     buildPackage(child);
                     break;
-                case ImportDeclr:
+                case ImportDeclrs:
                     buildImports(child);
                     break;
                 case TypeDeclr:
-                    //typeDeclr = TypeDeclrNode.resolveTypeDeclrNode(child);
+                    typeDeclr = TypeDeclrNode.resolveTypeDeclrNode(child);
             }
         }
     }
@@ -42,13 +45,15 @@ public class Program extends ASTNode {
         RecursionResolve.resolveName(tree.getChildren().get(1), packageDeclr);
     }
 
-    private void buildImports(ParseTree tree) {
-        switch (tree.getChildren().get(0).getKind()) {
+    private void buildImports (ParseTree tree) throws InvalidParseTreeStructureException {
+        ParseTree firstChild = tree.getChild(0);
+        switch (firstChild.getKind()) {
             case ImportDeclr:
-                resolveImportsRecursion(tree.getChildren().get(0));
+                resolveImportsRecursion(firstChild);
+                break;
             case ImportDeclrs:
-                buildImports(tree.getChildren().get(0));
-                resolveImportsRecursion(tree.getChildren().get(1));
+                buildImports(firstChild);
+                resolveImportsRecursion(tree.getChild(1, Symbol.ImportDeclr));
         }
     }
 
@@ -70,7 +75,28 @@ public class Program extends ASTNode {
     public void weed() { }
 
     @Override
-    public void printInfo() {
-        System.err.println("Import Info");
+    public void printInfo(int level) {
+        for (int i = 0; i < level; i += 1) {
+            System.out.print(TREELEVEL);
+        }
+        System.out.println(TREEITEM + "Program:");
+        String prefix = new String(new char[level+1]).replace("\0", TREELEVEL);
+        if (packageDeclr != null) {
+            System.out.println(prefix + TREEITEM + "Package:");
+            System.out.println(prefix + TREESPACE + TREESPACE + packageDeclr);
+        }
+        if (singleTypeImport != null && singleTypeImport.size() > 0) {
+            System.out.println(prefix + TREEITEM + "Single type Imports:");
+            for (ArrayList<String> p : singleTypeImport) {
+                System.out.println(prefix + TREESPACE + TREESPACE + p);
+            }
+        }
+        if (onDemandTypeImport != null && onDemandTypeImport.size() > 0) {
+            System.out.println(prefix + TREEITEM + "On Demand Type Imports:");
+            for (ArrayList<String> p: onDemandTypeImport) {
+                System.out.println(prefix + TREESPACE + TREESPACE + p);
+            }
+        }
+        typeDeclr.printInfo(level + 1);
     }
 }

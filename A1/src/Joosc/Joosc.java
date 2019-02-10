@@ -41,7 +41,10 @@ public class Joosc {
             ParseTree tree = parse.getTree();
 
             // AST and weeding
+            tree.print();
             JoosAST ast = new JoosAST(tree);
+            System.out.println("\n============   AST   ============\n");
+            ast.printASTInfo();
 
         } catch (FileNotFoundException e) {
             System.err.printf("ERROR: file not found: %s\n", e.getLocalizedMessage());
@@ -58,6 +61,7 @@ public class Joosc {
             e.printParseTree();
             System.exit(42);
         } catch (InvalidParseTreeStructureException e) {
+            e.printStackTrace();
             System.err.printf("ERROR: %s", e.getLocalizedMessage());
             System.exit(42);
         } catch (InvalidParseTreeException e) {

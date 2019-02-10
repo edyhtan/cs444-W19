@@ -20,6 +20,6 @@ public class JoosAST {
     }
 
     public void printASTInfo() {
-        root.printInfo();
+        root.printInfo(0);
     }
 }

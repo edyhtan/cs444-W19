@@ -8,5 +8,5 @@ public class InterfaceDeclrNode extends TypeDeclrNode {
     public void weed(){ }
 
     @Override
-    public void printInfo() {}
+    public void printInfo(int level) {}
 }
