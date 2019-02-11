@@ -35,6 +35,7 @@ public class JoosAST {
         if(!className.equals(filename)) {
             throw new WrongFileNameException("Class name does not match file name, found file name " + filename + ", class name " + className);
         }
+
         if(!suffix.equals("java")) {
             throw new WrongFileNameException("Incorrect input file suffix " + suffix);
         }
