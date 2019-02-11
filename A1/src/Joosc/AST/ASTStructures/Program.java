@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 /**
  * The base of any Joos program
- * */
+ **/
 public class Program extends ASTNode {
     private ArrayList<String> packageDeclr;
     private ArrayList<ArrayList<String>> singleTypeImport;
@@ -69,6 +69,10 @@ public class Program extends ASTNode {
                 onDemandTypeImport.add(newImport);
                 break;
         }
+    }
+
+    public String getClassName() {
+        return typeDeclr.getName();
     }
 
     @Override

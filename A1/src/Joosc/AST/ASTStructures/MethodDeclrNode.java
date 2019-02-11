@@ -78,8 +78,10 @@ public class MethodDeclrNode extends ClassMemberDeclrNode {
     @Override
     public void weed() throws WeedingFailureException {
         checkModifiers();
-        for (StatementNode node: bodyBlock) {
-            node.weed();
+        if (bodyBlock != null) {
+            for (StatementNode node : bodyBlock) {
+                node.weed();
+            }
         }
     }
 

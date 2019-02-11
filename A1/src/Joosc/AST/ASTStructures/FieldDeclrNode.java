@@ -18,7 +18,6 @@ public class FieldDeclrNode extends ClassMemberDeclrNode {
     private ExpressionNode fieldInitExpression;
 
     public FieldDeclrNode(ParseTree parseTree) throws ASTException {
-
         this.parseTree = parseTree;
         fieldModifiers = new ArrayList<>();
         fieldInitExpression = null;
@@ -73,7 +72,9 @@ public class FieldDeclrNode extends ClassMemberDeclrNode {
     public void weed() throws WeedingFailureException {
         checkModifiers();
         fieldTypeNode.weed();
-        fieldInitExpression.weed();
+        if (fieldInitExpression != null) {
+            fieldInitExpression.weed();
+        }
     }
 
     @Override

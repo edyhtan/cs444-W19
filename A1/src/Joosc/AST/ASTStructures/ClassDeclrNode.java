@@ -15,6 +15,7 @@ public class ClassDeclrNode extends TypeDeclrNode {
     private String classIdentifier;
     private ArrayList<String> parentClassIdentifier;
     private ArrayList<ArrayList<String>> interfaceTypes;
+    private ConstructorDeclrNode constructorDeclrNode;
     private ArrayList<ClassBodyDeclrNode> classBodyDeclrNodes;
 
     ClassDeclrNode(ParseTree parseTree) throws ASTException {
