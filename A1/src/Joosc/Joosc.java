@@ -27,6 +27,7 @@ public class Joosc {
             }
 
             JoosScan scan = new JoosScan(new File(argList.get(0)));
+            String file = argList.get(0).split("/")[1];
             scan.scan();
             ArrayList<Token> tokens = scan.getOutput();
 
@@ -39,6 +40,7 @@ public class Joosc {
             // AST and weeding
             tree.print();
             JoosAST ast = new JoosAST(tree);
+            ast.checkFileName(file);
             System.out.println("\n============   AST   ============\n");
             ast.printASTInfo();
 
@@ -63,6 +65,9 @@ public class Joosc {
         } catch (InvalidParseTreeException e) {
            System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
            System.exit(42);
+        } catch (WrongFileNameException e) {
+            System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
+            System.exit(42);
         } catch (JoosException e) {
             e.printStackTrace();
             System.err.println("Something wrong with your shit...");
