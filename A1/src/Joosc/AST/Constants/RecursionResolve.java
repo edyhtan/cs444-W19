@@ -27,14 +27,15 @@ public class RecursionResolve {
     public interface ASTExceptionCheckedFunction<T, R> {
         R apply(T t) throws ASTException;
     }
+
     /**
      * A -> AB , where B is content: B->do_some_shit
-     * */
+     */
     public static <T> void resolveNodes
-            (ParseTree tree, ArrayList<T> list, Symbol recurrentSymbol,
-             Symbol contentSymbol, ASTExceptionCheckedFunction<ParseTree, T> contentLambda)
+    (ParseTree tree, ArrayList<T> list, Symbol recurrentSymbol,
+     Symbol contentSymbol, ASTExceptionCheckedFunction<ParseTree, T> contentLambda)
             throws ASTException {
-        for(ParseTree child : tree.getChildren()) {
+        for (ParseTree child : tree.getChildren()) {
             if (child.getKind().equals(recurrentSymbol)) {
                 resolveNodes(child, list, recurrentSymbol, contentSymbol, contentLambda);
             } else if (child.getKind().equals(contentSymbol)) {
@@ -66,4 +67,5 @@ public class RecursionResolve {
             return null;
         }
     }
+
 }

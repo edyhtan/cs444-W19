@@ -15,7 +15,11 @@ abstract class ExpressionNode extends ASTNode {
     //Ghetto Constructor
     protected static ExpressionNode resolveExpressionNode(ParseTree parseTree) throws ASTException {
         ParseTree contentNode = ExpressionNode.findContentNode(parseTree);
-        
+        if (contentNode.getKind().equals(Symbol.Primary)) {
+            return new Primary(contentNode);
+        } else if (contentNode.getChildren().size() > 1) {
+            
+        }
         return new AssignmentExpressionNode(parseTree);
     }
 

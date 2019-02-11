@@ -26,7 +26,7 @@ public class ClassDeclrNode extends TypeDeclrNode {
         interfaceTypes = new ArrayList<>();
         classBodyDeclrNodes = new ArrayList<>();
 
-        for(ParseTree child : parseTree.getChildren()) {
+        for (ParseTree child : parseTree.getChildren()) {
             switch (child.getKind()) {
                 case Modifiers:
                     RecursionResolve.resolveNodes(
@@ -53,9 +53,9 @@ public class ClassDeclrNode extends TypeDeclrNode {
                 case Super:
                     RecursionResolve.resolveName
                             (child.getChild(1, Symbol.ClassType)
-                                  .getChild(0, Symbol.ClassOrInterfaceType)
-                                  .getChild(0, Symbol.Name)
-                            ,parentClassIdentifier);
+                                            .getChild(0, Symbol.ClassOrInterfaceType)
+                                            .getChild(0, Symbol.Name)
+                                    , parentClassIdentifier);
                     break;
                 case Interfaces:
                     RecursionResolve.resolveNodes(
@@ -67,7 +67,7 @@ public class ClassDeclrNode extends TypeDeclrNode {
                                 ArrayList<String> interfaceName = new ArrayList<>();
                                 RecursionResolve.resolveName(
                                         node.getChild(0, Symbol.ClassOrInterfaceType)
-                                            .getChild(0, Symbol.Name),
+                                                .getChild(0, Symbol.Name),
                                         interfaceName);
                                 return interfaceName;
                             }
@@ -82,7 +82,7 @@ public class ClassDeclrNode extends TypeDeclrNode {
         }
     }
 
-    public void checkModifiers() throws WeedingFailureException{
+    public void checkModifiers() throws WeedingFailureException {
         RecursionResolve.assertThrow(classModifiers.contains(Symbol.Public) | classModifiers.contains(Symbol.Protected));
         if (classModifiers.contains(Symbol.Abstract)) {
             RecursionResolve.assertThrow(!classModifiers.contains(Symbol.Final));
@@ -92,7 +92,7 @@ public class ClassDeclrNode extends TypeDeclrNode {
     @Override
     public void weed() throws WeedingFailureException {
         checkModifiers();
-        for (ClassBodyDeclrNode node: classBodyDeclrNodes) {
+        for (ClassBodyDeclrNode node : classBodyDeclrNodes) {
             node.weed();
         }
     }
@@ -103,7 +103,7 @@ public class ClassDeclrNode extends TypeDeclrNode {
             System.out.print(TREELEVEL);
         }
         System.out.println(TREEITEM + "Class Declr Node:");
-        String prefix = new String(new char[level+1]).replace("\0", TREELEVEL);
+        String prefix = new String(new char[level + 1]).replace("\0", TREELEVEL);
         if (classModifiers != null && classModifiers.size() > 0) {
             System.out.println(prefix + TREEITEM + "Modifiers:");
             System.out.println(prefix + TREELEVEL + TREESPACE + classModifiers);
@@ -118,13 +118,13 @@ public class ClassDeclrNode extends TypeDeclrNode {
         }
         if (interfaceTypes != null && interfaceTypes.size() > 0) {
             System.out.println(prefix + TREEITEM + "Interface Types:");
-            for(ArrayList<String> interfaceName : interfaceTypes) {
+            for (ArrayList<String> interfaceName : interfaceTypes) {
                 System.out.println(prefix + TREELEVEL + TREESPACE + interfaceName);
             }
         }
         if (classBodyDeclrNodes != null && classBodyDeclrNodes.size() > 0) {
             System.out.println(prefix + TREEITEM + "Class Body Declr Nodes:");
-            for(ClassBodyDeclrNode node : classBodyDeclrNodes) {
+            for (ClassBodyDeclrNode node : classBodyDeclrNodes) {
                 node.printInfo(level + 2);
             }
         }
