@@ -1,6 +1,7 @@
 package Joosc.AST.Constants;
 
 import Joosc.Exceptions.ASTException;
+import Joosc.Exceptions.WeedingFailureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
 import java.util.ArrayList;
@@ -32,8 +33,7 @@ public class RecursionResolve {
     public static <T> void resolveNodes
             (ParseTree tree, ArrayList<T> list, Symbol recurrentSymbol,
              Symbol contentSymbol, ASTExceptionCheckedFunction<ParseTree, T> contentLambda)
-            throws ASTException
-    {
+            throws ASTException {
         for(ParseTree child : tree.getChildren()) {
             if (child.getKind().equals(recurrentSymbol)) {
                 resolveNodes(child, list, recurrentSymbol, contentSymbol, contentLambda);
@@ -47,15 +47,11 @@ public class RecursionResolve {
     public interface ASTExceptionCheckedConsumer<T> {
         void accept(T t) throws ASTException;
     }
-    public static ParseTree resolveUntilChildIs
-            (ParseTree tree, Symbol recurrentSymbol, Symbol targetSymbol) throws ASTException {
-        ParseTree child = tree.getChild(0);
-        if (child.getKind().equals(recurrentSymbol)) {
-            return resolveUntilChildIs(child, recurrentSymbol, targetSymbol);
-        } else if (child.getKind().equals(targetSymbol)) {
-            return child;
-        } else {
-            return null;
+
+    // throw Exception when condition is false
+    public static void assertThrow(boolean condition) throws WeedingFailureException {
+        if (!condition) {
+            throw new WeedingFailureException();
         }
     }
 }

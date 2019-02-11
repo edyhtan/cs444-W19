@@ -4,6 +4,7 @@ import Joosc.AST.ASTStructures.Program;
 import Joosc.AST.Constants.Symbol;
 import Joosc.Exceptions.ASTException;
 import Joosc.Exceptions.InvalidParseTreeStructureException;
+import Joosc.Exceptions.WeedingFailureException;
 import Joosc.Exceptions.WrongFileNameException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
@@ -15,6 +16,10 @@ public class JoosAST {
             throw new InvalidParseTreeStructureException(parseTree, "Expecting S, got " + parseTree.getKind() + ".");
         }
         root = new Program(parseTree);
+    }
+
+    public void weed() throws WeedingFailureException {
+        root.weed();
     }
 
     public Program getRoot(String file) throws WrongFileNameException{
@@ -30,7 +35,7 @@ public class JoosAST {
         if(!className.equals(filename)) {
             throw new WrongFileNameException("Class name does not match file name, found file name " + filename + ", class name " + className);
         }
-        if(!suffix.equals(".java")) {
+        if(!suffix.equals("java")) {
             throw new WrongFileNameException("Incorrect input file suffix " + suffix);
         }
     }

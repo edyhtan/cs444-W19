@@ -4,6 +4,7 @@ import Joosc.AST.Constants.RecursionResolve;
 import Joosc.AST.Constants.Symbol;
 import Joosc.Exceptions.ASTException;
 import Joosc.Exceptions.InvalidParseTreeStructureException;
+import Joosc.Exceptions.WeedingFailureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class ClassDeclrNode extends TypeDeclrNode {
     private String classIdentifier;
     private ArrayList<String> parentClassIdentifier;
     private ArrayList<ArrayList<String>> interfaceTypes;
+    private ConstructorDeclrNode constructorDeclrNode;
     private ArrayList<ClassBodyDeclrNode> classBodyDeclrNodes;
 
     ClassDeclrNode(ParseTree parseTree) throws ASTException {
@@ -80,8 +82,20 @@ public class ClassDeclrNode extends TypeDeclrNode {
         }
     }
 
+    public void checkModifiers() throws WeedingFailureException{
+        RecursionResolve.assertThrow(classModifiers.contains(Symbol.Public) | classModifiers.contains(Symbol.Protected));
+        if (classModifiers.contains(Symbol.Abstract)) {
+            RecursionResolve.assertThrow(!classModifiers.contains(Symbol.Final));
+        }
+    }
+
     @Override
-    public void weed(){ }
+    public void weed() throws WeedingFailureException {
+        checkModifiers();
+        for (ClassBodyDeclrNode node: classBodyDeclrNodes) {
+            node.weed();
+        }
+    }
 
     @Override
     public void printInfo(int level) {

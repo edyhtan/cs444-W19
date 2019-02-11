@@ -1,6 +1,9 @@
 package Joosc.AST.ASTStructures;
 
+import Joosc.AST.Constants.RecursionResolve;
+import Joosc.AST.Constants.Symbol;
 import Joosc.Exceptions.ASTException;
+import Joosc.Exceptions.WeedingFailureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
 import java.util.ArrayList;
@@ -12,7 +15,7 @@ abstract class ASTNode {
     protected static final String TREELEVEL = "|  ";
     protected static final String TREESPACE = "   ";
 
-    abstract void weed();
+    abstract void weed() throws WeedingFailureException;
     abstract void printInfo(int level);
 
     private String prefix;

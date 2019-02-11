@@ -4,6 +4,7 @@ import Joosc.AST.Constants.RecursionResolve;
 import Joosc.AST.Constants.Symbol;
 import Joosc.Exceptions.ASTException;
 import Joosc.Exceptions.InvalidParseTreeStructureException;
+import Joosc.Exceptions.WeedingFailureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
 import java.util.ArrayList;
@@ -75,7 +76,8 @@ public class Program extends ASTNode {
     }
 
     @Override
-    public void weed() {
+    public void weed() throws WeedingFailureException {
+        typeDeclr.weed();
     }
 
     @Override

@@ -3,6 +3,7 @@ package Joosc.AST.ASTStructures;
 import Joosc.AST.Constants.RecursionResolve;
 import Joosc.AST.Constants.Symbol;
 import Joosc.Exceptions.ASTException;
+import Joosc.Exceptions.WeedingFailureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 import javafx.util.Pair;
 
@@ -47,9 +48,15 @@ public class AbstractMethodDeclr extends ASTNode {
         }
     }
 
-    @Override
-    public void weed() {
+    private void checkModifiers() throws WeedingFailureException {
+        RecursionResolve.assertThrow(!modifiers.contains(Symbol.Static));
+        RecursionResolve.assertThrow(!modifiers.contains(Symbol.Final));
+    }
 
+
+    @Override
+    public void weed() throws WeedingFailureException {
+        checkModifiers();
     }
 
     @Override
