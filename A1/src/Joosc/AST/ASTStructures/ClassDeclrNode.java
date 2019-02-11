@@ -16,7 +16,6 @@ public class ClassDeclrNode extends TypeDeclrNode {
     private ArrayList<ArrayList<String>> interfaceTypes;
     private ArrayList<ClassBodyDeclrNode> classBodyDeclrNodes;
 
-
     ClassDeclrNode(ParseTree parseTree) throws ASTException {
 
         this.parseTree = parseTree;
@@ -115,5 +114,10 @@ public class ClassDeclrNode extends TypeDeclrNode {
                 node.printInfo(level + 2);
             }
         }
+    }
+
+    @Override
+    public String getName() {
+        return classIdentifier;
     }
 }

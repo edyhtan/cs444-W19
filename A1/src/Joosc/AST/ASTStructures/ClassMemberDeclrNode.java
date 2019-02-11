@@ -21,7 +21,6 @@ abstract class ClassMemberDeclrNode extends ClassBodyDeclrNode {
                                 + Symbol.FieldDeclr + " or " + Symbol.MethodDeclr+ ".");
         }
     }
-
     @Override
     abstract void weed();
     @Override

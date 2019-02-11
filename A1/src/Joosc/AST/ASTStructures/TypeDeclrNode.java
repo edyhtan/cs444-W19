@@ -12,11 +12,13 @@ abstract class TypeDeclrNode extends ASTNode {
         if (actualNode.getKind().equals(Symbol.ClassDeclr)) {
             return new ClassDeclrNode(actualNode);
         } else if (actualNode.getKind().equals(Symbol.InterfaceDeclr)) {
-            return new InterfaceDeclrNode();
+            return new InterfaceDeclrNode(actualNode);
         } else {
             throw new InvalidParseTreeStructureException(
                     parseTree, "ClassDeclr or InterfaceDeclr", actualNode.getKind().getSymbolString());
         }
     }
+
+    public abstract String getName();
 
 }

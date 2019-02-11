@@ -15,7 +15,6 @@ public class MethodDeclrNode extends ClassMemberDeclrNode {
     ArrayList<Pair<TypeNode, String>> formalParamList;
     ArrayList<StatementNode> bodyBlock;
 
-
     public MethodDeclrNode(ParseTree parseTree) throws ASTException {
         this.parseTree = parseTree;
         modifiers = new ArrayList<>();
@@ -56,11 +55,9 @@ public class MethodDeclrNode extends ClassMemberDeclrNode {
                     bodyBlock,
                     Symbol.BlockStatements,
                     Symbol.BlockStatement,
-                    node -> StatementNode.resolveStatementNode(node)
+                    StatementNode::resolveStatementNode
             );
         }
-
-
     }
 
     @Override

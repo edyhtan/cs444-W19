@@ -1,7 +1,6 @@
 package Joosc.AST.Constants;
 
 import Joosc.Exceptions.ASTException;
-import Joosc.Exceptions.InvalidParseTreeStructureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
 import java.util.ArrayList;

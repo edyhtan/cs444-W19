@@ -65,7 +65,7 @@ public class Joosc {
            System.exit(42);
         } catch (JoosException e) {
             e.printStackTrace();
-            System.err.println("Something wrong with Joosc...");
+            System.err.println("Something wrong with your shit...");
             System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
             System.exit(42);
         } catch (Exception e) {
