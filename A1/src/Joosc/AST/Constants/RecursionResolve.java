@@ -54,4 +54,16 @@ public class RecursionResolve {
             throw new WeedingFailureException();
         }
     }
+
+    public static ParseTree resolveUntilChildIs
+            (ParseTree tree, Symbol recurrentSymbol, Symbol targetSymbol) throws ASTException {
+        ParseTree child = tree.getChild(0);
+        if (child.getKind().equals(recurrentSymbol)) {
+            return resolveUntilChildIs(child, recurrentSymbol, targetSymbol);
+        } else if (child.getKind().equals(targetSymbol)) {
+            return child;
+        } else {
+            return null;
+        }
+    }
 }

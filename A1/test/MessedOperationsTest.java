@@ -5,6 +5,7 @@ import your.ghetto.*;
 
 public /*protected final static abstract native*/ class OperationsTest /*extends aha implements de.ja, vu, IveBeenToThisPlaceBefore*/ {
     public int lol = 233;
+    public int methodNoBody(int haha);
     public OperationsTest(int i, int foo, int bar) {
         i = i + 1;
         foo = 1;
