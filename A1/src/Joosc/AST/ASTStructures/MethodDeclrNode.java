@@ -73,6 +73,11 @@ public class MethodDeclrNode extends ClassMemberDeclrNode {
             RecursionResolve.assertThrow(!modifiers.contains(Symbol.Static));
         }
         RecursionResolve.assertThrow(!(modifiers.contains(Symbol.Final) & modifiers.contains(Symbol.Static)));
+
+        if (modifiers.contains(Symbol.Native)) {
+            RecursionResolve.assertThrow(modifiers.contains(Symbol.Static));
+            RecursionResolve.assertThrow(bodyBlock == null);
+        }
     }
 
     @Override
