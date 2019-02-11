@@ -15,6 +15,6 @@ public class LocalVarDeclrStatement extends StatementNode {
 
     @Override
     public void printInfo(int level) {
-        this.printInfoInit("Local Var Declr Statement:", level);
+        this.printInfoInit("Local Var Declr Statement Node:", level);
     }
 }

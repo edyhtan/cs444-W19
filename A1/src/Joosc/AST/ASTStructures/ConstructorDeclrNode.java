@@ -9,30 +9,30 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 
 public class ConstructorDeclrNode extends ClassBodyDeclrNode {
-    private ArrayList<Symbol> constructorModifiers;
-    private String constructorIdentifier;
+    private ArrayList<Symbol> modifiers;
+    private String identifier;
     private ArrayList<Pair<TypeNode, String>> formalParamList;
-    private ArrayList<StatementNode> constructorBodyStatements;
+    private ArrayList<StatementNode> bodyBlock;
 
     protected ConstructorDeclrNode(ParseTree parseTree) throws ASTException {
         this.parseTree = parseTree;
-        constructorModifiers = new ArrayList<>();
+        modifiers = new ArrayList<>();
         formalParamList = new ArrayList<>();
-        constructorBodyStatements = new ArrayList<>();
+        bodyBlock = new ArrayList<>();
 
         for(ParseTree child : parseTree.getChildren()) {
             switch (child.getKind()) {
                 case Modifiers:
                     RecursionResolve.resolveNodes(
                             child,
-                            constructorModifiers,
+                            modifiers,
                             Symbol.Modifiers,
                             Symbol.Modifier,
                             node -> node.getChild(0).getKind()
                     );
                     break;
                 case SimpleName:
-                    constructorIdentifier = child.getChild(0, Symbol.ID).getLexeme();
+                    identifier = child.getChild(0, Symbol.ID).getLexeme();
                     break;
                 case FormalParamList:
                     RecursionResolve.resolveNodes(
@@ -50,7 +50,7 @@ public class ConstructorDeclrNode extends ClassBodyDeclrNode {
                     if (child.getChild(1).getKind().equals(Symbol.BlockStatements)) {
                         RecursionResolve.resolveNodes(
                                 child.getChild(1),
-                                constructorBodyStatements,
+                                bodyBlock,
                                 Symbol.BlockStatements,
                                 Symbol.BlockStatement,
                                 node -> StatementNode.resolveStatementNode(node.getChild(0))
@@ -74,14 +74,14 @@ public class ConstructorDeclrNode extends ClassBodyDeclrNode {
     @Override
     public void printInfo(int level) {
         this.printInfoInit("Constructor Declr Node:", level);
-        this.printInfoSingle("Modifiers:", constructorModifiers);
-        this.printInfoSingle("Identifier:", constructorIdentifier);
+        this.printInfoSingle("Modifiers:", modifiers);
+        this.printInfoSingle("Identifier:", identifier);
         this.printInfoArrayLambda("Formal Param List:", formalParamList,
                 node -> {
                     this.printInfoStrAtLevel(TREEITEM + "Param Identifier: " + node.getValue(), level + 2);
                     node.getKey().printInfo(level + 3);
                 });
-        this.printInfoArrayLambda("Body Statements:", constructorBodyStatements,
+        this.printInfoArrayLambda("Body Statements:", bodyBlock,
                 node -> node.printInfo(level + 2));
     }
 }
