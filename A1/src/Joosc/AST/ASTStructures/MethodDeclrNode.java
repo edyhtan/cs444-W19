@@ -68,9 +68,8 @@ public class MethodDeclrNode extends ClassMemberDeclrNode {
     private void checkModifiers() throws WeedingFailureException {
         RecursionResolve.assertThrow(modifiers.contains(Symbol.Public) | modifiers.contains(Symbol.Protected));
         if (modifiers.contains(Symbol.Abstract)) {
-            RecursionResolve.assertThrow(bodyBlock != null);
+            RecursionResolve.assertThrow(bodyBlock == null || bodyBlock.size() == 0);
             RecursionResolve.assertThrow(!modifiers.contains(Symbol.Final));
-            RecursionResolve.assertThrow(bodyBlock.size() > 0);
             RecursionResolve.assertThrow(!modifiers.contains(Symbol.Static));
         }
     }

@@ -85,7 +85,7 @@ public class ClassDeclrNode extends TypeDeclrNode {
     public void checkModifiers() throws WeedingFailureException{
         RecursionResolve.assertThrow(classModifiers.contains(Symbol.Public) | classModifiers.contains(Symbol.Protected));
         if (classModifiers.contains(Symbol.Abstract)) {
-            RecursionResolve.assertThrow(classModifiers.contains(Symbol.Final));
+            RecursionResolve.assertThrow(!classModifiers.contains(Symbol.Final));
         }
     }
 
