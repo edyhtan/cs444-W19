@@ -41,10 +41,6 @@ abstract class ASTNode {
         }
     }
 
-    @FunctionalInterface
-    public interface ASTExceptionCheckedConsumer<T> {
-        void accept(T t) throws ASTException;
-    }
     protected <T> void printInfoArrayLambda (
             String title, ArrayList<T> nodeArrayList, Consumer<T> lambda
     ) {
