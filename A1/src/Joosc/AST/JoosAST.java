@@ -23,11 +23,12 @@ public class JoosAST {
 
     public void checkFileName(String file) throws WrongFileNameException {
         String className = root.getClassName();
+
         String filename = file.split("[.]")[0];
         String suffix = file.split("[.]")[1];
 
         if(!className.equals(filename)) {
-            throw new WrongFileNameException("Class name does not match file name.");
+            throw new WrongFileNameException("Class name does not match file name, found file name " + filename + ", class name " + className);
         }
         if(!suffix.equals(".java")) {
             throw new WrongFileNameException("Incorrect input file suffix " + suffix);

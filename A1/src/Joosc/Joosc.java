@@ -26,8 +26,8 @@ public class Joosc {
                 throw new Exception("ERROR: incorrect number of parameter, the size should be 1.");
             }
 
-            String file = argList.get(0);
-            JoosScan scan = new JoosScan(new File(file));
+            JoosScan scan = new JoosScan(new File(argList.get(0)));
+            String file = argList.get(0).split("/")[1];
             scan.scan();
             ArrayList<Token> tokens = scan.getOutput();
 
