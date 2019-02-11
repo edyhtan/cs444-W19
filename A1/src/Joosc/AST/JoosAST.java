@@ -4,6 +4,7 @@ import Joosc.AST.ASTStructures.Program;
 import Joosc.AST.Constants.Symbol;
 import Joosc.Exceptions.ASTException;
 import Joosc.Exceptions.InvalidParseTreeStructureException;
+import Joosc.Exceptions.WeedingFailureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
 public class JoosAST {
@@ -14,6 +15,10 @@ public class JoosAST {
             throw new InvalidParseTreeStructureException(parseTree, "Expecting S, got " + parseTree.getKind() + ".");
         }
         root = new Program(parseTree);
+    }
+
+    public void weed() throws WeedingFailureException {
+        root.weed();
     }
 
     public Program getRoot() {

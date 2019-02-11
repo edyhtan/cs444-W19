@@ -3,6 +3,7 @@ package Joosc.AST.ASTStructures;
 import Joosc.AST.Constants.RecursionResolve;
 import Joosc.AST.Constants.Symbol;
 import Joosc.Exceptions.ASTException;
+import Joosc.Exceptions.WeedingFailureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 import javafx.util.Pair;
 
@@ -66,9 +67,16 @@ public class ConstructorDeclrNode extends ClassBodyDeclrNode {
         }
     }
 
-    @Override
-    public void weed() {
+    public void checkModifiers() throws WeedingFailureException {
+        RecursionResolve.assertThrow(modifiers.contains(Symbol.Public) | modifiers.contains(Symbol.Protected));
+    }
 
+    @Override
+    public void weed() throws WeedingFailureException {
+        checkModifiers();
+        for (StatementNode node: bodyBlock) {
+            node.weed();
+        }
     }
 
     @Override

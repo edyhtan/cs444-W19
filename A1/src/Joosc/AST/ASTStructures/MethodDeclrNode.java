@@ -3,6 +3,7 @@ package Joosc.AST.ASTStructures;
 import Joosc.AST.Constants.RecursionResolve;
 import Joosc.AST.Constants.Symbol;
 import Joosc.Exceptions.ASTException;
+import Joosc.Exceptions.WeedingFailureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 import javafx.util.Pair;
 
@@ -19,7 +20,7 @@ public class MethodDeclrNode extends ClassMemberDeclrNode {
         this.parseTree = parseTree;
         modifiers = new ArrayList<>();
         formalParamList = new ArrayList<>();
-        bodyBlock = new ArrayList<>();
+        bodyBlock = null;
         ParseTree methodHeader = parseTree.getChild(0, Symbol.MethodHeader);
         ParseTree methodBody = parseTree.getChild(1, Symbol.MethodBody);
 
@@ -49,6 +50,7 @@ public class MethodDeclrNode extends ClassMemberDeclrNode {
         }
 
         if (methodBody.getChild(0).getKind().equals(Symbol.Block)) {
+            bodyBlock = new ArrayList<>();
             ParseTree methodBodyBlockSecondChild = methodBody.getChild(0, Symbol.Block).getChild(1);
             if (methodBodyBlockSecondChild.getKind().equals(Symbol.BlockStatements)) {
                 RecursionResolve.resolveNodes(
@@ -63,9 +65,22 @@ public class MethodDeclrNode extends ClassMemberDeclrNode {
 
     }
 
-    @Override
-    public void weed() {
+    private void checkModifiers() throws WeedingFailureException {
+        RecursionResolve.assertThrow(modifiers.contains(Symbol.Public) | modifiers.contains(Symbol.Protected));
+        if (modifiers.contains(Symbol.Abstract)) {
+            RecursionResolve.assertThrow(bodyBlock != null);
+            RecursionResolve.assertThrow(!modifiers.contains(Symbol.Final));
+            RecursionResolve.assertThrow(bodyBlock.size() > 0);
+            RecursionResolve.assertThrow(!modifiers.contains(Symbol.Static));
+        }
+    }
 
+    @Override
+    public void weed() throws WeedingFailureException {
+        checkModifiers();
+        for (StatementNode node: bodyBlock) {
+            node.weed();
+        }
     }
 
     @Override
@@ -79,9 +94,11 @@ public class MethodDeclrNode extends ClassMemberDeclrNode {
                     this.printInfoStrAtLevel(TREEITEM + "Param Identifier: " + node.getValue(), level + 2);
                     node.getKey().printInfo(level + 3);
                 });
-        this.printInfoArrayLambda("Body Block Statements:", bodyBlock,
-                node -> {
-                    node.printInfo(level + 2);
-                });
+        if (bodyBlock != null) {
+            this.printInfoArrayLambda("Body Block Statements:", bodyBlock,
+                    node -> {
+                        node.printInfo(level + 2);
+                    });
+        }
     }
 }

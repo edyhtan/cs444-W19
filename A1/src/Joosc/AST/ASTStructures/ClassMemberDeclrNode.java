@@ -3,6 +3,7 @@ package Joosc.AST.ASTStructures;
 import Joosc.AST.Constants.Symbol;
 import Joosc.Exceptions.ASTException;
 import Joosc.Exceptions.InvalidParseTreeStructureException;
+import Joosc.Exceptions.WeedingFailureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
 abstract class ClassMemberDeclrNode extends ClassBodyDeclrNode {
@@ -22,7 +23,7 @@ abstract class ClassMemberDeclrNode extends ClassBodyDeclrNode {
         }
     }
     @Override
-    abstract void weed();
+    abstract void weed() throws WeedingFailureException;
     @Override
     abstract void printInfo(int level);
 }

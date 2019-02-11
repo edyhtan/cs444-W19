@@ -4,6 +4,7 @@ import Joosc.AST.Constants.RecursionResolve;
 import Joosc.AST.Constants.Symbol;
 import Joosc.Exceptions.ASTException;
 import Joosc.Exceptions.InvalidParseTreeStructureException;
+import Joosc.Exceptions.WeedingFailureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
 import java.util.ArrayList;
@@ -53,7 +54,6 @@ public class FieldDeclrNode extends ClassMemberDeclrNode {
                                         child, "Illegal node " + varDeclrChild.getKind() +
                                         " found in " + child.getKind() + " node.");
                         }
-
                     }
                     break;
                 default:
@@ -62,9 +62,18 @@ public class FieldDeclrNode extends ClassMemberDeclrNode {
         };
     }
 
-    @Override
-    public void weed() {
+    private void checkModifiers() throws WeedingFailureException {
+        RecursionResolve.assertThrow(fieldModifiers.contains(Symbol.Public) | fieldModifiers.contains(Symbol.Protected));
+        if (fieldModifiers.contains(Symbol.Final)) {
+            RecursionResolve.assertThrow(fieldInitExpression != null);
+        }
+    }
 
+    @Override
+    public void weed() throws WeedingFailureException {
+        checkModifiers();
+        fieldTypeNode.weed();
+        fieldInitExpression.weed();
     }
 
     @Override

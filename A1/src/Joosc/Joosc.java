@@ -41,6 +41,7 @@ public class Joosc {
             JoosAST ast = new JoosAST(tree);
             System.out.println("\n============   AST   ============\n");
             ast.printASTInfo();
+            ast.weed();
 
         } catch (FileNotFoundException e) {
             System.err.printf("ERROR: file not found: %s\n", e.getLocalizedMessage());
@@ -67,6 +68,10 @@ public class Joosc {
             e.printStackTrace();
             System.err.println("Something wrong with your shit...");
             System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
+            System.exit(42);
+        } catch (WeedingFailureException e) {
+            e.printStackTrace();
+            System.err.println(e.getLocalizedMessage());
             System.exit(42);
         } catch (Exception e) {
             e.printStackTrace();
