@@ -34,7 +34,7 @@ abstract class ASTNode {
         System.out.println(localPrefix + str);
     }
 
-    protected void printInfoArray(String title, ArrayList<Object> arrayList) {
+    protected <T> void printInfoArray(String title, ArrayList<T> arrayList) {
         System.out.println(this.prefix + TREEITEM + title);
         for(Object o : arrayList) {
             System.out.println(this.prefix + TREELEVEL + TREESPACE + o);

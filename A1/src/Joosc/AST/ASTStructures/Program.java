@@ -7,8 +7,6 @@ import Joosc.Exceptions.InvalidParseTreeStructureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
 import java.util.ArrayList;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 /**
  * The base of any Joos program

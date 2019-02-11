@@ -11,7 +11,7 @@ public class InterfaceDeclrNode extends TypeDeclrNode {
     ArrayList<Symbol> modifiers;
     String identifier;
     ArrayList<ArrayList<String>> extendsInterfaceTypes;
-    ArrayList<Object> interfaceBody;
+    ArrayList<AbstractMethodDeclr> interfaceBody;
 
     public InterfaceDeclrNode(ParseTree parseTree) throws ASTException {
         this.parseTree = parseTree;
@@ -48,7 +48,15 @@ public class InterfaceDeclrNode extends TypeDeclrNode {
                             }
                     );
                 case InterfaceBody:
-
+                    if (child.getChild(1).getKind().equals(Symbol.InterfaceMemberDeclr)) {
+                        RecursionResolve.resolveNodes(
+                                child.getChild(1),
+                                interfaceBody,
+                                Symbol.InterfaceMemberDeclr,
+                                Symbol.AbstractMethodDeclr,
+                                node -> new AbstractMethodDeclr(node)
+                        );
+                    }
                     break;
             }
         }
@@ -58,7 +66,14 @@ public class InterfaceDeclrNode extends TypeDeclrNode {
     public void weed(){ }
 
     @Override
-    public void printInfo(int level) {}
+    public void printInfo(int level) {
+        this.printInfoInit("Interface Declr Node:", level);
+        this.printInfoSingle("Modifiers:", modifiers);
+        this.printInfoSingle("Identifier:", identifier);
+        this.printInfoArray("Extend Interface Types:", extendsInterfaceTypes);
+        this.printInfoArrayLambda("Interface Body:", interfaceBody,
+                node -> node.printInfo(level + 2));
+    }
 
     @Override
     public String getName() {
