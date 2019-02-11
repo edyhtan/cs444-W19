@@ -48,16 +48,19 @@ public class MethodDeclrNode extends ClassMemberDeclrNode {
             );
         }
 
-        ParseTree methodBodyBlockSecondChild = methodBody.getChild(0, Symbol.Block).getChild(1);
-        if (methodBodyBlockSecondChild.getKind().equals(Symbol.BlockStatements)) {
-            RecursionResolve.resolveNodes(
-                    methodBodyBlockSecondChild,
-                    bodyBlock,
-                    Symbol.BlockStatements,
-                    Symbol.BlockStatement,
-                    StatementNode::resolveStatementNode
-            );
+        if (methodBody.getChild(0).getKind().equals(Symbol.Block)) {
+            ParseTree methodBodyBlockSecondChild = methodBody.getChild(0, Symbol.Block).getChild(1);
+            if (methodBodyBlockSecondChild.getKind().equals(Symbol.BlockStatements)) {
+                RecursionResolve.resolveNodes(
+                        methodBodyBlockSecondChild,
+                        bodyBlock,
+                        Symbol.BlockStatements,
+                        Symbol.BlockStatement,
+                        StatementNode::resolveStatementNode
+                );
+            }
         }
+
     }
 
     @Override
