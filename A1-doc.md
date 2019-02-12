@@ -34,25 +34,30 @@
 #### Weeder and AST
 1. AST is built in a way such that the most informative nodes in the parse tree and remove the others. For example, `AST/Constants/RecursionResolve.resolveName()` recursively removes Name nodes, only keeps SimpleName and QualifiedName and stores in a list. `resolveNodes()` are used to resolve other types of nodes. 
    
-2. Most parts of weeding, such as modifiers checking and fields' initializer, are implemented based on the AST constructed. `JoosAST.checkFileName()` explicitly checks that a class/interface must be declared in a .java file with the same base name as the class/interface. All input characters' range have already been checked in DFA already.
+2. Most weeding is done by explicitly calling `weed()`, the function will check against any uncaught errors in the program that presents a challenge in parsing. 
+The challenges include:
+   -  detecting presence of constructor, 
+   -  check for legal presence of modifiers, 
+   -  ranges for integer literals, and 
+   -  no presence of method body for abstract methods
+
+   `JoosAST.checkFileName()` explicitly checks that a class/interface must be declared in a .java file with the same base name as the class/interface. All input characters' range have already been checked in DFA already.
 
 #### Main Class
 Joosc is the main class that does the scanning, parsing and weeding in order, and handles all exceptions with return values.
 
 ## Challenges
-1. String literal scanning
-  The primitive maximal munch algorithm uses any empty spaces as an indication of input exhaust. However, when scanning String literal and character literals, the these rules are bypassed in to capture empty space characters. This is done by explicity adding state detection and check if the current state begins/ends a string/character literal, while any of those characters are valid input in between. 
+1. String literal scanning   
+  The primitive maximal munch algorithm uses any empty spaces as an indication of input exhaust. However, when scanning String literal and character literals, the these rules are bypassed in to capture empty space characters. This is done by explicitly adding state detection and check if the current state begins/ends a string/character literal, while any of those characters are valid input in between. 
 
-2. Mult-line comments and Javadoc comments
-
-  Both Mult-line comments and Javadoc comments present a challenge to the primitive maximal munch algorithm. It would require a direct modification on the original algorithm in order to properly identify comment sections. The original solution tends to tokenize the start (/* and /**) and ending tokens (*/) and neglect any tokens consumed in between. This however is not robust
-because the scanner now requires to scan with a DFA that accepts any input while still able to identify the ending sequence while scanning. The current design is inspired by the Challenge 1, the scanner is now able to tokenize Multi-line comments and Javadoc just like any other string literal, this also requires the scanner to consider any new space character as an input as well. The scanner will filter any tokens that are comments before moving on to parsing.
+2. Multi-line comments and Javadoc comments  
+  Both Multi-line comments and Javadoc comments present a challenge to the primitive maximal munch algorithm. It would require a direct modification on the original algorithm in order to properly identify comment sections. The original solution tends to tokenize the start (/* and /**) and ending tokens (*/) and neglect any tokens consumed in between. This however is not robust because the scanner now requires to scan with a DFA that accepts any input while still able to identify the ending sequence while scanning. The current design is inspired by the Challenge 1, the scanner is now able to tokenize Multi-line comments and Javadoc just like any other string literal, this also requires the scanner to consider any new space character as an input as well. The scanner will filter any tokens that are comments before moving on to parsing.
  
-2. Casting and parenthesis expression
+2. Casting and parenthesis expression  
    The parser initially allows invalid type casts using rule `CastExpression ( Expression ) UnaryExpressionNotMinus`. Since Expression can be further reduced to PostFixExpression and then to Names (including SimpleName and QuantifiedName), it can be ambiguous to cast a statement in such way. The function `JoosParse.preASTWeeding()` is implemented explicitly to handle such a problem. Once we obtain a valid parse tree after parsing, then `preASTWeeding()` explicitly checks for invalid casting problem in the tree and throws InvalidParseTreeException if bad casting is observed.  
    For example, `Object y = (x.foo()) x;` is a bad casting since method invocation not allowed as type in cast. InvalidParseTreeException is expected here and input is rejected.
 
-3. Building AST
+3. Building AST  
    It is hard to analyze and decide which nodes should be removed from the parse tree in general. We had to look at each rule and consider whether information should be preserved and a class is needed. At this point of the project, we are only implementing part of the AST nodes for weeding integer ranges, control flow keywords break, continue inside while/for loop blocks. The rest of the nodes will be completed after due date.
 
 
