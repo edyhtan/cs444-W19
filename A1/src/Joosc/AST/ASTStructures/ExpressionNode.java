@@ -2,9 +2,10 @@ package Joosc.AST.ASTStructures;
 
 import Joosc.AST.Constants.Symbol;
 import Joosc.Exceptions.ASTException;
+import Joosc.Exceptions.WeedingFailureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
-abstract class ExpressionNode extends ASTNode {
+public abstract class ExpressionNode extends ASTNode {
 
     /**
      * Every expression should be able to be evaluated some way.
@@ -13,7 +14,7 @@ abstract class ExpressionNode extends ASTNode {
     //abstract void evaluate();
 
     //Ghetto Constructor
-    protected static ExpressionNode resolveExpressionNode(ParseTree parseTree) throws ASTException {
+    public static ExpressionNode resolveExpressionNode(ParseTree parseTree) throws ASTException {
         ParseTree contentNode = ExpressionNode.findContentNode(parseTree);
         
         return new AssignmentExpressionNode(parseTree);
@@ -28,8 +29,8 @@ abstract class ExpressionNode extends ASTNode {
     }
 
     @Override
-    abstract void weed();
+    public abstract void weed() throws WeedingFailureException;
 
     @Override
-    abstract void printInfo(int level);
+    public abstract void printInfo(int level);
 }

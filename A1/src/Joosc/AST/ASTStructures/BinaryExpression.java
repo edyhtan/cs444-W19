@@ -1,5 +1,6 @@
 package Joosc.AST.ASTStructures;
 
+import Joosc.Exceptions.WeedingFailureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
 public class BinaryExpression extends ExpressionNode {
@@ -9,7 +10,7 @@ public class BinaryExpression extends ExpressionNode {
     }
 
     @Override
-    public void weed() {
+    public  void weed() throws WeedingFailureException {
 
     }
 

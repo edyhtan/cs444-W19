@@ -1,6 +1,12 @@
-import java.lang.Object
+import java.lang.Object;
 
-public abstract class Abstract {
-    public abstract int m();
-    public char in = '\3';
+public class Abstract {
+
+    public static int test() {
+        return 123;
+    }
+
+    public final static int foo() {
+        return 123;
+    }
 }

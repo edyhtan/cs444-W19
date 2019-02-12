@@ -23,7 +23,7 @@ abstract class ClassMemberDeclrNode extends ClassBodyDeclrNode {
         }
     }
     @Override
-    abstract void weed() throws WeedingFailureException;
+    public abstract void weed() throws WeedingFailureException;
     @Override
-    abstract void printInfo(int level);
+    public abstract void printInfo(int level);
 }
