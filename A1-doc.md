@@ -45,8 +45,8 @@ Joosc is the main class that does the scanning, parsing and weeding in order, an
    For example, `Object y = (x.foo()) x;` is a bad casting since method invocation not allowed as type in cast. InvalidParseTreeException is expected here and input is rejected.
 
 2. Building AST
-   It is hard to analyze and decide which nodes should be removed from the parse tree.   
-   **Solutions to be added here**
+   It is hard to analyze and decide which nodes should be removed from the parse tree in general. We had to look at each rule and consider whether information should be preserved and a class is needed. At this point of the project, we are only implementing part of the AST nodes for weeding integer ranges, control flow keywords break, continue inside while/for loop blocks. The rest of the nodes will be completed after due date.
+
 
 ## Tests 
 Test cases were created based each of the valid feature listed on *The Joos Languages* page. Each feature is first tested individually first before moving on to complicated cases. Each isolated test case is named after \<FeatureName>.java.   
