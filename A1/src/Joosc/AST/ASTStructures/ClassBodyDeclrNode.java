@@ -23,7 +23,7 @@ abstract class ClassBodyDeclrNode extends ASTNode {
     }
 
     @Override
-    abstract void weed() throws WeedingFailureException;
+    public abstract void weed() throws WeedingFailureException;
     @Override
-    abstract void printInfo(int level);
+    public abstract void printInfo(int level);
 }

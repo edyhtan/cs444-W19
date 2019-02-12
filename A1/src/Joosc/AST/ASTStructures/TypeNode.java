@@ -1,15 +1,16 @@
 package Joosc.AST.ASTStructures;
 
+import Joosc.Exceptions.WeedingFailureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
-abstract class TypeNode extends ASTNode {
+public abstract class TypeNode extends ASTNode {
 
-    protected static TypeNode resolveTypeNode(ParseTree parseTree) {
+    public static TypeNode resolveTypeNode(ParseTree parseTree) {
         return new PrimitiveTypeNode(parseTree);
     }
 
     @Override
-    abstract void weed();
+    public abstract void weed() throws WeedingFailureException;
     @Override
-    abstract void printInfo(int level);
+    public abstract void printInfo(int level);
 }

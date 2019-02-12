@@ -164,7 +164,7 @@ ForUpdate
 BlockStatement
 StatementExpression
 S'
-216
+212
 S' BOF S EOF
 S PackageDeclr ImportDeclrs TypeDeclr
 S PackageDeclr ImportDeclrs
@@ -281,8 +281,6 @@ StatementNoShortIf ForNoShortIf
 StatementNoTrailingSub Block
 StatementNoTrailingSub EmptyStatement
 StatementNoTrailingSub ExpressionStatement
-StatementNoTrailingSub BreakStatement
-StatementNoTrailingSub ContinueStatement
 StatementNoTrailingSub ReturnStatement
 EmptyStatement ;
 ExpressionStatement StatementExpression ;
@@ -311,8 +309,6 @@ ForNoShortIf for ( ; Expression ; ) StatementNoShortIf
 ForInit LocalVarDeclr
 ForInit StatementExpression
 ForUpdate StatementExpression
-BreakStatement break ;
-ContinueStatement continue ;
 ReturnStatement return ;
 ReturnStatement return Expression ;
 Primary PrimaryNoNewArray

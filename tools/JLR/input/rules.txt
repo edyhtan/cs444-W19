@@ -178,8 +178,6 @@ StatementNoShortIf     : ForNoShortIf
 StatementNoTrailingSub : Block
 StatementNoTrailingSub : EmptyStatement
 StatementNoTrailingSub : ExpressionStatement
-StatementNoTrailingSub : BreakStatement
-StatementNoTrailingSub : ContinueStatement
 StatementNoTrailingSub : ReturnStatement
 EmptyStatement         : ;
 ExpressionStatement    : StatementExpression ;
@@ -208,8 +206,6 @@ ForNoShortIf           : for ( ; Expression ; ) StatementNoShortIf
 ForInit                : LocalVarDeclr
 ForInit                : StatementExpression
 ForUpdate              : StatementExpression
-BreakStatement         : break ;
-ContinueStatement      : continue ;
 ReturnStatement        : return ;
 ReturnStatement        : return Expression ;
 
