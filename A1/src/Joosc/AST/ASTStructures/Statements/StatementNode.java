@@ -35,15 +35,15 @@ public abstract class StatementNode extends ASTNode {
             case IfThenElseStatement:
                 return new IfStatement(parseTree);
             case WhileStatement:
-                return new WhileStatement();
+                return new WhileStatement(parseTree);
             case ForStatement:
-                return new ForStatement();
+                return new ForStatement(parseTree);
             case IfThenElseNoShortIf:
                 return new IfStatement(parseTree);
             case WhileNoShortIf:
-                return new WhileStatement();
+                return new WhileStatement(parseTree);
             case ForNoShortIf:
-                return new ForStatement();
+                return new ForStatement(parseTree);
             default:
                 throw new InvalidParseTreeStructureException(parseTree, "Illegal Class Body Declr node.");
         }
