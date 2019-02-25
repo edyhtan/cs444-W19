@@ -12,22 +12,22 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class Joosc {
     public static boolean IDE_FLAG = true;
 
-    public static void main(String args[]) {
-        ArrayList<String> argList = new ArrayList<>(Arrays.asList(args));
-        IDE_FLAG = !argList.contains("-t");
-        argList.remove("-t");
+    private static String getFileName(String path) {
+        String[] temp = path.split("/");
+        return temp[temp.length - 1];
+    }
+
+    private static JoosAST process(String filename) {
+        JoosAST ast = null;
 
         try {
-            if (argList.size() > 1) {
-                throw new Exception("ERROR: incorrect number of parameter, the size should be 1.");
-            }
-
-            JoosScan scan = new JoosScan(new File(argList.get(0)));
-            String file = argList.get(0).split("/")[1];
+            JoosScan scan = new JoosScan(new File(filename));
+            String file = getFileName(filename);
             scan.scan();
             ArrayList<Token> tokens = scan.getOutput();
 
@@ -38,11 +38,11 @@ public class Joosc {
             ParseTree tree = parse.getTree();
 
             // AST and weeding
-            //tree.print();
-            JoosAST ast = new JoosAST(tree);
+//            tree.print();
+            ast = new JoosAST(tree);
             ast.checkFileName(file);
-            //System.out.println("\n============   AST   ============\n");
-            //ast.printASTInfo();
+//            System.out.println("\n============   AST   ============\n");
+//            ast.printASTInfo();
             ast.weed();
 
         } catch (FileNotFoundException e) {
@@ -64,8 +64,8 @@ public class Joosc {
             System.err.printf("ERROR: %s", e.getLocalizedMessage());
             System.exit(42);
         } catch (InvalidParseTreeException e) {
-           System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
-           System.exit(42);
+            System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
+            System.exit(42);
         } catch (WrongFileNameException e) {
             System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
             System.exit(42);
@@ -82,5 +82,16 @@ public class Joosc {
             e.printStackTrace();
             System.exit(2);
         }
+
+        return ast;
+    }
+
+    public static void main(String args[]) {
+        ArrayList<String> argList = new ArrayList<>(Arrays.asList(args));
+        IDE_FLAG = !argList.contains("-t");
+        argList.remove("-t");
+
+        ArrayList<JoosAST> astList = argList.stream().map(filename -> process(filename))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }
