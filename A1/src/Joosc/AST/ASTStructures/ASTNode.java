@@ -9,14 +9,14 @@ import Joosc.Parser.LRGrammar.ParseTree;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-abstract class ASTNode {
+public abstract class ASTNode {
     protected ParseTree parseTree;
     protected static final String TREEITEM = "|--";
     protected static final String TREELEVEL = "|  ";
     protected static final String TREESPACE = "   ";
 
-    abstract void weed() throws WeedingFailureException;
-    abstract void printInfo(int level);
+    public abstract void weed() throws WeedingFailureException;
+    public abstract void printInfo(int level);
 
     private String prefix;
     protected void printInfoInit(String title, int level) {

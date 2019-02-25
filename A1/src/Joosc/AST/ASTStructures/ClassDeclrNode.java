@@ -15,7 +15,10 @@ public class ClassDeclrNode extends TypeDeclrNode {
     private String classIdentifier;
     private ArrayList<String> parentClassIdentifier;
     private ArrayList<ArrayList<String>> interfaceTypes;
-    private ConstructorDeclrNode constructorDeclrNode;
+
+    private ArrayList<ConstructorDeclrNode> constructor = new ArrayList<>();
+    private ArrayList<FieldDeclrNode> fields = new ArrayList<>();
+    private ArrayList<MethodDeclrNode> methods = new ArrayList<>();
     private ArrayList<ClassBodyDeclrNode> classBodyDeclrNodes;
 
     ClassDeclrNode(ParseTree parseTree) throws ASTException {
@@ -48,6 +51,16 @@ public class ClassDeclrNode extends TypeDeclrNode {
                             Symbol.ClassBodyDeclrs,
                             Symbol.ClassBodyDeclr,
                             ClassBodyDeclrNode::resolveClassBodyDeclrNode
+                    );
+                    classBodyDeclrNodes.forEach( n -> {
+                                if (n instanceof FieldDeclrNode) {
+                                    fields.add((FieldDeclrNode) n);
+                                } else if (n instanceof MethodDeclrNode) {
+                                    methods.add((MethodDeclrNode) n);
+                                } else if (n instanceof ConstructorDeclrNode) {
+                                    constructor.add((ConstructorDeclrNode) n);
+                                }
+                            }
                     );
                     break;
                 case Super:
@@ -84,6 +97,7 @@ public class ClassDeclrNode extends TypeDeclrNode {
 
     public void checkModifiers() throws WeedingFailureException {
         RecursionResolve.assertThrow(classModifiers.contains(Symbol.Public) | classModifiers.contains(Symbol.Protected));
+        RecursionResolve.assertThrow(constructor.size() > 0);
         if (classModifiers.contains(Symbol.Abstract)) {
             RecursionResolve.assertThrow(!classModifiers.contains(Symbol.Final));
         }

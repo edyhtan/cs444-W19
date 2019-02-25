@@ -1,6 +1,18 @@
-import java.lang.Object
+import java.lang.Object;
 
-public abstract class Abstract {
-    public abstract int m();
-    public char in = '\3';
+public class Abstract {
+
+    public J1_1_Cast_Complement(){}
+
+    public static int test(){
+
+        boolean t = true;
+        boolean b = (boolean)!t;
+        if (b){
+            return 124733;
+        }
+        else {
+            return 123;
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package Joosc.AST.ASTStructures;
 
+import Joosc.Exceptions.WeedingFailureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
 public class Primary extends ExpressionNode {
@@ -9,12 +10,12 @@ public class Primary extends ExpressionNode {
     }
 
     @Override
-    public void weed() {
+    public void weed() throws WeedingFailureException {
 
     }
 
     @Override
-    void printInfo(int level) {
+    public void printInfo(int level) {
         printInfoInit("Primary Expression:", level);
     }
 }

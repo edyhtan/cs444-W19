@@ -1,5 +1,6 @@
 package Joosc.AST.ASTStructures;
 
+import Joosc.AST.ASTStructures.Statements.StatementNode;
 import Joosc.AST.Constants.RecursionResolve;
 import Joosc.AST.Constants.Symbol;
 import Joosc.Exceptions.ASTException;
