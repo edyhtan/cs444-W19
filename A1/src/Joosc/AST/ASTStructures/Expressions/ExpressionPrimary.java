@@ -1,17 +1,16 @@
-package Joosc.AST.ASTStructures;
+package Joosc.AST.ASTStructures.Expressions;
 
 import Joosc.AST.ASTStructures.Expressions.ExpressionNode;
-import Joosc.Exceptions.WeedingFailureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
-public class Primary extends ExpressionNode {
+public class ExpressionPrimary extends ExpressionNode {
 
-    public Primary(ParseTree parseTree) {
+    public ExpressionPrimary(ParseTree parseTree) {
 
     }
 
     @Override
-    public void weed() throws WeedingFailureException {
+    public void weed() {
 
     }
 

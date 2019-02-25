@@ -1,5 +1,6 @@
 package Joosc.AST.ASTStructures;
 
+import Joosc.AST.ASTStructures.Expressions.ExpressionNode;
 import Joosc.Exceptions.WeedingFailureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 

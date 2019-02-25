@@ -64,6 +64,6 @@ public abstract class StatementNode extends ASTNode {
         }
     }
 
-    public abstract  void weed() throws WeedingFailureException;
+    public abstract void weed() throws WeedingFailureException;
     public abstract void printInfo(int level);
 }

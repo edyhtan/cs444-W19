@@ -1,7 +1,6 @@
 package Joosc.AST.ASTStructures.Statements;
 
-import Joosc.AST.ASTStructures.ExpressionNode;
-import Joosc.AST.Constants.RecursionResolve;
+import Joosc.AST.ASTStructures.Expressions.ExpressionNode;
 import Joosc.Exceptions.ASTException;
 import Joosc.Exceptions.WeedingFailureException;
 import Joosc.Parser.LRGrammar.ParseTree;
