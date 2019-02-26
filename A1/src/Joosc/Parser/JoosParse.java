@@ -1,6 +1,6 @@
 package Joosc.Parser;
 
-import Joosc.AST.Constants.Symbol;
+import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.Exceptions.InvalidParseTreeException;
 import Joosc.Parser.LRGrammar.*;
 import Joosc.Token.Token;
