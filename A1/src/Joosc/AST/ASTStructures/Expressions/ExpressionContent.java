@@ -1,30 +1,35 @@
 package Joosc.AST.ASTStructures.Expressions;
 
+import Joosc.AST.Constants.RecursionResolve;
 import Joosc.AST.Constants.Symbol;
 import Joosc.Exceptions.ASTException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
 import java.util.ArrayList;
 
-public class ExpressionContent extends ExpressionNode{
+public class ExpressionContent extends ExpressionPrimary{
 
-    ArrayList<ExpressionNode> argList = new ArrayList<>();
-    ExpressionNode contentExpression;
     String literal;
-    public Symbol literalKind;
+    Symbol kind;
+    ArrayList<String> name;
 
     public ExpressionContent(ParseTree parseTree) throws ASTException {
-        ParseTree cursor = parseTree.getChild(0);
-        if (cursor.getKind().equals(Symbol.PrimaryNoNewArray)) {
-            cursor = cursor.getChild(0);
-            if (cursor.getKind() == Symbol.Literal) {
-                literalKind = cursor.getChild(0).getKind();
-                literal = cursor.getChild(0).getLexeme();
-            }
-        } else if (cursor.getKind().equals(Symbol.ArrayCreation)) {
-            contentExpression = ExpressionNode.resolveExpressionNode(cursor.getChild(3));
+        this.parseTree = parseTree;
+        switch (parseTree.getKind()) {
+            case Name:
+                kind = Symbol.Name;
+                name = new ArrayList<>();
+                RecursionResolve.resolveName(parseTree, name);
+                break;
+            case This:
+                kind = Symbol.This;
         }
+
     }
+
+//    public ExpressionNode resolveExpressionContent(ParseTree parseTree) {
+//
+//    }
 
     @Override
     public void weed() {
@@ -34,7 +39,7 @@ public class ExpressionContent extends ExpressionNode{
     @Override
     public void printInfo(int level) {
         printInfoInit("Expression Content:", level);
-        printInfoSingle("Literal Kind: ", literalKind);
+        printInfoSingle("Kind: ", kind);
         printInfoSingle("Literal: ", literal);
     }
 }

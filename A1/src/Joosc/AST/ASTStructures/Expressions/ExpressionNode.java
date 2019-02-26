@@ -1,7 +1,6 @@
 package Joosc.AST.ASTStructures.Expressions;
 
 import Joosc.AST.ASTStructures.ASTNode;
-import Joosc.AST.ASTStructures.Primary;
 import Joosc.AST.Constants.Symbol;
 import Joosc.Exceptions.ASTException;
 import Joosc.Exceptions.InvalidParseTreeStructureException;
@@ -39,6 +38,8 @@ public abstract class ExpressionNode extends ASTNode {
 
             case Primary:
             case Name:
+            case FieldAccess:
+            case ArrayAccess:
                 return new ExpressionContent(contentNode);
 
             default:
