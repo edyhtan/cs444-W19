@@ -19,6 +19,7 @@ public class Program implements AST {
         this.onDemandTypeImport = program.getOnDemandTypeImport();
         if (program.getTypeDeclr() instanceof ClassDeclrNode) {
             typeDeclr = new ClassDeclr((ClassDeclrNode) program.getTypeDeclr());
+            typeDeclr.buildCanonicalName(packageDeclr);
         }
     }
 }
