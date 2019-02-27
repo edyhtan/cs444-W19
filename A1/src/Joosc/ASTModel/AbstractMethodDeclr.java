@@ -29,7 +29,7 @@ public class AbstractMethodDeclr implements AST {
                 .map(pair -> pair.getKey().toString())
                 .collect(Collectors.joining(COMMA));
 
-        sb.append(typeList).append(")");
+        sb.append(typeList).append(")").append(type.toString());
         canonicalID = sb.toString();
     }
 
