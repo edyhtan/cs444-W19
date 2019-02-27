@@ -89,4 +89,16 @@ public class InterfaceDeclrNode extends TypeDeclrNode {
     public String getName() {
         return identifier;
     }
+
+    public ArrayList<Symbol> getModifiers() {
+        return modifiers;
+    }
+
+    public ArrayList<AbstractMethodDeclr> getInterfaceBody() {
+        return interfaceBody;
+    }
+
+    public ArrayList<ArrayList<String>> getExtendsInterfaceTypes() {
+        return extendsInterfaceTypes;
+    }
 }
