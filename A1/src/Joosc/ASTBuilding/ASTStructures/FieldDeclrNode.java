@@ -104,4 +104,20 @@ public class FieldDeclrNode extends ClassMemberDeclrNode {
             fieldInitExpression.printInfo(level + 2);
         }
     }
+
+    public ArrayList<Symbol> getModifiers() {
+        return fieldModifiers;
+    }
+
+    public ExpressionNode getnitExpression() {
+        return fieldInitExpression;
+    }
+
+    public String getName() {
+        return fieldIdentifier;
+    }
+
+    public TypeNode getType() {
+        return fieldTypeNode;
+    }
 }
