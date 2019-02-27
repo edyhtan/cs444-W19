@@ -12,7 +12,7 @@ public class InterfaceDeclrNode extends TypeDeclrNode {
     ArrayList<Symbol> modifiers;
     String identifier;
     ArrayList<ArrayList<String>> extendsInterfaceTypes;
-    ArrayList<AbstractMethodDeclr> interfaceBody;
+    ArrayList<AbstractMethodDeclrNode> interfaceBody;
 
     public InterfaceDeclrNode(ParseTree parseTree) throws ASTException {
         this.parseTree = parseTree;
@@ -55,7 +55,7 @@ public class InterfaceDeclrNode extends TypeDeclrNode {
                                 interfaceBody,
                                 Symbol.InterfaceMemberDeclr,
                                 Symbol.AbstractMethodDeclr,
-                                node -> new AbstractMethodDeclr(node)
+                                node -> new AbstractMethodDeclrNode(node)
                         );
                     }
                     break;
@@ -70,7 +70,7 @@ public class InterfaceDeclrNode extends TypeDeclrNode {
     @Override
     public void weed() throws WeedingFailureException{
         checkModifiers();
-        for (AbstractMethodDeclr node: interfaceBody) {
+        for (AbstractMethodDeclrNode node: interfaceBody) {
             node.weed();
         }
     }
@@ -94,7 +94,7 @@ public class InterfaceDeclrNode extends TypeDeclrNode {
         return modifiers;
     }
 
-    public ArrayList<AbstractMethodDeclr> getInterfaceBody() {
+    public ArrayList<AbstractMethodDeclrNode> getInterfaceBody() {
         return interfaceBody;
     }
 

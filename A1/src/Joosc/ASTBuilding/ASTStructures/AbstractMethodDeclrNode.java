@@ -9,14 +9,14 @@ import javafx.util.Pair;
 
 import java.util.ArrayList;
 
-public class AbstractMethodDeclr extends ASTNode {
+public class AbstractMethodDeclrNode extends ASTNode {
 
     ArrayList<Symbol> modifiers;
     TypeNode type;
     String identifier;
     ArrayList<Pair<TypeNode, String>> formalParamList;
 
-    public AbstractMethodDeclr(ParseTree parseTree) throws ASTException {
+    public AbstractMethodDeclrNode(ParseTree parseTree) throws ASTException {
         this.parseTree = parseTree;
         modifiers = new ArrayList<>();
         formalParamList = new ArrayList<>();
@@ -70,5 +70,21 @@ public class AbstractMethodDeclr extends ASTNode {
                     this.printInfoStrAtLevel(TREEITEM + "Param Identifier: " + node.getValue(), level + 2);
                     node.getKey().printInfo(level + 3);
                 });
+    }
+
+    public ArrayList<Symbol> getModifiers() {
+        return modifiers;
+    }
+
+    public ArrayList<Pair<TypeNode, String>> getFormalParamList() {
+        return formalParamList;
+    }
+
+    public String getName() {
+        return identifier;
+    }
+
+    public TypeNode getType() {
+        return type;
     }
 }
