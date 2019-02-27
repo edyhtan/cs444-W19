@@ -9,6 +9,7 @@ import Joosc.Exceptions.WeedingFailureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * The base of any Joos program
@@ -109,6 +110,10 @@ public class Program extends ASTNode {
 
     public ArrayList<String> getPackageDeclr() {
         return packageDeclr;
+    }
+
+    public String getPackageName() {
+        return String.join(".", packageDeclr);
     }
 
     public ArrayList<ArrayList<String>> getSingleTypeImport() {

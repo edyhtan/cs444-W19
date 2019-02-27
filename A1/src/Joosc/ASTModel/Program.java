@@ -7,14 +7,14 @@ import Joosc.ASTModel.ClassInterface.TypeDeclr;
 import java.util.ArrayList;
 
 public class Program implements AST {
-    private ArrayList<String> packageDeclr;
+    private String packageDeclr;
     private ArrayList<ArrayList<String>> singleTypeImport;
     private ArrayList<ArrayList<String>> onDemandTypeImport;
 
     private TypeDeclr typeDeclr;
 
     public Program(Joosc.ASTBuilding.ASTStructures.Program program) {
-        this.packageDeclr = program.getPackageDeclr();
+        this.packageDeclr = program.getPackageName();
         this.singleTypeImport = program.getSingleTypeImport();
         this.onDemandTypeImport = program.getOnDemandTypeImport();
         if (program.getTypeDeclr() instanceof ClassDeclrNode) {
