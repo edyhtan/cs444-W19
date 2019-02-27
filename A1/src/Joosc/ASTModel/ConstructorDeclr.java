@@ -35,19 +35,19 @@ public class ConstructorDeclr implements ClassBodyDeclr {
         canonicalID = sb.toString();
     }
 
-    public String getName() {
+    private String getName() {
         return name;
     }
 
-    public ArrayList<StatementNode> getBodyBlock() {
+    private ArrayList<StatementNode> getBodyBlock() {
         return bodyBlock;
     }
 
-    public ArrayList<Pair<TypeNode, String>> getFormalParamList() {
+    private ArrayList<Pair<TypeNode, String>> getFormalParamList() {
         return formalParamList;
     }
 
-    public ArrayList<Symbol> getModifiers() {
+    private ArrayList<Symbol> getModifiers() {
         return modifiers;
     }
 }
