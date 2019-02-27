@@ -8,7 +8,7 @@ import Joosc.Parser.LRGrammar.ParseTree;
 
 import java.util.List;
 
-public class ForStatement extends StatementNode {
+public class ForStatementNode extends StatementNode {
 
     // optional clauses
     StatementNode forInit = null;
@@ -17,7 +17,7 @@ public class ForStatement extends StatementNode {
 
     StatementNode statement;
 
-    ForStatement(ParseTree tree) throws ASTException {
+    ForStatementNode(ParseTree tree) throws ASTException {
         List<ParseTree> children = tree.getChildren();
 
         if (children.size() == 9) {

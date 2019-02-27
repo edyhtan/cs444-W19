@@ -29,18 +29,18 @@ public abstract class ExpressionNode extends ASTNode {
             case RelationalExpression:
             case AddExpression:
             case MultExpression:
-                return new ExpressionBinary(contentNode);
+                return new ExpressionBinaryNode(contentNode);
 
             case UnaryExpression:
             case UnaryExpressionNotMinus:
             case CastExpression:
-                return new ExpressionUnary(contentNode);
+                return new ExpressionUnaryNode(contentNode);
 
             case Primary:
             case Name:
             case FieldAccess:
             case ArrayAccess:
-                return new ExpressionContent(contentNode);
+                return new ExpressionContentNode(contentNode);
 
             default:
                 throw new InvalidParseTreeStructureException(parseTree, "No matching expressions");

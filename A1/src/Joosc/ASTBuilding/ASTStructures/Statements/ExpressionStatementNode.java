@@ -6,10 +6,10 @@ import Joosc.Exceptions.ASTException;
 import Joosc.Exceptions.WeedingFailureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
-public class ExpressionStatement extends StatementNode{
+public class ExpressionStatementNode extends StatementNode{
     ExpressionNode expression;
 
-    ExpressionStatement(ParseTree tree) throws ASTException {
+    ExpressionStatementNode(ParseTree tree) throws ASTException {
         ParseTree expressionParseTreeNode = tree.getChild(0, Symbol.StatementExpression).getChild(0);
         expression = ExpressionNode.resolveExpressionNode(expressionParseTreeNode);
     }
@@ -19,7 +19,7 @@ public class ExpressionStatement extends StatementNode{
 
     @Override
     public void printInfo(int level) {
-        printInfoInit("ExpressionStatement: ", level);
+        printInfoInit("ExpressionStatementNode: ", level);
         expression.printInfo(level + 1);
     }
 }

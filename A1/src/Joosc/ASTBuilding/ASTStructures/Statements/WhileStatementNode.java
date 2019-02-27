@@ -7,11 +7,11 @@ import Joosc.Parser.LRGrammar.ParseTree;
 
 import java.util.List;
 
-public class WhileStatement extends StatementNode {
+public class WhileStatementNode extends StatementNode {
     ExpressionNode expression;
     StatementNode statement;
 
-    WhileStatement(ParseTree tree) throws ASTException {
+    WhileStatementNode(ParseTree tree) throws ASTException {
         List<ParseTree> children = tree.getChildren();
 
         expression = ExpressionNode.resolveExpressionNode(children.get(2));

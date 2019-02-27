@@ -8,11 +8,11 @@ import Joosc.Parser.LRGrammar.ParseTree;
 
 import java.util.ArrayList;
 
-public class Block extends StatementNode{
+public class BlockNode extends StatementNode{
 
     ArrayList<StatementNode> statements;
 
-    Block(ParseTree tree) throws ASTException {
+    BlockNode(ParseTree tree) throws ASTException {
         if (tree.getChildren().size() > 2) {
             statements = new ArrayList<>();
             RecursionResolve.resolveNodes(

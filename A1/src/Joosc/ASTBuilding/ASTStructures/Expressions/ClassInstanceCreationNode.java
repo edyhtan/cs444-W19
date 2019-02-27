@@ -3,8 +3,8 @@ package Joosc.ASTBuilding.ASTStructures.Expressions;
 import Joosc.Exceptions.ASTException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
-public class ExpressionClassInstanceCreation extends ExpressionPrimary {
-    public ExpressionClassInstanceCreation(ParseTree parseTree) throws ASTException {
+public class ClassInstanceCreationNode extends ExpressionPrimaryNode {
+    public ClassInstanceCreationNode(ParseTree parseTree) throws ASTException {
 
     }
 

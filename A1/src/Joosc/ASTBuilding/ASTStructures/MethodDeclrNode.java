@@ -1,6 +1,5 @@
 package Joosc.ASTBuilding.ASTStructures;
 
-import Joosc.ASTBuilding.ASTStructures.Statements.PlainStatement;
 import Joosc.ASTBuilding.ASTStructures.Statements.StatementNode;
 import Joosc.ASTBuilding.Constants.RecursionResolve;
 import Joosc.ASTBuilding.Constants.Symbol;
@@ -103,7 +102,7 @@ public class MethodDeclrNode extends ClassMemberDeclrNode {
                     node.getKey().printInfo(level + 3);
                 });
         if (bodyBlock != null) {
-            this.printInfoArrayLambda("Body Block Statements:", bodyBlock,
+            this.printInfoArrayLambda("Body BlockNode Statements:", bodyBlock,
                     node -> {
                         node.printInfo(level + 2);
                     });

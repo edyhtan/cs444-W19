@@ -7,13 +7,13 @@ import Joosc.Exceptions.ASTException;
 import Joosc.Exceptions.WeedingFailureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
-public class LocalVarDeclrStatement extends StatementNode {
+public class LocalVarDeclrStatementNode extends StatementNode {
 
     TypeNode type;
     String id;
     ExpressionNode initExpression;
 
-    public LocalVarDeclrStatement(ParseTree parseTree) throws ASTException {
+    public LocalVarDeclrStatementNode(ParseTree parseTree) throws ASTException {
         this.parseTree = parseTree;
         type = TypeNode.resolveTypeNode(parseTree.getChildren().get(0));
 

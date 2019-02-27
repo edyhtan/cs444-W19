@@ -1,7 +1,6 @@
 package Joosc.ASTBuilding.ASTStructures.Statements;
 
 import Joosc.ASTBuilding.ASTStructures.ASTNode;
-import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.Exceptions.ASTException;
 import Joosc.Exceptions.InvalidParseTreeStructureException;
 import Joosc.Exceptions.WeedingFailureException;
@@ -15,7 +14,7 @@ public abstract class StatementNode extends ASTNode {
             case BlockStatement:
                 return resolveStatementNode(parseTree.getChild(0));
             case LocalVarDeclrStatement:
-                return new LocalVarDeclrStatement(parseTree);
+                return new LocalVarDeclrStatementNode(parseTree);
             case Statement:
                 return getStatement(parseTree.getChild(0));
             case StatementNoShortIf:
@@ -31,19 +30,19 @@ public abstract class StatementNode extends ASTNode {
             case StatementNoTrailingSub:
                 return noTrailingStatements(parseTree.getChildren().get(0));
             case IfThenStatement:
-                return new IfStatement(parseTree);
+                return new IfStatementNode(parseTree);
             case IfThenElseStatement:
-                return new IfStatement(parseTree);
+                return new IfStatementNode(parseTree);
             case WhileStatement:
-                return new WhileStatement(parseTree);
+                return new WhileStatementNode(parseTree);
             case ForStatement:
-                return new ForStatement(parseTree);
+                return new ForStatementNode(parseTree);
             case IfThenElseNoShortIf:
-                return new IfStatement(parseTree);
+                return new IfStatementNode(parseTree);
             case WhileNoShortIf:
-                return new WhileStatement(parseTree);
+                return new WhileStatementNode(parseTree);
             case ForNoShortIf:
-                return new ForStatement(parseTree);
+                return new ForStatementNode(parseTree);
             default:
                 throw new InvalidParseTreeStructureException(parseTree, "Illegal Class Body Declr node.");
         }
@@ -52,13 +51,13 @@ public abstract class StatementNode extends ASTNode {
     private static StatementNode noTrailingStatements(ParseTree parseTree) throws ASTException {
         switch (parseTree.getKind()) {
             case Block:
-                return new Block(parseTree);
+                return new BlockNode(parseTree);
             case ExpressionStatement:
-                return new ExpressionStatement(parseTree);
+                return new ExpressionStatementNode(parseTree);
             case ReturnStatement:
-                return new ReturnStatement(parseTree);
+                return new ReturnStatementNode(parseTree);
             case EmptyStatement:
-                return PlainStatement.Empty;
+                return PlainStatementNode.Empty;
             default:
                 throw new InvalidParseTreeStructureException(parseTree, "Illegal Class Body Declr node.");
         }

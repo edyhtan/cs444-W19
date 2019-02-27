@@ -8,13 +8,13 @@ import Joosc.Parser.LRGrammar.ParseTree;
 import java.util.List;
 
 
-class IfStatement extends StatementNode {
+class IfStatementNode extends StatementNode {
 
     ExpressionNode expression;
     StatementNode thenClause;
     StatementNode elseClause = null;
 
-    IfStatement(ParseTree tree) throws ASTException {
+    IfStatementNode(ParseTree tree) throws ASTException {
         List<ParseTree> children = tree.getChildren();
 
         expression = null;

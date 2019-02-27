@@ -3,13 +3,13 @@ package Joosc.ASTBuilding.ASTStructures.Statements;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.Exceptions.WeedingFailureException;
 
-public class PlainStatement extends StatementNode {
+public class PlainStatementNode extends StatementNode {
     //Static singleton
-    public static PlainStatement Empty = new PlainStatement(Symbol.Semicolon);
+    public static PlainStatementNode Empty = new PlainStatementNode(Symbol.Semicolon);
 
     Symbol kind;
 
-    private PlainStatement(Symbol kind) {
+    private PlainStatementNode(Symbol kind) {
         this.kind = kind;
     }
 

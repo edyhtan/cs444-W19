@@ -4,13 +4,13 @@ import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.Exceptions.ASTException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
-public class ExpressionBinary extends ExpressionNode {
+public class ExpressionBinaryNode extends ExpressionNode {
 
     Symbol kind, operator;
     ExpressionNode LHS, RHS;
     ParseTree assignmentLHS;
 
-    public ExpressionBinary(ParseTree parseTree) throws ASTException {
+    public ExpressionBinaryNode(ParseTree parseTree) throws ASTException {
         this.parseTree = parseTree;
         kind = parseTree.getKind();
         operator = parseTree.getChildren().get(1).getKind();

@@ -8,7 +8,7 @@ import Joosc.Parser.LRGrammar.ParseTree;
 
 import java.util.ArrayList;
 
-public class ExpressionUnary extends ExpressionNode {
+public class ExpressionUnaryNode extends ExpressionNode {
 
     private Symbol kind;
     private Symbol unaryOperator;
@@ -16,7 +16,7 @@ public class ExpressionUnary extends ExpressionNode {
     private ArrayList<String> castingName;
     private boolean castingIsArray = false;
 
-    public ExpressionUnary(ParseTree parseTree) throws ASTException {
+    public ExpressionUnaryNode(ParseTree parseTree) throws ASTException {
         this.parseTree = parseTree;
         kind = parseTree.getKind();
         castingName = new ArrayList<>();

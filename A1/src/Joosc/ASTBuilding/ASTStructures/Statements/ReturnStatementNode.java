@@ -7,10 +7,10 @@ import Joosc.Parser.LRGrammar.ParseTree;
 
 import java.util.List;
 
-public class ReturnStatement extends StatementNode {
+public class ReturnStatementNode extends StatementNode {
     ExpressionNode expression = null;
 
-    ReturnStatement(ParseTree tree) throws ASTException {
+    ReturnStatementNode(ParseTree tree) throws ASTException {
         List<ParseTree> children = tree.getChildren();
 
         if (children.size() > 2) {

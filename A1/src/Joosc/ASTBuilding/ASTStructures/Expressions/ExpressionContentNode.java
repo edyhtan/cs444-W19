@@ -7,13 +7,13 @@ import Joosc.Parser.LRGrammar.ParseTree;
 
 import java.util.ArrayList;
 
-public class ExpressionContent extends ExpressionPrimary{
+public class ExpressionContentNode extends ExpressionPrimaryNode {
 
     String literal;
     Symbol kind;
     ArrayList<String> name;
 
-    public ExpressionContent(ParseTree parseTree) throws ASTException {
+    public ExpressionContentNode(ParseTree parseTree) throws ASTException {
         this.parseTree = parseTree;
         switch (parseTree.getKind()) {
             case Name:
