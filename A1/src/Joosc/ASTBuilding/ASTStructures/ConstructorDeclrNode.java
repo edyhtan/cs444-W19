@@ -93,4 +93,20 @@ public class ConstructorDeclrNode extends ClassBodyDeclrNode {
         this.printInfoArrayLambda("Body Statements:", bodyBlock,
                 node -> node.printInfo(level + 2));
     }
+
+    public ArrayList<Symbol> getModifiers() {
+        return modifiers;
+    }
+
+    public ArrayList<Pair<TypeNode, String>> getFormalParamList() {
+        return formalParamList;
+    }
+
+    public ArrayList<StatementNode> getBodyBlock() {
+        return bodyBlock;
+    }
+
+    public String getName() {
+        return identifier;
+    }
 }
