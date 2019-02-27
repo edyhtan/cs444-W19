@@ -25,4 +25,24 @@ public class FieldDeclr implements ClassMemberDeclr {
     public void buildCanonicalName(String className) {
         canonicalID = className + DOT + name;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public TypeNode getType() {
+        return type;
+    }
+
+    public ArrayList<Symbol> getModifiers() {
+        return modifiers;
+    }
+
+    public ExpressionNode getInitExpression() {
+        return initExpression;
+    }
+
+    public String getCanonicalID() {
+        return canonicalID;
+    }
 }

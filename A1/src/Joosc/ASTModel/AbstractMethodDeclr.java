@@ -33,21 +33,23 @@ public class AbstractMethodDeclr implements AST {
         canonicalID = sb.toString();
     }
 
-    private TypeNode getType() {
+    public TypeNode getType() {
         return type;
     }
 
-    private String getName() {
+    public String getName() {
         return name;
     }
 
-    private ArrayList<Pair<TypeNode, String>> getFormalParamList() {
+    public ArrayList<Pair<TypeNode, String>> getFormalParamList() {
         return formalParamList;
     }
 
-    private ArrayList<Symbol> getModifiers() {
+    public ArrayList<Symbol> getModifiers() {
         return modifiers;
     }
 
-
+    public String getCanonicalID() {
+        return canonicalID;
+    }
 }

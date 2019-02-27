@@ -23,19 +23,19 @@ public class ClassDeclr implements TypeDeclr {
         canonicalID = packageName + DOT + name;
     }
 
-    private ArrayList<Symbol> getModifers() {
+    public ArrayList<Symbol> getModifers() {
         return modifiers;
     }
 
-    private String getCanonicalID() {
+    public String getCanonicalID() {
         return canonicalID;
     }
 
-    private ArrayList<ArrayList<String>> getInterfaces() {
+    public ArrayList<ArrayList<String>> getInterfaces() {
         return interfaces;
     }
 
-    private ArrayList<String> getParentClass() {
+    public ArrayList<String> getParentClass() {
         return parentClass;
     }
 }

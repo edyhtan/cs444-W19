@@ -25,19 +25,19 @@ public class InterfaceDeclr implements TypeDeclr {
         canonicalID = packageName + DOT + name;
     }
 
-    private ArrayList<Symbol> getModifiers() {
+    public ArrayList<Symbol> getModifiers() {
         return modifiers;
     }
 
-    private ArrayList<ArrayList<String>> getExtendsInterfaceTypes() {
+    public ArrayList<ArrayList<String>> getExtendsInterfaceTypes() {
         return extendsInterfaceTypes;
     }
 
-    private ArrayList<AbstractMethodDeclrNode> getInterfaceBody() {
+    public ArrayList<AbstractMethodDeclrNode> getInterfaceBody() {
         return interfaceBody;
     }
 
-    private String getCanonicalID() {
+    public String getCanonicalID() {
         return canonicalID;
     }
 

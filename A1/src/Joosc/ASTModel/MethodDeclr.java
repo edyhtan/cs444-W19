@@ -33,24 +33,32 @@ public class MethodDeclr implements ClassMemberDeclr {
                 .map(pair -> pair.getKey().toString())
                 .collect(Collectors.joining(COMMA));
 
-        sb.append(typeList).append(")").append(type.toString());
+        sb.append(typeList).append(")").append(DOT).append(type.toString());
 
         canonicalID = sb.toString();
     }
 
-    private TypeNode getType() {
+    public TypeNode getType() {
         return type;
     }
 
-    private ArrayList<StatementNode> getBodyBlock() {
+    public ArrayList<StatementNode> getBodyBlock() {
         return bodyBlock;
     }
 
-    private ArrayList<Pair<TypeNode, String>> getFormalParamList() {
+    public ArrayList<Pair<TypeNode, String>> getFormalParamList() {
         return formalParamList;
     }
 
-    private String getName() {
+    public String getName() {
         return name;
+    }
+
+    public String getCanonicalID() {
+        return canonicalID;
+    }
+
+    public ArrayList<Symbol> getModifiers() {
+        return modifiers;
     }
 }
