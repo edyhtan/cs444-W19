@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class AbstractMethodDeclr implements AST {
-    ArrayList<Symbol> modifiers;
-    TypeNode type;
-    String name;
-    ArrayList<Pair<TypeNode, String>> formalParamList;
-    String canonicalID;
+    private ArrayList<Symbol> modifiers;
+    private TypeNode type;
+    private String name;
+    private ArrayList<Pair<TypeNode, String>> formalParamList;
+    private String canonicalID;
 
     public AbstractMethodDeclr(AbstractMethodDeclrNode node) {
         modifiers = node.getModifiers();
