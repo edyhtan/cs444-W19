@@ -36,4 +36,8 @@ public class Block extends StatementNode{
 
     @Override
     public void printInfo(int level) { }
+
+    public ArrayList<StatementNode> getStatements() {
+        return statements;
+    }
 }

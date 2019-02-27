@@ -52,8 +52,8 @@ public class ExpressionUnary extends ExpressionNode {
 
     @Override
     public void weed() throws WeedingFailureException {
-        if ((kind == unaryOperator) && (targetNode instanceof ExpressionContent) && (((ExpressionContent) targetNode).kind == Symbol.IntLiteral)) {
-            if (Long.parseLong(((ExpressionContent) targetNode).literal) < Integer.MIN_VALUE) {
+        if ((kind == unaryOperator) && (targetNode instanceof ExpressionContentNode) && (((ExpressionContentNode) targetNode).kind == Symbol.IntLiteral)) {
+            if (Long.parseLong(((ExpressionContentNode) targetNode).literal) < Integer.MIN_VALUE) {
 
             }
         } else {
