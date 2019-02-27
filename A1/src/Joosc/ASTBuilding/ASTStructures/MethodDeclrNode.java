@@ -109,4 +109,24 @@ public class MethodDeclrNode extends ClassMemberDeclrNode {
                     });
         }
     }
+
+    public ArrayList<Symbol> getModifiers() {
+        return modifiers;
+    }
+
+    public ArrayList<Pair<TypeNode, String>> getFormalParamList() {
+        return formalParamList;
+    }
+
+    public ArrayList<StatementNode> getBodyBlock() {
+        return bodyBlock;
+    }
+
+    public TypeNode getType() {
+        return type;
+    }
+
+    public String getName() {
+        return identifier;
+    }
 }
