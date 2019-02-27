@@ -1,6 +1,6 @@
 package Joosc.ASTModel.ClassInterface;
 
-import Joosc.ASTBuilding.ASTStructures.AbstractMethodDeclr;
+import Joosc.ASTBuilding.ASTStructures.AbstractMethodDeclrNode;
 import Joosc.ASTBuilding.ASTStructures.InterfaceDeclrNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 
@@ -10,8 +10,8 @@ public class InterfaceDeclr implements TypeDeclr {
     private ArrayList<Symbol> modifiers;
     private String name;
     private ArrayList<ArrayList<String>> extendsInterfaceTypes;
-    private ArrayList<AbstractMethodDeclr> interfaceBody;
-    private ArrayList<String> canonicalID;
+    private ArrayList<AbstractMethodDeclrNode> interfaceBody;
+    private String canonicalID;
 
     public InterfaceDeclr(InterfaceDeclrNode node) {
         modifiers = node.getModifiers();
@@ -21,9 +21,8 @@ public class InterfaceDeclr implements TypeDeclr {
     }
 
     @Override
-    public void buildCanonicalName(ArrayList<String> packageName) {
-        canonicalID = new ArrayList<>(packageName);
-        canonicalID.add(name);
+    public void buildCanonicalName(String packageName) {
+        canonicalID = packageName + DOT + name;
     }
 
     private ArrayList<Symbol> getModifiers() {
@@ -34,11 +33,11 @@ public class InterfaceDeclr implements TypeDeclr {
         return extendsInterfaceTypes;
     }
 
-    private ArrayList<AbstractMethodDeclr> getInterfaceBody() {
+    private ArrayList<AbstractMethodDeclrNode> getInterfaceBody() {
         return interfaceBody;
     }
 
-    private ArrayList<String> getCanonicalID() {
+    private String getCanonicalID() {
         return canonicalID;
     }
 

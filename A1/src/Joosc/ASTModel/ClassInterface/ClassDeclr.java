@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class ClassDeclr implements TypeDeclr {
     private ArrayList<Symbol> modifiers;
     private String name;
-    private ArrayList<String> canonicalID;
+    private String canonicalID;
     private ArrayList<String> parentClass;
     private ArrayList<ArrayList<String>> interfaces;
 
@@ -19,16 +19,15 @@ public class ClassDeclr implements TypeDeclr {
         name = node.getName();
     }
 
-    public void buildCanonicalName(ArrayList<String> packageName) {
-        canonicalID = new ArrayList<> (packageName);
-        canonicalID.add(name);
+    public void buildCanonicalName(String packageName) {
+        canonicalID = packageName + DOT + name;
     }
 
     private ArrayList<Symbol> getModifers() {
         return modifiers;
     }
 
-    private ArrayList<String> getCanonicalID() {
+    private String getCanonicalID() {
         return canonicalID;
     }
 
