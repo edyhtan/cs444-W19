@@ -42,7 +42,7 @@ public abstract class ExpressionNode extends ASTNode {
             case MethodInvocation:
                 return new ExpressionMethodInvocationNode(contentNode);
             case ClassInstanceCreation:
-                return new ExpressionClassInstanceCreationNodeNode(parseTree);
+                return new ExpressionClassInstanceCreationNode(parseTree);
             default:
                 throw new InvalidParseTreeStructureException(parseTree, "No matching expressions");
         }

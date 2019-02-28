@@ -20,7 +20,7 @@ public abstract class ExpressionPrimaryNode extends ExpressionNode {
                 case Name:
                     return new ExpressionContentNode(child);
                 case ClassInstanceCreation:
-                    return new ExpressionClassInstanceCreationNodeNode(child);
+                    return new ExpressionClassInstanceCreationNode(child);
                 case FieldAccess:
                     return new ExpressionFieldAccessNode(child);
                 case MethodInvocation:

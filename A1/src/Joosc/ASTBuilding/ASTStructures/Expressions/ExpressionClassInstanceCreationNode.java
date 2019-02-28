@@ -8,12 +8,12 @@ import Joosc.Parser.LRGrammar.ParseTree;
 
 import java.util.ArrayList;
 
-public class ExpressionClassInstanceCreationNodeNode extends ExpressionPrimaryNode {
+public class ExpressionClassInstanceCreationNode extends ExpressionPrimaryNode {
 
     TypeNode classType;
     ArrayList<ExpressionNode> argList;
 
-    public ExpressionClassInstanceCreationNodeNode(ParseTree parseTree) throws ASTException {
+    public ExpressionClassInstanceCreationNode(ParseTree parseTree) throws ASTException {
         this.parseTree = parseTree;
         ParseTree child = parseTree.getChild(1);
         classType = new TypeNode(child);

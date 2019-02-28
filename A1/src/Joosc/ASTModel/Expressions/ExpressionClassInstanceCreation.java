@@ -1,6 +1,6 @@
 package Joosc.ASTModel.Expressions;
 
-import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionClassInstanceCreationNodeNode;
+import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionClassInstanceCreationNode;
 import Joosc.ASTModel.Type;
 
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ public class ExpressionClassInstanceCreation implements Expression {
     private Type classType;
     private ArrayList<Expression> argList;
 
-    public ExpressionClassInstanceCreation(ExpressionClassInstanceCreationNodeNode node) {
+    public ExpressionClassInstanceCreation(ExpressionClassInstanceCreationNode node) {
         classType = Type.convertTypeNode(node.getClassType());
         argList = node.getArgList().stream().map(Expression::convertExpressionNode)
                 .collect(Collectors.toCollection(ArrayList::new));
