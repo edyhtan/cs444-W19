@@ -65,4 +65,20 @@ public class ExpressionUnaryNode extends ExpressionNode {
         printInfoSingle("Operator: ", unaryOperator);
         targetNode.printInfo(level + 1);
     }
+
+    public Symbol getKind() {
+        return kind;
+    }
+
+    public ArrayList<String> getCastingName() {
+        return castingName;
+    }
+
+    public ExpressionNode getTargetNode() {
+        return targetNode;
+    }
+
+    public Symbol getUnaryOperator() {
+        return unaryOperator;
+    }
 }
