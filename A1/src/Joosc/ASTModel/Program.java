@@ -7,7 +7,7 @@ import Joosc.ASTModel.ClassInterface.TypeDeclr;
 
 import java.util.ArrayList;
 
-public class Program extends AST {
+public class Program implements AST {
     private String packageDeclr;
     private ArrayList<ArrayList<String>> singleTypeImport;
     private ArrayList<ArrayList<String>> onDemandTypeImport;
