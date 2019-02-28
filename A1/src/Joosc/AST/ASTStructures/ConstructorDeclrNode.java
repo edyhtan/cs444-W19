@@ -43,7 +43,7 @@ public class ConstructorDeclrNode extends ClassBodyDeclrNode {
                             Symbol.FormalParamList,
                             Symbol.FormalParam,
                             node -> new Pair<TypeNode, String>(
-                                    TypeNode.resolveTypeNode(node.getChild(0, Symbol.Type)),
+                                    new TypeNode(node.getChild(0, Symbol.Type)),
                                     node.getChild(1,Symbol.ID).getLexeme())
                     );
                     break;

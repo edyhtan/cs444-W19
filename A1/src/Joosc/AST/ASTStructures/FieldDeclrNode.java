@@ -35,7 +35,7 @@ public class FieldDeclrNode extends ClassMemberDeclrNode {
                     );
                     break;
                 case Type:
-                    fieldTypeNode = TypeNode.resolveTypeNode(child);
+                    fieldTypeNode = new TypeNode(child);
                     break;
                 case VariableDeclr:
                     for (ParseTree varDeclrChild : child.getChildren()) {
