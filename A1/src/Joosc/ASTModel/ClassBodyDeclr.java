@@ -1,5 +1,5 @@
 package Joosc.ASTModel;
 
-public interface ClassBodyDeclr extends AST {
-    void buildCanonicalName(String className);
+public abstract class ClassBodyDeclr extends AST {
+    public abstract void buildCanonicalName(String className);
 }

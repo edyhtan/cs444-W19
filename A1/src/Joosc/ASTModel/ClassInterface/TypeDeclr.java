@@ -2,8 +2,8 @@ package Joosc.ASTModel.ClassInterface;
 
 import Joosc.ASTModel.AST;
 
-public interface TypeDeclr extends AST {
+public abstract class TypeDeclr extends AST {
 
-    void buildCanonicalName(String packageName);
+    public abstract void buildCanonicalName(String packageName);
 
 }

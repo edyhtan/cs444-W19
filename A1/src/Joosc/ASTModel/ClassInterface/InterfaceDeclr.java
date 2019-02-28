@@ -6,7 +6,7 @@ import Joosc.ASTBuilding.Constants.Symbol;
 
 import java.util.ArrayList;
 
-public class InterfaceDeclr implements TypeDeclr {
+public class InterfaceDeclr extends TypeDeclr {
     private ArrayList<Symbol> modifiers;
     private String name;
     private ArrayList<ArrayList<String>> extendsInterfaceTypes;

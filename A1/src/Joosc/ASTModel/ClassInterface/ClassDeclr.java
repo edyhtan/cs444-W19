@@ -5,7 +5,7 @@ import Joosc.ASTBuilding.Constants.Symbol;
 
 import java.util.ArrayList;
 
-public class ClassDeclr implements TypeDeclr {
+public class ClassDeclr extends TypeDeclr {
     private ArrayList<Symbol> modifiers;
     private String name;
     private String canonicalID;

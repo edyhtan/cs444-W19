@@ -1,24 +1,23 @@
 package Joosc.ASTModel;
 
-import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionNode;
 import Joosc.ASTBuilding.ASTStructures.FieldDeclrNode;
-import Joosc.ASTBuilding.ASTStructures.TypeNode;
 import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.ASTModel.Expressions.Expression;
 
 import java.util.ArrayList;
 
-public class FieldDeclr implements ClassMemberDeclr {
+public class FieldDeclr extends ClassMemberDeclr {
     private ArrayList<Symbol> modifiers;
-    private TypeNode type;
+    private Type type;
     private String name;
-    private ExpressionNode initExpression;
+    private Expression initExpression;
     private String canonicalID;
 
     public FieldDeclr(FieldDeclrNode node) {
         modifiers = node.getModifiers();
         name = node.getName();
-        type = node.getType();
-        initExpression = node.getnitExpression();
+        type = Type.convertTypeNode(node.getType());
+        initExpression = Expression.convertExpressionNode(node.getnitExpression());
     }
 
     @Override
@@ -30,7 +29,7 @@ public class FieldDeclr implements ClassMemberDeclr {
         return name;
     }
 
-    public TypeNode getType() {
+    public Type getType() {
         return type;
     }
 
@@ -38,7 +37,7 @@ public class FieldDeclr implements ClassMemberDeclr {
         return modifiers;
     }
 
-    public ExpressionNode getInitExpression() {
+    public Expression getInitExpression() {
         return initExpression;
     }
 

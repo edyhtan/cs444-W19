@@ -1,4 +1,5 @@
 package Joosc.ASTModel;
+
 import Joosc.ASTBuilding.ASTStructures.ClassDeclrNode;
 import Joosc.ASTBuilding.ASTStructures.TypeDeclrNode;
 import Joosc.ASTModel.ClassInterface.ClassDeclr;
@@ -6,7 +7,7 @@ import Joosc.ASTModel.ClassInterface.TypeDeclr;
 
 import java.util.ArrayList;
 
-public class Program implements AST {
+public class Program extends AST {
     private String packageDeclr;
     private ArrayList<ArrayList<String>> singleTypeImport;
     private ArrayList<ArrayList<String>> onDemandTypeImport;

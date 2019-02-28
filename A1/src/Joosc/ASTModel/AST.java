@@ -1,6 +1,6 @@
 package Joosc.ASTModel;
 
-public interface AST {
-    String DOT = ".";
+public abstract class AST {
+    protected String DOT = ".";
     String COMMA = ",";
 }

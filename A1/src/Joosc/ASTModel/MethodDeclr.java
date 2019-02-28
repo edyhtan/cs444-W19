@@ -1,28 +1,32 @@
 package Joosc.ASTModel;
 
 import Joosc.ASTBuilding.ASTStructures.MethodDeclrNode;
-import Joosc.ASTBuilding.ASTStructures.Statements.StatementNode;
-import Joosc.ASTBuilding.ASTStructures.TypeNode;
 import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.ASTModel.Statements.Statement;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class MethodDeclr implements ClassMemberDeclr {
+public class MethodDeclr extends ClassMemberDeclr {
     ArrayList<Symbol> modifiers;
-    TypeNode type;
+    Type type;
     String name;
-    ArrayList<Pair<TypeNode, String>> formalParamList;
-    ArrayList<StatementNode> bodyBlock;
+    ArrayList<Pair<Type, String>> formalParamList;
+    ArrayList<Statement> bodyBlock;
     String canonicalID;
 
     public MethodDeclr(MethodDeclrNode node) {
         modifiers = node.getModifiers();
-        type = node.getType();
+        type = Type.convertTypeNode(node.getType());
         name = node.getName();
-        formalParamList = node.getFormalParamList();
-        bodyBlock = node.getBodyBlock();
+
+        formalParamList = node.getFormalParamList().stream()
+                .map(pair -> new Pair<>(Type.convertTypeNode(pair.getKey()), pair.getValue()))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        bodyBlock = node.getBodyBlock().stream().map(stmt -> Statement.convertStatementNode(stmt))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     @Override
@@ -38,15 +42,15 @@ public class MethodDeclr implements ClassMemberDeclr {
         canonicalID = sb.toString();
     }
 
-    public TypeNode getType() {
+    public Type getType() {
         return type;
     }
 
-    public ArrayList<StatementNode> getBodyBlock() {
+    public ArrayList<Statement> getBodyBlock() {
         return bodyBlock;
     }
 
-    public ArrayList<Pair<TypeNode, String>> getFormalParamList() {
+    public ArrayList<Pair<Type, String>> getFormalParamList() {
         return formalParamList;
     }
 
