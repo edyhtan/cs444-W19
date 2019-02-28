@@ -15,7 +15,7 @@ public class LocalVarDeclrStatementNode extends StatementNode {
 
     public LocalVarDeclrStatementNode(ParseTree parseTree) throws ASTException {
         this.parseTree = parseTree;
-        type = TypeNode.resolveTypeNode(parseTree.getChildren().get(0));
+        type = new TypeNode(parseTree.getChildren().get(0));
 
         for (ParseTree node : parseTree.getChildren().get(1).getChildren()) {
             if (node.getKind() == Symbol.ID) {

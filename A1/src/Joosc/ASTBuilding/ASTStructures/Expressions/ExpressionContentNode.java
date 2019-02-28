@@ -10,26 +10,26 @@ import java.util.ArrayList;
 public class ExpressionContentNode extends ExpressionPrimaryNode {
 
     String literal;
-    Symbol kind;
     ArrayList<String> name;
 
     public ExpressionContentNode(ParseTree parseTree) throws ASTException {
         this.parseTree = parseTree;
         switch (parseTree.getKind()) {
             case Name:
-                kind = Symbol.Name;
+                kind = Symbol.Name.getSymbolString();
                 name = new ArrayList<>();
                 RecursionResolve.resolveName(parseTree, name);
                 break;
             case This:
-                kind = Symbol.This;
+                kind = Symbol.This.getSymbolString();
+                literal = parseTree.getLexeme();
+                break;
+            case Literal:
+                ParseTree child = parseTree.getChild(0);
+                kind = child.getKind().getSymbolString();
+                literal = child.getLexeme();
         }
-
     }
-
-//    public ExpressionNode resolveExpressionContent(ParseTree parseTree) {
-//
-//    }
 
     @Override
     public void weed() {
@@ -40,6 +40,11 @@ public class ExpressionContentNode extends ExpressionPrimaryNode {
     public void printInfo(int level) {
         printInfoInit("Expression Content:", level);
         printInfoSingle("Kind: ", kind);
-        printInfoSingle("Literal: ", literal);
+        if (name != null) {
+            printInfoSingle("Name: ", name);
+        } else {
+            printInfoSingle("Literal:", literal);
+        }
+
     }
 }

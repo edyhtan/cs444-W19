@@ -33,7 +33,7 @@ public class MethodDeclrNode extends ClassMemberDeclrNode {
                 node -> node.getChild(0).getKind()
         );
 
-        type = TypeNode.resolveTypeNode(methodHeader.getChild(1));
+        type = new TypeNode(methodHeader.getChild(1));
 
         ParseTree methodDeclrtor = methodHeader.getChild(2, Symbol.MethodDeclrtor);
         identifier = methodDeclrtor.getChild(0, Symbol.ID).getLexeme();
@@ -44,7 +44,7 @@ public class MethodDeclrNode extends ClassMemberDeclrNode {
                     Symbol.FormalParamList,
                     Symbol.FormalParam,
                     node -> new Pair<>(
-                            TypeNode.resolveTypeNode(node.getChild(0,Symbol.Type)),
+                            new TypeNode(node.getChild(0,Symbol.Type)),
                             node.getChild(1,Symbol.ID).getLexeme()
                     )
             );

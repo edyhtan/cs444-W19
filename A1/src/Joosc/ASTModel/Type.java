@@ -1,6 +1,5 @@
 package Joosc.ASTModel;
 
-import Joosc.ASTBuilding.ASTStructures.PrimitiveTypeNode;
 import Joosc.ASTBuilding.ASTStructures.TypeNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 

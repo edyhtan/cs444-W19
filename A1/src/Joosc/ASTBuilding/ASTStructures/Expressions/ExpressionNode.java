@@ -9,13 +9,8 @@ import Joosc.Parser.LRGrammar.ParseTree;
 
 public abstract class ExpressionNode extends ASTNode {
 
-    /**
-     * Every expression should be able to be evaluated some way.
-     * The return type might varies. This is to be implemented during analyzing phase.
-     */
-    //abstract void evaluate();
+    String kind;
 
-    //Ghetto Constructor
     public static ExpressionNode resolveExpressionNode(ParseTree parseTree) throws ASTException {
         ParseTree contentNode = findContentNode(parseTree);
         switch (contentNode.getKind()) {
@@ -37,11 +32,17 @@ public abstract class ExpressionNode extends ASTNode {
                 return new ExpressionUnaryNode(contentNode);
 
             case Primary:
-            case Name:
+                return ExpressionPrimary.resolvePrimary(contentNode);
             case FieldAccess:
             case ArrayAccess:
                 return new ExpressionContentNode(contentNode);
 
+            case Name:
+                return new ExpressionContentNode(contentNode);
+            case MethodInvocation:
+                return new ExpressionMethodInvocation(contentNode);
+            case ClassInstanceCreation:
+                return new ExpressionClassInstanceCreation(parseTree);
             default:
                 throw new InvalidParseTreeStructureException(parseTree, "No matching expressions");
         }
