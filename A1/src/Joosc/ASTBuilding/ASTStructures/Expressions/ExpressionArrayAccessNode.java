@@ -37,4 +37,16 @@ public class ExpressionArrayAccessNode extends ExpressionPrimaryNode {
             referenceExpression.printInfo(level + 2);
         }
     }
+
+    public ArrayList<String> getReferenceName() {
+        return referenceName;
+    }
+
+    public ExpressionNode getIndexExpression() {
+        return indexExpression;
+    }
+
+    public ExpressionNode getReferenceExpression() {
+        return referenceExpression;
+    }
 }
