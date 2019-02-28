@@ -1,0 +1,22 @@
+package Joosc.ASTModel.Expressions;
+
+import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionArrayCreationNode;
+import Joosc.ASTModel.Type;
+
+public class ExpressionArrayCreation extends ExpressionPrimary {
+    private Expression sizeExpression;
+    private Type arrayType;
+
+    public ExpressionArrayCreation(ExpressionArrayCreationNode node) {
+        sizeExpression = Expression.convertExpressionNode(node.getSizeExpression());
+        arrayType = Type.convertTypeNode(node.getArrayType());
+    }
+
+    public Expression getSizeExpression() {
+        return sizeExpression;
+    }
+
+    public Type getArrayType() {
+        return arrayType;
+    }
+}

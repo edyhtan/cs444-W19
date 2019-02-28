@@ -1,7 +1,7 @@
 package Joosc.ASTBuilding.ASTStructures.Expressions;
 
-import Joosc.AST.ASTStructures.TypeNode;
-import Joosc.AST.Constants.Symbol;
+import Joosc.ASTBuilding.ASTStructures.TypeNode;
+import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.Exceptions.ASTException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
@@ -25,5 +25,13 @@ public class ExpressionArrayCreationNode extends ExpressionPrimaryNode {
         printInfoInit("Array Creation:", level);
         arrayType.printInfo(level + 1);
         sizeExpression.printInfo(level + 1);
+    }
+
+    public ExpressionNode getSizeExpression() {
+        return sizeExpression;
+    }
+
+    public TypeNode getArrayType() {
+        return arrayType;
     }
 }
