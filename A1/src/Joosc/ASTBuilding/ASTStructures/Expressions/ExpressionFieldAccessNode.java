@@ -23,4 +23,12 @@ public class ExpressionFieldAccessNode extends ExpressionPrimaryNode {
         fieldParentExpression.printInfo(level + 1);
         printInfoSingle("Field Identifier:", fieldIdentifier);
     }
+
+    public ExpressionNode getFieldParentExpression() {
+        return fieldParentExpression;
+    }
+
+    public String getFieldIdentifier() {
+        return fieldIdentifier;
+    }
 }
