@@ -7,7 +7,7 @@ import Joosc.Parser.LRGrammar.ParseTree;
 
 import java.util.ArrayList;
 
-public class ExpressionContentNode extends ExpressionPrimaryNode {
+public class ExpressionContentNode extends ExpressionNode {
 
     String literal;
     ArrayList<String> name;

@@ -1,21 +1,21 @@
 package Joosc.ASTBuilding.ASTStructures.Expressions;
 
-import Joosc.AST.Constants.RecursionResolve;
-import Joosc.AST.Constants.Symbol;
+import Joosc.ASTBuilding.Constants.RecursionResolve;
+import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.Exceptions.ASTException;
 import Joosc.Exceptions.InvalidParseTreeStructureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
 import java.util.ArrayList;
 
-public class ExpressionMethodInvocation extends ExpressionPrimary {
+public class ExpressionMethodInvocationNode extends ExpressionPrimaryNode {
 
     ArrayList<String> methodName;
     ArrayList<ExpressionNode> argList;
     ExpressionNode methodParentExpression;
     String methodIdentifier;
 
-    public ExpressionMethodInvocation(ParseTree parseTree) throws ASTException {
+    public ExpressionMethodInvocationNode(ParseTree parseTree) throws ASTException {
         ParseTree child = parseTree.getChild(0);
         if (child.getKind().equals(Symbol.Name)) {
             methodName = new ArrayList<>();
@@ -32,7 +32,7 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
                 );
             }
         } else if (child.getKind().equals(Symbol.Primary)) {
-            methodParentExpression = ExpressionPrimary.resolvePrimary(child);
+            methodParentExpression = ExpressionPrimaryNode.resolvePrimary(child);
             child = parseTree.getChild(2, Symbol.ID);
             methodIdentifier = child.getLexeme();
             child = parseTree.getChild(4);

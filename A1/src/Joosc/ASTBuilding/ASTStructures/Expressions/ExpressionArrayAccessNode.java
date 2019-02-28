@@ -1,19 +1,19 @@
 package Joosc.ASTBuilding.ASTStructures.Expressions;
 
-import Joosc.AST.Constants.RecursionResolve;
-import Joosc.AST.Constants.Symbol;
+import Joosc.ASTBuilding.Constants.RecursionResolve;
+import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.Exceptions.ASTException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
 import java.util.ArrayList;
 
-public class ExpressionArrayAccess extends ExpressionPrimary {
+public class ExpressionArrayAccessNode extends ExpressionPrimaryNode {
 
     ArrayList<String> referenceName;
     ExpressionNode referenceExpression;
     ExpressionNode indexExpression;
 
-    public ExpressionArrayAccess (ParseTree parseTree) throws ASTException {
+    public ExpressionArrayAccessNode(ParseTree parseTree) throws ASTException {
         this.parseTree = parseTree;
         indexExpression =  resolveExpressionNode(parseTree.getChild(2, Symbol.Expression));
         ParseTree child = parseTree.getChild(0);
@@ -21,7 +21,7 @@ public class ExpressionArrayAccess extends ExpressionPrimary {
             referenceName = new ArrayList<>();
             RecursionResolve.resolveName(child, referenceName);
         } else if (child.getKind().equals(Symbol.PrimaryNoNewArray)) {
-            referenceExpression = ExpressionPrimary.resolvePrimary(child);
+            referenceExpression = ExpressionPrimaryNode.resolvePrimary(child);
         }
     }
 

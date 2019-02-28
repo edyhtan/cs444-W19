@@ -1,19 +1,19 @@
 package Joosc.ASTBuilding.ASTStructures.Expressions;
 
-import Joosc.AST.ASTStructures.TypeNode;
-import Joosc.AST.Constants.RecursionResolve;
-import Joosc.AST.Constants.Symbol;
+import Joosc.ASTBuilding.ASTStructures.TypeNode;
+import Joosc.ASTBuilding.Constants.RecursionResolve;
+import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.Exceptions.ASTException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
 import java.util.ArrayList;
 
-public class ExpressionClassInstanceCreation extends ExpressionPrimary {
+public class ExpressionClassInstanceCreationNodeNode extends ExpressionPrimaryNode {
 
     TypeNode classType;
     ArrayList<ExpressionNode> argList;
 
-    public ExpressionClassInstanceCreation(ParseTree parseTree) throws ASTException {
+    public ExpressionClassInstanceCreationNodeNode(ParseTree parseTree) throws ASTException {
         this.parseTree = parseTree;
         ParseTree child = parseTree.getChild(1);
         classType = new TypeNode(child);
@@ -40,5 +40,13 @@ public class ExpressionClassInstanceCreation extends ExpressionPrimary {
         if (argList != null) {
             printInfoArrayLambda("Argument List:", argList, c -> c.printInfo(level + 2));
         }
+    }
+
+    public ArrayList<ExpressionNode> getArgList() {
+        return argList;
+    }
+
+    public TypeNode getClassType() {
+        return classType;
     }
 }

@@ -1,6 +1,5 @@
 package Joosc.ASTBuilding.ASTStructures.Expressions;
 
-import Joosc.AST.Constants.Symbol;
 import Joosc.Parser.LRGrammar.ParseTree;
 
 public class ExpressionCast extends ExpressionNode {

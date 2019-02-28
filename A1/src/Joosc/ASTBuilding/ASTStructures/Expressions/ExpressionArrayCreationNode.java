@@ -5,12 +5,12 @@ import Joosc.AST.Constants.Symbol;
 import Joosc.Exceptions.ASTException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
-public class ExpressionArrayCreation extends ExpressionPrimary {
+public class ExpressionArrayCreationNode extends ExpressionPrimaryNode {
 
     ExpressionNode sizeExpression;
     TypeNode arrayType;
 
-    public ExpressionArrayCreation(ParseTree parseTree) throws ASTException {
+    public ExpressionArrayCreationNode(ParseTree parseTree) throws ASTException {
         this.parseTree = parseTree;
         arrayType = new TypeNode(parseTree.getChild(1));
         arrayType.changeToArrayType();

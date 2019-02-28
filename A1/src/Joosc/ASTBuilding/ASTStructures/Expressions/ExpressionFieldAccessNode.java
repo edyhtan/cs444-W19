@@ -1,18 +1,18 @@
 package Joosc.ASTBuilding.ASTStructures.Expressions;
 
-import Joosc.AST.Constants.Symbol;
+import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.Exceptions.ASTException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
-public class ExpressionFieldAccess extends ExpressionPrimary {
+public class ExpressionFieldAccessNode extends ExpressionPrimaryNode {
 
     String fieldIdentifier;
     ExpressionNode fieldParentExpression;
 
-    public ExpressionFieldAccess(ParseTree parseTree) throws ASTException {
+    public ExpressionFieldAccessNode(ParseTree parseTree) throws ASTException {
         this.parseTree = parseTree;
         fieldIdentifier = parseTree.getChild(2, Symbol.ID).getLexeme();
-        fieldParentExpression = ExpressionPrimary.resolvePrimary(parseTree.getChild(0, Symbol.Primary));
+        fieldParentExpression = ExpressionPrimaryNode.resolvePrimary(parseTree.getChild(0, Symbol.Primary));
     }
 
     @Override

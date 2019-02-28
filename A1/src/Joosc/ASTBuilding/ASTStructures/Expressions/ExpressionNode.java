@@ -32,7 +32,7 @@ public abstract class ExpressionNode extends ASTNode {
                 return new ExpressionUnaryNode(contentNode);
 
             case Primary:
-                return ExpressionPrimary.resolvePrimary(contentNode);
+                return ExpressionPrimaryNode.resolvePrimary(contentNode);
             case FieldAccess:
             case ArrayAccess:
                 return new ExpressionContentNode(contentNode);
@@ -40,9 +40,9 @@ public abstract class ExpressionNode extends ASTNode {
             case Name:
                 return new ExpressionContentNode(contentNode);
             case MethodInvocation:
-                return new ExpressionMethodInvocation(contentNode);
+                return new ExpressionMethodInvocationNode(contentNode);
             case ClassInstanceCreation:
-                return new ExpressionClassInstanceCreation(parseTree);
+                return new ExpressionClassInstanceCreationNodeNode(parseTree);
             default:
                 throw new InvalidParseTreeStructureException(parseTree, "No matching expressions");
         }
