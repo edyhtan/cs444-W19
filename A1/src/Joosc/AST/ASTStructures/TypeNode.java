@@ -43,6 +43,7 @@ public class TypeNode extends ASTNode {
             case ClassOrInterfaceType:
                 child = child.getChild(0);      //Name
             case Name:
+                kind = Symbol.ClassOrInterfaceType;
                 names = new ArrayList<>();
                 RecursionResolve.resolveName(child, names);
         }
