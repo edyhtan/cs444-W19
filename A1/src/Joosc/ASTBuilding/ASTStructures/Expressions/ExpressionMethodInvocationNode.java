@@ -66,4 +66,20 @@ public class ExpressionMethodInvocationNode extends ExpressionPrimaryNode {
             printInfoArrayLambda("Argument List:", argList, c -> c.printInfo(level + 2));
         }
     }
+
+    public ArrayList<ExpressionNode> getArgList() {
+        return argList;
+    }
+
+    public ArrayList<String> getMethodName() {
+        return methodName;
+    }
+
+    public ExpressionNode getMethodParentExpression() {
+        return methodParentExpression;
+    }
+
+    public String getMethodIdentifier() {
+        return methodIdentifier;
+    }
 }
