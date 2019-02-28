@@ -30,4 +30,20 @@ public class ExpressionBinaryNode extends ExpressionNode {
         printInfoSingle("Operator: ", operator + ", " + operator.getSymbolString());
         RHS.printInfo(level + 1);
     }
+
+    public Symbol getKind() {
+        return kind;
+    }
+
+    public ExpressionNode getLHS() {
+        return LHS;
+    }
+
+    public ExpressionNode getRHS() {
+        return RHS;
+    }
+
+    public Symbol getOperator() {
+        return operator;
+    }
 }
