@@ -12,7 +12,7 @@ public class ExpressionClassInstanceCreation implements Expression {
 
     public ExpressionClassInstanceCreation(ExpressionClassInstanceCreationNodeNode node) {
         classType = Type.convertTypeNode(node.getClassType());
-        argList = node.getArgList().stream().map(expr -> Expression.convertExpressionNode(expr))
+        argList = node.getArgList().stream().map(Expression::convertExpressionNode)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 

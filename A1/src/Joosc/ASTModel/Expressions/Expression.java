@@ -5,7 +5,7 @@ import Joosc.ASTModel.AST;
 
 public interface Expression extends AST {
 
-    public static Expression convertExpressionNode(ExpressionNode node) {
+     static Expression convertExpressionNode(ExpressionNode node) {
         //TODO
         return null;
     }
