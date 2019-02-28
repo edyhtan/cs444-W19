@@ -14,8 +14,14 @@ public class PlainStatementNode extends StatementNode {
     }
 
     @Override
-    public void weed() throws WeedingFailureException { }
+    public void weed() throws WeedingFailureException {
+    }
 
     @Override
-    public void printInfo(int level) { }
+    public void printInfo(int level) {
+    }
+
+    public Symbol getKind() {
+        return kind;
+    }
 }

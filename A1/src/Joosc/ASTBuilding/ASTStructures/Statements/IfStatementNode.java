@@ -8,7 +8,7 @@ import Joosc.Parser.LRGrammar.ParseTree;
 import java.util.List;
 
 
-class IfStatementNode extends StatementNode {
+public class IfStatementNode extends StatementNode {
 
     ExpressionNode expression;
     StatementNode thenClause;
@@ -25,7 +25,7 @@ class IfStatementNode extends StatementNode {
     }
 
     @Override
-    public  void weed() throws WeedingFailureException {
+    public void weed() throws WeedingFailureException {
         //expression.weed();
         thenClause.weed();
         if (elseClause != null) {
@@ -34,5 +34,18 @@ class IfStatementNode extends StatementNode {
     }
 
     @Override
-    public void printInfo(int level) { }
+    public void printInfo(int level) {
+    }
+
+    public ExpressionNode getExpression() {
+        return expression;
+    }
+
+    public StatementNode getElseClause() {
+        return elseClause;
+    }
+
+    public StatementNode getThenClause() {
+        return thenClause;
+    }
 }

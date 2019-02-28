@@ -26,4 +26,8 @@ public class ReturnStatementNode extends StatementNode {
     @Override
     public void printInfo(int level) {
     }
+
+    public ExpressionNode getExpression() {
+        return expression;
+    }
 }

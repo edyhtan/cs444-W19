@@ -1,6 +1,7 @@
 package Joosc.ASTBuilding.ASTStructures.Statements;
 
 import Joosc.ASTBuilding.ASTStructures.ASTNode;
+import Joosc.ASTModel.Statements.Statement;
 import Joosc.Exceptions.ASTException;
 import Joosc.Exceptions.InvalidParseTreeStructureException;
 import Joosc.Exceptions.WeedingFailureException;

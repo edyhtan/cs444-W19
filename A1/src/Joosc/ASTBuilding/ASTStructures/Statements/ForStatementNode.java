@@ -62,4 +62,20 @@ public class ForStatementNode extends StatementNode {
     @Override
     public void printInfo(int level) {
     }
+
+    public StatementNode getStatement() {
+        return statement;
+    }
+
+    public ExpressionNode getExpression() {
+        return expression;
+    }
+
+    public StatementNode getForInit() {
+        return forInit;
+    }
+
+    public StatementNode getForUpdate() {
+        return forUpdate;
+    }
 }

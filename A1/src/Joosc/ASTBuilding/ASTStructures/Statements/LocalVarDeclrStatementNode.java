@@ -17,7 +17,7 @@ public class LocalVarDeclrStatementNode extends StatementNode {
         this.parseTree = parseTree;
         type = TypeNode.resolveTypeNode(parseTree.getChildren().get(0));
 
-        for (ParseTree node: parseTree.getChildren().get(1).getChildren()) {
+        for (ParseTree node : parseTree.getChildren().get(1).getChildren()) {
             if (node.getKind() == Symbol.ID) {
                 id = node.getLexeme();
             } else if (node.getKind() == Symbol.VariableInit) {
@@ -35,5 +35,17 @@ public class LocalVarDeclrStatementNode extends StatementNode {
     @Override
     public void printInfo(int level) {
         this.printInfoInit("Local Var Declr Statement Node:", level);
+    }
+
+    public ExpressionNode getInitExpression() {
+        return initExpression;
+    }
+
+    public TypeNode getType() {
+        return type;
+    }
+
+    public String getId() {
+        return id;
     }
 }

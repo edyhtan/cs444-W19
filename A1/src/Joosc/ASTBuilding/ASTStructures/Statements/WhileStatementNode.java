@@ -1,6 +1,7 @@
 package Joosc.ASTBuilding.ASTStructures.Statements;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionNode;
+import Joosc.ASTModel.Statements.Statement;
 import Joosc.Exceptions.ASTException;
 import Joosc.Exceptions.WeedingFailureException;
 import Joosc.Parser.LRGrammar.ParseTree;
@@ -26,5 +27,13 @@ public class WhileStatementNode extends StatementNode {
 
     @Override
     public void printInfo(int level) {
+    }
+
+    public ExpressionNode getExpression() {
+        return expression;
+    }
+
+    public StatementNode getStatement() {
+        return statement;
     }
 }

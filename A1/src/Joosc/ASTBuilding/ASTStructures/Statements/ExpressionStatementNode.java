@@ -22,4 +22,8 @@ public class ExpressionStatementNode extends StatementNode{
         printInfoInit("ExpressionStatementNode: ", level);
         expression.printInfo(level + 1);
     }
+
+    public ExpressionNode getExpression() {
+        return expression;
+    }
 }
