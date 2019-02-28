@@ -15,7 +15,7 @@ public class ExpressionMethodInvocation implements ExpressionPrimary {
         methodName = node.getMethodName();
         argList = node.getArgList().stream().map(Expression::convertExpressionNode)
                 .collect(Collectors.toCollection(ArrayList::new));
-        methodParentExpression = Expression.convertExpressionNode(node.getMethodParentExpression()));
+        methodParentExpression = Expression.convertExpressionNode(node.getMethodParentExpression());
         methodIdentifier = node.getMethodIdentifier();
     }
 
