@@ -38,7 +38,7 @@ public class ExpressionClassInstanceCreation extends ExpressionPrimary {
         printInfoInit("Class Instance Creation:", level);
         classType.printInfo(level + 1);
         if (argList != null) {
-            printInfoArrayLambda("Argument List:", argList, c -> c.printInfo(level + 1));
+            printInfoArrayLambda("Argument List:", argList, c -> c.printInfo(level + 2));
         }
     }
 }

@@ -8,7 +8,7 @@ import Joosc.Parser.LRGrammar.ParseTree;
 public abstract class ExpressionPrimary extends ExpressionNode {
 
     public static ExpressionNode resolvePrimary(ParseTree parseTree) throws ASTException {
-        ParseTree child = parseTree.getChild(0);
+        ParseTree child = parseTree.getKind().equals(Symbol.Primary) ? parseTree.getChild(0) : parseTree;
         if (child.getKind().equals(Symbol.PrimaryNoNewArray)) {
             if (child.getChildren().size() > 1) { // child is ( Expression )
                 return resolveExpressionNode(child.getChild(1));
@@ -22,8 +22,11 @@ public abstract class ExpressionPrimary extends ExpressionNode {
                 case ClassInstanceCreation:
                     return new ExpressionClassInstanceCreation(child);
                 case FieldAccess:
+                    return new ExpressionFieldAccess(child);
                 case MethodInvocation:
+                    return new ExpressionMethodInvocation(child);
                 case ArrayAccess:
+                    return new ExpressionArrayAccess(child);
                 default:
                     return resolveExpressionNode(child);
             }
