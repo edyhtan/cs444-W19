@@ -4,7 +4,7 @@ import Joosc.ASTBuilding.ASTStructures.Statements.LocalVarDeclrStatementNode;
 import Joosc.ASTModel.Expressions.Expression;
 import Joosc.ASTModel.Type;
 
-public class LocalVarDeclrStatement extends Statement {
+public class LocalVarDeclrStatement implements Statement {
     private Type type;
     private String id;
     private Expression initExpression;

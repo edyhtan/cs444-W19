@@ -3,7 +3,7 @@ package Joosc.ASTModel.Expressions;
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionArrayCreationNode;
 import Joosc.ASTModel.Type;
 
-public class ExpressionArrayCreation extends ExpressionPrimary {
+public class ExpressionArrayCreation implements ExpressionPrimary {
     private Expression sizeExpression;
     private Type arrayType;
 

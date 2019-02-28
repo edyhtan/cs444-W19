@@ -3,7 +3,7 @@ package Joosc.ASTModel.Expressions;
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionBinaryNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 
-public class ExpressionBinary extends Expression {
+public class ExpressionBinary implements Expression {
     private Symbol kind, operator;
     private Expression LHS, RHS;
 

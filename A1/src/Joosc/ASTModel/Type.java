@@ -5,9 +5,7 @@ import Joosc.ASTBuilding.Constants.Symbol;
 
 import java.util.ArrayList;
 
-public abstract class Type extends AST {
-    Symbol kind;
-    ArrayList<String> names;
+public abstract class Type implements AST {
 
     public static Type convertTypeNode(TypeNode node) {
 

@@ -6,7 +6,7 @@ import Joosc.ASTBuilding.ASTStructures.Statements.StatementNode;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class Block extends Statement {
+public class Block implements Statement {
     private ArrayList<Statement> statements;
 
     public Block(BlockNode node) {

@@ -6,7 +6,7 @@ import Joosc.ASTModel.Type;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class ExpressionClassInstanceCreation extends Expression {
+public class ExpressionClassInstanceCreation implements Expression {
     private Type classType;
     private ArrayList<Expression> argList;
 

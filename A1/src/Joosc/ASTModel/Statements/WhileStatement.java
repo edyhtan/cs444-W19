@@ -3,7 +3,7 @@ package Joosc.ASTModel.Statements;
 import Joosc.ASTBuilding.ASTStructures.Statements.WhileStatementNode;
 import Joosc.ASTModel.Expressions.Expression;
 
-public class WhileStatement extends Statement {
+public class WhileStatement implements Statement {
     private Expression expression;
     private Statement statement;
 

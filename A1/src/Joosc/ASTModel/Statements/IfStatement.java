@@ -4,7 +4,7 @@ import Joosc.ASTModel.Expressions.Expression;
 import Joosc.ASTBuilding.ASTStructures.Statements.IfStatementNode;
 
 
-public class IfStatement extends Statement {
+public class IfStatement implements Statement {
     private Expression expression;
     private Statement thenClause;
     private Statement elseClause = null;

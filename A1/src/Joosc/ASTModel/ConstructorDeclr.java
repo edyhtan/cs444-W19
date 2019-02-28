@@ -8,7 +8,7 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class ConstructorDeclr extends ClassBodyDeclr {
+public class ConstructorDeclr implements ClassBodyDeclr {
     private ArrayList<Symbol> modifiers;
     private String name;
     private ArrayList<Pair<Type, String>> formalParamList;

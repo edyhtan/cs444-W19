@@ -4,7 +4,7 @@ import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionArrayAccessNode;
 
 import java.util.ArrayList;
 
-public class ExpressionArrayAccess extends ExpressionPrimary {
+public class ExpressionArrayAccess implements ExpressionPrimary {
 
     private ArrayList<String> referenceName;
     private Expression referenceExpression;

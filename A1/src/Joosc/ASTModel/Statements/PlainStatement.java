@@ -3,7 +3,7 @@ package Joosc.ASTModel.Statements;
 import Joosc.ASTBuilding.ASTStructures.Statements.PlainStatementNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 
-public class PlainStatement extends Statement {
+public class PlainStatement implements Statement {
     Symbol kind;
 
     public PlainStatement(PlainStatementNode node) {

@@ -3,9 +3,9 @@ package Joosc.ASTModel.Statements;
 import Joosc.ASTBuilding.ASTStructures.Statements.*;
 import Joosc.ASTModel.AST;
 
-public abstract class Statement extends AST {
+public interface Statement extends AST {
 
-    public static Statement convertStatementNode(StatementNode node) {
+     static Statement convertStatementNode(StatementNode node) {
         if (node instanceof ForStatementNode) {
             return new ForStatement((ForStatementNode) node);
         }

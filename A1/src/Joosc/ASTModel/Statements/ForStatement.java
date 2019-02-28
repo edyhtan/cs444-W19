@@ -3,7 +3,7 @@ package Joosc.ASTModel.Statements;
 import Joosc.ASTBuilding.ASTStructures.Statements.ForStatementNode;
 import Joosc.ASTModel.Expressions.Expression;
 
-public class ForStatement extends Statement {
+public class ForStatement implements Statement {
     private Statement forInit = null;
     private Expression expression = null;
     private Statement forUpdate = null;

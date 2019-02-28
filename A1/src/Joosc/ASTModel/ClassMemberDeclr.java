@@ -1,5 +1,5 @@
 package Joosc.ASTModel;
 
-public abstract class ClassMemberDeclr extends ClassBodyDeclr {
+public interface ClassMemberDeclr extends ClassBodyDeclr {
 
 }
