@@ -45,6 +45,13 @@ public class ExpressionContentNode extends ExpressionNode {
         } else {
             printInfoSingle("Literal:", literal);
         }
+    }
 
+    public ArrayList<String> getName() {
+        return name;
+    }
+
+    public String getLiteral() {
+        return literal;
     }
 }

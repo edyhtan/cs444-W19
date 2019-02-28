@@ -1,7 +1,6 @@
 package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionArrayAccessNode;
-import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionNode;
 
 import java.util.ArrayList;
 
