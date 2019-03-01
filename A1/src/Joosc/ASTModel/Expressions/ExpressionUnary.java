@@ -2,6 +2,7 @@ package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionUnaryNode;
 import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.ASTModel.Type;
 
 import java.util.ArrayList;
 
@@ -9,21 +10,17 @@ public class ExpressionUnary implements Expression {
     private Symbol kind;
     private Symbol unaryOperator;
     private Expression targetNode;
-    private ArrayList<String> castingName;
+    private Type castingType;
 
     public ExpressionUnary(ExpressionUnaryNode node) {
         kind = node.getKind();
         unaryOperator = node.getUnaryOperator();
         targetNode = Expression.convertExpressionNode(node.getTargetNode());
-        castingName = node.getCastingName();
+        castingType = new Type(node.getCastingTypeNode());
     }
 
     public Symbol getUnaryOperator() {
         return unaryOperator;
-    }
-
-    public ArrayList<String> getCastingName() {
-        return castingName;
     }
 
     public Symbol getKind() {
@@ -32,5 +29,9 @@ public class ExpressionUnary implements Expression {
 
     public Expression getTargetNode() {
         return targetNode;
+    }
+
+    public Type getCastingType() {
+        return castingType;
     }
 }
