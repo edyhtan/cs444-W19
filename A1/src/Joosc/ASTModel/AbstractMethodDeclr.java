@@ -10,21 +10,24 @@ import java.util.stream.Collectors;
 
 public class AbstractMethodDeclr implements AST {
     private ArrayList<Symbol> modifiers;
-    private TypeNode type;
+    private Type type;
     private String name;
-    private ArrayList<Pair<TypeNode, String>> formalParamList;
+    private ArrayList<Pair<Type, String>> formalParamList;
     private String canonicalID;
 
     public AbstractMethodDeclr(AbstractMethodDeclrNode node) {
         modifiers = node.getModifiers();
-        type = node.getType();
+        type = new Type(node.getType());
         name = node.getName();
-        formalParamList = node.getFormalParamList();
+        formalParamList = node.getFormalParamList().stream()
+                .map(pair -> new Pair<>(new Type(pair.getKey()), pair.getValue()))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     public void buildCanonicalName(String className) {
         StringBuilder sb = new StringBuilder(className + DOT + name + "(");
 
+        // TODO: may need to remove argList from string
         String typeList = formalParamList.stream()
                 .map(pair -> pair.getKey().toString())
                 .collect(Collectors.joining(COMMA));
@@ -33,7 +36,7 @@ public class AbstractMethodDeclr implements AST {
         canonicalID = sb.toString();
     }
 
-    public TypeNode getType() {
+    public Type getType() {
         return type;
     }
 
@@ -41,7 +44,7 @@ public class AbstractMethodDeclr implements AST {
         return name;
     }
 
-    public ArrayList<Pair<TypeNode, String>> getFormalParamList() {
+    public ArrayList<Pair<Type, String>> getFormalParamList() {
         return formalParamList;
     }
 

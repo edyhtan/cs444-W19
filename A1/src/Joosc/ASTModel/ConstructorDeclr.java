@@ -20,10 +20,10 @@ public class ConstructorDeclr implements ClassBodyDeclr {
         name = node.getName();
 
         formalParamList = node.getFormalParamList().stream()
-                .map(pair -> new Pair<>(Type.convertTypeNode(pair.getKey()), pair.getValue()))
+                .map(pair -> new Pair<>(new Type(pair.getKey()), pair.getValue()))
                 .collect(Collectors.toCollection(ArrayList::new));
 
-        bodyBlock = node.getBodyBlock().stream().map(stmt -> Statement.convertStatementNode(stmt))
+        bodyBlock = node.getBodyBlock().stream().map(Statement::convertStatementNode)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 

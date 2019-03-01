@@ -9,7 +9,7 @@ public class ExpressionArrayCreation implements ExpressionPrimary {
 
     public ExpressionArrayCreation(ExpressionArrayCreationNode node) {
         sizeExpression = Expression.convertExpressionNode(node.getSizeExpression());
-        arrayType = Type.convertTypeNode(node.getArrayType());
+        arrayType = new Type(node.getArrayType());
     }
 
     public Expression getSizeExpression() {

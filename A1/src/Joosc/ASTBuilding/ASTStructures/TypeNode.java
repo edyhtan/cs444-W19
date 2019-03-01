@@ -93,6 +93,17 @@ public class TypeNode extends ASTNode {
         } else if (names != null) {
             printInfoSingle("Names:", names);
         }
+    }
 
+    public Symbol getKind() {
+        return kind;
+    }
+
+    public ArrayList<String> getNames() {
+        return names;
+    }
+
+    public Symbol getArrayKind() {
+        return arrayKind;
     }
 }

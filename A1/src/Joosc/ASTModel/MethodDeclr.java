@@ -8,7 +8,7 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class MethodDeclr extends ClassMemberDeclr {
+public class MethodDeclr implements ClassMemberDeclr {
     ArrayList<Symbol> modifiers;
     Type type;
     String name;
@@ -18,21 +18,22 @@ public class MethodDeclr extends ClassMemberDeclr {
 
     public MethodDeclr(MethodDeclrNode node) {
         modifiers = node.getModifiers();
-        type = Type.convertTypeNode(node.getType());
+        type = new Type(node.getType());
         name = node.getName();
 
         formalParamList = node.getFormalParamList().stream()
-                .map(pair -> new Pair<>(Type.convertTypeNode(pair.getKey()), pair.getValue()))
+                .map(pair -> new Pair<>(new Type(pair.getKey()), pair.getValue()))
                 .collect(Collectors.toCollection(ArrayList::new));
 
-        bodyBlock = node.getBodyBlock().stream().map(stmt -> Statement.convertStatementNode(stmt))
+        bodyBlock = node.getBodyBlock().stream().map(Statement::convertStatementNode)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    @Override
+
     public void buildCanonicalName(String className) {
         StringBuilder sb = new StringBuilder(className + DOT + name + "(");
 
+        //TODO: might need to remove typeList
         String typeList = formalParamList.stream()
                 .map(pair -> pair.getKey().toString())
                 .collect(Collectors.joining(COMMA));

@@ -6,7 +6,7 @@ import Joosc.ASTModel.Expressions.Expression;
 
 import java.util.ArrayList;
 
-public class FieldDeclr extends ClassMemberDeclr {
+public class FieldDeclr implements ClassMemberDeclr {
     private ArrayList<Symbol> modifiers;
     private Type type;
     private String name;
@@ -16,11 +16,10 @@ public class FieldDeclr extends ClassMemberDeclr {
     public FieldDeclr(FieldDeclrNode node) {
         modifiers = node.getModifiers();
         name = node.getName();
-        type = Type.convertTypeNode(node.getType());
+        type = new Type(node.getType());
         initExpression = Expression.convertExpressionNode(node.getnitExpression());
     }
 
-    @Override
     public void buildCanonicalName(String className) {
         canonicalID = className + DOT + name;
     }

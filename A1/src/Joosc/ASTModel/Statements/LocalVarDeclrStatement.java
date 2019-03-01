@@ -10,7 +10,7 @@ public class LocalVarDeclrStatement implements Statement {
     private Expression initExpression;
 
     public LocalVarDeclrStatement(LocalVarDeclrStatementNode node) {
-        type = Type.convertTypeNode(node.getType());
+        type = new Type(node.getType());
         id = node.getId();
         initExpression = Expression.convertExpressionNode(node.getInitExpression());
     }

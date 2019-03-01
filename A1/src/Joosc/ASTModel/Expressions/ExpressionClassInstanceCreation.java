@@ -11,7 +11,7 @@ public class ExpressionClassInstanceCreation implements Expression {
     private ArrayList<Expression> argList;
 
     public ExpressionClassInstanceCreation(ExpressionClassInstanceCreationNode node) {
-        classType = Type.convertTypeNode(node.getClassType());
+        classType = new Type(node.getClassType());
         argList = node.getArgList().stream().map(Expression::convertExpressionNode)
                 .collect(Collectors.toCollection(ArrayList::new));
     }

@@ -5,11 +5,14 @@ import Joosc.ASTBuilding.Constants.Symbol;
 
 import java.util.ArrayList;
 
-public abstract class Type implements AST {
+public class Type implements AST {
+    private Symbol kind, arrayKind;
+    private ArrayList<String> names;
 
-    public static Type convertTypeNode(TypeNode node) {
-
-        //TODO
-        return null;
+    public Type(TypeNode node){
+        kind = node.getKind();
+        arrayKind = node.getArrayKind();
+        names = node.getNames();
     }
+
 }

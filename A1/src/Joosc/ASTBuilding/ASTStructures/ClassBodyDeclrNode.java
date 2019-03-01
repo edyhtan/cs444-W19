@@ -6,7 +6,7 @@ import Joosc.Exceptions.InvalidParseTreeStructureException;
 import Joosc.Exceptions.WeedingFailureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 
-abstract class ClassBodyDeclrNode extends ASTNode {
+public abstract class ClassBodyDeclrNode extends ASTNode {
     static protected ClassBodyDeclrNode resolveClassBodyDeclrNode (ParseTree parseTree) throws ASTException {
         ParseTree child = parseTree.getChild(0);
         switch (child.getKind()) {

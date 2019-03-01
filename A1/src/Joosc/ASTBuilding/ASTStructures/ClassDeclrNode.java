@@ -165,4 +165,20 @@ public class ClassDeclrNode extends TypeDeclrNode {
     public ArrayList<ArrayList<String>> getInterfaceTypes() {
         return interfaceTypes;
     }
+
+    public ArrayList<ConstructorDeclrNode> getConstructor() {
+        return constructor;
+    }
+
+    public ArrayList<FieldDeclrNode> getFields() {
+        return fields;
+    }
+
+    public ArrayList<MethodDeclrNode> getMethods() {
+        return methods;
+    }
+
+    public String getClassIdentifier() {
+        return classIdentifier;
+    }
 }
