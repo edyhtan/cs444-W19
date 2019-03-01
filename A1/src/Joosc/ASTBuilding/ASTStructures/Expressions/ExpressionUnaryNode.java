@@ -45,14 +45,14 @@ public class ExpressionUnaryNode extends ExpressionNode {
         String title = kind.equals(Symbol.CastExpression) ? "Cast Expression:" : "Unary Expression: ";
         printInfoInit(title, level);
         if (kind.equals(Symbol.CastExpression)) {
-            printInfoStrAtLevel("Casting Type", level + 1);
-            castingTypeNode.printInfo(level + 2);
-            printInfoStrAtLevel("Target Node", level + 1);
-            targetNode.printInfo(level + 2);
+            printInfoStrAtLevel("Casting Type:", level + 1);
+            castingTypeNode.printInfo(level + 1);
+            printInfoStrAtLevel("Target Node:", level + 1);
+            targetNode.printInfo(level + 1);
         } else {
             printInfoSingle("Operator: ", unaryOperator);
             printInfoStrAtLevel("Target Node:", level + 1);
-            targetNode.printInfo(level + 2);
+            targetNode.printInfo(level + 1);
         }
     }
 

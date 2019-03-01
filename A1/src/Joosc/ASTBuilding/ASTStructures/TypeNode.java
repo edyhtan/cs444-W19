@@ -23,8 +23,13 @@ public class TypeNode extends ASTNode {
             case Name:
                 child = parseTree;
                 break;
-            case Type:                  // Default case, coming from typeDclr
             case Expression:            // Name
+                child = parseTree.getChild(0);
+                while(!child.getKind().equals(Symbol.Name)) {
+                    child = child.getChild(0);
+                }
+                break;
+            case Type:                  // Default case, coming from typeDclr
             case ClassType:
             default:
                 child = parseTree.getChild(0);

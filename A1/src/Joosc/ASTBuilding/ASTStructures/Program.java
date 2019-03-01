@@ -113,7 +113,7 @@ public class Program extends ASTNode {
     }
 
     public String getPackageName() {
-        return String.join(".", packageDeclr);
+        return packageDeclr == null ? "" : String.join(".", packageDeclr);
     }
 
     public ArrayList<ArrayList<String>> getSingleTypeImport() {
