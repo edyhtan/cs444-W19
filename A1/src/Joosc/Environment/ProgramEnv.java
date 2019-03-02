@@ -8,6 +8,7 @@ import java.util.HashSet;
 
 public class ProgramEnv implements Env {
     ArrayList<Program> programs;
+    ArrayList<ClassEnv> classEnvs;
     ArrayList<PackageNames> packageNames;
 
     public ProgramEnv(ArrayList<Program> programs) {
@@ -36,6 +37,10 @@ public class ProgramEnv implements Env {
             }
         }
         packageNames.stream().forEach(x->x.print(1));
+
+        // sub environment
+        classEnvs = new ArrayList<>();
+        programs.stream().forEach( x -> classEnvs.add(new ClassEnv(x, this)));
     }
 
     private boolean nameConflict() {
@@ -60,7 +65,7 @@ public class ProgramEnv implements Env {
     }
 
     public class PackageNames {
-        public String name;
+        String name;
         ArrayList<PackageNames> subPackage = new ArrayList<>();
 
         PackageNames(String packageName) {

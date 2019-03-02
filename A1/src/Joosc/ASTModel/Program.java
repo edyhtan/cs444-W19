@@ -3,7 +3,6 @@ package Joosc.ASTModel;
 import Joosc.ASTBuilding.ASTStructures.ClassDeclrNode;
 import Joosc.ASTModel.ClassInterface.ClassDeclr;
 import Joosc.ASTModel.ClassInterface.TypeDeclr;
-
 import java.util.ArrayList;
 
 public class Program implements AST {
@@ -29,5 +28,17 @@ public class Program implements AST {
 
     public ArrayList<String> getPackageDeclr() {
         return packageDeclr;
+    }
+
+    public TypeDeclr getTypeDeclr() {
+        return typeDeclr;
+    }
+
+    public ArrayList<ArrayList<String>> singleTypeImport() {
+        return singleTypeImport;
+    }
+
+    public ArrayList<ArrayList<String>> getOnDemandTypeImport() {
+        return onDemandTypeImport;
     }
 }
