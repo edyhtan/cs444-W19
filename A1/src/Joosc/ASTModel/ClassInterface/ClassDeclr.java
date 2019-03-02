@@ -6,6 +6,7 @@ import Joosc.ASTModel.ClassBodyDeclr;
 import Joosc.ASTModel.ConstructorDeclr;
 import Joosc.ASTModel.FieldDeclr;
 import Joosc.ASTModel.MethodDeclr;
+import Joosc.Environment.ClassEnv;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -20,6 +21,7 @@ public class ClassDeclr implements TypeDeclr {
     private ArrayList<FieldDeclr> fields;
     private ArrayList<MethodDeclr> methods;
     private ArrayList<ClassBodyDeclr> classBodyDeclrNodes;
+    private ClassEnv env;
 
     public ClassDeclr(ClassDeclrNode node) {
         modifiers = node.getClassModifiers();
@@ -45,7 +47,8 @@ public class ClassDeclr implements TypeDeclr {
         return modifiers;
     }
 
-    public String getCanonicalID() {
+    @Override
+    public String getCanonicalName() {
         return canonicalID;
     }
 
@@ -55,5 +58,10 @@ public class ClassDeclr implements TypeDeclr {
 
     public ArrayList<String> getParentClass() {
         return parentClass;
+    }
+
+    @Override
+    public void addEnv(ClassEnv env) {
+        this.env = env;
     }
 }

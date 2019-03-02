@@ -3,6 +3,7 @@ package Joosc.ASTModel.ClassInterface;
 import Joosc.ASTBuilding.ASTStructures.InterfaceDeclrNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.AbstractMethodDeclr;
+import Joosc.Environment.ClassEnv;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -13,6 +14,7 @@ public class InterfaceDeclr implements TypeDeclr {
     private ArrayList<ArrayList<String>> extendsInterfaceTypes;
     private ArrayList<AbstractMethodDeclr> interfaceBody;
     private String canonicalID;
+    private ClassEnv env;
 
     public InterfaceDeclr(InterfaceDeclrNode node) {
         modifiers = node.getModifiers();
@@ -39,8 +41,13 @@ public class InterfaceDeclr implements TypeDeclr {
         return interfaceBody;
     }
 
-    public String getCanonicalID() {
+    @Override
+    public String getCanonicalName() {
         return canonicalID;
     }
 
+    @Override
+    public void addEnv(ClassEnv env) {
+        this.env = env;
+    }
 }

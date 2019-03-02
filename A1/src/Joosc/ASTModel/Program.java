@@ -24,5 +24,11 @@ public class Program implements AST {
         }
     }
 
+    public String getClassCanonicalName() {
+        return typeDeclr.getCanonicalName();
+    }
 
+    public String getPackageDeclr() {
+        return packageDeclr;
+    }
 }

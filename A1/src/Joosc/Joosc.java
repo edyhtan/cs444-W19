@@ -3,6 +3,8 @@ package Joosc;
 import Joosc.ASTBuilding.JoosAST;
 import Joosc.ASTModel.AST;
 import Joosc.ASTModel.Program;
+import Joosc.Environment.Env;
+import Joosc.Environment.ProgramEnv;
 import Joosc.Exceptions.*;
 
 import Joosc.Parser.JoosParse;
@@ -39,13 +41,9 @@ public class Joosc {
             parse.parse(tokens);
             ParseTree tree = parse.getTree();
 
-//            tree.print();
             ast = new JoosAST(tree);
             ast.checkFileName(file);
-//            System.out.println("\n============   ASTBuilding   ============\n");
-//            ast.printASTInfo();
             ast.weed();
-
         } catch (FileNotFoundException e) {
             System.err.printf("ERROR: file not found: %s\n", e.getLocalizedMessage());
             System.exit(2);
@@ -93,9 +91,9 @@ public class Joosc {
 
         ArrayList<JoosAST> astList = argList.stream().map(filename -> process(filename))
                 .collect(Collectors.toCollection(ArrayList::new));
-
         ArrayList<Program> asts = astList.stream().map(x -> new Program(x.getRoot()))
                 .collect(Collectors.toCollection(ArrayList::new));
-
+        ProgramEnv programEnvironment = new ProgramEnv(asts);
+        System.out.println("we are done");
     }
 }
