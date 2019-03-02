@@ -15,11 +15,11 @@ public class ExpressionClassInstanceCreationNode extends ExpressionPrimaryNode {
 
     public ExpressionClassInstanceCreationNode(ParseTree parseTree) throws ASTException {
         this.parseTree = parseTree;
+        argList = new ArrayList<>();
         ParseTree child = parseTree.getChild(1);
         classType = new TypeNode(child);
         if (parseTree.getChild(3).getKind() == Symbol.ArgList) {
             child = parseTree.getChild(3);
-            argList = new ArrayList<>();
             RecursionResolve.resolveNodes(
                     child,
                     argList,
@@ -37,9 +37,9 @@ public class ExpressionClassInstanceCreationNode extends ExpressionPrimaryNode {
     public void printInfo(int level) {
         printInfoInit("Class Instance Creation:", level);
         classType.printInfo(level + 1);
-        if (argList != null) {
-            printInfoArrayLambda("Argument List:", argList, c -> c.printInfo(level + 2));
-        }
+
+        printInfoArrayLambda("Argument List:", argList, c -> c.printInfo(level + 2));
+
     }
 
     public ArrayList<ExpressionNode> getArgList() {

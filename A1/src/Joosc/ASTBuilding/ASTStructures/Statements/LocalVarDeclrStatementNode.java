@@ -15,9 +15,10 @@ public class LocalVarDeclrStatementNode extends StatementNode {
 
     public LocalVarDeclrStatementNode(ParseTree parseTree) throws ASTException {
         this.parseTree = parseTree;
-        type = new TypeNode(parseTree.getChildren().get(0));
+        ParseTree localVarDeclrNode = parseTree.getChild(0);
+        type = new TypeNode(localVarDeclrNode.getChildren().get(0));
 
-        for (ParseTree node : parseTree.getChildren().get(1).getChildren()) {
+        for (ParseTree node : localVarDeclrNode.getChildren().get(1).getChildren()) {
             if (node.getKind() == Symbol.ID) {
                 id = node.getLexeme();
             } else if (node.getKind() == Symbol.VariableInit) {
@@ -35,6 +36,7 @@ public class LocalVarDeclrStatementNode extends StatementNode {
     @Override
     public void printInfo(int level) {
         this.printInfoInit("Local Var Declr Statement Node:", level);
+        initExpression.printInfo(level + 1);
     }
 
     public ExpressionNode getInitExpression() {

@@ -39,11 +39,11 @@ public class Joosc {
             parse.parse(tokens);
             ParseTree tree = parse.getTree();
 
-//            tree.print();
+            tree.print();
             ast = new JoosAST(tree);
             ast.checkFileName(file);
-//            System.out.println("\n============   ASTBuilding   ============\n");
-//            ast.printASTInfo();
+            System.out.println("\n============   ASTBuilding   ============\n");
+            ast.printASTInfo();
             ast.weed();
 
         } catch (FileNotFoundException e) {
