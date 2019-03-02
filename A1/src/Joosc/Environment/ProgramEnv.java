@@ -12,10 +12,14 @@ public class ProgramEnv implements Env {
 
     public ProgramEnv(ArrayList<Program> programs) {
         this.programs = programs;
+        packageNames = new ArrayList<>();
 
         // populate existing package names.
         for (Program program: programs) {
-            String[] packageLayer = program.getPackageDeclr().split(".");
+            ArrayList<String> packageLayer = program.getPackageDeclr();
+            if (packageLayer == null)
+                continue;
+
             ArrayList<PackageNames> currentLayer = packageNames;
             for (String packageName: packageLayer) {
                 PackageNames nextLayer = null;
@@ -31,6 +35,7 @@ public class ProgramEnv implements Env {
                 currentLayer = nextLayer.subPackage;
             }
         }
+        packageNames.stream().forEach(x->x.print(1));
     }
 
     private boolean nameConflict() {
@@ -53,7 +58,7 @@ public class ProgramEnv implements Env {
             throw new NamingResolveException();
         }
     }
-    
+
     public class PackageNames {
         public String name;
         ArrayList<PackageNames> subPackage = new ArrayList<>();
@@ -64,6 +69,14 @@ public class ProgramEnv implements Env {
 
         boolean nameEquals(String name) {
             return this.name.equals(name);
+        }
+
+        void print(int level) {
+            System.err.print("|");
+            for (int i = 0; i < level; i ++)
+                System.err.print("--");
+            System.err.print(name + "\n");
+            subPackage.stream().forEach(x-> x.print(level+1));
         }
     }
 }
