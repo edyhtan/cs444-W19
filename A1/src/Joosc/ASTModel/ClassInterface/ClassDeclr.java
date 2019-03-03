@@ -53,7 +53,18 @@ public class ClassDeclr implements TypeDeclr {
         return canonicalID;
     }
 
+<<<<<<< HEAD
     @Override
+=======
+    public ArrayList<ArrayList<String>> getInterfaces() {
+        return interfaces;
+    }
+
+    public ArrayList<FieldDeclr> getFields() {
+        return fields;
+    }
+
+>>>>>>> AST-bunshin
     public ArrayList<String> getParentClass() {
         return parentClass;
     }

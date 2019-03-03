@@ -1,26 +1,33 @@
 package Joosc.Environment;
 
+import Joosc.ASTModel.ClassInterface.ClassDeclr;
 import Joosc.ASTModel.ClassInterface.TypeDeclr;
+import Joosc.ASTModel.FieldDeclr;
 import Joosc.ASTModel.Program;
 import Joosc.Exceptions.NamingResolveException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 public class ClassEnv implements Env {
     TypeDeclr typeDeclr;
-    ProgramEnv parent;
+    GlobalEnv parent;
     Program program;
+    protected HashSet<String> fields = new HashSet<>();
 
-    public ClassEnv(Program program, ProgramEnv parent) {
+
+    public ClassEnv(Program program, GlobalEnv parent) {
         typeDeclr = program.getTypeDeclr();
         typeDeclr.addEnv(this);
         this.parent = parent;
         this.program = program;
     }
 
+
     public void check() throws NamingResolveException {
-        ArrayList<ProgramEnv.PackageNames> packages = parent.packageNames;
+        HashMap<String, GlobalEnv.PackageNames> packages = parent.packageNames;
         ArrayList<String> canonicalName = typeDeclr.getCanonicalName();
         String simpleName = typeDeclr.getSimpleName();
         ArrayList<ArrayList<String>> singleTypeImports = program.getSingleTypeImport();
@@ -42,10 +49,10 @@ public class ClassEnv implements Env {
             else checkSet.add(temp);
         }
 
-        // check import-on-demand with package structure
+        // check all import-on-demand matches with package structure
         for (ArrayList<String> onDemandImport : onDemandTypeImports) {
-            for (ProgramEnv.PackageNames pn : packages) {
-                if (!matchPackage(pn, onDemandImport)) throw new NamingResolveException();
+            for (Map.Entry<String, GlobalEnv.PackageNames> packageNamesEntry : packages.entrySet()) {
+                if(!matchPackage(packageNamesEntry.getValue(), onDemandImport)) throw new NamingResolveException();
             }
         }
 
@@ -53,35 +60,33 @@ public class ClassEnv implements Env {
 
     }
 
-    ProgramEnv.PackageNames find(String target, ProgramEnv.PackageNames packageNode) {
-        if (packageNode.nameEquals(target)) return packageNode;
-        else {
-            if (!packageNode.subPackage.isEmpty()) {
-                for (ProgramEnv.PackageNames sub : packageNode.subPackage) {
-                    if (sub.nameEquals(target)) return sub;
+    private boolean matchPackage(GlobalEnv.PackageNames packageNames, ArrayList<String> targets) {
+        int i = 0;
+        while (i < targets.size()) {
+            if(packageNames.nameEquals(targets.get(i))) {
+                i++;
+            } else break;
+        }
+        return i == targets.size();
+    }
+
+    // return true if there is a duplicated
+    private boolean duplicatedFieldName() throws NamingResolveException{
+        if (typeDeclr instanceof ClassDeclr) {
+            ArrayList<FieldDeclr> fieldDeclrs = ((ClassDeclr) typeDeclr).getFields();
+            for (FieldDeclr fieldDeclr : fieldDeclrs) {
+                if (!fields.contains(fieldDeclr.getName())) {
+                    fields.add(fieldDeclr.getName());
+                } else {
+                    throw new NamingResolveException();
                 }
             }
-            return null;
         }
+        return false;
     }
-
-    boolean matchPackage(ProgramEnv.PackageNames packageNames, ArrayList<String> targets) {
-        int i = 0;
-        ProgramEnv.PackageNames result = find(targets.get(i), packageNames);
-        while (i < targets.size()) {
-            if (result == null) return false;
-            else {
-                i++;
-                result = find(targets.get(i), result);
-            }
-        }
-
-        return true;
-    }
-
 
     @Override
-    public void nameCheck() throws NamingResolveException {
-
+    public void resolveName() throws NamingResolveException {
+        duplicatedFieldName();
     }
 }

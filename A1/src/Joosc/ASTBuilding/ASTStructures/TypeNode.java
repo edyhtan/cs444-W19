@@ -18,6 +18,8 @@ public class TypeNode extends ASTNode {
         this.parseTree = parseTree;
         ParseTree child;
         switch (parseTree.getKind()) {
+            case Void:
+                kind = Symbol.Void;
             case PrimitiveType:         // Special cases
             case ClassOrInterfaceType:
             case Name:

@@ -4,16 +4,17 @@ import Joosc.ASTModel.Program;
 import Joosc.Exceptions.NamingResolveException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 
-public class ProgramEnv implements Env {
+public class GlobalEnv implements Env {
     ArrayList<Program> programs;
     ArrayList<ClassEnv> classEnvs;
-    ArrayList<PackageNames> packageNames;
+    HashMap<String, PackageNames> packageNames;
 
-    public ProgramEnv(ArrayList<Program> programs) {
+    public GlobalEnv(ArrayList<Program> programs) {
         this.programs = programs;
-        packageNames = new ArrayList<>();
+        packageNames = new HashMap<>();
 
         // populate existing package names.
         for (Program program : programs) {
@@ -21,26 +22,21 @@ public class ProgramEnv implements Env {
             if (packageLayer == null)
                 continue;
 
-            ArrayList<PackageNames> currentLayer = packageNames;
-            for (String packageName : packageLayer) {
-                PackageNames nextLayer = null;
-                for (PackageNames existingPackages : packageNames) {
-                    if (existingPackages.nameEquals(packageName)) {
-                        nextLayer = existingPackages;
-                    }
-                }
+           HashMap<String, PackageNames> currentLayer = packageNames;
+            for (String packageName: packageLayer) {
+                PackageNames nextLayer = currentLayer.getOrDefault(packageName, null);
                 if (nextLayer == null) {
                     nextLayer = new PackageNames(packageName);
-                    currentLayer.add(nextLayer);
+                    currentLayer.put(packageName, nextLayer);
                 }
                 currentLayer = nextLayer.subPackage;
             }
         }
-        packageNames.stream().forEach(x -> x.print(1));
+        packageNames.forEach((x, y) -> y.print(1));
 
         // sub environment
         classEnvs = new ArrayList<>();
-        programs.stream().forEach(x -> classEnvs.add(new ClassEnv(x, this)));
+        programs.forEach( x -> classEnvs.add(new ClassEnv(x, this)));
     }
 
     private boolean nameConflict() {
@@ -58,15 +54,16 @@ public class ProgramEnv implements Env {
     }
 
     @Override
-    public void nameCheck() throws NamingResolveException {
-        if (!nameConflict()) {
-            throw new NamingResolveException();
+
+    public void resolveName() throws NamingResolveException {
+        for (ClassEnv classEnv : classEnvs) {
+            classEnv.resolveName();
         }
     }
 
     public class PackageNames {
         String name;
-        ArrayList<PackageNames> subPackage = new ArrayList<>();
+        HashMap<String, PackageNames> subPackage = new HashMap<>();
 
         PackageNames(String packageName) {
             name = packageName;
@@ -77,13 +74,11 @@ public class ProgramEnv implements Env {
         }
 
         void print(int level) {
-            System.err.print("|");
             for (int i = 0; i < level; i++)
-                System.err.print("--");
-            System.err.print(name + "\n");
-            subPackage.stream().forEach(x -> x.print(level + 1));
+                System.err.print("  |");
+            System.err.print("--" + name + "\n");
+            subPackage.forEach((x, y) -> y.print(level + 1));
         }
-
 
 
     }

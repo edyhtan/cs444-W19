@@ -24,8 +24,8 @@ public class MethodDeclr implements ClassMemberDeclr {
         formalParamList = node.getFormalParamList().stream()
                 .map(pair -> new Pair<>(new Type(pair.getKey()), pair.getValue()))
                 .collect(Collectors.toCollection(ArrayList::new));
-
-        bodyBlock = node.getBodyBlock().stream().map(Statement::convertStatementNode)
+        bodyBlock = node.getBodyBlock() == null ? null
+                : node.getBodyBlock().stream().map(Statement::convertStatementNode)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
