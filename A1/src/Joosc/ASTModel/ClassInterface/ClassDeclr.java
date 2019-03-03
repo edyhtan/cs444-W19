@@ -56,6 +56,10 @@ public class ClassDeclr implements TypeDeclr {
         return interfaces;
     }
 
+    public ArrayList<FieldDeclr> getFields() {
+        return fields;
+    }
+
     public ArrayList<String> getParentClass() {
         return parentClass;
     }

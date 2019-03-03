@@ -35,7 +35,6 @@ public class Joosc {
             scan.scan();
             ArrayList<Token> tokens = scan.getOutput();
 
-
             // Parsing
             JoosParse parse = new JoosParse();
             parse.parse(tokens);
