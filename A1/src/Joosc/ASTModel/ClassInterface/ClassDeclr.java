@@ -65,10 +65,6 @@ public class ClassDeclr implements TypeDeclr {
         return parentClass;
     }
 
-    @Override
-    public ArrayList<ArrayList<String>> getExtendsInterface() {
-        return interfaces == null ? new ArrayList<>() : interfaces;
-    }
 
     @Override
     public void addEnv(ClassEnv env) {

@@ -11,6 +11,4 @@ public interface TypeDeclr extends AST {
     void addEnv(ClassEnv env);
 
     String getSimpleName();
-    ArrayList<String> getParentClass();
-    ArrayList<ArrayList<String>> getExtendsInterface();
 }
