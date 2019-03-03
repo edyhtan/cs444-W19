@@ -22,7 +22,8 @@ public class GlobalEnv implements Env {
         PackageNames Obj = new PackageNames("Object");
 
         java.subPackage.put(lang.name, lang);
-        lang.subPackage.put(Obj.name, null);
+        lang.subPackage.put(Obj.name, Obj);
+        packageNames.put(java.name, java);
 
         // populate existing package names.
         for (Program program : programs) {
@@ -30,8 +31,8 @@ public class GlobalEnv implements Env {
             if (packageLayer == null)
                 continue;
 
-           HashMap<String, PackageNames> currentLayer = packageNames;
-            for (String packageName: packageLayer) {
+            HashMap<String, PackageNames> currentLayer = packageNames;
+            for (String packageName : packageLayer) {
                 PackageNames nextLayer = currentLayer.getOrDefault(packageName, null);
                 if (nextLayer == null) {
                     nextLayer = new PackageNames(packageName);
@@ -44,7 +45,7 @@ public class GlobalEnv implements Env {
 
         // sub environment
         classEnvs = new ArrayList<>();
-        programs.forEach( x -> classEnvs.add(new ClassEnv(x, this)));
+        programs.forEach(x -> classEnvs.add(new ClassEnv(x, this)));
     }
 
     private boolean nameConflict() {
@@ -65,13 +66,6 @@ public class GlobalEnv implements Env {
     public void resolveName() throws NamingResolveException {
         for (ClassEnv classEnv : classEnvs) {
             classEnv.resolveName();
-        }
-    }
-
-    @Override
-    public void resolveImports() throws NamingResolveException {
-        for(ClassEnv classEnv : classEnvs) {
-            classEnv.resolveImports();
         }
     }
 

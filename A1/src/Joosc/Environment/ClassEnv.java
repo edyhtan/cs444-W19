@@ -6,7 +6,10 @@ import Joosc.ASTModel.FieldDeclr;
 import Joosc.ASTModel.Program;
 import Joosc.Exceptions.NamingResolveException;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 
 public class ClassEnv implements Env {
     TypeDeclr typeDeclr;
@@ -22,7 +25,6 @@ public class ClassEnv implements Env {
         this.program = program;
     }
 
-    @Override
     public void resolveImports() throws NamingResolveException {
         HashMap<String, GlobalEnv.PackageNames> packages = parent.packageNames;
         ArrayList<String> canonicalName = typeDeclr.getCanonicalName();
@@ -44,7 +46,6 @@ public class ClassEnv implements Env {
 
 
         HashSet<String> singleImportClasses = new HashSet<>(); // stores only class names
-        HashSet<String> onDemandImportSet = new HashSet<>(); // stores full import
 
         // clash with class/interface declr
         for (ArrayList<String> singleImport : singleTypeImports) {
@@ -64,22 +65,18 @@ public class ClassEnv implements Env {
         }
 
         // singleType clash with onDemand
-        HashSet<String> checkSet = new HashSet<>();
-        for (ArrayList<String> singleImport : singleTypeImports) {
-            singleImport.forEach((x) -> checkSet.add(x));
-        }
         for (ArrayList<String> onDemand : onDemandTypeImports) {
             for (String im : onDemand) {
-                // DEBUG
-                System.out.println(im);
-
-                if (checkSet.contains(im))
+                if (singleImportClasses.contains(im))
                     throw new NamingResolveException("single type import clashes with on demand import at " + im);
             }
         }
 
         // check all import-on-demand matches with package structure
         for (ArrayList<String> onDemandImport : onDemandTypeImports) {
+
+            System.out.println(String.join(".", onDemandImport));
+
             for (Map.Entry<String, GlobalEnv.PackageNames> packageNamesEntry : packages.entrySet()) {
                 if (!matchPackage(packageNamesEntry.getValue(), onDemandImport))
                     throw new NamingResolveException(String.format("on demand import %s does not match any package structure",
@@ -89,12 +86,17 @@ public class ClassEnv implements Env {
 
     }
 
+    // TODO
     private boolean matchPackage(GlobalEnv.PackageNames packageNames, ArrayList<String> targets) {
         if (packageNames == null) return false;
         int i = 0;
+        GlobalEnv.PackageNames cur = packageNames;
         while (i < targets.size()) {
-            if (packageNames.nameEquals(targets.get(i))) {
-                i++;
+            System.out.println(i + " " + targets.get(i));
+            if (packageNames == null) return false;
+            if (cur.nameEquals(targets.get(i)) && cur.subPackage.containsKey(targets.get(i+1))) {
+                System.out.println("true");
+                cur = cur.subPackage.get(targets.get(i++));
             } else break;
         }
         return i == targets.size();
@@ -118,5 +120,6 @@ public class ClassEnv implements Env {
     @Override
     public void resolveName() throws NamingResolveException {
         duplicatedFieldName();
+        resolveImports();
     }
 }

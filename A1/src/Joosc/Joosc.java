@@ -95,7 +95,6 @@ public class Joosc {
         try {
             GlobalEnv globalEnvironment = new GlobalEnv(asts);
             globalEnvironment.resolveName();
-            globalEnvironment.resolveImports();
         } catch (NamingResolveException e) {
             System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
             System.exit(42);
