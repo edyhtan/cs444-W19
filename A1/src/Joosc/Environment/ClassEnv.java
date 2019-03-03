@@ -2,14 +2,15 @@ package Joosc.Environment;
 
 import Joosc.ASTModel.ClassInterface.ClassDeclr;
 import Joosc.ASTModel.ClassInterface.TypeDeclr;
-import Joosc.ASTModel.FieldDeclr;
+import Joosc.ASTModel.ClassMember.ClassBodyDeclr;
+import Joosc.ASTModel.ClassMember.FieldDeclr;
+import Joosc.ASTModel.ClassMember.MethodDeclr;
 import Joosc.ASTModel.Program;
 import Joosc.Exceptions.NamingResolveException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 
 public class ClassEnv implements Env {
     TypeDeclr typeDeclr;
@@ -17,12 +18,16 @@ public class ClassEnv implements Env {
     Program program;
     protected HashSet<String> fields = new HashSet<>();
 
+    ArrayList<LocalEnv> localEnvs = new ArrayList<>();
+
 
     public ClassEnv(Program program, GlobalEnv parent) {
         typeDeclr = program.getTypeDeclr();
         typeDeclr.addEnv(this);
         this.parent = parent;
         this.program = program;
+
+        constructLocalEnvironment();
     }
 
     public void resolveImports() throws NamingResolveException {
@@ -30,19 +35,6 @@ public class ClassEnv implements Env {
         String simpleName = typeDeclr.getSimpleName();
         ArrayList<ArrayList<String>> singleTypeImports = program.getSingleTypeImport();
         ArrayList<ArrayList<String>> onDemandTypeImports = program.getOnDemandTypeImport();
-
-        // DEBUG:
-        System.out.println("Class: " + simpleName);
-        System.out.println("SingleTypeImports:");
-        singleTypeImports.forEach(x -> {
-            System.out.println("\t" + String.join(".", x));
-        });
-        System.out.println("onDemandTypeImports:");
-        onDemandTypeImports.forEach(x -> {
-            System.out.println("\t" + String.join(".", x));
-        });
-        System.out.println("----------------------------");
-
 
         HashSet<String> singleImportClasses = new HashSet<>(); // stores only class names
 
@@ -95,6 +87,16 @@ public class ClassEnv implements Env {
                 } else {
                     throw new NamingResolveException("found more than one field with name " + fieldDeclr.getName());
                 }
+            }
+        }
+    }
+
+    private void constructLocalEnvironment(){
+        if (typeDeclr instanceof ClassDeclr) {
+            ArrayList<ClassBodyDeclr> methodDeclrs = ((ClassDeclr) typeDeclr).getClassBodyDeclrNodes();
+
+            for (ClassBodyDeclr classBodyDeclr: methodDeclrs) {
+                localEnvs.add(new LocalEnv(classBodyDeclr, this));
             }
         }
     }

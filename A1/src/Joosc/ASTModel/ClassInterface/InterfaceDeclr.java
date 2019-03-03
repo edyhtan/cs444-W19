@@ -2,7 +2,7 @@ package Joosc.ASTModel.ClassInterface;
 
 import Joosc.ASTBuilding.ASTStructures.InterfaceDeclrNode;
 import Joosc.ASTBuilding.Constants.Symbol;
-import Joosc.ASTModel.AbstractMethodDeclr;
+import Joosc.ASTModel.ClassMember.AbstractMethodDeclr;
 import Joosc.Environment.ClassEnv;
 
 import java.util.ArrayList;
