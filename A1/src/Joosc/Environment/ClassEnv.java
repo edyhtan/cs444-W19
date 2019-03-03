@@ -12,35 +12,33 @@ import java.util.HashSet;
 
 public class ClassEnv implements Env {
     TypeDeclr typeDeclr;
-    ProgramEnv parent;
+    GlobalEnv parent;
 
     protected HashSet<String> fields = new HashSet<>();
 
-    public ClassEnv(Program program, ProgramEnv parent) {
+    public ClassEnv(Program program, GlobalEnv parent) {
         typeDeclr = program.getTypeDeclr();
         typeDeclr.addEnv(this);
         this.parent = parent;
-
-        if (duplicatedFieldName()) {
-            System.err.println("DUPLICATED FIELDS");
-        }
     }
 
     // return true if there is a duplicated
-    private boolean duplicatedFieldName() {
-        ArrayList<FieldDeclr> fieldDeclrs = ((ClassDeclr) typeDeclr).getFields();
-        for (FieldDeclr fieldDeclr: fieldDeclrs) {
-            if (!fields.contains(fieldDeclr.getName())) {
-                fields.add(fieldDeclr.getName());
-            } else {
-                return true;
+    private boolean duplicatedFieldName() throws NamingResolveException{
+        if (typeDeclr instanceof ClassDeclr) {
+            ArrayList<FieldDeclr> fieldDeclrs = ((ClassDeclr) typeDeclr).getFields();
+            for (FieldDeclr fieldDeclr : fieldDeclrs) {
+                if (!fields.contains(fieldDeclr.getName())) {
+                    fields.add(fieldDeclr.getName());
+                } else {
+                    throw new NamingResolveException();
+                }
             }
         }
         return false;
     }
 
     @Override
-    public void nameCheck() throws NamingResolveException {
-
+    public void resolveName() throws NamingResolveException {
+        duplicatedFieldName();
     }
 }

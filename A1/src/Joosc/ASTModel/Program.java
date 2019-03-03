@@ -1,7 +1,9 @@
 package Joosc.ASTModel;
 
 import Joosc.ASTBuilding.ASTStructures.ClassDeclrNode;
+import Joosc.ASTBuilding.ASTStructures.InterfaceDeclrNode;
 import Joosc.ASTModel.ClassInterface.ClassDeclr;
+import Joosc.ASTModel.ClassInterface.InterfaceDeclr;
 import Joosc.ASTModel.ClassInterface.TypeDeclr;
 import java.util.ArrayList;
 
@@ -18,10 +20,10 @@ public class Program implements AST {
         this.onDemandTypeImport = program.getOnDemandTypeImport();
         if (program.getTypeDeclr() instanceof ClassDeclrNode) {
             typeDeclr = new ClassDeclr((ClassDeclrNode) program.getTypeDeclr());
-            typeDeclr.buildCanonicalName(packageDeclr == null ? "" : String.join(".", packageDeclr));
         } else {
-
+            typeDeclr = new InterfaceDeclr((InterfaceDeclrNode) program.getTypeDeclr());
         }
+        typeDeclr.buildCanonicalName(packageDeclr == null ? "" : String.join(".", packageDeclr));
     }
 
     public String getClassCanonicalName() {
