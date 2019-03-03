@@ -86,20 +86,18 @@ public class ClassEnv implements Env {
 
     }
 
-    // TODO
     private boolean matchPackage(GlobalEnv.PackageNames packageNames, ArrayList<String> targets) {
         if (packageNames == null) return false;
         int i = 0;
         GlobalEnv.PackageNames cur = packageNames;
         while (i < targets.size()) {
-            System.out.println(i + " " + targets.get(i));
-            if (packageNames == null) return false;
-            if (cur.nameEquals(targets.get(i)) && cur.subPackage.containsKey(targets.get(i+1))) {
-                System.out.println("true");
-                cur = cur.subPackage.get(targets.get(i++));
+            if (packageNames.subPackage.isEmpty()) break;
+            if (i!= targets.size()-1 && cur.nameEquals(targets.get(i)) && cur.subPackage.containsKey(targets.get(i+1))) {
+                cur = cur.subPackage.get(targets.get(i+1));
+                i++;
             } else break;
         }
-        return i == targets.size();
+        return i == targets.size()-1;
     }
 
     // return true if there is a duplicated
