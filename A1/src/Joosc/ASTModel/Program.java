@@ -1,7 +1,9 @@
 package Joosc.ASTModel;
 
 import Joosc.ASTBuilding.ASTStructures.ClassDeclrNode;
+import Joosc.ASTBuilding.ASTStructures.InterfaceDeclrNode;
 import Joosc.ASTModel.ClassInterface.ClassDeclr;
+import Joosc.ASTModel.ClassInterface.InterfaceDeclr;
 import Joosc.ASTModel.ClassInterface.TypeDeclr;
 import java.util.ArrayList;
 
@@ -18,12 +20,22 @@ public class Program implements AST {
         this.onDemandTypeImport = program.getOnDemandTypeImport();
         if (program.getTypeDeclr() instanceof ClassDeclrNode) {
             typeDeclr = new ClassDeclr((ClassDeclrNode) program.getTypeDeclr());
-            typeDeclr.buildCanonicalName(packageDeclr == null ? "" : String.join(".", packageDeclr));
+        } else {
+            typeDeclr = new InterfaceDeclr((InterfaceDeclrNode) program.getTypeDeclr());
         }
+        typeDeclr.buildCanonicalName(packageDeclr == null ? new ArrayList<>() : packageDeclr);
     }
 
-    public String getClassCanonicalName() {
+    public ArrayList<String> getClassCanonicalName() {
         return typeDeclr.getCanonicalName();
+    }
+
+    public String getClassCanonicalNameStr() {
+        StringBuilder sb = new StringBuilder("");
+        for(String s: typeDeclr.getCanonicalName()){
+            sb.append(s).append(".");
+        }
+        return sb.toString();
     }
 
     public ArrayList<String> getPackageDeclr() {
@@ -34,7 +46,7 @@ public class Program implements AST {
         return typeDeclr;
     }
 
-    public ArrayList<ArrayList<String>> singleTypeImport() {
+    public ArrayList<ArrayList<String>> getSingleTypeImport() {
         return singleTypeImport;
     }
 

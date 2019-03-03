@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class ClassDeclr implements TypeDeclr {
     private ArrayList<Symbol> modifiers;
     private String name;
-    private String canonicalID;
+    private ArrayList<String> canonicalID;
     private ArrayList<String> parentClass;
     private ArrayList<ArrayList<String>> interfaces;
     private ArrayList<ConstructorDeclr> constructor;
@@ -39,8 +39,9 @@ public class ClassDeclr implements TypeDeclr {
     }
 
     @Override
-    public void buildCanonicalName(String packageName) {
-        canonicalID = packageName + DOT + name;
+    public void buildCanonicalName(ArrayList<String> packageName) {
+        canonicalID = new ArrayList<>(packageName);
+        canonicalID.add(name);
     }
 
     public ArrayList<Symbol> getModifers() {
@@ -48,20 +49,27 @@ public class ClassDeclr implements TypeDeclr {
     }
 
     @Override
-    public String getCanonicalName() {
+    public ArrayList<String> getCanonicalName() {
         return canonicalID;
     }
 
-    public ArrayList<ArrayList<String>> getInterfaces() {
-        return interfaces;
-    }
-
+    @Override
     public ArrayList<String> getParentClass() {
         return parentClass;
     }
 
     @Override
+    public ArrayList<ArrayList<String>> getExtendsInterface() {
+        return interfaces == null ? new ArrayList<>() : interfaces;
+    }
+
+    @Override
     public void addEnv(ClassEnv env) {
         this.env = env;
+    }
+
+    @Override
+    public String getSimpleName() {
+        return name;
     }
 }

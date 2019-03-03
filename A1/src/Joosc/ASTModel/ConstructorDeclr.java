@@ -13,7 +13,7 @@ public class ConstructorDeclr implements ClassBodyDeclr {
     private String name;
     private ArrayList<Pair<Type, String>> formalParamList;
     private ArrayList<Statement> bodyBlock;
-    private String canonicalID;
+    private ArrayList<String> canonicalID;
 
     public ConstructorDeclr(ConstructorDeclrNode node) {
         modifiers = node.getModifiers();
@@ -28,15 +28,8 @@ public class ConstructorDeclr implements ClassBodyDeclr {
     }
 
     @Override
-    public void buildCanonicalName(String className) {
-        StringBuilder sb = new StringBuilder(className + DOT + name + "(");
-
-        String typeList = formalParamList.stream()
-                .map(pair -> pair.getKey().toString())
-                .collect(Collectors.joining(COMMA));
-
-        sb.append(typeList).append(")");
-        canonicalID = sb.toString();
+    public void buildCanonicalName(ArrayList<String> className) {
+        // TODO
     }
 
     public String getName() {

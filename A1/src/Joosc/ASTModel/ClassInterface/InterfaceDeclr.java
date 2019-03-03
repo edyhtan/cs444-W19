@@ -13,7 +13,7 @@ public class InterfaceDeclr implements TypeDeclr {
     private String name;
     private ArrayList<ArrayList<String>> extendsInterfaceTypes;
     private ArrayList<AbstractMethodDeclr> interfaceBody;
-    private String canonicalID;
+    private ArrayList<String> canonicalID;
     private ClassEnv env;
 
     public InterfaceDeclr(InterfaceDeclrNode node) {
@@ -25,16 +25,13 @@ public class InterfaceDeclr implements TypeDeclr {
     }
 
     @Override
-    public void buildCanonicalName(String packageName) {
-        canonicalID = packageName + DOT + name;
+    public void buildCanonicalName(ArrayList<String> packageName) {
+        canonicalID = new ArrayList<>(packageName);
+        canonicalID.add(name);
     }
 
     public ArrayList<Symbol> getModifiers() {
         return modifiers;
-    }
-
-    public ArrayList<ArrayList<String>> getExtendsInterfaceTypes() {
-        return extendsInterfaceTypes;
     }
 
     public ArrayList<AbstractMethodDeclr> getInterfaceBody() {
@@ -42,12 +39,27 @@ public class InterfaceDeclr implements TypeDeclr {
     }
 
     @Override
-    public String getCanonicalName() {
+    public ArrayList<String> getCanonicalName() {
         return canonicalID;
     }
 
     @Override
     public void addEnv(ClassEnv env) {
         this.env = env;
+    }
+
+    @Override
+    public String getSimpleName() {
+        return name;
+    }
+
+    @Override
+    public ArrayList<String> getParentClass() {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public ArrayList<ArrayList<String>> getExtendsInterface() {
+        return extendsInterfaceTypes == null ? new ArrayList<>() : extendsInterfaceTypes;
     }
 }

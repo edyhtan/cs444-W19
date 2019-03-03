@@ -1,7 +1,6 @@
 package Joosc.ASTModel;
 
 import Joosc.ASTBuilding.ASTStructures.AbstractMethodDeclrNode;
-import Joosc.ASTBuilding.ASTStructures.TypeNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 import javafx.util.Pair;
 
@@ -13,7 +12,7 @@ public class AbstractMethodDeclr implements AST {
     private Type type;
     private String name;
     private ArrayList<Pair<Type, String>> formalParamList;
-    private String canonicalID;
+    private ArrayList<String> canonicalID;
 
     public AbstractMethodDeclr(AbstractMethodDeclrNode node) {
         modifiers = node.getModifiers();
@@ -24,16 +23,8 @@ public class AbstractMethodDeclr implements AST {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public void buildCanonicalName(String className) {
-        StringBuilder sb = new StringBuilder(className + DOT + name + "(");
-
-        // TODO: may need to remove argList from string
-        String typeList = formalParamList.stream()
-                .map(pair -> pair.getKey().toString())
-                .collect(Collectors.joining(COMMA));
-
-        sb.append(typeList).append(")").append(type.toString());
-        canonicalID = sb.toString();
+    public void buildCanonicalName(ArrayList<String> className) {
+      // TODO
     }
 
     public Type getType() {
@@ -52,7 +43,7 @@ public class AbstractMethodDeclr implements AST {
         return modifiers;
     }
 
-    public String getCanonicalID() {
+    public ArrayList<String> getCanonicalID() {
         return canonicalID;
     }
 }

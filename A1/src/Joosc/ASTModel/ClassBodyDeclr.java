@@ -4,6 +4,8 @@ import Joosc.ASTBuilding.ASTStructures.ClassBodyDeclrNode;
 import Joosc.ASTBuilding.ASTStructures.ClassMemberDeclrNode;
 import Joosc.ASTBuilding.ASTStructures.ConstructorDeclrNode;
 
+import java.util.ArrayList;
+
 public interface ClassBodyDeclr extends AST {
     static ClassBodyDeclr convertClassBodyDeclrNode(ClassBodyDeclrNode node){
         if(node instanceof ConstructorDeclrNode) {
@@ -17,5 +19,5 @@ public interface ClassBodyDeclr extends AST {
         return null;
     }
 
-    void buildCanonicalName(String className);
+    void buildCanonicalName(ArrayList<String> className);
 }

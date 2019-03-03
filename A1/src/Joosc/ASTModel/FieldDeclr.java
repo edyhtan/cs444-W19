@@ -11,7 +11,7 @@ public class FieldDeclr implements ClassMemberDeclr {
     private Type type;
     private String name;
     private Expression initExpression;
-    private String canonicalID;
+    private ArrayList<String> canonicalID;
 
     public FieldDeclr(FieldDeclrNode node) {
         modifiers = node.getModifiers();
@@ -20,8 +20,10 @@ public class FieldDeclr implements ClassMemberDeclr {
         initExpression = Expression.convertExpressionNode(node.getnitExpression());
     }
 
-    public void buildCanonicalName(String className) {
-        canonicalID = className + DOT + name;
+    @Override
+    public void buildCanonicalName(ArrayList<String> className) {
+        canonicalID = new ArrayList<>(className);
+        canonicalID.add(name);
     }
 
     public String getName() {
@@ -40,7 +42,7 @@ public class FieldDeclr implements ClassMemberDeclr {
         return initExpression;
     }
 
-    public String getCanonicalID() {
+    public ArrayList<String> getCanonicalID() {
         return canonicalID;
     }
 }

@@ -14,7 +14,7 @@ public class MethodDeclr implements ClassMemberDeclr {
     String name;
     ArrayList<Pair<Type, String>> formalParamList;
     ArrayList<Statement> bodyBlock;
-    String canonicalID;
+    ArrayList<String> canonicalID;
 
     public MethodDeclr(MethodDeclrNode node) {
         modifiers = node.getModifiers();
@@ -30,17 +30,9 @@ public class MethodDeclr implements ClassMemberDeclr {
     }
 
 
-    public void buildCanonicalName(String className) {
-        StringBuilder sb = new StringBuilder(className + DOT + name + "(");
 
-        //TODO: might need to remove typeList
-        String typeList = formalParamList.stream()
-                .map(pair -> pair.getKey().toString())
-                .collect(Collectors.joining(COMMA));
-
-        sb.append(typeList).append(")").append(DOT).append(type.toString());
-
-        canonicalID = sb.toString();
+    public void buildCanonicalName(ArrayList<String> className) {
+        //TODO
     }
 
     public Type getType() {
@@ -59,7 +51,7 @@ public class MethodDeclr implements ClassMemberDeclr {
         return name;
     }
 
-    public String getCanonicalID() {
+    public ArrayList<String> getCanonicalID() {
         return canonicalID;
     }
 
