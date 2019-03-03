@@ -43,31 +43,24 @@ public class ClassEnv implements Env {
         System.out.println("----------------------------");
 
 
-        HashSet<String> singleImportSet = new HashSet<>();
-        HashSet<String> onDemandImportSet = new HashSet<>();
+        HashSet<String> singleImportClasses = new HashSet<>(); // stores only class names
+        HashSet<String> onDemandImportSet = new HashSet<>(); // stores full import
 
         // clash with class/interface declr
         for (ArrayList<String> singleImport : singleTypeImports) {
             HashSet<String> temp = new HashSet<>(singleImport);
-            if (temp.contains(simpleName) && !singleImport.equals(canonicalName))
+            if (temp.contains(simpleName) && !singleImport.equals(canonicalName)) {
                 throw new NamingResolveException(String.format("single type import %s clashes with type declr",
                         String.join(".", singleImport)));
+            }
         }
 
         // no two singTypeImports clash
         for (ArrayList<String> singleImport : singleTypeImports) {
-            String temp = String.join(". ", singleImport);
-            if (singleImportSet.contains(temp))
-                throw new NamingResolveException(String.format("single type import %s clashes with another single type import", temp));
-            else singleImportSet.add(temp);
-        }
-
-        // no two onDemandTypeImports clash
-        for(ArrayList<String> onDemandImport : onDemandTypeImports) {
-            String temp = new StringBuilder(String.join(".", onDemandImport)).append(".*").toString();
-            if(onDemandImportSet.contains(temp))
-                throw new NamingResolveException(String.format("single type import %s clashes with another single type import", temp));
-            else onDemandImportSet.add(temp);
+            String className = singleImport.get(singleImport.size() - 1);
+            if (singleImportClasses.contains(className)) {
+                throw new NamingResolveException(String.format("single type import %s clashes with another single type import at ", className));
+            }
         }
 
         // singleType clash with onDemand
@@ -86,8 +79,6 @@ public class ClassEnv implements Env {
         }
 
         // check all import-on-demand matches with package structure
-//        if (packages.isEmpty() && !onDemandTypeImports.isEmpty())
-//            throw new NamingResolveException("no package structure found");
         for (ArrayList<String> onDemandImport : onDemandTypeImports) {
             for (Map.Entry<String, GlobalEnv.PackageNames> packageNamesEntry : packages.entrySet()) {
                 if (!matchPackage(packageNamesEntry.getValue(), onDemandImport))
@@ -99,7 +90,7 @@ public class ClassEnv implements Env {
     }
 
     private boolean matchPackage(GlobalEnv.PackageNames packageNames, ArrayList<String> targets) {
-        if(packageNames == null) return false;
+        if (packageNames == null) return false;
         int i = 0;
         while (i < targets.size()) {
             if (packageNames.nameEquals(targets.get(i))) {
