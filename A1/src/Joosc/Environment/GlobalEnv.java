@@ -32,7 +32,7 @@ public class GlobalEnv implements Env {
                 currentLayer = nextLayer.subPackage;
             }
         }
-        //packageNames.forEach((x, y) -> y.print(1));
+        packageNames.forEach((x, y) -> y.print(1));
 
         // sub environment
         classEnvs = new ArrayList<>();

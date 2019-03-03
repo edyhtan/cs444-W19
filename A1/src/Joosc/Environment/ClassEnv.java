@@ -74,18 +74,19 @@ public class ClassEnv implements Env {
         // check all import-on-demand matches with package structure
         for (ArrayList<String> onDemandImport : onDemandTypeImports) {
             HashMap<String, GlobalEnv.PackageNames> searchPackage = parent.packageNames;
-            for (String packageName: onDemandImport) {
+            for (String packageName : onDemandImport) {
                 GlobalEnv.PackageNames findPackage = searchPackage.getOrDefault(packageName, null);
                 if (findPackage == null) {
                     throw new NamingResolveException("could not find package name:" +
                             String.join(".", onDemandImport));
                 }
                 searchPackage = findPackage.subPackage;
+
             }
         }
-
     }
 
+    // return true if there is a duplicated
     private void duplicatedFieldName() throws NamingResolveException {
         if (typeDeclr instanceof ClassDeclr) {
             ArrayList<FieldDeclr> fieldDeclrs = ((ClassDeclr) typeDeclr).getFields();
@@ -100,7 +101,7 @@ public class ClassEnv implements Env {
     }
 
     @Override
-    public void resolveName() throws NamingResolveException {
+        public void resolveName() throws NamingResolveException {
         duplicatedFieldName();
         resolveImports();
     }
