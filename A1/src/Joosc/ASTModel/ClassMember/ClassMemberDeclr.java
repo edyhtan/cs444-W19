@@ -1,10 +1,9 @@
-package Joosc.ASTModel;
+package Joosc.ASTModel.ClassMember;
 
 import Joosc.ASTBuilding.ASTStructures.ClassMemberDeclrNode;
 import Joosc.ASTBuilding.ASTStructures.FieldDeclrNode;
 import Joosc.ASTBuilding.ASTStructures.MethodDeclrNode;
-
-import java.lang.reflect.Field;
+import Joosc.Environment.LocalEnv;
 
 public interface ClassMemberDeclr extends ClassBodyDeclr {
 

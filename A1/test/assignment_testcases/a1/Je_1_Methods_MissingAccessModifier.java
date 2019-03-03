@@ -3,7 +3,7 @@
 // JAVAC:
 /**
  * Parser/weeder:
- * - Methods must have a modifier
+ * - ClassMember must have a modifier
  */
 public class Je_1_Methods_MissingAccessModifier {
 

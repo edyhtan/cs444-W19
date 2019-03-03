@@ -1,8 +1,10 @@
-package Joosc.ASTModel;
+package Joosc.ASTModel.ClassMember;
 
 import Joosc.ASTBuilding.ASTStructures.ClassBodyDeclrNode;
 import Joosc.ASTBuilding.ASTStructures.ClassMemberDeclrNode;
 import Joosc.ASTBuilding.ASTStructures.ConstructorDeclrNode;
+import Joosc.ASTModel.AST;
+import Joosc.Environment.LocalEnv;
 
 import java.util.ArrayList;
 
@@ -20,4 +22,5 @@ public interface ClassBodyDeclr extends AST {
     }
 
     void buildCanonicalName(ArrayList<String> className);
+    void addLocalEnvironment(LocalEnv localEnv);
 }

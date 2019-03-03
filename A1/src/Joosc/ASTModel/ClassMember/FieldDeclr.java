@@ -1,8 +1,11 @@
-package Joosc.ASTModel;
+package Joosc.ASTModel.ClassMember;
 
 import Joosc.ASTBuilding.ASTStructures.FieldDeclrNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.Expressions.Expression;
+import Joosc.ASTModel.ClassMember.ClassMemberDeclr;
+import Joosc.ASTModel.Type;
+import Joosc.Environment.LocalEnv;
 
 import java.util.ArrayList;
 
@@ -25,6 +28,9 @@ public class FieldDeclr implements ClassMemberDeclr {
         canonicalID = new ArrayList<>(className);
         canonicalID.add(name);
     }
+
+    @Override
+    public void addLocalEnvironment(LocalEnv localEnv) {}
 
     public String getName() {
         return name;

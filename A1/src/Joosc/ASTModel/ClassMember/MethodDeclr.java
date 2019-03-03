@@ -1,8 +1,10 @@
-package Joosc.ASTModel;
+package Joosc.ASTModel.ClassMember;
 
 import Joosc.ASTBuilding.ASTStructures.MethodDeclrNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.Statements.Statement;
+import Joosc.ASTModel.Type;
+import Joosc.Environment.LocalEnv;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ public class MethodDeclr implements ClassMemberDeclr {
     ArrayList<Pair<Type, String>> formalParamList;
     ArrayList<Statement> bodyBlock;
     ArrayList<String> canonicalID;
+    LocalEnv localEnv;
 
     public MethodDeclr(MethodDeclrNode node) {
         modifiers = node.getModifiers();
@@ -28,8 +31,6 @@ public class MethodDeclr implements ClassMemberDeclr {
                 : node.getBodyBlock().stream().map(Statement::convertStatementNode)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
-
-
 
     public void buildCanonicalName(ArrayList<String> className) {
         //TODO
@@ -57,5 +58,10 @@ public class MethodDeclr implements ClassMemberDeclr {
 
     public ArrayList<Symbol> getModifiers() {
         return modifiers;
+    }
+
+    @Override
+    public void addLocalEnvironment(LocalEnv localEnv) {
+        this.localEnv = localEnv;
     }
 }

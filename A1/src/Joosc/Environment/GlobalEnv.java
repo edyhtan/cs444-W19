@@ -3,6 +3,7 @@ package Joosc.Environment;
 import Joosc.ASTModel.Program;
 import Joosc.Exceptions.NamingResolveException;
 
+import java.rmi.Naming;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -39,9 +40,9 @@ public class GlobalEnv implements Env {
         programs.forEach(x -> classEnvs.add(new ClassEnv(x, this)));
     }
 
-    private boolean nameConflict() {
+    private void nameConflict() throws NamingResolveException {
         HashSet<String> canonicalNames = new HashSet<>();
-        return programs.stream().map(
+        if (!programs.stream().map(
                 x -> {
                     if (canonicalNames.contains(x.getClassCanonicalNameStr())) {
                         return false;
@@ -50,11 +51,14 @@ public class GlobalEnv implements Env {
                         return true;
                     }
                 }
-        ).reduce(true, (x, y) -> x & y);
+        ).reduce(true, (x, y) -> x & y)) {
+          throw new NamingResolveException("Duplicated Type");
+        }
     }
 
     @Override
     public void resolveName() throws NamingResolveException {
+        nameConflict();
         for (ClassEnv classEnv : classEnvs) {
             classEnv.resolveName();
         }
