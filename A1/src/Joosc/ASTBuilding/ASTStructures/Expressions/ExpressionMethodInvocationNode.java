@@ -17,6 +17,7 @@ public class ExpressionMethodInvocationNode extends ExpressionPrimaryNode {
 
     public ExpressionMethodInvocationNode(ParseTree parseTree) throws ASTException {
         ParseTree child = parseTree.getChild(0);
+        argList = new ArrayList<>();
         if (child.getKind().equals(Symbol.Name)) {
             methodName = new ArrayList<>();
             RecursionResolve.resolveName(child, methodName);
@@ -37,7 +38,6 @@ public class ExpressionMethodInvocationNode extends ExpressionPrimaryNode {
             methodIdentifier = child.getLexeme();
             child = parseTree.getChild(4);
             if (child.getKind().equals(Symbol.ArgList)) {
-                argList = new ArrayList<>();
                 RecursionResolve.resolveNodes(
                         child,
                         argList,
@@ -62,9 +62,7 @@ public class ExpressionMethodInvocationNode extends ExpressionPrimaryNode {
             printInfoStrAtLevel("Reference Expression:", level + 1);
             methodParentExpression.printInfo(level + 2);
         }
-        if (argList != null) {
-            printInfoArrayLambda("Argument List:", argList, c -> c.printInfo(level + 2));
-        }
+        printInfoArrayLambda("Argument List:", argList, c -> c.printInfo(level + 2));
     }
 
     public ArrayList<ExpressionNode> getArgList() {

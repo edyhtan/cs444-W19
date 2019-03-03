@@ -19,6 +19,8 @@ public class Program implements AST {
         if (program.getTypeDeclr() instanceof ClassDeclrNode) {
             typeDeclr = new ClassDeclr((ClassDeclrNode) program.getTypeDeclr());
             typeDeclr.buildCanonicalName(packageDeclr == null ? "" : String.join(".", packageDeclr));
+        } else {
+
         }
     }
 

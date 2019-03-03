@@ -40,8 +40,11 @@ public class Joosc {
             parse.parse(tokens);
             ParseTree tree = parse.getTree();
 
+            tree.print();
             ast = new JoosAST(tree);
             ast.checkFileName(file);
+            System.out.println("\n============   ASTBuilding   ============\n");
+            ast.printASTInfo();
             ast.weed();
         } catch (FileNotFoundException e) {
             System.err.printf("ERROR: file not found: %s\n", e.getLocalizedMessage());

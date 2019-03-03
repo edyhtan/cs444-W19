@@ -16,7 +16,8 @@ public class ExpressionUnary implements Expression {
         kind = node.getKind();
         unaryOperator = node.getUnaryOperator();
         targetNode = Expression.convertExpressionNode(node.getTargetNode());
-        castingType = new Type(node.getCastingTypeNode());
+        castingType = node.getCastingTypeNode()==null ? null
+                        : new Type(node.getCastingTypeNode());
     }
 
     public Symbol getUnaryOperator() {
