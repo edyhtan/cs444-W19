@@ -74,7 +74,7 @@ public class ClassEnv implements Env {
                 System.out.println(im);
 
                 if (checkSet.contains(im))
-                    throw new NamingResolveException("single type import clashes with on demand import at "+ im);
+                    throw new NamingResolveException("single type import clashes with on demand import at " + im);
             }
         }
 
