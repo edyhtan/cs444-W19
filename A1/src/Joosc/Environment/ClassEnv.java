@@ -26,7 +26,6 @@ public class ClassEnv implements Env {
     }
 
     public void resolveImports() throws NamingResolveException {
-        HashMap<String, GlobalEnv.PackageNames> packages = parent.packageNames;
         ArrayList<String> canonicalName = typeDeclr.getCanonicalName();
         String simpleName = typeDeclr.getSimpleName();
         ArrayList<ArrayList<String>> singleTypeImports = program.getSingleTypeImport();
@@ -74,33 +73,17 @@ public class ClassEnv implements Env {
 
         // check all import-on-demand matches with package structure
         for (ArrayList<String> onDemandImport : onDemandTypeImports) {
-
-            System.out.println(String.join(".", onDemandImport));
-
-            for (Map.Entry<String, GlobalEnv.PackageNames> packageNamesEntry : packages.entrySet()) {
-                if (!matchPackage(packageNamesEntry.getValue(), onDemandImport))
-                    throw new NamingResolveException(String.format("on demand import %s does not match any package structure",
-                            String.join(".", onDemandImport)));
+            HashMap<String, GlobalEnv.PackageNames> searchPackage = parent.packageNames;
+            for (String packageName: onDemandImport) {
+                GlobalEnv.PackageNames findPackage = searchPackage.getOrDefault(packageName, null);
+                if (findPackage == null) {
+                    throw new NamingResolveException("could not find package name:" +
+                            String.join(".", onDemandImport));
+                }
+                searchPackage = findPackage.subPackage;
             }
         }
 
-    }
-
-    // TODO
-    private boolean matchPackage(GlobalEnv.PackageNames packageNames, ArrayList<String> targets) {
-        if (packageNames == null) return false;
-        int i = 0;
-        GlobalEnv.PackageNames cur = packageNames;
-        while (i < targets.size()) {
-            System.out.println(i + " " + targets.get(i));
-            if (packageNames == null)
-                return false;
-            if (cur.nameEquals(targets.get(i)) && cur.subPackage.containsKey(targets.get(i+1))) {
-                System.out.println("true");
-                cur = cur.subPackage.get(targets.get(i++));
-            } else break;
-        }
-        return i == targets.size();
     }
 
     private void duplicatedFieldName() throws NamingResolveException {

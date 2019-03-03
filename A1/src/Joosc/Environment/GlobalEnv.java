@@ -14,16 +14,7 @@ public class GlobalEnv implements Env {
 
     public GlobalEnv(ArrayList<Program> programs) {
         this.programs = programs;
-        packageNames = new HashMap<>();
-
-        // add java.lang.Object package
-        PackageNames java = new PackageNames("java");
-        PackageNames lang = new PackageNames("lang");
-        PackageNames Obj = new PackageNames("Object");
-
-        java.subPackage.put(lang.name, lang);
-        lang.subPackage.put(Obj.name, Obj);
-        packageNames.put(java.name, java);
+        packageNames = addStdLib();
 
         // populate existing package names.
         for (Program program : programs) {
@@ -41,7 +32,7 @@ public class GlobalEnv implements Env {
                 currentLayer = nextLayer.subPackage;
             }
         }
-        packageNames.forEach((x, y) -> y.print(1));
+        //packageNames.forEach((x, y) -> y.print(1));
 
         // sub environment
         classEnvs = new ArrayList<>();
@@ -67,6 +58,21 @@ public class GlobalEnv implements Env {
         for (ClassEnv classEnv : classEnvs) {
             classEnv.resolveName();
         }
+    }
+
+    private HashMap<String, PackageNames> addStdLib() {
+        HashMap<String, PackageNames> packages = new HashMap<>();
+        PackageNames java = new PackageNames("java");
+        PackageNames lang = new PackageNames("lang");
+        PackageNames util = new PackageNames("util");
+        PackageNames io = new PackageNames("io");
+
+        java.subPackage.put(lang.name, lang);
+        java.subPackage.put(util.name, util);
+        java.subPackage.put(io.name, io);
+
+        packages.put(java.name, java);
+        return packages;
     }
 
     public class PackageNames {
