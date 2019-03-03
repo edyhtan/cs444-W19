@@ -16,6 +16,14 @@ public class GlobalEnv implements Env {
         this.programs = programs;
         packageNames = new HashMap<>();
 
+        // add java.lang.Object package
+        PackageNames java = new PackageNames("java");
+        PackageNames lang = new PackageNames("lang");
+        PackageNames Obj = new PackageNames("Object");
+
+        java.subPackage.put(lang.name, lang);
+        lang.subPackage.put(Obj.name, null);
+
         // populate existing package names.
         for (Program program : programs) {
             ArrayList<String> packageLayer = program.getPackageDeclr();
@@ -54,10 +62,16 @@ public class GlobalEnv implements Env {
     }
 
     @Override
-
     public void resolveName() throws NamingResolveException {
         for (ClassEnv classEnv : classEnvs) {
             classEnv.resolveName();
+        }
+    }
+
+    @Override
+    public void resolveImports() throws NamingResolveException {
+        for(ClassEnv classEnv : classEnvs) {
+            classEnv.resolveImports();
         }
     }
 
