@@ -93,7 +93,8 @@ public class ClassEnv implements Env {
         GlobalEnv.PackageNames cur = packageNames;
         while (i < targets.size()) {
             System.out.println(i + " " + targets.get(i));
-            if (packageNames == null) return false;
+            if (packageNames == null)
+                return false;
             if (cur.nameEquals(targets.get(i)) && cur.subPackage.containsKey(targets.get(i+1))) {
                 System.out.println("true");
                 cur = cur.subPackage.get(targets.get(i++));
@@ -102,8 +103,7 @@ public class ClassEnv implements Env {
         return i == targets.size();
     }
 
-    // return true if there is a duplicated
-    private boolean duplicatedFieldName() throws NamingResolveException {
+    private void duplicatedFieldName() throws NamingResolveException {
         if (typeDeclr instanceof ClassDeclr) {
             ArrayList<FieldDeclr> fieldDeclrs = ((ClassDeclr) typeDeclr).getFields();
             for (FieldDeclr fieldDeclr : fieldDeclrs) {
@@ -114,7 +114,6 @@ public class ClassEnv implements Env {
                 }
             }
         }
-        return false;
     }
 
     @Override
