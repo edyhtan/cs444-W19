@@ -15,4 +15,15 @@ public class Type implements AST {
         names = node.getNames();
     }
 
+    public Symbol getKind() {
+        return kind;
+    }
+
+    public Symbol getArrayKind() {
+        return arrayKind;
+    }
+
+    public ArrayList<String> getNames() {
+        return names;
+    }
 }
