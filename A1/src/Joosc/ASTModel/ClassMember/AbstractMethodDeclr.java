@@ -4,7 +4,7 @@ import Joosc.ASTBuilding.ASTStructures.AbstractMethodDeclrNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.AST;
 import Joosc.ASTModel.Type;
-import javafx.util.Pair;
+import Joosc.util.Pair;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;

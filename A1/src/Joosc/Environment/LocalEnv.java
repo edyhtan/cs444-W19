@@ -10,7 +10,7 @@ import Joosc.ASTModel.Statements.LocalVarDeclrStatement;
 import Joosc.ASTModel.Statements.Statement;
 import Joosc.ASTModel.Type;
 import Joosc.Exceptions.NamingResolveException;
-import javafx.util.Pair;
+import Joosc.util.Pair;
 
 import java.util.ArrayList;
 import java.util.HashMap;

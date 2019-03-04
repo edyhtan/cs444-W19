@@ -7,7 +7,7 @@ import Joosc.ASTModel.ClassMember.ClassMemberDeclr;
 import Joosc.ASTModel.Statements.Statement;
 import Joosc.ASTModel.Type;
 import Joosc.Environment.LocalEnv;
-import javafx.util.Pair;
+import Joosc.util.Pair;
 
 import java.util.ArrayList;
 

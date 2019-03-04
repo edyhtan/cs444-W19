@@ -5,7 +5,7 @@ import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.Statements.Statement;
 import Joosc.ASTModel.Type;
 import Joosc.Environment.LocalEnv;
-import javafx.util.Pair;
+import Joosc.util.Pair;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
