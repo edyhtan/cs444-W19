@@ -102,6 +102,18 @@ public class ClassEnv implements Env {
                 allImportedClasses.put(className, cname);
             }
         }
+
+        // adding implicit types:
+        for (String className: parent.packageNames.get("java").subPackage.get("lang").types) {
+            if (!allImportedClasses.containsKey(className)) {
+                ArrayList<String> cname = new ArrayList<>();
+                cname.add("java");
+                cname.add("lang");
+                cname.add(className);
+                allImportedClasses.put(className, cname);
+            }
+        }
+
     }
 
 
