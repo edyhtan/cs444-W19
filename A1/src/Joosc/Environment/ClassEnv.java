@@ -18,6 +18,7 @@ public class ClassEnv implements Env {
     ArrayList<ArrayList<String>> singleTypeImports;
     ArrayList<ArrayList<String>> onDemandTypeImports;
     ArrayList<String> packageDeclr;
+    HashSet<ArrayList<String>> superSet = new HashSet<>();
 
     HashMap<String, ArrayList<String>> allImportedClasses = new HashMap<>(); // (Name, Canonical Name)
 
@@ -33,6 +34,25 @@ public class ClassEnv implements Env {
         packageDeclr = program.getPackageDeclr();
         if(packageDeclr == null) packageDeclr = new ArrayList<>(Arrays.asList(""));
         constructLocalEnvironment();
+    }
+
+    private void buildSuperSet() {
+        if(typeDeclr instanceof ClassDeclr) {
+
+            if(((ClassDeclr) typeDeclr).getParentClass().isEmpty() || ((ClassDeclr) typeDeclr).getParentClass() == null) {
+                superSet.add(new ArrayList<>(Arrays.asList("java.lang.Object".split("\\."))));
+            } else {
+                ((ClassDeclr) typeDeclr).getParentClass().forEach(x -> {
+                    // TODO: check x is a class, cannot be final
+                    superSet.add(new ArrayList<>(Arrays.asList(x)));
+                });
+            }
+            ((ClassDeclr) typeDeclr).getInterfaces().forEach(x-> {
+                // TODO: check x is an interface, no duplicate interfaces(simple&simple, simple&canonical, canonical&canonical)
+                superSet.add(x);
+            });
+        }
+
     }
 
     public void resolveImports() throws NamingResolveException {
@@ -204,5 +224,9 @@ public class ClassEnv implements Env {
         for (LocalEnv localEnv:localEnvs) {
             localEnv.resolveName();
         }
+    }
+
+    public HashSet<ArrayList<String>> getSuperSet() {
+        return superSet;
     }
 }

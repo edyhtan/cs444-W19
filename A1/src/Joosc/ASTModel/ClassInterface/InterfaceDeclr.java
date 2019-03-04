@@ -34,6 +34,10 @@ public class InterfaceDeclr implements TypeDeclr {
         return modifiers;
     }
 
+    public ArrayList<ArrayList<String>> getExtendsInterfaceTypes() {
+        return extendsInterfaceTypes;
+    }
+
     public ArrayList<AbstractMethodDeclr> getInterfaceBody() {
         return interfaceBody;
     }
