@@ -98,7 +98,6 @@ public class Joosc {
         } catch (NamingResolveException e) {
             System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
             System.exit(42);
-
         }
     }
 }

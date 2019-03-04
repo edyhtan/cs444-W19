@@ -1,9 +1,10 @@
 package Joosc.Environment;
 
+import Joosc.ASTModel.ClassInterface.TypeDeclr;
+import Joosc.ASTModel.ClassMember.ClassBodyDeclr;
 import Joosc.ASTModel.Program;
 import Joosc.Exceptions.NamingResolveException;
 
-import java.rmi.Naming;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -57,6 +58,21 @@ public class GlobalEnv implements Env {
     }
 
     @Override
+    public TypeDeclr getCurrentClass() {
+        return null;
+    }
+
+    @Override
+    public ClassBodyDeclr getCurrentMethod() {
+        return null;
+    }
+
+    @Override
+    public boolean isLocalVariableDeclared(String simpleName) {
+        return false;
+    }
+
+    @Override
     public void resolveName() throws NamingResolveException {
         nameConflict();
         for (ClassEnv classEnv : classEnvs) {
@@ -97,7 +113,5 @@ public class GlobalEnv implements Env {
             System.err.print("--" + name + "\n");
             subPackage.forEach((x, y) -> y.print(level + 1));
         }
-
-
     }
 }

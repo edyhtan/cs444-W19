@@ -10,7 +10,7 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class ConstructorDeclr implements ClassBodyDeclr {
+public class ConstructorDeclr implements ClassBodyDeclr, Method {
     private ArrayList<Symbol> modifiers;
     private String name;
     private ArrayList<Pair<Type, String>> formalParamList;
@@ -40,14 +40,17 @@ public class ConstructorDeclr implements ClassBodyDeclr {
         this.localEnv = localEnv;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public ArrayList<Statement> getBodyBlock() {
         return bodyBlock;
     }
 
+    @Override
     public ArrayList<Pair<Type, String>> getFormalParamList() {
         return formalParamList;
     }

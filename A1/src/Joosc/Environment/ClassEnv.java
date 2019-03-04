@@ -102,8 +102,27 @@ public class ClassEnv implements Env {
     }
 
     @Override
+    public TypeDeclr getCurrentClass() {
+        return typeDeclr;
+    }
+
+    @Override
+    public ClassBodyDeclr getCurrentMethod() {
+        return null;
+    }
+
+    @Override
+    public boolean isLocalVariableDeclared(String simpleName) {
+        return false;
+    }
+
+    @Override
     public void resolveName() throws NamingResolveException {
         duplicatedFieldName();
         resolveImports();
+
+        for (LocalEnv localEnv:localEnvs) {
+            localEnv.resolveName();
+        }
     }
 }

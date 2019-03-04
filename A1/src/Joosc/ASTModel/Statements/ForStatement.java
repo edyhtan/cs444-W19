@@ -2,8 +2,11 @@ package Joosc.ASTModel.Statements;
 
 import Joosc.ASTBuilding.ASTStructures.Statements.ForStatementNode;
 import Joosc.ASTModel.Expressions.Expression;
+import Joosc.Environment.GlobalEnv;
 
-public class ForStatement implements Statement {
+import java.util.ArrayList;
+
+public class ForStatement implements Statement, HasScope {
     private Statement forInit = null;
     private Expression expression = null;
     private Statement forUpdate = null;
@@ -30,5 +33,15 @@ public class ForStatement implements Statement {
 
     public Statement getForUpdate() {
         return forUpdate;
+    }
+
+    public ArrayList<Statement> getBlock() {
+        if (statement instanceof Block) {
+            return ((Block) statement).getBlock();
+        } else {
+            ArrayList<Statement> statements = new ArrayList<>();
+            statements.add(statement);
+            return statements;
+        }
     }
 }

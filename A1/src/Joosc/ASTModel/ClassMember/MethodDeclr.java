@@ -10,7 +10,7 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class MethodDeclr implements ClassMemberDeclr {
+public class MethodDeclr implements ClassMemberDeclr, Method {
     ArrayList<Symbol> modifiers;
     Type type;
     String name;
@@ -27,7 +27,7 @@ public class MethodDeclr implements ClassMemberDeclr {
         formalParamList = node.getFormalParamList().stream()
                 .map(pair -> new Pair<>(new Type(pair.getKey()), pair.getValue()))
                 .collect(Collectors.toCollection(ArrayList::new));
-        bodyBlock = node.getBodyBlock() == null ? null
+        bodyBlock = node.getBodyBlock() == null ? new ArrayList<>()
                 : node.getBodyBlock().stream().map(Statement::convertStatementNode)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
@@ -40,14 +40,17 @@ public class MethodDeclr implements ClassMemberDeclr {
         return type;
     }
 
+    @Override
     public ArrayList<Statement> getBodyBlock() {
         return bodyBlock;
     }
 
+    @Override
     public ArrayList<Pair<Type, String>> getFormalParamList() {
         return formalParamList;
     }
 
+    @Override
     public String getName() {
         return name;
     }

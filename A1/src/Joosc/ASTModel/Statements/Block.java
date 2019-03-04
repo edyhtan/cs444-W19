@@ -6,7 +6,7 @@ import Joosc.ASTBuilding.ASTStructures.Statements.StatementNode;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class Block implements Statement {
+public class Block implements Statement, HasScope {
     private ArrayList<Statement> statements;
 
     public Block(BlockNode node) {
@@ -15,6 +15,11 @@ public class Block implements Statement {
     }
 
     public ArrayList<Statement> getStatements() {
+        return statements;
+    }
+
+    @Override
+    public ArrayList<Statement> getBlock() {
         return statements;
     }
 }

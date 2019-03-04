@@ -4,8 +4,10 @@ import Joosc.ASTBuilding.ASTStructures.FieldDeclrNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.Expressions.Expression;
 import Joosc.ASTModel.ClassMember.ClassMemberDeclr;
+import Joosc.ASTModel.Statements.Statement;
 import Joosc.ASTModel.Type;
 import Joosc.Environment.LocalEnv;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
 
@@ -32,6 +34,17 @@ public class FieldDeclr implements ClassMemberDeclr {
     @Override
     public void addLocalEnvironment(LocalEnv localEnv) {}
 
+    @Override
+    public ArrayList<Pair<Type, String>> getFormalParamList() {
+        return null;
+    }
+
+    @Override
+    public ArrayList<Statement> getBodyBlock() {
+        return null;
+    }
+
+    @Override
     public String getName() {
         return name;
     }

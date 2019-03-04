@@ -3,7 +3,9 @@ package Joosc.ASTModel.Statements;
 import Joosc.ASTBuilding.ASTStructures.Statements.WhileStatementNode;
 import Joosc.ASTModel.Expressions.Expression;
 
-public class WhileStatement implements Statement {
+import java.util.ArrayList;
+
+public class WhileStatement implements Statement, HasScope {
     private Expression expression;
     private Statement statement;
 
@@ -18,5 +20,16 @@ public class WhileStatement implements Statement {
 
     public Statement getStatement() {
         return statement;
+    }
+
+    @Override
+    public ArrayList<Statement> getBlock() {
+        if (statement instanceof Block) {
+            return ((Block) statement).getBlock();
+        } else {
+            ArrayList<Statement> statements = new ArrayList<>();
+            statements.add(statement);
+            return statements;
+        }
     }
 }
