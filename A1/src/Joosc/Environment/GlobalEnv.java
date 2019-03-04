@@ -3,15 +3,44 @@ package Joosc.Environment;
 import Joosc.ASTModel.Program;
 import Joosc.Exceptions.NamingResolveException;
 
-import java.rmi.Naming;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 
 public class GlobalEnv implements Env {
+    enum ImplicitType {
+        BOOLEAN("Boolean"),
+        CLASS("Class"),
+        NUMBER("Number"),
+        STRING("String"),
+        BYTE("Byte"),
+        CLONEABLE("Cloneable"),
+        OBJECT("Object"),
+        SYSTEM("System"),
+        CHARACTER("Character"),
+        INTEGER("Integer"),
+        SHORT("Short");
+
+        final String name;
+
+        ImplicitType(String name) {
+            this.name = name;
+        }
+
+        public String toString(){
+            return name;
+        }
+    }
+
+    static HashSet<String> implictTypesHashSet = new HashSet<>();
+
     ArrayList<Program> programs;
     ArrayList<ClassEnv> classEnvs;
     HashMap<String, PackageNames> packageNames;
+
+
+
 
     public GlobalEnv(ArrayList<Program> programs) {
         this.programs = programs;
@@ -38,6 +67,7 @@ public class GlobalEnv implements Env {
         // sub environment
         classEnvs = new ArrayList<>();
         programs.forEach(x -> classEnvs.add(new ClassEnv(x, this)));
+        for(ImplicitType type : ImplicitType.values()) implictTypesHashSet.add(type.toString());
     }
 
     private void nameConflict() throws NamingResolveException {
@@ -52,7 +82,7 @@ public class GlobalEnv implements Env {
                     }
                 }
         ).reduce(true, (x, y) -> x & y)) {
-          throw new NamingResolveException("Duplicated Type");
+            throw new NamingResolveException("Duplicated Type");
         }
     }
 
@@ -79,10 +109,10 @@ public class GlobalEnv implements Env {
         return packages;
     }
 
-    public ArrayList<ClassEnv> getPackageLevelClasses(ArrayList<String> packageName){
+    public ArrayList<ClassEnv> getPackageLevelClasses(ArrayList<String> packageName) {
         ArrayList<ClassEnv> classes = new ArrayList<>();
-        for(ClassEnv classEnv : classEnvs) {
-            if(classEnv.samePackage(packageName)) classes.add(classEnv);
+        for (ClassEnv classEnv : classEnvs) {
+            if (classEnv.samePackage(packageName)) classes.add(classEnv);
         }
 
         return classes;

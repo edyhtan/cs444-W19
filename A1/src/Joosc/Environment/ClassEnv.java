@@ -9,10 +9,7 @@ import Joosc.ASTModel.Program;
 import Joosc.ASTModel.Type;
 import Joosc.Exceptions.NamingResolveException;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static Joosc.ASTBuilding.Constants.Symbol.ClassOrInterfaceType;
@@ -100,6 +97,9 @@ public class ClassEnv implements Env {
     }
 
     public boolean samePackage(ArrayList<String> packageName) {
+        if(packageDeclr == null || packageDeclr.isEmpty()) {
+            packageDeclr = new ArrayList<>(Arrays.asList(typeDeclr.getSimpleName()));
+        }
         if(packageName == null) return false;
         Collections.sort(packageName);
         ArrayList<String> temp = this.packageDeclr;
@@ -121,20 +121,21 @@ public class ClassEnv implements Env {
     private void checkField(FieldDeclr fieldDeclr) throws NamingResolveException {
         if (fieldDeclr.getType().getKind().equals(ClassOrInterfaceType)) {
             ArrayList<String> className = fieldDeclr.getType().getNames();
-            if (className.size() == 1) { // simple name
-                if (className.get(0).equals(typeDeclr.getSimpleName())) { // check in enclosing class/interface
+            if (className.size() == 1) {
+                // check in enclosing class/interface
+                if (className.get(0).equals(typeDeclr.getSimpleName())) {
                     return;
                 }
 
-                for (ArrayList<String> singleImport : singleTypeImports) { // check in single type import
+                if(GlobalEnv.implictTypesHashSet.contains(className.get(0))) return;
+                // check in single type import
+                for (ArrayList<String> singleImport : singleTypeImports) {
                     if (singleImport.get(singleImport.size() - 1).equals(className.get(0))) {
                         return;
                     }
                 }
-
                 // search classes under same package
                 boolean found = searchPackageLevel(packageDeclr, className.get(0));
-
                 // search in import on demand packages
                 found = onDemandTypeImports.stream().map(x -> searchPackageLevel(x, className.get(0)))
                         .reduce(found, (x, y) -> x & y);
@@ -142,6 +143,8 @@ public class ClassEnv implements Env {
                     throw new NamingResolveException(String.format("cannot resolve type %s to any class or interface",
                             className.get(0)));
                 }
+            } else {
+                // TODO
             }
         }
     }
