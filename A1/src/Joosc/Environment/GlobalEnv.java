@@ -15,6 +15,9 @@ public class GlobalEnv implements Env {
     PackageNames defaultPacakge = new PackageNames("");
     HashMap<String, PackageNames> packageNames = defaultPacakge.subPackage;
 
+    HashMap<String, HashSet<ArrayList<String>>> hierarchy;
+
+
     public GlobalEnv(ArrayList<Program> programs) {
         this.programs = programs;
 
@@ -41,7 +44,9 @@ public class GlobalEnv implements Env {
 
         // sub environment
         classEnvs = new ArrayList<>();
+        hierarchy = new HashMap<>();
         programs.forEach(x -> classEnvs.add(new ClassEnv(x, this)));
+        classEnvs.forEach(x -> hierarchy.put(x.typeDeclr.getSimpleName(), x.superSet));
     }
 
     private void nameConflict() throws NamingResolveException {
@@ -58,6 +63,11 @@ public class GlobalEnv implements Env {
         ).reduce(true, (x, y) -> x & y)) {
             throw new NamingResolveException("Duplicated Type");
         }
+    }
+
+    private void checkAcyclicHierarchy() {
+        // TODO: graph serach here on hierarcby map
+
     }
 
     @Override
