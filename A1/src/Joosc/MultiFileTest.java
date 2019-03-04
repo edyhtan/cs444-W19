@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MultiFileTest {
-    public static void main(String args[]) {
+    public static int run(String args[]) {
         String assignment = args[0];
         String testcases = args[1];
         String path = String.format("./test/assignment_testcases/%s/%s", assignment, testcases);
@@ -25,13 +25,15 @@ public class MultiFileTest {
 
             if (testcases.contains(".java")) {
                 ArrayList<String> allArgs = new ArrayList<>(baseArgs);
-                allArgs.add(testcases);
-                Joosc.main(allArgs.toArray(new String[allArgs.size()]));
+                allArgs.add(path);
+                allArgs.add("-r");
+                System.out.println(testcases + ": " + Joosc.run(allArgs.toArray(new String[allArgs.size()])));
             } else {
                 try (Stream<Path> paths = Files.walk(Paths.get(path))) {
                     ArrayList<String> allArgs = new ArrayList<>(baseArgs);
                     allArgs.addAll(Arrays.asList(paths.filter(Files::isRegularFile).map(Path::toString).toArray(String[]::new)));
-                    Joosc.main(allArgs.toArray(new String[allArgs.size()]));
+                    allArgs.add("-r");
+                    System.out.println(testcases + ": " + Joosc.run(allArgs.toArray(new String[allArgs.size()])));
                 } catch (Exception e) {
                     e.printStackTrace();
                     System.out.println("Nothing");
@@ -41,5 +43,10 @@ public class MultiFileTest {
             e.printStackTrace();
             System.out.println("Nothing");
         }
+        return 2;
+    }
+
+    public static void main(String args[]) {
+        run(args);
     }
 }

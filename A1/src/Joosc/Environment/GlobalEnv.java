@@ -38,7 +38,6 @@ public class GlobalEnv implements Env {
 
             currentPackageLevel.types.add(program.getTypeDeclr().getSimpleName());
         }
-        defaultPacakge.print(0);
 
         // sub environment
         classEnvs = new ArrayList<>();

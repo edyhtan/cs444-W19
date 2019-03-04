@@ -5,17 +5,16 @@ import Joosc.ASTModel.ClassInterface.TypeDeclr;
 import Joosc.ASTModel.ClassMember.ClassBodyDeclr;
 import Joosc.ASTModel.ClassMember.FieldDeclr;
 import Joosc.ASTModel.Program;
+import Joosc.ASTModel.Type;
 import Joosc.Exceptions.NamingResolveException;
 
 import java.util.*;
-
-import static Joosc.ASTBuilding.Constants.Symbol.ClassOrInterfaceType;
 
 public class ClassEnv implements Env {
     TypeDeclr typeDeclr;
     GlobalEnv parent;
     Program program;
-    protected HashMap<String, String> fields = new HashMap<>(); // type, name
+    protected HashMap<String, FieldsVarInfo> fields = new HashMap<>();
     ArrayList<ArrayList<String>> singleTypeImports;
     ArrayList<ArrayList<String>> onDemandTypeImports;
     ArrayList<String> packageDeclr;
@@ -112,7 +111,11 @@ public class ClassEnv implements Env {
             ArrayList<FieldDeclr> fieldDeclrs = ((ClassDeclr) typeDeclr).getFields();
             for (FieldDeclr fieldDeclr : fieldDeclrs) {
                 if (!fields.containsValue(fieldDeclr.getName())) {
-                    fields.put(fieldDeclr.getType().toString(), fieldDeclr.getName());
+                    fields.put(fieldDeclr.getName(),
+                            new FieldsVarInfo(fieldDeclr.getName(),
+                                    String.join(".", program.getPackageDeclr()),
+                                    fieldDeclr.getType())
+                            );
                 } else {
                     throw new NamingResolveException("found more than one field with name " + fieldDeclr.getName());
                 }
@@ -136,53 +139,19 @@ public class ClassEnv implements Env {
         return false;
     }
 
-    private void checkField(FieldDeclr fieldDeclr) throws NamingResolveException {
-        if (fieldDeclr.getType().getKind().equals(ClassOrInterfaceType)) {
-            ArrayList<String> className = fieldDeclr.getType().getNames();
-            if (className.size() == 1) {
-                // check in enclosing class/interface
-                if (className.get(0).equals(typeDeclr.getSimpleName())) {
-                    System.out.println("found 1");
-
-                    return;
-                }
-
-                // check in single type import
-                for (ArrayList<String> singleImport : singleTypeImports) {
-                    if (singleImport.get(singleImport.size() - 1).equals(className.get(0))) {
-                        System.out.println("found 3");
-                        return;
-                    }
-                }
-                // search classes under same package
-                boolean found = searchPackageLevel(packageDeclr, className.get(0));
-                if (found) {
-                    System.out.println("found 4");
-                    return;
-                }
-
-                // search in import on demand packages
-                found = onDemandTypeImports.stream().map(x -> searchPackageLevel(x, className.get(0)))
-                        .reduce(false, (x, y) -> x || y);
-                if (found) {
-                    System.out.println("found 5");
-                    return;
-                } else
-                    throw new NamingResolveException(String.format("cannot resolve type %s to any class or interface",
-                            className.get(0)));
-            } else {
-                if (parent.classEnvs.stream().map(s -> {
-                    ArrayList<String> temp = s.typeDeclr.getCanonicalName();
-                    return temp.equals(className);
-                }).reduce(false, (x, y) -> x || y)) {
-                    System.out.println("match qualified name");
-                    return;
-                } else {
-                    throw new NamingResolveException(String.format("cannot resolve type %s to any class or interface",
-                            String.join(".", className)));
-                }
-
+    private void resolveFieldType() throws NamingResolveException {
+        for (Map.Entry<String, FieldsVarInfo> field:fields.entrySet()) {
+            Type type = field.getValue().type;
+            // ignore primitive and qualifed type
+            if (type.getNames().size() != 1) {
+                continue;
             }
+
+            if (!allImportedClasses.containsKey(type.getNames().get(0))) {
+                throw new NamingResolveException("Type: " + type.getNames().get(0) + " Not Found");
+            }
+
+            field.getValue().setResolvedType(allImportedClasses.get(type.getNames().get(0)));
         }
     }
 
@@ -228,13 +197,6 @@ public class ClassEnv implements Env {
     public void resolveName() throws NamingResolveException {
         duplicatedFieldName();
         resolveImports();
-
-        if (typeDeclr instanceof ClassDeclr) {
-            ArrayList<FieldDeclr> fieldDeclrs = ((ClassDeclr) typeDeclr).getFields();
-            for (FieldDeclr fieldDeclr : fieldDeclrs) {
-                checkField(fieldDeclr);
-            }
-        }
 
         for (LocalEnv localEnv:localEnvs) {
             localEnv.resolveName();
