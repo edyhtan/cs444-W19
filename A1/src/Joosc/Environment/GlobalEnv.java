@@ -79,6 +79,15 @@ public class GlobalEnv implements Env {
         return packages;
     }
 
+    public ArrayList<ClassEnv> getPackageLevelClasses(ArrayList<String> packageName){
+        ArrayList<ClassEnv> classes = new ArrayList<>();
+        for(ClassEnv classEnv : classEnvs) {
+            if(classEnv.samePackage(packageName)) classes.add(classEnv);
+        }
+
+        return classes;
+    }
+
     public class PackageNames {
         String name;
         HashMap<String, PackageNames> subPackage = new HashMap<>();
