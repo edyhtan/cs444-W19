@@ -6,70 +6,43 @@ import Joosc.ASTModel.Program;
 import Joosc.Exceptions.NamingResolveException;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 
 public class GlobalEnv implements Env {
-    enum ImplicitType {
-        BOOLEAN("Boolean"),
-        CLASS("Class"),
-        NUMBER("Number"),
-        STRING("String"),
-        BYTE("Byte"),
-        CLONEABLE("Cloneable"),
-        OBJECT("Object"),
-        SYSTEM("System"),
-        CHARACTER("Character"),
-        INTEGER("Integer"),
-        SHORT("Short");
-
-        final String name;
-
-        ImplicitType(String name) {
-            this.name = name;
-        }
-
-        public String toString(){
-            return name;
-        }
-    }
-
-    static HashSet<String> implictTypesHashSet = new HashSet<>();
-
     ArrayList<Program> programs;
     ArrayList<ClassEnv> classEnvs;
-    HashMap<String, PackageNames> packageNames;
-
-
-
+    PackageNames defaultPacakge = new PackageNames("");
+    HashMap<String, PackageNames> packageNames = defaultPacakge.subPackage;
 
     public GlobalEnv(ArrayList<Program> programs) {
         this.programs = programs;
-        packageNames = addStdLib();
 
         // populate existing package names.
         for (Program program : programs) {
             ArrayList<String> packageLayer = program.getPackageDeclr();
-            if (packageLayer == null)
-                continue;
 
-            HashMap<String, PackageNames> currentLayer = packageNames;
-            for (String packageName : packageLayer) {
-                PackageNames nextLayer = currentLayer.getOrDefault(packageName, null);
-                if (nextLayer == null) {
-                    nextLayer = new PackageNames(packageName);
-                    currentLayer.put(packageName, nextLayer);
-                }
-                currentLayer = nextLayer.subPackage;
+            if (packageLayer == null) {
+                defaultPacakge.types.add(program.getTypeDeclr().getSimpleName());
+                continue;
             }
+
+            PackageNames currentPackageLevel = defaultPacakge;
+            for (String packageName : packageLayer) {
+                HashMap<String, PackageNames> subPackage = currentPackageLevel.subPackage;
+                if (!subPackage.containsKey(packageName)) {
+                    subPackage.put(packageName, new PackageNames(packageName));
+                }
+                currentPackageLevel = subPackage.get(packageName);
+            }
+
+            currentPackageLevel.types.add(program.getTypeDeclr().getSimpleName());
         }
-        packageNames.forEach((x, y) -> y.print(1));
+        defaultPacakge.print(0);
 
         // sub environment
         classEnvs = new ArrayList<>();
         programs.forEach(x -> classEnvs.add(new ClassEnv(x, this)));
-        for(ImplicitType type : ImplicitType.values()) implictTypesHashSet.add(type.toString());
     }
 
     private void nameConflict() throws NamingResolveException {
@@ -111,20 +84,6 @@ public class GlobalEnv implements Env {
         }
     }
 
-    private HashMap<String, PackageNames> addStdLib() {
-        HashMap<String, PackageNames> packages = new HashMap<>();
-        PackageNames java = new PackageNames("java");
-        PackageNames lang = new PackageNames("lang");
-        PackageNames util = new PackageNames("util");
-        PackageNames io = new PackageNames("io");
-
-        java.subPackage.put(lang.name, lang);
-        java.subPackage.put(util.name, util);
-        java.subPackage.put(io.name, io);
-
-        packages.put(java.name, java);
-        return packages;
-    }
 
     public ArrayList<ClassEnv> getPackageLevelClasses(ArrayList<String> packageName) {
         ArrayList<ClassEnv> classes = new ArrayList<>();
@@ -138,6 +97,7 @@ public class GlobalEnv implements Env {
     public class PackageNames {
         String name;
         HashMap<String, PackageNames> subPackage = new HashMap<>();
+        ArrayList<String> types = new ArrayList<>();
 
         PackageNames(String packageName) {
             name = packageName;
@@ -152,6 +112,11 @@ public class GlobalEnv implements Env {
                 System.err.print("  |");
             System.err.print("--" + name + "\n");
             subPackage.forEach((x, y) -> y.print(level + 1));
+            types.forEach( x -> {
+                for (int i = 0; i < level + 1; i++)
+                    System.err.print("  |");
+                System.err.print("==" + x + "\n");
+            });
         }
     }
 }

@@ -1,11 +1,16 @@
 package Joosc;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MultiFileTest {
@@ -13,14 +18,25 @@ public class MultiFileTest {
         String assignment = args[0];
         String testcases = args[1];
         String path = String.format("./test/assignment_testcases/%s/%s", assignment, testcases);
-//        System.out.println("Working Directory = " + System.getProperty("user.dir"));
-        System.err.println(testcases);
-        if(testcases.contains(".java")) {
-            Joosc.main(new String[]{path});
-        }
 
-        try (Stream<Path> paths = Files.walk(Paths.get(path))) {
-            Joosc.main((String[]) paths.filter(Files::isRegularFile).map(Path::toString).toArray(String[]::new));
+        try {
+            List<String> baseArgs = Files.walk(Paths.get("./test/stdlib2.0/java")).
+                    filter(Files::isRegularFile).map(Path::toString).collect(Collectors.toList());
+
+            if (testcases.contains(".java")) {
+                ArrayList<String> allArgs = new ArrayList<>(baseArgs);
+                allArgs.add(testcases);
+                Joosc.main(allArgs.toArray(new String[allArgs.size()]));
+            } else {
+                try (Stream<Path> paths = Files.walk(Paths.get(path))) {
+                    ArrayList<String> allArgs = new ArrayList<>(baseArgs);
+                    allArgs.addAll(Arrays.asList(paths.filter(Files::isRegularFile).map(Path::toString).toArray(String[]::new)));
+                    Joosc.main(allArgs.toArray(new String[allArgs.size()]));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    System.out.println("Nothing");
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Nothing");

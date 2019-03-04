@@ -33,8 +33,6 @@ public class LocalEnv implements Env {
         if (ast instanceof Method && ast instanceof ClassBodyDeclr) {
             ArrayList<Statement> statements = ((ClassBodyDeclr) ast).getBodyBlock();
 
-            System.err.println("AST Method");
-
             for (Statement statement:statements) {
                 if (hasSubEnvironment(statement)) {
                     localEnvs.add(new LocalEnv(statement, this));
@@ -62,7 +60,6 @@ public class LocalEnv implements Env {
         ArrayList<Statement> statements = null;
         if (ast instanceof Method) {
             // parameter
-            System.err.println("ctor");
             ArrayList<Pair<Type, String>> param = ((ClassBodyDeclr) ast).getFormalParamList();
             if (param != null) {
                 for (Pair<Type, String> pair : param) {
