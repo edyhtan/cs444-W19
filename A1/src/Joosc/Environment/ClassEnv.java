@@ -33,6 +33,7 @@ public class ClassEnv implements Env {
         singleTypeImports = program.getSingleTypeImport();
         onDemandTypeImports = program.getOnDemandTypeImport();
         packageDeclr = program.getPackageDeclr();
+        if(packageDeclr == null) packageDeclr = new ArrayList<>(Arrays.asList(""));
         constructLocalEnvironment();
     }
 
@@ -97,10 +98,7 @@ public class ClassEnv implements Env {
     }
 
     public boolean samePackage(ArrayList<String> packageName) {
-        if (packageDeclr == null || packageDeclr.isEmpty()) {
-            packageDeclr = new ArrayList<>(Arrays.asList(typeDeclr.getSimpleName()));
-        }
-        if (packageName == null) return false;
+        if (packageName == null || packageDeclr == null) return false;
         ArrayList<String> temp = this.packageDeclr;
         return temp.equals(packageName);
     }
@@ -155,7 +153,7 @@ public class ClassEnv implements Env {
                     throw new NamingResolveException(String.format("cannot resolve type %s to any class or interface",
                             className.get(0)));
             } else {
-                if(parent.classEnvs.stream().map(s -> {
+                if (parent.classEnvs.stream().map(s -> {
                     ArrayList<String> temp = s.typeDeclr.getCanonicalName();
                     return temp.equals(className);
                 }).reduce(false, (x, y) -> x || y)) {
