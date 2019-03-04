@@ -129,21 +129,11 @@ public class ClassEnv implements Env {
         return temp.equals(packageName);
     }
 
-    private boolean searchPackageLevel(ArrayList<String> packageName, String simpleName) {
-        ArrayList<ClassEnv> packageLevel = parent.getPackageLevelClasses(packageName);
-        for (ClassEnv classEnv : packageLevel) { // check other classes under same package
-            if (classEnv.typeDeclr.getSimpleName().equals(simpleName)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     private void resolveFieldType() throws NamingResolveException {
         for (Map.Entry<String, FieldsVarInfo> field:fields.entrySet()) {
             Type type = field.getValue().type;
             // ignore primitive and qualifed type
-            if (type.getNames().size() != 1) {
+            if (type.getNames() == null || type.getNames().size() != 1) {
                 continue;
             }
 
@@ -197,6 +187,7 @@ public class ClassEnv implements Env {
     public void resolveName() throws NamingResolveException {
         duplicatedFieldName();
         resolveImports();
+        resolveFieldType();
 
         for (LocalEnv localEnv:localEnvs) {
             localEnv.resolveName();
