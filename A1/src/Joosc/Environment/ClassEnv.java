@@ -113,7 +113,7 @@ public class ClassEnv implements Env {
                 if (!fields.containsValue(fieldDeclr.getName())) {
                     fields.put(fieldDeclr.getName(),
                             new FieldsVarInfo(fieldDeclr.getName(),
-                                    String.join(".", program.getPackageDeclr()),
+                                    String.join(".", typeDeclr.getCanonicalName()),
                                     fieldDeclr.getType())
                             );
                 } else {
