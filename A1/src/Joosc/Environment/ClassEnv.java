@@ -97,14 +97,11 @@ public class ClassEnv implements Env {
     }
 
     public boolean samePackage(ArrayList<String> packageName) {
-        if(packageDeclr == null || packageDeclr.isEmpty()) {
+        if (packageDeclr == null || packageDeclr.isEmpty()) {
             packageDeclr = new ArrayList<>(Arrays.asList(typeDeclr.getSimpleName()));
         }
-        if(packageName == null) return false;
-        Collections.sort(packageName);
+        if (packageName == null) return false;
         ArrayList<String> temp = this.packageDeclr;
-        Collections.sort(temp);
-
         return temp.equals(packageName);
     }
 
@@ -124,30 +121,55 @@ public class ClassEnv implements Env {
             if (className.size() == 1) {
                 // check in enclosing class/interface
                 if (className.get(0).equals(typeDeclr.getSimpleName())) {
+                    System.out.println("found 1");
+
                     return;
                 }
 
-                if(GlobalEnv.implictTypesHashSet.contains(className.get(0))) return;
+                if (GlobalEnv.implictTypesHashSet.contains(className.get(0))) {
+                    System.out.println("found 2");
+                    return;
+                }
+
                 // check in single type import
                 for (ArrayList<String> singleImport : singleTypeImports) {
                     if (singleImport.get(singleImport.size() - 1).equals(className.get(0))) {
+                        System.out.println("found 3");
                         return;
                     }
                 }
                 // search classes under same package
                 boolean found = searchPackageLevel(packageDeclr, className.get(0));
+                if (found) {
+                    System.out.println("found 4");
+                    return;
+                }
+
                 // search in import on demand packages
                 found = onDemandTypeImports.stream().map(x -> searchPackageLevel(x, className.get(0)))
-                        .reduce(found, (x, y) -> x & y);
-                if (!found) {
+                        .reduce(false, (x, y) -> x || y);
+                if (found) {
+                    System.out.println("found 5");
+                    return;
+                } else
                     throw new NamingResolveException(String.format("cannot resolve type %s to any class or interface",
                             className.get(0)));
-                }
             } else {
-                // TODO
+                if(parent.classEnvs.stream().map(s -> {
+                    ArrayList<String> temp = s.typeDeclr.getCanonicalName();
+                    return temp.equals(className);
+                }).reduce(false, (x, y) -> x || y)) {
+                    System.out.println("match qualified name");
+                    return;
+                } else {
+                    throw new NamingResolveException(String.format("cannot resolve type %s to any class or interface",
+                            String.join(".", className)));
+                }
+
             }
         }
     }
+
 
     private void constructLocalEnvironment() {
         if (typeDeclr instanceof ClassDeclr) {
@@ -163,9 +185,9 @@ public class ClassEnv implements Env {
     public void resolveName() throws NamingResolveException {
         duplicatedFieldName();
         resolveImports();
-        if(typeDeclr instanceof ClassDeclr) {
+        if (typeDeclr instanceof ClassDeclr) {
             ArrayList<FieldDeclr> fieldDeclrs = ((ClassDeclr) typeDeclr).getFields();
-            for(FieldDeclr fieldDeclr : fieldDeclrs) {
+            for (FieldDeclr fieldDeclr : fieldDeclrs) {
                 checkField(fieldDeclr);
             }
         }
