@@ -52,7 +52,7 @@ public class Joosc {
 
     public static int run(String args[]) {
         ArrayList<String> argList = new ArrayList<>(Arrays.asList(args));
-        IDE_FLAG = !argList.contains("-r");
+        IDE_FLAG = !argList.contains("-t");
 
         try {
             ArrayList<JoosAST> astList = new ArrayList<>();
