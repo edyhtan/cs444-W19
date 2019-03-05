@@ -6,7 +6,8 @@ import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.Exceptions.ASTException;
 import Joosc.Exceptions.WeedingFailureException;
 import Joosc.Parser.LRGrammar.ParseTree;
-import Joosc.util.Pair;
+
+import Joosc.util.*;
 
 import java.util.ArrayList;
 

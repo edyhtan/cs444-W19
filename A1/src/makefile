@@ -2,7 +2,7 @@ make:
 	touch joosc
 	echo "#!/bin/${0}" > joosc
 	echo "" > joosc
-	echo "java -cp out Joosc.Joosc -t \$$1" > joosc
+	echo "java -cp out Joosc.Joosc "\$$@"" -r > joosc
 	chmod u+x joosc
 
 	mkdir out

@@ -52,10 +52,7 @@ public class Joosc {
 
     public static int run(String args[]) {
         ArrayList<String> argList = new ArrayList<>(Arrays.asList(args));
-        IDE_FLAG = !argList.contains("-t");
-        RUN_SUITE_FLAG = argList.contains("-r");
-        argList.remove("-t");
-        argList.remove("-r");
+        IDE_FLAG = argList.contains("-r");
 
         try {
             ArrayList<JoosAST> astList = new ArrayList<>();
@@ -66,6 +63,12 @@ public class Joosc {
 
             ArrayList<Program> asts = astList.stream().map(x -> new Program(x.getRoot()))
                     .collect(Collectors.toCollection(ArrayList::new));
+
+            if (argList.size() != asts.size()) {
+                System.exit(2);
+            }
+
+            System.err.println(asts.size());
 
             GlobalEnv globalEnvironment = new GlobalEnv(asts);
             globalEnvironment.resolveName();
@@ -107,12 +110,12 @@ public class Joosc {
             return exitOnCode(42);
         } catch (Exception e) {
             e.printStackTrace();
-            return exitOnCode(2);
+            //return exitOnCode(2);
         }
         return 0;
     }
 
     public static void main(String args[]) {
-       run(args);
+        run(args);
     }
 }

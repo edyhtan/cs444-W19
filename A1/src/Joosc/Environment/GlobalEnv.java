@@ -13,7 +13,7 @@ public class GlobalEnv implements Env {
     ArrayList<Program> programs;
     ArrayList<ClassEnv> classEnvs;
     PackageNames defaultPacakge = new PackageNames("");
-    HashMap<String, PackageNames> packageNames = defaultPacakge.subPackage;
+    PackageNames rootPackage = new PackageNames("");
 
     HashMap<String, HashSet<ArrayList<String>>> hierarchy;
 
@@ -30,7 +30,7 @@ public class GlobalEnv implements Env {
                 continue;
             }
 
-            PackageNames currentPackageLevel = defaultPacakge;
+            PackageNames currentPackageLevel = rootPackage;
             for (String packageName : packageLayer) {
                 HashMap<String, PackageNames> subPackage = currentPackageLevel.subPackage;
                 if (!subPackage.containsKey(packageName)) {
@@ -41,6 +41,9 @@ public class GlobalEnv implements Env {
 
             currentPackageLevel.types.add(program.getTypeDeclr().getSimpleName());
         }
+
+        defaultPacakge.print(0);
+        rootPackage.print(0);
 
         // sub environment
         classEnvs = new ArrayList<>();
