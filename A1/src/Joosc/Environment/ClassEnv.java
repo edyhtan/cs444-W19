@@ -68,6 +68,7 @@ public class ClassEnv implements Env {
                 throw new NamingResolveException("duplicated imported type " + simpleName);
             }
 
+            // find import in the available packages
             GlobalEnv.PackageNames currentLevel = rootPackage;
             for (int i = 0; i < sImport.size(); i++) {
                 String name = sImport.get(i);
