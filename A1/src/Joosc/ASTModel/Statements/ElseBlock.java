@@ -21,4 +21,9 @@ public class ElseBlock extends HasScope implements Statement {
             return statements;
         }
     }
+
+    @Override
+    public void passDownScopes() {
+
+    }
 }

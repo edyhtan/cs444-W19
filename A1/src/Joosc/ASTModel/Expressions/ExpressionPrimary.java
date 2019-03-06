@@ -1,4 +1,4 @@
 package Joosc.ASTModel.Expressions;
 
-public interface ExpressionPrimary extends Expression {
+public abstract class ExpressionPrimary extends Expression {
 }

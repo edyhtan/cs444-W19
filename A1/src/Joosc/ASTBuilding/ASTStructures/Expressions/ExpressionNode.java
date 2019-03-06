@@ -9,7 +9,7 @@ import Joosc.Parser.LRGrammar.ParseTree;
 
 public abstract class ExpressionNode extends ASTNode {
 
-    String kind;
+    public String kind;
 
     public static ExpressionNode resolveExpressionNode(ParseTree parseTree) throws ASTException {
         ParseTree contentNode = findContentNode(parseTree);
@@ -34,8 +34,9 @@ public abstract class ExpressionNode extends ASTNode {
             case Primary:
                 return ExpressionPrimaryNode.resolvePrimary(contentNode);
             case FieldAccess:
+                return new ExpressionFieldAccessNode(contentNode);
             case ArrayAccess:
-                return new ExpressionContentNode(contentNode);
+                return new ExpressionArrayAccessNode(contentNode);
 
             case Name:
                 return new ExpressionContentNode(contentNode);

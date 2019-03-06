@@ -3,10 +3,12 @@ package Joosc.ASTModel.Statements;
 import Joosc.ASTBuilding.ASTStructures.Statements.ForStatementNode;
 import Joosc.ASTModel.Expressions.Expression;
 import Joosc.Environment.GlobalEnv;
+import Joosc.Environment.LocalEnv;
+import Joosc.Exceptions.NamingResolveException;
 
 import java.util.ArrayList;
 
-public class ForStatement extends HasScope implements Statement {
+public class ForStatement extends HasScope implements Statement, HasExpression {
     private Statement forInit = null;
     private Expression expression = null;
     private Statement forUpdate = null;
@@ -35,6 +37,7 @@ public class ForStatement extends HasScope implements Statement {
         return forUpdate;
     }
 
+    @Override
     public ArrayList<Statement> getBlock() {
         if (statement instanceof Block) {
             return ((Block) statement).getBlock();
@@ -43,5 +46,15 @@ public class ForStatement extends HasScope implements Statement {
             statements.add(statement);
             return statements;
         }
+    }
+
+    @Override
+    public void passDownScopes() {
+
+    }
+
+    @Override
+    public void checkExpression(LocalEnv env) throws NamingResolveException {
+
     }
 }

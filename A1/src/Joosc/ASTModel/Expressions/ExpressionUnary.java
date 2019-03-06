@@ -3,14 +3,17 @@ package Joosc.ASTModel.Expressions;
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionUnaryNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.Type;
+import Joosc.Environment.LocalEnv;
+import Joosc.Exceptions.NamingResolveException;
 
 import java.util.ArrayList;
 
-public class ExpressionUnary implements Expression {
+public class ExpressionUnary extends Expression {
     private Symbol kind;
     private Symbol unaryOperator;
     private Expression targetNode;
     private Type castingType;
+    private ArrayList<String> resolvedType;
 
     public ExpressionUnary(ExpressionUnaryNode node) {
         kind = node.getKind();
@@ -34,5 +37,20 @@ public class ExpressionUnary implements Expression {
 
     public Type getCastingType() {
         return castingType;
+    }
+
+    @Override
+    public void addEnv(LocalEnv env) {
+        super.addEnv(env);
+        targetNode.addEnv(env);
+    }
+
+    @Override
+    public void validate() throws NamingResolveException {
+        if (castingType != null) {
+            if (castingType.getKind() == Symbol.ClassOrInterfaceType)
+                resolvedType = getEnv().typeResolve(castingType.getNames());
+        }
+        targetNode.validate();
     }
 }

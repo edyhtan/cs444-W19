@@ -25,6 +25,8 @@ public class ReturnStatementNode extends StatementNode {
 
     @Override
     public void printInfo(int level) {
+        printInfoInit("Return Statement:", level);
+        expression.printInfo(level + 1);
     }
 
     public ExpressionNode getExpression() {

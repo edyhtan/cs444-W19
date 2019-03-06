@@ -3,8 +3,10 @@ package Joosc.ASTModel.Statements;
 import Joosc.ASTBuilding.ASTStructures.Statements.LocalVarDeclrStatementNode;
 import Joosc.ASTModel.Expressions.Expression;
 import Joosc.ASTModel.Type;
+import Joosc.Environment.LocalEnv;
+import Joosc.Exceptions.NamingResolveException;
 
-public class LocalVarDeclrStatement implements Statement {
+public class LocalVarDeclrStatement implements Statement, HasExpression {
     private Type type;
     private String id;
     private Expression initExpression;
@@ -25,5 +27,10 @@ public class LocalVarDeclrStatement implements Statement {
 
     public Type getType() {
         return type;
+    }
+
+    @Override
+    public void checkExpression(LocalEnv env) throws NamingResolveException {
+
     }
 }

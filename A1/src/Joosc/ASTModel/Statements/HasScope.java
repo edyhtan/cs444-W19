@@ -1,19 +1,10 @@
 package Joosc.ASTModel.Statements;
 
-import Joosc.Environment.LocalEnv;
+import Joosc.ASTModel.Scope;
 
 import java.util.ArrayList;
 
-public abstract class HasScope {
-    LocalEnv env;
-
-    public LocalEnv getEnv() {
-        return env;
-    }
-
-    public void addEnv(LocalEnv env) {
-        this.env = env;
-    }
-
+public abstract class HasScope extends Scope {
     public abstract ArrayList<Statement> getBlock();
+    public abstract void passDownScopes();
 }

@@ -28,6 +28,7 @@ public class ExpressionContentNode extends ExpressionNode {
                 ParseTree child = parseTree.getChild(0);
                 kind = child.getKind().getSymbolString();
                 literal = child.getLexeme();
+                break;
         }
     }
 

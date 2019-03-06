@@ -41,4 +41,9 @@ public class IfStatement extends HasScope implements Statement {
             return statements;
         }
     }
+
+    @Override
+    public void passDownScopes() {
+
+    }
 }

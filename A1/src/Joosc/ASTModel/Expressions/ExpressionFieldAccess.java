@@ -1,8 +1,10 @@
 package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionFieldAccessNode;
+import Joosc.Environment.LocalEnv;
+import Joosc.Exceptions.NamingResolveException;
 
-public class ExpressionFieldAccess implements Expression {
+public class ExpressionFieldAccess extends Expression {
     private String fieldIdentifier;
     private Expression fieldParentExpression;
 
@@ -17,5 +19,16 @@ public class ExpressionFieldAccess implements Expression {
 
     public Expression getFieldParentExpression() {
         return fieldParentExpression;
+    }
+
+    @Override
+    public void addEnv(LocalEnv env) {
+        super.addEnv(env);
+        fieldParentExpression.addEnv(env);
+    }
+
+    @Override
+    public void validate() throws NamingResolveException {
+        fieldParentExpression.validate();
     }
 }

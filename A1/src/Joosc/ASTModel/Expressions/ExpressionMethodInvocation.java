@@ -1,11 +1,13 @@
 package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionMethodInvocationNode;
+import Joosc.Environment.LocalEnv;
+import Joosc.Exceptions.NamingResolveException;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class ExpressionMethodInvocation implements ExpressionPrimary {
+public class ExpressionMethodInvocation extends ExpressionPrimary {
     private ArrayList<String> methodName;
     private ArrayList<Expression> argList;
     private Expression methodParentExpression;
@@ -33,5 +35,25 @@ public class ExpressionMethodInvocation implements ExpressionPrimary {
 
     public Expression getMethodParentExpression() {
         return methodParentExpression;
+    }
+
+    @Override
+    public void addEnv(LocalEnv env) {
+        super.addEnv(env);
+        if (methodParentExpression != null) {
+            methodParentExpression.addEnv(env);
+        }
+        argList.forEach(x-> x.addEnv(env));
+    }
+
+    @Override
+    public void validate() throws NamingResolveException {
+        if (methodParentExpression != null) {
+            methodParentExpression.validate();
+        }
+
+        for (Expression expression : argList) {
+            expression.validate();
+        }
     }
 }

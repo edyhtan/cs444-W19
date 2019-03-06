@@ -2,10 +2,12 @@ package Joosc.ASTModel.Statements;
 
 import Joosc.ASTBuilding.ASTStructures.Statements.WhileStatementNode;
 import Joosc.ASTModel.Expressions.Expression;
+import Joosc.Environment.LocalEnv;
+import Joosc.Exceptions.NamingResolveException;
 
 import java.util.ArrayList;
 
-public class WhileStatement extends HasScope implements Statement {
+public class WhileStatement extends HasScope implements Statement, HasExpression {
     private Expression expression;
     private Statement statement;
 
@@ -31,5 +33,15 @@ public class WhileStatement extends HasScope implements Statement {
             statements.add(statement);
             return statements;
         }
+    }
+
+    @Override
+    public void passDownScopes() {
+
+    }
+
+    @Override
+    public void checkExpression(LocalEnv env) throws NamingResolveException {
+
     }
 }

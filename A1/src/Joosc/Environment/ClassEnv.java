@@ -1,6 +1,5 @@
 package Joosc.Environment;
 
-import Joosc.ASTBuilding.ASTStructures.FieldDeclrNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.ClassInterface.ClassDeclr;
 import Joosc.ASTModel.ClassInterface.TypeDeclr;
@@ -18,7 +17,6 @@ public class ClassEnv implements Env {
     Program program;
     protected HashMap<String, FieldsVarInfo> fields = new HashMap<>();
     ArrayList<String> packageDeclr;
-    HashSet<ArrayList<String>> superSet = new HashSet<>();
 
     HashMap<String, ArrayList<String>> resolvedTypes = new HashMap<>();
 
@@ -26,6 +24,11 @@ public class ClassEnv implements Env {
     HashMap<String, ArrayList<ArrayList<String>>> onDemandImportTypes = new HashMap<>();
     HashMap<String, ArrayList<String>> samePackage = new HashMap<>();
 
+    // Method Signature
+
+
+    // Hierarchy
+    HashSet<ArrayList<String>> superSet = new HashSet<>();
 
     ArrayList<LocalEnv> localEnvs = new ArrayList<>();
 
@@ -35,27 +38,7 @@ public class ClassEnv implements Env {
         this.parent = parent;
         this.program = program;
         packageDeclr = program.getPackageDeclr();
-        if(packageDeclr == null) packageDeclr = new ArrayList<>(Arrays.asList(""));
         constructLocalEnvironment();
-    }
-
-    private void buildSuperSet() {
-        if(typeDeclr instanceof ClassDeclr) {
-
-            if(((ClassDeclr) typeDeclr).getParentClass().isEmpty() || ((ClassDeclr) typeDeclr).getParentClass() == null) {
-                superSet.add(new ArrayList<>(Arrays.asList("java.lang.Object".split("\\."))));
-            } else {
-                ((ClassDeclr) typeDeclr).getParentClass().forEach(x -> {
-                    // TODO: check x is a class, cannot be final
-                    superSet.add(new ArrayList<>(Arrays.asList(x)));
-                });
-            }
-            ((ClassDeclr) typeDeclr).getInterfaces().forEach(x-> {
-                // TODO: check x is an interface, no duplicate interfaces(simple&simple, simple&canonical, canonical&canonical)
-                superSet.add(x);
-            });
-        }
-
     }
 
     public void resolveImports() throws NamingResolveException {
@@ -65,7 +48,7 @@ public class ClassEnv implements Env {
         importOnDemand.add(new ArrayList<>(Arrays.asList("java", "lang")));
 
         // Enclosing Class
-        resolvedTypes.put(typeDeclr.getSimpleName(), typeDeclr.getCanonicalName());
+        resolvedTypes.put(typeDeclr.getSimpleName(), new ArrayList<>(Arrays.asList(typeDeclr.getSimpleName())));
 
         // Single Type import
         for (ArrayList<String> sImport:singleTypeImports) {
@@ -103,7 +86,9 @@ public class ClassEnv implements Env {
                     importedTypeNames = new ArrayList<>();
                     onDemandImportTypes.put(typeName, importedTypeNames);
                 }
-                importedTypeNames.add(qualifiedName);
+                if (!importedTypeNames.contains(qualifiedName)) {
+                    importedTypeNames.add(qualifiedName);
+                }
             }
         }
 
@@ -136,6 +121,23 @@ public class ClassEnv implements Env {
         }
     }
 
+    private void resolveMethodNames() {
+
+    }
+
+    private void resolveHierarchy() throws NamingResolveException {
+        if (typeDeclr instanceof ClassDeclr) {
+            ArrayList<String> extend = ((ClassDeclr)typeDeclr).getParentClass();
+            if (extend.size() > 0)
+                superSet.add(typeResolve(extend));
+
+            ArrayList<ArrayList<String>> interfaces = ((ClassDeclr) typeDeclr).getInterfaces();
+            for (ArrayList<String> parent:interfaces) {
+                superSet.add(typeResolve(parent));
+            }
+        }
+    }
+
     private void constructLocalEnvironment() {
         if (typeDeclr instanceof ClassDeclr) {
             ArrayList<ClassBodyDeclr> methodDeclrs = ((ClassDeclr) typeDeclr).getClassBodyDeclrNodes();
@@ -148,23 +150,20 @@ public class ClassEnv implements Env {
         }
     }
 
-    public FieldsVarInfo typeResolve(String name, Type type) throws NamingResolveException {
-        boolean isArray = type.getArrayKind() != null;
-
-        // Primitive
-        if (type.getKind() != Symbol.ClassOrInterfaceType ||
-                (isArray && type.getArrayKind() != Symbol.ClassOrInterfaceType)) {
-            return new FieldsVarInfo(name, new ArrayList<>(Arrays.asList(type.getKind().getSymbolString())), true, isArray);
-        }
-
-        ArrayList<String> longTypeName = type.getNames();
-
+    @Override
+    public ArrayList<String> typeResolve(ArrayList<String> longTypeName) throws NamingResolveException {
         // qualified Name
         if (longTypeName.size() > 1) {
-            if (parent.findPackageName(longTypeName, false)) {
+            String type_prefix = longTypeName.get(0);
+
+            if (resolvedTypes.containsKey(type_prefix)) {
+                throw new NamingResolveException("Prefix of a qualifed name used for type");
+            }
+
+            if (!parent.findPackageName(longTypeName, false)) {
                 throw new NamingResolveException("Type Not Found: " + String.join(".", longTypeName));
             } else {
-                return new FieldsVarInfo(name, longTypeName, false, isArray);
+                return longTypeName;
             }
         } else {
             String typeName = longTypeName.get(0);
@@ -184,8 +183,19 @@ public class ClassEnv implements Env {
                 }
                 resolvedTypes.put(typeName, resolvedName);
             }
-            return new FieldsVarInfo(name, resolvedName, false, isArray);
+            return resolvedName;
         }
+    }
+
+    @Override
+    public FieldsVarInfo typeResolve(String name, Type type) throws NamingResolveException {
+        boolean isArray = type.getArrayKind() != null;
+        // Primitive
+        if (type.getKind() != Symbol.ClassOrInterfaceType ||
+                (isArray && type.getArrayKind() != Symbol.ClassOrInterfaceType)) {
+            return new FieldsVarInfo(name, new ArrayList<>(Arrays.asList(type.getKind().getSymbolString())), true, isArray);
+        }
+        return new FieldsVarInfo(name, typeResolve(type.getNames()), false, isArray);
     }
 
     @Override
@@ -199,6 +209,11 @@ public class ClassEnv implements Env {
     }
 
     @Override
+    public boolean isFieldDeclared(String simpleName) {
+        return fields.keySet().contains(simpleName);
+    }
+
+    @Override
     public boolean isLocalVariableDeclared(String simpleName) {
         return false;
     }
@@ -207,6 +222,7 @@ public class ClassEnv implements Env {
     public void resolveName() throws NamingResolveException {
         resolveImports();
         resolveFields();
+        resolveHierarchy();
 
         for (LocalEnv localEnv:localEnvs) {
             localEnv.resolveLocalVariableAndAccess();

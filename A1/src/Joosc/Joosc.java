@@ -47,10 +47,6 @@ public class Joosc {
         ast.checkFileName(file);
         ast.weed();
 
-        if (ast.getRoot().packageDeclr == null || (!ast.getRoot().packageDeclr.contains("java"))) {
-            ast.printASTInfo();
-        }
-
         return ast;
     }
 

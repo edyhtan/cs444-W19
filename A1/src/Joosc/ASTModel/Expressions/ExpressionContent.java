@@ -1,23 +1,19 @@
 package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionContentNode;
+import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.Exceptions.NamingResolveException;
 
 import java.util.ArrayList;
 
-public class ExpressionContent implements Expression {
-    private String literal;
-    private ArrayList<String> name;
-
-    public ExpressionContent(ExpressionContentNode node) {
-        literal = node.getLiteral();
-        name = node.getName();
-    }
-
-    public String getLiteral() {
-        return literal;
-    }
-
-    public ArrayList<String> getName() {
-        return name;
+public abstract class ExpressionContent extends ExpressionPrimary {
+    public static ExpressionContent getContent(ExpressionContentNode node) {
+        if (node.kind.equals(Symbol.Name.getSymbolString())) {
+            return new Names(node.getName());
+        } else if (node.kind.equals(Symbol.This.getSymbolString())) {
+            return new This();
+        } else {
+            return new Literal(node.getLiteral(), node.kind);
+        }
     }
 }

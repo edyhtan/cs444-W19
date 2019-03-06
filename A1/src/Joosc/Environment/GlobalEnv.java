@@ -67,7 +67,17 @@ public class GlobalEnv implements Env {
     }
 
     @Override
+    public boolean isFieldDeclared(String simpleName) {
+        return false;
+    }
+
+    @Override
     public FieldsVarInfo typeResolve(String name, Type type) throws NamingResolveException {
+        return null;
+    }
+
+    @Override
+    public ArrayList<String> typeResolve(ArrayList<String> type) throws NamingResolveException {
         return null;
     }
 
@@ -85,7 +95,7 @@ public class GlobalEnv implements Env {
         for (Program program : programs) {
             ArrayList<String> packageLayer = program.getPackageDeclr();
 
-            if (packageLayer == null) {
+            if (packageLayer.size() == 0) {
                 defaultPacakge.types.add(program.getTypeDeclr().getSimpleName());
                 continue;
             }

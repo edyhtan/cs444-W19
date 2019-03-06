@@ -100,6 +100,10 @@ public class LocalEnv implements Env {
                     }
                 }
             }
+
+            if (statement instanceof HasExpression) {
+                ((HasExpression) statement).checkExpression(this);
+            }
             if (statement instanceof LocalVarDeclrStatement) {
                 LocalVarDeclrStatement localVar = (LocalVarDeclrStatement) statement;
                 if (isLocalVariableDeclared(localVar.getId())) {
@@ -126,6 +130,11 @@ public class LocalEnv implements Env {
     }
 
     @Override
+    public boolean isFieldDeclared(String simplename) {
+        return parent.isFieldDeclared(simplename);
+    }
+
+    @Override
     public boolean isLocalVariableDeclared(String simpleName) {
         return symbolTable.containsKey(simpleName) || parent.isLocalVariableDeclared(simpleName);
     }
@@ -140,5 +149,10 @@ public class LocalEnv implements Env {
     @Override
     public FieldsVarInfo typeResolve(String name, Type type) throws NamingResolveException {
         return parent.typeResolve(name, type);
+    }
+
+    @Override
+    public ArrayList<String> typeResolve(ArrayList<String> type) throws NamingResolveException {
+        return parent.typeResolve(type);
     }
 }

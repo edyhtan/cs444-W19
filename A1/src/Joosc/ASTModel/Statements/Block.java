@@ -23,4 +23,8 @@ public class Block extends HasScope implements Statement {
         return statements;
     }
 
+    @Override
+    public void passDownScopes() {
+
+    }
 }
