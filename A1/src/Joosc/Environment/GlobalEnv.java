@@ -8,6 +8,7 @@ import Joosc.Exceptions.NamingResolveException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 public class GlobalEnv implements Env {
     ArrayList<Program> programs;
@@ -20,30 +21,6 @@ public class GlobalEnv implements Env {
 
     public GlobalEnv(ArrayList<Program> programs) {
         this.programs = programs;
-
-        // populate existing package names.
-        for (Program program : programs) {
-            ArrayList<String> packageLayer = program.getPackageDeclr();
-
-            if (packageLayer == null) {
-                defaultPacakge.types.add(program.getTypeDeclr().getSimpleName());
-                continue;
-            }
-
-            PackageNames currentPackageLevel = rootPackage;
-            for (String packageName : packageLayer) {
-                HashMap<String, PackageNames> subPackage = currentPackageLevel.subPackage;
-                if (!subPackage.containsKey(packageName)) {
-                    subPackage.put(packageName, new PackageNames(packageName));
-                }
-                currentPackageLevel = subPackage.get(packageName);
-            }
-
-            currentPackageLevel.types.add(program.getTypeDeclr().getSimpleName());
-        }
-
-        defaultPacakge.print(0);
-        rootPackage.print(0);
 
         // sub environment
         classEnvs = new ArrayList<>();
@@ -90,20 +67,68 @@ public class GlobalEnv implements Env {
 
     @Override
     public void resolveName() throws NamingResolveException {
+        buildAndResolvePacakge();
         nameConflict();
         for (ClassEnv classEnv : classEnvs) {
             classEnv.resolveName();
         }
     }
 
+    public void buildAndResolvePacakge() throws NamingResolveException {
+        // populate existing package names.
+        for (Program program : programs) {
+            ArrayList<String> packageLayer = program.getPackageDeclr();
 
-    public ArrayList<ClassEnv> getPackageLevelClasses(ArrayList<String> packageName) {
-        ArrayList<ClassEnv> classes = new ArrayList<>();
-        for (ClassEnv classEnv : classEnvs) {
-            if (classEnv.samePackage(packageName)) classes.add(classEnv);
+            if (packageLayer == null) {
+                defaultPacakge.types.add(program.getTypeDeclr().getSimpleName());
+                continue;
+            }
+
+            PackageNames currentPackageLevel = rootPackage;
+            for (String packageName : packageLayer) {
+                HashMap<String, PackageNames> subPackage = currentPackageLevel.subPackage;
+                if (currentPackageLevel.types.contains(packageName)) {
+                    throw new NamingResolveException("Prefix of a package is a declared type");
+                }
+                if (!subPackage.containsKey(packageName)) {
+                    subPackage.put(packageName, new PackageNames(packageName));
+                }
+                currentPackageLevel = subPackage.get(packageName);
+            }
+
+            if (currentPackageLevel.subPackage.containsKey(program.getTypeDeclr().getSimpleName())) {
+                throw new NamingResolveException("Prefix of a package is a declared type");
+            }
+            currentPackageLevel.types.add(program.getTypeDeclr().getSimpleName());
         }
 
-        return classes;
+        defaultPacakge.print(0);
+        rootPackage.print(0);
+    }
+
+
+    public boolean findPackageName(List<String> importName, boolean isOnDemand) {
+        List<String> prefix = isOnDemand ? importName : importName.subList(0, importName.size()-1);
+        PackageNames packageLayer = getPackageLayer(prefix);
+        if (packageLayer == null) {
+            return false;
+        } else if (!isOnDemand) {
+            return packageLayer.types.contains(importName.get(importName.size()-1));
+        } else {
+            return true;
+        }
+    }
+
+    public PackageNames getPackageLayer(List<String> importName) {
+        GlobalEnv.PackageNames currentLevel = rootPackage;
+        for (int i = 0; i < importName.size(); i++) {
+            String name = importName.get(i);
+            if (!currentLevel.subPackage.containsKey(name)) {
+                return null;
+            }
+            currentLevel = currentLevel.subPackage.get(name);
+        }
+        return currentLevel;
     }
 
     public class PackageNames {

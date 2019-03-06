@@ -53,6 +53,7 @@ public class Joosc {
     public static int run(String args[]) {
         ArrayList<String> argList = new ArrayList<>(Arrays.asList(args));
         IDE_FLAG = !argList.contains("-t");
+        argList.remove("-t");
 
         try {
             ArrayList<JoosAST> astList = new ArrayList<>();
@@ -63,8 +64,6 @@ public class Joosc {
 
             ArrayList<Program> asts = astList.stream().map(x -> new Program(x.getRoot()))
                     .collect(Collectors.toCollection(ArrayList::new));
-
-            System.err.println(asts.size());
 
             GlobalEnv globalEnvironment = new GlobalEnv(asts);
             globalEnvironment.resolveName();

@@ -5,10 +5,8 @@ import Joosc.ASTModel.ClassInterface.TypeDeclr;
 import Joosc.ASTModel.ClassMember.ClassBodyDeclr;
 import Joosc.ASTModel.ClassMember.FieldDeclr;
 import Joosc.ASTModel.Program;
-import Joosc.ASTModel.Type;
 import Joosc.Exceptions.NamingResolveException;
 
-import java.rmi.Naming;
 import java.util.*;
 
 public class ClassEnv implements Env {
@@ -19,7 +17,8 @@ public class ClassEnv implements Env {
     ArrayList<String> packageDeclr;
     HashSet<ArrayList<String>> superSet = new HashSet<>();
 
-    HashMap<String, ArrayList<String>> singleImportedClasses = new HashMap<>(); // (Name, Canonical Name)
+    HashMap<String, ArrayList<String>> resolvedTypes = new HashMap<>();
+    HashMap<String, ArrayList<String>> onDemandImportTypes = new HashMap<>(); // will only resolve when we actually use it...
 
     ArrayList<LocalEnv> localEnvs = new ArrayList<>();
 
@@ -54,8 +53,16 @@ public class ClassEnv implements Env {
 
     public void resolveImports() throws NamingResolveException {
         ArrayList<ArrayList<String>> singleTypeImports = program.getSingleTypeImport();
+        ArrayList<ArrayList<String>> importOnDemand = program.getOnDemandTypeImport();
         GlobalEnv.PackageNames rootPackage = parent.rootPackage;
+        HashMap<String, ArrayList<String>> singleImportedClasses = new HashMap<>();
+        HashMap<String, ArrayList<String>> onDemandImportedClasses = new HashMap<>();
+        importOnDemand.add(new ArrayList<>(Arrays.asList("java", "lang")));
 
+        // Enclosing Class
+        resolvedTypes.put(typeDeclr.getSimpleName(), typeDeclr.getCanonicalName());
+
+        // Single Type import
         for (ArrayList<String> sImport:singleTypeImports) {
             String simpleName = sImport.get(sImport.size()-1);
             // clashes with type def
@@ -69,21 +76,29 @@ public class ClassEnv implements Env {
             }
 
             // find import in the available packages
-            GlobalEnv.PackageNames currentLevel = rootPackage;
-            for (int i = 0; i < sImport.size(); i++) {
-                String name = sImport.get(i);
-                if (i == sImport.size() - 1) {
-                    if (!currentLevel.types.contains(name)) {
-                        throw new NamingResolveException("No class named " + simpleName + " found");
-                    }
-                } else {
-                    if (!currentLevel.subPackage.containsKey(name)) {
-                        throw new NamingResolveException("No packge name " + simpleName + " found");
-                    }
-                    currentLevel = currentLevel.subPackage.get(name);
-                }
+            if (!parent.findPackageName(sImport, false)) {
+                throw new NamingResolveException("Import name not found :" + String.join(".", sImport));
             }
             singleImportedClasses.put(simpleName, sImport);
+        }
+
+        resolvedTypes.putAll(singleImportedClasses);
+
+        for (ArrayList<String> dImport: importOnDemand) {
+            if (!parent.findPackageName(dImport, true)) {
+                throw new NamingResolveException("Import package name not found :" + String.join(".", dImport) + ".*");
+            }
+
+            GlobalEnv.PackageNames layer = parent.getPackageLayer(dImport);
+            for (String typeName:layer.types) {
+                if (resolvedTypes.containsKey(typeName)) {
+                    continue;
+                } else {
+                    ArrayList<String> qualifiedName = new ArrayList<>(dImport);
+                    qualifiedName.add(typeName);
+                    onDemandImportTypes.put(typeName, qualifiedName);
+                }
+            }
         }
     }
 
