@@ -2,14 +2,16 @@ package Joosc.ASTModel.Statements;
 
 import Joosc.ASTModel.Expressions.Expression;
 import Joosc.ASTBuilding.ASTStructures.Statements.IfStatementNode;
+import Joosc.Environment.LocalEnv;
 
 import java.util.ArrayList;
 
 
-public class IfStatement implements Statement, HasScope {
+public class IfStatement extends HasScope implements Statement {
     private Expression expression;
     private Statement thenClause;
     private ElseBlock elseClause = null;
+    private LocalEnv localEnv= null;
 
     public IfStatement(IfStatementNode node) {
         expression = Expression.convertExpressionNode(node.getExpression());
@@ -21,7 +23,7 @@ public class IfStatement implements Statement, HasScope {
         return expression;
     }
 
-    public Statement getElseClause() {
+    public ElseBlock getElseClause() {
         return elseClause;
     }
 

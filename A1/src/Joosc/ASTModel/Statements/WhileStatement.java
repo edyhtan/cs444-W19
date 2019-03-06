@@ -5,7 +5,7 @@ import Joosc.ASTModel.Expressions.Expression;
 
 import java.util.ArrayList;
 
-public class WhileStatement implements Statement, HasScope {
+public class WhileStatement extends HasScope implements Statement {
     private Expression expression;
     private Statement statement;
 

@@ -6,7 +6,7 @@ import Joosc.Environment.GlobalEnv;
 
 import java.util.ArrayList;
 
-public class ForStatement implements Statement, HasScope {
+public class ForStatement extends HasScope implements Statement {
     private Statement forInit = null;
     private Expression expression = null;
     private Statement forUpdate = null;

@@ -1,9 +1,11 @@
 package Joosc.ASTModel.Statements;
 
 
+import Joosc.Environment.LocalEnv;
+
 import java.util.ArrayList;
 
-public class ElseBlock implements Statement, HasScope{
+public class ElseBlock extends HasScope implements Statement {
     Statement statement;
     public ElseBlock(Statement statement) {
         this.statement = statement;

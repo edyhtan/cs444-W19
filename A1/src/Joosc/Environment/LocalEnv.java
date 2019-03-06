@@ -20,34 +20,34 @@ public class LocalEnv implements Env {
     TypeDeclr currentClass;
     ClassBodyDeclr currentMethod;
 
-    public LocalEnv(AST ast, Env parent) {
-        this(ast, parent, 0);
-    }
 
-    public LocalEnv(AST ast, Env parent, int level) {
+    public LocalEnv(AST ast, Env parent) {
         this.ast = ast;
         this.parent = parent;
         currentClass = parent.getCurrentClass();
         currentMethod = (ast instanceof ClassBodyDeclr) ? (ClassBodyDeclr) ast : parent.getCurrentMethod();
+        ArrayList<Statement> statements;
 
         //building sub environment
         if (ast instanceof Method && ast instanceof ClassBodyDeclr) {
-            ArrayList<Statement> statements = ((ClassBodyDeclr) ast).getBodyBlock();
-
-            for (Statement statement:statements) {
-                if (hasSubEnvironment(statement)) {
-                    localEnvs.add(new LocalEnv(statement, this, level+1));
-                }
-            }
+            ((ClassBodyDeclr) ast).addLocalEnvironment(this);
+            statements = ((ClassBodyDeclr) ast).getBodyBlock();
         } else if (ast instanceof HasScope) {
-            ArrayList<Statement> statements = ((HasScope) ast).getBlock();
+            ((HasScope) ast).addEnv(this);
+            statements = ((HasScope) ast).getBlock();
+        } else {
+            statements = null;
+            System.exit(5); // bad but fine...
+        }
 
-            for (Statement statement:statements) {
-                if (hasSubEnvironment(statement)) {
-                    localEnvs.add(new LocalEnv(statement, this, level+1));
-                }
-                if (statement instanceof IfStatement) {
-                    localEnvs.add(new LocalEnv(((IfStatement) statement).getElseClause(), this, level+1));
+        for (Statement statement:statements) {
+            if (hasSubEnvironment(statement)) {
+                localEnvs.add(new LocalEnv(statement, this));
+            }
+            if (statement instanceof IfStatement) {
+                ElseBlock elseBlock = ((IfStatement) statement).getElseClause();
+                if (elseBlock != null) {
+                    localEnvs.add(new LocalEnv(elseBlock, this));
                 }
             }
         }
@@ -57,7 +57,7 @@ public class LocalEnv implements Env {
         return ast instanceof HasScope;
     }
 
-    private void buildLocalVariable() throws NamingResolveException {
+    public void resolveLocalVariableAndAccess() throws NamingResolveException {
         ArrayList<Statement> statements = null;
         if (ast instanceof Method) {
             // parameter
@@ -88,13 +88,22 @@ public class LocalEnv implements Env {
             statements = ((HasScope) ast).getBlock();
         } else {
             statements = new ArrayList<>(); // shouldn't ever fall into this clause.
+            System.exit(5);
         }
 
-
         for (Statement statement:statements) {
+            if (statement instanceof HasScope) {
+                ((HasScope) statement).getEnv().resolveLocalVariableAndAccess();
+                if (statement instanceof IfStatement) {
+                    if (((IfStatement)statement).getElseClause() != null) {
+                        ((IfStatement)statement).getElseClause().getEnv().resolveLocalVariableAndAccess();
+                    }
+                }
+            }
             if (statement instanceof LocalVarDeclrStatement) {
                 LocalVarDeclrStatement localVar = (LocalVarDeclrStatement) statement;
                 if (isLocalVariableDeclared(localVar.getId())) {
+
                     throw new NamingResolveException("Duplicated Local Variable: " + localVar.getId());
                 }
                 symbolTable.put(localVar.getId(), new FieldsVarInfo(localVar.getId(), getCanonicalPrefix(), localVar.getType()));
@@ -123,7 +132,6 @@ public class LocalEnv implements Env {
 
     @Override
     public void resolveName() throws NamingResolveException {
-        buildLocalVariable();
         for (LocalEnv localEnv:localEnvs) {
             localEnv.resolveName();
         }

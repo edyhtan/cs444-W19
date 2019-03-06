@@ -161,7 +161,7 @@ public class ClassEnv implements Env {
         duplicatedFieldName();
 
         for (LocalEnv localEnv:localEnvs) {
-            localEnv.resolveName();
+            localEnv.resolveLocalVariableAndAccess();
         }
     }
 
