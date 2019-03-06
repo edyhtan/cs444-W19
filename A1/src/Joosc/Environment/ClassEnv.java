@@ -102,12 +102,11 @@ public class ClassEnv implements Env {
         }
     }
 
-    // return true if there is a duplicated field name
     private void duplicatedFieldName() throws NamingResolveException {
         if (typeDeclr instanceof ClassDeclr) {
             ArrayList<FieldDeclr> fieldDeclrs = ((ClassDeclr) typeDeclr).getFields();
             for (FieldDeclr fieldDeclr : fieldDeclrs) {
-                if (!fields.containsValue(fieldDeclr.getName())) {
+                if (!fields.containsKey(fieldDeclr.getName())) {
                     fields.put(fieldDeclr.getName(),
                             new FieldsVarInfo(fieldDeclr.getName(),
                                     String.join(".", typeDeclr.getCanonicalName()),
