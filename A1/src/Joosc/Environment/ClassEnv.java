@@ -57,7 +57,7 @@ public class ClassEnv implements Env {
         GlobalEnv.PackageNames rootPackage = parent.rootPackage;
         HashMap<String, ArrayList<String>> singleImportedClasses = new HashMap<>();
         HashMap<String, ArrayList<String>> onDemandImportedClasses = new HashMap<>();
-        importOnDemand.add(new ArrayList<>(Arrays.asList("java", "lang")));
+        //importOnDemand.add(new ArrayList<>(Arrays.asList("java", "lang")));
 
         // Enclosing Class
         resolvedTypes.put(typeDeclr.getSimpleName(), typeDeclr.getCanonicalName());

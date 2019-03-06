@@ -102,8 +102,8 @@ public class GlobalEnv implements Env {
             currentPackageLevel.types.add(program.getTypeDeclr().getSimpleName());
         }
 
-        defaultPacakge.print(0);
-        rootPackage.print(0);
+        //defaultPacakge.print(0);
+        //rootPackage.print(0);
     }
 
 

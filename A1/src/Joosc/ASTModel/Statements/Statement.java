@@ -26,6 +26,9 @@ public interface Statement extends AST {
         if (node instanceof WhileStatementNode) {
             return new WhileStatement((WhileStatementNode) node);
         }
+        if (node instanceof BlockNode) {
+            return new Block((BlockNode) node);
+        }
 
         return null;
     }

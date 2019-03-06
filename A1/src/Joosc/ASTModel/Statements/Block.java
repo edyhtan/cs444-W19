@@ -7,11 +7,13 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class Block implements Statement, HasScope {
-    private ArrayList<Statement> statements;
+    private ArrayList<Statement> statements = new ArrayList<>();
 
     public Block(BlockNode node) {
-        statements = node.getStatements().stream().map(stmt -> Statement.convertStatementNode(stmt))
-                .collect(Collectors.toCollection(ArrayList::new));
+        if (node.getStatements() != null) {
+            statements = node.getStatements().stream().map(stmt -> Statement.convertStatementNode(stmt))
+                    .collect(Collectors.toCollection(ArrayList::new));
+        }
     }
 
     public ArrayList<Statement> getStatements() {

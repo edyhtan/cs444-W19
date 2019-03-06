@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  * The base of any Joos program
  **/
 public class Program extends ASTNode {
-    private ArrayList<String> packageDeclr;
+    public ArrayList<String> packageDeclr;
     private ArrayList<ArrayList<String>> singleTypeImport;
     private ArrayList<ArrayList<String>> onDemandTypeImport;
 

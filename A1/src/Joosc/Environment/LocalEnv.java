@@ -4,10 +4,7 @@ import Joosc.ASTModel.AST;
 import Joosc.ASTModel.ClassInterface.TypeDeclr;
 import Joosc.ASTModel.ClassMember.ClassBodyDeclr;
 import Joosc.ASTModel.ClassMember.Method;
-import Joosc.ASTModel.Statements.HasScope;
-import Joosc.ASTModel.Statements.IfStatement;
-import Joosc.ASTModel.Statements.LocalVarDeclrStatement;
-import Joosc.ASTModel.Statements.Statement;
+import Joosc.ASTModel.Statements.*;
 import Joosc.ASTModel.Type;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.util.Pair;
@@ -24,6 +21,10 @@ public class LocalEnv implements Env {
     ClassBodyDeclr currentMethod;
 
     public LocalEnv(AST ast, Env parent) {
+        this(ast, parent, 0);
+    }
+
+    public LocalEnv(AST ast, Env parent, int level) {
         this.ast = ast;
         this.parent = parent;
         currentClass = parent.getCurrentClass();
@@ -35,7 +36,7 @@ public class LocalEnv implements Env {
 
             for (Statement statement:statements) {
                 if (hasSubEnvironment(statement)) {
-                    localEnvs.add(new LocalEnv(statement, this));
+                    localEnvs.add(new LocalEnv(statement, this, level+1));
                 }
             }
         } else if (ast instanceof HasScope) {
@@ -43,10 +44,10 @@ public class LocalEnv implements Env {
 
             for (Statement statement:statements) {
                 if (hasSubEnvironment(statement)) {
-                    localEnvs.add(new LocalEnv(statement, this));
+                    localEnvs.add(new LocalEnv(statement, this, level+1));
                 }
                 if (statement instanceof IfStatement) {
-                    localEnvs.add(new LocalEnv(((IfStatement) statement).getElseClause(), this));
+                    localEnvs.add(new LocalEnv(((IfStatement) statement).getElseClause(), this, level+1));
                 }
             }
         }
@@ -72,10 +73,23 @@ public class LocalEnv implements Env {
             }
             statements = ((ClassBodyDeclr) ast).getBodyBlock();
         } else if (ast instanceof HasScope) {
+            if (ast instanceof ForStatement) {
+                Statement forinit = ((ForStatement) ast).getForInit();
+                if (forinit instanceof LocalVarDeclrStatement) {
+                    LocalVarDeclrStatement forinitLocal = (LocalVarDeclrStatement) forinit;
+                    if (isLocalVariableDeclared(forinitLocal.getId())){
+                        throw new NamingResolveException("Duplicated Local Variable name: " + forinitLocal.getId());
+                    } else {
+                        symbolTable.put(forinitLocal.getId(),
+                                new FieldsVarInfo(forinitLocal.getId(), getCanonicalPrefix(), forinitLocal.getType()));
+                    }
+                }
+            }
             statements = ((HasScope) ast).getBlock();
         } else {
             statements = new ArrayList<>(); // shouldn't ever fall into this clause.
         }
+
 
         for (Statement statement:statements) {
             if (statement instanceof LocalVarDeclrStatement) {
