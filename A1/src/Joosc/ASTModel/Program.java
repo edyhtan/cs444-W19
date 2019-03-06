@@ -15,7 +15,7 @@ public class Program implements AST {
     private TypeDeclr typeDeclr;
 
     public Program(Joosc.ASTBuilding.ASTStructures.Program program) {
-        this.packageDeclr = program.getPackageDeclr();
+        this.packageDeclr = program.getPackageDeclr() != null ? program.getPackageDeclr() : new ArrayList<>();
         this.singleTypeImport = program.getSingleTypeImport();
         this.onDemandTypeImport = program.getOnDemandTypeImport();
         if (program.getTypeDeclr() instanceof ClassDeclrNode) {

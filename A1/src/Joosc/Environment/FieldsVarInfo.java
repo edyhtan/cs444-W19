@@ -1,26 +1,42 @@
 package Joosc.Environment;
 
-import Joosc.ASTModel.Type;
-
 import java.util.ArrayList;
 
 public class FieldsVarInfo {
     String name;
-    String canonicalPrefix;
     Type type;
-    ArrayList<String> resolvedType;
 
-    public FieldsVarInfo(String name, String canonicalPrefix, Type type) {
+
+    public FieldsVarInfo(String name, ArrayList<String> typeName, boolean isPrimitive, boolean isArray) {
+        type = new Type(typeName, isPrimitive, isArray);
         this.name = name;
-        this.canonicalPrefix = canonicalPrefix;
-        this.type = type;
     }
 
     public String getFullName() {
-        return canonicalPrefix + "." + name;
+        return name;
     }
 
-    public void setResolvedType(ArrayList<String> type) {
-        resolvedType = type;
+    public String getFullTypeName() {
+        return String.join(".",type.fullName);
+    }
+
+    public boolean isTypeArray() {
+        return type.isArray;
+    }
+
+    public boolean isPrimitive() {
+        return type.isPrimitive;
+    }
+
+    class Type {
+        boolean isPrimitive;
+        boolean isArray;
+        ArrayList<String> fullName;
+
+        Type(ArrayList<String> name, boolean isPrimitive, boolean isArray) {
+            fullName = name;
+            this.isPrimitive = isPrimitive;
+            this.isArray = isArray;
+        }
     }
 }

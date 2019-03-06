@@ -1,10 +1,13 @@
 package Joosc.Environment;
 
+import Joosc.ASTBuilding.ASTStructures.FieldDeclrNode;
+import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.ClassInterface.ClassDeclr;
 import Joosc.ASTModel.ClassInterface.TypeDeclr;
 import Joosc.ASTModel.ClassMember.ClassBodyDeclr;
 import Joosc.ASTModel.ClassMember.FieldDeclr;
 import Joosc.ASTModel.Program;
+import Joosc.ASTModel.Type;
 import Joosc.Exceptions.NamingResolveException;
 
 import java.util.*;
@@ -18,7 +21,11 @@ public class ClassEnv implements Env {
     HashSet<ArrayList<String>> superSet = new HashSet<>();
 
     HashMap<String, ArrayList<String>> resolvedTypes = new HashMap<>();
-    HashMap<String, ArrayList<String>> onDemandImportTypes = new HashMap<>(); // will only resolve when we actually use it...
+
+    // will only resolve when we actually use it...
+    HashMap<String, ArrayList<ArrayList<String>>> onDemandImportTypes = new HashMap<>();
+    HashMap<String, ArrayList<String>> samePackage = new HashMap<>();
+
 
     ArrayList<LocalEnv> localEnvs = new ArrayList<>();
 
@@ -54,10 +61,8 @@ public class ClassEnv implements Env {
     public void resolveImports() throws NamingResolveException {
         ArrayList<ArrayList<String>> singleTypeImports = program.getSingleTypeImport();
         ArrayList<ArrayList<String>> importOnDemand = program.getOnDemandTypeImport();
-        GlobalEnv.PackageNames rootPackage = parent.rootPackage;
         HashMap<String, ArrayList<String>> singleImportedClasses = new HashMap<>();
-        HashMap<String, ArrayList<String>> onDemandImportedClasses = new HashMap<>();
-        //importOnDemand.add(new ArrayList<>(Arrays.asList("java", "lang")));
+        importOnDemand.add(new ArrayList<>(Arrays.asList("java", "lang")));
 
         // Enclosing Class
         resolvedTypes.put(typeDeclr.getSimpleName(), typeDeclr.getCanonicalName());
@@ -91,27 +96,39 @@ public class ClassEnv implements Env {
 
             GlobalEnv.PackageNames layer = parent.getPackageLayer(dImport);
             for (String typeName:layer.types) {
-                if (resolvedTypes.containsKey(typeName)) {
-                    continue;
-                } else {
-                    ArrayList<String> qualifiedName = new ArrayList<>(dImport);
-                    qualifiedName.add(typeName);
-                    onDemandImportTypes.put(typeName, qualifiedName);
+                ArrayList<String> qualifiedName = new ArrayList<>(dImport);
+                qualifiedName.add(typeName);
+                ArrayList<ArrayList<String>> importedTypeNames = onDemandImportTypes.getOrDefault(typeName, null);
+                if (importedTypeNames == null) {
+                    importedTypeNames = new ArrayList<>();
+                    onDemandImportTypes.put(typeName, importedTypeNames);
                 }
+                importedTypeNames.add(qualifiedName);
             }
+        }
+
+        ArrayList<String> packgeName = program.getPackageDeclr();
+        GlobalEnv.PackageNames layer;
+        if (packgeName.size() == 0) {
+            layer = parent.defaultPacakge;
+        } else {
+            layer = parent.getPackageLayer(packgeName);
+        }
+
+        for (String typeName:layer.types) {
+            ArrayList<String> qualifiedName = new ArrayList<>(packgeName);
+            qualifiedName.add(typeName);
+            samePackage.put(typeName, qualifiedName);
         }
     }
 
-    private void duplicatedFieldName() throws NamingResolveException {
+    private void resolveFields() throws NamingResolveException {
         if (typeDeclr instanceof ClassDeclr) {
             ArrayList<FieldDeclr> fieldDeclrs = ((ClassDeclr) typeDeclr).getFields();
             for (FieldDeclr fieldDeclr : fieldDeclrs) {
-                if (!fields.containsKey(fieldDeclr.getName())) {
-                    fields.put(fieldDeclr.getName(),
-                            new FieldsVarInfo(fieldDeclr.getName(),
-                                    String.join(".", typeDeclr.getCanonicalName()),
-                                    fieldDeclr.getType())
-                            );
+                String fieldName = fieldDeclr.getName();
+                if (!fields.containsKey(fieldName)) {
+                    fields.put(fieldName, typeResolve(fieldName, fieldDeclr.getType()));
                 } else {
                     throw new NamingResolveException("found more than one field with name " + fieldDeclr.getName());
                 }
@@ -119,23 +136,55 @@ public class ClassEnv implements Env {
         }
     }
 
-    public boolean samePackage(ArrayList<String> packageName) {
-        if (packageName == null || packageDeclr == null) return false;
-        ArrayList<String> temp = this.packageDeclr;
-        return temp.equals(packageName);
-    }
-
-    private void resolveFieldType() throws NamingResolveException {
-
-    }
-
     private void constructLocalEnvironment() {
         if (typeDeclr instanceof ClassDeclr) {
             ArrayList<ClassBodyDeclr> methodDeclrs = ((ClassDeclr) typeDeclr).getClassBodyDeclrNodes();
 
             for (ClassBodyDeclr classBodyDeclr : methodDeclrs) {
+                if (classBodyDeclr instanceof FieldDeclr)
+                    continue;
                 localEnvs.add(new LocalEnv(classBodyDeclr, this));
             }
+        }
+    }
+
+    public FieldsVarInfo typeResolve(String name, Type type) throws NamingResolveException {
+        boolean isArray = type.getArrayKind() != null;
+
+        // Primitive
+        if (type.getKind() != Symbol.ClassOrInterfaceType ||
+                (isArray && type.getArrayKind() != Symbol.ClassOrInterfaceType)) {
+            return new FieldsVarInfo(name, new ArrayList<>(Arrays.asList(type.getKind().getSymbolString())), true, isArray);
+        }
+
+        ArrayList<String> longTypeName = type.getNames();
+
+        // qualified Name
+        if (longTypeName.size() > 1) {
+            if (parent.findPackageName(longTypeName, false)) {
+                throw new NamingResolveException("Type Not Found: " + String.join(".", longTypeName));
+            } else {
+                return new FieldsVarInfo(name, longTypeName, false, isArray);
+            }
+        } else {
+            String typeName = longTypeName.get(0);
+            ArrayList<String> resolvedName = resolvedTypes.getOrDefault(typeName, null);
+
+            if (resolvedName == null) {
+                resolvedName = samePackage.getOrDefault(typeName, null);
+                if (resolvedName == null) {
+                    ArrayList<ArrayList<String>> onDemandCandidates = onDemandImportTypes.getOrDefault(typeName, new ArrayList<>());
+                    if (onDemandCandidates.size() > 1) {
+                        throw new NamingResolveException("On Demand import clashing");
+                    } else if (onDemandCandidates.size() == 0) {
+                        throw new NamingResolveException("Type Not Found: no import found on " + typeName);
+                    } else {
+                        resolvedName = onDemandCandidates.get(0);
+                    }
+                }
+                resolvedTypes.put(typeName, resolvedName);
+            }
+            return new FieldsVarInfo(name, resolvedName, false, isArray);
         }
     }
 
@@ -157,8 +206,7 @@ public class ClassEnv implements Env {
     @Override
     public void resolveName() throws NamingResolveException {
         resolveImports();
-        //resolveFieldType();
-        duplicatedFieldName();
+        resolveFields();
 
         for (LocalEnv localEnv:localEnvs) {
             localEnv.resolveLocalVariableAndAccess();

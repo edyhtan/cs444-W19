@@ -3,6 +3,7 @@ package Joosc.Environment;
 import Joosc.ASTModel.ClassInterface.TypeDeclr;
 import Joosc.ASTModel.ClassMember.ClassBodyDeclr;
 import Joosc.ASTModel.Program;
+import Joosc.ASTModel.Type;
 import Joosc.Exceptions.NamingResolveException;
 
 import java.util.ArrayList;
@@ -63,6 +64,11 @@ public class GlobalEnv implements Env {
     @Override
     public boolean isLocalVariableDeclared(String simpleName) {
         return false;
+    }
+
+    @Override
+    public FieldsVarInfo typeResolve(String name, Type type) throws NamingResolveException {
+        return null;
     }
 
     @Override

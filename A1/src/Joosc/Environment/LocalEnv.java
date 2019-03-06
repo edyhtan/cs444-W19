@@ -43,11 +43,11 @@ public class LocalEnv implements Env {
         for (Statement statement:statements) {
             if (hasSubEnvironment(statement)) {
                 localEnvs.add(new LocalEnv(statement, this));
-            }
-            if (statement instanceof IfStatement) {
-                ElseBlock elseBlock = ((IfStatement) statement).getElseClause();
-                if (elseBlock != null) {
-                    localEnvs.add(new LocalEnv(elseBlock, this));
+                if (statement instanceof IfStatement) {
+                    ElseBlock elseBlock = ((IfStatement) statement).getElseClause();
+                    if (elseBlock != null) {
+                        localEnvs.add(new LocalEnv(elseBlock, this));
+                    }
                 }
             }
         }
@@ -67,7 +67,7 @@ public class LocalEnv implements Env {
                     if (symbolTable.containsKey(pair.getValue())) {
                         throw new NamingResolveException("Duplicated Local Parameter Name: " + pair.getValue());
                     } else {
-                        symbolTable.put(pair.getValue(), new FieldsVarInfo(pair.getValue(), getCanonicalPrefix(), pair.getKey()));
+                        symbolTable.put(pair.getValue(), typeResolve(pair.getValue(), pair.getKey()));
                     }
                 }
             }
@@ -81,14 +81,14 @@ public class LocalEnv implements Env {
                         throw new NamingResolveException("Duplicated Local Variable name: " + forinitLocal.getId());
                     } else {
                         symbolTable.put(forinitLocal.getId(),
-                                new FieldsVarInfo(forinitLocal.getId(), getCanonicalPrefix(), forinitLocal.getType()));
+                                typeResolve(forinitLocal.getId(), forinitLocal.getType()));
                     }
                 }
             }
             statements = ((HasScope) ast).getBlock();
         } else {
             statements = new ArrayList<>(); // shouldn't ever fall into this clause.
-            System.exit(5);
+            System.exit(6);
         }
 
         for (Statement statement:statements) {
@@ -106,7 +106,7 @@ public class LocalEnv implements Env {
 
                     throw new NamingResolveException("Duplicated Local Variable: " + localVar.getId());
                 }
-                symbolTable.put(localVar.getId(), new FieldsVarInfo(localVar.getId(), getCanonicalPrefix(), localVar.getType()));
+                symbolTable.put(localVar.getId(), typeResolve(localVar.getId(), localVar.getType()));
             }
         }
     }
@@ -135,5 +135,10 @@ public class LocalEnv implements Env {
         for (LocalEnv localEnv:localEnvs) {
             localEnv.resolveName();
         }
+    }
+
+    @Override
+    public FieldsVarInfo typeResolve(String name, Type type) throws NamingResolveException {
+        return parent.typeResolve(name, type);
     }
 }
