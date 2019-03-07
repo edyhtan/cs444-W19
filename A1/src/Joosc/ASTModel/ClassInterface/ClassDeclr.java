@@ -44,12 +44,22 @@ public class ClassDeclr implements TypeDeclr {
         canonicalID.add(name);
     }
 
-    public ArrayList<Symbol> getModifers() {
+    @Override
+    public ArrayList<Symbol> getModifiers() {
         return modifiers;
     }
 
     public ArrayList<ClassBodyDeclr> getClassBodyDeclrNodes() {
         return classBodyDeclrNodes;
+    }
+
+    @Override
+    public ArrayList<MethodDeclr>  getMethods(){
+        return methods;
+    }
+
+    public ArrayList<ConstructorDeclr> getConstructor() {
+        return constructor;
     }
 
     public ArrayList<ArrayList<String>> getInterfaces() {
@@ -63,7 +73,6 @@ public class ClassDeclr implements TypeDeclr {
     public ArrayList<String> getParentClass() {
         return parentClass;
     }
-
 
     @Override
     public ArrayList<String> getCanonicalName() {

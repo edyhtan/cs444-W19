@@ -29,6 +29,14 @@ public class JoosAST {
     public void checkFileName(String file) throws WrongFileNameException {
         String className = root.getClassName();
 
+        if (false) {
+            // things looks messy on windows
+            String[] splitFiles = file.split("\\\\");
+            file = splitFiles[splitFiles.length - 1];
+
+            System.err.println(file);
+        }
+
         String filename = file.split("[.]")[0];
         String suffix = file.split("[.]")[1];
 

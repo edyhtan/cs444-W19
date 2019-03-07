@@ -2,14 +2,19 @@ package Joosc.Environment;
 
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.ClassInterface.ClassDeclr;
+import Joosc.ASTModel.ClassInterface.InterfaceDeclr;
 import Joosc.ASTModel.ClassInterface.TypeDeclr;
 import Joosc.ASTModel.ClassMember.ClassBodyDeclr;
+import Joosc.ASTModel.ClassMember.ConstructorDeclr;
 import Joosc.ASTModel.ClassMember.FieldDeclr;
+import Joosc.ASTModel.ClassMember.MethodDeclr;
 import Joosc.ASTModel.Program;
 import Joosc.ASTModel.Type;
 import Joosc.Exceptions.NamingResolveException;
+import Joosc.util.Pair;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ClassEnv implements Env {
     TypeDeclr typeDeclr;
@@ -24,9 +29,9 @@ public class ClassEnv implements Env {
     HashMap<String, ArrayList<ArrayList<String>>> onDemandImportTypes = new HashMap<>();
     HashMap<String, ArrayList<String>> samePackage = new HashMap<>();
 
-    // Method Signature
-    HashMap<String, ArrayList<String>> methodSignature = new HashMap<>();
-    HashMap<String, ArrayList<String>> constructorSignature = new HashMap<>();
+    // Method MethodInfo
+    HashMap<String, MethodInfo> methodSignature = new HashMap<>();
+    HashMap<String, MethodInfo> constructorSignature = new HashMap<>();
 
     // Hierarchy
     HashSet<ArrayList<String>> superSet = new HashSet<>();
@@ -122,17 +127,72 @@ public class ClassEnv implements Env {
         }
     }
 
-    private void resolveMethodNames() throws NamingResolveException {
-        if (typeDeclr instanceof ClassDeclr) {
 
+
+    private void resolveMethodNames() throws NamingResolveException {
+        for (MethodDeclr method : typeDeclr.getMethods()) {
+//                You guys don't like that hacky Function with throwing, hence have to loop
+//                paramList = method.getFormalParamList().stream()
+//                        .map(param -> typeResolve(param.getValue(), param.getKey()));
+            ArrayList<FieldsVarInfo> paramList = new ArrayList<>();
+            for (Pair<Type, String> param : method.getFormalParamList()) {
+                paramList.add(typeResolve(param.getValue(), param.getKey()));
+            }
+            MethodInfo tempMethodInfo =
+                    new MethodInfo(method, typeResolve(method.getName(), method.getType()), paramList);
+            if (methodSignature.containsKey(tempMethodInfo.getSignatureStr())) {
+                throw new NamingResolveException("Duplicate method with same signature: " + tempMethodInfo.getSignatureStr());
+            } else {
+                methodSignature.put(tempMethodInfo.getSignatureStr(), tempMethodInfo);
+            }
+        }
+    }
+
+    private void resolveConstructorNames() throws NamingResolveException {
+        if (typeDeclr instanceof InterfaceDeclr) {
+            return;
+        }
+        FieldsVarInfo ctorType = new FieldsVarInfo("", typeDeclr.getCanonicalName(), false, false);
+        for (ConstructorDeclr ctor : ((ClassDeclr)typeDeclr).getConstructor()) {
+            ArrayList<FieldsVarInfo> paramList = new ArrayList<>();
+            for (Pair<Type, String> param : ctor.getFormalParamList()) {
+                paramList.add(typeResolve(param.getValue(), param.getKey()));
+            }
+            MethodInfo tempCtorInfo =
+                    new MethodInfo(ctor, ctorType, paramList);
+            if (constructorSignature.containsKey(tempCtorInfo.getSignatureStr())) {
+                throw new NamingResolveException("Duplicate constructor with same signature");
+            } else {
+                constructorSignature.put(tempCtorInfo.getSignatureStr(), tempCtorInfo);
+            }
         }
     }
 
     private void resolveHierarchy() throws NamingResolveException {
         if (typeDeclr instanceof ClassDeclr) {
             ArrayList<String> extend = ((ClassDeclr)typeDeclr).getParentClass();
-            if (extend.size() > 0)
+            ClassEnv parentClassEnv;
+            if (extend.size() > 0) {
                 superSet.add(typeResolve(extend));
+                parentClassEnv = parent.getClassEnv(typeResolve(extend));
+                // Null check
+                if (parentClassEnv == null) {
+                    throw new NamingResolveException("Unexpected behaviour. ");
+                }
+
+                // Cannot extend interface
+                if (parentClassEnv.typeDeclr instanceof InterfaceDeclr) {
+                    throw new NamingResolveException("Class must not extend an interface. ");
+                }
+
+                // Cannot extend final
+                if (parentClassEnv.typeDeclr.getModifiers().contains(Symbol.Final)) {
+                    throw new NamingResolveException("A class must not extend a final class. ");
+                }
+
+
+            }
+
 
             ArrayList<ArrayList<String>> interfaces = ((ClassDeclr) typeDeclr).getInterfaces();
             for (ArrayList<String> parent:interfaces) {
@@ -226,6 +286,7 @@ public class ClassEnv implements Env {
         resolveImports();
         resolveFields();
         resolveMethodNames();
+        resolveConstructorNames();
         resolveHierarchy();
 
         for (LocalEnv localEnv:localEnvs) {

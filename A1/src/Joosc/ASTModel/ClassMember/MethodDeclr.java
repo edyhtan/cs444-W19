@@ -1,5 +1,6 @@
 package Joosc.ASTModel.ClassMember;
 
+import Joosc.ASTBuilding.ASTStructures.AbstractMethodDeclrNode;
 import Joosc.ASTBuilding.ASTStructures.MethodDeclrNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.Statements.Statement;
@@ -8,6 +9,7 @@ import Joosc.Environment.LocalEnv;
 import Joosc.util.Pair;
 
 import java.util.ArrayList;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class MethodDeclr implements ClassMemberDeclr, Method {
@@ -32,8 +34,23 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
+    public MethodDeclr(AbstractMethodDeclrNode node) {
+        modifiers = node.getModifiers();
+        type = new Type(node.getType());
+        name = node.getName();
+
+        formalParamList = node.getFormalParamList().stream()
+                .map(pair -> new Pair<>(new Type(pair.getKey()), pair.getValue()))
+                .collect(Collectors.toCollection(ArrayList::new));
+        bodyBlock = null;
+    }
+
     public void buildCanonicalName(ArrayList<String> className) {
         //TODO
+    }
+
+    public boolean isAbstract() {
+        return modifiers.contains(Symbol.Abstract);
     }
 
     public Type getType() {

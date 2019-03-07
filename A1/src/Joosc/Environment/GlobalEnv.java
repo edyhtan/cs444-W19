@@ -51,6 +51,15 @@ public class GlobalEnv implements Env {
 
     }
 
+    public ClassEnv getClassEnv(ArrayList<String> qualifiedName) {
+        for (ClassEnv env : classEnvs) {
+            if (env.typeDeclr.getCanonicalName().equals(qualifiedName)) {
+                return env;
+            }
+        }
+        return null;
+    }
+
     @Override
     public TypeDeclr getCurrentClass() {
         return null;

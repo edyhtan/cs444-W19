@@ -28,4 +28,5 @@ public interface ClassBodyDeclr extends AST {
     ArrayList<Pair<Type, String>> getFormalParamList();
     ArrayList<Statement> getBodyBlock();
     String getName();
+
 }

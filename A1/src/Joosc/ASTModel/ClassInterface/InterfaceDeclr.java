@@ -2,7 +2,7 @@ package Joosc.ASTModel.ClassInterface;
 
 import Joosc.ASTBuilding.ASTStructures.InterfaceDeclrNode;
 import Joosc.ASTBuilding.Constants.Symbol;
-import Joosc.ASTModel.ClassMember.AbstractMethodDeclr;
+import Joosc.ASTModel.ClassMember.MethodDeclr;
 import Joosc.Environment.ClassEnv;
 
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ public class InterfaceDeclr implements TypeDeclr {
     private ArrayList<Symbol> modifiers;
     private String name;
     private ArrayList<ArrayList<String>> extendsInterfaceTypes;
-    private ArrayList<AbstractMethodDeclr> interfaceBody;
+    private ArrayList<MethodDeclr> methods;
     private ArrayList<String> canonicalID;
     private ClassEnv env;
 
@@ -20,7 +20,7 @@ public class InterfaceDeclr implements TypeDeclr {
         modifiers = node.getModifiers();
         name = node.getName();
         extendsInterfaceTypes = node.getExtendsInterfaceTypes();
-        interfaceBody = node.getInterfaceBody().stream().map(AbstractMethodDeclr::new)
+        methods = node.getInterfaceBody().stream().map(MethodDeclr::new)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
@@ -30,6 +30,7 @@ public class InterfaceDeclr implements TypeDeclr {
         canonicalID.add(name);
     }
 
+    @Override
     public ArrayList<Symbol> getModifiers() {
         return modifiers;
     }
@@ -38,8 +39,9 @@ public class InterfaceDeclr implements TypeDeclr {
         return extendsInterfaceTypes;
     }
 
-    public ArrayList<AbstractMethodDeclr> getInterfaceBody() {
-        return interfaceBody;
+    @Override
+    public ArrayList<MethodDeclr> getMethods() {
+        return methods;
     }
 
     @Override
