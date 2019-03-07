@@ -251,11 +251,14 @@ public class ClassEnv implements Env {
 
     @Override
     public FieldsVarInfo typeResolve(String name, Type type) throws NamingResolveException {
-        boolean isArray = type.getArrayKind() != null;
+        boolean isArray = type.getKind() == Symbol.ArrayType;
         // Primitive
-        if (type.getKind() != Symbol.ClassOrInterfaceType ||
-                (isArray && type.getArrayKind() != Symbol.ClassOrInterfaceType)) {
-            return new FieldsVarInfo(name, new ArrayList<>(Arrays.asList(type.getKind().getSymbolString())), true, isArray);
+        if (type.getKind() != Symbol.ClassOrInterfaceType) {
+            if (isArray) {
+                return new FieldsVarInfo(name, new ArrayList<>(Arrays.asList(type.getArrayKind().getSymbolString())), true, isArray);
+            } else {
+                return new FieldsVarInfo(name, new ArrayList<>(Arrays.asList(type.getKind().getSymbolString())), true, isArray);
+            }
         }
         return new FieldsVarInfo(name, typeResolve(type.getNames()), false, isArray);
     }
