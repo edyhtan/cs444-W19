@@ -98,16 +98,16 @@ public class ClassEnv implements Env {
             }
         }
 
-        ArrayList<String> packgeName = program.getPackageDeclr();
+        ArrayList<String> packageName = program.getPackageDeclr();
         GlobalEnv.PackageNames layer;
-        if (packgeName.size() == 0) {
+        if (packageName.size() == 0) {
             layer = parent.defaultPacakge;
         } else {
-            layer = parent.getPackageLayer(packgeName);
+            layer = parent.getPackageLayer(packageName);
         }
 
         for (String typeName:layer.types) {
-            ArrayList<String> qualifiedName = new ArrayList<>(packgeName);
+            ArrayList<String> qualifiedName = new ArrayList<>(packageName);
             qualifiedName.add(typeName);
             samePackage.put(typeName, qualifiedName);
         }
@@ -193,7 +193,6 @@ public class ClassEnv implements Env {
 
             }
 
-
             ArrayList<ArrayList<String>> interfaces = ((ClassDeclr) typeDeclr).getInterfaces();
             for (ArrayList<String> parent:interfaces) {
                 superSet.add(typeResolve(parent));
@@ -220,7 +219,7 @@ public class ClassEnv implements Env {
             String type_prefix = longTypeName.get(0);
 
             if (resolvedTypes.containsKey(type_prefix)) {
-                throw new NamingResolveException("Prefix of a qualifed name used for type");
+                throw new NamingResolveException("Prefix of a qualified name used for type");
             }
 
             if (!parent.findPackageName(longTypeName, false)) {

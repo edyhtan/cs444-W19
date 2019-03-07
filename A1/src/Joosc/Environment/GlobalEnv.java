@@ -92,14 +92,14 @@ public class GlobalEnv implements Env {
 
     @Override
     public void resolveName() throws NamingResolveException {
-        buildAndResolvePacakge();
+        buildAndResolvePackage();
         nameConflict();
         for (ClassEnv classEnv : classEnvs) {
             classEnv.resolveName();
         }
     }
 
-    public void buildAndResolvePacakge() throws NamingResolveException {
+    public void buildAndResolvePackage() throws NamingResolveException {
         // populate existing package names.
         for (Program program : programs) {
             ArrayList<String> packageLayer = program.getPackageDeclr();
