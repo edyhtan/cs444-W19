@@ -20,7 +20,7 @@ public class MethodInfo {
         this.returnType = returnType;
         this.paramTypeList = paramTypeList;
         signatureStr = paramTypeList.stream()
-                .map(FieldsVarInfo::getFullTypeName)
+                .map(x->x.getFullTypeName() + (x.isTypeArray() ? "[]" : ""))
                 .reduce(method.getName(), (s, t) -> s + "," + t);
     }
 
@@ -30,7 +30,7 @@ public class MethodInfo {
         this.returnType = classType;
         this.paramTypeList = paramTypeList;
         signatureStr = paramTypeList.stream()
-                .map(FieldsVarInfo::getFullTypeName)
+                .map(x->x.getFullTypeName() + (x.isTypeArray() ? "[]" : ""))
                 .reduce(ctor.getName(), (s, t) -> s + "," + t);
     }
 
