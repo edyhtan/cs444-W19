@@ -25,7 +25,8 @@ public class ClassEnv implements Env {
     HashMap<String, ArrayList<String>> samePackage = new HashMap<>();
 
     // Method Signature
-
+    HashMap<String, ArrayList<String>> methodSignature = new HashMap<>();
+    HashMap<String, ArrayList<String>> constructorSignature = new HashMap<>();
 
     // Hierarchy
     HashSet<ArrayList<String>> superSet = new HashSet<>();
@@ -121,8 +122,10 @@ public class ClassEnv implements Env {
         }
     }
 
-    private void resolveMethodNames() {
+    private void resolveMethodNames() throws NamingResolveException {
+        if (typeDeclr instanceof ClassDeclr) {
 
+        }
     }
 
     private void resolveHierarchy() throws NamingResolveException {
@@ -222,6 +225,7 @@ public class ClassEnv implements Env {
     public void resolveName() throws NamingResolveException {
         resolveImports();
         resolveFields();
+        resolveMethodNames();
         resolveHierarchy();
 
         for (LocalEnv localEnv:localEnvs) {

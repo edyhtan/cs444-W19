@@ -25,7 +25,6 @@ public interface ClassBodyDeclr extends AST {
     }
 
     void buildCanonicalName(ArrayList<String> className);
-    void addLocalEnvironment(LocalEnv localEnv);
     ArrayList<Pair<Type, String>> getFormalParamList();
     ArrayList<Statement> getBodyBlock();
     String getName();

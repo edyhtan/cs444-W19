@@ -30,7 +30,7 @@ public class LocalEnv implements Env {
 
         //building sub environment
         if (ast instanceof Method && ast instanceof ClassBodyDeclr) {
-            ((ClassBodyDeclr) ast).addLocalEnvironment(this);
+            ((Method) ast).addLocalEnvironment(this);
             statements = ((ClassBodyDeclr) ast).getBodyBlock();
         } else if (ast instanceof HasScope) {
             ((HasScope) ast).addEnv(this);

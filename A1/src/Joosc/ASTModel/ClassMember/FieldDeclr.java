@@ -32,9 +32,6 @@ public class FieldDeclr implements ClassMemberDeclr {
     }
 
     @Override
-    public void addLocalEnvironment(LocalEnv localEnv) {}
-
-    @Override
     public ArrayList<Pair<Type, String>> getFormalParamList() {
         return null;
     }
