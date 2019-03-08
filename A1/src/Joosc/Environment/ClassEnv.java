@@ -129,9 +129,10 @@ public class ClassEnv implements Env {
         }
     }
 
-    private void handleImplictDeclrMethods() throws NamingResolveException {
+    private void addImplicitDeclrMethods() throws NamingResolveException {
         // interface has no direct parent - implicit declaration
         if(typeDeclr instanceof InterfaceDeclr && superSet.isEmpty()) {
+//            superSet.add(new ArrayList<>(Arrays.asList("java", "lang", "Object")));
             ClassEnv javaLangObject = parent.getClassEnv(new ArrayList<>(Arrays.asList("java", "lang", "Object")));
             for (MethodDeclr method : javaLangObject.typeDeclr.getMethods()) {
                 ArrayList<FieldsVarInfo> paramList = new ArrayList<>();
@@ -147,8 +148,8 @@ public class ClassEnv implements Env {
         }
     }
 
-    private void resolveMethodNames() throws NamingResolveException {
-        handleImplictDeclrMethods();
+    private void resolveClassDeclrMethodNames() throws NamingResolveException {
+        addImplicitDeclrMethods();
 
         for (MethodDeclr method : typeDeclr.getMethods()) {
 //                You guys don't like that hacky Function with throwing, hence have to loop
@@ -181,6 +182,8 @@ public class ClassEnv implements Env {
 
             if(implicitDeclr.containsKey(tempMethodInfo.getSignatureStr())) {
                 MethodInfo implictDeclrMethod = implicitDeclr.get(tempMethodInfo.getSignatureStr());
+
+                // TODO: change here after MethodInfo.returnType is changed to String
                 String parentReturnTypStr = implictDeclrMethod.returnType.getFullTypeName()
                         + (implictDeclrMethod.returnType.isTypeArray() ? "[]" : "");
                 String declaredReturnTypeStr = tempMethodInfo.returnType.getFullTypeName()
@@ -189,6 +192,21 @@ public class ClassEnv implements Env {
                 if(!parentReturnTypStr.equals(declaredReturnTypeStr)) {
                     throw new NamingResolveException("Interface " + typeDeclr.getSimpleName() + " declares method "
                             + tempMethodInfo.getSignatureStr() + " has different return type than implicit declare method.");
+                }
+
+                if (tempMethodInfo.modifiers.contains(Symbol.Static)
+                        && !implictDeclrMethod.modifiers.contains(Symbol.Static)) {
+                    throw new NamingResolveException("Nonstatic method " + tempMethodInfo.getSignatureStr()
+                            + " in class " + typeDeclr.getSimpleName() + " must not replace an implicitly declared static method "
+                            + tempMethodInfo.getSignatureStr()
+                            + " in java.lang.Object.");
+                }
+                if (tempMethodInfo.modifiers.contains(Symbol.Protected)
+                        && implictDeclrMethod.modifiers.contains(Symbol.Public)) {
+                    throw new NamingResolveException("Protected method " + tempMethodInfo.getSignatureStr()
+                            + " in class " +typeDeclr.getSimpleName() + " must not replace an implicitly declared public method "
+                            + tempMethodInfo.getSignatureStr()
+                            + " in java.lang.Object.");
                 }
             }
 
@@ -203,8 +221,21 @@ public class ClassEnv implements Env {
     HashMap<String, MethodInfo> getFullMethodSignature() throws NamingResolveException {
         if (methodSignature.isEmpty() && implicitDeclr.isEmpty()) return methodSignature;
 
+        methodSignature.forEach((x,y)->System.out.println(x));
+
         if (!fullMethodSigComplete) {
             fullMethodSignature.putAll(methodSignature);
+
+            System.out.println(typeDeclr.getSimpleName() + "-> ");
+            System.out.println("Full super set:");
+            for(ArrayList<String> key : fullSuperSet) {
+                System.out.print("\t" +key);
+            }
+            System.out.print("\n");
+
+            HashSet<ArrayList<String>> superCheckSet = new HashSet<>(fullSuperSet);
+            if(superSet.isEmpty()) superCheckSet.add(new ArrayList<>(Arrays.asList("java", "lang", "Object")));
+
             for (ArrayList<String> className : fullSuperSet) {
                 ClassEnv parentClassEnv = parent.getClassEnv(className);
                 for (MethodInfo methodInfo : parentClassEnv.getFullMethodSignature().values()) {
@@ -474,11 +505,9 @@ public class ClassEnv implements Env {
     public void resolveName() throws NamingResolveException {
         resolveImports();
         resolveFields();
-        resolveMethodNames();
+        resolveClassDeclrMethodNames();
         resolveConstructorNames();
         resolveHierarchy();
-
-//        methodSignature.keySet().forEach( x -> System.err.println(String.join(".", typeDeclr.getCanonicalName())+ ":" + x));
 
         for (LocalEnv localEnv:localEnvs) {
             localEnv.resolveLocalVariableAndAccess();
