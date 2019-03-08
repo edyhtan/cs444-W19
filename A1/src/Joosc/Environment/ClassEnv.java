@@ -28,7 +28,9 @@ public class ClassEnv implements Env {
     // Method MethodInfo
     HashMap<String, MethodInfo> methodSignature = new HashMap<>();
     HashMap<String, MethodInfo> fullMethodSignature = new HashMap<>();
+    HashMap<String, MethodInfo> implicitDeclr = new HashMap<>();
     private boolean fullMethodSigComplete = false;
+
     HashMap<String, MethodInfo> constructorSignature = new HashMap<>();
 
     // Hierarchy
@@ -127,10 +129,8 @@ public class ClassEnv implements Env {
         }
     }
 
-
-    private void resolveMethodNames() throws NamingResolveException {
+    private void handleImplictDeclrMethods() throws NamingResolveException {
         // interface has no direct parent - implicit declaration
-        HashMap<String, MethodInfo> implicitDeclare = new HashMap<>();
         if(typeDeclr instanceof InterfaceDeclr && superSet.isEmpty()) {
             ClassEnv javaLangObject = parent.getClassEnv(new ArrayList<>(Arrays.asList("java", "lang", "Object")));
             for (MethodDeclr method : javaLangObject.typeDeclr.getMethods()) {
@@ -142,9 +142,13 @@ public class ClassEnv implements Env {
                 MethodInfo tempMethodInfo =
                         new MethodInfo(new MethodDeclr(method), typeResolve(method.getName(), method.getType()), paramList);
                 tempMethodInfo.modifiers.add(Symbol.Abstract);
-                implicitDeclare.put(tempMethodInfo.getSignatureStr(), tempMethodInfo);
+                implicitDeclr.put(tempMethodInfo.getSignatureStr(), tempMethodInfo);
             }
         }
+    }
+
+    private void resolveMethodNames() throws NamingResolveException {
+        handleImplictDeclrMethods();
 
         for (MethodDeclr method : typeDeclr.getMethods()) {
 //                You guys don't like that hacky Function with throwing, hence have to loop
@@ -158,6 +162,11 @@ public class ClassEnv implements Env {
             MethodInfo tempMethodInfo =
                     new MethodInfo(new MethodDeclr(method), typeResolve(method.getName(), method.getType()), paramList);
 
+            if(typeDeclr instanceof InterfaceDeclr) {
+                tempMethodInfo.modifiers.add(Symbol.Abstract);
+                // Interface methods are implicitly public
+                if(!tempMethodInfo.modifiers.contains(Symbol.Public)) tempMethodInfo.modifiers.add(Symbol.Public);
+            }
 
             if (methodSignature.containsKey(tempMethodInfo.getSignatureStr())) {
                 throw new NamingResolveException("Duplicate method with same signature "
@@ -170,8 +179,8 @@ public class ClassEnv implements Env {
                         + " that declares abstract methods " +tempMethodInfo.getSignatureStr() +" must be abstract.");
             }
 
-            if(implicitDeclare.containsKey(tempMethodInfo.getSignatureStr())) {
-                MethodInfo implictDeclrMethod = implicitDeclare.get(tempMethodInfo.getSignatureStr());
+            if(implicitDeclr.containsKey(tempMethodInfo.getSignatureStr())) {
+                MethodInfo implictDeclrMethod = implicitDeclr.get(tempMethodInfo.getSignatureStr());
                 String parentReturnTypStr = implictDeclrMethod.returnType.getFullTypeName()
                         + (implictDeclrMethod.returnType.isTypeArray() ? "[]" : "");
                 String declaredReturnTypeStr = tempMethodInfo.returnType.getFullTypeName()
@@ -179,20 +188,20 @@ public class ClassEnv implements Env {
 
                 if(!parentReturnTypStr.equals(declaredReturnTypeStr)) {
                     throw new NamingResolveException("Interface " + typeDeclr.getSimpleName() + " declares method "
-                            + tempMethodInfo.getSignatureStr() + "has different return type than implicit declare method.");
+                            + tempMethodInfo.getSignatureStr() + " has different return type than implicit declare method.");
                 }
             }
 
             methodSignature.put(tempMethodInfo.getSignatureStr(), tempMethodInfo);
         }
 
-        methodSignature.putAll(implicitDeclare);
+//        methodSignature.putAll(implicitDeclare);
 
     }
 
 
     HashMap<String, MethodInfo> getFullMethodSignature() throws NamingResolveException {
-        if (methodSignature.isEmpty()) return methodSignature;
+        if (methodSignature.isEmpty() && implicitDeclr.isEmpty()) return methodSignature;
 
         if (!fullMethodSigComplete) {
             fullMethodSignature.putAll(methodSignature);
@@ -242,7 +251,7 @@ public class ClassEnv implements Env {
                             throw new NamingResolveException("Method " + declaredMethod.getSignatureStr()
                                     + " in class " +typeDeclr.getSimpleName()   + " must not replace a final method "
                                     + declaredMethod.getSignatureStr()
-                                    +" in parent class"
+                                    + " in parent class "
                                     + parentClassEnv.typeDeclr.getSimpleName());
                         }
 
