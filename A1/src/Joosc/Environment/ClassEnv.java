@@ -55,7 +55,7 @@ public class ClassEnv implements Env {
         importOnDemand.add(new ArrayList<>(Arrays.asList("java", "lang")));
 
         // Enclosing Class
-        resolvedTypes.put(typeDeclr.getSimpleName(), new ArrayList<>(Arrays.asList(typeDeclr.getSimpleName())));
+        resolvedTypes.put(typeDeclr.getSimpleName(), typeDeclr.getCanonicalName());
 
         // Single Type import
         for (ArrayList<String> sImport : singleTypeImports) {
@@ -139,7 +139,7 @@ public class ClassEnv implements Env {
                 paramList.add(typeResolve(param.getValue(), param.getKey()));
             }
             MethodInfo tempMethodInfo =
-                    new MethodInfo(method, typeResolve(method.getName(), method.getType()), paramList);
+                    new MethodInfo(method, typeResolve(method.getType()), paramList);
             if (methodSignature.containsKey(tempMethodInfo.getSignatureStr())) {
                 throw new NamingResolveException("Duplicate method with same signature: " + tempMethodInfo.getSignatureStr());
             } else {
@@ -152,14 +152,14 @@ public class ClassEnv implements Env {
         if (typeDeclr instanceof InterfaceDeclr) {
             return;
         }
-        FieldsVarInfo ctorType = new FieldsVarInfo("", typeDeclr.getCanonicalName(), false, false);
+        TypeInfo ctorType = new TypeInfo(typeDeclr.getCanonicalName());
         for (ConstructorDeclr ctor : ((ClassDeclr) typeDeclr).getConstructor()) {
             ArrayList<FieldsVarInfo> paramList = new ArrayList<>();
             for (Pair<Type, String> param : ctor.getFormalParamList()) {
                 paramList.add(typeResolve(param.getValue(), param.getKey()));
             }
             MethodInfo tempCtorInfo =
-                    new MethodInfo(ctor, ctorType, paramList);
+                    new MethodInfo(ctor, paramList);
             if (constructorSignature.containsKey(tempCtorInfo.getSignatureStr())) {
                 throw new NamingResolveException("Duplicate constructor with same signature");
             } else {
@@ -265,6 +265,9 @@ public class ClassEnv implements Env {
 
     @Override
     public ArrayList<String> typeResolve(ArrayList<String> longTypeName) throws NamingResolveException {
+        if (TypeInfo.isPrimitive(longTypeName)) {
+            return longTypeName;
+        }
         // qualified Name
         if (longTypeName.size() > 1) {
             String type_prefix = longTypeName.get(0);
@@ -300,19 +303,34 @@ public class ClassEnv implements Env {
         }
     }
 
+    /**
+     * This should be named as something like fieldTypeResolve
+     * */
     @Override
     public FieldsVarInfo typeResolve(String name, Type type) throws NamingResolveException {
-        boolean isArray = type.getKind() == Symbol.ArrayType;
-        // Primitive
-        if ((type.getKind() != Symbol.ClassOrInterfaceType && type.getKind() != Symbol.ArrayType)
-                || (isArray && type.getArrayKind() != null && type.getArrayKind() != Symbol.ClassOrInterfaceType)) {
-            if (isArray) {
-                return new FieldsVarInfo(name, new ArrayList<>(Arrays.asList(type.getArrayKind().getSymbolString())), true, isArray);
-            } else {
-                return new FieldsVarInfo(name, new ArrayList<>(Arrays.asList(type.getKind().getSymbolString())), true, isArray);
-            }
+        TypeInfo fieldType = typeResolve(type);
+        return new FieldsVarInfo(name, fieldType);
+//        boolean isArray = type.getKind() == Symbol.ArrayType;
+//        // Primitive
+//        if ((type.getKind() != Symbol.ClassOrInterfaceType && type.getKind() != Symbol.ArrayType)
+//                || (isArray && type.getArrayKind() != null && type.getArrayKind() != Symbol.ClassOrInterfaceType)) {
+//            if (isArray) {
+//                return new FieldsVarInfo(name, new ArrayList<>(Arrays.asList(type.getArrayKind().getSymbolString())), true, isArray);
+//            } else {
+//                return new FieldsVarInfo(name, new ArrayList<>(Arrays.asList(type.getKind().getSymbolString())), true, isArray);
+//            }
+//        }
+//        return new FieldsVarInfo(name, typeResolve(type.getNames()), false, isArray);
+    }
+
+    @Override
+    public TypeInfo typeResolve(Type type) throws NamingResolveException {
+        TypeInfo typeInfo = new TypeInfo(type);
+        // Resolve the type fullName if it is not primitive
+        if (!typeInfo.isPrimitive) {
+            typeInfo.rewriteFullName(typeResolve(typeInfo.fullName));
         }
-        return new FieldsVarInfo(name, typeResolve(type.getNames()), false, isArray);
+        return typeInfo;
     }
 
     @Override

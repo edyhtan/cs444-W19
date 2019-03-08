@@ -19,4 +19,5 @@ public interface Env {
 
     FieldsVarInfo typeResolve(String name, Type type) throws NamingResolveException;
     ArrayList<String> typeResolve(ArrayList<String> type) throws NamingResolveException;
+    TypeInfo typeResolve(Type type) throws NamingResolveException;
 }

@@ -10,6 +10,7 @@ import Joosc.Parser.LRGrammar.ParseTree;
 
 public class JoosAST {
     private Program root;
+    boolean WINDOWS = false;
 
     public JoosAST(ParseTree parseTree) throws ASTException {
         if (parseTree.getKind() != Symbol.S) {
@@ -29,7 +30,7 @@ public class JoosAST {
     public void checkFileName(String file) throws WrongFileNameException {
         String className = root.getClassName();
 
-        if (false) {
+        if (WINDOWS) {
             // things looks messy on windows
             String[] splitFiles = file.split("\\\\");
             file = splitFiles[splitFiles.length - 1];

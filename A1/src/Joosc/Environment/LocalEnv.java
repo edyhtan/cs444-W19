@@ -155,4 +155,9 @@ public class LocalEnv implements Env {
     public ArrayList<String> typeResolve(ArrayList<String> type) throws NamingResolveException {
         return parent.typeResolve(type);
     }
+
+    @Override
+    public TypeInfo typeResolve(Type type) throws NamingResolveException {
+        return parent.typeResolve(type);
+    }
 }

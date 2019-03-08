@@ -82,6 +82,11 @@ public class GlobalEnv implements Env {
     }
 
     @Override
+    public TypeInfo typeResolve(Type type) throws NamingResolveException {
+        return null;
+    }
+
+    @Override
     public void resolveName() throws NamingResolveException {
         buildAndResolvePackage();
         nameConflict();
