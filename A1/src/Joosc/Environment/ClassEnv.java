@@ -245,10 +245,7 @@ public class ClassEnv implements Env {
         }
     }
 
-    // TODO: refactor
-    void checkAllMethodsInParent(ArrayList<String> parentClassName) throws NamingResolveException {
-        ClassEnv parentClassEnv = parent.getClassEnv(typeResolve(parentClassName));
-
+    void checkAllMethodsInParent(ClassEnv parentClassEnv ) throws NamingResolveException {
         for (MethodInfo methodInfo : parentClassEnv.getFullMethodSignature().values()) {
             MethodDeclr method = (MethodDeclr) methodInfo.getAst();
             ArrayList<FieldsVarInfo> paramList = new ArrayList<>();
@@ -264,7 +261,11 @@ public class ClassEnv implements Env {
                 checkReplace(parentMethodInfo, declaredMethod, parentClassEnv);
             }
 
-            if (!methodSignature.containsKey(parentMethodInfo.signatureStr)) {
+            if(parentClassEnv.typeDeclr instanceof InterfaceDeclr) {
+                // TODO: check if methods in interface is implement in parent classes
+            }
+
+            if (!fullMethodSignature.containsKey(parentMethodInfo.signatureStr)) {
                 // inherited methods in ClassDeclr
                 checkInherit(parentMethodInfo, parentClassEnv);
             }
@@ -285,20 +286,25 @@ public class ClassEnv implements Env {
         fullMethodSignature.putAll(methodSignature);
 
         if (!fullMethodSigComplete) {
-//            if (typeDeclr.getSimpleName().contains("LinkedList")) {
-//                fullSuperSet.forEach(x -> System.out.println(x));
-//            }
 
             if (typeDeclr instanceof ClassDeclr) {
                 ArrayList<String> parentClassName = ((ClassDeclr) typeDeclr).getParentClass();
                 if (parentClassName.isEmpty()) parentClassName = javaLangObjectName;
-
-                checkAllMethodsInParent(parentClassName);
+                ClassEnv parentClassEnv = parent.getClassEnv(typeResolve(parentClassName));
+                checkAllMethodsInParent(parentClassEnv);
             }
 
             for (ArrayList<String> parentInterfaceName : typeDeclr.getParentInterfaces()) {
+                ClassEnv parentInterfaceEnv = parent.getClassEnv(typeResolve(parentInterfaceName));
 
-                checkAllMethodsInParent(parentInterfaceName);
+                // check if methods in interface is implement in parent classes
+                for (MethodInfo methodInfo : parentInterfaceEnv.getFullMethodSignature().values()) {
+                    if(fullMethodSignature.containsKey(methodInfo.getSignatureStr())) {
+
+                    }
+                }
+                checkAllMethodsInParent(parentInterfaceEnv);
+
 
             }
             fullMethodSigComplete = true;
