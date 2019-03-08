@@ -236,7 +236,6 @@ public class ClassEnv implements Env {
      HashSet<ArrayList<String>> getFullSuperSet() throws NamingResolveException {
         if(superSet.isEmpty()) return superSet;
         fullSuperSet.addAll(superSet);
-//        System.out.println(typeDeclr.getCanonicalName() + " " + superSet.size());
         if (!fullSuperSetCompelete) {
             for (ArrayList<String> className : superSet) {
                 ClassEnv classEnv = parent.getClassEnv(className);
