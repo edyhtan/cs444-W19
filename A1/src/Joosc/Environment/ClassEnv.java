@@ -131,7 +131,7 @@ public class ClassEnv implements Env {
         }
     }
 
-    private HashMap<String, MethodInfo> getImplicitDeclr() throws NamingResolveException {
+    private void addImplicitDeclr() throws NamingResolveException {
         // interface has no direct parent - implicit declaration
         ClassEnv javaLangObject = parent.getClassEnv(javaLangObjectName);
         for (MethodDeclr method : javaLangObject.typeDeclr.getMethods()) {
@@ -145,7 +145,6 @@ public class ClassEnv implements Env {
             tempMethodInfo.modifiers.add(Symbol.Abstract);
             implicitDeclr.put(tempMethodInfo.getSignatureStr(), tempMethodInfo);
         }
-        return implicitDeclr;
     }
 
     private void checkReplace(MethodInfo parentMethodInfo, MethodInfo declaredMethod, ClassEnv parentClassEnv)throws NamingResolveException {
@@ -205,7 +204,9 @@ public class ClassEnv implements Env {
     }
 
     private void resolveClassDeclrMethodNames() throws NamingResolveException {
-        if (typeDeclr instanceof InterfaceDeclr && superSet.isEmpty()) getImplicitDeclr();
+        if (typeDeclr instanceof InterfaceDeclr && superSet.isEmpty()) {
+            addImplicitDeclr();
+        }
 
         for (MethodDeclr method : typeDeclr.getMethods()) {
             ArrayList<FieldsVarInfo> paramList = new ArrayList<>();
@@ -244,15 +245,18 @@ public class ClassEnv implements Env {
 
 
     HashMap<String, MethodInfo> getFullMethodSignature() throws NamingResolveException {
-        methodSignature.putAll(implicitDeclr);
-        if (methodSignature.isEmpty()) { // empty interface with only implicit declared methods
-            fullMethodSigComplete = true;
-            fullMethodSignature.putAll(methodSignature);
+        if (!implicitDeclr.isEmpty()) { // empty interface with only implicit declared methods
+            methodSignature.putAll(implicitDeclr);
+            if(methodSignature.size() == implicitDeclr.size()) {
+                fullMethodSigComplete = true;
+            }
         }
 
+        // put all class declared methods
+        fullMethodSignature.putAll(methodSignature);
+
         if (!fullMethodSigComplete) {
-            fullMethodSignature.putAll(methodSignature);
-            for (ArrayList<String> className : getFullSuperSet()) {
+            for (ArrayList<String> className : superSet) {
                 ClassEnv parentClassEnv = parent.getClassEnv(className);
                 for (MethodInfo methodInfo : parentClassEnv.getFullMethodSignature().values()) {
                     MethodDeclr method = (MethodDeclr) methodInfo.getAst();
