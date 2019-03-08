@@ -99,7 +99,7 @@ public class GlobalEnv implements Env {
         System.out.println("-----------------------");
 
         for (ClassEnv classEnv : classEnvs) {
-            classEnv.checkAcyclicHierarchy();
+            classEnv.getFullSuperSet();
         }
         //TODO: contain
 
