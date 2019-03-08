@@ -24,15 +24,6 @@ public class GlobalEnv implements Env {
         classEnvs = new ArrayList<>();
         hierarchy = new HashMap<>();
         programs.forEach(x -> classEnvs.add(new ClassEnv(x, this)));
-//        classEnvs.forEach(x -> hierarchy.put(x.typeDeclr.getSimpleName(), x.superSet));
-//
-//        System.out.println("-----hierarchy--------");
-//        for(String key : hierarchy.keySet()) {
-//            System.out.print(key + "-> \t");
-//            hierarchy.get(key).forEach(x->System.out.print(x+" "));
-//            System.out.print("\n");
-//        }
-//        System.out.println("-----------------------");
     }
 
     private void nameConflict() throws NamingResolveException {
@@ -50,11 +41,6 @@ public class GlobalEnv implements Env {
             throw new NamingResolveException("Duplicated Type");
         }
     }
-
-//    private void checkAcyclicHierarchy() {
-//        // TODO: graph serach here on hierarcby map
-//
-//    }
 
     public ClassEnv getClassEnv(ArrayList<String> qualifiedName) {
         for (ClassEnv env : classEnvs) {
@@ -115,6 +101,7 @@ public class GlobalEnv implements Env {
         for (ClassEnv classEnv : classEnvs) {
             classEnv.checkAcyclicHierarchy();
         }
+        //TODO: contain
 
     }
 
