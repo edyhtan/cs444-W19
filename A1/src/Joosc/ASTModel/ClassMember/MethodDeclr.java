@@ -45,6 +45,16 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
         bodyBlock = null;
     }
 
+    public MethodDeclr(MethodDeclr node) {
+        modifiers = node.modifiers;
+        type = node.type;
+        name = node.name;
+        formalParamList = node.formalParamList;
+        bodyBlock = node.bodyBlock;
+        canonicalID = node.canonicalID;
+        localEnv = node.localEnv;
+    }
+
     public void buildCanonicalName(ArrayList<String> className) {
         //TODO
     }
