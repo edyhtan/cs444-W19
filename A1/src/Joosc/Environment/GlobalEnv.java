@@ -6,18 +6,15 @@ import Joosc.ASTModel.Program;
 import Joosc.ASTModel.Type;
 import Joosc.Exceptions.NamingResolveException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class GlobalEnv implements Env {
     ArrayList<Program> programs;
     ArrayList<ClassEnv> classEnvs;
-    PackageNames defaultPacakge = new PackageNames("");
+    PackageNames defaultPackage = new PackageNames("");
     PackageNames rootPackage = new PackageNames("");
 
-    HashMap<String, HashSet<ArrayList<String>>> hierarchy;
+    HashMap<ArrayList<String>, HashSet<ArrayList<String>>> hierarchy;
 
 
     public GlobalEnv(ArrayList<Program> programs) {
@@ -27,7 +24,6 @@ public class GlobalEnv implements Env {
         classEnvs = new ArrayList<>();
         hierarchy = new HashMap<>();
         programs.forEach(x -> classEnvs.add(new ClassEnv(x, this)));
-        classEnvs.forEach(x -> hierarchy.put(x.typeDeclr.getSimpleName(), x.superSet));
     }
 
     private void nameConflict() throws NamingResolveException {
@@ -44,11 +40,6 @@ public class GlobalEnv implements Env {
         ).reduce(true, (x, y) -> x & y)) {
             throw new NamingResolveException("Duplicated Type");
         }
-    }
-
-    private void checkAcyclicHierarchy() {
-        // TODO: graph serach here on hierarcby map
-
     }
 
     public ClassEnv getClassEnv(ArrayList<String> qualifiedName) {
@@ -97,6 +88,21 @@ public class GlobalEnv implements Env {
         for (ClassEnv classEnv : classEnvs) {
             classEnv.resolveName();
         }
+        classEnvs.forEach(x -> hierarchy.put(x.typeDeclr.getCanonicalName(), x.superSet));
+//
+//        System.out.println("-----hierarchy--------");
+//        for(ArrayList<String> key : hierarchy.keySet()) {
+//            System.out.print(key + "-> \t");
+//            hierarchy.get(key).forEach(x->System.out.print(x+" "));
+//            System.out.print("\n");
+//        }
+//        System.out.println("-----------------------");
+
+        for (ClassEnv classEnv : classEnvs) {
+            classEnv.getFullSuperSet();
+        }
+        //TODO: contain
+
     }
 
     public void buildAndResolvePackage() throws NamingResolveException {
@@ -105,7 +111,7 @@ public class GlobalEnv implements Env {
             ArrayList<String> packageLayer = program.getPackageDeclr();
 
             if (packageLayer.size() == 0) {
-                defaultPacakge.types.add(program.getTypeDeclr().getSimpleName());
+                defaultPackage.types.add(program.getTypeDeclr().getSimpleName());
                 continue;
             }
 
@@ -127,7 +133,7 @@ public class GlobalEnv implements Env {
             currentPackageLevel.types.add(program.getTypeDeclr().getSimpleName());
         }
 
-        //defaultPacakge.print(0);
+        //defaultPackage.print(0);
         //rootPackage.print(0);
     }
 

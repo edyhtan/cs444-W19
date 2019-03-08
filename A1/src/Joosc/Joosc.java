@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 public class Joosc {
     public static boolean IDE_FLAG = true;
     public static boolean RUN_SUITE_FLAG = false;
+    public static final boolean PRINT_AST = false;
 
     private static String getFileName(String path) {
         String[] temp = path.split("/");
@@ -47,6 +48,7 @@ public class Joosc {
         ast.checkFileName(file);
         ast.weed();
 
+        if (PRINT_AST) ast.printASTInfo();
         return ast;
     }
 
