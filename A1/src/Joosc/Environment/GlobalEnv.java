@@ -89,7 +89,7 @@ public class GlobalEnv implements Env {
             classEnv.resolveName();
         }
         classEnvs.forEach(x -> hierarchy.put(x.typeDeclr.getCanonicalName(), x.superSet));
-//
+
 //        System.out.println("-----hierarchy--------");
 //        for(ArrayList<String> key : hierarchy.keySet()) {
 //            System.out.print(key + "-> \t");
@@ -100,9 +100,15 @@ public class GlobalEnv implements Env {
 
         for (ClassEnv classEnv : classEnvs) {
             classEnv.getFullSuperSet();
-            classEnv.getFullMethodSignature();
         }
         //TODO: contain
+        for(ClassEnv classEnv:classEnvs) {
+            classEnv.getFullMethodSignature();
+        }
+
+//        classEnvs.forEach(ClassEnv::printInfo);
+
+
 
     }
 
