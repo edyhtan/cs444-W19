@@ -131,7 +131,7 @@ public class ClassEnv implements Env {
         }
     }
 
-    private void addImplicitDeclrMethods() throws NamingResolveException {
+    private HashMap<String, MethodInfo> getImplicitDeclr() throws NamingResolveException {
         // interface has no direct parent - implicit declaration
         ClassEnv javaLangObject = parent.getClassEnv(javaLangObjectName);
         for (MethodDeclr method : javaLangObject.typeDeclr.getMethods()) {
@@ -145,15 +145,69 @@ public class ClassEnv implements Env {
             tempMethodInfo.modifiers.add(Symbol.Abstract);
             implicitDeclr.put(tempMethodInfo.getSignatureStr(), tempMethodInfo);
         }
+        return implicitDeclr;
+    }
+
+    private void checkReplace(MethodInfo parentMethodInfo, MethodInfo declaredMethod, ClassEnv parentClassEnv)throws NamingResolveException {
+        // TODO: change here after MethodInfo.returnType is changed to String
+        String parentReturnTypStr = parentMethodInfo.returnType.getFullTypeName()
+                + (parentMethodInfo.returnType.isTypeArray() ? "[]" : "");
+        String declaredReturnTypeStr = declaredMethod.returnType.getFullTypeName()
+                + (declaredMethod.returnType.isTypeArray() ? "[]" : "");
+
+        if (!parentReturnTypStr.equals(declaredReturnTypeStr)) {
+            throw new NamingResolveException("Class/Interface " + typeDeclr.getSimpleName()
+                    + " must not contain two methods with the same signature but different return types with name "
+                    + parentMethodInfo.getSignatureStr());
+        }
+        if (parentMethodInfo.modifiers.contains(Symbol.Static)
+                && !declaredMethod.modifiers.contains(Symbol.Static)) {
+            throw new NamingResolveException("Nonstatic method " + declaredMethod.getSignatureStr()
+                    + " in class " + typeDeclr.getSimpleName() + " must not replace a static method "
+                    + declaredMethod.getSignatureStr()
+                    + " in parent class "
+                    + parentClassEnv.typeDeclr.getSimpleName());
+        }
+        if (parentMethodInfo.modifiers.contains(Symbol.Public)
+                && declaredMethod.modifiers.contains(Symbol.Protected)) {
+            throw new NamingResolveException("Protected method " + declaredMethod.getSignatureStr()
+                    + " in class " + typeDeclr.getSimpleName() + " must not replace a public method "
+                    + declaredMethod.getSignatureStr()
+                    + " in parent class "
+                    + parentClassEnv.typeDeclr.getSimpleName());
+        }
+        if (parentMethodInfo.modifiers.contains(Symbol.Final)) {
+            throw new NamingResolveException("Method " + declaredMethod.getSignatureStr()
+                    + " in class " + typeDeclr.getSimpleName() + " must not replace a final method "
+                    + declaredMethod.getSignatureStr()
+                    + " in parent class "
+                    + parentClassEnv.typeDeclr.getSimpleName());
+        }
+    }
+
+    private void checkInherit(MethodInfo parentMethodInfo, ClassEnv parentClassEnv) throws NamingResolveException {
+        if (typeDeclr instanceof ClassDeclr) {
+            if (parentMethodInfo.modifiers.contains(Symbol.Abstract)
+                    && (!typeDeclr.getModifiers().contains(Symbol.Abstract))) {
+                throw new NamingResolveException("Class " + typeDeclr.getSimpleName()
+                        + " that inherits abstract methods " + parentMethodInfo.getSignatureStr()
+                        + " must be abstract.");
+            }
+
+            // inherited abstract method from interface w. no implementation in current class
+            if (parentClassEnv.typeDeclr instanceof InterfaceDeclr
+                    && !typeDeclr.getModifiers().contains(Symbol.Abstract)) {
+                throw new NamingResolveException("Class " + typeDeclr.getSimpleName()
+                        + " that contains inherited methods " + parentMethodInfo.getSignatureStr()
+                        + " with no implementation must be abstract.");
+            }
+        }
     }
 
     private void resolveClassDeclrMethodNames() throws NamingResolveException {
-        if (typeDeclr instanceof InterfaceDeclr && superSet.isEmpty()) addImplicitDeclrMethods();
+        if (typeDeclr instanceof InterfaceDeclr && superSet.isEmpty()) getImplicitDeclr();
 
         for (MethodDeclr method : typeDeclr.getMethods()) {
-//                You guys don't like that hacky Function with throwing, hence have to loop
-//                paramList = method.getFormalParamList().stream()
-//                        .map(param -> typeResolve(param.getValue(), param.getKey()));
             ArrayList<FieldsVarInfo> paramList = new ArrayList<>();
             for (Pair<Type, String> param : method.getFormalParamList()) {
                 paramList.add(typeResolve(param.getValue(), param.getKey()));
@@ -181,55 +235,24 @@ public class ClassEnv implements Env {
 
             if (implicitDeclr.containsKey(tempMethodInfo.getSignatureStr())) {
                 MethodInfo implicitDeclrMethod = implicitDeclr.get(tempMethodInfo.getSignatureStr());
-
-                // TODO: change here after MethodInfo.returnType is changed to String
-                String parentReturnTypStr = implicitDeclrMethod.returnType.getFullTypeName()
-                        + (implicitDeclrMethod.returnType.isTypeArray() ? "[]" : "");
-                String declaredReturnTypeStr = tempMethodInfo.returnType.getFullTypeName()
-                        + (tempMethodInfo.returnType.isTypeArray() ? "[]" : "");
-
-                if (!parentReturnTypStr.equals(declaredReturnTypeStr)) {
-                    throw new NamingResolveException("Interface " + typeDeclr.getSimpleName() + " declares method "
-                            + tempMethodInfo.getSignatureStr() + " has different return type than implicit declare method.");
-                }
-
-                if (implicitDeclrMethod.modifiers.contains(Symbol.Static)
-                        && !tempMethodInfo.modifiers.contains(Symbol.Static)) {
-                    throw new NamingResolveException("Nonstatic method " + tempMethodInfo.getSignatureStr()
-                            + " in class " + typeDeclr.getSimpleName() + " must not replace an implicitly declared static method "
-                            + tempMethodInfo.getSignatureStr()
-                            + " in java.lang.Object.");
-                }
-                if (implicitDeclrMethod.modifiers.contains(Symbol.Protected)
-                        && tempMethodInfo.modifiers.contains(Symbol.Public)) {
-                    throw new NamingResolveException("Protected method " + tempMethodInfo.getSignatureStr()
-                            + " in class " + typeDeclr.getSimpleName() + " must not replace an implicitly declared public method "
-                            + tempMethodInfo.getSignatureStr()
-                            + " in java.lang.Object.");
-                }
+                checkReplace(implicitDeclrMethod, tempMethodInfo, parent.getClassEnv(javaLangObjectName));
             }
 
             methodSignature.put(tempMethodInfo.getSignatureStr(), tempMethodInfo);
         }
-//        methodSignature.putAll(implicitDeclr);
-
     }
 
 
     HashMap<String, MethodInfo> getFullMethodSignature() throws NamingResolveException {
-        if (!implicitDeclr.isEmpty()) {
-
-            if (methodSignature.isEmpty()) { // empty interface with only implicit declared methods
-                fullMethodSigComplete = true;
-            }
-            methodSignature.putAll(implicitDeclr);
+        methodSignature.putAll(implicitDeclr);
+        if (methodSignature.isEmpty()) { // empty interface with only implicit declared methods
+            fullMethodSigComplete = true;
             fullMethodSignature.putAll(methodSignature);
         }
 
         if (!fullMethodSigComplete) {
             fullMethodSignature.putAll(methodSignature);
-
-            for (ArrayList<String> className : fullSuperSet) {
+            for (ArrayList<String> className : getFullSuperSet()) {
                 ClassEnv parentClassEnv = parent.getClassEnv(className);
                 for (MethodInfo methodInfo : parentClassEnv.getFullMethodSignature().values()) {
                     MethodDeclr method = (MethodDeclr) methodInfo.getAst();
@@ -243,63 +266,14 @@ public class ClassEnv implements Env {
                     // override methods from parent
                     if (methodSignature.containsKey(parentMethodInfo.getSignatureStr())) {
                         MethodInfo declaredMethod = methodSignature.get(parentMethodInfo.getSignatureStr());
-
-                        // TODO: change here after MethodInfo.returnType is changed to String
-                        String parentReturnTypStr = parentMethodInfo.returnType.getFullTypeName()
-                                + (parentMethodInfo.returnType.isTypeArray() ? "[]" : "");
-                        String declaredReturnTypeStr = declaredMethod.returnType.getFullTypeName()
-                                + (declaredMethod.returnType.isTypeArray() ? "[]" : "");
-
-                        if (!parentReturnTypStr.equals(declaredReturnTypeStr)) {
-                            throw new NamingResolveException("Class/Interface " + typeDeclr.getSimpleName()
-                                    + " must not contain two methods with the same signature but different return types with name "
-                                    + parentMethodInfo.getSignatureStr());
-                        }
-                        if (parentMethodInfo.modifiers.contains(Symbol.Static)
-                                && !declaredMethod.modifiers.contains(Symbol.Static)) {
-                            throw new NamingResolveException("Nonstatic method " + declaredMethod.getSignatureStr()
-                                    + " in class " + typeDeclr.getSimpleName() + " must not replace a static method "
-                                    + declaredMethod.getSignatureStr()
-                                    + " in parent class "
-                                    + parentClassEnv.typeDeclr.getSimpleName());
-                        }
-                        if (parentMethodInfo.modifiers.contains(Symbol.Public)
-                                && declaredMethod.modifiers.contains(Symbol.Protected)) {
-                            throw new NamingResolveException("Protected method " + declaredMethod.getSignatureStr()
-                                    + " in class " + typeDeclr.getSimpleName() + " must not replace a public method "
-                                    + declaredMethod.getSignatureStr()
-                                    + " in parent class "
-                                    + parentClassEnv.typeDeclr.getSimpleName());
-                        }
-                        if (parentMethodInfo.modifiers.contains(Symbol.Final)) {
-                            throw new NamingResolveException("Method " + declaredMethod.getSignatureStr()
-                                    + " in class " + typeDeclr.getSimpleName() + " must not replace a final method "
-                                    + declaredMethod.getSignatureStr()
-                                    + " in parent class "
-                                    + parentClassEnv.typeDeclr.getSimpleName());
-                        }
-
-                    } else {
-                        // inherited methods in ClassDeclr
-                        if (typeDeclr instanceof ClassDeclr) {
-                            if (parentMethodInfo.modifiers.contains(Symbol.Abstract)
-                                    && (!typeDeclr.getModifiers().contains(Symbol.Abstract))) {
-                                throw new NamingResolveException("Class " + typeDeclr.getSimpleName()
-                                        + " that inherits abstract methods " + parentMethodInfo.getSignatureStr()
-                                        + " must be abstract.");
-                            }
-
-                            // inherited abstract method from interface w. no implementation in current class
-                            if (parentClassEnv.typeDeclr instanceof InterfaceDeclr
-                                    && !typeDeclr.getModifiers().contains(Symbol.Abstract)) {
-                                throw new NamingResolveException("Class " + typeDeclr.getSimpleName()
-                                        + " that contains inherited methods " + parentMethodInfo.getSignatureStr()
-                                        + " with no implementation must be abstract.");
-                            }
-                        }
+                        checkReplace(parentMethodInfo,declaredMethod, parentClassEnv);
                     }
-                    methodSignature.put(parentMethodInfo.getSignatureStr(), parentMethodInfo);
 
+                    if (!methodSignature.containsKey(parentMethodInfo.signatureStr)) {
+                        // inherited methods in ClassDeclr
+                        checkInherit(parentMethodInfo, parentClassEnv);
+                    }
+                    fullMethodSignature.put(parentMethodInfo.getSignatureStr(), parentMethodInfo);
                 }
             }
             fullMethodSigComplete = true;
@@ -332,10 +306,6 @@ public class ClassEnv implements Env {
         if (typeDeclr instanceof ClassDeclr) {
             ArrayList<String> extend = ((ClassDeclr) typeDeclr).getParentClass();
 
-            if (extend.isEmpty() && !typeDeclr.getCanonicalName().equals(javaLangObjectName)) {
-                extend = new ArrayList<>(javaLangObjectName);
-            }
-            
             ClassEnv parentClassEnv;
 
             if (extend.size() > 0) {
@@ -400,7 +370,10 @@ public class ClassEnv implements Env {
     }
 
     HashSet<ArrayList<String>> getFullSuperSet() throws NamingResolveException {
-        if (superSet.isEmpty()) fullMethodSigComplete = true;
+        if (superSet.isEmpty()) {
+            fullSuperSet.add(javaLangObjectName);
+            fullMethodSigComplete = true;
+        }
 
         if (!fullSuperSetComplete) {
             fullSuperSet.addAll(superSet);
@@ -519,8 +492,17 @@ public class ClassEnv implements Env {
         return superSet;
     }
 
-    public void printInfo() {
-        System.out.println(typeDeclr.getSimpleName() + "-> ");
+    public void printInfo(boolean includeStdLib) {
+        if (!includeStdLib && typeDeclr.getCanonicalName().contains("java")) return;
+        if (typeDeclr instanceof ClassDeclr) System.out.print("[Class] ");
+        if (typeDeclr instanceof InterfaceDeclr) System.out.print("[Interface] ");
+        System.out.print(typeDeclr.getSimpleName() + "-> " + "\n");
+        System.out.println("Direct super set:");
+        for (ArrayList<String> key : superSet) {
+            System.out.print("\t" + key);
+        }
+        System.out.print("\n");
+
         System.out.println("Full super set:");
         for (ArrayList<String> key : fullSuperSet) {
             System.out.print("\t" + key);
@@ -531,5 +513,11 @@ public class ClassEnv implements Env {
             System.out.print("\t" + key);
         }
         System.out.print("\n");
+        System.out.println("full methods: ");
+        for (String key : fullMethodSignature.keySet()) {
+            System.out.print("\t" + key);
+        }
+        System.out.print("\n");
+        System.out.println("-------------------------------");
     }
 }

@@ -106,7 +106,7 @@ public class GlobalEnv implements Env {
             classEnv.getFullMethodSignature();
         }
 
-//        classEnvs.forEach(ClassEnv::printInfo);
+        classEnvs.forEach(x-> x.printInfo(true));
 
 
 
