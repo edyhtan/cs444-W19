@@ -129,6 +129,23 @@ public class ClassEnv implements Env {
 
 
     private void resolveMethodNames() throws NamingResolveException {
+        // interface has no direct parent
+        if(typeDeclr instanceof InterfaceDeclr && superSet.isEmpty()) {
+            ClassEnv javaLangObject = parent.getClassEnv(new ArrayList<>(Arrays.asList("java", "lang", "Object")));
+            for (MethodDeclr method : javaLangObject.typeDeclr.getMethods()) {
+                ArrayList<FieldsVarInfo> paramList = new ArrayList<>();
+                for (Pair<Type, String> param : method.getFormalParamList()) {
+                    paramList.add(typeResolve(param.getValue(), param.getKey()));
+                }
+
+//                MethodDeclr tempMethod = new MethodDeclr()
+                MethodInfo tempMethodInfo =
+                        new MethodInfo(new MethodDeclr(method), typeResolve(method.getName(), method.getType()), paramList);
+                tempMethodInfo.modifiers.add(Symbol.Abstract);
+                methodSignature.put(tempMethodInfo.getSignatureStr(), tempMethodInfo);
+            }
+        }
+
         for (MethodDeclr method : typeDeclr.getMethods()) {
 //                You guys don't like that hacky Function with throwing, hence have to loop
 //                paramList = method.getFormalParamList().stream()
@@ -140,19 +157,22 @@ public class ClassEnv implements Env {
 
             MethodInfo tempMethodInfo =
                     new MethodInfo(method, typeResolve(method.getName(), method.getType()), paramList);
+            System.out.println(tempMethodInfo.modifiers);
             if (methodSignature.containsKey(tempMethodInfo.getSignatureStr())) {
                 throw new NamingResolveException("Duplicate method with same signature: " + tempMethodInfo.getSignatureStr());
             }
 
-            if (tempMethodInfo.modifiers.contains(Symbol.Abstract) && !typeDeclr.getModifiers().contains(Symbol.Abstract)) {
+            if (typeDeclr instanceof ClassDeclr && tempMethodInfo.modifiers.contains(Symbol.Abstract)
+                    && !typeDeclr.getModifiers().contains(Symbol.Abstract)) {
                 throw new NamingResolveException("Class " + typeDeclr.getSimpleName()
-                        + " that declares abstract methods must be abstract.");
+                        + " that declares abstract methods " +tempMethodInfo.getSignatureStr() +" must be abstract.");
             }
 
             methodSignature.put(tempMethodInfo.getSignatureStr(), tempMethodInfo);
-
         }
+
     }
+
 
     HashMap<String, MethodInfo> getFullMethodSignature() throws NamingResolveException {
         if (methodSignature.isEmpty()) return methodSignature;
@@ -187,19 +207,22 @@ public class ClassEnv implements Env {
                                     + " must not contain two methods with the same signature but different return types with name "
                                     + parentMethodInfo.getSignatureStr());
                         }
-                        if (parentMethodInfo.modifiers.contains(Symbol.Static)
-                                && !declaredMethod.modifiers.contains(Symbol.Static)) {
+                        if (declaredMethod.modifiers.contains(Symbol.Static)
+                                && !parentMethodInfo.modifiers.contains(Symbol.Static)) {
                             throw new NamingResolveException("Nonstatic method " + declaredMethod.getSignatureStr()
-                                    + " must not replace a static method.");
+                                 + " in class " +typeDeclr.getSimpleName()   + " must not replace a static method in parent class "
+                                    + parentClassEnv.typeDeclr.getSimpleName());
                         }
                         if (parentMethodInfo.modifiers.contains(Symbol.Protected)
                                 && declaredMethod.modifiers.contains(Symbol.Public)) {
                             throw new NamingResolveException("Protected method " + declaredMethod.getSignatureStr()
-                                    + " must not replace a public method");
+                                    + " in class " +typeDeclr.getSimpleName()   + " must not replace a public method in parent class "
+                                    + parentClassEnv.typeDeclr.getSimpleName());
                         }
                         if (parentMethodInfo.modifiers.contains(Symbol.Final)) {
                             throw new NamingResolveException("Method " + declaredMethod.getSignatureStr()
-                                    + " must not replace a final method.");
+                                    + " in class " +typeDeclr.getSimpleName()   + " must not replace a final method in parent class"
+                                    + parentClassEnv.typeDeclr.getSimpleName());
                         }
 
                     } else {
@@ -321,7 +344,7 @@ public class ClassEnv implements Env {
             fullSuperSet.addAll(superSet);
             for (ArrayList<String> className : superSet) {
                 ClassEnv classEnv = parent.getClassEnv(className);
-                HashSet<ArrayList<String>> pSuper = classEnv.getSuperSet();
+                HashSet<ArrayList<String>> pSuper = classEnv.getFullSuperSet();
 
                 fullSuperSet.addAll(pSuper);
                 if (fullSuperSet.contains(typeDeclr.getCanonicalName())) {
