@@ -62,7 +62,8 @@ public class ClassDeclr implements TypeDeclr {
         return constructor;
     }
 
-    public ArrayList<ArrayList<String>> getInterfaces() {
+    @Override
+    public ArrayList<ArrayList<String>> getParentInterfaces() {
         return interfaces;
     }
 

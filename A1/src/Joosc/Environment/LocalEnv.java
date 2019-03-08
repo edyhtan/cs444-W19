@@ -160,4 +160,9 @@ public class LocalEnv implements Env {
     public TypeInfo typeResolve(Type type) throws NamingResolveException {
         return parent.typeResolve(type);
     }
+
+    public AST getAst() {
+        return ast;
+    }
+
 }

@@ -17,4 +17,6 @@ public interface TypeDeclr extends AST {
 
     ArrayList<MethodDeclr> getMethods();
     ArrayList<Symbol> getModifiers();
+
+    ArrayList<ArrayList<String>> getParentInterfaces();
 }

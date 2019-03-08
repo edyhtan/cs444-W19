@@ -44,7 +44,10 @@ public class TypeInfo {
         }
     }
 
-
+    public boolean equals(TypeInfo type) {
+        return this.isArray == type.isArray
+                && this.fullName.equals(type.fullName);
+    }
 
     public TypeInfo(ArrayList<String> fullName) {
         this.fullName = fullName;

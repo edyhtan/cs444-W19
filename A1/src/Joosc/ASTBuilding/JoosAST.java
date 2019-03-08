@@ -10,7 +10,7 @@ import Joosc.Parser.LRGrammar.ParseTree;
 
 public class JoosAST {
     private Program root;
-    boolean WINDOWS = false;
+    boolean WINDOWS = true;
 
     public JoosAST(ParseTree parseTree) throws ASTException {
         if (parseTree.getKind() != Symbol.S) {
