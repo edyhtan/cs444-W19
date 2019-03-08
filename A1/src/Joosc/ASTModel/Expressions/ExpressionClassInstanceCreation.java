@@ -36,7 +36,7 @@ public class ExpressionClassInstanceCreation extends Expression {
     @Override
     public void validate() throws NamingResolveException {
         // resolve Type
-        System.err.println(String.join(".", classType.getNames()));
+//        System.err.println(String.join(".", classType.getNames()));
         resolvedType = getEnv().typeResolve(classType.getNames());
 
         for (Expression arg: argList) {

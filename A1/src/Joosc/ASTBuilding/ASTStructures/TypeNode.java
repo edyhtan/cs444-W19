@@ -80,6 +80,7 @@ public class TypeNode extends ASTNode {
         if (node.getKind().equals(Symbol.PrimitiveType)) {
             arrayKind = resolvePrimitiveKind(node);
         } else {
+            arrayKind = Symbol.ClassOrInterfaceType;
             names = new ArrayList<>();
             RecursionResolve.resolveName(node, names);
         }

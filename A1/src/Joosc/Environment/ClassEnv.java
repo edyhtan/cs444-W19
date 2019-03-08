@@ -381,7 +381,8 @@ public class ClassEnv implements Env {
     public FieldsVarInfo typeResolve(String name, Type type) throws NamingResolveException {
         boolean isArray = type.getKind() == Symbol.ArrayType;
         // Primitive
-        if (type.getKind() != Symbol.ClassOrInterfaceType) {
+        if ((type.getKind() != Symbol.ClassOrInterfaceType && type.getKind() != Symbol.ArrayType)
+                || (isArray && type.getArrayKind() != null && type.getArrayKind() != Symbol.ClassOrInterfaceType)) {
             if (isArray) {
                 return new FieldsVarInfo(name, new ArrayList<>(Arrays.asList(type.getArrayKind().getSymbolString())), true, isArray);
             } else {
@@ -419,7 +420,9 @@ public class ClassEnv implements Env {
         resolveConstructorNames();
         resolveHierarchy();
 
-        for (LocalEnv localEnv : localEnvs) {
+//        methodSignature.keySet().forEach( x -> System.err.println(String.join(".", typeDeclr.getCanonicalName())+ ":" + x));
+
+        for (LocalEnv localEnv:localEnvs) {
             localEnv.resolveLocalVariableAndAccess();
         }
     }
