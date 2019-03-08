@@ -147,7 +147,7 @@ public class ClassEnv implements Env {
         }
     }
 
-    private void checkReplace(MethodInfo parentMethodInfo, MethodInfo declaredMethod, ClassEnv parentClassEnv)throws NamingResolveException {
+    private void checkReplace(MethodInfo parentMethodInfo, MethodInfo declaredMethod, ClassEnv parentClassEnv) throws NamingResolveException {
         // TODO: change here after MethodInfo.returnType is changed to String
         String parentReturnTypStr = parentMethodInfo.returnType.getFullTypeName()
                 + (parentMethodInfo.returnType.isTypeArray() ? "[]" : "");
@@ -223,7 +223,8 @@ public class ClassEnv implements Env {
                 if (!tempMethodInfo.modifiers.contains(Symbol.Public)) tempMethodInfo.modifiers.add(Symbol.Public);
             }
 
-            if (methodSignature.containsKey(tempMethodInfo.getSignatureStr())) {
+            if (methodSignature.containsKey(tempMethodInfo.getSignatureStr())
+                    || implicitDeclr.containsKey(tempMethodInfo.signatureStr)) {
                 throw new NamingResolveException("Duplicate method with same signature "
                         + tempMethodInfo.getSignatureStr() + " in class " + typeDeclr.getSimpleName());
             }
@@ -236,6 +237,7 @@ public class ClassEnv implements Env {
 
             if (implicitDeclr.containsKey(tempMethodInfo.getSignatureStr())) {
                 MethodInfo implicitDeclrMethod = implicitDeclr.get(tempMethodInfo.getSignatureStr());
+                checkInherit(implicitDeclrMethod, parent.getClassEnv(javaLangObjectName));
                 checkReplace(implicitDeclrMethod, tempMethodInfo, parent.getClassEnv(javaLangObjectName));
             }
 
@@ -243,11 +245,38 @@ public class ClassEnv implements Env {
         }
     }
 
+    // TODO: refactor
+    void checkAllMethodsInParent(ArrayList<String> parentClassName) throws NamingResolveException {
+        ClassEnv parentClassEnv = parent.getClassEnv(typeResolve(parentClassName));
+
+        for (MethodInfo methodInfo : parentClassEnv.getFullMethodSignature().values()) {
+            MethodDeclr method = (MethodDeclr) methodInfo.getAst();
+            ArrayList<FieldsVarInfo> paramList = new ArrayList<>();
+            for (Pair<Type, String> param : method.getFormalParamList()) {
+                paramList.add(typeResolve(param.getValue(), param.getKey()));
+            }
+            MethodInfo parentMethodInfo =
+                    new MethodInfo(method, typeResolve(method.getName(), method.getType()), paramList);
+
+            // override methods from parent
+            if (methodSignature.containsKey(parentMethodInfo.getSignatureStr())) {
+                MethodInfo declaredMethod = methodSignature.get(parentMethodInfo.getSignatureStr());
+                checkReplace(parentMethodInfo, declaredMethod, parentClassEnv);
+            }
+
+            if (!methodSignature.containsKey(parentMethodInfo.signatureStr)) {
+                // inherited methods in ClassDeclr
+                checkInherit(parentMethodInfo, parentClassEnv);
+            }
+            fullMethodSignature.put(parentMethodInfo.getSignatureStr(), parentMethodInfo);
+        }
+    }
+
 
     HashMap<String, MethodInfo> getFullMethodSignature() throws NamingResolveException {
         if (!implicitDeclr.isEmpty()) { // empty interface with only implicit declared methods
             methodSignature.putAll(implicitDeclr);
-            if(methodSignature.size() == implicitDeclr.size()) {
+            if (methodSignature.size() == implicitDeclr.size()) {
                 fullMethodSigComplete = true;
             }
         }
@@ -256,29 +285,21 @@ public class ClassEnv implements Env {
         fullMethodSignature.putAll(methodSignature);
 
         if (!fullMethodSigComplete) {
-            for (ArrayList<String> className : superSet) {
-                ClassEnv parentClassEnv = parent.getClassEnv(className);
-                for (MethodInfo methodInfo : parentClassEnv.getFullMethodSignature().values()) {
-                    MethodDeclr method = (MethodDeclr) methodInfo.getAst();
-                    ArrayList<FieldsVarInfo> paramList = new ArrayList<>();
-                    for (Pair<Type, String> param : method.getFormalParamList()) {
-                        paramList.add(typeResolve(param.getValue(), param.getKey()));
-                    }
-                    MethodInfo parentMethodInfo =
-                            new MethodInfo(method, typeResolve(method.getName(), method.getType()), paramList);
+//            if (typeDeclr.getSimpleName().contains("LinkedList")) {
+//                fullSuperSet.forEach(x -> System.out.println(x));
+//            }
 
-                    // override methods from parent
-                    if (methodSignature.containsKey(parentMethodInfo.getSignatureStr())) {
-                        MethodInfo declaredMethod = methodSignature.get(parentMethodInfo.getSignatureStr());
-                        checkReplace(parentMethodInfo,declaredMethod, parentClassEnv);
-                    }
+            if (typeDeclr instanceof ClassDeclr) {
+                ArrayList<String> parentClassName = ((ClassDeclr) typeDeclr).getParentClass();
+                if (parentClassName.isEmpty()) parentClassName = javaLangObjectName;
 
-                    if (!methodSignature.containsKey(parentMethodInfo.signatureStr)) {
-                        // inherited methods in ClassDeclr
-                        checkInherit(parentMethodInfo, parentClassEnv);
-                    }
-                    fullMethodSignature.put(parentMethodInfo.getSignatureStr(), parentMethodInfo);
-                }
+                checkAllMethodsInParent(parentClassName);
+            }
+
+            for (ArrayList<String> parentInterfaceName : typeDeclr.getParentInterfaces()) {
+
+                checkAllMethodsInParent(parentInterfaceName);
+
             }
             fullMethodSigComplete = true;
         }
@@ -332,45 +353,46 @@ public class ClassEnv implements Env {
                             + " must not extend a final class. ");
                 }
             }
-
-            ArrayList<ArrayList<String>> interfaces = ((ClassDeclr) typeDeclr).getInterfaces();
-            for (ArrayList<String> pInterface : interfaces) {
-                parentClassEnv = parent.getClassEnv(typeResolve(pInterface));
-
-                // Cannot implement class
-                if (parentClassEnv.typeDeclr instanceof ClassDeclr) {
-                    throw new NamingResolveException("Class " + String.join(".", typeResolve(pInterface))
-                            + " must not implement a class. ");
-                }
-
-                // Duplicate interfaces
-                if (superSet.contains(typeResolve(pInterface))) {
-                    throw new NamingResolveException("Interface " + String.join(".", typeResolve(pInterface))
-                            + " is already in implements clause. ");
-                }
-                superSet.add(typeResolve(pInterface));
-            }
         }
-        if (typeDeclr instanceof InterfaceDeclr) {
-            ArrayList<ArrayList<String>> extend = ((InterfaceDeclr) typeDeclr).getExtendsInterfaceTypes();
-            ClassEnv parentInterfaceEnv;
-            if (extend.size() > 0) {
-                for (ArrayList<String> pInterface : extend) {
-                    parentInterfaceEnv = parent.getClassEnv(typeResolve(pInterface));
 
-                    if (parentInterfaceEnv.typeDeclr instanceof ClassDeclr) {
-                        throw new NamingResolveException("Interface " + String.join(".", typeResolve(pInterface))
-                                + " must not implement a class. ");
-                    }
+        ArrayList<ArrayList<String>> interfaces = typeDeclr.getParentInterfaces();
+        for (ArrayList<String> pInterface : interfaces) {
+            ClassEnv parentInterfaceEnv = parent.getClassEnv(typeResolve(pInterface));
 
-                    if (superSet.contains(typeResolve(pInterface))) {
-                        throw new NamingResolveException("Interface " + String.join(".", typeResolve(pInterface))
-                                + " is already in implements clause. ");
-                    }
-                    superSet.add(typeResolve(pInterface));
-                }
+            // Cannot implement class
+            if (parentInterfaceEnv.typeDeclr instanceof ClassDeclr) {
+                throw new NamingResolveException("Class " + String.join(".", typeResolve(pInterface))
+                        + " must not implement a class. ");
             }
+
+            // Duplicate interfaces
+            if (superSet.contains(typeResolve(pInterface))) {
+                throw new NamingResolveException("Interface " + String.join(".", typeResolve(pInterface))
+                        + " is already in implements clause. ");
+            }
+            superSet.add(typeResolve(pInterface));
         }
+//        }
+//        if (typeDeclr instanceof InterfaceDeclr) {
+//            ArrayList<ArrayList<String>> extend = ((InterfaceDeclr) typeDeclr).getExtendsInterfaceTypes();
+//            ClassEnv parentInterfaceEnv;
+//            if (extend.size() > 0) {
+//                for (ArrayList<String> pInterface : extend) {
+//                    parentInterfaceEnv = parent.getClassEnv(typeResolve(pInterface));
+//
+//                    if (parentInterfaceEnv.typeDeclr instanceof ClassDeclr) {
+//                        throw new NamingResolveException("Interface " + String.join(".", typeResolve(pInterface))
+//                                + " must not implement a class. ");
+//                    }
+//
+//                    if (superSet.contains(typeResolve(pInterface))) {
+//                        throw new NamingResolveException("Interface " + String.join(".", typeResolve(pInterface))
+//                                + " is already in implements clause. ");
+//                    }
+//                    superSet.add(typeResolve(pInterface));
+//                }
+//            }
+//        }
     }
 
     HashSet<ArrayList<String>> getFullSuperSet() throws NamingResolveException {

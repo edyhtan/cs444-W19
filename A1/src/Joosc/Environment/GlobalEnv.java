@@ -90,24 +90,17 @@ public class GlobalEnv implements Env {
         }
         classEnvs.forEach(x -> hierarchy.put(x.typeDeclr.getCanonicalName(), x.superSet));
 
-//        System.out.println("-----hierarchy--------");
-//        for(ArrayList<String> key : hierarchy.keySet()) {
-//            System.out.print(key + "-> \t");
-//            hierarchy.get(key).forEach(x->System.out.print(x+" "));
-//            System.out.print("\n");
-//        }
-//        System.out.println("-----------------------");
+//        printHierarchy();
 
         for (ClassEnv classEnv : classEnvs) {
             classEnv.getFullSuperSet();
         }
         //TODO: contain
-        for(ClassEnv classEnv:classEnvs) {
+        for (ClassEnv classEnv : classEnvs) {
             classEnv.getFullMethodSignature();
         }
 
-        classEnvs.forEach(x-> x.printInfo(true));
-
+        classEnvs.forEach(x -> x.printInfo(true));
 
 
     }
@@ -146,12 +139,12 @@ public class GlobalEnv implements Env {
 
 
     public boolean findPackageName(List<String> importName, boolean isOnDemand) {
-        List<String> prefix = isOnDemand ? importName : importName.subList(0, importName.size()-1);
+        List<String> prefix = isOnDemand ? importName : importName.subList(0, importName.size() - 1);
         PackageNames packageLayer = getPackageLayer(prefix);
         if (packageLayer == null) {
             return false;
         } else if (!isOnDemand) {
-            return packageLayer.types.contains(importName.get(importName.size()-1));
+            return packageLayer.types.contains(importName.get(importName.size() - 1));
         } else {
             return true;
         }
@@ -168,6 +161,17 @@ public class GlobalEnv implements Env {
         }
         return currentLevel;
     }
+
+    public void printHierarchy() {
+        System.out.println("-----hierarchy--------");
+        for (ArrayList<String> key : hierarchy.keySet()) {
+            System.out.print(key + "-> \t");
+            hierarchy.get(key).forEach(x -> System.out.print(x + " "));
+            System.out.print("\n");
+        }
+        System.out.println("-----------------------");
+    }
+
 
     public class PackageNames {
         String name;
@@ -187,7 +191,7 @@ public class GlobalEnv implements Env {
                 System.err.print("  |");
             System.err.print("--" + name + "\n");
             subPackage.forEach((x, y) -> y.print(level + 1));
-            types.forEach( x -> {
+            types.forEach(x -> {
                 for (int i = 0; i < level + 1; i++)
                     System.err.print("  |");
                 System.err.print("==" + x + "\n");
