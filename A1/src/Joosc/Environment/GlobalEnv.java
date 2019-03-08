@@ -100,6 +100,7 @@ public class GlobalEnv implements Env {
 
         for (ClassEnv classEnv : classEnvs) {
             classEnv.getFullSuperSet();
+            classEnv.getFullMethodSignature();
         }
         //TODO: contain
 
