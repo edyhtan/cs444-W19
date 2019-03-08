@@ -14,7 +14,6 @@ import Joosc.Exceptions.NamingResolveException;
 import Joosc.util.Pair;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class ClassEnv implements Env {
     TypeDeclr typeDeclr;
@@ -35,6 +34,8 @@ public class ClassEnv implements Env {
 
     // Hierarchy
     HashSet<ArrayList<String>> superSet = new HashSet<>();
+    HashSet<ArrayList<String>> fullSuperSet = new HashSet<>();
+    private boolean fullSuperSetCompelete = false;
 
     ArrayList<LocalEnv> localEnvs = new ArrayList<>();
 
@@ -57,8 +58,8 @@ public class ClassEnv implements Env {
         resolvedTypes.put(typeDeclr.getSimpleName(), new ArrayList<>(Arrays.asList(typeDeclr.getSimpleName())));
 
         // Single Type import
-        for (ArrayList<String> sImport:singleTypeImports) {
-            String simpleName = sImport.get(sImport.size()-1);
+        for (ArrayList<String> sImport : singleTypeImports) {
+            String simpleName = sImport.get(sImport.size() - 1);
             // clashes with type def
             if (!sImport.equals(typeDeclr.getCanonicalName()) && simpleName.equals(typeDeclr.getSimpleName())) {
                 throw new NamingResolveException("type name " + typeDeclr.getSimpleName() + " clashes with import");
@@ -78,13 +79,13 @@ public class ClassEnv implements Env {
 
         resolvedTypes.putAll(singleImportedClasses);
 
-        for (ArrayList<String> dImport: importOnDemand) {
+        for (ArrayList<String> dImport : importOnDemand) {
             if (!parent.findPackageName(dImport, true)) {
                 throw new NamingResolveException("Import package name not found :" + String.join(".", dImport) + ".*");
             }
 
             GlobalEnv.PackageNames layer = parent.getPackageLayer(dImport);
-            for (String typeName:layer.types) {
+            for (String typeName : layer.types) {
                 ArrayList<String> qualifiedName = new ArrayList<>(dImport);
                 qualifiedName.add(typeName);
                 ArrayList<ArrayList<String>> importedTypeNames = onDemandImportTypes.getOrDefault(typeName, null);
@@ -101,12 +102,12 @@ public class ClassEnv implements Env {
         ArrayList<String> packageName = program.getPackageDeclr();
         GlobalEnv.PackageNames layer;
         if (packageName.size() == 0) {
-            layer = parent.defaultPacakge;
+            layer = parent.defaultPackage;
         } else {
             layer = parent.getPackageLayer(packageName);
         }
 
-        for (String typeName:layer.types) {
+        for (String typeName : layer.types) {
             ArrayList<String> qualifiedName = new ArrayList<>(packageName);
             qualifiedName.add(typeName);
             samePackage.put(typeName, qualifiedName);
@@ -126,7 +127,6 @@ public class ClassEnv implements Env {
             }
         }
     }
-
 
 
     private void resolveMethodNames() throws NamingResolveException {
@@ -153,7 +153,7 @@ public class ClassEnv implements Env {
             return;
         }
         FieldsVarInfo ctorType = new FieldsVarInfo("", typeDeclr.getCanonicalName(), false, false);
-        for (ConstructorDeclr ctor : ((ClassDeclr)typeDeclr).getConstructor()) {
+        for (ConstructorDeclr ctor : ((ClassDeclr) typeDeclr).getConstructor()) {
             ArrayList<FieldsVarInfo> paramList = new ArrayList<>();
             for (Pair<Type, String> param : ctor.getFormalParamList()) {
                 paramList.add(typeResolve(param.getValue(), param.getKey()));
@@ -170,7 +170,7 @@ public class ClassEnv implements Env {
 
     private void resolveHierarchy() throws NamingResolveException {
         if (typeDeclr instanceof ClassDeclr) {
-            ArrayList<String> extend = ((ClassDeclr)typeDeclr).getParentClass();
+            ArrayList<String> extend = ((ClassDeclr) typeDeclr).getParentClass();
             ClassEnv parentClassEnv;
             if (extend.size() > 0) {
                 superSet.add(typeResolve(extend));
@@ -182,22 +182,71 @@ public class ClassEnv implements Env {
 
                 // Cannot extend interface
                 if (parentClassEnv.typeDeclr instanceof InterfaceDeclr) {
-                    throw new NamingResolveException("Class must not extend an interface. ");
+                    throw new NamingResolveException("Class" + String.join(".",typeResolve(extend))
+                            +" must not extend an interface. ");
                 }
 
                 // Cannot extend final
                 if (parentClassEnv.typeDeclr.getModifiers().contains(Symbol.Final)) {
-                    throw new NamingResolveException("A class must not extend a final class. ");
+                    throw new NamingResolveException("Class "+ String.join(".",typeResolve(extend))
+                            +" must not extend a final class. ");
                 }
-
-
             }
 
             ArrayList<ArrayList<String>> interfaces = ((ClassDeclr) typeDeclr).getInterfaces();
-            for (ArrayList<String> parent:interfaces) {
-                superSet.add(typeResolve(parent));
+            for (ArrayList<String> pInterface : interfaces) {
+                parentClassEnv = parent.getClassEnv(typeResolve(pInterface));
+
+                // Cannot implement class
+                if(parentClassEnv.typeDeclr instanceof ClassDeclr) {
+                    throw new NamingResolveException("Class "+ String.join(".",typeResolve(pInterface))
+                            +" must not implement a class. ");
+                }
+
+                // Duplicate interfaces
+                if(superSet.contains(typeResolve(pInterface))) {
+                    throw new NamingResolveException("Interface " + String.join(".",typeResolve(pInterface))
+                    +" is already in implements clause. ");
+                }
+                superSet.add(typeResolve(pInterface));
             }
         }
+        if (typeDeclr instanceof InterfaceDeclr) {
+            ArrayList<ArrayList<String>> extend = ((InterfaceDeclr) typeDeclr).getExtendsInterfaceTypes();
+            ClassEnv parentInterfaceEnv;
+            if (extend.size() > 0) {
+                for(ArrayList<String> pInterface : extend) {
+                    parentInterfaceEnv = parent.getClassEnv(typeResolve(pInterface));
+
+                    if(parentInterfaceEnv.typeDeclr instanceof ClassDeclr) {
+                        throw new NamingResolveException("Interface "+ String.join(".",typeResolve(pInterface))
+                                +" must not implement a class. ");
+                    }
+
+                    if(superSet.contains(typeResolve(pInterface))) {
+                        throw new NamingResolveException("Interface " + String.join(".",typeResolve(pInterface))
+                                +" is already in implements clause. ");
+                    }
+                    superSet.add(typeResolve(pInterface));
+                }
+            }
+        }
+    }
+
+     HashSet<ArrayList<String>> getFullSuperSet() throws NamingResolveException {
+        fullSuperSet = superSet;
+        if (!fullSuperSetCompelete) {
+            for (ArrayList<String> className : superSet) {
+                ClassEnv classEnv = parent.getClassEnv(className);
+                HashSet<ArrayList<String>> pSuper = classEnv.getSuperSet();
+                if (pSuper.contains(typeDeclr.getCanonicalName())) {
+                    throw new NamingResolveException("Cyclic hierarchy structure detected");
+                }
+                fullSuperSet.addAll(pSuper);
+            }
+            fullSuperSetCompelete = true;
+        }
+        return fullSuperSet;
     }
 
     private void constructLocalEnvironment() {
@@ -291,7 +340,7 @@ public class ClassEnv implements Env {
         resolveConstructorNames();
         resolveHierarchy();
 
-        for (LocalEnv localEnv:localEnvs) {
+        for (LocalEnv localEnv : localEnvs) {
             localEnv.resolveLocalVariableAndAccess();
         }
     }
