@@ -263,6 +263,7 @@ public class ClassEnv implements Env {
 
             if(parentClassEnv.typeDeclr instanceof InterfaceDeclr) {
                 // TODO: check if methods in interface is implement in parent classes
+                
             }
 
             if (!fullMethodSignature.containsKey(parentMethodInfo.signatureStr)) {
