@@ -40,6 +40,8 @@ public class ClassEnv implements Env {
 
     ArrayList<LocalEnv> localEnvs = new ArrayList<>();
 
+    ArrayList<String> javaLangObjectName = new ArrayList<>(Arrays.asList("java", "lang", "Object"));
+
     public ClassEnv(Program program, GlobalEnv parent) {
         typeDeclr = program.getTypeDeclr();
         typeDeclr.addEnv(this);
@@ -131,7 +133,7 @@ public class ClassEnv implements Env {
 
     private void addImplicitDeclrMethods() throws NamingResolveException {
         // interface has no direct parent - implicit declaration
-        ClassEnv javaLangObject = parent.getClassEnv(new ArrayList<>(Arrays.asList("java", "lang", "Object")));
+        ClassEnv javaLangObject = parent.getClassEnv(javaLangObjectName);
         for (MethodDeclr method : javaLangObject.typeDeclr.getMethods()) {
             ArrayList<FieldsVarInfo> paramList = new ArrayList<>();
             for (Pair<Type, String> param : method.getFormalParamList()) {
@@ -278,7 +280,7 @@ public class ClassEnv implements Env {
                         }
 
                     } else {
-                        // inherited abstract method in ClassDeclr
+                        // inherited methods in ClassDeclr
                         if (typeDeclr instanceof ClassDeclr) {
                             if (parentMethodInfo.modifiers.contains(Symbol.Abstract)
                                     && (!typeDeclr.getModifiers().contains(Symbol.Abstract))) {
@@ -329,7 +331,13 @@ public class ClassEnv implements Env {
     private void resolveHierarchy() throws NamingResolveException {
         if (typeDeclr instanceof ClassDeclr) {
             ArrayList<String> extend = ((ClassDeclr) typeDeclr).getParentClass();
+
+            if (extend.isEmpty() && !typeDeclr.getCanonicalName().equals(javaLangObjectName)) {
+                extend = new ArrayList<>(javaLangObjectName);
+            }
+            
             ClassEnv parentClassEnv;
+
             if (extend.size() > 0) {
                 superSet.add(typeResolve(extend));
                 parentClassEnv = parent.getClassEnv(typeResolve(extend));
