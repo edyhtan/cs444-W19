@@ -155,4 +155,8 @@ public class LocalEnv implements Env {
     public ArrayList<String> typeResolve(ArrayList<String> type) throws NamingResolveException {
         return parent.typeResolve(type);
     }
+
+    public AST getAst() {
+        return ast;
+    }
 }
