@@ -179,7 +179,7 @@ public class ClassEnv implements Env {
                         String declaredReturnTypeStr = declaredMethod.returnType.getFullTypeName()
                                 + (declaredMethod.returnType.isTypeArray() ? "[]" : "");
 
-                        if (! parentReturnTypStr.equals(declaredReturnTypeStr)) {
+                        if (!parentReturnTypStr.equals(declaredReturnTypeStr)) {
                             System.out.println("parent class =" + className);
                             System.out.println(parentMethodInfo.getSignatureStr() + parentMethodInfo.returnType);
                             System.out.println(declaredMethod.getSignatureStr() + declaredMethod.returnType);
@@ -187,13 +187,13 @@ public class ClassEnv implements Env {
                                     + " must not contain two methods with the same signature but different return types with name "
                                     + parentMethodInfo.getSignatureStr());
                         }
-                        if (declaredMethod.modifiers.contains(Symbol.Static)
-                                && !parentMethodInfo.modifiers.contains(Symbol.Static)) {
+                        if (parentMethodInfo.modifiers.contains(Symbol.Static)
+                                && !declaredMethod.modifiers.contains(Symbol.Static)) {
                             throw new NamingResolveException("Nonstatic method " + declaredMethod.getSignatureStr()
                                     + " must not replace a static method.");
                         }
-                        if (declaredMethod.modifiers.contains(Symbol.Protected)
-                                && parentMethodInfo.modifiers.contains(Symbol.Public)) {
+                        if (parentMethodInfo.modifiers.contains(Symbol.Protected)
+                                && declaredMethod.modifiers.contains(Symbol.Public)) {
                             throw new NamingResolveException("Protected method " + declaredMethod.getSignatureStr()
                                     + " must not replace a public method");
                         }
@@ -204,14 +204,19 @@ public class ClassEnv implements Env {
 
                     } else {
                         // inherited abstract method
-                        if (parentMethodInfo.modifiers.contains(Symbol.Abstract) && (!typeDeclr.getModifiers().contains(Symbol.Abstract))) {
+                        if (parentMethodInfo.modifiers.contains(Symbol.Abstract)
+                                && (!typeDeclr.getModifiers().contains(Symbol.Abstract))) {
                             throw new NamingResolveException("Class " + typeDeclr.getSimpleName()
-                                    + " that inherits abstract methods must be abstract.");
+                                    + " that inherits abstract methods " + parentMethodInfo.getSignatureStr()
+                                    + " must be abstract.");
                         }
 
-                        if(!methodSignature.containsKey(parentMethodInfo.getSignatureStr()) && !typeDeclr.getModifiers().contains(Symbol.Abstract)) {
+                        // inherited abstract method from interface w. no implementation in current class
+                        if(parentClassEnv.typeDeclr instanceof InterfaceDeclr
+                                && !typeDeclr.getModifiers().contains(Symbol.Abstract)) {
                             throw new NamingResolveException("Class " + typeDeclr.getSimpleName()
-                                    + " that contains inherited methods with no implementation must be abstract.");
+                                    + " that contains inherited methods " + parentMethodInfo.getSignatureStr()
+                                    + " with no implementation must be abstract.");
                         }
                     }
                     methodSignature.put(parentMethodInfo.getSignatureStr(), parentMethodInfo);
