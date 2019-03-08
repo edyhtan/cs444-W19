@@ -35,7 +35,7 @@ public class ClassEnv implements Env {
     // Hierarchy
     HashSet<ArrayList<String>> superSet = new HashSet<>();
     HashSet<ArrayList<String>> fullSuperSet = new HashSet<>();
-    private boolean fullSuperSetCompelete = false;
+    private boolean fullSuperSetComplete = false;
 
     ArrayList<LocalEnv> localEnvs = new ArrayList<>();
 
@@ -236,7 +236,7 @@ public class ClassEnv implements Env {
      HashSet<ArrayList<String>> getFullSuperSet() throws NamingResolveException {
         if(superSet.isEmpty()) return superSet;
         fullSuperSet.addAll(superSet);
-        if (!fullSuperSetCompelete) {
+        if (!fullSuperSetComplete) {
             for (ArrayList<String> className : superSet) {
                 ClassEnv classEnv = parent.getClassEnv(className);
                 HashSet<ArrayList<String>> pSuper = classEnv.getSuperSet();
@@ -246,7 +246,7 @@ public class ClassEnv implements Env {
                     throw new NamingResolveException("Cyclic hierarchy structure detected");
                 }
             }
-            fullSuperSetCompelete = true;
+            fullSuperSetComplete = true;
         }
         return fullSuperSet;
     }
