@@ -95,18 +95,17 @@ public class GlobalEnv implements Env {
         }
         classEnvs.forEach(x -> hierarchy.put(x.typeDeclr.getCanonicalName(), x.superSet));
 
-//        printHierarchy();
-
         for (ClassEnv classEnv : classEnvs) {
             classEnv.getFullSuperSet();
         }
+
         //TODO: contain
         for (ClassEnv classEnv : classEnvs) {
+            classEnv.variableContain();
             classEnv.getFullMethodSignature();
         }
 
         classEnvs.forEach(x -> x.printInfo(true));
-
 
     }
 
