@@ -11,8 +11,6 @@ public class FieldsVarInfo {
         this.typeInfo = typeInfo;
     }
 
-
-
     public String getFieldName() {
         return name;
     }

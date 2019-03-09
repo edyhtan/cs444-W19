@@ -33,9 +33,6 @@ public class JoosAST {
         if (WINDOWS) {
             // things looks messy on windows
             String[] splitFiles = file.split("\\\\");
-            file = splitFiles[splitFiles.length - 1];
-
-            System.err.println(file);
         }
 
         String filename = file.split("[.]")[0];

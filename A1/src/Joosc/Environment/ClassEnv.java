@@ -16,7 +16,7 @@ public class ClassEnv implements Env {
     TypeDeclr typeDeclr;
     GlobalEnv parent;
     Program program;
-    protected HashMap<String, FieldsVarInfo> fields = new HashMap<>();
+    HashMap<String, FieldsVarInfo> fields = new HashMap<>();
     ArrayList<String> packageDeclr;
 
     HashMap<String, ArrayList<String>> resolvedTypes = new HashMap<>();
@@ -39,8 +39,12 @@ public class ClassEnv implements Env {
     private boolean fullSuperSetComplete = false;
 
     ArrayList<LocalEnv> localEnvs = new ArrayList<>();
+    ArrayList<String> extendName = new ArrayList<>();
+    static ArrayList<String> javaLangObjectName = new ArrayList<>(Arrays.asList("java", "lang", "Object"));
 
-    ArrayList<String> javaLangObjectName = new ArrayList<>(Arrays.asList("java", "lang", "Object"));
+    // variable contain
+    private boolean variableContainComplete = false;
+    protected HashMap containedFields = new HashMap();
 
     public ClassEnv(Program program, GlobalEnv parent) {
         typeDeclr = program.getTypeDeclr();
@@ -136,13 +140,18 @@ public class ClassEnv implements Env {
         ClassEnv javaLangObject = parent.getClassEnv(javaLangObjectName);
         for (MethodDeclr method : javaLangObject.typeDeclr.getMethods()) {
             ArrayList<FieldsVarInfo> paramList = new ArrayList<>();
+
+            if (method.getModifiers().contains(Symbol.Final)) {
+                continue;
+            }
+
             for (Pair<Type, String> param : method.getFormalParamList()) {
                 paramList.add(typeResolve(param.getValue(), param.getKey()));
             }
 
             MethodInfo tempMethodInfo =
                     new MethodInfo(new MethodDeclr(method), typeResolve(method.getType()), paramList);
-            tempMethodInfo.modifiers.add(Symbol.Abstract);
+            //tempMethodInfo.modifiers.add(Symbol.Abstract);
             implicitDeclr.put(tempMethodInfo.getSignatureStr(), tempMethodInfo);
         }
     }
@@ -209,6 +218,28 @@ public class ClassEnv implements Env {
         return new MethodInfo(method, typeResolve(method.getType()), paramList);
     }
 
+    public void variableContain() {
+        if (variableContainComplete) {
+            return ;
+        }
+
+        if (typeDeclr instanceof ClassDeclr) {
+
+
+            System.err.println(String.join(".", extendName));
+
+            if (extendName.size() > 0) {
+                ClassEnv parentClassEnv = parent.getClassEnv(extendName);
+                parentClassEnv.variableContain();
+                containedFields.putAll(parentClassEnv.containedFields);
+            }
+        }
+
+        System.err.println(typeDeclr.getSimpleName());
+        containedFields.putAll(fields);
+        variableContainComplete = true;
+    }
+
     private void resolveClassDeclrMethodNames() throws NamingResolveException {
         if (typeDeclr instanceof InterfaceDeclr && superSet.isEmpty()) {
             addImplicitDeclr();
@@ -272,9 +303,7 @@ public class ClassEnv implements Env {
         }
     }
 
-
     HashMap<String, MethodInfo> getFullMethodSignature() throws NamingResolveException {
-        System.out.println("checking " + typeDeclr.getSimpleName());
         if (!implicitDeclr.isEmpty()) { // empty interface with only implicit declared methods
             methodSignature.putAll(implicitDeclr);
             if (methodSignature.size() == implicitDeclr.size()) {
@@ -287,6 +316,7 @@ public class ClassEnv implements Env {
 
         if (!fullMethodSigComplete) {
             // check classes first
+            System.out.println("checking " + typeDeclr.getSimpleName());
             HashSet<ArrayList<String>> checkSet = new HashSet<>(superSet);
 
             if (typeDeclr instanceof ClassDeclr) {
@@ -342,6 +372,7 @@ public class ClassEnv implements Env {
             if (extend.size() > 0) {
                 superSet.add(typeResolve(extend));
                 parentClassEnv = parent.getClassEnv(typeResolve(extend));
+
                 // Null check
                 if (parentClassEnv == null) {
                     throw new NamingResolveException("Unexpected behaviour. ");
@@ -358,6 +389,8 @@ public class ClassEnv implements Env {
                     throw new NamingResolveException("Class " + String.join(".", typeResolve(extend))
                             + " must not extend a final class. ");
                 }
+
+                extendName = typeResolve(extend);
             }
         }
 
@@ -496,7 +529,7 @@ public class ClassEnv implements Env {
 
     @Override
     public boolean isFieldDeclared(String simpleName) {
-        return fields.keySet().contains(simpleName);
+        return containedFields.keySet().contains(simpleName);
     }
 
     @Override
@@ -511,10 +544,6 @@ public class ClassEnv implements Env {
         resolveConstructorNames();
         resolveHierarchy();
         resolveClassDeclrMethodNames();
-
-        for (LocalEnv localEnv : localEnvs) {
-            localEnv.resolveLocalVariableAndAccess();
-        }
     }
 
     public HashSet<ArrayList<String>> getSuperSet() {
