@@ -119,7 +119,7 @@ public class ClassEnv implements Env {
         for (String typeName : layer.types) {
             ArrayList<String> qualifiedName = new ArrayList<>(packageName);
             qualifiedName.add(typeName);
-            samePackage.put(typeName, qualifiedName);
+            resolvedTypes.put(typeName, qualifiedName);
         }
     }
 
@@ -197,7 +197,10 @@ public class ClassEnv implements Env {
     }
 
     private void checkInherit(MethodInfo parentMethodInfo, ClassEnv parentClassEnv) throws NamingResolveException {
+        System.err.println(String.join(".", typeDeclr.getCanonicalName()));
         if (typeDeclr instanceof ClassDeclr) {
+
+            System.err.println(String.join(".", typeDeclr.getCanonicalName()));
             if (parentMethodInfo.modifiers.contains(Symbol.Abstract)
                     && (!typeDeclr.getModifiers().contains(Symbol.Abstract))) {
                 throw new NamingResolveException(printType() + typeDeclr.getSimpleName()
@@ -230,17 +233,12 @@ public class ClassEnv implements Env {
 
         if (typeDeclr instanceof ClassDeclr) {
 
-
-            System.err.println(String.join(".", extendName));
-
             if (extendName.size() > 0) {
                 ClassEnv parentClassEnv = parent.getClassEnv(extendName);
                 parentClassEnv.variableContain();
                 containedFields.putAll(parentClassEnv.containedFields);
             }
         }
-
-        System.err.println(typeDeclr.getSimpleName());
         containedFields.putAll(fields);
         variableContainComplete = true;
     }
@@ -448,7 +446,6 @@ public class ClassEnv implements Env {
                     throw new NamingResolveException("Cyclic hierarchy structure detected");
                 }
             }
-            fullSuperSetComplete = true;
         }
         return fullSuperSet;
     }
@@ -494,16 +491,14 @@ public class ClassEnv implements Env {
             ArrayList<String> resolvedName = resolvedTypes.getOrDefault(typeName, null);
 
             if (resolvedName == null) {
-                resolvedName = samePackage.getOrDefault(typeName, null);
-                if (resolvedName == null) {
-                    ArrayList<ArrayList<String>> onDemandCandidates = onDemandImportTypes.getOrDefault(typeName, new ArrayList<>());
-                    if (onDemandCandidates.size() > 1) {
-                        throw new NamingResolveException("On Demand import clashing");
-                    } else if (onDemandCandidates.size() == 0) {
-                        throw new NamingResolveException("Type Not Found: no import found on " + typeName);
-                    } else {
-                        resolvedName = onDemandCandidates.get(0);
-                    }
+
+                ArrayList<ArrayList<String>> onDemandCandidates = onDemandImportTypes.getOrDefault(typeName, new ArrayList<>());
+                if (onDemandCandidates.size() > 1) {
+                    throw new NamingResolveException("On Demand import clashing");
+                } else if (onDemandCandidates.size() == 0) {
+                    throw new NamingResolveException("Type Not Found: no import found on " + typeName);
+                } else {
+                    resolvedName = onDemandCandidates.get(0);
                 }
                 resolvedTypes.put(typeName, resolvedName);
             }
