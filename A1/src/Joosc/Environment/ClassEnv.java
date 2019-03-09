@@ -249,11 +249,6 @@ public class ClassEnv implements Env {
 
     private void checkAllMethodsInParent(ClassEnv parentClassEnv) throws NamingResolveException {
         for (MethodInfo parentMethodInfo : parentClassEnv.getFullMethodSignature().values()) {
-            MethodDeclr method = (MethodDeclr) parentMethodInfo.getAst();
-            ArrayList<FieldsVarInfo> paramList = new ArrayList<>();
-            for (Pair<Type, String> param : method.getFormalParamList()) {
-                paramList.add(typeResolve(param.getValue(), param.getKey()));
-            }
 
             // override methods from parent
             if (methodSignature.containsKey(parentMethodInfo.getSignatureStr())) {
@@ -279,7 +274,6 @@ public class ClassEnv implements Env {
 
 
     HashMap<String, MethodInfo> getFullMethodSignature() throws NamingResolveException {
-//        System.out.println("checking " + typeDeclr.getSimpleName());
         if (!implicitDeclr.isEmpty()) { // empty interface with only implicit declared methods
             methodSignature.putAll(implicitDeclr);
             if (methodSignature.size() == implicitDeclr.size()) {
