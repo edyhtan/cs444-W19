@@ -199,9 +199,7 @@ public class ClassEnv implements Env {
     }
 
     private void checkInherit(MethodInfo parentMethodInfo, ClassEnv parentClassEnv) throws NamingResolveException {
-
         if (typeDeclr instanceof ClassDeclr) {
-
             if (parentMethodInfo.modifiers.contains(Symbol.Abstract)
                     && (!typeDeclr.getModifiers().contains(Symbol.Abstract))) {
                 throw new NamingResolveException(printType() + typeDeclr.getSimpleName()
@@ -318,12 +316,13 @@ public class ClassEnv implements Env {
             }
         }
 
+        System.err.println(typeDeclr.getSimpleName() + " " + fullMethodSigComplete);
+
         // put all class declared methods
         fullMethodSignature.putAll(methodSignature);
 
         if (!fullMethodSigComplete) {
             // check classes first
-            //System.out.println("checking " + typeDeclr.getSimpleName());
             HashSet<ArrayList<String>> checkSet = new HashSet<>(superSet);
 
             if (typeDeclr instanceof ClassDeclr) {
@@ -332,8 +331,10 @@ public class ClassEnv implements Env {
                     parentClassName = javaLangObjectName;
                     checkSet.add(parentClassName);
                 }
-                ClassEnv parentClassEnv = parent.getClassEnv(typeResolve(parentClassName));
-                checkAllMethodsInParent(parentClassEnv);
+                ClassEnv parentClassEnv = parent.getClassEnv(parentClassName);
+                if (parentClassEnv != null) {
+                    checkAllMethodsInParent(parentClassEnv);
+                }
 
                 checkSet.remove(parentClassName);
             }
@@ -401,6 +402,10 @@ public class ClassEnv implements Env {
                 }
 
                 extendName = typeResolve(extend);
+
+                if (extendName.size() != 0) {
+                    extendName = new ArrayList<>(javaLangObjectName);
+                }
             }
         }
 
@@ -427,7 +432,7 @@ public class ClassEnv implements Env {
 
         if (typeDeclr instanceof ClassDeclr && ((ClassDeclr) typeDeclr).getParentClass().size() == 0) {
             fullSuperSet.add(javaLangObjectName);
-            fullMethodSigComplete = true;
+            fullSuperSetComplete = true;
         }
 
         if (extendName.equals(typeDeclr.getCanonicalName())) {
