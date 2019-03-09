@@ -1,8 +1,5 @@
 package Joosc.ASTBuilding.ASTStructures;
 
-import Joosc.ASTBuilding.Constants.RecursionResolve;
-import Joosc.ASTBuilding.Constants.Symbol;
-import Joosc.Exceptions.ASTException;
 import Joosc.Exceptions.WeedingFailureException;
 import Joosc.Parser.LRGrammar.ParseTree;
 

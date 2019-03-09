@@ -135,6 +135,9 @@ public class ClassEnv implements Env {
         // interface has no direct parent - implicit declaration
         ClassEnv javaLangObject = parent.getClassEnv(javaLangObjectName);
         for (MethodDeclr method : javaLangObject.typeDeclr.getMethods()) {
+            if (method.getModifiers().contains(Symbol.Final)) {
+                continue;
+            }
             ArrayList<FieldsVarInfo> paramList = new ArrayList<>();
             for (Pair<Type, String> param : method.getFormalParamList()) {
                 paramList.add(typeResolve(param.getValue(), param.getKey()));
@@ -142,7 +145,7 @@ public class ClassEnv implements Env {
 
             MethodInfo tempMethodInfo =
                     new MethodInfo(new MethodDeclr(method), typeResolve(method.getType()), paramList);
-            tempMethodInfo.modifiers.add(Symbol.Abstract);
+            //tempMethodInfo.modifiers.add(Symbol.Abstract);
             implicitDeclr.put(tempMethodInfo.getSignatureStr(), tempMethodInfo);
         }
     }
@@ -192,7 +195,7 @@ public class ClassEnv implements Env {
             }
 
             // inherited abstract method from interface w. no implementation in current class
-            if (parentClassEnv.typeDeclr instanceof InterfaceDeclr
+            if (parentMethodInfo.modifiers.contains(Symbol.Abstract)
                     && !typeDeclr.getModifiers().contains(Symbol.Abstract)) {
                 throw new NamingResolveException(printType() + typeDeclr.getSimpleName()
                         + " that contains inherited methods " + parentMethodInfo.getSignatureStr()
@@ -247,7 +250,7 @@ public class ClassEnv implements Env {
     }
 
     private void checkAllMethodsInParent(ClassEnv parentClassEnv) throws NamingResolveException {
-        parentClassEnv.getFullMethodSignature();
+
         for (MethodInfo parentMethodInfo : parentClassEnv.getFullMethodSignature().values()) {
 
             // override methods from parent
@@ -381,7 +384,7 @@ public class ClassEnv implements Env {
     }
 
     HashSet<ArrayList<String>> getFullSuperSet() throws NamingResolveException {
-        if (superSet.isEmpty()) {
+        if (superSet.isEmpty() && typeDeclr instanceof ClassDeclr) {
             fullSuperSet.add(javaLangObjectName);
             fullMethodSigComplete = true;
         }
