@@ -155,9 +155,11 @@ public class ClassEnv implements Env {
                 + (declaredMethod.returnType.isTypeArray() ? "[]" : "");
 
         if (!parentReturnTypStr.equals(declaredReturnTypeStr)) {
-            throw new NamingResolveException("Class/Interface " + typeDeclr.getSimpleName()
+            throw new NamingResolveException(printType() + typeDeclr.getSimpleName()
                     + " must not contain two methods with the same signature but different return types with name "
-                    + parentMethodInfo.getSignatureStr());
+                    + parentMethodInfo.getSignatureStr()
+                    + ", declared return type is " + declaredReturnTypeStr
+            + ", inherited return type is " + parentReturnTypStr);
         }
         if (parentMethodInfo.modifiers.contains(Symbol.Static)
                 && !declaredMethod.modifiers.contains(Symbol.Static)) {
@@ -246,15 +248,12 @@ public class ClassEnv implements Env {
     }
 
     private void checkAllMethodsInParent(ClassEnv parentClassEnv) throws NamingResolveException {
-        parentClassEnv.getFullMethodSignature();
-        for (MethodInfo methodInfo : parentClassEnv.getFullMethodSignature().values()) {
-            MethodDeclr method = (MethodDeclr) methodInfo.getAst();
+        for (MethodInfo parentMethodInfo : parentClassEnv.getFullMethodSignature().values()) {
+            MethodDeclr method = (MethodDeclr) parentMethodInfo.getAst();
             ArrayList<FieldsVarInfo> paramList = new ArrayList<>();
             for (Pair<Type, String> param : method.getFormalParamList()) {
                 paramList.add(typeResolve(param.getValue(), param.getKey()));
             }
-            MethodInfo parentMethodInfo =
-                    new MethodInfo(method, typeResolve(method.getName(), method.getType()), paramList);
 
             // override methods from parent
             if (methodSignature.containsKey(parentMethodInfo.getSignatureStr())) {
@@ -262,7 +261,7 @@ public class ClassEnv implements Env {
                 checkReplace(parentMethodInfo, declaredMethod, parentClassEnv);
             }
 
-
+            // inherited methods
             if (!methodSignature.containsKey(parentMethodInfo.signatureStr)) {
                 // check if methods in parent interface is implement in some other parent classes
                 if (fullMethodSignature.containsKey(parentMethodInfo.getSignatureStr())
@@ -280,7 +279,7 @@ public class ClassEnv implements Env {
 
 
     HashMap<String, MethodInfo> getFullMethodSignature() throws NamingResolveException {
-        System.out.println("checking " + typeDeclr.getSimpleName());
+//        System.out.println("checking " + typeDeclr.getSimpleName());
         if (!implicitDeclr.isEmpty()) { // empty interface with only implicit declared methods
             methodSignature.putAll(implicitDeclr);
             if (methodSignature.size() == implicitDeclr.size()) {
@@ -291,22 +290,26 @@ public class ClassEnv implements Env {
         // put all class declared methods
         fullMethodSignature.putAll(methodSignature);
 
-        if (!fullMethodSigComplete) {
-            // check classes first
-            HashSet<ArrayList<String>> checkSet = new HashSet<>(superSet);
+        System.out.println("---------"+printType() +typeDeclr.getSimpleName()+" full methods = " + fullMethodSignature.keySet());
 
+        if (!fullMethodSigComplete) {
+            HashSet<ArrayList<String>> checkSet = new HashSet<>(superSet);
+            // check classes first
             if (typeDeclr instanceof ClassDeclr) {
                 ArrayList<String> parentClassName = ((ClassDeclr) typeDeclr).getParentClass();
                 if (parentClassName.isEmpty() && !typeDeclr.getCanonicalName().equals(javaLangObjectName)) {
-                    parentClassName = javaLangObjectName;
+                    parentClassName = new ArrayList<>(javaLangObjectName);
                     checkSet.add(parentClassName);
                 }
                 ClassEnv parentClassEnv = parent.getClassEnv(typeResolve(parentClassName));
+
                 checkAllMethodsInParent(parentClassEnv);
 
                 checkSet.remove(parentClassName);
             }
+            System.out.println("parent class checked!");
 
+            System.out.println("---------"+printType() +typeDeclr.getSimpleName()+" full methods = " + fullMethodSignature.keySet());
             // check interfaces
             for (ArrayList<String> parentInterfaceName : checkSet) {
                 ClassEnv parentInterfaceEnv = parent.getClassEnv(typeResolve(parentInterfaceName));
