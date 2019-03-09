@@ -199,10 +199,9 @@ public class ClassEnv implements Env {
     }
 
     private void checkInherit(MethodInfo parentMethodInfo, ClassEnv parentClassEnv) throws NamingResolveException {
-        System.err.println(String.join(".", typeDeclr.getCanonicalName()));
+
         if (typeDeclr instanceof ClassDeclr) {
 
-            System.err.println(String.join(".", typeDeclr.getCanonicalName()));
             if (parentMethodInfo.modifiers.contains(Symbol.Abstract)
                     && (!typeDeclr.getModifiers().contains(Symbol.Abstract))) {
                 throw new NamingResolveException(printType() + typeDeclr.getSimpleName()
@@ -255,9 +254,12 @@ public class ClassEnv implements Env {
             MethodInfo tempMethodInfo = buildMethodInfo(method);
 
             if (typeDeclr instanceof InterfaceDeclr) {
-                tempMethodInfo.modifiers.add(Symbol.Abstract);
+                if (!implicitDeclr.containsKey(method.getName()))
+                    tempMethodInfo.modifiers.add(Symbol.Abstract);
+
                 // Interface methods are implicitly public
-                if (!tempMethodInfo.modifiers.contains(Symbol.Public)) tempMethodInfo.modifiers.add(Symbol.Public);
+                if (!tempMethodInfo.modifiers.contains(Symbol.Public))
+                    tempMethodInfo.modifiers.add(Symbol.Public);
             }
 
             if (methodSignature.containsKey(tempMethodInfo.getSignatureStr())
@@ -271,6 +273,7 @@ public class ClassEnv implements Env {
                 throw new NamingResolveException("Class " + typeDeclr.getSimpleName()
                         + " that declares abstract methods " + tempMethodInfo.getSignatureStr() + " must be abstract.");
             }
+
 
             if (implicitDeclr.containsKey(tempMethodInfo.getSignatureStr())) {
                 MethodInfo implicitDeclrMethod = implicitDeclr.get(tempMethodInfo.getSignatureStr());
@@ -292,11 +295,10 @@ public class ClassEnv implements Env {
                 checkReplace(parentMethodInfo, declaredMethod, parentClassEnv);
             }
 
-
             if (!methodSignature.containsKey(parentMethodInfo.signatureStr)) {
                 // check if methods in parent interface is implement in some other parent classes
-                if (fullMethodSignature.containsKey(parentMethodInfo.getSignatureStr())
-                       /*  && parentClassEnv.typeDeclr instanceof InterfaceDeclr */) {
+                if (fullMethodSignature.containsKey(parentMethodInfo.getSignatureStr()) && !parentMethodInfo.modifiers.contains(Symbol.Abstract))
+                       /*  && parentClassEnv.typeDeclr instanceof InterfaceDeclr */ {
                     MethodInfo temp = fullMethodSignature.get(parentMethodInfo.getSignatureStr());
                     checkReplace(parentMethodInfo, temp, parentClassEnv);
                 } else {
@@ -321,7 +323,7 @@ public class ClassEnv implements Env {
 
         if (!fullMethodSigComplete) {
             // check classes first
-            System.out.println("checking " + typeDeclr.getSimpleName());
+            //System.out.println("checking " + typeDeclr.getSimpleName());
             HashSet<ArrayList<String>> checkSet = new HashSet<>(superSet);
 
             if (typeDeclr instanceof ClassDeclr) {
@@ -344,6 +346,9 @@ public class ClassEnv implements Env {
             }
             fullMethodSigComplete = true;
         }
+
+        System.err.println(typeDeclr.getSimpleName() + "1234");
+        methodSignature.keySet().forEach(x->System.err.println("\t"+x));
         return fullMethodSignature;
     }
 
