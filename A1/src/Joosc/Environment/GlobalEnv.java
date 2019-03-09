@@ -5,6 +5,7 @@ import Joosc.ASTModel.ClassMember.ClassBodyDeclr;
 import Joosc.ASTModel.Program;
 import Joosc.ASTModel.Type;
 import Joosc.Exceptions.NamingResolveException;
+import Joosc.util.TreeSet;
 
 import java.util.*;
 
@@ -96,7 +97,7 @@ public class GlobalEnv implements Env {
         classEnvs.forEach(x -> hierarchy.put(x.typeDeclr.getCanonicalName(), x.superSet));
 
         for (ClassEnv classEnv : classEnvs) {
-            classEnv.getFullSuperSet();
+            classEnv.getFullSuperSet(new TreeSet<>());
         }
 
         //TODO: contain
@@ -105,8 +106,10 @@ public class GlobalEnv implements Env {
             classEnv.getFullMethodSignature();
         }
 
-        classEnvs.forEach(x -> x.printInfo(true));
-
+        for (ClassEnv classEnv: classEnvs) {
+            classEnv.resolveFieldsAndLocalVar();
+        }
+        //classEnvs.forEach(x -> x.printInfo(true));
     }
 
     public void buildAndResolvePackage() throws NamingResolveException {

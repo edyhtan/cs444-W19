@@ -26,14 +26,14 @@ public class MultiFileTest {
             if (testcases.contains(".java")) {
                 ArrayList<String> allArgs = new ArrayList<>(baseArgs);
                 allArgs.add(path);
-                //  allArgs.add("-r");
+                allArgs.add("-full");
                 System.out.println(testcases + ": " + Joosc.run(allArgs.toArray(new String[allArgs.size()])));
             } else {
                 try (Stream<Path> paths = Files.walk(Paths.get(path))) {
                     ArrayList<String> allArgs = new ArrayList<>(baseArgs);
                     allArgs.addAll(Arrays.asList(paths.filter(Files::isRegularFile).map(Path::toString).toArray(String[]::new)));
                     //(new ArrayList<String>(allArgs)).forEach(x->System.err.println(x));
-                    //allArgs.add("-r");
+                    allArgs.add("-full");
                     System.out.println(testcases + ": " + Joosc.run(allArgs.toArray(new String[allArgs.size()])));
                 } catch (Exception e) {
                     e.printStackTrace();

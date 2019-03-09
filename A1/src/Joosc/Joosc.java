@@ -30,6 +30,10 @@ public class Joosc {
         if (!RUN_SUITE_FLAG) {
             System.exit(code);
         }
+
+        if (code != 0 && code != 42) {
+            System.exit(code);
+        }
         return code;
     }
 
@@ -55,7 +59,9 @@ public class Joosc {
     public static int run(String args[]) {
         ArrayList<String> argList = new ArrayList<>(Arrays.asList(args));
         IDE_FLAG = !argList.contains("-t");
+        RUN_SUITE_FLAG = argList.contains("-full");
         argList.remove("-t");
+        argList.remove("-full");
 
         try {
             ArrayList<JoosAST> astList = new ArrayList<>();

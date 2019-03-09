@@ -9,7 +9,9 @@ import Joosc.ASTModel.Program;
 import Joosc.ASTModel.Type;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.util.Pair;
+import Joosc.util.TreeSet;
 
+import java.rmi.Naming;
 import java.util.*;
 
 public class ClassEnv implements Env {
@@ -416,17 +418,30 @@ public class ClassEnv implements Env {
         }
     }
 
-    HashSet<ArrayList<String>> getFullSuperSet() throws NamingResolveException {
-        if (superSet.isEmpty() && typeDeclr instanceof ClassDeclr) {
+    HashSet<ArrayList<String>> getFullSuperSet(TreeSet<ArrayList<String>> set) throws NamingResolveException {
+
+        if (typeDeclr instanceof ClassDeclr && ((ClassDeclr) typeDeclr).getParentClass().size() == 0) {
             fullSuperSet.add(javaLangObjectName);
             fullMethodSigComplete = true;
+        }
+
+        if (extendName.equals(typeDeclr.getCanonicalName())) {
+            throw new NamingResolveException("You're not your parent");
+        }
+
+        if (set.contain(typeDeclr.getCanonicalName())) {
+            throw new NamingResolveException("Cyclic hierarchy structure detected");
         }
 
         if (!fullSuperSetComplete) {
             fullSuperSet.addAll(superSet);
             for (ArrayList<String> className : superSet) {
                 ClassEnv classEnv = parent.getClassEnv(className);
-                HashSet<ArrayList<String>> pSuper = classEnv.getFullSuperSet();
+
+                TreeSet<ArrayList<String>> nextSet = set.newChild();
+                nextSet.addItem(typeDeclr.getCanonicalName());
+
+                HashSet<ArrayList<String>> pSuper = classEnv.getFullSuperSet(nextSet);
 
                 fullSuperSet.addAll(pSuper);
                 if (fullSuperSet.contains(typeDeclr.getCanonicalName())) {
@@ -447,6 +462,12 @@ public class ClassEnv implements Env {
                     continue;
                 localEnvs.add(new LocalEnv(classBodyDeclr, this));
             }
+        }
+    }
+
+    public void resolveFieldsAndLocalVar() throws NamingResolveException {
+        for (LocalEnv localEnv:localEnvs) {
+            localEnv.resolveLocalVariableAndAccess();
         }
     }
 
