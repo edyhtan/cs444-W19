@@ -172,9 +172,11 @@ public class ClassEnv implements Env {
                     + parentMethodInfo.getSignatureStr());
         }
         if (parentMethodInfo.modifiers.contains(Symbol.Static)
-                && !declaredMethod.modifiers.contains(Symbol.Static)) {
-            throw new NamingResolveException("Nonstatic method " + declaredMethod.getSignatureStr()
-                    + " in class " + typeDeclr.getSimpleName() + " must not replace a static method "
+                != declaredMethod.modifiers.contains(Symbol.Static)) {
+            throw new NamingResolveException((declaredMethod.modifiers.contains(Symbol.Static) ? "" : "non")
+                    + "static method " + declaredMethod.getSignatureStr()
+                    + " in class " + typeDeclr.getSimpleName() + " must not replace a "
+                    + (parentMethodInfo.modifiers.contains(Symbol.Static) ? "" : "non") + "static method "
                     + declaredMethod.getSignatureStr()
                     + " in parent " + parentClassEnv.printType()
                     + parentClassEnv.typeDeclr.getSimpleName());
