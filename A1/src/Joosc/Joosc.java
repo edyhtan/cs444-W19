@@ -20,6 +20,7 @@ public class Joosc {
     public static boolean IDE_FLAG = true;
     public static boolean RUN_SUITE_FLAG = false;
     public static final boolean PRINT_AST = false;
+    public static boolean SHOW_EXCEPTION = true;
 
     private static String getFileName(String path) {
         String[] temp = path.split("/");
@@ -76,31 +77,33 @@ public class Joosc {
             GlobalEnv globalEnvironment = new GlobalEnv(asts);
             globalEnvironment.resolveName();
         } catch (NamingResolveException e) {
-            System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
+            if(SHOW_EXCEPTION) System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
             return exitOnCode(42);
         } catch (FileNotFoundException e) {
-            System.err.printf("ERROR: file not found: %s\n", e.getLocalizedMessage());
+            if(SHOW_EXCEPTION) System.err.printf("ERROR: file not found: %s\n", e.getLocalizedMessage());
             return exitOnCode(2);
         } catch (InvalidCharacterException e) {
-            System.err.printf("ERROR: invalid characters %s\n", e.getInvalidChar());
+            if(SHOW_EXCEPTION) System.err.printf("ERROR: invalid characters %s\n", e.getInvalidChar());
             return exitOnCode(42);
         } catch (InvalidTokenException e) {
-            System.err.printf("ERROR: invalid lexeme: {%s} (%c, %d)\n", e.getInvalidLexeme(), e.getCurChar(), (int) e.getCurChar());
+            if(SHOW_EXCEPTION) System.err.printf("ERROR: invalid lexeme: {%s} (%c, %d)\n", e.getInvalidLexeme(), e.getCurChar(), (int) e.getCurChar());
             e.printExistingTokens();
             return exitOnCode(42);
         } catch (InvalidSyntaxException e) {
-            System.err.printf("ERROR: invalid syntax at %d, on state %d, with input %s\n", e.getLocation(), e.getState(), e.getInput());
-            e.printParseTree();
+            if(SHOW_EXCEPTION)  {
+                System.err.printf("ERROR: invalid syntax at %d, on state %d, with input %s\n", e.getLocation(), e.getState(), e.getInput());
+//                e.printParseTree();
+            }
             return exitOnCode(42);
         } catch (InvalidParseTreeStructureException e) {
             e.printStackTrace();
-            System.err.printf("ERROR: %s", e.getLocalizedMessage());
+            if(SHOW_EXCEPTION) System.err.printf("ERROR: %s", e.getLocalizedMessage());
             return exitOnCode(42);
         } catch (InvalidParseTreeException e) {
-            System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
+            if(SHOW_EXCEPTION) System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
             return exitOnCode(42);
         } catch (WrongFileNameException e) {
-            System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
+            if(SHOW_EXCEPTION) System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
             return exitOnCode(42);
         } catch (JoosException e) {
             e.printStackTrace();
@@ -108,8 +111,8 @@ public class Joosc {
             System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
             return exitOnCode(42);
         } catch (WeedingFailureException e) {
-            e.printStackTrace();
-            System.err.println(e.getLocalizedMessage());
+//            e.printStackTrace();
+            if(SHOW_EXCEPTION) System.err.println(e.getLocalizedMessage());
             return exitOnCode(42);
         } catch (Exception e) {
             e.printStackTrace();
