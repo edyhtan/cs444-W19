@@ -7,7 +7,10 @@ import Joosc.ASTModel.Type;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.util.TreeSet;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 
 public class GlobalEnv implements Env {
     ArrayList<Program> programs;
@@ -106,10 +109,11 @@ public class GlobalEnv implements Env {
             classEnv.getFullMethodSignature();
         }
 
-        for (ClassEnv classEnv: classEnvs) {
+        for (ClassEnv classEnv : classEnvs) {
             classEnv.resolveFieldsAndLocalVar();
         }
-        //classEnvs.forEach(x -> x.printInfo(true));
+
+//        classEnvs.forEach(x -> x.localEnvs.forEach(y -> y.printInfo(false)));
     }
 
     public void buildAndResolvePackage() throws NamingResolveException {
