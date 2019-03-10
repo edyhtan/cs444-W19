@@ -18,6 +18,7 @@ public class JoosType {
     private static HashMap<JoosType, ClassEnv> referenceTypes = new HashMap<>();
 
     public static JoosType VOID;
+    public static JoosType NULL;
 
     static {
         allTypes.put("boolean", new JoosType("boolean", false));
@@ -27,6 +28,7 @@ public class JoosType {
         allTypes.put("byte", new JoosType("byte", true));
         allTypes.put("short", new JoosType("short", true));
         VOID = new JoosType("void",false);
+        NULL = new JoosType("null", false);
     }
 
     // reference types
@@ -64,6 +66,14 @@ public class JoosType {
         return classEnv;
     }
 
+    public boolean hasParent(JoosType parent) {
+        return allParents.containsKey(parent);
+    }
+
+    public HashMap<JoosType, ClassEnv> getAllParents() {
+        return allParents;
+    }
+
     public static boolean isNumber(JoosType type) {
         return numberTypes.contains(type);
     }
@@ -90,6 +100,26 @@ public class JoosType {
         }
         return allTypes.getOrDefault(strName, null);
     }
+
+    public static JoosType getJoosType(String primitiveTypeName) {
+        if (primitiveTypeName.equals("void")) {
+            return VOID;
+        }
+        return allTypes.getOrDefault(primitiveTypeName, null);
+    }
+
+
+    // check primitive types
+    public boolean equals(String primitiveTypeName) {
+        return this.isPrimitive && this.typeName.get(0).equals(primitiveTypeName);
+    }
+
+
+    public boolean equals(JoosType type) {
+        return this.typeName.equals(type.typeName)
+                && this.classEnv.getTypeDeclr().getCanonicalName().equals(type.classEnv.getTypeDeclr().getCanonicalName());
+    }
+
 
     // unit tests
     public static void printTypes() {
