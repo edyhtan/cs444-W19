@@ -60,5 +60,9 @@ public class InterfaceDeclr implements TypeDeclr {
         return name;
     }
 
+    @Override
+    public ClassEnv getClassEnv() {
+        return env;
+    }
 
 }

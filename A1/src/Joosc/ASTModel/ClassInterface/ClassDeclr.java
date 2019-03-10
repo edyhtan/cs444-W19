@@ -89,4 +89,9 @@ public class ClassDeclr implements TypeDeclr {
     public String getSimpleName() {
         return name;
     }
+
+    @Override
+    public ClassEnv getClassEnv() {
+        return env;
+    }
 }
