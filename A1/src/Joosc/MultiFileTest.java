@@ -17,7 +17,9 @@ public class MultiFileTest {
         String assignment = args[0];
         String testcases = args[1];
         String path = String.format("./test/assignment_testcases/%s/%s", assignment, testcases);
-
+        ArrayList<String> argList = new ArrayList<>(Arrays.asList(args));
+        RUN_SUITE_FLAG = argList.contains("-full");
+        if(!RUN_SUITE_FLAG) System.out.println("Running test case: " + testcases);
         try {
             List<String> baseArgs = Files.walk(Paths.get("./stdlib2.0/java")).
                     filter(Files::isRegularFile).map(Path::toString).collect(Collectors.toList());
@@ -25,7 +27,7 @@ public class MultiFileTest {
             if (testcases.contains(".java")) {
                 ArrayList<String> allArgs = new ArrayList<>(baseArgs);
                 allArgs.add(path);
-                allArgs.add("-full");
+//                allArgs.add("-full");
                 int exitCode = Joosc.run(allArgs.toArray(new String[allArgs.size()]));
                 if(RUN_SUITE_FLAG) {
                     if (testcases.startsWith("Je_") && Joosc.run(allArgs.toArray(new String[allArgs.size()])) != 42) {
@@ -38,14 +40,16 @@ public class MultiFileTest {
                         SHOW_EXCEPTION = false;
                         System.out.println(testcases + ": " + exitCode);
                     }
+                } else {
+                    SHOW_EXCEPTION = true;
+                    System.out.println(testcases + ": " + Joosc.run(allArgs.toArray(new String[allArgs.size()])));
                 }
-                System.out.println(testcases + ": " + Joosc.run(allArgs.toArray(new String[allArgs.size()])));
             } else {
                 try (Stream<Path> paths = Files.walk(Paths.get(path))) {
                     ArrayList<String> allArgs = new ArrayList<>(baseArgs);
                     allArgs.addAll(Arrays.asList(paths.filter(Files::isRegularFile).map(Path::toString).toArray(String[]::new)));
                     //(new ArrayList<String>(allArgs)).forEach(x->System.err.println(x));
-                    allArgs.add("-full");
+//                    allArgs.add("-full");
                     if(RUN_SUITE_FLAG) {
                         int exitCode = Joosc.run(allArgs.toArray(new String[allArgs.size()]));
                         if (testcases.startsWith("Je_") && Joosc.run(allArgs.toArray(new String[allArgs.size()])) != 42) {
@@ -58,8 +62,10 @@ public class MultiFileTest {
                             SHOW_EXCEPTION = false;
                             System.out.println(testcases + ": " + exitCode);
                         }
+                    } else {
+                        SHOW_EXCEPTION = true;
+                        System.out.println(testcases + ": " + Joosc.run(allArgs.toArray(new String[allArgs.size()])));
                     }
-                    System.out.println(testcases + ": " + Joosc.run(allArgs.toArray(new String[allArgs.size()])));
                 } catch (Exception e) {
                     e.printStackTrace();
                     System.out.println("Nothing");

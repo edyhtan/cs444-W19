@@ -60,7 +60,7 @@ public class Joosc {
     public static int run(String args[]) {
         ArrayList<String> argList = new ArrayList<>(Arrays.asList(args));
         IDE_FLAG = !argList.contains("-t");
-        RUN_SUITE_FLAG = argList.contains("-full");
+//        RUN_SUITE_FLAG = argList.contains("-full");
         argList.remove("-t");
         argList.remove("-full");
 
@@ -92,7 +92,7 @@ public class Joosc {
         } catch (InvalidSyntaxException e) {
             if(SHOW_EXCEPTION)  {
                 System.err.printf("ERROR: invalid syntax at %d, on state %d, with input %s\n", e.getLocation(), e.getState(), e.getInput());
-//                e.printParseTree();
+                e.printParseTree();
             }
             return exitOnCode(42);
         } catch (InvalidParseTreeStructureException e) {
