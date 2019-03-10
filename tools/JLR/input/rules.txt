@@ -1,0 +1,282 @@
+## Top Level
+S'                      : BOF S EOF
+
+## 19.6     Packages
+
+S                       : PackageDeclr ImportDeclrs TypeDeclr
+S                       : PackageDeclr ImportDeclrs
+S                       : PackageDeclr
+S                       : PackageDeclr TypeDeclr
+S                       : ImportDeclrs TypeDeclr
+S                       : ImportDeclrs
+S                       : TypeDeclr
+S                       :
+ImportDeclrs            : ImportDeclrs ImportDeclr
+ImportDeclrs            : ImportDeclr
+PackageDeclr            : package Name ;
+ImportDeclr             : SingleTypeImportDeclr
+ImportDeclr             : TypeImportOnDemand
+SingleTypeImportDeclr   : import Name ;
+TypeImportOnDemand      : import Name . * ;
+TypeDeclr               : ClassDeclr
+TypeDeclr               : InterfaceDeclr
+
+
+## 19.6 Name
+
+Name                    : SimpleName
+Name                    : QualifiedName
+SimpleName              : id
+QualifiedName           : Name . id
+
+
+## 19.8.1   Class Declarations
+
+### req 9 : class must be declared in a .java file with the same base name as the class
+
+ClassDeclr              : Modifiers class id Super Interfaces ClassBody
+ClassDeclr              : Modifiers class id Interfaces ClassBody
+ClassDeclr              : Modifiers class id Super ClassBody
+ClassDeclr              : Modifiers class id ClassBody
+Super                   : extends ClassType
+Interfaces              : implements InterfaceTypeList
+InterfaceTypeList       : InterfaceType
+InterfaceTypeList       : InterfaceType , InterfaceTypeList
+ClassBody               : { ClassBodyDeclrs }
+ClassBodyDeclrs         : ClassBodyDeclrs ClassBodyDeclr
+ClassBodyDeclrs         : ClassBodyDeclr
+ClassBodyDeclr          : ClassMemberDeclr
+ClassBodyDeclr          : ConstructorDeclr
+ClassMemberDeclr        : MethodDeclr
+ClassMemberDeclr        : FieldDeclr
+
+## 19.8.2   Field Declarations
+
+### req 14 : No field can be final.
+
+FieldDeclr              : Modifiers Type VariableDeclr ;
+VariableDeclr           : id
+VariableDeclr           : id = VariableInit
+VariableInit            : Expression
+
+## 19.8.3   Method
+
+### Req 3: a method has body if it neither abstract nor native.
+
+MethodDeclr             : MethodHeader MethodBody
+MethodHeader            : Modifiers Type MethodDeclrtor
+MethodHeader            : Modifiers void MethodDeclrtor
+MethodDeclrtor          : id ( FormalParamList )
+MethodDeclrtor          : id ( )
+FormalParamList         : FormalParamList , FormalParam
+FormalParamList         : FormalParam
+FormalParam             : Type id
+ClassTypeList           : ClassType
+ClassTypeList           : ClassTypeList , ClassType
+MethodBody              : Block
+MethodBody              : ;
+
+
+## 19.8.5 Constructor Declaration
+
+### req 13 : Every class must contain at least one explicit constructor.
+
+ConstructorDeclr        : Modifiers SimpleName ( FormalParamList ) ConstructorBody
+ConstructorDeclr        : Modifiers SimpleName ( ) ConstructorBody
+ConstructorBody         : { BlockStatements }
+ConstructorBody         : { }
+
+
+## 19.3     Literals
+
+Literal                : intLiteral
+Literal                : BooleanLiteral
+Literal                : charLiteral
+Literal                : string
+Literal                : null
+BooleanLiteral         : true
+BooleanLiteral         : false
+
+
+## 19.4     Type, Values, Variables
+
+Type                   : PrimitiveType
+Type                   : ReferenceType
+PrimitiveType          : NumericType
+PrimitiveType          : boolean
+NumericType            : byte
+NumericType            : short
+NumericType            : int
+NumericType            : char
+ReferenceType          : ClassOrInterfaceType
+ReferenceType          : ArrayType
+ClassOrInterfaceType   : Name
+ClassType              : ClassOrInterfaceType
+InterfaceType          : ClassOrInterfaceType
+ArrayType              : PrimitiveType [ ]
+ArrayType              : Name [ ]
+
+
+## 19.7     Modifiers
+
+### every field / method should have exactly one access modifiers (public/private)
+### abstract class must have at least 1 abstract method
+### Req 2: class cannot be both abstract and final
+### Req 3: a method has body if it neither abstract nor native.
+### Req 4: an abstract method cannot be final static or final
+### Req 5: static method cannot be final
+### Req 6: native method must be static
+
+Modifiers              : Modifier
+Modifiers              : Modifiers Modifier
+Modifier               : public
+Modifier               : protected
+Modifier               : static
+Modifier               : final
+Modifier               : native
+Modifier               : abstract
+
+
+## 19.9     InterfaceDeclr
+
+### req 9 : interface must be declared in a .java file with the same base name as the interface
+### req 11: An interface method cannot be static, final, or native.
+
+
+InterfaceDeclr         : Modifiers interface id ExtendsInterfaceType InterfaceBody
+InterfaceDeclr         : Modifiers interface id InterfaceBody
+ExtendsInterfaceType   : extends InterfaceType
+ExtendsInterfaceType   : ExtendsInterfaceType , InterfaceType
+InterfaceBody          : { InterfaceMemberDeclr }
+InterfaceBody          : { }
+InterfaceMemberDeclr   : AbstractMethodDeclr
+InterfaceMemberDeclr   : AbstractMethodDeclr InterfaceMemberDeclr
+AbstractMethodDeclr    : MethodHeader ;
+
+
+## 19.11    Blocks and Statements
+
+### Check if break/continue belongs to while/for loop
+
+Block                  : { }
+Block                  : { BlockStatements }
+BlockStatements        : BlockStatements BlockStatement
+BlockStatements        : BlockStatement
+BlockStatement         : LocalVarDeclrStatement
+BlockStatement         : Statement
+LocalVarDeclrStatement : LocalVarDeclr ;
+LocalVarDeclr          : Type VariableDeclr
+Statement              : StatementNoTrailingSub
+Statement              : IfThenStatement
+Statement              : IfThenElseStatement
+Statement              : WhileStatement
+Statement              : ForStatement
+StatementNoShortIf     : StatementNoTrailingSub
+StatementNoShortIf     : IfThenElseNoShortIf
+StatementNoShortIf     : WhileNoShortIf
+StatementNoShortIf     : ForNoShortIf
+StatementNoTrailingSub : Block
+StatementNoTrailingSub : EmptyStatement
+StatementNoTrailingSub : ExpressionStatement
+StatementNoTrailingSub : ReturnStatement
+EmptyStatement         : ;
+ExpressionStatement    : StatementExpression ;
+StatementExpression    : Assignment
+StatementExpression    : MethodInvocation
+StatementExpression    : ClassInstanceCreation
+IfThenStatement        : if ( Expression ) Statement
+IfThenElseStatement    : if ( Expression ) StatementNoShortIf else Statement
+IfThenElseNoShortIf    : if ( Expression ) StatementNoShortIf else StatementNoShortIf
+WhileStatement         : while ( Expression ) Statement
+WhileNoShortIf         : while ( Expression ) StatementNoShortIf
+ForStatement           : for ( ForInit ; Expression ; ForUpdate ) Statement
+ForNoShortIf           : for ( ForInit ; Expression ; ForUpdate ) StatementNoShortIf
+ForStatement           : for ( ; Expression ; ForUpdate ) Statement
+ForNoShortIf           : for ( ; Expression ; ForUpdate ) StatementNoShortIf
+ForStatement           : for ( ; ; ForUpdate ) Statement
+ForNoShortIf           : for ( ; ; ForUpdate ) StatementNoShortIf
+ForStatement           : for ( ; ; ) Statement
+ForNoShortIf           : for ( ; ; ) StatementNoShortIf
+ForStatement           : for ( ForInit ; ; ForUpdate ) Statement
+ForNoShortIf           : for ( ForInit ; ; ForUpdate ) StatementNoShortIf
+ForStatement           : for ( ForInit ; Expression ; ) Statement
+ForNoShortIf           : for ( ForInit ; Expression ; ) StatementNoShortIf
+ForStatement           : for ( ; Expression ; ) Statement
+ForNoShortIf           : for ( ; Expression ; ) StatementNoShortIf
+ForInit                : LocalVarDeclr
+ForInit                : StatementExpression
+ForUpdate              : StatementExpression
+ReturnStatement        : return ;
+ReturnStatement        : return Expression ;
+
+
+## 19.12    Expression
+
+### req 16: No explicit call of this()
+
+Primary                : PrimaryNoNewArray
+Primary                : ArrayCreation
+PrimaryNoNewArray      : Literal
+PrimaryNoNewArray      : this
+PrimaryNoNewArray      : ( Expression )
+PrimaryNoNewArray      : ClassInstanceCreation
+PrimaryNoNewArray      : FieldAccess
+PrimaryNoNewArray      : MethodInvocation
+PrimaryNoNewArray      : ArrayAccess
+ClassInstanceCreation  : new ClassType ( ArgList )
+ClassInstanceCreation  : new ClassType ( )
+ArgList                : Expression
+ArgList                : ArgList , Expression
+ArrayCreation          : new PrimitiveType [ Expression ]
+ArrayCreation          : new ClassOrInterfaceType [ Expression ]
+FieldAccess            : Primary . id
+MethodInvocation       : Name ( ArgList )
+MethodInvocation       : Name ( )
+MethodInvocation       : Primary . id ( ArgList )
+MethodInvocation       : Primary . id ( )
+ArrayAccess            : Name [ Expression ]
+ArrayAccess            : PrimaryNoNewArray [ Expression ]
+PostFixExpression      : Primary
+PostFixExpression      : Name
+UnaryExpression        : - UnaryExpression
+UnaryExpression        : UnaryExpressionNotMinus
+UnaryExpressionNotMinus: ! UnaryExpression
+UnaryExpressionNotMinus: CastExpression
+UnaryExpressionNotMinus: PostFixExpression
+CastExpression         : ( PrimitiveType [ ] ) UnaryExpression
+CastExpression         : ( PrimitiveType ) UnaryExpression
+CastExpression         : ( Expression ) UnaryExpressionNotMinus
+CastExpression         : ( Name [ ] ) UnaryExpressionNotMinus
+MultExpression         : UnaryExpression
+MultExpression         : MultExpression * UnaryExpression
+MultExpression         : MultExpression / UnaryExpression
+MultExpression         : MultExpression % UnaryExpression
+AddExpression          : MultExpression
+AddExpression          : AddExpression + MultExpression
+AddExpression          : AddExpression - MultExpression
+RelationalExpression   : AddExpression
+RelationalExpression   : RelationalExpression < AddExpression
+RelationalExpression   : RelationalExpression > AddExpression
+RelationalExpression   : RelationalExpression >= AddExpression
+RelationalExpression   : RelationalExpression <= AddExpression
+RelationalExpression   : RelationalExpression instanceof AddExpression
+EqualityExpression     : RelationalExpression
+EqualityExpression     : EqualityExpression == RelationalExpression
+EqualityExpression     : EqualityExpression != RelationalExpression
+AndExpression          : EqualityExpression
+AndExpression          : AndExpression & EqualityExpression
+ExorExpression         : AndExpression
+ExorExpression         : ExorExpression ^ AndExpression
+OrExpression           : ExorExpression
+OrExpression           : OrExpression | ExorExpression
+CondAndExpression      : OrExpression
+CondAndExpression      : CondAndExpression && OrExpression
+CondOrExpression       : CondAndExpression
+CondOrExpression       : CondOrExpression || CondAndExpression
+AssignmentExpression   : CondOrExpression
+AssignmentExpression   : Assignment
+Assignment             : LHS = AssignmentExpression
+LHS                    : Name
+LHS                    : FieldAccess
+LHS                    : ArrayAccess
+Expression             : AssignmentExpression
