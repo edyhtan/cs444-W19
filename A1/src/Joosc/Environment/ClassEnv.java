@@ -93,7 +93,7 @@ public class ClassEnv implements Env {
             }
 
             GlobalEnv.PackageNames layer = globalEnv.getPackageLayer(dImport);
-            for (String typeName : layer.types) {
+            for (String typeName : layer.types.keySet()) {
                 ArrayList<String> qualifiedName = new ArrayList<>(dImport);
                 qualifiedName.add(typeName);
                 ArrayList<ArrayList<String>> importedTypeNames = onDemandImportTypes.getOrDefault(typeName, null);
@@ -115,7 +115,7 @@ public class ClassEnv implements Env {
             layer = globalEnv.getPackageLayer(packageName);
         }
 
-        for (String typeName : layer.types) {
+        for (String typeName : layer.types.keySet()) {
             ArrayList<String> qualifiedName = new ArrayList<>(packageName);
             qualifiedName.add(typeName);
             resolvedTypes.put(typeName, qualifiedName);
@@ -585,6 +585,10 @@ public class ClassEnv implements Env {
     String printType() {
         if (typeDeclr instanceof ClassDeclr) return "Class ";
         else return "Interface ";
+    }
+
+    public TypeDeclr getTypeDeclr() {
+        return typeDeclr;
     }
 
     public void printInfo(boolean includeStdLib) {

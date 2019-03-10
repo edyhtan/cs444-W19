@@ -5,6 +5,7 @@ import Joosc.ASTModel.ClassMember.ClassBodyDeclr;
 import Joosc.ASTModel.Program;
 import Joosc.ASTModel.Type;
 import Joosc.Exceptions.NamingResolveException;
+import Joosc.TypeSystem.JoosType;
 import Joosc.util.TreeSet;
 
 import java.util.*;
@@ -109,7 +110,8 @@ public class GlobalEnv implements Env {
         for (ClassEnv classEnv: classEnvs) {
             classEnv.resolveFieldsAndLocalVar();
         }
-        //classEnvs.forEach(x -> x.printInfo(true));
+
+        JoosType.printTypes();
     }
 
     public void buildAndResolvePackage() throws NamingResolveException {
@@ -118,14 +120,14 @@ public class GlobalEnv implements Env {
             ArrayList<String> packageLayer = program.getPackageDeclr();
 
             if (packageLayer.size() == 0) {
-                defaultPackage.types.add(program.getTypeDeclr().getSimpleName());
+                defaultPackage.types.put(program.getTypeDeclr().getSimpleName(), new JoosType(program.getTypeDeclr().getClassEnv()));
                 continue;
             }
 
             PackageNames currentPackageLevel = rootPackage;
             for (String packageName : packageLayer) {
                 HashMap<String, PackageNames> subPackage = currentPackageLevel.subPackage;
-                if (currentPackageLevel.types.contains(packageName)) {
+                if (currentPackageLevel.types.containsKey(packageName)) {
                     throw new NamingResolveException("Prefix of a package is a declared type");
                 }
                 if (!subPackage.containsKey(packageName)) {
@@ -137,11 +139,10 @@ public class GlobalEnv implements Env {
             if (currentPackageLevel.subPackage.containsKey(program.getTypeDeclr().getSimpleName())) {
                 throw new NamingResolveException("Prefix of a package is a declared type");
             }
-            currentPackageLevel.types.add(program.getTypeDeclr().getSimpleName());
-        }
 
-        //defaultPackage.print(0);
-        //rootPackage.print(0);
+            currentPackageLevel.types.put(program.getTypeDeclr().getSimpleName(),
+                    new JoosType(program.getTypeDeclr().getClassEnv()));
+        }
     }
 
 
@@ -151,7 +152,7 @@ public class GlobalEnv implements Env {
         if (packageLayer == null) {
             return false;
         } else if (!isOnDemand) {
-            return packageLayer.types.contains(importName.get(importName.size() - 1));
+            return packageLayer.types.containsKey(importName.get(importName.size() - 1));
         } else {
             return true;
         }
@@ -169,40 +170,13 @@ public class GlobalEnv implements Env {
         return currentLevel;
     }
 
-    public void printHierarchy() {
-        System.out.println("-----hierarchy--------");
-        for (ArrayList<String> key : hierarchy.keySet()) {
-            System.out.print(key + "-> \t");
-            hierarchy.get(key).forEach(x -> System.out.print(x + " "));
-            System.out.print("\n");
-        }
-        System.out.println("-----------------------");
-    }
-
-
     public class PackageNames {
         String name;
         HashMap<String, PackageNames> subPackage = new HashMap<>();
-        ArrayList<String> types = new ArrayList<>();
+        HashMap<String, JoosType> types = new HashMap<>();
 
         PackageNames(String packageName) {
             name = packageName;
-        }
-
-        boolean nameEquals(String name) {
-            return this.name.equals(name);
-        }
-
-        void print(int level) {
-            for (int i = 0; i < level; i++)
-                System.err.print("  |");
-            System.err.print("--" + name + "\n");
-            subPackage.forEach((x, y) -> y.print(level + 1));
-            types.forEach(x -> {
-                for (int i = 0; i < level + 1; i++)
-                    System.err.print("  |");
-                System.err.print("==" + x + "\n");
-            });
         }
     }
 }
