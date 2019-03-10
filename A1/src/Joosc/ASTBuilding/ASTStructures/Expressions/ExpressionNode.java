@@ -13,6 +13,7 @@ public abstract class ExpressionNode extends ASTNode {
 
     public static ExpressionNode resolveExpressionNode(ParseTree parseTree) throws ASTException {
         ParseTree contentNode = findContentNode(parseTree);
+
         switch (contentNode.getKind()) {
             case Assignment:
             case CondOrExpression:
@@ -37,13 +38,15 @@ public abstract class ExpressionNode extends ASTNode {
                 return new ExpressionFieldAccessNode(contentNode);
             case ArrayAccess:
                 return new ExpressionArrayAccessNode(contentNode);
-
             case Name:
                 return new ExpressionContentNode(contentNode);
             case MethodInvocation:
                 return new ExpressionMethodInvocationNode(contentNode);
             case ClassInstanceCreation:
                 return new ExpressionClassInstanceCreationNode(parseTree);
+            case ArrayType:
+            case ClassOrInterfaceType:
+                return new ExpressionTypeNode(contentNode);
             default:
                 throw new InvalidParseTreeStructureException(parseTree, "No matching expressions");
         }

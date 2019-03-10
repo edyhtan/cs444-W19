@@ -356,7 +356,7 @@ RelationalExpression RelationalExpression < AddExpression
 RelationalExpression RelationalExpression > AddExpression
 RelationalExpression RelationalExpression >= AddExpression
 RelationalExpression RelationalExpression <= AddExpression
-RelationalExpression RelationalExpression instanceof AddExpression
+RelationalExpression RelationalExpression instanceof ReferenceType
 EqualityExpression RelationalExpression
 EqualityExpression EqualityExpression == RelationalExpression
 EqualityExpression EqualityExpression != RelationalExpression

@@ -39,6 +39,10 @@ public abstract class Expression extends HasType implements AST {
             return new ExpressionArrayAccess((ExpressionArrayAccessNode) node);
         }
 
+        if(node instanceof ExpressionTypeNode) {
+            return new ExpressionType((ExpressionTypeNode) node);
+        }
+
 
         return null;
     }

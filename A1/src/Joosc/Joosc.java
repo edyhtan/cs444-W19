@@ -90,7 +90,7 @@ public class Joosc {
             return exitOnCode(42);
         } catch (InvalidSyntaxException e) {
             System.err.printf("ERROR: invalid syntax at %d, on state %d, with input %s\n", e.getLocation(), e.getState(), e.getInput());
-            e.printParseTree();
+            //e.printParseTree();
             return exitOnCode(42);
         } catch (InvalidParseTreeStructureException e) {
             e.printStackTrace();
