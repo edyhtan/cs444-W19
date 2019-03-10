@@ -1,6 +1,5 @@
 package Joosc.TypeSystem;
 
-import Joosc.ASTModel.Type;
 import Joosc.Environment.ClassEnv;
 
 import java.util.ArrayList;
@@ -32,11 +31,11 @@ public class JoosType {
 
     // reference types
     public JoosType(ClassEnv classEnv) {
-        this.typeName = classEnv.typeDeclr.getCanonicalName();
+        this.typeName = classEnv.getTypeDeclr().getCanonicalName();
         this.classEnv = classEnv;
         isPrimitive = false;
 
-        allTypes.put(String.join(".", classEnv.typeDeclr.getCanonicalName()), this);
+        allTypes.put(String.join(".", classEnv.getTypeDeclr().getCanonicalName()), this);
         referenceTypes.put(this, classEnv);
     }
 
