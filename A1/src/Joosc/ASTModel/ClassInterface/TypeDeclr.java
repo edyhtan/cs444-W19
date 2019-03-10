@@ -13,6 +13,7 @@ public interface TypeDeclr extends AST {
     ArrayList<String> getCanonicalName();
     void addEnv(ClassEnv env);
 
+    ClassEnv getClassEnv();
     String getSimpleName();
 
     ArrayList<MethodDeclr> getMethods();
