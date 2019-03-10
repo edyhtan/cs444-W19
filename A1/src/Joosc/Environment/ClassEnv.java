@@ -30,7 +30,7 @@ public class ClassEnv implements Env {
     HashMap<String, MethodInfo> methodSignature = new HashMap<>();
     HashMap<String, MethodInfo> fullMethodSignature = new HashMap<>();
     HashMap<String, MethodInfo> implicitDeclr = new HashMap<>();
-    private boolean fullMethodSigComplete = false;
+    private boolean methodContainComplete = false;
 
     HashMap<String, MethodInfo> constructorSignature = new HashMap<>();
 
@@ -261,7 +261,7 @@ public class ClassEnv implements Env {
         }
     }
 
-    private void replaceMapParent(HashMap<String, MethodInfo> map, MethodInfo info, TypeDeclr t) throws NamingResolveException {
+    private void replaceMapParent(HashMap<String, MethodInfo> map, MethodInfo info) throws NamingResolveException {
         String sig = info.signatureStr;
 
         if (!map.containsKey(sig)) {
@@ -276,9 +276,8 @@ public class ClassEnv implements Env {
                     && info.modifiers.contains(Symbol.Protected) ||
                     replaced.modifiers.contains(Symbol.Protected) && info.modifiers.contains(Symbol.Abstract)
                     && info.modifiers.contains(Symbol.Public))  {
-                System.err.println(replaced.signatureStr);
-                System.err.println(t.getSimpleName());
-                throw new NamingResolveException("NO");
+                throw new NamingResolveException("Cannot replace a public method with protected method: "
+                        + replaced.signatureStr);
             }
 
             if (!info.modifiers.contains(Symbol.Abstract)) {
@@ -309,11 +308,11 @@ public class ClassEnv implements Env {
         if (!implicitDeclr.isEmpty()) { // empty interface with only implicit declared methods
             methodSignature.putAll(implicitDeclr);
             if (methodSignature.size() == implicitDeclr.size()) {
-                fullMethodSigComplete = true;
+                methodContainComplete = true;
             }
         }
 
-        if (fullMethodSigComplete) {
+        if (methodContainComplete) {
             return fullMethodSignature;
         }
 
@@ -321,7 +320,7 @@ public class ClassEnv implements Env {
             superSet.add(javaLangObjectName);
         }
 
-        if (!fullMethodSigComplete) {
+        if (!methodContainComplete) {
             // inheritance
             for (ArrayList<String> parentName : superSet) {
                 ClassEnv parentEnv = globalEnv.getClassEnv(parentName);
@@ -330,7 +329,7 @@ public class ClassEnv implements Env {
                     if (parentEnv.typeDeclr instanceof InterfaceDeclr && info.signatureStr.equals("getClass")) {
                         throw new NamingResolveException("FUCK YOU LEATHERMAN");
                     }
-                    replaceMapParent(fullMethodSignature, info, typeDeclr);
+                    replaceMapParent(fullMethodSignature, info);
                 }
             }
 
@@ -343,14 +342,14 @@ public class ClassEnv implements Env {
                 for (MethodInfo info: fullMethodSignature.values()) {
                     if (info.modifiers.contains(Symbol.Abstract)) {
 
-                        throw new NamingResolveException("abstract methods:" + info.signatureStr +
-                                " not implemented" + " in " + typeDeclr.getSimpleName());
+                        throw new NamingResolveException("Abstract methods " + info.signatureStr +
+                                " not implemented in " + typeDeclr.getSimpleName());
                     }
                 }
             }
         }
 
-        fullMethodSigComplete = true;
+        methodContainComplete = true;
         return fullMethodSignature;
     }
 
@@ -437,11 +436,11 @@ public class ClassEnv implements Env {
         }
 
         if (extendName.equals(typeDeclr.getCanonicalName())) {
-            throw new NamingResolveException("You're not your parent");
+            throw new NamingResolveException("Cyclic hierarchy structure detected.");
         }
 
         if (set.contain(typeDeclr.getCanonicalName())) {
-            throw new NamingResolveException("Cyclic hierarchy structure detected");
+            throw new NamingResolveException("Cyclic hierarchy structure detected.");
         }
 
         if (!fullSuperSetComplete) {
@@ -456,7 +455,7 @@ public class ClassEnv implements Env {
 
                 fullSuperSet.addAll(pSuper);
                 if (fullSuperSet.contains(typeDeclr.getCanonicalName())) {
-                    throw new NamingResolveException("Cyclic hierarchy structure detected");
+                    throw new NamingResolveException("Cyclic hierarchy structure detected.");
                 }
             }
         }
@@ -491,7 +490,7 @@ public class ClassEnv implements Env {
             String type_prefix = longTypeName.get(0);
 
             if (resolvedTypes.containsKey(type_prefix)) {
-                throw new NamingResolveException("Prefix of a qualified name used for type");
+                throw new NamingResolveException("Prefix of a qualified name used for type: " + type_prefix);
             }
 
             if (!globalEnv.findPackageName(longTypeName, false)) {
@@ -526,17 +525,6 @@ public class ClassEnv implements Env {
     public FieldsVarInfo typeResolve(String name, Type type) throws NamingResolveException {
         TypeInfo fieldType = typeResolve(type);
         return new FieldsVarInfo(name, fieldType);
-//        boolean isArray = type.getKind() == Symbol.ArrayType;
-//        // Primitive
-//        if ((type.getKind() != Symbol.ClassOrInterfaceType && type.getKind() != Symbol.ArrayType)
-//                || (isArray && type.getArrayKind() != null && type.getArrayKind() != Symbol.ClassOrInterfaceType)) {
-//            if (isArray) {
-//                return new FieldsVarInfo(name, new ArrayList<>(Arrays.asList(type.getArrayKind().getSymbolString())), true, isArray);
-//            } else {
-//                return new FieldsVarInfo(name, new ArrayList<>(Arrays.asList(type.getKind().getSymbolString())), true, isArray);
-//            }
-//        }
-//        return new FieldsVarInfo(name, typeResolve(type.getNames()), false, isArray);
     }
 
     @Override
