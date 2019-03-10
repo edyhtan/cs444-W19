@@ -125,13 +125,13 @@ public class JoosType {
     public static void printTypes() {
         allTypes.values().forEach( x -> {
             System.err.printf(
-                    "%50s %10s %s\n", x.typeName,
+                    "%-25s %15s %15s\n", String.join(".", x.typeName),
                     (isPrimitive(x) ? "Primitive" : "Reference"),
                     (isNumber(x) ? "Number" : " ")
             );
 
             x.allParents.keySet().forEach( y -> {
-                System.err.println("\t" + y.typeName);
+                System.err.println("\t|-- " +  String.join(".", x.typeName));
             });
         });
     }
