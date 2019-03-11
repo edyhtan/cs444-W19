@@ -29,12 +29,9 @@ public class FullRunSuite {
             if (expected == result) {
                 correct++;
             }
-            //else {
                 String status = (result == 0 || result == 42) ? (expected == result) ? "PASSED":"FAILED" :"ERROR";
                 System.out.printf(getColor(status) + "\n", status, arg[1]);
-            //}
         }
-
         System.out.printf("test results: %d/%d", correct, i);
     }
 

@@ -8,7 +8,10 @@ import Joosc.Exceptions.NamingResolveException;
 import Joosc.TypeSystem.JoosType;
 import Joosc.util.TreeSet;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 
 public class GlobalEnv implements Env {
     ArrayList<Program> programs;

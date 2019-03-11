@@ -5,6 +5,7 @@ import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.Type;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
+import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
@@ -38,5 +39,10 @@ public class ExpressionArrayCreation extends ExpressionPrimary {
 
         type = getEnv().typeResolve(arrayType.getTypeName());
         sizeExpression.validate();
+    }
+
+    @Override
+    public JoosType getType() throws TypeCheckException {
+        return joosType;
     }
 }

@@ -1,8 +1,9 @@
 package Joosc.ASTModel.Statements;
 
-import Joosc.ASTModel.Expressions.Expression;
 import Joosc.ASTBuilding.ASTStructures.Statements.IfStatementNode;
+import Joosc.ASTModel.Expressions.Expression;
 import Joosc.Environment.LocalEnv;
+import Joosc.Exceptions.TypeCheckException;
 
 import java.util.ArrayList;
 
@@ -44,6 +45,11 @@ public class IfStatement extends HasScope implements Statement {
 
     @Override
     public void passDownScopes() {
+
+    }
+
+    @Override
+    public void checkType() throws TypeCheckException {
 
     }
 }

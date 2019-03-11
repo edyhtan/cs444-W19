@@ -4,6 +4,7 @@ import Joosc.ASTBuilding.ASTStructures.Statements.WhileStatementNode;
 import Joosc.ASTModel.Expressions.Expression;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
+import Joosc.Exceptions.TypeCheckException;
 
 import java.util.ArrayList;
 
@@ -42,6 +43,11 @@ public class WhileStatement extends HasScope implements Statement, HasExpression
 
     @Override
     public void checkExpression(LocalEnv env) throws NamingResolveException {
+
+    }
+
+    @Override
+    public void checkType() throws TypeCheckException {
 
     }
 }

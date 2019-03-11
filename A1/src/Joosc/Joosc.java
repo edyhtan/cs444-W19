@@ -66,7 +66,7 @@ public class Joosc {
         try {
             ArrayList<JoosAST> astList = new ArrayList<>();
 
-            for (String filename:argList) {
+            for (String filename : argList) {
                 astList.add(process(filename));
             }
 
@@ -75,8 +75,11 @@ public class Joosc {
 
             GlobalEnv globalEnvironment = new GlobalEnv(asts);
             globalEnvironment.resolveName();
+        } catch (TypeCheckException e) {
+            System.err.printf("ERROR: Type check error: %s\n", e.getLocalizedMessage());
+            return exitOnCode(42);
         } catch (NamingResolveException e) {
-            System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
+            System.err.printf("ERROR: Naming resolve error: %s\n", e.getLocalizedMessage());
             return exitOnCode(42);
         } catch (FileNotFoundException e) {
             System.err.printf("ERROR: file not found: %s\n", e.getLocalizedMessage());

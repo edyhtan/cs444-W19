@@ -3,6 +3,7 @@ package Joosc.Environment;
 import Joosc.ASTModel.AST;
 import Joosc.ASTModel.ClassInterface.TypeDeclr;
 import Joosc.ASTModel.ClassMember.ClassBodyDeclr;
+import Joosc.ASTModel.ClassMember.FieldDeclr;
 import Joosc.ASTModel.ClassMember.Method;
 import Joosc.ASTModel.Statements.*;
 import Joosc.ASTModel.Type;
@@ -16,11 +17,10 @@ import java.util.HashMap;
 public class LocalEnv implements Env {
     AST ast;
     HashMap<String, FieldsVarInfo> symbolTable = new HashMap<>();
-    ArrayList<LocalEnv> localEnvs = new ArrayList<>();
+    ArrayList<LocalEnv> subEnvs = new ArrayList<>();
     Env parent;
     TypeDeclr currentClass;
     ClassBodyDeclr currentMethod;
-
 
     public LocalEnv(AST ast, Env parent) {
         this.ast = ast;
@@ -41,13 +41,13 @@ public class LocalEnv implements Env {
             System.exit(5); // bad but fine...
         }
 
-        for (Statement statement:statements) {
+        for (Statement statement : statements) {
             if (hasSubEnvironment(statement)) {
-                localEnvs.add(new LocalEnv(statement, this));
+                subEnvs.add(new LocalEnv(statement, this));
                 if (statement instanceof IfStatement) {
                     ElseBlock elseBlock = ((IfStatement) statement).getElseClause();
                     if (elseBlock != null) {
-                        localEnvs.add(new LocalEnv(elseBlock, this));
+                        subEnvs.add(new LocalEnv(elseBlock, this));
                     }
                 }
             }
@@ -78,7 +78,7 @@ public class LocalEnv implements Env {
                 Statement forinit = ((ForStatement) ast).getForInit();
                 if (forinit instanceof LocalVarDeclrStatement) {
                     LocalVarDeclrStatement forinitLocal = (LocalVarDeclrStatement) forinit;
-                    if (isLocalVariableDeclared(forinitLocal.getId())){
+                    if (isLocalVariableDeclared(forinitLocal.getId())) {
                         throw new NamingResolveException("Duplicated Local Variable name: " + forinitLocal.getId());
                     } else {
                         symbolTable.put(forinitLocal.getId(),
@@ -92,12 +92,12 @@ public class LocalEnv implements Env {
             System.exit(6);
         }
 
-        for (Statement statement:statements) {
+        for (Statement statement : statements) {
             if (statement instanceof HasScope) {
                 ((HasScope) statement).getEnv().resolveLocalVariableAndAccess();
                 if (statement instanceof IfStatement) {
-                    if (((IfStatement)statement).getElseClause() != null) {
-                        ((IfStatement)statement).getElseClause().getEnv().resolveLocalVariableAndAccess();
+                    if (((IfStatement) statement).getElseClause() != null) {
+                        ((IfStatement) statement).getElseClause().getEnv().resolveLocalVariableAndAccess();
                     }
                 }
             }
@@ -142,7 +142,7 @@ public class LocalEnv implements Env {
 
     @Override
     public void resolveName() throws NamingResolveException {
-        for (LocalEnv localEnv:localEnvs) {
+        for (LocalEnv localEnv : subEnvs) {
             localEnv.resolveName();
         }
     }
@@ -166,4 +166,10 @@ public class LocalEnv implements Env {
         return ast;
     }
 
+
+    public void checkType(ClassEnv classEnv) {
+        if(currentMethod instanceof FieldDeclr) {
+//            currentMethod.
+        }
+    }
 }
