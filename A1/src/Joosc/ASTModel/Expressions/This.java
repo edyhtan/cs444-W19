@@ -4,6 +4,8 @@ import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
 
+import java.util.ArrayList;
+
 public class This extends ExpressionContent {
     @Override
     public void validate() throws NamingResolveException {
@@ -12,7 +14,9 @@ public class This extends ExpressionContent {
 
     @Override
     public JoosType getType() throws TypeCheckException {
-
-        return null;
+        ArrayList<String> currentClassFullName = getEnv().getCurrentClass().getCanonicalName();
+        joosType = JoosType.getJoosType(currentClassFullName);
+        if (joosType == null) throw new TypeCheckException("Cannot find type " + currentClassFullName);
+        return joosType;
     }
 }
