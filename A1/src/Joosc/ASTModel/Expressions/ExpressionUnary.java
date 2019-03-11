@@ -59,7 +59,8 @@ public class ExpressionUnary extends Expression {
         JoosType targetNodeType = targetNode.getType();
         if (kind.equals(Symbol.CastExpression)) {
             // TODO
-            JoosType.getJoosType(castingType.getTypeName())
+            JoosType.getJoosType(castingType.getTypeName());
+
         } else { // unaryExpression
             // minus
             if (unaryOperator.equals(Symbol.Minus) && JoosType.isNumber(targetNodeType)) {
