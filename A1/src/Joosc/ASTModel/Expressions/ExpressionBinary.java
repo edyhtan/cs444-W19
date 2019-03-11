@@ -126,13 +126,27 @@ public class ExpressionBinary extends Expression {
                 break;
             case Instanceof:
                 if (lhsType.getTypeName().equals(rhsType.getTypeName())
-                        // TODO: check here, WIP
-                        || (lhsType.hasParent(rhsType))) {
+                        // TODO: check here
+                        || lhsType.isA(rhsType)) {
                     joosType = JoosType.getJoosType("boolean");
+                } else {
+                    throw new TypeCheckException("Cannot check instanceof between type "
+                            + lhsType.getTypeName() + " and " + rhsType.getTypeName());
                 }
                 break;
-
-
+            // logical operations
+            case And:
+            case Or:
+            case Cap:
+            case Bar:
+            case Amp:
+                if (lhsType.equals("boolean") || rhsType.equals("boolean")) {
+                    joosType = JoosType.getJoosType("boolean");
+                } else {
+                    throw new TypeCheckException("Cannot perform " + operator + " between type " + lhsType.getTypeName()
+                            + " with " + rhsType.getTypeName());
+                }
+                break;
         }
         return joosType;
     }
