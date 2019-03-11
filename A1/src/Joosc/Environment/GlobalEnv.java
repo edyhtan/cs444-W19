@@ -19,15 +19,11 @@ public class GlobalEnv implements Env {
     PackageNames defaultPackage = new PackageNames("");
     PackageNames rootPackage = new PackageNames("");
 
-    HashMap<ArrayList<String>, HashSet<ArrayList<String>>> hierarchy;
-
-
     public GlobalEnv(ArrayList<Program> programs) {
         this.programs = programs;
 
         // sub environment
         classEnvs = new ArrayList<>();
-        hierarchy = new HashMap<>();
         programs.forEach(x -> classEnvs.add(new ClassEnv(x, this)));
     }
 
@@ -82,7 +78,7 @@ public class GlobalEnv implements Env {
     }
 
     @Override
-    public ArrayList<String> typeResolve(ArrayList<String> type) throws NamingResolveException {
+    public JoosType typeResolve(ArrayList<String> type) throws NamingResolveException {
         return null;
     }
 
@@ -98,20 +94,16 @@ public class GlobalEnv implements Env {
         for (ClassEnv classEnv : classEnvs) {
             classEnv.resolveName();
         }
-        classEnvs.forEach(x -> hierarchy.put(x.typeDeclr.getCanonicalName(), x.superSet));
 
         for (ClassEnv classEnv : classEnvs) {
             classEnv.getFullSuperSet(new TreeSet<>());
         }
 
-        //TODO: contain
         for (ClassEnv classEnv : classEnvs) {
             classEnv.variableContain();
             classEnv.getFullMethodSignature();
-        }
-
-        for (ClassEnv classEnv : classEnvs) {
             classEnv.resolveFieldsAndLocalVar();
+            classEnv.addSuperToJooscType();
         }
 
         JoosType.printTypes();

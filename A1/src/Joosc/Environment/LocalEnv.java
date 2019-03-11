@@ -8,6 +8,7 @@ import Joosc.ASTModel.ClassMember.Method;
 import Joosc.ASTModel.Statements.*;
 import Joosc.ASTModel.Type;
 import Joosc.Exceptions.NamingResolveException;
+import Joosc.TypeSystem.JoosType;
 import Joosc.util.Pair;
 
 import java.util.ArrayList;
@@ -152,7 +153,7 @@ public class LocalEnv implements Env {
     }
 
     @Override
-    public ArrayList<String> typeResolve(ArrayList<String> type) throws NamingResolveException {
+    public JoosType typeResolve(ArrayList<String> type) throws NamingResolveException {
         return parent.typeResolve(type);
     }
 

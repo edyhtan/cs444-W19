@@ -13,6 +13,7 @@ public class Literal extends ExpressionContent {
 
     public Literal(String literal, String kind) {
         this.literal = literal;
+
     }
 
     @Override

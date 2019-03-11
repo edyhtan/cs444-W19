@@ -1,5 +1,6 @@
 package Joosc.TypeSystem;
 
+import Joosc.ASTModel.Type;
 import Joosc.Environment.ClassEnv;
 
 import java.util.ArrayList;
@@ -62,6 +63,11 @@ public class JoosType {
         return typeName;
     }
 
+    public boolean isPrimitive() {
+        return isPrimitive(this);
+    }
+
+
     public ClassEnv getClassEnv() {
         return classEnv;
     }
@@ -80,6 +86,10 @@ public class JoosType {
 
     public static boolean isPrimitive(JoosType type) {
         return primitiveTypes.contains(type);
+    }
+
+    public static boolean isPrimitive(Type type) {
+        return type.getNames() != null;
     }
 
     public static boolean isPrimitive(ArrayList<String> fullname) {
@@ -132,7 +142,7 @@ public class JoosType {
             );
 
             x.allParents.keySet().forEach( y -> {
-                System.err.println("\t|-- " +  String.join(".", x.typeName));
+                System.err.println("\t|-- " +  String.join(".", y.typeName));
             });
         });
     }

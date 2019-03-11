@@ -4,6 +4,7 @@ import Joosc.ASTModel.ClassInterface.TypeDeclr;
 import Joosc.ASTModel.ClassMember.ClassBodyDeclr;
 import Joosc.ASTModel.Type;
 import Joosc.Exceptions.NamingResolveException;
+import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
 
@@ -18,6 +19,6 @@ public interface Env {
     ClassBodyDeclr getCurrentMethod();
 
     FieldsVarInfo typeResolve(String name, Type type) throws NamingResolveException;
-    ArrayList<String> typeResolve(ArrayList<String> type) throws NamingResolveException;
+    JoosType typeResolve(ArrayList<String> type) throws NamingResolveException;
     TypeInfo typeResolve(Type type) throws NamingResolveException;
 }

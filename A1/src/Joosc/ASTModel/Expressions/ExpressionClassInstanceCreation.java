@@ -13,7 +13,8 @@ import java.util.stream.Collectors;
 public class ExpressionClassInstanceCreation extends Expression {
     private Type classType;
     private ArrayList<Expression> argList;
-    private ArrayList<String> resolvedType;
+
+    JoosType type;
 
     public ExpressionClassInstanceCreation(ExpressionClassInstanceCreationNode node) {
         classType = new Type(node.getClassType());
@@ -37,9 +38,7 @@ public class ExpressionClassInstanceCreation extends Expression {
 
     @Override
     public void validate() throws NamingResolveException {
-        // resolve Type
-//        System.err.println(String.join(".", classType.getNames()));
-        resolvedType = getEnv().typeResolve(classType.getNames());
+        type = getEnv().typeResolve(classType.getNames());
 
         for (Expression arg: argList) {
             arg.validate();
