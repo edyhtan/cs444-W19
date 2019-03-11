@@ -17,8 +17,4 @@ public class PlainStatement implements Statement {
         return kind;
     }
 
-    @Override
-    public void checkType() throws TypeCheckException {
-
-    }
 }

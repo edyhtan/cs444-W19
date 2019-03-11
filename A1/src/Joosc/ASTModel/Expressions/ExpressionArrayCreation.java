@@ -8,12 +8,9 @@ import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
 
-import java.util.ArrayList;
-
 public class ExpressionArrayCreation extends ExpressionPrimary {
     private Expression sizeExpression;
     private Type arrayType;
-    private JoosType type;
 
     public ExpressionArrayCreation(ExpressionArrayCreationNode node) {
         sizeExpression = Expression.convertExpressionNode(node.getSizeExpression());
@@ -37,7 +34,7 @@ public class ExpressionArrayCreation extends ExpressionPrimary {
     @Override
     public void validate() throws NamingResolveException {
 
-        type = getEnv().typeResolve(arrayType.getTypeName());
+        joosType = getEnv().typeResolve(arrayType.getTypeName());
         sizeExpression.validate();
     }
 

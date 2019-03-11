@@ -47,9 +47,4 @@ public class IfStatement extends HasScope implements Statement {
     public void passDownScopes() {
 
     }
-
-    @Override
-    public void checkType() throws TypeCheckException {
-
-    }
 }

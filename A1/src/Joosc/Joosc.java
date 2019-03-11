@@ -31,9 +31,6 @@ public class Joosc {
             System.exit(code);
         }
 
-        if (code != 0 && code != 42) {
-            System.exit(code);
-        }
         return code;
     }
 
@@ -75,7 +72,7 @@ public class Joosc {
                     .collect(Collectors.toCollection(ArrayList::new));
 
             GlobalEnv globalEnvironment = new GlobalEnv(asts);
-            globalEnvironment.resolveName();
+            globalEnvironment.semanticAnalysis();
         } catch (TypeCheckException e) {
             System.err.printf("ERROR: Type check error: %s\n", e.getLocalizedMessage());
             return exitOnCode(42);
@@ -115,9 +112,12 @@ public class Joosc {
             e.printStackTrace();
             System.err.println(e.getLocalizedMessage());
             return exitOnCode(42);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            return exitOnCode(4);
         } catch (Exception e) {
             e.printStackTrace();
-            return exitOnCode(2);
+            return exitOnCode(3);
         }
         return 0;
     }

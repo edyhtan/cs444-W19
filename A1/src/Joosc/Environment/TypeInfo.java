@@ -9,22 +9,7 @@ import java.util.*;
 public class TypeInfo {
     public boolean isArray;
     public ArrayList<String> fullName;
-
     JoosType joosType;
-
-    static final Set<Symbol> primitiveTypes;
-    static {
-        primitiveTypes = new HashSet<>();
-        Symbol[] pt = new Symbol[]{
-                Symbol.Void,
-                Symbol.Int,
-                Symbol.Boolean,
-                Symbol.Byte,
-                Symbol.Short,
-                Symbol.Char
-        };
-        primitiveTypes.addAll(Arrays.asList(pt));
-    }
 
     public TypeInfo(boolean isArray) {
         this.isArray = isArray;
@@ -48,5 +33,9 @@ public class TypeInfo {
 
     public boolean isPrimitive() {
         return joosType.isPrimitive();
+    }
+
+    public JoosType getJoosType() {
+        return joosType;
     }
 }

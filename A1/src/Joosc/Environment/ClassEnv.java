@@ -8,6 +8,7 @@ import Joosc.ASTModel.ClassMember.*;
 import Joosc.ASTModel.Program;
 import Joosc.ASTModel.Type;
 import Joosc.Exceptions.NamingResolveException;
+import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
 import Joosc.util.Pair;
 import Joosc.util.TreeSet;
@@ -480,7 +481,7 @@ public class ClassEnv implements Env {
         }
     }
 
-    public void resolveFieldsAndLocalVar() throws NamingResolveException {
+    public void resolveFieldsAndLocalVar() throws NamingResolveException, TypeCheckException {
         for (LocalEnv localEnv:localEnvs) {
             localEnv.resolveLocalVariableAndAccess();
         }
@@ -575,7 +576,7 @@ public class ClassEnv implements Env {
     }
 
     @Override
-    public void resolveName() throws NamingResolveException {
+    public void semanticAnalysis() throws NamingResolveException {
         resolveImports();
         resolveFields();
         resolveConstructorNames();
@@ -596,5 +597,21 @@ public class ClassEnv implements Env {
         for (JoosType parent:fullSuperSet) {
             joosType.addParent(parent);
         }
+    }
+
+
+    @Override
+    public JoosType getJoosType() {
+        return joosType;
+    }
+
+    @Override
+    public FieldsVarInfo getFieldInfo(ArrayList<String> name){
+        return fields.getOrDefault(name, null);
+    }
+
+    @Override
+    public FieldsVarInfo getVarInfo(ArrayList<String> name) {
+        return null;
     }
 }

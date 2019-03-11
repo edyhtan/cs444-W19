@@ -10,8 +10,10 @@ import java.util.Arrays;
 
 public class Literal extends ExpressionContent {
     public String literal;
+    public String kind;
 
     public Literal(String literal, String kind) {
+        this.kind = kind;
         this.literal = literal;
 
     }

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class This extends ExpressionContent {
     @Override
     public void validate() throws NamingResolveException {
-
+        joosType = getEnv().getJoosType();
     }
 
     @Override

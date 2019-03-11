@@ -14,8 +14,6 @@ public class ExpressionUnary extends Expression {
     private Expression targetNode;
     private Type castingType;
 
-    private JoosType castingJoosType;
-
     public ExpressionUnary(ExpressionUnaryNode node) {
         kind = node.getKind();
         unaryOperator = node.getUnaryOperator();
@@ -49,7 +47,7 @@ public class ExpressionUnary extends Expression {
     @Override
     public void validate() throws NamingResolveException {
         if (castingType != null) {
-            castingJoosType = getEnv().typeResolve(castingType.getTypeName());
+            joosType = getEnv().typeResolve(castingType.getTypeName());
         }
         targetNode.validate();
     }

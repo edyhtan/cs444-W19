@@ -27,7 +27,7 @@ public class ExpressionType extends Expression {
 
     @Override
     public void validate() throws NamingResolveException {
-
+        joosType = getEnv().typeResolve(typeName);
     }
 
     @Override

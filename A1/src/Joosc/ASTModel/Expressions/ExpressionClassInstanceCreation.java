@@ -14,8 +14,6 @@ public class ExpressionClassInstanceCreation extends Expression {
     private Type classType;
     private ArrayList<Expression> argList;
 
-    JoosType type;
-
     public ExpressionClassInstanceCreation(ExpressionClassInstanceCreationNode node) {
         classType = new Type(node.getClassType());
         argList = node.getArgList().stream().map(Expression::convertExpressionNode)
@@ -38,7 +36,7 @@ public class ExpressionClassInstanceCreation extends Expression {
 
     @Override
     public void validate() throws NamingResolveException {
-        type = getEnv().typeResolve(classType.getNames());
+        joosType = getEnv().typeResolve(classType.getNames());
 
         for (Expression arg: argList) {
             arg.validate();
