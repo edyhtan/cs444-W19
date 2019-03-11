@@ -5,6 +5,7 @@ import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionTypeNode;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
@@ -31,7 +32,11 @@ public class ExpressionType extends Expression {
 
     @Override
     public JoosType getType() throws TypeCheckException {
-        joosType = JoosType.getJoosType(typeName);
+        if(isArrayType) {
+            joosType = new ArrayType(JoosType.getJoosType(typeName));
+        } else {
+            joosType = JoosType.getJoosType(typeName);
+        }
         return joosType;
     }
 }
