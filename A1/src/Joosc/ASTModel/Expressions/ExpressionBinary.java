@@ -68,12 +68,15 @@ public class ExpressionBinary extends Expression {
                 break;
             // assignability
             case Equal:
+                // review:
                 if (lhsType.isA(rhsType)) {
                     joosType = rhsType;
                 } else {
                     throw new TypeCheckException("Cannot assign type "
                             + rhsType.getTypeName() + " to " + lhsType.getTypeName());
                 }
+                // TODO: check array assignability
+
                 break;
             // arithmetic operations
             case Minus:
@@ -111,7 +114,7 @@ public class ExpressionBinary extends Expression {
                 break;
             case Instanceof:
                 if (lhsType.getTypeName().equals(rhsType.getTypeName())
-                        // TODO: check here
+                        // review: check here
                         || lhsType.isA(rhsType)) {
                     joosType = JoosType.getJoosType("boolean");
                 } else {

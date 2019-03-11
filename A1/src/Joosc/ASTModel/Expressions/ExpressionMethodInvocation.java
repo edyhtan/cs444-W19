@@ -61,6 +61,10 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
 
     @Override
     public JoosType getType() throws TypeCheckException {
+        JoosType methodType = JoosType.getJoosType(methodName);
+        // TODO: check argList elements are not ambiguous
+
+        // TODO: check args match types
 
         return joosType;
     }
