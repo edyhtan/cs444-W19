@@ -1,5 +1,6 @@
 package Joosc.Environment;
 
+import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.ClassInterface.TypeDeclr;
 import Joosc.ASTModel.ClassMember.ClassBodyDeclr;
 import Joosc.ASTModel.Program;
@@ -74,7 +75,7 @@ public class GlobalEnv implements Env {
     }
 
     @Override
-    public FieldsVarInfo typeResolve(String name, Type type) throws NamingResolveException {
+    public FieldsVarInfo typeResolve(String name, Type type, ArrayList<Symbol> modifiers) throws NamingResolveException {
         return null;
     }
 

@@ -133,7 +133,7 @@ public class ClassEnv implements Env {
             for (FieldDeclr fieldDeclr : fieldDeclrs) {
                 String fieldName = fieldDeclr.getName();
                 if (!fields.containsKey(fieldName)) {
-                    fields.put(fieldName, typeResolve(fieldName, fieldDeclr.getType()));
+                    fields.put(fieldName, typeResolve(fieldName, fieldDeclr.getType(), fieldDeclr.getModifiers()));
                 } else {
                     throw new NamingResolveException("found more than one field with name " + fieldDeclr.getName());
                 }
@@ -155,7 +155,7 @@ public class ClassEnv implements Env {
             }
 
             for (Pair<Type, String> param : method.getFormalParamList()) {
-                paramList.add(typeResolve(param.getValue(), param.getKey()));
+                paramList.add(typeResolve(param.getValue(), param.getKey(), new ArrayList<>()));
             }
 
             MethodInfo tempMethodInfo = new MethodInfo(new MethodDeclr(method), typeResolve(method.getType()), paramList);
@@ -199,7 +199,7 @@ public class ClassEnv implements Env {
     private MethodInfo buildMethodInfo(MethodDeclr method) throws NamingResolveException {
         ArrayList<FieldsVarInfo> paramList = new ArrayList<>();
         for (Pair<Type, String> param : method.getFormalParamList()) {
-            paramList.add(typeResolve(param.getValue(), param.getKey()));
+            paramList.add(typeResolve(param.getValue(), param.getKey(), new ArrayList<>()));
         }
         return new MethodInfo(method, typeResolve(method.getType()), paramList);
     }
@@ -366,7 +366,7 @@ public class ClassEnv implements Env {
         for (ConstructorDeclr ctor : ((ClassDeclr) typeDeclr).getConstructor()) {
             ArrayList<FieldsVarInfo> paramList = new ArrayList<>();
             for (Pair<Type, String> param : ctor.getFormalParamList()) {
-                paramList.add(typeResolve(param.getValue(), param.getKey()));
+                paramList.add(typeResolve(param.getValue(), param.getKey(), new ArrayList<>()));
             }
             MethodInfo tempCtorInfo =
                     new MethodInfo(ctor, paramList);
@@ -529,9 +529,9 @@ public class ClassEnv implements Env {
      * This should be named as something like fieldTypeResolve
      * */
     @Override
-    public FieldsVarInfo typeResolve(String name, Type type) throws NamingResolveException {
+    public FieldsVarInfo typeResolve(String name, Type type, ArrayList<Symbol> modifiers) throws NamingResolveException {
         TypeInfo fieldType = typeResolve(type);
-        return new FieldsVarInfo(name, fieldType);
+        return new FieldsVarInfo(name, fieldType, modifiers);
     }
 
     @Override
