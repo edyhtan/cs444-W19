@@ -55,6 +55,13 @@ public class JoosType {
         }
     }
 
+    JoosType(JoosType type) {
+        typeName = type.getTypeName();
+        classEnv = type.getClassEnv();
+        isPrimitive = type.isPrimitive;
+        allParents = type.getAllParents();
+    }
+
     public void addParent(JoosType type) {
         allParents.put(type, type.classEnv);
     }
