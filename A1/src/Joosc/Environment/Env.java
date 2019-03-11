@@ -1,5 +1,6 @@
 package Joosc.Environment;
 
+import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.ClassInterface.TypeDeclr;
 import Joosc.ASTModel.ClassMember.ClassBodyDeclr;
 import Joosc.ASTModel.Type;
@@ -19,7 +20,7 @@ public interface Env {
     TypeDeclr getCurrentClass();
     ClassBodyDeclr getCurrentMethod();
 
-    FieldsVarInfo typeResolve(String name, Type type) throws NamingResolveException;
+    FieldsVarInfo typeResolve(String name, Type type, ArrayList<Symbol> modifiers) throws NamingResolveException;
     JoosType typeResolve(ArrayList<String> type) throws NamingResolveException;
     TypeInfo typeResolve(Type type) throws NamingResolveException;
 

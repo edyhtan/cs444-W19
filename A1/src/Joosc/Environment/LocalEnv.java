@@ -1,5 +1,6 @@
 package Joosc.Environment;
 
+import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.AST;
 import Joosc.ASTModel.ClassInterface.TypeDeclr;
 import Joosc.ASTModel.ClassMember.ClassBodyDeclr;
@@ -68,7 +69,7 @@ public class LocalEnv implements Env {
                     if (symbolTable.containsKey(pair.getValue())) {
                         throw new NamingResolveException("Duplicated Local Parameter Name: " + pair.getValue());
                     } else {
-                        symbolTable.put(pair.getValue(), typeResolve(pair.getValue(), pair.getKey()));
+                        symbolTable.put(pair.getValue(), typeResolve(pair.getValue(), pair.getKey(), new ArrayList<>()));
                     }
                 }
             }
@@ -82,7 +83,7 @@ public class LocalEnv implements Env {
                         throw new NamingResolveException("Duplicated Local Variable name: " + forinitLocal.getId());
                     } else {
                         symbolTable.put(forinitLocal.getId(),
-                                typeResolve(forinitLocal.getId(), forinitLocal.getType()));
+                                typeResolve(forinitLocal.getId(), forinitLocal.getType(), new ArrayList<>()));
                     }
                 }
             }
@@ -112,7 +113,7 @@ public class LocalEnv implements Env {
 
                     throw new NamingResolveException("Duplicated Local Variable: " + localVar.getId());
                 }
-                symbolTable.put(localVar.getId(), typeResolve(localVar.getId(), localVar.getType()));
+                symbolTable.put(localVar.getId(), typeResolve(localVar.getId(), localVar.getType(), new ArrayList<>()));
             }
         }
     }
@@ -149,8 +150,8 @@ public class LocalEnv implements Env {
     }
 
     @Override
-    public FieldsVarInfo typeResolve(String name, Type type) throws NamingResolveException {
-        return parent.typeResolve(name, type);
+    public FieldsVarInfo typeResolve(String name, Type type, ArrayList<Symbol> modifers) throws NamingResolveException {
+        return parent.typeResolve(name, type, modifers);
     }
 
     @Override
