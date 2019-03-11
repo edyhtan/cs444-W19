@@ -31,6 +31,7 @@ public class ExpressionType extends Expression {
 
     @Override
     public JoosType getType() throws TypeCheckException {
+        joosType = JoosType.getJoosType(typeName);
         return joosType;
     }
 }
