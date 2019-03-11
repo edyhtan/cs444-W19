@@ -99,7 +99,8 @@ public class ExpressionBinary extends Expression {
                 if (JoosType.isNumber(lhsType) && JoosType.isNumber(rhsType)) {
                     joosType = JoosType.getJoosType("int");
                 } else {
-                    throw new TypeCheckException("Cannot perform operation " + operator + " on non-numeric types.");
+                    throw new TypeCheckException(String.format("Type incompatible: %s, %s",
+                            lhsType.getTypeName(), rhsType.getTypeName()));
                 }
                 break;
             // comparison
@@ -143,8 +144,8 @@ public class ExpressionBinary extends Expression {
                 if (lhsType.equals("boolean") || rhsType.equals("boolean")) {
                     joosType = JoosType.getJoosType("boolean");
                 } else {
-                    throw new TypeCheckException("Cannot perform " + operator + " between type " + lhsType.getTypeName()
-                            + " with " + rhsType.getTypeName());
+                    throw new TypeCheckException(String.format("Type incompatible: %s, %s",
+                            lhsType.getTypeName(), rhsType.getTypeName()));
                 }
                 break;
         }
