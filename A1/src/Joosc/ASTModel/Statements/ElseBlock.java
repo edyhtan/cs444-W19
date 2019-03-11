@@ -1,7 +1,7 @@
 package Joosc.ASTModel.Statements;
 
 
-import Joosc.Environment.LocalEnv;
+import Joosc.Exceptions.TypeCheckException;
 
 import java.util.ArrayList;
 
@@ -24,6 +24,11 @@ public class ElseBlock extends HasScope implements Statement {
 
     @Override
     public void passDownScopes() {
+
+    }
+
+    @Override
+    public void checkType() throws TypeCheckException {
 
     }
 }

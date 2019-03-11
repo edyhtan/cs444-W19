@@ -2,9 +2,8 @@ package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionContentNode;
 import Joosc.ASTBuilding.Constants.Symbol;
-import Joosc.Exceptions.NamingResolveException;
-
-import java.util.ArrayList;
+import Joosc.Exceptions.TypeCheckException;
+import Joosc.TypeSystem.JoosType;
 
 public abstract class ExpressionContent extends ExpressionPrimary {
     public static ExpressionContent getContent(ExpressionContentNode node) {
@@ -16,4 +15,7 @@ public abstract class ExpressionContent extends ExpressionPrimary {
             return new Literal(node.getLiteral(), node.kind);
         }
     }
+
+    @Override
+    public abstract JoosType getType() throws TypeCheckException;
 }

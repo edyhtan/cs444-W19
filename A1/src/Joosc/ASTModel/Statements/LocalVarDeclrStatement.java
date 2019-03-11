@@ -5,6 +5,7 @@ import Joosc.ASTModel.Expressions.Expression;
 import Joosc.ASTModel.Type;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
+import Joosc.Exceptions.TypeCheckException;
 
 public class LocalVarDeclrStatement implements Statement, HasExpression {
     private Type type;
@@ -32,5 +33,10 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
     @Override
     public void checkExpression(LocalEnv env) throws NamingResolveException {
 
+    }
+
+    @Override
+    public void checkType() throws TypeCheckException {
+        if(type.getKind().equals(initExpression.getType())) {}
     }
 }

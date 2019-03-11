@@ -5,13 +5,15 @@ import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.Type;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
+import Joosc.Exceptions.TypeCheckException;
+import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
 
 public class ExpressionArrayCreation extends ExpressionPrimary {
     private Expression sizeExpression;
     private Type arrayType;
-    private ArrayList<String> resolvedType;
+    private JoosType type;
 
     public ExpressionArrayCreation(ExpressionArrayCreationNode node) {
         sizeExpression = Expression.convertExpressionNode(node.getSizeExpression());
@@ -34,9 +36,13 @@ public class ExpressionArrayCreation extends ExpressionPrimary {
 
     @Override
     public void validate() throws NamingResolveException {
-        if (arrayType.getArrayKind() == Symbol.ClassOrInterfaceType) {
-            resolvedType = getEnv().typeResolve(arrayType.getNames());
-        }
+
+        type = getEnv().typeResolve(arrayType.getTypeName());
         sizeExpression.validate();
+    }
+
+    @Override
+    public JoosType getType() throws TypeCheckException {
+        return joosType;
     }
 }

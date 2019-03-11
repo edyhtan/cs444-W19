@@ -3,6 +3,8 @@ package Joosc.ASTModel.Expressions;
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionFieldAccessNode;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
+import Joosc.Exceptions.TypeCheckException;
+import Joosc.TypeSystem.JoosType;
 
 public class ExpressionFieldAccess extends Expression {
     private String fieldIdentifier;
@@ -30,5 +32,10 @@ public class ExpressionFieldAccess extends Expression {
     @Override
     public void validate() throws NamingResolveException {
         fieldParentExpression.validate();
+    }
+
+    @Override
+    public JoosType getType() throws TypeCheckException{
+        return joosType;
     }
 }

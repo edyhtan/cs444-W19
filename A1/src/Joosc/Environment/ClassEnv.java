@@ -8,44 +8,50 @@ import Joosc.ASTModel.ClassMember.*;
 import Joosc.ASTModel.Program;
 import Joosc.ASTModel.Type;
 import Joosc.Exceptions.NamingResolveException;
+import Joosc.TypeSystem.JoosType;
 import Joosc.util.Pair;
+import Joosc.util.TreeSet;
 
 import java.util.*;
 
 public class ClassEnv implements Env {
     TypeDeclr typeDeclr;
-    GlobalEnv parent;
+    GlobalEnv globalEnv;
     Program program;
-    protected HashMap<String, FieldsVarInfo> fields = new HashMap<>();
+    HashMap<String, FieldsVarInfo> fields = new HashMap<>();
     ArrayList<String> packageDeclr;
+    JoosType joosType;
 
-    HashMap<String, ArrayList<String>> resolvedTypes = new HashMap<>();
+    HashMap<String, JoosType> resolvedTypes = new HashMap<>();
 
     // will only resolve when we actually use it...
-    HashMap<String, ArrayList<ArrayList<String>>> onDemandImportTypes = new HashMap<>();
-    HashMap<String, ArrayList<String>> samePackage = new HashMap<>();
+    HashMap<String, ArrayList<JoosType>> onDemandImportTypes = new HashMap<>();
 
     // Method MethodInfo
     HashMap<String, MethodInfo> methodSignature = new HashMap<>();
     HashMap<String, MethodInfo> fullMethodSignature = new HashMap<>();
     HashMap<String, MethodInfo> implicitDeclr = new HashMap<>();
-    private boolean fullMethodSigComplete = false;
+    private boolean methodContainComplete = false;
 
     HashMap<String, MethodInfo> constructorSignature = new HashMap<>();
 
     // Hierarchy
-    HashSet<ArrayList<String>> superSet = new HashSet<>();
-    HashSet<ArrayList<String>> fullSuperSet = new HashSet<>();
+    HashSet<JoosType> superSet = new HashSet<>();
+    HashSet<JoosType> fullSuperSet = new HashSet<>();
     private boolean fullSuperSetComplete = false;
 
     ArrayList<LocalEnv> localEnvs = new ArrayList<>();
+    JoosType extendName;
+    static ArrayList<String> javaLangObjectName = new ArrayList<>(Arrays.asList("java", "lang", "Object"));
 
-    ArrayList<String> javaLangObjectName = new ArrayList<>(Arrays.asList("java", "lang", "Object"));
+    // variable contain
+    private boolean variableContainComplete = false;
+    protected HashMap containedFields = new HashMap();
 
     public ClassEnv(Program program, GlobalEnv parent) {
         typeDeclr = program.getTypeDeclr();
         typeDeclr.addEnv(this);
-        this.parent = parent;
+        this.globalEnv = parent;
         this.program = program;
         packageDeclr = program.getPackageDeclr();
         constructLocalEnvironment();
@@ -54,11 +60,13 @@ public class ClassEnv implements Env {
     public void resolveImports() throws NamingResolveException {
         ArrayList<ArrayList<String>> singleTypeImports = program.getSingleTypeImport();
         ArrayList<ArrayList<String>> importOnDemand = program.getOnDemandTypeImport();
-        HashMap<String, ArrayList<String>> singleImportedClasses = new HashMap<>();
+        HashMap<String, JoosType> singleImportedClasses = new HashMap<>();
         importOnDemand.add(new ArrayList<>(Arrays.asList("java", "lang")));
 
         // Enclosing Class
-        resolvedTypes.put(typeDeclr.getSimpleName(), new ArrayList<>(Arrays.asList(typeDeclr.getSimpleName())));
+        joosType = JoosType.getJoosType(typeDeclr.getCanonicalName());
+        resolvedTypes.put(typeDeclr.getSimpleName(), joosType);
+
 
         // Single Type import
         for (ArrayList<String> sImport : singleTypeImports) {
@@ -69,35 +77,36 @@ public class ClassEnv implements Env {
             }
 
             // no two simple name
-            if (singleImportedClasses.containsKey(simpleName) && !sImport.equals(singleImportedClasses.get(simpleName))) {
+            if (singleImportedClasses.containsKey(simpleName) &&
+                    !JoosType.getJoosType(sImport).equals(singleImportedClasses.get(simpleName))) {
                 throw new NamingResolveException("duplicated imported type " + simpleName);
             }
 
             // find import in the available packages
-            if (!parent.findPackageName(sImport, false)) {
+            if (!globalEnv.findPackageName(sImport, false)) {
                 throw new NamingResolveException("Import name not found :" + String.join(".", sImport));
             }
-            singleImportedClasses.put(simpleName, sImport);
+            singleImportedClasses.put(simpleName, JoosType.getJoosType(sImport));
         }
 
         resolvedTypes.putAll(singleImportedClasses);
 
         for (ArrayList<String> dImport : importOnDemand) {
-            if (!parent.findPackageName(dImport, true)) {
+            if (!globalEnv.findPackageName(dImport, true)) {
                 throw new NamingResolveException("Import package name not found :" + String.join(".", dImport) + ".*");
             }
 
-            GlobalEnv.PackageNames layer = parent.getPackageLayer(dImport);
-            for (String typeName : layer.types) {
+            GlobalEnv.PackageNames layer = globalEnv.getPackageLayer(dImport);
+            for (String typeName : layer.types.keySet()) {
                 ArrayList<String> qualifiedName = new ArrayList<>(dImport);
                 qualifiedName.add(typeName);
-                ArrayList<ArrayList<String>> importedTypeNames = onDemandImportTypes.getOrDefault(typeName, null);
+                ArrayList<JoosType> importedTypeNames = onDemandImportTypes.getOrDefault(typeName, null);
                 if (importedTypeNames == null) {
                     importedTypeNames = new ArrayList<>();
                     onDemandImportTypes.put(typeName, importedTypeNames);
                 }
-                if (!importedTypeNames.contains(qualifiedName)) {
-                    importedTypeNames.add(qualifiedName);
+                if (!importedTypeNames.contains(JoosType.getJoosType(qualifiedName))) {
+                    importedTypeNames.add(JoosType.getJoosType(qualifiedName));
                 }
             }
         }
@@ -105,15 +114,15 @@ public class ClassEnv implements Env {
         ArrayList<String> packageName = program.getPackageDeclr();
         GlobalEnv.PackageNames layer;
         if (packageName.size() == 0) {
-            layer = parent.defaultPackage;
+            layer = globalEnv.defaultPackage;
         } else {
-            layer = parent.getPackageLayer(packageName);
+            layer = globalEnv.getPackageLayer(packageName);
         }
 
-        for (String typeName : layer.types) {
+        for (String typeName : layer.types.keySet()) {
             ArrayList<String> qualifiedName = new ArrayList<>(packageName);
             qualifiedName.add(typeName);
-            samePackage.put(typeName, qualifiedName);
+            resolvedTypes.put(typeName, JoosType.getJoosType(qualifiedName));
         }
     }
 
@@ -132,77 +141,83 @@ public class ClassEnv implements Env {
     }
 
     private void addImplicitDeclr() throws NamingResolveException {
-        // interface has no direct parent - implicit declaration
-        ClassEnv javaLangObject = parent.getClassEnv(javaLangObjectName);
+        // interface has no direct globalEnv - implicit declaration
+        ClassEnv javaLangObject = globalEnv.getClassEnv(javaLangObjectName);
         for (MethodDeclr method : javaLangObject.typeDeclr.getMethods()) {
+            if (method.getModifiers().contains(Symbol.Final)) {
+                continue;
+            }
             ArrayList<FieldsVarInfo> paramList = new ArrayList<>();
+
+            if (method.getModifiers().contains(Symbol.Final)) {
+                continue;
+            }
+
             for (Pair<Type, String> param : method.getFormalParamList()) {
                 paramList.add(typeResolve(param.getValue(), param.getKey()));
             }
 
-            MethodInfo tempMethodInfo =
-                    new MethodInfo(new MethodDeclr(method), typeResolve(method.getName(), method.getType()), paramList);
+            MethodInfo tempMethodInfo = new MethodInfo(new MethodDeclr(method), typeResolve(method.getType()), paramList);
             tempMethodInfo.modifiers.add(Symbol.Abstract);
             implicitDeclr.put(tempMethodInfo.getSignatureStr(), tempMethodInfo);
         }
     }
 
-    private void checkReplace(MethodInfo parentMethodInfo, MethodInfo declaredMethod, ClassEnv parentClassEnv) throws NamingResolveException {
+    private void checkReplace(MethodInfo parentMethodInfo, MethodInfo declaredMethod) throws NamingResolveException {
         // TODO: change here after MethodInfo.returnType is changed to String
-        String parentReturnTypStr = parentMethodInfo.returnType.getFullTypeName()
-                + (parentMethodInfo.returnType.isTypeArray() ? "[]" : "");
-        String declaredReturnTypeStr = declaredMethod.returnType.getFullTypeName()
-                + (declaredMethod.returnType.isTypeArray() ? "[]" : "");
+        TypeInfo parentReturnType = parentMethodInfo.returnType;
+        TypeInfo declaredReturnType = declaredMethod.returnType;
 
-        if (!parentReturnTypStr.equals(declaredReturnTypeStr)) {
-            throw new NamingResolveException(printType() + typeDeclr.getSimpleName()
+        if (!parentReturnType.equals(declaredReturnType)) {
+            throw new NamingResolveException("Class/Interface " + typeDeclr.getSimpleName()
                     + " must not contain two methods with the same signature but different return types with name "
-                    + parentMethodInfo.getSignatureStr()
-                    + ", declared return type is " + declaredReturnTypeStr
-            + ", inherited return type is " + parentReturnTypStr);
+                    + parentMethodInfo.getSignatureStr());
         }
+
         if (parentMethodInfo.modifiers.contains(Symbol.Static)
-                && !declaredMethod.modifiers.contains(Symbol.Static)) {
-            throw new NamingResolveException("Nonstatic method " + declaredMethod.getSignatureStr()
-                    + " in class " + typeDeclr.getSimpleName() + " must not replace a static method "
-                    + declaredMethod.getSignatureStr()
-                    + " in parent " + parentClassEnv.printType()
-                    + parentClassEnv.typeDeclr.getSimpleName());
+                != declaredMethod.modifiers.contains(Symbol.Static)) {
+            throw new NamingResolveException((declaredMethod.modifiers.contains(Symbol.Static) ? "" : "non")
+                    + "static method " + declaredMethod.getSignatureStr()
+                    + " in class " + typeDeclr.getSimpleName() + " must not replace a "
+                    + (parentMethodInfo.modifiers.contains(Symbol.Static) ? "" : "non") + "static method "
+                    + declaredMethod.getSignatureStr());
         }
         if (parentMethodInfo.modifiers.contains(Symbol.Public)
                 && declaredMethod.modifiers.contains(Symbol.Protected)) {
             throw new NamingResolveException("Protected method " + declaredMethod.getSignatureStr()
                     + " in " + printType() + typeDeclr.getSimpleName() + " must not replace a public method "
-                    + declaredMethod.getSignatureStr()
-                    + " in parent " + parentClassEnv.printType()
-                    + parentClassEnv.typeDeclr.getSimpleName());
+                    + declaredMethod.getSignatureStr());
         }
         if (parentMethodInfo.modifiers.contains(Symbol.Final)) {
             throw new NamingResolveException("Method " + declaredMethod.getSignatureStr()
                     + " in " + printType() + typeDeclr.getSimpleName() + " must not replace a final method "
-                    + declaredMethod.getSignatureStr()
-                    + " in parent " + parentClassEnv.printType()
-                    + parentClassEnv.typeDeclr.getSimpleName());
+                    + declaredMethod.getSignatureStr());
         }
     }
 
-    private void checkInherit(MethodInfo parentMethodInfo, ClassEnv parentClassEnv) throws NamingResolveException {
-        if (typeDeclr instanceof ClassDeclr) {
-            if (parentMethodInfo.modifiers.contains(Symbol.Abstract)
-                    && (!typeDeclr.getModifiers().contains(Symbol.Abstract))) {
-                throw new NamingResolveException(printType() + typeDeclr.getSimpleName()
-                        + " that inherits abstract methods " + parentMethodInfo.getSignatureStr()
-                        + " must be abstract.");
-            }
+    private MethodInfo buildMethodInfo(MethodDeclr method) throws NamingResolveException {
+        ArrayList<FieldsVarInfo> paramList = new ArrayList<>();
+        for (Pair<Type, String> param : method.getFormalParamList()) {
+            paramList.add(typeResolve(param.getValue(), param.getKey()));
+        }
+        return new MethodInfo(method, typeResolve(method.getType()), paramList);
+    }
 
-            // inherited abstract method from interface w. no implementation in current class
-            if (parentClassEnv.typeDeclr instanceof InterfaceDeclr
-                    && !typeDeclr.getModifiers().contains(Symbol.Abstract)) {
-                throw new NamingResolveException(printType() + typeDeclr.getSimpleName()
-                        + " that contains inherited methods " + parentMethodInfo.getSignatureStr()
-                        + " with no implementation must be abstract.");
+    public void variableContain() {
+        if (variableContainComplete) {
+            return ;
+        }
+
+        if (typeDeclr instanceof ClassDeclr) {
+
+            if (extendName != null && extendName.getTypeName().size() > 0) {
+                ClassEnv parentClassEnv = globalEnv.getClassEnv(extendName.getTypeName());
+                parentClassEnv.variableContain();
+                containedFields.putAll(parentClassEnv.containedFields);
             }
         }
+        containedFields.putAll(fields);
+        variableContainComplete = true;
     }
 
     private void resolveClassDeclrMethodNames() throws NamingResolveException {
@@ -211,18 +226,16 @@ public class ClassEnv implements Env {
         }
 
         for (MethodDeclr method : typeDeclr.getMethods()) {
-            ArrayList<FieldsVarInfo> paramList = new ArrayList<>();
-            for (Pair<Type, String> param : method.getFormalParamList()) {
-                paramList.add(typeResolve(param.getValue(), param.getKey()));
-            }
 
-            MethodInfo tempMethodInfo =
-                    new MethodInfo(new MethodDeclr(method), typeResolve(method.getName(), method.getType()), paramList);
+            MethodInfo tempMethodInfo = buildMethodInfo(method);
 
             if (typeDeclr instanceof InterfaceDeclr) {
-                tempMethodInfo.modifiers.add(Symbol.Abstract);
+                if (!implicitDeclr.containsKey(method.getName()))
+                    tempMethodInfo.modifiers.add(Symbol.Abstract);
+
                 // Interface methods are implicitly public
-                if (!tempMethodInfo.modifiers.contains(Symbol.Public)) tempMethodInfo.modifiers.add(Symbol.Public);
+                if (!tempMethodInfo.modifiers.contains(Symbol.Public))
+                    tempMethodInfo.modifiers.add(Symbol.Public);
             }
 
             if (methodSignature.containsKey(tempMethodInfo.getSignatureStr())
@@ -237,81 +250,110 @@ public class ClassEnv implements Env {
                         + " that declares abstract methods " + tempMethodInfo.getSignatureStr() + " must be abstract.");
             }
 
+
             if (implicitDeclr.containsKey(tempMethodInfo.getSignatureStr())) {
                 MethodInfo implicitDeclrMethod = implicitDeclr.get(tempMethodInfo.getSignatureStr());
-                checkInherit(implicitDeclrMethod, parent.getClassEnv(javaLangObjectName));
-                checkReplace(implicitDeclrMethod, tempMethodInfo, parent.getClassEnv(javaLangObjectName));
+                checkReplace(implicitDeclrMethod, tempMethodInfo);
             }
 
             methodSignature.put(tempMethodInfo.getSignatureStr(), tempMethodInfo);
         }
-    }
-
-    private void checkAllMethodsInParent(ClassEnv parentClassEnv) throws NamingResolveException {
-        for (MethodInfo parentMethodInfo : parentClassEnv.getFullMethodSignature().values()) {
-
-            // override methods from parent
-            if (methodSignature.containsKey(parentMethodInfo.getSignatureStr())) {
-                MethodInfo declaredMethod = methodSignature.get(parentMethodInfo.getSignatureStr());
-                checkReplace(parentMethodInfo, declaredMethod, parentClassEnv);
+        if (!typeDeclr.getSimpleName().equals("Object")) {
+            if (methodSignature.containsKey("getClass")) {
+                throw new NamingResolveException("Fuck you Leatherman");
             }
-
-            // inherited methods
-            if (!methodSignature.containsKey(parentMethodInfo.signatureStr)) {
-                // check if methods in parent interface is implement in some other parent classes
-                if (fullMethodSignature.containsKey(parentMethodInfo.getSignatureStr())
-                       /*  && parentClassEnv.typeDeclr instanceof InterfaceDeclr */) {
-                    MethodInfo temp = fullMethodSignature.get(parentMethodInfo.getSignatureStr());
-                    checkReplace(parentMethodInfo, temp, parentClassEnv);
-                } else {
-                    checkInherit(parentMethodInfo, parentClassEnv);
-                }
-            }
-
-            fullMethodSignature.put(parentMethodInfo.getSignatureStr(), parentMethodInfo);
         }
     }
 
+    private void replaceMapParent(HashMap<String, MethodInfo> map, MethodInfo info) throws NamingResolveException {
+        String sig = info.signatureStr;
+
+        if (!map.containsKey(sig)) {
+            map.put(sig, info);
+            return;
+        }
+
+        MethodInfo replaced = map.get(sig);
+        if (replaced.returnType.equals(info.returnType)) {
+
+            if (replaced.modifiers.contains(Symbol.Public) && replaced.modifiers.contains(Symbol.Abstract)
+                    && info.modifiers.contains(Symbol.Protected) ||
+                    replaced.modifiers.contains(Symbol.Protected) && info.modifiers.contains(Symbol.Abstract)
+                    && info.modifiers.contains(Symbol.Public))  {
+                throw new NamingResolveException("Cannot replace a public method with protected method: "
+                        + replaced.signatureStr);
+            }
+
+            if (!info.modifiers.contains(Symbol.Abstract)) {
+                map.put(sig, info);
+            }
+        } else {
+            throw new NamingResolveException("Unmatched type when replacing method: " + info.signatureStr);
+        }
+    }
+
+    private void replaceMapLocal(HashMap<String, MethodInfo> map, MethodInfo info) throws NamingResolveException {
+        String sig = info.signatureStr;
+        if (!map.containsKey(sig)) {
+            map.put(sig, info);
+            return;
+        }
+
+        MethodInfo replaced = map.get(sig);
+        if (replaced.returnType.equals(info.returnType)) {
+            checkReplace(replaced, info);
+            map.put(sig, info);
+        } else {
+            throw new NamingResolveException("Unmatched type when replacing method: " + info.signatureStr);
+        }
+    }
 
     HashMap<String, MethodInfo> getFullMethodSignature() throws NamingResolveException {
         if (!implicitDeclr.isEmpty()) { // empty interface with only implicit declared methods
             methodSignature.putAll(implicitDeclr);
             if (methodSignature.size() == implicitDeclr.size()) {
-                fullMethodSigComplete = true;
+                methodContainComplete = true;
             }
         }
 
-        // put all class declared methods
-        fullMethodSignature.putAll(methodSignature);
+        if (methodContainComplete) {
+            return fullMethodSignature;
+        }
 
-        System.out.println("---------"+printType() +typeDeclr.getSimpleName()+" full methods = " + fullMethodSignature.keySet());
+        if (extendName != null && extendName.getTypeName().equals(javaLangObjectName)) {
+            superSet.add(JoosType.getJoosType(javaLangObjectName));
+        }
 
-        if (!fullMethodSigComplete) {
-            HashSet<ArrayList<String>> checkSet = new HashSet<>(superSet);
-            // check classes first
-            if (typeDeclr instanceof ClassDeclr) {
-                ArrayList<String> parentClassName = ((ClassDeclr) typeDeclr).getParentClass();
-                if (parentClassName.isEmpty() && !typeDeclr.getCanonicalName().equals(javaLangObjectName)) {
-                    parentClassName = new ArrayList<>(javaLangObjectName);
-                    checkSet.add(parentClassName);
+        if (!methodContainComplete) {
+            // inheritance
+            for (JoosType parentName : superSet) {
+                ClassEnv parentEnv = globalEnv.getClassEnv(parentName.getTypeName());
+
+                for (MethodInfo info: parentEnv.getFullMethodSignature().values()) {
+                    if (parentEnv.typeDeclr instanceof InterfaceDeclr && info.signatureStr.equals("getClass")) {
+                        throw new NamingResolveException("FUCK YOU LEATHERMAN");
+                    }
+                    replaceMapParent(fullMethodSignature, info);
                 }
-                ClassEnv parentClassEnv = parent.getClassEnv(typeResolve(parentClassName));
-
-                checkAllMethodsInParent(parentClassEnv);
-
-                checkSet.remove(parentClassName);
             }
-            System.out.println("parent class checked!");
 
-            System.out.println("---------"+printType() +typeDeclr.getSimpleName()+" full methods = " + fullMethodSignature.keySet());
-            // check interfaces
-            for (ArrayList<String> parentInterfaceName : checkSet) {
-                ClassEnv parentInterfaceEnv = parent.getClassEnv(typeResolve(parentInterfaceName));
-                parentInterfaceEnv.getFullMethodSignature();
-                checkAllMethodsInParent(parentInterfaceEnv);
+            // replace
+            for (MethodInfo localMethods:methodSignature.values()) {
+                replaceMapLocal(fullMethodSignature, localMethods);
             }
-            fullMethodSigComplete = true;
+
+            if (typeDeclr instanceof ClassDeclr && !typeDeclr.getModifiers().contains(Symbol.Abstract)) {
+                for (MethodInfo info: fullMethodSignature.values()) {
+                    if (info.modifiers.contains(Symbol.Abstract)) {
+
+                        throw new NamingResolveException("Abstract methods " + info.signatureStr +
+                                " not implemented in " + typeDeclr.getSimpleName());
+                    }
+                }
+            }
         }
+
+        methodContainComplete = true;
         return fullMethodSignature;
     }
 
@@ -319,14 +361,14 @@ public class ClassEnv implements Env {
         if (typeDeclr instanceof InterfaceDeclr) {
             return;
         }
-        FieldsVarInfo ctorType = new FieldsVarInfo("", typeDeclr.getCanonicalName(), false, false);
+        TypeInfo ctorType = new TypeInfo(false, JoosType.getJoosType(typeDeclr.getCanonicalName()));
         for (ConstructorDeclr ctor : ((ClassDeclr) typeDeclr).getConstructor()) {
             ArrayList<FieldsVarInfo> paramList = new ArrayList<>();
             for (Pair<Type, String> param : ctor.getFormalParamList()) {
                 paramList.add(typeResolve(param.getValue(), param.getKey()));
             }
             MethodInfo tempCtorInfo =
-                    new MethodInfo(ctor, ctorType, paramList);
+                    new MethodInfo(ctor, paramList);
             if (constructorSignature.containsKey(tempCtorInfo.getSignatureStr())) {
                 throw new NamingResolveException("Duplicate constructor with same signature in class/interface "
                         + String.join(".", typeDeclr.getCanonicalName()) + ". ");
@@ -343,8 +385,10 @@ public class ClassEnv implements Env {
             ClassEnv parentClassEnv;
 
             if (extend.size() > 0) {
-                superSet.add(typeResolve(extend));
-                parentClassEnv = parent.getClassEnv(typeResolve(extend));
+                JoosType extendType = typeResolve(extend);
+                superSet.add(extendType);
+                parentClassEnv = globalEnv.getClassEnv(typeResolve(extend).getTypeName());
+
                 // Null check
                 if (parentClassEnv == null) {
                     throw new NamingResolveException("Unexpected behaviour. ");
@@ -352,55 +396,74 @@ public class ClassEnv implements Env {
 
                 // Cannot extend interface
                 if (parentClassEnv.typeDeclr instanceof InterfaceDeclr) {
-                    throw new NamingResolveException("Class" + String.join(".", typeResolve(extend))
+                    throw new NamingResolveException("Class" + String.join(".", extendType.getTypeName())
                             + " must not extend an interface. ");
                 }
 
                 // Cannot extend final
                 if (parentClassEnv.typeDeclr.getModifiers().contains(Symbol.Final)) {
-                    throw new NamingResolveException("Class " + String.join(".", typeResolve(extend))
+                    throw new NamingResolveException("Class " + String.join(".", extendType.getTypeName())
                             + " must not extend a final class. ");
+                }
+
+                extendName = typeResolve(extend);
+            } else {
+                if (!typeDeclr.getCanonicalName().equals(javaLangObjectName)) {
+                    extendName = JoosType.getJoosType(javaLangObjectName);
                 }
             }
         }
 
         ArrayList<ArrayList<String>> interfaces = typeDeclr.getParentInterfaces();
         for (ArrayList<String> pInterface : interfaces) {
-            ClassEnv parentInterfaceEnv = parent.getClassEnv(typeResolve(pInterface));
+            JoosType interfaceType = typeResolve(pInterface);
+            ClassEnv parentInterfaceEnv = globalEnv.getClassEnv(interfaceType.getTypeName());
 
             // Cannot implement class
             if (parentInterfaceEnv.typeDeclr instanceof ClassDeclr) {
-                throw new NamingResolveException("Class " + String.join(".", typeResolve(pInterface))
+                throw new NamingResolveException("Class " + String.join(".", interfaceType.getTypeName())
                         + " must not implement a class. ");
             }
 
             // Duplicate interfaces
             if (superSet.contains(typeResolve(pInterface))) {
-                throw new NamingResolveException("Interface " + String.join(".", typeResolve(pInterface))
+                throw new NamingResolveException("Interface " + String.join(".", interfaceType.getTypeName())
                         + " is already in implements clause. ");
             }
             superSet.add(typeResolve(pInterface));
         }
     }
 
-    HashSet<ArrayList<String>> getFullSuperSet() throws NamingResolveException {
-        if (superSet.isEmpty()) {
-            fullSuperSet.add(javaLangObjectName);
-            fullMethodSigComplete = true;
+    HashSet<JoosType> getFullSuperSet(TreeSet<ArrayList<String>> set) throws NamingResolveException {
+
+        if (typeDeclr instanceof ClassDeclr && ((ClassDeclr) typeDeclr).getParentClass().size() == 0) {
+            fullSuperSet.add(JoosType.getJoosType(javaLangObjectName));
+            fullSuperSetComplete = true;
+        }
+
+        if (extendName != null && extendName.getTypeName().equals(typeDeclr.getCanonicalName())) {
+            throw new NamingResolveException("Cyclic hierarchy structure detected.");
+        }
+
+        if (set.contain(typeDeclr.getCanonicalName())) {
+            throw new NamingResolveException("Cyclic hierarchy structure detected.");
         }
 
         if (!fullSuperSetComplete) {
             fullSuperSet.addAll(superSet);
-            for (ArrayList<String> className : superSet) {
-                ClassEnv classEnv = parent.getClassEnv(className);
-                HashSet<ArrayList<String>> pSuper = classEnv.getFullSuperSet();
+            for (JoosType className : superSet) {
+                ClassEnv classEnv = globalEnv.getClassEnv(className.getTypeName());
+
+                TreeSet<ArrayList<String>> nextSet = set.newChild();
+                nextSet.addItem(typeDeclr.getCanonicalName());
+
+                HashSet<JoosType> pSuper = classEnv.getFullSuperSet(nextSet);
 
                 fullSuperSet.addAll(pSuper);
                 if (fullSuperSet.contains(typeDeclr.getCanonicalName())) {
-                    throw new NamingResolveException("Cyclic hierarchy structure detected");
+                    throw new NamingResolveException("Cyclic hierarchy structure detected.");
                 }
             }
-            fullSuperSetComplete = true;
         }
         return fullSuperSet;
     }
@@ -417,36 +480,43 @@ public class ClassEnv implements Env {
         }
     }
 
+    public void resolveFieldsAndLocalVar() throws NamingResolveException {
+        for (LocalEnv localEnv:localEnvs) {
+            localEnv.resolveLocalVariableAndAccess();
+        }
+    }
+
     @Override
-    public ArrayList<String> typeResolve(ArrayList<String> longTypeName) throws NamingResolveException {
+    public JoosType typeResolve(ArrayList<String> longTypeName) throws NamingResolveException {
+        if (JoosType.isPrimitive(longTypeName)) {
+            return JoosType.getJoosType(longTypeName);
+        }
         // qualified Name
         if (longTypeName.size() > 1) {
             String type_prefix = longTypeName.get(0);
 
             if (resolvedTypes.containsKey(type_prefix)) {
-                throw new NamingResolveException("Prefix of a qualified name used for type");
+                throw new NamingResolveException("Prefix of a qualified name used for type: " + type_prefix);
             }
 
-            if (!parent.findPackageName(longTypeName, false)) {
+            if (!globalEnv.findPackageName(longTypeName, false)) {
                 throw new NamingResolveException("Type Not Found: " + String.join(".", longTypeName));
             } else {
-                return longTypeName;
+                return JoosType.getJoosType(longTypeName);
             }
         } else {
             String typeName = longTypeName.get(0);
-            ArrayList<String> resolvedName = resolvedTypes.getOrDefault(typeName, null);
+            JoosType resolvedName = resolvedTypes.getOrDefault(typeName, null);
 
             if (resolvedName == null) {
-                resolvedName = samePackage.getOrDefault(typeName, null);
-                if (resolvedName == null) {
-                    ArrayList<ArrayList<String>> onDemandCandidates = onDemandImportTypes.getOrDefault(typeName, new ArrayList<>());
-                    if (onDemandCandidates.size() > 1) {
-                        throw new NamingResolveException("On Demand import clashing");
-                    } else if (onDemandCandidates.size() == 0) {
-                        throw new NamingResolveException("Type Not Found: no import found on " + typeName);
-                    } else {
-                        resolvedName = onDemandCandidates.get(0);
-                    }
+
+                ArrayList<JoosType> onDemandCandidates = onDemandImportTypes.getOrDefault(typeName, new ArrayList<>());
+                if (onDemandCandidates.size() > 1) {
+                    throw new NamingResolveException("On Demand import clashing");
+                } else if (onDemandCandidates.size() == 0) {
+                    throw new NamingResolveException("Type Not Found: no import found on " + typeName);
+                } else {
+                    resolvedName = onDemandCandidates.get(0);
                 }
                 resolvedTypes.put(typeName, resolvedName);
             }
@@ -454,19 +524,34 @@ public class ClassEnv implements Env {
         }
     }
 
+    /**
+     * This should be named as something like fieldTypeResolve
+     * */
     @Override
     public FieldsVarInfo typeResolve(String name, Type type) throws NamingResolveException {
+        TypeInfo fieldType = typeResolve(type);
+        return new FieldsVarInfo(name, fieldType);
+    }
+
+    @Override
+    public TypeInfo typeResolve(Type type) throws NamingResolveException {
         boolean isArray = type.getKind() == Symbol.ArrayType;
-        // Primitive
-        if ((type.getKind() != Symbol.ClassOrInterfaceType && type.getKind() != Symbol.ArrayType)
-                || (isArray && type.getArrayKind() != null && type.getArrayKind() != Symbol.ClassOrInterfaceType)) {
+        TypeInfo typeInfo = new TypeInfo(isArray);
+
+        // fuck this
+        if (type.getNames() == null || type.getNames().size() == 0) {
+            ArrayList<String> name;
             if (isArray) {
-                return new FieldsVarInfo(name, new ArrayList<>(Arrays.asList(type.getArrayKind().getSymbolString())), true, isArray);
+                name = new ArrayList<>(Arrays.asList(type.getArrayKind().getSymbolString()));
             } else {
-                return new FieldsVarInfo(name, new ArrayList<>(Arrays.asList(type.getKind().getSymbolString())), true, isArray);
+                name = new ArrayList<>(Arrays.asList(type.getKind().getSymbolString()));
             }
+            typeInfo.rewriteJoosType(typeResolve(name));
+        } else {
+            typeInfo.rewriteJoosType(typeResolve(type.getNames()));
         }
-        return new FieldsVarInfo(name, typeResolve(type.getNames()), false, isArray);
+
+        return typeInfo;
     }
 
     @Override
@@ -481,7 +566,7 @@ public class ClassEnv implements Env {
 
     @Override
     public boolean isFieldDeclared(String simpleName) {
-        return fields.keySet().contains(simpleName);
+        return containedFields.keySet().contains(simpleName);
     }
 
     @Override
@@ -496,14 +581,6 @@ public class ClassEnv implements Env {
         resolveConstructorNames();
         resolveHierarchy();
         resolveClassDeclrMethodNames();
-
-        for (LocalEnv localEnv : localEnvs) {
-            localEnv.resolveLocalVariableAndAccess();
-        }
-    }
-
-    public HashSet<ArrayList<String>> getSuperSet() {
-        return superSet;
     }
 
     String printType() {
@@ -511,31 +588,13 @@ public class ClassEnv implements Env {
         else return "Interface ";
     }
 
-    public void printInfo(boolean includeStdLib) {
-        if (!includeStdLib && typeDeclr.getCanonicalName().contains("java")) return;
-        System.out.print(printType());
-        System.out.print(typeDeclr.getSimpleName() + "-> " + "\n");
-        System.out.println("Direct super set:");
-        for (ArrayList<String> key : superSet) {
-            System.out.print("\t" + key);
-        }
-        System.out.print("\n");
+    public TypeDeclr getTypeDeclr() {
+        return typeDeclr;
+    }
 
-        System.out.println("Full super set:");
-        for (ArrayList<String> key : fullSuperSet) {
-            System.out.print("\t" + key);
+    public void addSuperToJooscType() {
+        for (JoosType parent:fullSuperSet) {
+            joosType.addParent(parent);
         }
-        System.out.print("\n");
-        System.out.println("class declared methods:");
-        for (String key : methodSignature.keySet()) {
-            System.out.print("\t" + key);
-        }
-        System.out.print("\n");
-        System.out.println("full methods: ");
-        for (String key : fullMethodSignature.keySet()) {
-            System.out.print("\t" + key);
-        }
-        System.out.print("\n");
-        System.out.println("-------------------------------");
     }
 }

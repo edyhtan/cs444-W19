@@ -4,6 +4,7 @@ import Joosc.ASTBuilding.ASTStructures.TypeNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Type implements AST {
     private Symbol kind, arrayKind;
@@ -25,5 +26,18 @@ public class Type implements AST {
 
     public ArrayList<String> getNames() {
         return names;
+    }
+
+    public ArrayList<String> getTypeName() {
+        boolean isArray = kind == Symbol.ArrayType;
+        if (names != null) {
+            return getNames();
+        } else {
+            if (isArray) {
+                return new ArrayList<>(Arrays.asList(getArrayKind().getSymbolString()));
+            } else {
+                return new ArrayList<>(Arrays.asList(getKind().getSymbolString()));
+            }
+        }
     }
 }

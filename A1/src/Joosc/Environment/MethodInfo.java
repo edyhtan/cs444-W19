@@ -9,28 +9,28 @@ import java.util.ArrayList;
 
 public class MethodInfo {
     String signatureStr;
-    FieldsVarInfo returnType;
+    TypeInfo returnType;
     ArrayList<FieldsVarInfo> paramTypeList;
     ArrayList<Symbol> modifiers;
     Method ast;
 
-    public MethodInfo(MethodDeclr method, FieldsVarInfo returnType, ArrayList<FieldsVarInfo> paramTypeList) {
+    public MethodInfo(MethodDeclr method, TypeInfo returnType, ArrayList<FieldsVarInfo> paramTypeList) {
         ast = method;
         modifiers = method.getModifiers();
         this.returnType = returnType;
         this.paramTypeList = paramTypeList;
         signatureStr = paramTypeList.stream()
-                .map(x->x.getFullTypeName() + (x.isTypeArray() ? "[]" : ""))
+                .map(x->x.getFullTypeName() + (x.isTypeArray()? "[]" : ""))
                 .reduce(method.getName(), (s, t) -> s + "," + t);
     }
 
-    public MethodInfo(ConstructorDeclr ctor, FieldsVarInfo classType, ArrayList<FieldsVarInfo> paramTypeList) {
+    public MethodInfo(ConstructorDeclr ctor, ArrayList<FieldsVarInfo> paramTypeList) {
         ast = ctor;
         modifiers = ctor.getModifiers();
-        this.returnType = classType;
+        this.returnType = null;
         this.paramTypeList = paramTypeList;
         signatureStr = paramTypeList.stream()
-                .map(x->x.getFullTypeName() + (x.isTypeArray() ? "[]" : ""))
+                .map(x->x.getFullTypeName() + (x.isTypeArray()? "[]" : ""))
                 .reduce(ctor.getName(), (s, t) -> s + "," + t);
     }
 
