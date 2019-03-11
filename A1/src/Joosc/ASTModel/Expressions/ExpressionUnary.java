@@ -55,13 +55,13 @@ public class ExpressionUnary extends Expression {
     @Override
     public JoosType getType() throws TypeCheckException {
         JoosType targetNodeType = targetNode.getType();
-        if (kind.equals(Symbol.CastExpression)) {
+        if (joosType != null) { // casting
             // review: downcast run-time check? cast an interface?
-            if (castingJoosType.isA(targetNodeType) || targetNodeType.isA(castingJoosType)) {
+            if (joosType.isA(targetNodeType) || targetNodeType.isA(joosType)) {
                 joosType = targetNodeType;
             } else {
                 throw new TypeCheckException("Cannot cast " + targetNodeType.getTypeName()
-                        + " to " + castingJoosType.getTypeName());
+                        + " to " + joosType.getTypeName());
             }
         } else { // unaryExpression
             // minus
@@ -70,12 +70,12 @@ public class ExpressionUnary extends Expression {
             } else {
                 throw new TypeCheckException("Cannot subtract a non-numeric type variable.");
             }
-        }
-        // negate
-        if (unaryOperator.equals(Symbol.Bang) && targetNodeType.equals("boolean")) {
-            joosType = targetNodeType;
-        } else {
-            throw new TypeCheckException("Cannot negate a non-boolean type variable");
+            // negate
+            if (unaryOperator.equals(Symbol.Bang) && targetNodeType.equals("boolean")) {
+                joosType = targetNodeType;
+            } else {
+                throw new TypeCheckException("Cannot negate a non-boolean type variable");
+            }
         }
         return joosType;
     }
