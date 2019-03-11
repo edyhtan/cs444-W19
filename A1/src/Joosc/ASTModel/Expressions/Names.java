@@ -29,7 +29,7 @@ public class Names extends ExpressionContent {
 
     @Override
     public JoosType getType() throws TypeCheckException {
-
-        return null;
+        joosType = JoosType.getJoosType(name);
+        return joosType;
     }
 }
