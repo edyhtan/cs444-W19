@@ -16,7 +16,6 @@ public class This extends ExpressionContent {
     public JoosType getType() throws TypeCheckException {
         ArrayList<String> currentClassFullName = getEnv().getCurrentClass().getCanonicalName();
         joosType = JoosType.getJoosType(currentClassFullName);
-        if (joosType == null) throw new TypeCheckException("Cannot find type " + currentClassFullName);
         return joosType;
     }
 }
