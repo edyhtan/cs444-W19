@@ -58,13 +58,12 @@ public class ExpressionUnary extends Expression {
     public JoosType getType() throws TypeCheckException {
         JoosType targetNodeType = targetNode.getType();
         if (kind.equals(Symbol.CastExpression)) {
-            JoosType castType = JoosType.getJoosType(castingType.getTypeName());
-            // TODO: downcast run-time check? cast an interface?
-            if (castType.isA(targetNodeType) || targetNodeType.isA(castType)) {
+            // review: downcast run-time check? cast an interface?
+            if (castingJoosType.isA(targetNodeType) || targetNodeType.isA(castingJoosType)) {
                 joosType = targetNodeType;
             } else {
                 throw new TypeCheckException("Cannot cast " + targetNodeType.getTypeName()
-                        + " to " + castType.getTypeName());
+                        + " to " + castingJoosType.getTypeName());
             }
         } else { // unaryExpression
             // minus
