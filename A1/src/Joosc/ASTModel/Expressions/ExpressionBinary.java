@@ -60,9 +60,14 @@ public class ExpressionBinary extends Expression {
             }
             return false;
         } else {
-            // TODO: check here
-            if (RHS.hasParent(LHS) || (RHS.isA(LHS))) return true;
-            else return false;
+            if (RHS.hasParent(LHS)) return true;
+            // TODO: check transitivity
+            for(JoosType lhsParent : LHS.getAllParents().keySet()) {
+                for(JoosType rhsParent:RHS.getAllParents().keySet()) {
+                    if (isAssignable(lhsParent, rhsParent)) return true;
+                }
+            }
+            return false;
         }
     }
 
@@ -99,7 +104,7 @@ public class ExpressionBinary extends Expression {
                 if (JoosType.isNumber(lhsType) && JoosType.isNumber(rhsType)) {
                     joosType = JoosType.getJoosType("int");
                 } else {
-                    throw new TypeCheckException(String.format("Type incompatible: %s, %s",
+                    throw new TypeCheckException(String.format("Arithmetic operations type incompatible: %s, %s",
                             lhsType.getTypeName(), rhsType.getTypeName()));
                 }
                 break;
@@ -107,7 +112,7 @@ public class ExpressionBinary extends Expression {
             case EQ:
             case NE:
                 if ((JoosType.isNumber(lhsType) && JoosType.isNumber(rhsType))
-                        || lhsType.isA(rhsType)) {
+                        || (lhsType.isA(rhsType) || rhsType.isA(lhsType))) {
                     joosType = JoosType.getJoosType("boolean");
                 } else {
                     throw new TypeCheckException("Cannot compare type " + lhsType.getTypeName()
@@ -121,8 +126,8 @@ public class ExpressionBinary extends Expression {
                 if (JoosType.isNumber(lhsType) && JoosType.isNumber(rhsType)) {
                     joosType = JoosType.getJoosType("boolean");
                 } else {
-                    throw new TypeCheckException("Cannot compare type " + lhsType.getTypeName()
-                            + " with " + rhsType.getTypeName());
+                    throw new TypeCheckException(String.format("Comparison type incompatible: %s, %s",
+                            lhsType.getTypeName(), rhsType.getTypeName()));
                 }
                 break;
             case Instanceof:
@@ -144,7 +149,7 @@ public class ExpressionBinary extends Expression {
                 if (lhsType.equals("boolean") || rhsType.equals("boolean")) {
                     joosType = JoosType.getJoosType("boolean");
                 } else {
-                    throw new TypeCheckException(String.format("Type incompatible: %s, %s",
+                    throw new TypeCheckException(String.format("Logical operation type incompatible: %s, %s",
                             lhsType.getTypeName(), rhsType.getTypeName()));
                 }
                 break;
