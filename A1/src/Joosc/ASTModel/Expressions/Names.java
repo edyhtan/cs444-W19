@@ -1,6 +1,8 @@
 package Joosc.ASTModel.Expressions;
 
 import Joosc.Exceptions.NamingResolveException;
+import Joosc.Exceptions.TypeCheckException;
+import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
 
@@ -23,5 +25,11 @@ public class Names extends ExpressionContent {
                throw new NamingResolveException("Name " + name.get(0) + " not declared.");
            }
         }
+    }
+
+    @Override
+    public JoosType getType() throws TypeCheckException {
+
+        return null;
     }
 }

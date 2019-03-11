@@ -3,9 +3,12 @@ package Joosc.ASTModel.Expressions;
 import Joosc.ASTBuilding.ASTStructures.Expressions.*;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.AST;
+import Joosc.Exceptions.TypeCheckException;
+import Joosc.TypeSystem.JoosType;
 
 public abstract class Expression extends HasType implements AST {
     Symbol kind;
+    JoosType joosType;
      public static Expression convertExpressionNode(ExpressionNode node) {
         if(node instanceof ExpressionBinaryNode) {
             return new ExpressionBinary((ExpressionBinaryNode) node);
@@ -46,4 +49,7 @@ public abstract class Expression extends HasType implements AST {
 
         return null;
     }
+
+    public abstract JoosType getType() throws TypeCheckException;
+
 }

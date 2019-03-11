@@ -606,8 +606,4 @@ public class ClassEnv implements Env {
         System.out.print("\n");
         System.out.println("-------------------------------");
     }
-
-    public TypeDeclr getTypeDeclr() {
-        return typeDeclr;
-    }
 }

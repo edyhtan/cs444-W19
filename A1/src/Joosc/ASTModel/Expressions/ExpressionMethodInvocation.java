@@ -3,6 +3,8 @@ package Joosc.ASTModel.Expressions;
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionMethodInvocationNode;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
+import Joosc.Exceptions.TypeCheckException;
+import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -55,5 +57,10 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
         for (Expression expression : argList) {
             expression.validate();
         }
+    }
+
+    @Override
+    public JoosType getType() throws TypeCheckException {
+
     }
 }

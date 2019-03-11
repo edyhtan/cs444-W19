@@ -2,9 +2,9 @@ package Joosc.ASTModel.Statements;
 
 import Joosc.ASTBuilding.ASTStructures.Statements.ForStatementNode;
 import Joosc.ASTModel.Expressions.Expression;
-import Joosc.Environment.GlobalEnv;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
+import Joosc.Exceptions.TypeCheckException;
 
 import java.util.ArrayList;
 
@@ -55,6 +55,11 @@ public class ForStatement extends HasScope implements Statement, HasExpression {
 
     @Override
     public void checkExpression(LocalEnv env) throws NamingResolveException {
+
+    }
+
+    @Override
+    public void checkType() throws TypeCheckException {
 
     }
 }

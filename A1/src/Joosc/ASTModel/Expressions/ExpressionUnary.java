@@ -5,6 +5,8 @@ import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.Type;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
+import Joosc.Exceptions.TypeCheckException;
+import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
 
@@ -52,5 +54,18 @@ public class ExpressionUnary extends Expression {
                 resolvedType = getEnv().typeResolve(castingType.getNames());
         }
         targetNode.validate();
+    }
+
+    @Override
+    public JoosType getType() throws TypeCheckException {
+        if(kind.equals(Symbol.CastExpression)){
+
+        } else { // unaryExpression
+            // minus
+
+            // negate
+
+        }
+        return null;
     }
 }

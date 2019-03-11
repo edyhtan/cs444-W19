@@ -114,12 +114,13 @@ public class JoosType {
         return this.isPrimitive && this.typeName.get(0).equals(primitiveTypeName);
     }
 
-
-    public boolean equals(JoosType type) {
-        return this.typeName.equals(type.typeName)
-                && this.classEnv.getTypeDeclr().getCanonicalName().equals(type.classEnv.getTypeDeclr().getCanonicalName());
+    public boolean isA(JoosType parentType) {
+        HashSet<JoosType> set = new HashSet<>(this.allParents.keySet());
+        for (JoosType type : parentType.allParents.keySet()) {
+            if(set.contains(type)) return true;
+        }
+        return false;
     }
-
 
     // unit tests
     public static void printTypes() {

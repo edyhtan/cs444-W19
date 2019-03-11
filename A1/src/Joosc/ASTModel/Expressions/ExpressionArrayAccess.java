@@ -3,6 +3,8 @@ package Joosc.ASTModel.Expressions;
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionArrayAccessNode;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
+import Joosc.Exceptions.TypeCheckException;
+import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
 
@@ -43,5 +45,10 @@ public class ExpressionArrayAccess extends ExpressionPrimary {
         if (referenceExpression != null)
             referenceExpression.validate();
         indexExpression.validate();
+    }
+
+    @Override
+    public JoosType getType() throws TypeCheckException{
+
     }
 }

@@ -4,6 +4,7 @@ package Joosc.ASTModel.Expressions;
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionTypeNode;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
+import Joosc.Exceptions.TypeCheckException;
 
 import java.util.ArrayList;
 
@@ -24,6 +25,11 @@ public class ExpressionType extends Expression {
 
     @Override
     public void validate() throws NamingResolveException {
+
+    }
+
+    @Override
+    public JoosType getType() throws TypeCheckException {
 
     }
 }

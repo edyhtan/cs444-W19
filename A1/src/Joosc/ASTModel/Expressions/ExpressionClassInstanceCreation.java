@@ -4,6 +4,7 @@ import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionClassInstanceCreati
 import Joosc.ASTModel.Type;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
+import Joosc.Exceptions.TypeCheckException;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -42,5 +43,10 @@ public class ExpressionClassInstanceCreation extends Expression {
         for (Expression arg: argList) {
             arg.validate();
         }
+    }
+
+    @Override
+    public JoosType getType() throws TypeCheckException {
+
     }
 }

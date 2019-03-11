@@ -114,7 +114,6 @@ public class GlobalEnv implements Env {
             classEnv.resolveFieldsAndLocalVar();
         }
 
-        classEnvs.forEach(x -> x.localEnvs.forEach(y -> y.printInfo(false)));
         JoosType.printTypes();
     }
 

@@ -2,6 +2,7 @@ package Joosc.ASTModel.Statements;
 
 import Joosc.ASTBuilding.ASTStructures.Statements.*;
 import Joosc.ASTModel.AST;
+import Joosc.Exceptions.TypeCheckException;
 
 public interface Statement extends AST {
 
@@ -32,5 +33,7 @@ public interface Statement extends AST {
 
         return null;
     }
+
+    void checkType() throws TypeCheckException;
 
 }
