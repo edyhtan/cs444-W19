@@ -5,22 +5,25 @@ import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.Type;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
+import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.regex.Pattern;
 
 public class ExpressionUnary extends Expression {
     private Symbol kind;
     private Symbol unaryOperator;
     private Expression targetNode;
     private Type castingType;
-    private ArrayList<String> resolvedType;
+
+    private JoosType castingJoosType;
 
     public ExpressionUnary(ExpressionUnaryNode node) {
         kind = node.getKind();
         unaryOperator = node.getUnaryOperator();
         targetNode = Expression.convertExpressionNode(node.getTargetNode());
-        castingType = node.getCastingTypeNode()==null ? null
-                        : new Type(node.getCastingTypeNode());
+        castingType = node.getCastingTypeNode() == null ? null : new Type(node.getCastingTypeNode());
     }
 
     public Symbol getUnaryOperator() {
@@ -48,8 +51,7 @@ public class ExpressionUnary extends Expression {
     @Override
     public void validate() throws NamingResolveException {
         if (castingType != null) {
-            if (castingType.getKind() == Symbol.ClassOrInterfaceType)
-                resolvedType = getEnv().typeResolve(castingType.getNames());
+            castingJoosType = getEnv().typeResolve(castingType.getTypeName());
         }
         targetNode.validate();
     }

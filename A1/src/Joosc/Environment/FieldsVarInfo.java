@@ -28,24 +28,6 @@ public class FieldsVarInfo {
     }
 
     public boolean isTypePrimitive() {
-        return typeInfo.isPrimitive;
+        return typeInfo.isPrimitive();
     }
-
-//    Legacy Code:
-//    Type type;
-//    public FieldsVarInfo(String name, ArrayList<String> typeName, boolean isPrimitive, boolean isArray) {
-//        type = new Type(typeName, isPrimitive, isArray);
-//        this.name = name;
-//    }
-//    class Type {
-//        boolean isPrimitive;
-//        boolean isArray;
-//        ArrayList<String> fullName;
-//
-//        Type(ArrayList<String> name, boolean isPrimitive, boolean isArray) {
-//            fullName = name;
-//            this.isPrimitive = isPrimitive;
-//            this.isArray = isArray;
-//        }
-//    }
 }
