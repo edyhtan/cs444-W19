@@ -67,7 +67,6 @@ public class JoosType {
         return isPrimitive(this);
     }
 
-
     public ClassEnv getClassEnv() {
         return classEnv;
     }
@@ -127,15 +126,15 @@ public class JoosType {
     public boolean isA(JoosType RHS) {
         if (RHS.equals(JoosType.NULL)) return true;
         if (this.typeName.equals(RHS.getTypeName())) return true;
-        if (this.isPrimitive && JoosType.isPrimitive(RHS)) {
+        if (this.isPrimitive() && RHS.isPrimitive()) {
             if ((this.equals("int") && (RHS.equals("char") || RHS.equals("short") || RHS.equals("byte")))
                     || (this.equals("short") && RHS.equals("byte"))) {
                 return true;
             }
             return false;
         } else {
-            if (RHS.hasParent(this)) return true;
-            // TODO: check transitivity
+            if (RHS.hasParent(this) || RHS.getTypeName().equals(this.typeName)) return true;
+            // review: check transitivity
             for (JoosType rhsParent : RHS.getAllParents().keySet()) {
                 if (this.isA(rhsParent)) return true;
             }
