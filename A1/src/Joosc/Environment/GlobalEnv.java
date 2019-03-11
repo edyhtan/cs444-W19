@@ -5,6 +5,7 @@ import Joosc.ASTModel.ClassMember.ClassBodyDeclr;
 import Joosc.ASTModel.Program;
 import Joosc.ASTModel.Type;
 import Joosc.Exceptions.NamingResolveException;
+import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
 import Joosc.util.TreeSet;
 
@@ -88,11 +89,11 @@ public class GlobalEnv implements Env {
     }
 
     @Override
-    public void resolveName() throws NamingResolveException {
+    public void semanticAnalysis() throws NamingResolveException, TypeCheckException {
         buildAndResolvePackage();
         nameConflict();
         for (ClassEnv classEnv : classEnvs) {
-            classEnv.resolveName();
+            classEnv.semanticAnalysis();
         }
 
         for (ClassEnv classEnv : classEnvs) {
@@ -107,6 +108,11 @@ public class GlobalEnv implements Env {
         }
 
         JoosType.printTypes();
+    }
+
+    @Override
+    public JoosType getJoosType() {
+        return null;
     }
 
     public void buildAndResolvePackage() throws NamingResolveException {
@@ -173,5 +179,15 @@ public class GlobalEnv implements Env {
         PackageNames(String packageName) {
             name = packageName;
         }
+    }
+
+    @Override
+    public FieldsVarInfo getFieldInfo(ArrayList<String> name){
+        return null;
+    }
+
+    @Override
+    public FieldsVarInfo getVarInfo(ArrayList<String> name) {
+        return null;
     }
 }

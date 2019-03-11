@@ -26,9 +26,4 @@ public class ElseBlock extends HasScope implements Statement {
     public void passDownScopes() {
 
     }
-
-    @Override
-    public void checkType() throws TypeCheckException {
-
-    }
 }

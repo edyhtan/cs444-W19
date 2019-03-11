@@ -34,6 +34,4 @@ public interface Statement extends AST {
         return null;
     }
 
-    void checkType() throws TypeCheckException;
-
 }

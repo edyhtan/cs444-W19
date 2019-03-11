@@ -9,17 +9,11 @@ import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.regex.Pattern;
-
 public class ExpressionUnary extends Expression {
     private Symbol kind;
     private Symbol unaryOperator;
     private Expression targetNode;
     private Type castingType;
-
-    private JoosType castingJoosType;
 
     public ExpressionUnary(ExpressionUnaryNode node) {
         kind = node.getKind();
@@ -53,7 +47,7 @@ public class ExpressionUnary extends Expression {
     @Override
     public void validate() throws NamingResolveException {
         if (castingType != null) {
-            castingJoosType = getEnv().typeResolve(castingType.getTypeName());
+            joosType = getEnv().typeResolve(castingType.getTypeName());
         }
         targetNode.validate();
     }

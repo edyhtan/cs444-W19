@@ -7,12 +7,11 @@ import Joosc.TypeSystem.JoosType;
 public class This extends ExpressionContent {
     @Override
     public void validate() throws NamingResolveException {
-
+        joosType = getEnv().getJoosType();
     }
 
     @Override
     public JoosType getType() throws TypeCheckException {
-
-        return null;
+        return joosType;
     }
 }

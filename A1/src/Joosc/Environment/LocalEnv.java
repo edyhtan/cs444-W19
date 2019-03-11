@@ -3,11 +3,11 @@ package Joosc.Environment;
 import Joosc.ASTModel.AST;
 import Joosc.ASTModel.ClassInterface.TypeDeclr;
 import Joosc.ASTModel.ClassMember.ClassBodyDeclr;
-import Joosc.ASTModel.ClassMember.FieldDeclr;
 import Joosc.ASTModel.ClassMember.Method;
 import Joosc.ASTModel.Statements.*;
 import Joosc.ASTModel.Type;
 import Joosc.Exceptions.NamingResolveException;
+import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
 import Joosc.util.Pair;
 
@@ -58,7 +58,7 @@ public class LocalEnv implements Env {
         return ast instanceof HasScope;
     }
 
-    public void resolveLocalVariableAndAccess() throws NamingResolveException {
+    public void resolveLocalVariableAndAccess() throws NamingResolveException, TypeCheckException {
         ArrayList<Statement> statements = null;
         if (ast instanceof Method) {
             // parameter
@@ -104,6 +104,7 @@ public class LocalEnv implements Env {
 
             if (statement instanceof HasExpression) {
                 ((HasExpression) statement).checkExpression(this);
+                ((HasExpression) statement).checkType();
             }
             if (statement instanceof LocalVarDeclrStatement) {
                 LocalVarDeclrStatement localVar = (LocalVarDeclrStatement) statement;
@@ -141,9 +142,9 @@ public class LocalEnv implements Env {
     }
 
     @Override
-    public void resolveName() throws NamingResolveException {
+    public void semanticAnalysis() throws NamingResolveException {
         for (LocalEnv localEnv : subEnvs) {
-            localEnv.resolveName();
+            localEnv.semanticAnalysis();
         }
     }
 
@@ -158,6 +159,11 @@ public class LocalEnv implements Env {
     }
 
     @Override
+    public JoosType getJoosType() {
+        return parent.getJoosType();
+    }
+
+    @Override
     public TypeInfo typeResolve(Type type) throws NamingResolveException {
         return parent.typeResolve(type);
     }
@@ -166,10 +172,17 @@ public class LocalEnv implements Env {
         return ast;
     }
 
+    @Override
+    public FieldsVarInfo getFieldInfo(ArrayList<String> name){
+        return parent.getFieldInfo(name);
+    }
 
-    public void checkType(ClassEnv classEnv) {
-        if(currentMethod instanceof FieldDeclr) {
-//            currentMethod.
+    @Override
+    public FieldsVarInfo getVarInfo(ArrayList<String> name) {
+        FieldsVarInfo info = symbolTable.getOrDefault(name, null);
+        if (info == null) {
+            info = parent.getVarInfo(name);
         }
+        return info;
     }
 }

@@ -1,5 +1,6 @@
 package Joosc.ASTModel.Expressions;
 
+import Joosc.Environment.FieldsVarInfo;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 
 public class Names extends ExpressionContent {
     ArrayList<String> name;
+    FieldsVarInfo info;
 
     public Names(ArrayList<String> name) {
         this.name = name;
@@ -19,17 +21,15 @@ public class Names extends ExpressionContent {
 
     @Override
     public void validate() throws NamingResolveException {
-        // Simple Name
-        if (name.size() == 1) {
-           if (!getEnv().isLocalVariableDeclared(name.get(0)) && !getEnv().isFieldDeclared(name.get(0))) {
-               throw new NamingResolveException("Name " + name.get(0) + " not declared.");
-           }
+        info = getEnv().getFieldInfo(name);
+        if (info == null) {
+            System.err.println(String.join(".", name));
+            info = getEnv().getVarInfo(name);
         }
     }
 
     @Override
     public JoosType getType() throws TypeCheckException {
-
-        return null;
+        return info.getTypeInfo().getJoosType();
     }
 }
