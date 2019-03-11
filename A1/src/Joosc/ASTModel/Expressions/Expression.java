@@ -8,7 +8,7 @@ import Joosc.TypeSystem.JoosType;
 
 public abstract class Expression extends HasType implements AST {
     Symbol kind;
-    JoosType joosType;
+    protected JoosType joosType;
      public static Expression convertExpressionNode(ExpressionNode node) {
         if(node instanceof ExpressionBinaryNode) {
             return new ExpressionBinary((ExpressionBinaryNode) node);

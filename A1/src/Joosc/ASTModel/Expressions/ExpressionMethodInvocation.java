@@ -45,7 +45,7 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
         if (methodParentExpression != null) {
             methodParentExpression.addEnv(env);
         }
-        argList.forEach(x-> x.addEnv(env));
+        argList.forEach(x -> x.addEnv(env));
     }
 
     @Override
@@ -61,6 +61,6 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
 
     @Override
     public JoosType getType() throws TypeCheckException {
-
+        return joosType;
     }
 }

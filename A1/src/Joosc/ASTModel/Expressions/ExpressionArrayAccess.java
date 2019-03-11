@@ -49,6 +49,6 @@ public class ExpressionArrayAccess extends ExpressionPrimary {
 
     @Override
     public JoosType getType() throws TypeCheckException{
-
+        return joosType;
     }
 }

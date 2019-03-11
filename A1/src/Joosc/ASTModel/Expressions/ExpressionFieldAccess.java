@@ -4,6 +4,7 @@ import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionFieldAccessNode;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.TypeSystem.JoosType;
 
 public class ExpressionFieldAccess extends Expression {
     private String fieldIdentifier;
@@ -35,6 +36,6 @@ public class ExpressionFieldAccess extends Expression {
 
     @Override
     public JoosType getType() throws TypeCheckException{
-
+        return joosType;
     }
 }

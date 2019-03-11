@@ -134,5 +134,6 @@ public class ExpressionBinary extends Expression {
 
 
         }
+        return joosType;
     }
 }

@@ -44,6 +44,6 @@ public class ExpressionArrayCreation extends ExpressionPrimary {
 
     @Override
     public JoosType getType() throws TypeCheckException {
-
+        return joosType;
     }
 }
