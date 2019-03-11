@@ -59,6 +59,7 @@ public class ExpressionUnary extends Expression {
         JoosType targetNodeType = targetNode.getType();
         if (kind.equals(Symbol.CastExpression)) {
             JoosType castType = JoosType.getJoosType(castingType.getTypeName());
+            // TODO: downcast run-time check? cast an interface?
             if (castType.isA(targetNodeType) || targetNodeType.isA(castType)) {
                 joosType = targetNodeType;
             } else {
