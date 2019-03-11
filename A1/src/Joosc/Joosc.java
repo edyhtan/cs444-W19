@@ -47,12 +47,13 @@ public class Joosc {
         JoosParse parse = new JoosParse();
         parse.parse(tokens);
         ParseTree tree = parse.getTree();
+//        tree.print();
 
         JoosAST ast = new JoosAST(tree);
         ast.checkFileName(file);
         ast.weed();
 
-        if (PRINT_AST) ast.printASTInfo();
+        ast.printASTInfo();
         return ast;
     }
 
