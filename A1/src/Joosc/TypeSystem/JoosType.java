@@ -28,7 +28,7 @@ public class JoosType {
         allTypes.put("char", new JoosType("char", true));
         allTypes.put("byte", new JoosType("byte", true));
         allTypes.put("short", new JoosType("short", true));
-        VOID = new JoosType("void",false);
+        VOID = new JoosType("void", false);
         NULL = new JoosType("null", false);
     }
 
@@ -94,7 +94,7 @@ public class JoosType {
 
     public static boolean isPrimitive(ArrayList<String> fullname) {
         if (fullname.size() == 1) {
-            for (JoosType type: primitiveTypes) {
+            for (JoosType type : primitiveTypes) {
                 if (type.typeName.get(0).equals(fullname.get(0))) {
                     return true;
                 }
@@ -136,10 +136,8 @@ public class JoosType {
         } else {
             if (RHS.hasParent(this)) return true;
             // TODO: check transitivity
-            for(JoosType lhsParent : allParents.keySet()) {
-                for(JoosType rhsParent:RHS.getAllParents().keySet()) {
-                    if (rhsParent.isA(lhsParent)) return true;
-                }
+            for (JoosType rhsParent : RHS.getAllParents().keySet()) {
+                if (this.isA(rhsParent)) return true;
             }
             return false;
         }
@@ -147,15 +145,15 @@ public class JoosType {
 
     // unit tests
     public static void printTypes() {
-        allTypes.values().forEach( x -> {
+        allTypes.values().forEach(x -> {
             System.err.printf(
                     "%-25s %15s %15s\n", String.join(".", x.typeName),
                     (isPrimitive(x) ? "Primitive" : "Reference"),
                     (isNumber(x) ? "Number" : " ")
             );
 
-            x.allParents.keySet().forEach( y -> {
-                System.err.println("\t|-- " +  String.join(".", y.typeName));
+            x.allParents.keySet().forEach(y -> {
+                System.err.println("\t|-- " + String.join(".", y.typeName));
             });
         });
     }
