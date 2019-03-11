@@ -124,12 +124,25 @@ public class JoosType {
         return this.isPrimitive && this.typeName.get(0).equals(primitiveTypeName);
     }
 
-    public boolean isA(JoosType parentType) {
-        HashSet<JoosType> set = new HashSet<>(this.allParents.keySet());
-        for (JoosType type : parentType.allParents.keySet()) {
-            if(set.contains(type)) return true;
+    public boolean isA(JoosType RHS) {
+        if (RHS.equals(JoosType.NULL)) return true;
+        if (this.typeName.equals(RHS.getTypeName())) return true;
+        if (this.isPrimitive && JoosType.isPrimitive(RHS)) {
+            if ((this.equals("int") && (RHS.equals("char") || RHS.equals("short") || RHS.equals("byte")))
+                    || (this.equals("short") && RHS.equals("byte"))) {
+                return true;
+            }
+            return false;
+        } else {
+            if (RHS.hasParent(this)) return true;
+            // TODO: check transitivity
+            for(JoosType lhsParent : allParents.keySet()) {
+                for(JoosType rhsParent:RHS.getAllParents().keySet()) {
+                    if (rhsParent.isA(lhsParent)) return true;
+                }
+            }
+            return false;
         }
-        return false;
     }
 
     // unit tests

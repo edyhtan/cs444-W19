@@ -50,27 +50,6 @@ public class ExpressionBinary extends Expression {
         RHS.validate();
     }
 
-    public boolean isAssignable(JoosType LHS, JoosType RHS) {
-        if (RHS.equals(JoosType.NULL)) return true;
-        if (LHS.equals(RHS)) return true;
-        if (JoosType.isPrimitive(LHS) && JoosType.isPrimitive(RHS)) {
-            if ((LHS.equals("int") && (RHS.equals("char") || RHS.equals("short") || RHS.equals("byte")))
-                    && (LHS.equals("short") && RHS.equals("byte"))) {
-                return true;
-            }
-            return false;
-        } else {
-            if (RHS.hasParent(LHS)) return true;
-            // TODO: check transitivity
-            for(JoosType lhsParent : LHS.getAllParents().keySet()) {
-                for(JoosType rhsParent:RHS.getAllParents().keySet()) {
-                    if (isAssignable(lhsParent, rhsParent)) return true;
-                }
-            }
-            return false;
-        }
-    }
-
     @Override
     public JoosType getType() throws TypeCheckException {
         ArrayList<String> string = new ArrayList<>(Arrays.asList("java", "lang", "String"));
@@ -89,7 +68,7 @@ public class ExpressionBinary extends Expression {
                 break;
             // assignability
             case Equal:
-                if (isAssignable(lhsType, rhsType)) {
+                if (lhsType.isA(rhsType)) {
                     joosType = rhsType;
                 } else {
                     throw new TypeCheckException("Cannot assign type "
