@@ -486,6 +486,14 @@ public class ClassEnv implements Env {
         }
     }
 
+    public boolean isStaticField(String fieldName) {
+        return fields.get(fieldName).modifiers.contains(Symbol.Static);
+    }
+
+    public TypeInfo getFieldTypeInfo(String fieldName) {
+        return fields.get(fieldName).getTypeInfo();
+    }
+
     @Override
     public JoosType typeResolve(ArrayList<String> longTypeName) throws NamingResolveException {
         if (JoosType.isPrimitive(longTypeName)) {
