@@ -96,14 +96,11 @@ public class GlobalEnv implements Env {
             classEnv.getFullSuperSet(new TreeSet<>());
         }
 
-        //TODO: contain
         for (ClassEnv classEnv : classEnvs) {
             classEnv.variableContain();
             classEnv.getFullMethodSignature();
-        }
-
-        for (ClassEnv classEnv: classEnvs) {
             classEnv.resolveFieldsAndLocalVar();
+            classEnv.addSuperToJooscType();
         }
 
         JoosType.printTypes();

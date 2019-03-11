@@ -111,7 +111,7 @@ public class JoosType {
             );
 
             x.allParents.keySet().forEach( y -> {
-                System.err.println("\t|-- " +  String.join(".", x.typeName));
+                System.err.println("\t|-- " +  String.join(".", y.typeName));
             });
         });
     }

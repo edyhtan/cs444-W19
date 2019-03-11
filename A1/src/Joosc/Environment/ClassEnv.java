@@ -20,6 +20,7 @@ public class ClassEnv implements Env {
     Program program;
     HashMap<String, FieldsVarInfo> fields = new HashMap<>();
     ArrayList<String> packageDeclr;
+    JoosType joosType;
 
     HashMap<String, JoosType> resolvedTypes = new HashMap<>();
 
@@ -63,7 +64,9 @@ public class ClassEnv implements Env {
         importOnDemand.add(new ArrayList<>(Arrays.asList("java", "lang")));
 
         // Enclosing Class
-        resolvedTypes.put(typeDeclr.getSimpleName(), JoosType.getJoosType(typeDeclr.getCanonicalName()));
+        joosType = JoosType.getJoosType(typeDeclr.getCanonicalName());
+        resolvedTypes.put(typeDeclr.getSimpleName(), joosType);
+
 
         // Single Type import
         for (ArrayList<String> sImport : singleTypeImports) {
@@ -592,10 +595,6 @@ public class ClassEnv implements Env {
         resolveClassDeclrMethodNames();
     }
 
-    public HashSet<JoosType> getSuperSet() {
-        return superSet;
-    }
-
     String printType() {
         if (typeDeclr instanceof ClassDeclr) return "Class ";
         else return "Interface ";
@@ -605,31 +604,9 @@ public class ClassEnv implements Env {
         return typeDeclr;
     }
 
-    public void printInfo(boolean includeStdLib) {
-        if (!includeStdLib && typeDeclr.getCanonicalName().contains("java")) return;
-        System.out.print(printType());
-        System.out.print(typeDeclr.getSimpleName() + "-> " + "\n");
-        System.out.println("Direct super set:");
-        for (JoosType key : superSet) {
-            System.out.print("\t" + key.getTypeName());
+    public void addSuperToJooscType() {
+        for (JoosType parent:fullSuperSet) {
+            joosType.addParent(parent);
         }
-        System.out.print("\n");
-
-        System.out.println("Full super set:");
-        for (JoosType key : fullSuperSet) {
-            System.out.print("\t" + key.getTypeName());
-        }
-        System.out.print("\n");
-        System.out.println("class declared methods:");
-        for (String key : methodSignature.keySet()) {
-            System.out.print("\t" + key);
-        }
-        System.out.print("\n");
-        System.out.println("full methods: ");
-        for (String key : fullMethodSignature.keySet()) {
-            System.out.print("\t" + key);
-        }
-        System.out.print("\n");
-        System.out.println("-------------------------------");
     }
 }
