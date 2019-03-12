@@ -141,7 +141,6 @@ public class JoosType {
             return false;
         } else {
             if (RHS.hasParent(this) || RHS.getTypeName().equals(this.typeName)) return true;
-            // review: check transitivity
             for (JoosType rhsParent : RHS.getAllParents().keySet()) {
                 if (this.isA(rhsParent)) return true;
             }

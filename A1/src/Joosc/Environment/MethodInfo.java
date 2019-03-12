@@ -4,6 +4,7 @@ import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.ClassMember.ConstructorDeclr;
 import Joosc.ASTModel.ClassMember.Method;
 import Joosc.ASTModel.ClassMember.MethodDeclr;
+import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
 
@@ -13,6 +14,12 @@ public class MethodInfo {
     ArrayList<FieldsVarInfo> paramTypeList;
     ArrayList<Symbol> modifiers;
     Method ast;
+
+    public static String buildSignatureStr(String methodSimpleName, ArrayList<JoosType> argList) {
+        return argList.stream()
+                .map(x -> String.join(".", x.getTypeName()))
+                .reduce(methodSimpleName, (s,t) -> s + "," + t);
+    }
 
     public MethodInfo(MethodDeclr method, TypeInfo returnType, ArrayList<FieldsVarInfo> paramTypeList) {
         ast = method;
