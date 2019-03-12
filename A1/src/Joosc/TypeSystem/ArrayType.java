@@ -1,6 +1,7 @@
 package Joosc.TypeSystem;
 
 import Joosc.Environment.ClassEnv;
+import Joosc.Exceptions.ASTException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,13 +25,13 @@ public class ArrayType extends JoosType{
         return this.joosType.getTypeName().equals(arrayType.joosType.typeName);
     }
 
-    public boolean isA(ArrayType RHS) {
+    public boolean isA(JoosType RHS) {
         if(this.getTypeName().equals(new ArrayList<>(Arrays.asList("java", "lang", "Object")))
                 || this.getTypeName().equals(new ArrayList<>(Arrays.asList("java", "lang", "Cloneable")))
                 || this.getTypeName().equals(new ArrayList<>(Arrays.asList("java", "io", "Serializable")))){
             return true;
         } else {
-            return this.joosType.isA(RHS.joosType);
+            return this.joosType.isA(RHS);
         }
     }
 }

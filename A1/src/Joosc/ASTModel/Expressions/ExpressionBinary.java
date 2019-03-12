@@ -69,9 +69,9 @@ public class ExpressionBinary extends Expression {
                 break;
             // assignability
             case Equal:
-                // review:
+                // review: Let's see...
                 if(rhsType instanceof ArrayType) {
-                    if(lhsType instanceof ArrayType && lhsType.isA(rhsType)) {
+                    if(((ArrayType) rhsType).isA(lhsType)) {
                         joosType = new ArrayType(rhsType);
                     } else {
                         throw new TypeCheckException(String.format("Array assignment type incompatible: %s, %s",
@@ -122,7 +122,6 @@ public class ExpressionBinary extends Expression {
                 break;
             case Instanceof:
                 if (lhsType.getTypeName().equals(rhsType.getTypeName())
-                        // review: check here
                         || lhsType.isA(rhsType)) {
                     joosType = JoosType.getJoosType("boolean");
                 } else {

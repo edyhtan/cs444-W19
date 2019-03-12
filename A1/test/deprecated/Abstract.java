@@ -13,7 +13,7 @@ public class Abstract {
 //        int[] array = new int[3];
 //        int a = this.b;
 //        int c = A.array[node.getIndex()];
-        int c = A().b;
+        int c = A.length;
 
 //        int b = A.array[3];
     }
