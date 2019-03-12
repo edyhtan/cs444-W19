@@ -41,14 +41,9 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
 
     @Override
     public void checkType() throws TypeCheckException {
-        System.out.println(initExpression);
         // check declared type matches initExpr type
         JoosType initExprType = initExpression.getType();
-        System.out.println(initExprType);
-        System.out.println("111" + initExprType.getTypeName());
         ArrayList<String> initExprTypeName = initExprType.getTypeName();
-        System.out.println(111111);
-        System.out.println(initExprTypeName);
 
         // instance
         if (type.getArrayKind() == null) {
@@ -65,8 +60,6 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
                         type.getTypeName().toString(), initExprTypeName));
             }
             // primitive
-            System.out.println(type.getArrayKind());
-            System.out.println(type.getNames());
             if ((!type.getArrayKind().getSymbolString().equals(initExprTypeName.get(0)))
                     // reference
                     || (type.getNames()!= null && !type.getNames().equals(initExprTypeName))) {
