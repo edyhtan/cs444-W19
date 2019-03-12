@@ -145,7 +145,7 @@ public class JoosType {
         } else {
             if (RHS.hasParent(this) || RHS.getTypeName().equals(this.typeName)) return true;
             for (JoosType rhsParent : RHS.getAllParents().keySet()) {
-                if (this.isA(rhsParent)) return true;
+                if (this.equals(rhsParent)) return true;
             }
             return false;
         }

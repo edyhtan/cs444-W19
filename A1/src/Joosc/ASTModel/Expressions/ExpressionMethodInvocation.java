@@ -1,12 +1,11 @@
 package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionMethodInvocationNode;
-import Joosc.Environment.ClassEnv;
-import Joosc.Environment.LocalEnv;
-import Joosc.Environment.MethodInfo;
+import Joosc.Environment.*;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
+import Joosc.util.Tri;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -74,11 +73,14 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
     @Override
     public JoosType getType() throws TypeCheckException {
         JoosType methodType = JoosType.getJoosType(methodName);
+        ClassEnv classEnv;
 
-        // TODO: ClassEnv and Name coming from the void
-        ClassEnv classEnv = (ClassEnv) new Object();
-        String name = "Foo";
-        // ^^^ These are bad!
+        if (methodName == null) {
+            classEnv = methodParentExpression.getType().getClassEnv();
+        } else {
+            Tri<Integer, Env, String> tri = Names.resolveAmbiguity(getEnv(), methodName);
+            classEnv = (ClassEnv) tri.get2();
+        }
 
         ArrayList<JoosType> argTypeList = new ArrayList<>();
         for (Expression arg : argList) {
@@ -88,11 +90,25 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
         MethodInfo matchingMethod = null;
         for (Map.Entry<String, MethodInfo> kvp : classEnv._getFullMethodSignature().entrySet()) {
             if (this.getMethodSimpleName().equals(kvp.getValue().getMethodSimpleName())
-            &&  argTypeList.size() == kvp.getValue().getParamTypeList().size()) {
-                // TODO: Type checking for each param in paramList
-                // TODO: Check duplicate matching Method
-                matchingMethod = kvp.getValue();
-                break;
+                &&  argTypeList.size() == kvp.getValue().getParamTypeList().size()) {
+
+                ArrayList<FieldsVarInfo> candidateParamTypeList = kvp.getValue().getParamTypeList();
+                boolean valid = true;
+
+                for (int i = 0; i < argTypeList.size(); i += 1) {
+                    valid = argTypeList.get(i).isA(candidateParamTypeList.get(i).getTypeInfo().getJoosType());
+                    if (!valid) {
+                        break;
+                    }
+                }
+
+                if (!valid) {
+                    continue;
+                } else if (matchingMethod != null){
+                    throw new TypeCheckException("Ambiguous method signature:" + this.getMethodSimpleName());
+                } else {
+                    matchingMethod = kvp.getValue();
+                }
             }
         }
 
