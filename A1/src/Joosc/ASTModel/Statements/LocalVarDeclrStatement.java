@@ -6,6 +6,10 @@ import Joosc.ASTModel.Type;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.TypeSystem.ArrayType;
+import Joosc.TypeSystem.JoosType;
+
+import java.util.ArrayList;
 
 public class LocalVarDeclrStatement implements Statement, HasExpression {
     private Type type;
@@ -37,6 +41,30 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
 
     @Override
     public void checkType() throws TypeCheckException {
-        if(type.getKind().equals(initExpression.getType())) {}
+        // check declared type matches initExpr type
+        JoosType initExprType = initExpression.getType();
+        ArrayList<String> initExprTypeName = initExpression.getType().getTypeName();
+        // instance
+        if (type.getArrayKind() == null) {
+            // primitive
+            if ((!type.getKind().toString().equals(initExprTypeName.get(0)))
+                    // reference
+                    || (!type.getNames().equals(initExprTypeName))) {
+                throw new TypeCheckException(String.format("Type incompatible: %s, %s",
+                        type.getTypeName(), initExprTypeName));
+            }
+        } else { // array
+            if (!(initExprType instanceof ArrayType)) {
+                throw new TypeCheckException(String.format("Type incompatible: %s, %s",
+                        type.getTypeName().toString(), initExprTypeName));
+            }
+            // primitive
+            if ((!type.getArrayKind().toString().equals(initExprTypeName.get(0)))
+                    // reference
+                    || (!type.getNames().equals(initExprTypeName))) {
+                throw new TypeCheckException(String.format("Type incompatible: %s, %s",
+                        type.getTypeName(), initExprTypeName));
+            }
+        }
     }
 }

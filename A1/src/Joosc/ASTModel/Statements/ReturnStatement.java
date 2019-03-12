@@ -27,6 +27,6 @@ public class ReturnStatement implements Statement, HasExpression {
 
     @Override
     public void checkType() throws TypeCheckException {
-
+        if(expression!=null) expression.getType();
     }
 }
