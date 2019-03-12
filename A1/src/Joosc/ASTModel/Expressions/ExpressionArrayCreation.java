@@ -5,6 +5,7 @@ import Joosc.ASTModel.Type;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 
 public class ExpressionArrayCreation extends ExpressionPrimary {
@@ -39,7 +40,17 @@ public class ExpressionArrayCreation extends ExpressionPrimary {
 
     @Override
     public JoosType getType() throws TypeCheckException {
-        // TODO:
+        JoosType sizeType = sizeExpression.getType();
+        if(JoosType.isNumber(sizeType)) {
+            // primitive
+            if(arrayType.getNames().isEmpty() || arrayType.getNames() == null) {
+                joosType = new ArrayType(JoosType.getJoosType(arrayType.getKind().getSymbolString()));
+            } else { // reference
+                joosType = new ArrayType(JoosType.getJoosType(arrayType.getNames()));
+            }
+        } else {
+            throw new TypeCheckException("Type incompatible: " + sizeType);
+        }
         return joosType;
     }
 }
