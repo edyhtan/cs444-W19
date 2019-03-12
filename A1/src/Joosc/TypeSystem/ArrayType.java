@@ -3,6 +3,7 @@ package Joosc.TypeSystem;
 import Joosc.Environment.ClassEnv;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class ArrayType extends JoosType{
@@ -54,7 +55,13 @@ public class ArrayType extends JoosType{
     }
 
     public boolean isA(ArrayType RHS) {
-        return this.joosType.isA(RHS.joosType);
+        if(this.getTypeName().equals(new ArrayList<>(Arrays.asList("java", "lang", "Object")))
+                || this.getTypeName().equals(new ArrayList<>(Arrays.asList("java", "lang", "Cloneable")))
+                || this.getTypeName().equals(new ArrayList<>(Arrays.asList("java", "io", "Serializable")))){
+            return true;
+        } else {
+            return this.joosType.isA(RHS.joosType);
+        }
     }
 
     // unit tests
