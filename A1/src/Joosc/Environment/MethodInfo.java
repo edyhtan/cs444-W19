@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class MethodInfo {
     String signatureStr;
+    String methodSimpleName;
     TypeInfo returnType;
     ArrayList<FieldsVarInfo> paramTypeList;
     ArrayList<Symbol> modifiers;
@@ -26,6 +27,7 @@ public class MethodInfo {
         modifiers = method.getModifiers();
         this.returnType = returnType;
         this.paramTypeList = paramTypeList;
+        this.methodSimpleName = method.getName();
         signatureStr = paramTypeList.stream()
                 .map(x->x.getFullTypeName() + (x.isTypeArray()? "[]" : ""))
                 .reduce(method.getName(), (s, t) -> s + "," + t);
@@ -36,6 +38,7 @@ public class MethodInfo {
         modifiers = ctor.getModifiers();
         this.returnType = null;
         this.paramTypeList = paramTypeList;
+        this.methodSimpleName = ctor.getName();
         signatureStr = paramTypeList.stream()
                 .map(x->x.getFullTypeName() + (x.isTypeArray()? "[]" : ""))
                 .reduce(ctor.getName(), (s, t) -> s + "," + t);
@@ -47,5 +50,17 @@ public class MethodInfo {
 
     public Method getAst() {
         return ast;
+    }
+
+    public String getMethodSimpleName() {
+        return methodSimpleName;
+    }
+
+    public ArrayList<FieldsVarInfo> getParamTypeList() {
+        return paramTypeList;
+    }
+
+    public TypeInfo getReturnType() {
+        return returnType;
     }
 }

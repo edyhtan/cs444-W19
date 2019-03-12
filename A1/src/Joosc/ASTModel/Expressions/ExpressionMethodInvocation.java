@@ -1,12 +1,16 @@
 package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionMethodInvocationNode;
+import Joosc.Environment.ClassEnv;
 import Joosc.Environment.LocalEnv;
+import Joosc.Environment.MethodInfo;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ExpressionMethodInvocation extends ExpressionPrimary {
@@ -59,13 +63,39 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
         }
     }
 
+    public String getMethodSimpleName() {
+        if (methodName == null) {
+            return methodIdentifier;
+        } else {
+            return methodName.get(methodName.size() - 1);
+        }
+    }
+
     @Override
     public JoosType getType() throws TypeCheckException {
         JoosType methodType = JoosType.getJoosType(methodName);
-        // TODO: check argList elements are not ambiguous
 
-        // TODO: check args match types
+        // TODO: ClassEnv and Name coming from the void
+        ClassEnv classEnv = (ClassEnv) new Object();
+        String name = "Foo";
+        // ^^^ These are bad!
 
-        return joosType;
+        ArrayList<JoosType> argTypeList = new ArrayList<>();
+        for (Expression arg : argList) {
+            argTypeList.add(arg.getType());
+        }
+
+        MethodInfo matchingMethod = null;
+        for (Map.Entry<String, MethodInfo> kvp : classEnv._getFullMethodSignature().entrySet()) {
+            if (this.getMethodSimpleName().equals(kvp.getValue().getMethodSimpleName())
+            &&  argTypeList.size() == kvp.getValue().getParamTypeList().size()) {
+                // TODO: Type checking for each param in paramList
+                // TODO: Check duplicate matching Method
+                matchingMethod = kvp.getValue();
+                break;
+            }
+        }
+
+        return matchingMethod.getReturnType().getJoosType();
     }
 }

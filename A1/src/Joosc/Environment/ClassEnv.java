@@ -308,6 +308,10 @@ public class ClassEnv implements Env {
         }
     }
 
+    public HashMap<String, MethodInfo> _getFullMethodSignature() {
+        return fullMethodSignature;
+    }
+
     HashMap<String, MethodInfo> getFullMethodSignature() throws NamingResolveException {
         if (!implicitDeclr.isEmpty()) { // empty interface with only implicit declared methods
             methodSignature.putAll(implicitDeclr);
@@ -605,7 +609,6 @@ public class ClassEnv implements Env {
             joosType.addParent(parent);
         }
     }
-
 
     @Override
     public JoosType getJoosType() {
