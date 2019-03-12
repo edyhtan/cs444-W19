@@ -43,6 +43,7 @@ public class ExpressionFieldAccess extends Expression {
 //                return null;
 //            }
         }
+
         return joosType;
     }
 }
