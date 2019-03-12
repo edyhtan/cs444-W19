@@ -5,6 +5,7 @@ import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
@@ -69,14 +70,21 @@ public class ExpressionBinary extends Expression {
             // assignability
             case Equal:
                 // review:
-                if (lhsType.isA(rhsType)) {
-                    joosType = rhsType;
+                if(rhsType instanceof ArrayType) {
+                    if(lhsType instanceof ArrayType && lhsType.isA(rhsType)) {
+                        joosType = new ArrayType(rhsType);
+                    } else {
+                        throw new TypeCheckException(String.format("Array assignment type incompatible: %s, %s",
+                                lhsType.getTypeName() , rhsType.getTypeName()));
+                    }
                 } else {
-                    throw new TypeCheckException("Cannot assign type "
-                            + rhsType.getTypeName() + " to " + lhsType.getTypeName());
+                    if (lhsType.isA(rhsType)) {
+                        joosType = rhsType;
+                    } else {
+                        throw new TypeCheckException(String.format("Assignment type incompatible: %s, %s",
+                                lhsType.getTypeName() , rhsType.getTypeName()));
+                    }
                 }
-                // TODO: check array assignability
-
                 break;
             // arithmetic operations
             case Minus:
