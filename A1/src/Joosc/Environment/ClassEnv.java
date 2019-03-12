@@ -599,6 +599,15 @@ public class ClassEnv implements Env {
         }
     }
 
+    @Override
+    public JoosType findResolvedType(String name) {
+        return resolvedTypes.getOrDefault(name, null);
+    }
+
+    @Override
+    public boolean hasMethodSignature(String f) {
+        return fullMethodSignature.keySet().stream().map(x->x.split(",")[0].equals(f)).reduce(false, (a,b) -> a|b);
+    }
 
     @Override
     public JoosType getJoosType() {
@@ -606,12 +615,12 @@ public class ClassEnv implements Env {
     }
 
     @Override
-    public FieldsVarInfo getFieldInfo(ArrayList<String> name){
+    public FieldsVarInfo getFieldInfo(String name){
         return fields.getOrDefault(name, null);
     }
 
     @Override
-    public FieldsVarInfo getVarInfo(ArrayList<String> name) {
+    public FieldsVarInfo getVarInfo(String name) {
         return null;
     }
 }

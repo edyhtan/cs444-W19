@@ -21,12 +21,17 @@ public class GlobalEnv implements Env {
     PackageNames defaultPackage = new PackageNames("");
     PackageNames rootPackage = new PackageNames("");
 
+    public static GlobalEnv instance = null;
+
     public GlobalEnv(ArrayList<Program> programs) {
         this.programs = programs;
 
         // sub environment
         classEnvs = new ArrayList<>();
         programs.forEach(x -> classEnvs.add(new ClassEnv(x, this)));
+
+        if (instance == null)
+            instance = this;
     }
 
     private void nameConflict() throws NamingResolveException {
@@ -71,6 +76,11 @@ public class GlobalEnv implements Env {
 
     @Override
     public boolean isFieldDeclared(String simpleName) {
+        return false;
+    }
+
+    @Override
+    public boolean hasMethodSignature(String f) {
         return false;
     }
 
@@ -183,12 +193,17 @@ public class GlobalEnv implements Env {
     }
 
     @Override
-    public FieldsVarInfo getFieldInfo(ArrayList<String> name){
+    public FieldsVarInfo getFieldInfo(String name){
         return null;
     }
 
     @Override
-    public FieldsVarInfo getVarInfo(ArrayList<String> name) {
+    public FieldsVarInfo getVarInfo(String name) {
+        return null;
+    }
+
+    @Override
+    public JoosType findResolvedType(String name) {
         return null;
     }
 }
