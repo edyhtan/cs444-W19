@@ -216,6 +216,7 @@ public class ClassEnv implements Env {
                 containedFields.putAll(parentClassEnv.containedFields);
             }
         }
+
         containedFields.putAll(fields);
         variableContainComplete = true;
     }
@@ -365,7 +366,7 @@ public class ClassEnv implements Env {
         if (typeDeclr instanceof InterfaceDeclr) {
             return;
         }
-        TypeInfo ctorType = new TypeInfo(false, JoosType.getJoosType(typeDeclr.getCanonicalName()));
+        //TypeInfo ctorType = new TypeInfo(false, JoosType.getJoosType(typeDeclr.getCanonicalName()));
         for (ConstructorDeclr ctor : ((ClassDeclr) typeDeclr).getConstructor()) {
             ArrayList<FieldsVarInfo> paramList = new ArrayList<>();
             for (Pair<Type, String> param : ctor.getFormalParamList()) {
@@ -611,17 +612,36 @@ public class ClassEnv implements Env {
     }
 
     @Override
+    public JoosType findResolvedType(String name) {
+        return resolvedTypes.getOrDefault(name, null);
+    }
+
+    @Override
+    public boolean hasMethodSignature(String f) {
+        return fullMethodSignature.keySet().stream().map(x->x.split(",")[0].equals(f)).reduce(false, (a,b) -> a|b);
+    }
+
+    @Override
     public JoosType getJoosType() {
         return joosType;
     }
 
     @Override
-    public FieldsVarInfo getFieldInfo(ArrayList<String> name){
+    public FieldsVarInfo getFieldInfo(String name){
         return fields.getOrDefault(name, null);
     }
 
     @Override
-    public FieldsVarInfo getVarInfo(ArrayList<String> name) {
+    public FieldsVarInfo getVarInfo(String name) {
+        return null;
+    }
+
+    @Override
+    public FieldsVarInfo getStaticFieldInfo(String name) {
+        if (isFieldDeclared(name) && fields.get(name).modifiers.contains(Symbol.Static)) {
+            return fields.get(name);
+        }
+
         return null;
     }
 }

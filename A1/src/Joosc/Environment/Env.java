@@ -16,6 +16,7 @@ public interface Env {
 
     boolean isFieldDeclared(String simpleName);
     boolean isLocalVariableDeclared(String simpleName);
+    boolean hasMethodSignature(String f);
 
     TypeDeclr getCurrentClass();
     ClassBodyDeclr getCurrentMethod();
@@ -26,6 +27,13 @@ public interface Env {
 
     JoosType getJoosType();
 
-    FieldsVarInfo getFieldInfo(ArrayList<String> name);
-    FieldsVarInfo getVarInfo(ArrayList<String> name);
+    FieldsVarInfo getFieldInfo(String name);
+    FieldsVarInfo getStaticFieldInfo(String name);
+
+    FieldsVarInfo getVarInfo(String name);
+    JoosType findResolvedType(String name);
+
+
+
 }
+

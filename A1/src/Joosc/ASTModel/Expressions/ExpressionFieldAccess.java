@@ -35,13 +35,16 @@ public class ExpressionFieldAccess extends Expression {
     }
 
     @Override
-    public JoosType getType() throws TypeCheckException{
+    public JoosType getType() throws TypeCheckException {
         JoosType fieldParentType = fieldParentExpression.getType();
-        if(fieldParentType.getClassEnv().isFieldDeclared(fieldIdentifier)) {
-            // TODO: Waiting for ...
-//            if(fieldParentType.getClassEnv()) {
-//                return null;
-//            }
+        if (fieldParentType.getClassEnv().isFieldDeclared(fieldIdentifier)) {
+            if (!fieldParentType.getClassEnv().isStaticField(fieldIdentifier)) {
+                joosType = fieldParentType.getClassEnv().getFieldTypeInfo(fieldIdentifier).getJoosType();
+            } else {
+                throw new TypeCheckException("Cannot access static field: " + fieldIdentifier);
+            }
+        } else {
+            throw new TypeCheckException("Field is not declared: " + fieldIdentifier);
         }
         return joosType;
     }

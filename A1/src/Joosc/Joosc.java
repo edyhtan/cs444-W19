@@ -44,13 +44,13 @@ public class Joosc {
         JoosParse parse = new JoosParse();
         parse.parse(tokens);
         ParseTree tree = parse.getTree();
-        tree.print();
+        //tree.print();
 
         JoosAST ast = new JoosAST(tree);
         ast.checkFileName(file);
         ast.weed();
 
-        ast.printASTInfo();
+        //ast.printASTInfo();
         return ast;
     }
 
@@ -75,6 +75,7 @@ public class Joosc {
             globalEnvironment.semanticAnalysis();
         } catch (TypeCheckException e) {
             System.err.printf("ERROR: Type check error: %s\n", e.getLocalizedMessage());
+            e.printStackTrace();
             return exitOnCode(42);
         } catch (NamingResolveException e) {
             System.err.printf("ERROR: Naming resolve error: %s\n", e.getLocalizedMessage());

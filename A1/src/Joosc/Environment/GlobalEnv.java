@@ -21,12 +21,19 @@ public class GlobalEnv implements Env {
     PackageNames defaultPackage = new PackageNames("");
     PackageNames rootPackage = new PackageNames("");
 
+    public static GlobalEnv instance = null;
+
     public GlobalEnv(ArrayList<Program> programs) {
         this.programs = programs;
 
         // sub environment
         classEnvs = new ArrayList<>();
-        programs.forEach(x -> classEnvs.add(new ClassEnv(x, this)));
+        programs.forEach(x -> {
+            classEnvs.add(new ClassEnv(x, this));
+        });
+
+        if (instance == null)
+            instance = this;
     }
 
     private void nameConflict() throws NamingResolveException {
@@ -75,6 +82,11 @@ public class GlobalEnv implements Env {
     }
 
     @Override
+    public boolean hasMethodSignature(String f) {
+        return false;
+    }
+
+    @Override
     public FieldsVarInfo typeResolve(String name, Type type, ArrayList<Symbol> modifiers) throws NamingResolveException {
         return null;
     }
@@ -101,14 +113,17 @@ public class GlobalEnv implements Env {
             classEnv.getFullSuperSet(new TreeSet<>());
         }
 
+        //JoosType.printTypes();
         for (ClassEnv classEnv : classEnvs) {
             classEnv.variableContain();
             classEnv.getFullMethodSignature();
-            classEnv.resolveFieldsAndLocalVar();
             classEnv.addSuperToJooscType();
         }
 
-        JoosType.printTypes();
+        //JoosType.printTypes();
+        for (ClassEnv classEnv : classEnvs) {
+            classEnv.resolveFieldsAndLocalVar();
+        }
     }
 
     @Override
@@ -183,12 +198,22 @@ public class GlobalEnv implements Env {
     }
 
     @Override
-    public FieldsVarInfo getFieldInfo(ArrayList<String> name){
+    public FieldsVarInfo getFieldInfo(String name){
         return null;
     }
 
     @Override
-    public FieldsVarInfo getVarInfo(ArrayList<String> name) {
+    public FieldsVarInfo getVarInfo(String name) {
+        return null;
+    }
+
+    @Override
+    public JoosType findResolvedType(String name) {
+        return null;
+    }
+
+    @Override
+    public FieldsVarInfo getStaticFieldInfo(String name) {
         return null;
     }
 }

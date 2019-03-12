@@ -20,36 +20,6 @@ public class ArrayType extends JoosType{
         this.joosType = joosType;
     }
 
-    public void addParent(ArrayType type) {
-        allParents.put(type.joosType, type.joosType.classEnv);
-    }
-
-    @Override
-    public ArrayList<String> getTypeName() {
-        return joosType.typeName;
-    }
-
-    @Override
-    public boolean isPrimitive() {
-        return isPrimitive(this);
-    }
-
-    @Override
-    public ClassEnv getClassEnv() {
-        return classEnv;
-    }
-
-    @Override
-    public boolean hasParent(JoosType parent) {
-        return allParents.containsKey(parent);
-    }
-
-    @Override
-    public HashMap<JoosType, ClassEnv> getAllParents() {
-        return joosType.allParents;
-    }
-
-
     // check primitive types
     public boolean equals(ArrayType arrayType) {
         return this.joosType.getTypeName().equals(arrayType.joosType.typeName);
@@ -63,10 +33,5 @@ public class ArrayType extends JoosType{
         } else {
             return this.joosType.isA(RHS);
         }
-    }
-
-    // unit tests
-    public static void printTypes() {
-        JoosType.printTypes();
     }
 }
