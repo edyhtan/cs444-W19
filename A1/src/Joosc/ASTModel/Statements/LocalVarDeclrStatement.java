@@ -43,13 +43,13 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
     public void checkType() throws TypeCheckException {
         // check declared type matches initExpr type
         JoosType initExprType = initExpression.getType();
-        ArrayList<String> initExprTypeName = initExpression.getType().getTypeName();
+        ArrayList<String> initExprTypeName = initExprType.getTypeName();
         // instance
         if (type.getArrayKind() == null) {
             // primitive
-            if ((!type.getKind().toString().equals(initExprTypeName.get(0)))
+            if ((!type.getKind().getSymbolString().equals(initExprTypeName.get(0)))
                     // reference
-                    || (!type.getNames().equals(initExprTypeName))) {
+                    || type.getNames() != null && (!type.getNames().equals(initExprTypeName))) {
                 throw new TypeCheckException(String.format("Type incompatible: %s, %s",
                         type.getTypeName(), initExprTypeName));
             }
@@ -59,7 +59,7 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
                         type.getTypeName().toString(), initExprTypeName));
             }
             // primitive
-            if ((!type.getArrayKind().toString().equals(initExprTypeName.get(0)))
+            if ((!type.getArrayKind().getSymbolString().equals(initExprTypeName.get(0)))
                     // reference
                     || (!type.getNames().equals(initExprTypeName))) {
                 throw new TypeCheckException(String.format("Type incompatible: %s, %s",

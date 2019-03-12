@@ -2,6 +2,7 @@ package Joosc.Environment;
 
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.Type;
+import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 
 import java.util.*;
@@ -20,14 +21,11 @@ public class TypeInfo {
                 && this.fullName.equals(type.fullName);
     }
 
-    public TypeInfo(boolean isArray, JoosType type) {
-        this(isArray);
-        this.fullName = type.getTypeName();
-        joosType = type;
-    }
-
     public void rewriteJoosType(JoosType type) {
         joosType = type;
+        if (isArray) {
+            joosType = new ArrayType(joosType);
+        }
         fullName = type.getTypeName();
     }
 

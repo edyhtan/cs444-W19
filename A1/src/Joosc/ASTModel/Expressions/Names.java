@@ -3,6 +3,7 @@ package Joosc.ASTModel.Expressions;
 import Joosc.Environment.*;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 import Joosc.util.Tri;
 
@@ -27,7 +28,18 @@ public class Names extends ExpressionContent {
 
     @Override
     public JoosType getType() throws TypeCheckException {
-        return info.getTypeInfo().getJoosType();
+        Tri<Integer, Env, String> nameInfo = resolveAmbiguity(getEnv(), name);
+        int smallInfo = nameInfo.get1();
+        if ((smallInfo & isLocal) != 0) {
+            joosType = nameInfo.get2().getVarInfo(nameInfo.get3()).getTypeInfo().getJoosType();
+        }
+        if ((smallInfo & isStatic) != 0) {
+            joosType = nameInfo.get2().getStaticFieldInfo(nameInfo.get3()).getTypeInfo().getJoosType();
+        }
+        if (joosType == null) {
+            throw new TypeCheckException("Name " + nameInfo.get3() + " is not a valid accessor");
+        }
+        return joosType;
     }
 
     public static int isStatic = 0b1;
@@ -44,14 +56,38 @@ public class Names extends ExpressionContent {
 
         if (name.size() > 1) {
             String curName= name.get(0);
-            if (env.isLocalVariableDeclared(curName)) { //is local var
-                JoosType type = env.getVarInfo(curName).getTypeInfo().getJoosType();
+
+            if (staticOnly) {
+                JoosType type = env.getStaticFieldInfo(curName).getTypeInfo().getJoosType();
+                if (type instanceof ArrayType) {
+                    throw new TypeCheckException("unmatched Type : " + curName);
+                }
                 ClassEnv nextEnv = type.getClassEnv();
+                if (nextEnv == null) {
+                    throw new TypeCheckException("Primitive type cannot have field/method access");
+                }
+                name.remove(0);
+                return resolveAmbiguity(nextEnv, name, false);
+            } else if (env.isLocalVariableDeclared(curName)) { //is local var
+                JoosType type = env.getVarInfo(curName).getTypeInfo().getJoosType();
+                if (type instanceof ArrayType) {
+                    throw new TypeCheckException("unmatched Type : " + curName);
+                }
+                ClassEnv nextEnv = type.getClassEnv();
+                if (nextEnv == null) {
+                    throw new TypeCheckException("Primitive type cannot have field/method access");
+                }
                 name.remove(0);
                 return resolveAmbiguity(nextEnv, name, false);
             } else if (env.isFieldDeclared(curName)) {
                 JoosType type = env.getFieldInfo(curName).getTypeInfo().getJoosType();
                 ClassEnv nextEnv = type.getClassEnv();
+                if (type instanceof ArrayType) {
+                    throw new TypeCheckException("unmatched Type : " + curName);
+                }
+                if (nextEnv == null) {
+                    throw new TypeCheckException("Primitive type cannot have field/method access");
+                }
                 name.remove(0);
                 return resolveAmbiguity(nextEnv, name, false);
             } else {
@@ -64,7 +100,7 @@ public class Names extends ExpressionContent {
                         JoosType type = env.findResolvedType(prefix.get(0));
                         if (type != null) {
                             ClassEnv nextEnv = type.getClassEnv();
-                            return resolveAmbiguity(nextEnv, prefix, true);
+                            return resolveAmbiguity(nextEnv, name, true);
                         }
                     }
 
@@ -79,23 +115,22 @@ public class Names extends ExpressionContent {
         } else {
             int smallInfo = 0;
             if (staticOnly) {
-                smallInfo = smallInfo & isStatic;
+                smallInfo = smallInfo | isStatic;
             }
 
             if (env.isFieldDeclared(name.get(0))) {
-                smallInfo = smallInfo & isField;
+                smallInfo = smallInfo | isField;
             }
 
             if (env.isLocalVariableDeclared(name.get(0))) {
-                smallInfo = smallInfo & isLocal;
+                smallInfo = smallInfo | isLocal;
             }
 
             if (env.hasMethodSignature(name.get(0))) {
-                smallInfo = smallInfo & isMethod;
+                smallInfo = smallInfo | isMethod;
             }
 
             return new Tri<>(smallInfo, env, name.get(0));
         }
     }
-
 }

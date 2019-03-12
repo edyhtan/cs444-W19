@@ -105,15 +105,17 @@ public class LocalEnv implements Env {
 
             if (statement instanceof HasExpression) {
                 ((HasExpression) statement).checkExpression(this);
-                //((HasExpression) statement).checkType();
             }
             if (statement instanceof LocalVarDeclrStatement) {
                 LocalVarDeclrStatement localVar = (LocalVarDeclrStatement) statement;
                 if (isLocalVariableDeclared(localVar.getId())) {
-
                     throw new NamingResolveException("Duplicated Local Variable: " + localVar.getId());
                 }
                 symbolTable.put(localVar.getId(), typeResolve(localVar.getId(), localVar.getType(), new ArrayList<>()));
+            }
+
+            if (statement instanceof HasExpression) {
+                ((HasExpression) statement).checkType();
             }
         }
     }
@@ -181,6 +183,11 @@ public class LocalEnv implements Env {
     @Override
     public FieldsVarInfo getFieldInfo(String name){
         return parent.getFieldInfo(name);
+    }
+
+    @Override
+    public FieldsVarInfo getStaticFieldInfo(String name) {
+        return parent.getStaticFieldInfo(name);
     }
 
     @Override

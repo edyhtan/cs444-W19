@@ -63,6 +63,9 @@ public class JoosType {
     }
 
     public void addParent(JoosType type) {
+        if (type == null) {
+            System.err.println("1");
+        }
         allParents.put(type, type.classEnv);
     }
 

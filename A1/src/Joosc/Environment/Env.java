@@ -28,9 +28,11 @@ public interface Env {
     JoosType getJoosType();
 
     FieldsVarInfo getFieldInfo(String name);
-    FieldsVarInfo getVarInfo(String name);
+    FieldsVarInfo getStaticFieldInfo(String name);
 
+    FieldsVarInfo getVarInfo(String name);
     JoosType findResolvedType(String name);
+
 
 
 }

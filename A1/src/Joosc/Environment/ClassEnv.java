@@ -216,6 +216,7 @@ public class ClassEnv implements Env {
                 containedFields.putAll(parentClassEnv.containedFields);
             }
         }
+
         containedFields.putAll(fields);
         variableContainComplete = true;
     }
@@ -361,7 +362,7 @@ public class ClassEnv implements Env {
         if (typeDeclr instanceof InterfaceDeclr) {
             return;
         }
-        TypeInfo ctorType = new TypeInfo(false, JoosType.getJoosType(typeDeclr.getCanonicalName()));
+        //TypeInfo ctorType = new TypeInfo(false, JoosType.getJoosType(typeDeclr.getCanonicalName()));
         for (ConstructorDeclr ctor : ((ClassDeclr) typeDeclr).getConstructor()) {
             ArrayList<FieldsVarInfo> paramList = new ArrayList<>();
             for (Pair<Type, String> param : ctor.getFormalParamList()) {
@@ -628,6 +629,15 @@ public class ClassEnv implements Env {
 
     @Override
     public FieldsVarInfo getVarInfo(String name) {
+        return null;
+    }
+
+    @Override
+    public FieldsVarInfo getStaticFieldInfo(String name) {
+        if (isFieldDeclared(name) && fields.get(name).modifiers.contains(Symbol.Static)) {
+            return fields.get(name);
+        }
+
         return null;
     }
 }
