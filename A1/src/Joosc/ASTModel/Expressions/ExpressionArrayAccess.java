@@ -51,6 +51,7 @@ public class ExpressionArrayAccess extends ExpressionPrimary {
     @Override
     public JoosType getType() throws TypeCheckException {
         JoosType indexType = indexExpression.getType();
+        System.out.println(indexType);
         // TODO: wait for disambiguity && double check here
         if (!(referenceExpression instanceof ExpressionType
                 && ((ExpressionType) referenceExpression).isArrayType)
