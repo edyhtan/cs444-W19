@@ -165,7 +165,6 @@ public class ClassEnv implements Env {
     }
 
     private void checkReplace(MethodInfo parentMethodInfo, MethodInfo declaredMethod) throws NamingResolveException {
-        // TODO: change here after MethodInfo.returnType is changed to String
         TypeInfo parentReturnType = parentMethodInfo.returnType;
         TypeInfo declaredReturnType = declaredMethod.returnType;
 
@@ -485,6 +484,14 @@ public class ClassEnv implements Env {
         for (LocalEnv localEnv:localEnvs) {
             localEnv.resolveLocalVariableAndAccess();
         }
+    }
+
+    public boolean isStaticField(String fieldName) {
+        return fields.get(fieldName).modifiers.contains(Symbol.Static);
+    }
+
+    public TypeInfo getFieldTypeInfo(String fieldName) {
+        return fields.get(fieldName).getTypeInfo();
     }
 
     @Override

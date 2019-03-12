@@ -60,6 +60,9 @@ public class ForStatement extends HasScope implements Statement, HasExpression {
 
     @Override
     public void checkType() throws TypeCheckException {
-
+        if(forInit instanceof HasExpression) ((HasExpression) forInit).checkType();
+        if(forUpdate instanceof HasExpression) ((HasExpression) forUpdate).checkType();
+        if(statement instanceof HasExpression) ((HasExpression) statement).checkType();
+        expression.getType();
     }
 }

@@ -25,6 +25,6 @@ public class ExpressionStatement implements Statement, HasExpression {
 
     @Override
     public void checkType() throws TypeCheckException {
-
+        expression.getType();
     }
 }

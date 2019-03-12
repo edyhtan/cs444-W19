@@ -1,7 +1,6 @@
 package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionArrayCreationNode;
-import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.Type;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
@@ -40,6 +39,7 @@ public class ExpressionArrayCreation extends ExpressionPrimary {
 
     @Override
     public JoosType getType() throws TypeCheckException {
+
         return joosType;
     }
 }

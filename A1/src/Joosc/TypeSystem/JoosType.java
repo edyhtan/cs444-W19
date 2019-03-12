@@ -28,7 +28,7 @@ public class JoosType {
         allTypes.put("char", new JoosType("char", true));
         allTypes.put("byte", new JoosType("byte", true));
         allTypes.put("short", new JoosType("short", true));
-        VOID = new JoosType("void",false);
+        VOID = new JoosType("void", false);
         NULL = new JoosType("null", false);
     }
 
@@ -55,6 +55,13 @@ public class JoosType {
         }
     }
 
+    JoosType(JoosType type) {
+        typeName = type.getTypeName();
+        classEnv = type.getClassEnv();
+        isPrimitive = type.isPrimitive;
+        allParents = type.getAllParents();
+    }
+
     public void addParent(JoosType type) {
         allParents.put(type, type.classEnv);
     }
@@ -66,7 +73,6 @@ public class JoosType {
     public boolean isPrimitive() {
         return isPrimitive(this);
     }
-
 
     public ClassEnv getClassEnv() {
         return classEnv;
@@ -94,7 +100,7 @@ public class JoosType {
 
     public static boolean isPrimitive(ArrayList<String> fullname) {
         if (fullname.size() == 1) {
-            for (JoosType type: primitiveTypes) {
+            for (JoosType type : primitiveTypes) {
                 if (type.typeName.get(0).equals(fullname.get(0))) {
                     return true;
                 }
@@ -124,25 +130,36 @@ public class JoosType {
         return this.isPrimitive && this.typeName.get(0).equals(primitiveTypeName);
     }
 
-    public boolean isA(JoosType parentType) {
-        HashSet<JoosType> set = new HashSet<>(this.allParents.keySet());
-        for (JoosType type : parentType.allParents.keySet()) {
-            if(set.contains(type)) return true;
+    public boolean isA(JoosType RHS) {
+        if (RHS.equals(JoosType.NULL)) return true;
+        if (this.typeName.equals(RHS.getTypeName())) return true;
+        if (this.isPrimitive() && RHS.isPrimitive()) {
+            if ((this.equals("int") && (RHS.equals("char") || RHS.equals("short") || RHS.equals("byte")))
+                    || (this.equals("short") && RHS.equals("byte"))) {
+                return true;
+            }
+            return false;
+        } else {
+            if (RHS.hasParent(this) || RHS.getTypeName().equals(this.typeName)) return true;
+            // review: check transitivity
+            for (JoosType rhsParent : RHS.getAllParents().keySet()) {
+                if (this.isA(rhsParent)) return true;
+            }
+            return false;
         }
-        return false;
     }
 
     // unit tests
     public static void printTypes() {
-        allTypes.values().forEach( x -> {
+        allTypes.values().forEach(x -> {
             System.err.printf(
                     "%-25s %15s %15s\n", String.join(".", x.typeName),
                     (isPrimitive(x) ? "Primitive" : "Reference"),
                     (isNumber(x) ? "Number" : " ")
             );
 
-            x.allParents.keySet().forEach( y -> {
-                System.err.println("\t|-- " +  String.join(".", y.typeName));
+            x.allParents.keySet().forEach(y -> {
+                System.err.println("\t|-- " + String.join(".", y.typeName));
             });
         });
     }

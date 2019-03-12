@@ -5,7 +5,6 @@ import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.Type;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
-
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
 
@@ -20,6 +19,7 @@ public class ExpressionUnary extends Expression {
         unaryOperator = node.getUnaryOperator();
         targetNode = Expression.convertExpressionNode(node.getTargetNode());
         castingType = node.getCastingTypeNode() == null ? null : new Type(node.getCastingTypeNode());
+
     }
 
     public Symbol getUnaryOperator() {
@@ -54,14 +54,29 @@ public class ExpressionUnary extends Expression {
 
     @Override
     public JoosType getType() throws TypeCheckException {
-        if(kind.equals(Symbol.CastExpression)){
-
+        JoosType targetNodeType = targetNode.getType();
+        if (joosType != null) { // casting
+            // review: downcast run-time check? cast an interface?
+            if (joosType.isA(targetNodeType) || targetNodeType.isA(joosType)) {
+                joosType = targetNodeType;
+            } else {
+                throw new TypeCheckException("Cannot cast " + targetNodeType.getTypeName()
+                        + " to " + joosType.getTypeName());
+            }
         } else { // unaryExpression
             // minus
-
+            if (unaryOperator.equals(Symbol.Minus) && JoosType.isNumber(targetNodeType)) {
+                joosType = targetNodeType;
+            } else {
+                throw new TypeCheckException("Cannot subtract a non-numeric type variable.");
+            }
             // negate
-
+            if (unaryOperator.equals(Symbol.Bang) && targetNodeType.equals("boolean")) {
+                joosType = targetNodeType;
+            } else {
+                throw new TypeCheckException("Cannot negate a non-boolean type variable");
+            }
         }
-        return null;
+        return joosType;
     }
 }

@@ -36,6 +36,10 @@ public class ExpressionFieldAccess extends Expression {
 
     @Override
     public JoosType getType() throws TypeCheckException{
+        JoosType fieldParentType = fieldParentExpression.getType();
+        if(fieldParentType.getClassEnv().isFieldDeclared(fieldIdentifier)) {
+            if(fieldParentType.getClassEnv())
+        }
         return joosType;
     }
 }

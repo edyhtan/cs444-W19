@@ -37,7 +37,6 @@ public class ExpressionClassInstanceCreation extends Expression {
     @Override
     public void validate() throws NamingResolveException {
         joosType = getEnv().typeResolve(classType.getNames());
-
         for (Expression arg: argList) {
             arg.validate();
         }
@@ -45,6 +44,10 @@ public class ExpressionClassInstanceCreation extends Expression {
 
     @Override
     public JoosType getType() throws TypeCheckException {
+        // TODO: check argList elements are not ambiguous
+
+        // TODO: check args match types
+
         return joosType;
     }
 }

@@ -5,6 +5,7 @@ import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
@@ -50,22 +51,6 @@ public class ExpressionBinary extends Expression {
         RHS.validate();
     }
 
-    public boolean isAssignable(JoosType LHS, JoosType RHS) {
-        if (RHS.equals(JoosType.NULL)) return true;
-        if (LHS.equals(RHS)) return true;
-        if (JoosType.isPrimitive(LHS) && JoosType.isPrimitive(RHS)) {
-            if ((LHS.equals("int") && (RHS.equals("char") || RHS.equals("short") || RHS.equals("byte")))
-                    && (LHS.equals("short") && RHS.equals("byte"))) {
-                return true;
-            }
-            return false;
-        } else {
-            // TODO: check here
-            if (RHS.hasParent(LHS) || (RHS.isA(LHS))) return true;
-            else return false;
-        }
-    }
-
     @Override
     public JoosType getType() throws TypeCheckException {
         ArrayList<String> string = new ArrayList<>(Arrays.asList("java", "lang", "String"));
@@ -84,11 +69,21 @@ public class ExpressionBinary extends Expression {
                 break;
             // assignability
             case Equal:
-                if (isAssignable(lhsType, rhsType)) {
-                    joosType = rhsType;
+                // review:
+                if(rhsType instanceof ArrayType) {
+                    if(lhsType instanceof ArrayType && lhsType.isA(rhsType)) {
+                        joosType = new ArrayType(rhsType);
+                    } else {
+                        throw new TypeCheckException(String.format("Array assignment type incompatible: %s, %s",
+                                lhsType.getTypeName() , rhsType.getTypeName()));
+                    }
                 } else {
-                    throw new TypeCheckException("Cannot assign type "
-                            + rhsType.getTypeName() + " to " + lhsType.getTypeName());
+                    if (lhsType.isA(rhsType)) {
+                        joosType = rhsType;
+                    } else {
+                        throw new TypeCheckException(String.format("Assignment type incompatible: %s, %s",
+                                lhsType.getTypeName() , rhsType.getTypeName()));
+                    }
                 }
                 break;
             // arithmetic operations
@@ -99,14 +94,15 @@ public class ExpressionBinary extends Expression {
                 if (JoosType.isNumber(lhsType) && JoosType.isNumber(rhsType)) {
                     joosType = JoosType.getJoosType("int");
                 } else {
-                    throw new TypeCheckException("Cannot perform operation " + operator + " on non-numeric types.");
+                    throw new TypeCheckException(String.format("Arithmetic operations type incompatible: %s, %s",
+                            lhsType.getTypeName(), rhsType.getTypeName()));
                 }
                 break;
             // comparison
             case EQ:
             case NE:
                 if ((JoosType.isNumber(lhsType) && JoosType.isNumber(rhsType))
-                        || lhsType.isA(rhsType)) {
+                        || (lhsType.isA(rhsType) || rhsType.isA(lhsType))) {
                     joosType = JoosType.getJoosType("boolean");
                 } else {
                     throw new TypeCheckException("Cannot compare type " + lhsType.getTypeName()
@@ -120,19 +116,33 @@ public class ExpressionBinary extends Expression {
                 if (JoosType.isNumber(lhsType) && JoosType.isNumber(rhsType)) {
                     joosType = JoosType.getJoosType("boolean");
                 } else {
-                    throw new TypeCheckException("Cannot compare type " + lhsType.getTypeName()
-                            + " with " + rhsType.getTypeName());
+                    throw new TypeCheckException(String.format("Comparison type incompatible: %s, %s",
+                            lhsType.getTypeName(), rhsType.getTypeName()));
                 }
                 break;
             case Instanceof:
                 if (lhsType.getTypeName().equals(rhsType.getTypeName())
-                        // TODO: check here, WIP
-                        || (lhsType.hasParent(rhsType))) {
+                        // review: check here
+                        || lhsType.isA(rhsType)) {
                     joosType = JoosType.getJoosType("boolean");
+                } else {
+                    throw new TypeCheckException("Cannot check instanceof between type "
+                            + lhsType.getTypeName() + " and " + rhsType.getTypeName());
                 }
                 break;
-
-
+            // logical operations
+            case And:
+            case Or:
+            case Cap:
+            case Bar:
+            case Amp:
+                if (lhsType.equals("boolean") || rhsType.equals("boolean")) {
+                    joosType = JoosType.getJoosType("boolean");
+                } else {
+                    throw new TypeCheckException(String.format("Logical operation type incompatible: %s, %s",
+                            lhsType.getTypeName(), rhsType.getTypeName()));
+                }
+                break;
         }
         return joosType;
     }
