@@ -41,10 +41,11 @@ public class ExpressionArrayCreation extends ExpressionPrimary {
     @Override
     public JoosType getType() throws TypeCheckException {
         JoosType sizeType = sizeExpression.getType();
+        System.out.println(sizeType.getTypeName());
         if(JoosType.isNumber(sizeType)) {
             // primitive
-            if(arrayType.getNames().isEmpty() || arrayType.getNames() == null) {
-                joosType = new ArrayType(JoosType.getJoosType(arrayType.getKind().getSymbolString()));
+            if(arrayType.getNames() == null || arrayType.getNames().isEmpty()) {
+                joosType = new ArrayType(JoosType.getJoosType(arrayType.getArrayKind().getSymbolString()));
             } else { // reference
                 joosType = new ArrayType(JoosType.getJoosType(arrayType.getNames()));
             }

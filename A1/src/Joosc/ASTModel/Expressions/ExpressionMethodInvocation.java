@@ -1,12 +1,15 @@
 package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionMethodInvocationNode;
-import Joosc.Environment.LocalEnv;
+import Joosc.Environment.*;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
+import Joosc.util.Tri;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ExpressionMethodInvocation extends ExpressionPrimary {
@@ -59,13 +62,56 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
         }
     }
 
+    public String getMethodSimpleName() {
+        if (methodName == null) {
+            return methodIdentifier;
+        } else {
+            return methodName.get(methodName.size() - 1);
+        }
+    }
+
     @Override
     public JoosType getType() throws TypeCheckException {
         JoosType methodType = JoosType.getJoosType(methodName);
-        // TODO: check argList elements are not ambiguous
+        ClassEnv classEnv;
 
-        // TODO: check args match types
+        if (methodName == null) {
+            classEnv = methodParentExpression.getType().getClassEnv();
+        } else {
+            Tri<Integer, Env, String> tri = Names.resolveAmbiguity(getEnv(), methodName);
+            classEnv = (ClassEnv) tri.get2();
+        }
 
-        return joosType;
+        ArrayList<JoosType> argTypeList = new ArrayList<>();
+        for (Expression arg : argList) {
+            argTypeList.add(arg.getType());
+        }
+
+        MethodInfo matchingMethod = null;
+        for (Map.Entry<String, MethodInfo> kvp : classEnv._getFullMethodSignature().entrySet()) {
+            if (this.getMethodSimpleName().equals(kvp.getValue().getMethodSimpleName())
+                &&  argTypeList.size() == kvp.getValue().getParamTypeList().size()) {
+
+                ArrayList<FieldsVarInfo> candidateParamTypeList = kvp.getValue().getParamTypeList();
+                boolean valid = true;
+
+                for (int i = 0; i < argTypeList.size(); i += 1) {
+                    valid = argTypeList.get(i).isA(candidateParamTypeList.get(i).getTypeInfo().getJoosType());
+                    if (!valid) {
+                        break;
+                    }
+                }
+
+                if (!valid) {
+                    continue;
+                } else if (matchingMethod != null){
+                    throw new TypeCheckException("Ambiguous method signature:" + this.getMethodSimpleName());
+                } else {
+                    matchingMethod = kvp.getValue();
+                }
+            }
+        }
+
+        return matchingMethod.getReturnType().getJoosType();
     }
 }

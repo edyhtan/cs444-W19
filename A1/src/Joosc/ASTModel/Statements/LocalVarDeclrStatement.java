@@ -49,6 +49,7 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
         }
         JoosType initExprType = initExpression.getType();
         ArrayList<String> initExprTypeName = initExprType.getTypeName();
+
         // instance
         if (type.getArrayKind() == null) {
             // primitive
@@ -66,7 +67,7 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
             // primitive
             if ((!type.getArrayKind().getSymbolString().equals(initExprTypeName.get(0)))
                     // reference
-                    || (!type.getNames().equals(initExprTypeName))) {
+                    || (type.getNames()!= null && !type.getNames().equals(initExprTypeName))) {
                 throw new TypeCheckException(String.format("Type incompatible: %s, %s",
                         type.getTypeName(), initExprTypeName));
             }

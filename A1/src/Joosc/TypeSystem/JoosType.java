@@ -56,10 +56,10 @@ public class JoosType {
     }
 
     JoosType(JoosType type) {
-        typeName = type.getTypeName();
-        classEnv = type.getClassEnv();
+        typeName = type.typeName;
+        classEnv = type.classEnv;
         isPrimitive = type.isPrimitive;
-        allParents = type.getAllParents();
+        allParents = type.allParents;
     }
 
     public void addParent(JoosType type) {
@@ -131,15 +131,13 @@ public class JoosType {
     }
 
     public boolean isA(JoosType RHS) {
-        if (this.equals(RHS))
+        if (this.equals(RHS)) {
             return true;
-        if (this.isPrimitive() && RHS.isPrimitive())
-            return isNumber(this) && isNumber(RHS);
-        if (!this.isPrimitive() && RHS.equals(JoosType.NULL))
-            return true;
-         else {
-            return hasParent(RHS);
         }
+        if (this.isPrimitive() && RHS.isPrimitive()) {
+            return isNumber(this) && isNumber(RHS);
+        }
+        return !this.isPrimitive() && RHS.equals(JoosType.NULL) || hasParent(RHS);
     }
 
     // unit tests
