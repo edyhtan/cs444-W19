@@ -2,6 +2,7 @@ package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionClassInstanceCreationNode;
 import Joosc.ASTModel.Type;
+import Joosc.Environment.GlobalEnv;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
@@ -44,9 +45,20 @@ public class ExpressionClassInstanceCreation extends Expression {
 
     @Override
     public JoosType getType() throws TypeCheckException {
-        // TODO: check argList elements are not ambiguous
+        ArrayList<String> fullname = classType.getNames();
 
-        // TODO: check args match types
+        if (fullname.size() == 1) {
+            if (getEnv() == null) {
+                System.err.println(10);
+            }
+            joosType = getEnv().findResolvedType(fullname.get(0));
+        } else {
+            joosType = JoosType.getJoosType(fullname);
+        }
+
+        if (joosType == null) {
+            throw new TypeCheckException("Type Not Found: " + String.join(".", fullname));
+        }
 
         return joosType;
     }

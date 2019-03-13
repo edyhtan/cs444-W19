@@ -36,12 +36,17 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
 
     @Override
     public void checkExpression(LocalEnv env) throws NamingResolveException {
-
+        if (initExpression != null) {
+            initExpression.addEnv(env);
+        }
     }
 
     @Override
     public void checkType() throws TypeCheckException {
         // check declared type matches initExpr type
+        if (initExpression == null) {
+            return;
+        }
         JoosType initExprType = initExpression.getType();
         ArrayList<String> initExprTypeName = initExprType.getTypeName();
         // instance

@@ -63,9 +63,6 @@ public class JoosType {
     }
 
     public void addParent(JoosType type) {
-        if (type == null) {
-            System.err.println("1");
-        }
         allParents.put(type, type.classEnv);
     }
 
@@ -134,20 +131,14 @@ public class JoosType {
     }
 
     public boolean isA(JoosType RHS) {
-        if (RHS.equals(JoosType.NULL)) return true;
-        if (this.typeName.equals(RHS.getTypeName())) return true;
-        if (this.isPrimitive() && RHS.isPrimitive()) {
-            if ((this.equals("int") && (RHS.equals("char") || RHS.equals("short") || RHS.equals("byte")))
-                    || (this.equals("short") && RHS.equals("byte"))) {
-                return true;
-            }
-            return false;
-        } else {
-            if (RHS.hasParent(this) || RHS.getTypeName().equals(this.typeName)) return true;
-            for (JoosType rhsParent : RHS.getAllParents().keySet()) {
-                if (this.isA(rhsParent)) return true;
-            }
-            return false;
+        if (this.equals(RHS))
+            return true;
+        if (this.isPrimitive() && RHS.isPrimitive())
+            return isNumber(this) && isNumber(RHS);
+        if (!this.isPrimitive() && RHS.equals(JoosType.NULL))
+            return true;
+         else {
+            return hasParent(RHS);
         }
     }
 

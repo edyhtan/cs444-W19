@@ -5,6 +5,7 @@ import Joosc.ASTModel.AST;
 import Joosc.ASTModel.ClassInterface.TypeDeclr;
 import Joosc.ASTModel.ClassMember.ClassBodyDeclr;
 import Joosc.ASTModel.ClassMember.Method;
+import Joosc.ASTModel.Scope;
 import Joosc.ASTModel.Statements.*;
 import Joosc.ASTModel.Type;
 import Joosc.Exceptions.NamingResolveException;
@@ -30,12 +31,15 @@ public class LocalEnv implements Env {
         currentMethod = (ast instanceof ClassBodyDeclr) ? (ClassBodyDeclr) ast : parent.getCurrentMethod();
         ArrayList<Statement> statements;
 
+        if (ast instanceof Scope) {
+            ((Scope) ast).addEnv(this);
+        }
+
         //building sub environment
         if (ast instanceof Method && ast instanceof ClassBodyDeclr) {
             ((Method) ast).addLocalEnvironment(this);
             statements = ((ClassBodyDeclr) ast).getBodyBlock();
-        } else if (ast instanceof HasScope) {
-            ((HasScope) ast).addEnv(this);
+        } else if (ast instanceof Scope) {
             statements = ((HasScope) ast).getBlock();
         } else {
             statements = null;
@@ -56,7 +60,7 @@ public class LocalEnv implements Env {
     }
 
     private boolean hasSubEnvironment(AST ast) {
-        return ast instanceof HasScope;
+        return ast instanceof Scope;
     }
 
     public void resolveLocalVariableAndAccess() throws NamingResolveException, TypeCheckException {

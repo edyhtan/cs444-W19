@@ -2,7 +2,9 @@ public class Main {
     public Main() {}
 
     public void test() {
-        int a = 0;
+        int a = null;
+        Hello b;
+        b = new foo.bar(a, b);
         a = Static.h;
     }
 }
