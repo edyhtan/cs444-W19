@@ -30,12 +30,17 @@ public class Names extends ExpressionContent {
     public JoosType getType() throws TypeCheckException {
         Tri<Integer, Env, String> nameInfo = resolveAmbiguity(getEnv(), name);
         int smallInfo = nameInfo.get1();
+
         if ((smallInfo & isLocal) != 0) {
             joosType = nameInfo.get2().getVarInfo(nameInfo.get3()).getTypeInfo().getJoosType();
         }
         if ((smallInfo & isStatic) != 0) {
             joosType = nameInfo.get2().getStaticFieldInfo(nameInfo.get3()).getTypeInfo().getJoosType();
         }
+        if((smallInfo & isField) != 0) {
+            joosType = nameInfo.get2().getFieldInfo(nameInfo.get3()).getTypeInfo().getJoosType();
+        }
+
         if (joosType == null) {
             throw new TypeCheckException("Name " + nameInfo.get3() + " is not a valid accessor");
         }
