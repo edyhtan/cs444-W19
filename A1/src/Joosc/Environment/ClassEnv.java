@@ -64,6 +64,7 @@ public class ClassEnv implements Env {
         HashMap<String, JoosType> singleImportedClasses = new HashMap<>();
         importOnDemand.add(new ArrayList<>(Arrays.asList("java", "lang")));
 
+
         // Enclosing Class
         joosType = JoosType.getJoosType(typeDeclr.getCanonicalName());
         resolvedTypes.put(typeDeclr.getSimpleName(), joosType);
