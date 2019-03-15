@@ -30,6 +30,7 @@ public class Names extends ExpressionContent {
     public JoosType getType() throws TypeCheckException {
         Tri<Integer, Env, String> nameInfo = resolveAmbiguity(getEnv(), name);
         int smallInfo = nameInfo.get1();
+
         if ((smallInfo & isLocal) != 0) {
             joosType = nameInfo.get2().getVarInfo(nameInfo.get3()).getTypeInfo().getJoosType();
         }

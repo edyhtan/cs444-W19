@@ -23,14 +23,17 @@ public class MultiFileTest {
             List<String> baseArgs = Files.walk(Paths.get("./stdlib2.0/java")).
                     filter(Files::isRegularFile).map(Path::toString).collect(Collectors.toList());
 
+            List<String> emptylib = Files.walk(Paths.get("./stdlib/java")).
+                    filter(Files::isRegularFile).map(Path::toString).collect(Collectors.toList());
+
             if (testcases.contains(".java")) {
-                ArrayList<String> allArgs = new ArrayList<>(custom_flag ? new ArrayList<>(): baseArgs);
+                ArrayList<String> allArgs = new ArrayList<>(custom_flag ? emptylib: baseArgs);
                 allArgs.add(path);
                 allArgs.add("-full");
                 ret =  Joosc.run(allArgs.toArray(new String[allArgs.size()]));
             } else {
                 try (Stream<Path> paths = Files.walk(Paths.get(path))) {
-                    ArrayList<String> allArgs = new ArrayList<>(custom_flag ? new ArrayList<>(): baseArgs);
+                    ArrayList<String> allArgs = new ArrayList<>(custom_flag ? emptylib: baseArgs);
                     allArgs.addAll(Arrays.asList(paths.filter(Files::isRegularFile).map(Path::toString).toArray(String[]::new)));
                     //(new ArrayList<String>(allArgs)).forEach(x->System.err.println(x));
                     allArgs.add("-full");

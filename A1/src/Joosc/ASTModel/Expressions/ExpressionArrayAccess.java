@@ -4,7 +4,6 @@ import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionArrayAccessNode;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
-import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
@@ -51,19 +50,21 @@ public class ExpressionArrayAccess extends ExpressionPrimary {
     @Override
     public JoosType getType() throws TypeCheckException {
         JoosType indexType = indexExpression.getType();
-        // TODO: wait for disambiguity && double check here
-        if (!(referenceExpression instanceof ExpressionType
-                && ((ExpressionType) referenceExpression).isArrayType)
-                && JoosType.getJoosType(referenceName) instanceof ArrayType) {
+
+        if ((!(referenceExpression instanceof ExpressionType
+                && ((ExpressionType) referenceExpression).isArrayType))
+                && !getEnv().getVarInfo(referenceName.get(referenceName.size()-1)).getTypeInfo().isArray) {
             throw new TypeCheckException("Type incompatible for array access.");
         }
         if (JoosType.isNumber(indexType)) {
-            if(referenceName != null) joosType = JoosType.getJoosType(referenceName);
-            else joosType = referenceExpression.getType();
+            if(referenceName != null) {
+                joosType = getEnv().getVarInfo(referenceName.get(referenceName.size()-1)).getTypeInfo().getJoosType();
+            } else {
+                joosType = referenceExpression.getType();
+            }
         } else {
             throw new TypeCheckException("Type incompatible for array index: " + indexType.getTypeName());
         }
-
         return joosType;
     }
 }
