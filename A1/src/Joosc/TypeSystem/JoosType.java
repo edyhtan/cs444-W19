@@ -4,6 +4,7 @@ import Joosc.ASTModel.Type;
 import Joosc.Environment.ClassEnv;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -86,6 +87,17 @@ public class JoosType {
         return allParents;
     }
 
+    public static void clean() {
+        allTypes.clear();
+        referenceTypes.clear();
+        allTypes.put("boolean", new JoosType("boolean", false));
+        allTypes.put("int", new JoosType("int", true));
+        allTypes.put("long", new JoosType("long", true));
+        allTypes.put("char", new JoosType("char", true));
+        allTypes.put("byte", new JoosType("byte", true));
+        allTypes.put("short", new JoosType("short", true));
+    }
+
     public static boolean isNumber(JoosType type) {
         return numberTypes.contains(type);
     }
@@ -131,6 +143,12 @@ public class JoosType {
     }
 
     public boolean isA(JoosType RHS) {
+        if (RHS instanceof ArrayType) {
+            return this.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "Object"))))
+                    || this.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "Cloneable"))))
+                    || this.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "io", "Serializable"))));
+        }
+
         if (this.equals(RHS)) {
             return true;
         }

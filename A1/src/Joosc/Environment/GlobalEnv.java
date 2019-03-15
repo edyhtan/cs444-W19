@@ -32,8 +32,7 @@ public class GlobalEnv implements Env {
             classEnvs.add(new ClassEnv(x, this));
         });
 
-        if (instance == null)
-            instance = this;
+        instance = this;
     }
 
     private void nameConflict() throws NamingResolveException {
@@ -214,6 +213,11 @@ public class GlobalEnv implements Env {
 
     @Override
     public FieldsVarInfo getStaticFieldInfo(String name) {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, MethodInfo> getAllMethodSignature() {
         return null;
     }
 }

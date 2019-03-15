@@ -1,6 +1,6 @@
 package Joosc;
 
-import com.sun.net.httpserver.Authenticator;
+import Joosc.TypeSystem.JoosType;
 
 import java.io.File;
 import java.io.OutputStream;
@@ -12,7 +12,7 @@ public class FullRunSuite {
         File folder = new File("test/assignment_testcases/" + args[0]);
         File[] listOfFiles = folder.listFiles();
 
-        String[] arg = {args[0], ""};
+        String[] arg = {args[0], "", "-c"};
 
         System.setErr(new PrintStream(new OutputStream() {
             public void write(int b) {
@@ -23,14 +23,16 @@ public class FullRunSuite {
         int i = 0;
         for (; i < listOfFiles.length; i++) {
             arg[1] = listOfFiles[i].getName();
+
             int expected = Pattern.matches("^Je.*$", arg[1]) ? 42 : 0;
             int result = MultiFileTest.run(arg);
 
             if (expected == result) {
                 correct++;
             }
-                String status = (result == 0 || result == 42) ? (expected == result) ? "PASSED":"FAILED" :"ERROR(" + result + ")";
-                System.out.printf(getColor(status) + "\n", status, arg[1]);
+            String status = (result == 0 || result == 42) ? (expected == result) ? "PASSED" : "FAILED" : "ERROR(" + result + ")";
+            System.out.printf(getColor(status) + "\n", status, arg[1]);
+            JoosType.clean();
         }
         System.out.printf("test results: %d/%d", correct, i);
     }

@@ -34,7 +34,6 @@ public class ExpressionArrayCreation extends ExpressionPrimary {
 
     @Override
     public void validate() throws NamingResolveException {
-
         joosType = getEnv().typeResolve(arrayType.getTypeName());
         sizeExpression.validate();
     }
@@ -42,13 +41,13 @@ public class ExpressionArrayCreation extends ExpressionPrimary {
     @Override
     public JoosType getType() throws TypeCheckException {
         JoosType sizeType = sizeExpression.getType();
-        System.out.println(sizeType.getTypeName());
         if(JoosType.isNumber(sizeType)) {
             // primitive
             if(arrayType.getNames() == null || arrayType.getNames().isEmpty()) {
-                joosType = new ArrayType(JoosType.getJoosType(arrayType.getArrayKind().getSymbolString()));
+                joosType = new ArrayType(joosType);
             } else { // reference
-                joosType = new ArrayType(JoosType.getJoosType(arrayType.getNames()));
+                System.err.println(joosType.getTypeName());
+                joosType = new ArrayType(joosType);
             }
         } else {
             throw new TypeCheckException("Type incompatible: " + sizeType);

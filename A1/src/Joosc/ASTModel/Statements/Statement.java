@@ -4,6 +4,8 @@ import Joosc.ASTBuilding.ASTStructures.Statements.*;
 import Joosc.ASTModel.AST;
 import Joosc.Exceptions.TypeCheckException;
 
+import javax.swing.plaf.nimbus.State;
+
 public interface Statement extends AST {
 
      static Statement convertStatementNode(StatementNode node) {
@@ -33,5 +35,4 @@ public interface Statement extends AST {
 
         return null;
     }
-
 }

@@ -9,6 +9,7 @@ import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public interface Env {
@@ -33,7 +34,6 @@ public interface Env {
     FieldsVarInfo getVarInfo(String name);
     JoosType findResolvedType(String name);
 
-
-
+    HashMap<String, MethodInfo> getAllMethodSignature();
 }
 

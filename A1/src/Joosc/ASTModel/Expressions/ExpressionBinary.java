@@ -16,6 +16,9 @@ public class ExpressionBinary extends Expression {
     private Symbol kind, operator;
     private Expression LHS, RHS;
 
+    public int b;
+    public int a = (a = this.a);
+
     public ExpressionBinary(ExpressionBinaryNode node) {
         kind = node.getKind();
         operator = node.getOperator();

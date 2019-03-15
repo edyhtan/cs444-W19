@@ -115,7 +115,9 @@ public class LocalEnv implements Env {
                 if (isLocalVariableDeclared(localVar.getId())) {
                     throw new NamingResolveException("Duplicated Local Variable: " + localVar.getId());
                 }
-                symbolTable.put(localVar.getId(), typeResolve(localVar.getId(), localVar.getType(), new ArrayList<>()));
+                FieldsVarInfo info = typeResolve(localVar.getId(), localVar.getType(), new ArrayList<>());
+                symbolTable.put(localVar.getId(), info);
+                localVar.addInfo(info);
             }
 
             if (statement instanceof HasExpression) {
@@ -202,5 +204,10 @@ public class LocalEnv implements Env {
     @Override
     public JoosType findResolvedType(String name) {
         return parent.findResolvedType(name);
+    }
+
+    @Override
+    public HashMap<String, MethodInfo> getAllMethodSignature() {
+        return parent.getAllMethodSignature();
     }
 }

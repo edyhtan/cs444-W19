@@ -72,14 +72,13 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
 
     @Override
     public JoosType getType() throws TypeCheckException {
-        JoosType methodType = JoosType.getJoosType(methodName);
-        ClassEnv classEnv;
+        Env env;
 
         if (methodName == null) {
-            classEnv = methodParentExpression.getType().getClassEnv();
+            env = methodParentExpression.getType().getClassEnv();
         } else {
             Tri<Integer, Env, String> tri = Names.resolveAmbiguity(getEnv(), methodName);
-            classEnv = (ClassEnv) tri.get2();
+            env = tri.get2();
         }
 
         ArrayList<JoosType> argTypeList = new ArrayList<>();
@@ -88,7 +87,7 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
         }
 
         MethodInfo matchingMethod = null;
-        for (Map.Entry<String, MethodInfo> kvp : classEnv._getFullMethodSignature().entrySet()) {
+        for (Map.Entry<String, MethodInfo> kvp : env.getAllMethodSignature().entrySet()) {
             if (this.getMethodSimpleName().equals(kvp.getValue().getMethodSimpleName())
                 &&  argTypeList.size() == kvp.getValue().getParamTypeList().size()) {
 

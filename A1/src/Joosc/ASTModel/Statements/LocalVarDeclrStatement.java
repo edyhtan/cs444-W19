@@ -4,6 +4,7 @@ import Joosc.ASTBuilding.ASTStructures.Statements.LocalVarDeclrStatementNode;
 import Joosc.ASTModel.Expressions.Expression;
 import Joosc.ASTModel.Type;
 import Joosc.Environment.Env;
+import Joosc.Environment.FieldsVarInfo;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
@@ -16,6 +17,7 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
     private Type type;
     private String id;
     private Expression initExpression;
+    FieldsVarInfo info;
 
     public LocalVarDeclrStatement(LocalVarDeclrStatementNode node) {
         type = new Type(node.getType());
@@ -35,10 +37,15 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
         return type;
     }
 
+    public void addInfo(FieldsVarInfo info) {
+        this.info = info;
+    }
+
     @Override
     public void checkExpression(Env env) throws NamingResolveException {
         if (initExpression != null) {
             initExpression.addEnv(env);
+            initExpression.validate();
         }
     }
 
@@ -49,32 +56,12 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
             return;
         }
 
-        System.err.println(initExpression.getClass().getCanonicalName());
-
         JoosType initExprType = initExpression.getType();
         ArrayList<String> initExprTypeName = initExprType.getTypeName();
 
-        // instance
-        if (type.getArrayKind() == null) {
-            // primitive
-            if ((!type.getKind().getSymbolString().equals(initExprTypeName.get(0)))
-                    // reference
-                    || type.getNames() != null && (!type.getNames().equals(initExprTypeName))) {
-                throw new TypeCheckException(String.format("Type incompatible: %s, %s",
-                        type.getTypeName(), initExprTypeName));
-            }
-        } else { // array
-            if (!(initExprType instanceof ArrayType)) {
-                throw new TypeCheckException(String.format("Type incompatible: %s, %s",
-                        type.getTypeName().toString(), initExprTypeName));
-            }
-            // primitive
-            if ((!type.getArrayKind().getSymbolString().equals(initExprTypeName.get(0)))
-                    // reference
-                    || (type.getNames()!= null && !type.getNames().equals(initExprTypeName))) {
-                throw new TypeCheckException(String.format("Type incompatible: %s, %s",
-                        type.getTypeName(), initExprTypeName));
-            }
+        if (!info.getTypeInfo().getJoosType().isA(initExprType)) {
+            throw new TypeCheckException(String.format("Incompatible Type %s, %s", String.join(".", info.getTypeInfo().getJoosType().getTypeName()),
+                    String.join(".", initExprType.getTypeName())));
         }
     }
 }

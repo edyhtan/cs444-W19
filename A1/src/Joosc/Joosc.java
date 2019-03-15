@@ -9,6 +9,7 @@ import Joosc.Parser.JoosParse;
 import Joosc.Parser.LRGrammar.ParseTree;
 import Joosc.Scanner.JoosScan;
 import Joosc.Token.Token;
+import Joosc.TypeSystem.JoosType;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,11 +27,10 @@ public class Joosc {
         return temp[temp.length - 1];
     }
 
-    private static int exitOnCode(int code) {
+    public static int exitOnCode(int code) {
         if (!RUN_SUITE_FLAG) {
             System.exit(code);
         }
-
         return code;
     }
 
@@ -50,7 +50,6 @@ public class Joosc {
         ast.checkFileName(file);
         ast.weed();
 
-        ast.printASTInfo();
         return ast;
     }
 
@@ -116,11 +115,13 @@ public class Joosc {
         } catch (NullPointerException e) {
             e.printStackTrace();
             return exitOnCode(4);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
             return exitOnCode(3);
         }
-        return 0;
+
+        return exitOnCode(0);
     }
 
     public static void main(String args[]) {

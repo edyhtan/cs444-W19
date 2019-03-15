@@ -3,7 +3,7 @@ public class Hello {
     }
 
     public test() {
-        int[] array = new int[3];
-        int b = array[0];
+        //int[] array = new int[3];
+        //int b = array[0];
     }
 }

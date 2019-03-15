@@ -316,7 +316,8 @@ public class ClassEnv implements Env {
         }
     }
 
-    public HashMap<String, MethodInfo> _getFullMethodSignature() {
+    @Override
+    public HashMap<String, MethodInfo> getAllMethodSignature() {
         return fullMethodSignature;
     }
 

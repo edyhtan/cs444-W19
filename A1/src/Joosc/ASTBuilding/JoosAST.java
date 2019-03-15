@@ -2,10 +2,8 @@ package Joosc.ASTBuilding;
 
 import Joosc.ASTBuilding.ASTStructures.Program;
 import Joosc.ASTBuilding.Constants.Symbol;
-import Joosc.Exceptions.ASTException;
-import Joosc.Exceptions.InvalidParseTreeStructureException;
-import Joosc.Exceptions.WeedingFailureException;
-import Joosc.Exceptions.WrongFileNameException;
+import Joosc.Exceptions.*;
+import Joosc.Joosc;
 import Joosc.Parser.LRGrammar.ParseTree;
 
 public class JoosAST {
@@ -37,6 +35,7 @@ public class JoosAST {
 
         String filename = file.split("[.]")[0];
         String suffix = file.split("[.]")[1];
+
 
         if(!className.equals(filename)) {
             throw new WrongFileNameException("Class name does not match file name, found file name " + filename + ", class name " + className);
