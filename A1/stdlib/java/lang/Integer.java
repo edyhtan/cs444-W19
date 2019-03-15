@@ -2,10 +2,10 @@ package java.lang;
 public final class Integer extends Number {
     public int value;
     public Integer(int i) {
-        value = i;
+//        value = i;
     }
     public int intValue() {
-        return value;
+//        return value;
     }
     public static int parseInt(String s) {
 //        int ret = 0;
@@ -23,13 +23,13 @@ public final class Integer extends Number {
 //        return ret;
     }
     public Integer(String s) {
-        value = Integer.parseInt(s);
+//        value = Integer.parseInt(s);
     }
     public Integer() {
-        value = 0;
+//        value = 0;
     }
     public String toString() {
-        return String.valueOf(value);
+//        return String.valueOf(value);
     }
     public static int MAX_VALUE = 2147483647;
 }
