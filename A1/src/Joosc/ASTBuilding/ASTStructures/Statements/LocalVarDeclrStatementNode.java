@@ -36,7 +36,8 @@ public class LocalVarDeclrStatementNode extends StatementNode {
     @Override
     public void printInfo(int level) {
         this.printInfoInit("Local Var Declr Statement Node:", level);
-        initExpression.printInfo(level + 1);
+        if (initExpression != null)
+            initExpression.printInfo(level + 1);
     }
 
     public ExpressionNode getInitExpression() {

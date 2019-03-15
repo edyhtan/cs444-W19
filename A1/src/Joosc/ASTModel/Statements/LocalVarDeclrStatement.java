@@ -47,6 +47,9 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
         if (initExpression == null) {
             return;
         }
+
+        System.err.println(initExpression.getClass().getCanonicalName());
+
         JoosType initExprType = initExpression.getType();
         ArrayList<String> initExprTypeName = initExprType.getTypeName();
 
