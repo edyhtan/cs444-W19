@@ -2,6 +2,7 @@ package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionArrayCreationNode;
 import Joosc.ASTModel.Type;
+import Joosc.Environment.Env;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
@@ -26,7 +27,7 @@ public class ExpressionArrayCreation extends ExpressionPrimary {
     }
 
     @Override
-    public void addEnv(LocalEnv env) {
+    public void addEnv(Env env) {
         super.addEnv(env);
         sizeExpression.addEnv(env);
     }

@@ -3,6 +3,7 @@ package Joosc.ASTModel.Expressions;
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionUnaryNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.Type;
+import Joosc.Environment.Env;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
@@ -39,7 +40,7 @@ public class ExpressionUnary extends Expression {
     }
 
     @Override
-    public void addEnv(LocalEnv env) {
+    public void addEnv(Env env) {
         super.addEnv(env);
         targetNode.addEnv(env);
     }

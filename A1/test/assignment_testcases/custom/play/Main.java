@@ -1,6 +1,6 @@
 public class Main {
 
-    public int a = 0;
+    public int a = new Main();
 
     public Main() {}
 

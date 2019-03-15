@@ -2,6 +2,7 @@ package Joosc.ASTModel.Statements;
 
 import Joosc.ASTBuilding.ASTStructures.Statements.ExpressionStatementNode;
 import Joosc.ASTModel.Expressions.Expression;
+import Joosc.Environment.Env;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
@@ -18,7 +19,7 @@ public class ExpressionStatement implements Statement, HasExpression {
     }
 
     @Override
-    public void checkExpression(LocalEnv env) throws NamingResolveException {
+    public void checkExpression(Env env) throws NamingResolveException {
         expression.addEnv(env);
         expression.validate();
     }

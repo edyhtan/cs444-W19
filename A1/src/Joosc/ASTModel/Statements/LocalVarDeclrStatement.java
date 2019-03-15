@@ -3,6 +3,7 @@ package Joosc.ASTModel.Statements;
 import Joosc.ASTBuilding.ASTStructures.Statements.LocalVarDeclrStatementNode;
 import Joosc.ASTModel.Expressions.Expression;
 import Joosc.ASTModel.Type;
+import Joosc.Environment.Env;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
@@ -35,7 +36,7 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
     }
 
     @Override
-    public void checkExpression(LocalEnv env) throws NamingResolveException {
+    public void checkExpression(Env env) throws NamingResolveException {
         if (initExpression != null) {
             initExpression.addEnv(env);
         }

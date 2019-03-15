@@ -128,13 +128,19 @@ public class ClassEnv implements Env {
         }
     }
 
-    private void resolveFields() throws NamingResolveException {
+    private void resolveFields() throws NamingResolveException, TypeCheckException {
         if (typeDeclr instanceof ClassDeclr) {
             ArrayList<FieldDeclr> fieldDeclrs = ((ClassDeclr) typeDeclr).getFields();
             for (FieldDeclr fieldDeclr : fieldDeclrs) {
                 String fieldName = fieldDeclr.getName();
+                FieldsVarInfo fieldsVarInfo = typeResolve(fieldName, fieldDeclr.getType(), fieldDeclr.getModifiers());
+                fieldDeclr.addJoosType(fieldsVarInfo.getTypeInfo().getJoosType());
+                fieldDeclr.addEnv(this);
+                fieldDeclr.checkExpression(this);
+                fieldDeclr.checkType();
+
                 if (!fields.containsKey(fieldName)) {
-                    fields.put(fieldName, typeResolve(fieldName, fieldDeclr.getType(), fieldDeclr.getModifiers()));
+                    fields.put(fieldName, fieldsVarInfo);
                 } else {
                     throw new NamingResolveException("found more than one field with name " + fieldDeclr.getName());
                 }
@@ -487,6 +493,7 @@ public class ClassEnv implements Env {
     }
 
     public void resolveFieldsAndLocalVar() throws NamingResolveException, TypeCheckException {
+
         for (LocalEnv localEnv:localEnvs) {
             localEnv.resolveLocalVariableAndAccess();
         }
@@ -589,7 +596,7 @@ public class ClassEnv implements Env {
     }
 
     @Override
-    public void semanticAnalysis() throws NamingResolveException {
+    public void semanticAnalysis() throws NamingResolveException, TypeCheckException {
         resolveImports();
         resolveFields();
         resolveConstructorNames();
@@ -611,6 +618,7 @@ public class ClassEnv implements Env {
             joosType.addParent(parent);
         }
     }
+
 
     @Override
     public JoosType findResolvedType(String name) {

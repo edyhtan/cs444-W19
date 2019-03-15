@@ -43,7 +43,7 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
     }
 
     @Override
-    public void addEnv(LocalEnv env) {
+    public void addEnv(Env env) {
         super.addEnv(env);
         if (methodParentExpression != null) {
             methodParentExpression.addEnv(env);

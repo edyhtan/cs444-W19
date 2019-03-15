@@ -2,6 +2,7 @@ package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionBinaryNode;
 import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.Environment.Env;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
@@ -39,7 +40,7 @@ public class ExpressionBinary extends Expression {
     }
 
     @Override
-    public void addEnv(LocalEnv env) {
+    public void addEnv(Env env) {
         super.addEnv(env);
         LHS.addEnv(env);
         RHS.addEnv(env);

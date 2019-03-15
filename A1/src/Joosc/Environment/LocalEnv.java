@@ -99,10 +99,10 @@ public class LocalEnv implements Env {
 
         for (Statement statement : statements) {
             if (statement instanceof HasScope) {
-                ((HasScope) statement).getEnv().resolveLocalVariableAndAccess();
+                ((LocalEnv)((HasScope) statement).getEnv()).resolveLocalVariableAndAccess();
                 if (statement instanceof IfStatement) {
                     if (((IfStatement) statement).getElseClause() != null) {
-                        ((IfStatement) statement).getElseClause().getEnv().resolveLocalVariableAndAccess();
+                        ((LocalEnv)((IfStatement) statement).getElseClause().getEnv()).resolveLocalVariableAndAccess();
                     }
                 }
             }
@@ -122,10 +122,6 @@ public class LocalEnv implements Env {
                 ((HasExpression) statement).checkType();
             }
         }
-    }
-
-    private String getCanonicalPrefix() {
-        return String.join(".", currentClass.getCanonicalName()) + "." + currentMethod.getName();
     }
 
     @Override

@@ -2,6 +2,7 @@ package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionClassInstanceCreationNode;
 import Joosc.ASTModel.Type;
+import Joosc.Environment.Env;
 import Joosc.Environment.GlobalEnv;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
@@ -30,7 +31,7 @@ public class ExpressionClassInstanceCreation extends Expression {
     }
 
     @Override
-    public void addEnv(LocalEnv env) {
+    public void addEnv(Env env) {
         super.addEnv(env);
         argList.forEach(x->x.addEnv(env));
     }
