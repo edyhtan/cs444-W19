@@ -59,6 +59,9 @@ public class ExpressionBinary extends Expression {
     public JoosType getType() throws TypeCheckException {
         ArrayList<String> string = new ArrayList<>(Arrays.asList("java", "lang", "String"));
         JoosType stringType = JoosType.getJoosType(string);
+
+        System.err.println(RHS.getClass().getCanonicalName());
+
         JoosType lhsType = LHS.getType();
         JoosType rhsType = RHS.getType();
 
@@ -76,9 +79,8 @@ public class ExpressionBinary extends Expression {
                 break;
             // assignability
             case Equal:
-                // review: Let's see...
                 if(rhsType instanceof ArrayType) {
-                    if(((ArrayType) rhsType).isA(lhsType)) {
+                    if(rhsType.isA(lhsType)) {
                         joosType = new ArrayType(lhsType);
                     } else {
                         throw new TypeCheckException(String.format("Array assignment type incompatible: %s, %s",
@@ -128,8 +130,7 @@ public class ExpressionBinary extends Expression {
                 }
                 break;
             case Instanceof:
-                if (lhsType.getTypeName().equals(rhsType.getTypeName())
-                        || lhsType.isA(rhsType)) {
+                if (lhsType.isA(rhsType) || rhsType.isA(lhsType)) {
                     joosType = JoosType.getJoosType("boolean");
                 } else {
                     throw new TypeCheckException("Cannot check instanceof between type "

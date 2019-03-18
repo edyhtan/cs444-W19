@@ -142,21 +142,22 @@ public class JoosType {
         return this.isPrimitive && this.typeName.get(0).equals(primitiveTypeName);
     }
 
-    public boolean isA(JoosType RHS) {
-        if (RHS instanceof ArrayType) {
-            return this.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "Object"))))
-                    || this.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "Cloneable"))))
-                    || this.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "io", "Serializable"))))
-                    || this.equals(NULL);
+
+    public boolean isA(JoosType type) {
+        if (this instanceof ArrayType) {
+            return type.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "Object"))))
+                    || type.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "Cloneable"))))
+                    || type.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "io", "Serializable"))))
+                    || type.equals(NULL);
         }
 
-        if (this.equals(RHS)) {
+        if (this.equals(type)) {
             return true;
         }
-        if (this.isPrimitive() && RHS.isPrimitive()) {
-            return isNumber(this) && isNumber(RHS);
+        if (this.isPrimitive() && type.isPrimitive()) {
+            return isNumber(this) && isNumber(type);
         }
-        return (this == NULL && !RHS.isPrimitive) || hasParent(RHS);
+        return (this == NULL && !type.isPrimitive) || hasParent(type);
     }
 
     // unit tests
