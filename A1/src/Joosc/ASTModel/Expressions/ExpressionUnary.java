@@ -48,7 +48,7 @@ public class ExpressionUnary extends Expression {
     @Override
     public void validate() throws NamingResolveException {
         if (castingType != null) {
-            joosType = getEnv().typeResolve(castingType.getTypeName());
+            joosType = getEnv().typeResolve(castingType).getJoosType();
         }
         targetNode.validate();
     }
@@ -57,7 +57,6 @@ public class ExpressionUnary extends Expression {
     public JoosType getType() throws TypeCheckException {
         JoosType targetNodeType = targetNode.getType();
         if (joosType != null) { // casting
-            // review: downcast run-time check? cast an interface?
             if (!(joosType.isA(targetNodeType) || targetNodeType.isA(joosType))) {
                 throw new TypeCheckException("Cannot cast " + targetNodeType.getTypeName()
                         + " to " + joosType.getTypeName());
