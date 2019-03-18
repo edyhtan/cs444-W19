@@ -112,14 +112,12 @@ public class GlobalEnv implements Env {
             classEnv.getFullSuperSet(new TreeSet<>());
         }
 
-        //JoosType.printTypes();
         for (ClassEnv classEnv : classEnvs) {
             classEnv.variableContain();
             classEnv.getFullMethodSignature();
             classEnv.addSuperToJooscType();
         }
 
-        //JoosType.printTypes();
         for (ClassEnv classEnv : classEnvs) {
             classEnv.resolveFieldsAndLocalVar();
         }
@@ -215,6 +213,12 @@ public class GlobalEnv implements Env {
     public FieldsVarInfo getStaticFieldInfo(String name) {
         return null;
     }
+
+    @Override
+    public FieldsVarInfo getDeclaredFieldInfo(String name) {
+        return null;
+    }
+
 
     @Override
     public HashMap<String, MethodInfo> getAllMethodSignature() {

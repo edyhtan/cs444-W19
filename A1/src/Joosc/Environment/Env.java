@@ -28,6 +28,7 @@ public interface Env {
 
     JoosType getJoosType();
 
+    FieldsVarInfo getDeclaredFieldInfo(String name); /* explicilty declared by the class*/
     FieldsVarInfo getFieldInfo(String name);
     FieldsVarInfo getStaticFieldInfo(String name);
 

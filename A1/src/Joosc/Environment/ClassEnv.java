@@ -47,7 +47,7 @@ public class ClassEnv implements Env {
 
     // variable contain
     private boolean variableContainComplete = false;
-    protected HashMap containedFields = new HashMap();
+    protected HashMap<String, FieldsVarInfo> containedFields = new HashMap();
 
     public ClassEnv(Program program, GlobalEnv parent) {
         typeDeclr = program.getTypeDeclr();
@@ -504,10 +504,6 @@ public class ClassEnv implements Env {
         return fields.get(fieldName).modifiers.contains(Symbol.Static);
     }
 
-    public TypeInfo getFieldTypeInfo(String fieldName) {
-        return fields.get(fieldName).getTypeInfo();
-    }
-
     @Override
     public JoosType typeResolve(ArrayList<String> longTypeName) throws NamingResolveException {
         if (JoosType.isPrimitive(longTypeName)) {
@@ -638,6 +634,11 @@ public class ClassEnv implements Env {
 
     @Override
     public FieldsVarInfo getFieldInfo(String name){
+        return containedFields.getOrDefault(name, null);
+    }
+
+    @Override
+    public FieldsVarInfo getDeclaredFieldInfo(String name) {
         return fields.getOrDefault(name, null);
     }
 
@@ -648,8 +649,8 @@ public class ClassEnv implements Env {
 
     @Override
     public FieldsVarInfo getStaticFieldInfo(String name) {
-        if (isFieldDeclared(name) && fields.get(name).modifiers.contains(Symbol.Static)) {
-            return fields.get(name);
+        if (isFieldDeclared(name) && containedFields.get(name).modifiers.contains(Symbol.Static)) {
+            return containedFields.get(name);
         }
 
         return null;

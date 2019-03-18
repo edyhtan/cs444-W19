@@ -143,10 +143,12 @@ public class JoosType {
     }
 
     public boolean isA(JoosType RHS) {
+        System.err.println(getTypeName() + " " + RHS.getTypeName());
         if (RHS instanceof ArrayType) {
             return this.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "Object"))))
                     || this.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "Cloneable"))))
-                    || this.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "io", "Serializable"))));
+                    || this.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "io", "Serializable"))))
+                    || this.equals(NULL);
         }
 
         if (this.equals(RHS)) {
@@ -155,7 +157,7 @@ public class JoosType {
         if (this.isPrimitive() && RHS.isPrimitive()) {
             return isNumber(this) && isNumber(RHS);
         }
-        return !this.isPrimitive() && RHS.equals(JoosType.NULL) || hasParent(RHS);
+        return (this == NULL && !RHS.isPrimitive) || hasParent(RHS);
     }
 
     // unit tests

@@ -86,8 +86,9 @@ public class LocalEnv implements Env {
                     if (isLocalVariableDeclared(forinitLocal.getId())) {
                         throw new NamingResolveException("Duplicated Local Variable name: " + forinitLocal.getId());
                     } else {
-                        symbolTable.put(forinitLocal.getId(),
-                                typeResolve(forinitLocal.getId(), forinitLocal.getType(), new ArrayList<>()));
+                        FieldsVarInfo info = typeResolve(forinitLocal.getId(), forinitLocal.getType(), new ArrayList<>());
+                        symbolTable.put(forinitLocal.getId(), info);
+                        forinitLocal.addInfo(info);
                     }
                 }
             }
@@ -191,6 +192,12 @@ public class LocalEnv implements Env {
     public FieldsVarInfo getStaticFieldInfo(String name) {
         return parent.getStaticFieldInfo(name);
     }
+
+    @Override
+    public FieldsVarInfo getDeclaredFieldInfo(String name) {
+        return parent.getDeclaredFieldInfo(name);
+    }
+
 
     @Override
     public FieldsVarInfo getVarInfo(String name) {

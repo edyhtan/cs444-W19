@@ -69,6 +69,9 @@ public class ExpressionBinary extends Expression {
                     joosType = stringType;
                 } else if (JoosType.isNumber(lhsType) && JoosType.isNumber(rhsType)) {
                     joosType = JoosType.getJoosType("int");
+                } else {
+                    throw new TypeCheckException(String.format("+ operator type incompatible: %s, %s",
+                            lhsType.getTypeName() , rhsType.getTypeName()));
                 }
                 break;
             // assignability
@@ -76,14 +79,14 @@ public class ExpressionBinary extends Expression {
                 // review: Let's see...
                 if(rhsType instanceof ArrayType) {
                     if(((ArrayType) rhsType).isA(lhsType)) {
-                        joosType = new ArrayType(rhsType);
+                        joosType = new ArrayType(lhsType);
                     } else {
                         throw new TypeCheckException(String.format("Array assignment type incompatible: %s, %s",
                                 lhsType.getTypeName() , rhsType.getTypeName()));
                     }
                 } else {
-                    if (lhsType.isA(rhsType)) {
-                        joosType = rhsType;
+                    if (rhsType.isA(lhsType)) {
+                        joosType = lhsType;
                     } else {
                         throw new TypeCheckException(String.format("Assignment type incompatible: %s, %s",
                                 lhsType.getTypeName() , rhsType.getTypeName()));
@@ -147,6 +150,7 @@ public class ExpressionBinary extends Expression {
                 }
                 break;
         }
+
         return joosType;
     }
 }

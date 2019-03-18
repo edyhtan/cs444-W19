@@ -12,7 +12,6 @@ import Joosc.TypeSystem.JoosType;
 import java.util.ArrayList;
 
 public class ExpressionType extends Expression {
-
     ArrayList<String> typeName;
     boolean isArrayType;
 
@@ -34,9 +33,7 @@ public class ExpressionType extends Expression {
     @Override
     public JoosType getType() throws TypeCheckException {
         if(isArrayType) {
-            joosType = new ArrayType(JoosType.getJoosType(typeName));
-        } else {
-            joosType = JoosType.getJoosType(typeName);
+            joosType = new ArrayType(joosType);
         }
         return joosType;
     }

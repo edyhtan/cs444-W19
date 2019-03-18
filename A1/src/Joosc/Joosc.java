@@ -9,7 +9,6 @@ import Joosc.Parser.JoosParse;
 import Joosc.Parser.LRGrammar.ParseTree;
 import Joosc.Scanner.JoosScan;
 import Joosc.Token.Token;
-import Joosc.TypeSystem.JoosType;
 
 import java.io.File;
 import java.io.FileNotFoundException;
