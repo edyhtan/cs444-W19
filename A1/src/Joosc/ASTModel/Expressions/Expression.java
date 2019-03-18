@@ -9,40 +9,41 @@ import Joosc.TypeSystem.JoosType;
 public abstract class Expression extends HasType implements AST {
     Symbol kind;
     protected JoosType joosType;
-     public static Expression convertExpressionNode(ExpressionNode node) {
-        if(node instanceof ExpressionBinaryNode) {
+
+    public static Expression convertExpressionNode(ExpressionNode node) {
+        if (node instanceof ExpressionBinaryNode) {
             return new ExpressionBinary((ExpressionBinaryNode) node);
         }
 
-        if(node instanceof ExpressionUnaryNode) {
+        if (node instanceof ExpressionUnaryNode) {
             return new ExpressionUnary((ExpressionUnaryNode) node);
         }
 
-        if(node instanceof ExpressionContentNode) {
+        if (node instanceof ExpressionContentNode) {
             return ExpressionContent.getContent((ExpressionContentNode) node);
         }
 
-        if(node instanceof ExpressionMethodInvocationNode) {
+        if (node instanceof ExpressionMethodInvocationNode) {
             return new ExpressionMethodInvocation((ExpressionMethodInvocationNode) node);
         }
 
-        if(node instanceof ExpressionClassInstanceCreationNode) {
+        if (node instanceof ExpressionClassInstanceCreationNode) {
             return new ExpressionClassInstanceCreation((ExpressionClassInstanceCreationNode) node);
         }
 
-        if(node instanceof ExpressionFieldAccessNode) {
-             return new ExpressionFieldAccess((ExpressionFieldAccessNode) node);
+        if (node instanceof ExpressionFieldAccessNode) {
+            return new ExpressionFieldAccess((ExpressionFieldAccessNode) node);
         }
 
-        if(node instanceof ExpressionArrayCreationNode) {
+        if (node instanceof ExpressionArrayCreationNode) {
             return new ExpressionArrayCreation((ExpressionArrayCreationNode) node);
         }
 
-        if(node instanceof ExpressionArrayAccessNode) {
+        if (node instanceof ExpressionArrayAccessNode) {
             return new ExpressionArrayAccess((ExpressionArrayAccessNode) node);
         }
 
-        if(node instanceof ExpressionTypeNode) {
+        if (node instanceof ExpressionTypeNode) {
             return new ExpressionType((ExpressionTypeNode) node);
         }
 
@@ -51,5 +52,7 @@ public abstract class Expression extends HasType implements AST {
     }
 
     public abstract JoosType getType() throws TypeCheckException;
+
+    public abstract boolean isConstantExpression();
 
 }

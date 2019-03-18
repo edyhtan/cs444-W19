@@ -54,4 +54,9 @@ public class ExpressionArrayCreation extends ExpressionPrimary {
         }
         return joosType;
     }
+
+    @Override
+    public boolean isConstantExpression() {
+        return false;
+    }
 }

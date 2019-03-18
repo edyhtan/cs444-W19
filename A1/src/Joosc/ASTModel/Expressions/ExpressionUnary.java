@@ -9,11 +9,14 @@ import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
 
-public class ExpressionUnary extends Expression {
+public class ExpressionUnary extends Expression implements ConstantExpression {
     private Symbol kind;
     private Symbol unaryOperator;
     private Expression targetNode;
     private Type castingType;
+
+    // Literal representation of value and type of constant expression
+    private ConstantLiteral constantLiteral = null;
 
     public ExpressionUnary(ExpressionUnaryNode node) {
         kind = node.getKind();
@@ -73,5 +76,38 @@ public class ExpressionUnary extends Expression {
             }
         }
         return joosType;
+    }
+
+    @Override
+    public boolean isConstantExpression() {
+        // Type checked before static analysis, all should be valid
+        if (constantLiteral != null) {
+            return true;
+        }
+        if (targetNode.isConstantExpression()) {
+            ConstantLiteral targetConstant = ((ConstantExpression) targetNode).evaluateConstant();
+            switch (unaryOperator) {
+                case Plus:
+                    constantLiteral = targetConstant;
+                    return true;
+                case Minus:
+                    constantLiteral = new ConstantLiteral(-targetConstant.toInt(), targetConstant.type);
+                    return true;
+                case Bang:
+                    constantLiteral = new ConstantLiteral(!targetConstant.toBoolean(), targetConstant.type);
+                    return true;
+            }
+            if (castingType != null) {
+                if (joosType.isPrimitive()) {
+                    constantLiteral = new ConstantLiteral(targetConstant.literal, joosType);
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public ConstantLiteral evaluateConstant() {
+        return constantLiteral;
     }
 }

@@ -73,7 +73,6 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
     @Override
     public JoosType getType() throws TypeCheckException {
         Env env;
-
         if (methodName == null) {
             env = methodParentExpression.getType().getClassEnv();
         } else {
@@ -112,5 +111,10 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
         }
 
         return matchingMethod.getReturnType().getJoosType();
+    }
+
+    @Override
+    public boolean isConstantExpression() {
+        return false;
     }
 }

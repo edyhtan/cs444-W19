@@ -4,6 +4,7 @@ import Joosc.ASTBuilding.ASTStructures.InterfaceDeclrNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.ClassMember.MethodDeclr;
 import Joosc.Environment.ClassEnv;
+import Joosc.Exceptions.UninitializedVariableException;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -28,6 +29,14 @@ public class InterfaceDeclr implements TypeDeclr {
     public void buildCanonicalName(ArrayList<String> packageName) {
         canonicalID = new ArrayList<>(packageName);
         canonicalID.add(name);
+    }
+
+    @Override
+    public void reachabilityAnalysis() {}
+
+    @Override
+    public void definiteAssignmentAnalysis() throws UninitializedVariableException {
+
     }
 
     @Override

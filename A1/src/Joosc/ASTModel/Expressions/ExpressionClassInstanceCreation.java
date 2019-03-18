@@ -63,4 +63,9 @@ public class ExpressionClassInstanceCreation extends Expression {
 
         return joosType;
     }
+
+    @Override
+    public boolean isConstantExpression() {
+        return false;
+    }
 }

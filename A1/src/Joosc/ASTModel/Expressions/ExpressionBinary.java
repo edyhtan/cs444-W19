@@ -12,12 +12,11 @@ import Joosc.TypeSystem.JoosType;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ExpressionBinary extends Expression {
+public class ExpressionBinary extends Expression implements ConstantExpression {
     private Symbol kind, operator;
     private Expression LHS, RHS;
 
-    public int b;
-    public int a = (a = this.a);
+    private ConstantLiteral constantLiteral = null;
 
     public ExpressionBinary(ExpressionBinaryNode node) {
         kind = node.getKind();
@@ -139,6 +138,7 @@ public class ExpressionBinary extends Expression {
             case Cap:
             case Bar:
             case Amp:
+                // TODO: JLS 15.22 15.23 says both side must be boolean. We should use && here.
                 if (lhsType.equals("boolean") || rhsType.equals("boolean")) {
                     joosType = JoosType.getJoosType("boolean");
                 } else {
@@ -148,5 +148,90 @@ public class ExpressionBinary extends Expression {
                 break;
         }
         return joosType;
+    }
+
+    @Override
+    public boolean isConstantExpression() {
+        if (constantLiteral != null) {
+            return true;
+        }
+
+        if (LHS.isConstantExpression() && RHS.isConstantExpression()) {
+            ConstantLiteral LHS = ((ConstantExpression) this.LHS).evaluateConstant();
+            ConstantLiteral RHS = ((ConstantExpression) this.RHS).evaluateConstant();
+            switch (operator) {
+                case Plus:
+                    // TODO: Questionable type, looks like byte + byte is int? ↑
+                    if (LHS.type.isString() || RHS.type.isString()) {
+                        constantLiteral = new ConstantLiteral(LHS.literal + RHS.literal, JoosType.getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "String"))));
+                    } else {
+                        constantLiteral = new ConstantLiteral(LHS.toInt() + RHS.toInt(), JoosType.getJoosType("int"));
+                    }
+                    return true;
+                case Equal:
+                    return false;
+                case Minus:
+                    constantLiteral = new ConstantLiteral(LHS.toInt() - RHS.toInt(), JoosType.getJoosType("int"));
+                    return true;
+                case Star:
+                    constantLiteral = new ConstantLiteral(LHS.toInt() * RHS.toInt(), JoosType.getJoosType("int"));
+                    return true;
+                case Slash:
+                    constantLiteral = new ConstantLiteral(LHS.toInt() / RHS.toInt(), JoosType.getJoosType("int"));
+                    return true;
+                case Percent:
+                    constantLiteral = new ConstantLiteral(LHS.toInt() % RHS.toInt(), JoosType.getJoosType("int"));
+                    return true;
+                case EQ:
+                    if (LHS.type.isString() || RHS.type.isString()) {
+                        constantLiteral = new ConstantLiteral(LHS.literal == RHS.literal, JoosType.getJoosType("boolean"));
+                    } else {
+                        constantLiteral = new ConstantLiteral(LHS.literal.equals(RHS.literal), JoosType.getJoosType("boolean"));
+                    }
+                    return true;
+                case NE:
+                    if (LHS.type.isString() || RHS.type.isString()) {
+                        constantLiteral = new ConstantLiteral(LHS.literal != RHS.literal, JoosType.getJoosType("boolean"));
+                    } else {
+                        constantLiteral = new ConstantLiteral(!LHS.literal.equals(RHS.literal), JoosType.getJoosType("boolean"));
+                    }
+                    return true;
+                case GE:
+                    constantLiteral = new ConstantLiteral(LHS.toInt() >= RHS.toInt(), JoosType.getJoosType("boolean"));
+                    return true;
+                case GT:
+                    constantLiteral = new ConstantLiteral(LHS.toInt() > RHS.toInt(), JoosType.getJoosType("boolean"));
+                    return true;
+                case LT:
+                    constantLiteral = new ConstantLiteral(LHS.toInt() < RHS.toInt(), JoosType.getJoosType("boolean"));
+                    return true;
+                case LE:
+                    constantLiteral = new ConstantLiteral(LHS.toInt() <= RHS.toInt(), JoosType.getJoosType("boolean"));
+                    return true;
+                case Instanceof:
+                    return false;
+                case And:
+                    constantLiteral = new ConstantLiteral(LHS.toBoolean() && RHS.toBoolean(), JoosType.getJoosType("boolean"));
+                    return true;
+                case Or:
+                    constantLiteral = new ConstantLiteral(LHS.toBoolean() || RHS.toBoolean(), JoosType.getJoosType("boolean"));
+                    return true;
+                case Cap:
+                    constantLiteral = new ConstantLiteral(LHS.toBoolean() ^ RHS.toBoolean(), JoosType.getJoosType("boolean"));
+                    return true;
+                case Bar:
+                    constantLiteral = new ConstantLiteral(LHS.toBoolean() | RHS.toBoolean(), JoosType.getJoosType("boolean"));
+                    return true;
+                case Amp:
+                    constantLiteral = new ConstantLiteral(LHS.toBoolean() & RHS.toBoolean(), JoosType.getJoosType("boolean"));
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public ConstantLiteral evaluateConstant() {
+        return constantLiteral;
     }
 }

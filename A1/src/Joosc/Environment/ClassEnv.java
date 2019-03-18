@@ -20,6 +20,7 @@ public class ClassEnv implements Env {
     GlobalEnv globalEnv;
     Program program;
     HashMap<String, FieldsVarInfo> fields = new HashMap<>();
+    HashMap<String, FieldsVarInfo> initializedFields = new HashMap<>();
     ArrayList<String> packageDeclr;
     JoosType joosType;
 
@@ -48,6 +49,7 @@ public class ClassEnv implements Env {
     // variable contain
     private boolean variableContainComplete = false;
     protected HashMap containedFields = new HashMap();
+    protected HashMap containedInitializedFields = new HashMap();
 
     public ClassEnv(Program program, GlobalEnv parent) {
         typeDeclr = program.getTypeDeclr();
@@ -141,6 +143,9 @@ public class ClassEnv implements Env {
 
                 if (!fields.containsKey(fieldName)) {
                     fields.put(fieldName, fieldsVarInfo);
+                    if (fieldDeclr.getInitExpression() != null) {
+                        initializedFields.put(fieldName, fieldsVarInfo);
+                    }
                 } else {
                     throw new NamingResolveException("found more than one field with name " + fieldDeclr.getName());
                 }
@@ -221,10 +226,12 @@ public class ClassEnv implements Env {
                 ClassEnv parentClassEnv = globalEnv.getClassEnv(extendName.getTypeName());
                 parentClassEnv.variableContain();
                 containedFields.putAll(parentClassEnv.containedFields);
+                containedInitializedFields.putAll(parentClassEnv.containedInitializedFields);
             }
         }
 
         containedFields.putAll(fields);
+        containedInitializedFields.putAll(containedInitializedFields);
         variableContainComplete = true;
     }
 
@@ -589,6 +596,10 @@ public class ClassEnv implements Env {
     @Override
     public boolean isFieldDeclared(String simpleName) {
         return containedFields.keySet().contains(simpleName);
+    }
+
+    public HashMap getContainedInitializedFields() {
+        return containedInitializedFields;
     }
 
     @Override

@@ -40,4 +40,9 @@ public class ExpressionType extends Expression {
         }
         return joosType;
     }
+
+    @Override
+    public boolean isConstantExpression() {
+        return false;
+    }
 }

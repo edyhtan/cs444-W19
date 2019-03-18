@@ -83,4 +83,9 @@ public class ExpressionArrayAccess extends ExpressionPrimary {
         }
         return ((ArrayType)joosType).getJoosType();
     }
+
+    @Override
+    public boolean isConstantExpression() {
+        return false;
+    }
 }

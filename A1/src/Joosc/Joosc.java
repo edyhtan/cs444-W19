@@ -89,6 +89,15 @@ public class Joosc {
 
             GlobalEnv globalEnvironment = new GlobalEnv(asts);
             globalEnvironment.semanticAnalysis();
+
+            for (Program ast : asts) {
+                ast.staticAnalysis();
+            }
+
+        } catch (UnreachableStatementException e) {
+            System.err.printf("ERROR: Static analysis error: %s\n", e.getLocalizedMessage());
+            e.printStackTrace();
+            return exitOnCode(42);
         } catch (TypeCheckException e) {
             System.err.printf("ERROR: Type check error: %s\n", e.getLocalizedMessage());
             e.printStackTrace();

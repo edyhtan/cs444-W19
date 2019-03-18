@@ -138,4 +138,9 @@ public class Names extends ExpressionContent {
             return new Tri<>(smallInfo, env, name.get(0));
         }
     }
+
+    @Override
+    public boolean isConstantExpression() {
+        return false;
+    }
 }

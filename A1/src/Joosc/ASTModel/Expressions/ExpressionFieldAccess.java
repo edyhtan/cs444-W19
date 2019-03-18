@@ -49,4 +49,8 @@ public class ExpressionFieldAccess extends Expression {
         }
         return joosType;
     }
+
+    public boolean isConstantExpression() {
+        return false;
+    }
 }

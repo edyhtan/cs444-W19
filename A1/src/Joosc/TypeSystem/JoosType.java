@@ -136,6 +136,9 @@ public class JoosType {
         return allTypes.getOrDefault(primitiveTypeName, null);
     }
 
+    public boolean isString() {
+        return this.equals(JoosType.getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "String"))));
+    }
 
     // check primitive types
     public boolean equals(String primitiveTypeName) {

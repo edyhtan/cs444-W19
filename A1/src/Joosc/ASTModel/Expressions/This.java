@@ -18,4 +18,9 @@ public class This extends ExpressionContent {
         joosType = JoosType.getJoosType(currentClassFullName);
         return joosType;
     }
+
+    @Override
+    public boolean isConstantExpression() {
+        return false;
+    }
 }

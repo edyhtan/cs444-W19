@@ -8,14 +8,13 @@ import Joosc.TypeSystem.JoosType;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Literal extends ExpressionContent {
+public class Literal extends ExpressionContent implements ConstantExpression {
     public String literal;
     public String kind;
 
     public Literal(String literal, String kind) {
         this.kind = kind;
         this.literal = literal;
-
     }
 
     @Override
@@ -41,5 +40,23 @@ public class Literal extends ExpressionContent {
             joosType = JoosType.getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "String")));
         }
         return joosType;
+    }
+
+    public String getLiteral() {
+        return literal;
+    }
+
+    public String getKind() {
+        return kind;
+    }
+
+    @Override
+    public boolean isConstantExpression() {
+        return true;
+    }
+
+    @Override
+    public ConstantLiteral evaluateConstant() {
+        return new ConstantLiteral(literal, joosType);
     }
 }

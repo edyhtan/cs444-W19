@@ -8,6 +8,7 @@ import Joosc.Environment.FieldsVarInfo;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.Exceptions.UnreachableStatementException;
 import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 
@@ -18,6 +19,7 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
     private String id;
     private Expression initExpression;
     FieldsVarInfo info;
+    public boolean in, out;
 
     public LocalVarDeclrStatement(LocalVarDeclrStatementNode node) {
         type = new Type(node.getType());
@@ -64,4 +66,24 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
                     String.join(".", initExprType.getTypeName())));
         }
     }
+
+    @Override
+    public void reachabilityAnalysis(boolean input) throws UnreachableStatementException {
+        in = input;
+        if (!in) {
+            throw new UnreachableStatementException("Unreachable statement");
+        }
+        out = input;
+    }
+
+    @Override
+    public boolean getIn() {
+        return in;
+    }
+
+    @Override
+    public boolean getOut() {
+        return out;
+    }
+
 }
