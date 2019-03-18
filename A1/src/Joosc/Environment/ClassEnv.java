@@ -451,7 +451,6 @@ public class ClassEnv implements Env {
 
         if (typeDeclr instanceof ClassDeclr && ((ClassDeclr) typeDeclr).getParentClass().size() == 0) {
             fullSuperSet.add(JoosType.getJoosType(javaLangObjectName));
-            fullSuperSetComplete = true;
         }
 
         if (extendName != null && extendName.getTypeName().equals(typeDeclr.getCanonicalName())) {
