@@ -143,7 +143,6 @@ public class JoosType {
     }
 
     public boolean isA(JoosType RHS) {
-        System.err.println(getTypeName() + " " + RHS.getTypeName());
         if (RHS instanceof ArrayType) {
             return this.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "Object"))))
                     || this.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "Cloneable"))))
