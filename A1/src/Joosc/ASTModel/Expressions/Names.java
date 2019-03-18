@@ -83,6 +83,8 @@ public class Names extends ExpressionContent {
     public static int isField = 0b10;
     public static int isLocal = 0b100;
     public static int isMethod = 0b1000;
+    public static int isArray = 0b10000;
+    public static int isArrayLen = 0b100000;
 
     public static Tri<Integer, Env, String> resolveAmbiguity(Env env, ArrayList<String> name) throws TypeCheckException {
         return resolveAmbiguity(env, new ArrayList<>(name), false);
@@ -96,7 +98,11 @@ public class Names extends ExpressionContent {
             if (staticOnly) {
                 JoosType type = env.getStaticFieldInfo(curName).getTypeInfo().getJoosType();
                 if (type instanceof ArrayType) {
-                    throw new TypeCheckException("unmatched Type : " + curName);
+                    if (name.get(1).equals("length")) {
+
+                    } else {
+                        throw new TypeCheckException("unmatched Type : " + curName);
+                    }
                 }
                 ClassEnv nextEnv = type.getClassEnv();
                 if (nextEnv == null) {
