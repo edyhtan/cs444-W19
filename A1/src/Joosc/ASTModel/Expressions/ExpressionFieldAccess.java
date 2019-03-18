@@ -2,9 +2,9 @@ package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionFieldAccessNode;
 import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.ASTModel.ClassMember.MethodDeclr;
 import Joosc.Environment.Env;
 import Joosc.Environment.FieldsVarInfo;
-import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
@@ -59,6 +59,17 @@ public class ExpressionFieldAccess extends Expression {
                     if (fieldParentType.isA(getEnv().getJoosType()) &&
                             fieldParentType.getClassEnv().getDeclaredFieldInfo(fieldIdentifier) != null) {
                         throw new TypeCheckException("Name " + fieldIdentifier + " is protected and cannot be accessed");
+                    }
+                }
+            }
+            if(getEnv().getCurrentMethod() instanceof MethodDeclr) {
+                MethodDeclr currentMethod = (MethodDeclr) getEnv().getCurrentMethod();
+                if(currentMethod.getModifiers().contains(Symbol.Static)) {
+                    if(fieldParentExpression instanceof This) {
+                        throw new TypeCheckException("A This expression must not occur in a static context.");
+                    }
+                    if(!fieldInfo.getModifiers().contains(Symbol.Static)) {
+                        throw new TypeCheckException("Cannot access non-static field in a static method: " + fieldIdentifier);
                     }
                 }
             }
