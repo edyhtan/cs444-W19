@@ -4,9 +4,9 @@ import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionUnaryNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.Type;
 import Joosc.Environment.Env;
-import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 
 public class ExpressionUnary extends Expression {
@@ -58,9 +58,18 @@ public class ExpressionUnary extends Expression {
         JoosType targetNodeType = targetNode.getType();
         if (joosType != null) { // casting
             // review: downcast run-time check? cast an interface?
-            if (!(joosType.isA(targetNodeType) || targetNodeType.isA(joosType))) {
-                throw new TypeCheckException("Cannot cast " + targetNodeType.getTypeName()
-                        + " to " + joosType.getTypeName());
+            if(targetNodeType instanceof ArrayType) {
+                if(!(joosType.isA(((ArrayType) targetNodeType).getJoosType())
+                            || ((ArrayType) targetNodeType).getJoosType().isA(joosType))) {
+                    throw new TypeCheckException("Cannot cast " + targetNodeType.getTypeName()
+                            + " to " + joosType.getTypeName());
+                }
+                joosType = new ArrayType(joosType);
+            } else {
+                if (!(joosType.isA(targetNodeType) || targetNodeType.isA(joosType))) {
+                    throw new TypeCheckException("Cannot cast " + targetNodeType.getTypeName()
+                            + " to " + joosType.getTypeName());
+                }
             }
         } else { // unaryExpression
             // minus
