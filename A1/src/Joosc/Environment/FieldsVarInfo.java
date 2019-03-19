@@ -2,6 +2,7 @@ package Joosc.Environment;
 
 import Joosc.ASTBuilding.Constants.Symbol;
 
+import java.sql.Array;
 import java.util.ArrayList;
 
 public class FieldsVarInfo {
@@ -29,6 +30,10 @@ public class FieldsVarInfo {
 
     public boolean isTypeArray() {
         return typeInfo.isArray;
+    }
+
+    public ArrayList<Symbol> getModifiers() {
+        return modifiers;
     }
 
     public boolean isTypePrimitive() {

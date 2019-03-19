@@ -5,14 +5,11 @@ import Joosc.ASTModel.Expressions.Expression;
 import Joosc.ASTModel.Type;
 import Joosc.Environment.Env;
 import Joosc.Environment.FieldsVarInfo;
-import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.Exceptions.UninitializedVariableException;
 import Joosc.Exceptions.UnreachableStatementException;
-import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
-
-import java.util.ArrayList;
 
 public class LocalVarDeclrStatement implements Statement, HasExpression {
     private Type type;
@@ -59,9 +56,8 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
         }
 
         JoosType initExprType = initExpression.getType();
-        ArrayList<String> initExprTypeName = initExprType.getTypeName();
 
-        if (!info.getTypeInfo().getJoosType().isA(initExprType)) {
+        if (!initExprType.isA(info.getTypeInfo().getJoosType())) {
             throw new TypeCheckException(String.format("Incompatible Type %s, %s", String.join(".", info.getTypeInfo().getJoosType().getTypeName()),
                     String.join(".", initExprType.getTypeName())));
         }
@@ -72,6 +68,9 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
         in = input;
         if (!in) {
             throw new UnreachableStatementException("Unreachable statement");
+        }
+        if (initExpression == null) {
+            throw new UnreachableStatementException("Local variable declare without initialization");
         }
         out = input;
     }

@@ -25,11 +25,15 @@ public class ArrayType extends JoosType{
         return this.joosType.getTypeName().equals(arrayType.joosType.typeName);
     }
 
-    public boolean isA(JoosType RHS) {
-        if (RHS instanceof ArrayType) {
-            return this.joosType.isA(((ArrayType)RHS).joosType);
+    public boolean isA(JoosType type) {
+        if (type instanceof ArrayType) {
+            return this.joosType.isA(((ArrayType)type).joosType);
         }
-        return false;
+
+        return type.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "Object"))))
+                || type.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "Cloneable"))))
+                || type.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "io", "Serializable"))))
+                || type.equals(NULL);
     }
 
     public ArrayList<String> getTypeName() {

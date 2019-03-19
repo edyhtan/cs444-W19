@@ -12,7 +12,7 @@ public class FullRunSuite {
         File folder = new File("test/assignment_testcases/" + args[0]);
         File[] listOfFiles = folder.listFiles();
 
-        String[] arg = {args[0], "", "-c"};
+        String[] arg = {args[0], ""};
 
         System.setErr(new PrintStream(new OutputStream() {
             public void write(int b) {

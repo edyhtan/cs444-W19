@@ -61,15 +61,19 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
     @Override
     public void reachabilityAnalysis() throws UnreachableStatementException {
         boolean lastOut = true;
-        for (Statement stmt : bodyBlock) {
-            if (!lastOut) {
-                throw new UnreachableStatementException();
+        // No bodyBlock, we good
+        if (bodyBlock != null) {
+            for (Statement stmt : bodyBlock) {
+                if (!lastOut) {
+                    throw new UnreachableStatementException();
+                }
+                stmt.reachabilityAnalysis(lastOut);
+                lastOut = stmt.getOut();
             }
-            stmt.reachabilityAnalysis(lastOut);
-            lastOut = stmt.getOut();
         }
-        if (type.getKind() != null && type.getKind().equals(Symbol.Void)) {
-            if (bodyBlock.get(bodyBlock.size() - 1).getOut()) {
+
+        if (type.getKind() != null && !type.getKind().equals(Symbol.Void)) {
+            if (lastOut && !modifiers.contains(Symbol.Native) && !modifiers.contains(Symbol.Abstract)) {
                 throw new UnreachableStatementException("Missing return statement");
             }
         }

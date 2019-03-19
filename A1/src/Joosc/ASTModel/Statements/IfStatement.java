@@ -20,7 +20,8 @@ public class IfStatement extends HasScope implements Statement {
     public IfStatement(IfStatementNode node) {
         expression = Expression.convertExpressionNode(node.getExpression());
         thenClause = Statement.convertStatementNode(node.getThenClause());
-        elseClause = new ElseBlock(Statement.convertStatementNode(node.getElseClause()));
+        elseClause = node.getElseClause() == null ? null
+                : new ElseBlock(Statement.convertStatementNode(node.getElseClause()));
     }
 
     public Expression getExpression() {
@@ -55,10 +56,10 @@ public class IfStatement extends HasScope implements Statement {
     public void reachabilityAnalysis(boolean input) throws UnreachableStatementException {
         in = input;
         thenClause.reachabilityAnalysis(in);
-        out = thenClause.getOut();
+        out = in;
         if (elseClause != null) {
             elseClause.reachabilityAnalysis(in);
-            out = out || elseClause.getOut();
+            out = thenClause.getOut() || elseClause.getOut();
         }
     }
 

@@ -33,6 +33,9 @@ public class Block extends HasScope implements Statement {
     @Override
     public void reachabilityAnalysis(boolean input) throws UnreachableStatementException {
         in = input;
+        if (!in) {
+            throw new UnreachableStatementException("Unreachable statement");
+        }
         boolean lastOut = in;
         for (Statement stmt : statements) {
             if (!lastOut) {

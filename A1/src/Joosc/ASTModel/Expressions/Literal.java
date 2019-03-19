@@ -57,6 +57,11 @@ public class Literal extends ExpressionContent implements ConstantExpression {
 
     @Override
     public ConstantLiteral evaluateConstant() {
+        try {
+                joosType = getType();
+        } catch (Exception e) {
+            System.exit(4);
+        }
         return new ConstantLiteral(literal, joosType);
     }
 }

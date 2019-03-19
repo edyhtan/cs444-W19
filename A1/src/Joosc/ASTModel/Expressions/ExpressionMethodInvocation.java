@@ -18,6 +18,7 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
     private Expression methodParentExpression;
     private String methodIdentifier;
 
+
     public ExpressionMethodInvocation(ExpressionMethodInvocationNode node) {
         methodName = node.getMethodName();
         argList = node.getArgList().stream().map(Expression::convertExpressionNode)
@@ -74,7 +75,11 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
     public JoosType getType() throws TypeCheckException {
         Env env;
         if (methodName == null) {
+            if (methodParentExpression.getType().isPrimitive()) {
+                throw new TypeCheckException("Cannot invoke methods on primitive types");
+            }
             env = methodParentExpression.getType().getClassEnv();
+
         } else {
             Tri<Integer, Env, String> tri = Names.resolveAmbiguity(getEnv(), methodName);
             env = tri.get2();
@@ -86,6 +91,7 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
         }
 
         MethodInfo matchingMethod = null;
+
         for (Map.Entry<String, MethodInfo> kvp : env.getAllMethodSignature().entrySet()) {
             if (this.getMethodSimpleName().equals(kvp.getValue().getMethodSimpleName())
                 &&  argTypeList.size() == kvp.getValue().getParamTypeList().size()) {
@@ -108,6 +114,10 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
                     matchingMethod = kvp.getValue();
                 }
             }
+        }
+
+        if (matchingMethod == null) {
+            throw new TypeCheckException("No matching method signature");
         }
 
         return matchingMethod.getReturnType().getJoosType();
