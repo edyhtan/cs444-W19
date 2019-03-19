@@ -3,7 +3,6 @@ package Joosc.ASTModel.Expressions;
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionBinaryNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.Environment.Env;
-import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.ArrayType;
@@ -15,9 +14,6 @@ import java.util.Arrays;
 public class ExpressionBinary extends Expression {
     private Symbol kind, operator;
     private Expression LHS, RHS;
-
-    public int b;
-    public int a = (a = this.a);
 
     public ExpressionBinary(ExpressionBinaryNode node) {
         kind = node.getKind();
