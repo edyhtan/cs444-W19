@@ -3,13 +3,17 @@ package Joosc.ASTModel.ClassMember;
 import Joosc.ASTBuilding.ASTStructures.AbstractMethodDeclrNode;
 import Joosc.ASTBuilding.ASTStructures.MethodDeclrNode;
 import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.ASTModel.Statements.ReturnStatement;
 import Joosc.ASTModel.Statements.Statement;
 import Joosc.ASTModel.Type;
 import Joosc.Environment.LocalEnv;
+import Joosc.Exceptions.NamingResolveException;
+import Joosc.Exceptions.TypeCheckException;
+import Joosc.TypeSystem.ArrayType;
+import Joosc.TypeSystem.JoosType;
 import Joosc.util.Pair;
 
 import java.util.ArrayList;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class MethodDeclr implements ClassMemberDeclr, Method {
@@ -51,8 +55,43 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
         name = node.name;
         formalParamList = new ArrayList<>(node.formalParamList);
         bodyBlock = node.bodyBlock == null ? new ArrayList<>() : new ArrayList<> (node.bodyBlock);
-//        canonicalID = new ArrayList<>(node.canonicalID);
         localEnv = node.localEnv;
+    }
+
+    // TODO: check here!!!!!!
+    public void validateReturnType() throws TypeCheckException, NamingResolveException {
+        JoosType returnJoosType;
+        if(type.getArrayKind() == null) {
+            // primitive
+            if (type.getNames() == null || type.getNames().isEmpty()) {
+                returnJoosType = JoosType.getJoosType(type.getKind().getSymbolString());
+            } else { // reference
+                returnJoosType = localEnv.findResolvedType(type.getTypeName().get(0));
+            }
+        } else {
+            if (type.getNames() == null || type.getNames().isEmpty()) {
+                returnJoosType = new ArrayType(localEnv.typeResolve(type.getTypeName()));
+            } else { // reference
+                returnJoosType = new ArrayType(localEnv.typeResolve(type.getTypeName()));
+            }
+        }
+
+        if(bodyBlock.size() > 0) {
+            Statement lastStatement = bodyBlock.get(bodyBlock.size() - 1);
+            if (lastStatement instanceof ReturnStatement && ((ReturnStatement) lastStatement).getExpression() != null) {
+                JoosType actual = ((ReturnStatement) lastStatement).getExpression().getType();
+                if (!actual.isA(returnJoosType)) {
+                    throw new TypeCheckException(
+                            String.format("Method declared return type does not match actual return type： %s, %s.",
+                                    returnJoosType.getTypeName(),
+                                    actual.getTypeName()));
+                }
+            }
+        } else {
+//            if(!returnJoosType.equals(JoosType.VOID)) {
+//                throw new TypeCheckException("Method body missing for non-void methods.");
+//            }
+        }
     }
 
     public void buildCanonicalName(ArrayList<String> className) {

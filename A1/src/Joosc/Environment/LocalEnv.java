@@ -6,6 +6,7 @@ import Joosc.ASTModel.ClassInterface.TypeDeclr;
 import Joosc.ASTModel.ClassMember.ClassBodyDeclr;
 import Joosc.ASTModel.ClassMember.ConstructorDeclr;
 import Joosc.ASTModel.ClassMember.Method;
+import Joosc.ASTModel.ClassMember.MethodDeclr;
 import Joosc.ASTModel.Scope;
 import Joosc.ASTModel.Statements.*;
 import Joosc.ASTModel.Type;
@@ -128,6 +129,10 @@ public class LocalEnv implements Env {
             if (statement instanceof HasExpression) {
                 ((HasExpression) statement).checkType();
             }
+        }
+
+        if(ast instanceof MethodDeclr) {
+            ((MethodDeclr) ast).validateReturnType();
         }
     }
 
