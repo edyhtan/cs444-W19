@@ -57,7 +57,7 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
 
         JoosType initExprType = initExpression.getType();
 
-        if (!initExprType.isA(info.getTypeInfo().getJoosType())) {
+        if (!info.getTypeInfo().getJoosType().assignable(initExprType)) {
             throw new TypeCheckException(String.format("Incompatible Type %s, %s", String.join(".", info.getTypeInfo().getJoosType().getTypeName()),
                     String.join(".", initExprType.getTypeName())));
         }

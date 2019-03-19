@@ -85,7 +85,7 @@ public class FieldDeclr extends Scope implements ClassMemberDeclr, HasExpression
         if (initExpression != null) {
             JoosType initType = initExpression.getType();
 
-            if (!initType.isA(joosType)) {
+            if (!joosType.assignable(initType)) {
                 throw new TypeCheckException("Unmatched type in field declaration: " + String.join(".", joosType.getTypeName()) + " " +
                         String.join(".", initType.getTypeName()));
             }

@@ -75,20 +75,11 @@ public class ExpressionBinary extends Expression {
                 break;
             // assignability
             case Equal:
-                if(rhsType instanceof ArrayType) {
-                    if(rhsType.isA(lhsType)) {
-                        joosType = new ArrayType(lhsType);
-                    } else {
-                        throw new TypeCheckException(String.format("Array assignment type incompatible: %s, %s",
-                                lhsType.getTypeName() , rhsType.getTypeName()));
-                    }
+                if (lhsType.assignable(rhsType)) {
+                    joosType = lhsType;
                 } else {
-                    if (rhsType.isA(lhsType)) {
-                        joosType = lhsType;
-                    } else {
-                        throw new TypeCheckException(String.format("Assignment type incompatible: %s, %s",
+                    throw new TypeCheckException(String.format("Assignment type incompatible: %s, %s",
                                 lhsType.getTypeName() , rhsType.getTypeName()));
-                    }
                 }
                 break;
             // arithmetic operations

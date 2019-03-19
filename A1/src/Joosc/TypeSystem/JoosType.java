@@ -142,6 +142,22 @@ public class JoosType {
         return this.isPrimitive && this.typeName.get(0).equals(primitiveTypeName);
     }
 
+    // Assign
+    public boolean assignable(JoosType type) {
+        if (this.equals(type)) {
+            return true;
+        }
+
+        if (this.isPrimitive() && type.isPrimitive()) {
+            return this.equals(getJoosType("int")) && type.equals(getJoosType("short")) ||
+                    this.equals(getJoosType("short")) && type.equals(getJoosType("byte")) ||
+                    this.equals(getJoosType("int")) && type.equals(getJoosType("char")) ||
+                    this.equals(getJoosType("int")) && type.equals(getJoosType("byte"));
+        } else {
+            return type.isA(this);
+        }
+    }
+
 
     public boolean isA(JoosType type) {
         if (this instanceof ArrayType) {
@@ -151,11 +167,12 @@ public class JoosType {
                     || type.equals(NULL);
         }
 
+        if (this.isPrimitive() && type.isPrimitive) {
+            return this.isPrimitive() && type.isPrimitive();
+        }
+
         if (this.equals(type)) {
             return true;
-        }
-        if (this.isPrimitive() && type.isPrimitive()) {
-            return isNumber(this) && isNumber(type);
         }
         return (this == NULL && !type.isPrimitive) || hasParent(type);
     }
