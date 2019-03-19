@@ -68,7 +68,8 @@ public class ExpressionFieldAccess extends Expression {
                     if(fieldParentExpression instanceof This) {
                         throw new TypeCheckException("A This expression must not occur in a static context.");
                     }
-                    if(!fieldInfo.getModifiers().contains(Symbol.Static)) {
+                    if(!(fieldParentExpression instanceof ExpressionClassInstanceCreation) &&
+                            !fieldInfo.getModifiers().contains(Symbol.Static)) {
                         throw new TypeCheckException("Cannot access non-static field in a static method: " + fieldIdentifier);
                     }
                 }

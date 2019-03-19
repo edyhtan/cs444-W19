@@ -4,6 +4,7 @@ import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.AST;
 import Joosc.ASTModel.ClassInterface.TypeDeclr;
 import Joosc.ASTModel.ClassMember.ClassBodyDeclr;
+import Joosc.ASTModel.ClassMember.ConstructorDeclr;
 import Joosc.ASTModel.ClassMember.Method;
 import Joosc.ASTModel.Scope;
 import Joosc.ASTModel.Statements.*;
@@ -76,6 +77,9 @@ public class LocalEnv implements Env {
                         symbolTable.put(pair.getValue(), typeResolve(pair.getValue(), pair.getKey(), new ArrayList<>()));
                     }
                 }
+            }
+            if(ast instanceof ConstructorDeclr && !((ConstructorDeclr) ast).getName().equals(currentClass.getSimpleName())) {
+                throw new TypeCheckException("Bad constructor name: " + ((ConstructorDeclr) ast).getName());
             }
             statements = ((ClassBodyDeclr) ast).getBodyBlock();
         } else if (ast instanceof HasScope) {

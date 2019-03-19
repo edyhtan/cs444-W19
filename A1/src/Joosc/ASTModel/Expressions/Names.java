@@ -1,14 +1,17 @@
 package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.Constants.Symbol;
-import Joosc.Environment.*;
+import Joosc.ASTModel.ClassMember.MethodDeclr;
+import Joosc.Environment.ClassEnv;
+import Joosc.Environment.Env;
+import Joosc.Environment.FieldsVarInfo;
+import Joosc.Environment.GlobalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 import Joosc.util.Tri;
 
-import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.util.ArrayList;
 
 public class Names extends ExpressionContent {
@@ -69,6 +72,14 @@ public class Names extends ExpressionContent {
                 if (accessorType.isA(getEnv().getJoosType()) && accessorEnv.getDeclaredFieldInfo(fvname) != null) {
                     throw new TypeCheckException("Name " + nameInfo.get3() + " is protected and cannot be accessed");
                 }
+            }
+        }
+
+        if(accessorEnv.getCurrentMethod() instanceof MethodDeclr
+                && ((MethodDeclr) getEnv().getCurrentMethod()).getModifiers().contains(Symbol.Static)) {
+            if((smallInfo & isLocal) == 0 && accessorEnv.isFieldDeclared(fvname)
+                    && !fieldInfo.getModifiers().contains(Symbol.Static)) {
+                throw new TypeCheckException("Cannot access non-static field in a static method: " + fvname);
             }
         }
 
