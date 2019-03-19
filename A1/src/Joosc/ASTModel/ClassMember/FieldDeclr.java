@@ -3,13 +3,11 @@ package Joosc.ASTModel.ClassMember;
 import Joosc.ASTBuilding.ASTStructures.FieldDeclrNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.Expressions.Expression;
-import Joosc.ASTModel.ClassMember.ClassMemberDeclr;
 import Joosc.ASTModel.Scope;
 import Joosc.ASTModel.Statements.HasExpression;
 import Joosc.ASTModel.Statements.Statement;
 import Joosc.ASTModel.Type;
 import Joosc.Environment.Env;
-import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
@@ -87,8 +85,8 @@ public class FieldDeclr extends Scope implements ClassMemberDeclr, HasExpression
         if (initExpression != null) {
             JoosType initType = initExpression.getType();
 
-            if (!joosType.isA(initType)) {
-                throw new TypeCheckException("unmatched type: " + String.join(".", joosType.getTypeName()) + " " +
+            if (!initType.isA(joosType)) {
+                throw new TypeCheckException("Unmatched type in field declaration: " + String.join(".", joosType.getTypeName()) + " " +
                         String.join(".", initType.getTypeName()));
             }
         }
