@@ -1,10 +1,10 @@
 package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionClassInstanceCreationNode;
+import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.ASTModel.ClassInterface.ClassDeclr;
 import Joosc.ASTModel.Type;
 import Joosc.Environment.Env;
-import Joosc.Environment.GlobalEnv;
-import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
@@ -55,6 +55,11 @@ public class ExpressionClassInstanceCreation extends Expression {
             joosType = getEnv().findResolvedType(fullname.get(0));
         } else {
             joosType = JoosType.getJoosType(fullname);
+        }
+
+        if(joosType.getClassEnv().getTypeDeclr() instanceof ClassDeclr
+                && joosType.getClassEnv().getTypeDeclr().getModifiers().contains(Symbol.Abstract)) {
+            throw new TypeCheckException("Cannot create instance of abstract class: " + joosType.getTypeName());
         }
 
         if (joosType == null) {
