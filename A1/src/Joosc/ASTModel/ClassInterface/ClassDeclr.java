@@ -53,13 +53,6 @@ public class ClassDeclr implements TypeDeclr {
 
     @Override
     public void definiteAssignmentAnalysis() throws UninitializedVariableException {
-        HashMap initializedFields = env.getContainedInitializedFields();
-        for (MethodDeclr method : methods) {
-            method.definiteAssignmentAnalysis(initializedFields);
-        }
-        for(ConstructorDeclr constructorDeclr : constructor) {
-            constructorDeclr.definiteAssignmentAnalysis(initializedFields);
-        }
     }
 
     @Override

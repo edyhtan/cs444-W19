@@ -9,7 +9,6 @@ import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.Exceptions.UnreachableStatementException;
-import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
@@ -59,9 +58,8 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
         }
 
         JoosType initExprType = initExpression.getType();
-        ArrayList<String> initExprTypeName = initExprType.getTypeName();
 
-        if (!info.getTypeInfo().getJoosType().isA(initExprType)) {
+        if (!initExprType.isA(info.getTypeInfo().getJoosType())) {
             throw new TypeCheckException(String.format("Incompatible Type %s, %s", String.join(".", info.getTypeInfo().getJoosType().getTypeName()),
                     String.join(".", initExprType.getTypeName())));
         }

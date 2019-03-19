@@ -59,7 +59,17 @@ public class ForStatement extends HasScope implements Statement, HasExpression {
 
     @Override
     public void checkExpression(Env env) throws NamingResolveException {
+        if (forInit != null) {
+            ((HasExpression) forInit).checkExpression(env);
+        }
 
+        if (expression != null) {
+            expression.addEnv(env);
+        }
+
+        if (forUpdate != null) {
+            ((HasExpression) forUpdate).checkExpression(env);
+        }
     }
 
     @Override

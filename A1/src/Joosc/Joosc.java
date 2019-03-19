@@ -9,7 +9,6 @@ import Joosc.Parser.JoosParse;
 import Joosc.Parser.LRGrammar.ParseTree;
 import Joosc.Scanner.JoosScan;
 import Joosc.Token.Token;
-import Joosc.TypeSystem.JoosType;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -47,7 +46,6 @@ public class Joosc {
         JoosParse parse = new JoosParse();
         parse.parse(tokens);
         ParseTree tree = parse.getTree();
-        //tree.print();
 
         JoosAST ast = new JoosAST(tree);
         ast.checkFileName(file);

@@ -48,8 +48,8 @@ public class ClassEnv implements Env {
 
     // variable contain
     private boolean variableContainComplete = false;
-    protected HashMap containedFields = new HashMap();
-    protected HashMap containedInitializedFields = new HashMap();
+
+    protected HashMap<String, FieldsVarInfo> containedFields = new HashMap();
 
     public ClassEnv(Program program, GlobalEnv parent) {
         typeDeclr = program.getTypeDeclr();
@@ -226,12 +226,10 @@ public class ClassEnv implements Env {
                 ClassEnv parentClassEnv = globalEnv.getClassEnv(extendName.getTypeName());
                 parentClassEnv.variableContain();
                 containedFields.putAll(parentClassEnv.containedFields);
-                containedInitializedFields.putAll(parentClassEnv.containedInitializedFields);
             }
         }
 
         containedFields.putAll(fields);
-        containedInitializedFields.putAll(containedInitializedFields);
         variableContainComplete = true;
     }
 
@@ -458,7 +456,6 @@ public class ClassEnv implements Env {
 
         if (typeDeclr instanceof ClassDeclr && ((ClassDeclr) typeDeclr).getParentClass().size() == 0) {
             fullSuperSet.add(JoosType.getJoosType(javaLangObjectName));
-            fullSuperSetComplete = true;
         }
 
         if (extendName != null && extendName.getTypeName().equals(typeDeclr.getCanonicalName())) {
@@ -509,10 +506,6 @@ public class ClassEnv implements Env {
 
     public boolean isStaticField(String fieldName) {
         return fields.get(fieldName).modifiers.contains(Symbol.Static);
-    }
-
-    public TypeInfo getFieldTypeInfo(String fieldName) {
-        return fields.get(fieldName).getTypeInfo();
     }
 
     @Override
@@ -598,10 +591,6 @@ public class ClassEnv implements Env {
         return containedFields.keySet().contains(simpleName);
     }
 
-    public HashMap getContainedInitializedFields() {
-        return containedInitializedFields;
-    }
-
     @Override
     public boolean isLocalVariableDeclared(String simpleName) {
         return false;
@@ -649,6 +638,11 @@ public class ClassEnv implements Env {
 
     @Override
     public FieldsVarInfo getFieldInfo(String name){
+        return containedFields.getOrDefault(name, null);
+    }
+
+    @Override
+    public FieldsVarInfo getDeclaredFieldInfo(String name) {
         return fields.getOrDefault(name, null);
     }
 
@@ -659,8 +653,8 @@ public class ClassEnv implements Env {
 
     @Override
     public FieldsVarInfo getStaticFieldInfo(String name) {
-        if (isFieldDeclared(name) && fields.get(name).modifiers.contains(Symbol.Static)) {
-            return fields.get(name);
+        if (isFieldDeclared(name) && containedFields.get(name).modifiers.contains(Symbol.Static)) {
+            return containedFields.get(name);
         }
 
         return null;
