@@ -2,13 +2,19 @@ package Joosc.TypeSystem;
 
 import Joosc.Environment.ClassEnv;
 import Joosc.Exceptions.ASTException;
+import Joosc.Joosc;
+import Joosc.Parser.JoosParse;
+import Joosc.Scanner.JoosScan;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
 public class ArrayType extends JoosType{
     JoosType joosType;
+    public static ClassEnv illusionaryEnv;
 
     public ArrayType(ClassEnv classEnv) {
         super(classEnv);
@@ -44,5 +50,18 @@ public class ArrayType extends JoosType{
 
     public JoosType getJoosType() {
         return joosType;
+    }
+
+    public ClassEnv getClassEnv() {
+        return illusionaryEnv;
+    }
+
+    public static void initIllusion() {
+        try {
+            JoosScan scan = new JoosScan(new File((Joosc.IDE_FLAG ? "src/" : "") + "Joosc/TypeSystem/ArrayTemplate.java"));
+            
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

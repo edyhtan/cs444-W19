@@ -58,7 +58,6 @@ public class JoosType {
 
     JoosType(JoosType type) {
         typeName = type.typeName;
-        classEnv = type.classEnv;
         isPrimitive = type.isPrimitive;
         allParents = type.allParents;
     }
