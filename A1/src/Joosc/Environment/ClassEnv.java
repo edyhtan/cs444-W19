@@ -137,13 +137,21 @@ public class ClassEnv implements Env {
                 fieldDeclr.addJoosType(fieldsVarInfo.getTypeInfo().getJoosType());
                 fieldDeclr.addEnv(this);
                 fieldDeclr.checkExpression(this);
-                fieldDeclr.checkType();
 
                 if (!fields.containsKey(fieldName)) {
                     fields.put(fieldName, fieldsVarInfo);
                 } else {
                     throw new NamingResolveException("found more than one field with name " + fieldDeclr.getName());
                 }
+            }
+        }
+    }
+
+    private void fieldTypeCheck() throws TypeCheckException {
+        if (typeDeclr instanceof ClassDeclr) {
+            ArrayList<FieldDeclr> fieldDeclrs = ((ClassDeclr) typeDeclr).getFields();
+            for (FieldDeclr fieldDeclr : fieldDeclrs) {
+                fieldDeclr.checkType();
             }
         }
     }
@@ -493,7 +501,7 @@ public class ClassEnv implements Env {
     }
 
     public void resolveFieldsAndLocalVar() throws NamingResolveException, TypeCheckException {
-
+        fieldTypeCheck();
         for (LocalEnv localEnv:localEnvs) {
             localEnv.resolveLocalVariableAndAccess();
         }

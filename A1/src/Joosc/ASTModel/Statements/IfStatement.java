@@ -2,13 +2,15 @@ package Joosc.ASTModel.Statements;
 
 import Joosc.ASTBuilding.ASTStructures.Statements.IfStatementNode;
 import Joosc.ASTModel.Expressions.Expression;
+import Joosc.Environment.Env;
 import Joosc.Environment.LocalEnv;
+import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 
 import java.util.ArrayList;
 
 
-public class IfStatement extends HasScope implements Statement {
+public class IfStatement extends HasScope implements Statement, HasExpression {
     private Expression expression;
     private Statement thenClause;
     private ElseBlock elseClause = null;
@@ -46,5 +48,17 @@ public class IfStatement extends HasScope implements Statement {
     @Override
     public void passDownScopes() {
 
+    }
+
+    @Override
+    public void checkExpression(Env env) throws NamingResolveException {
+        addEnv(env);
+        expression.addEnv(env);
+        expression.validate();
+    }
+
+    @Override
+    public  void checkType() throws TypeCheckException {
+        expression.getType();
     }
 }

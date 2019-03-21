@@ -33,6 +33,7 @@ public class Names extends ExpressionContent {
 
     @Override
     public JoosType getType() throws TypeCheckException {
+
         Tri<Integer, Env, String> nameInfo = resolveAmbiguity(getEnv(), name);
         int smallInfo = nameInfo.get1();
 
@@ -94,8 +95,6 @@ public class Names extends ExpressionContent {
     public static int isField = 0b10;
     public static int isLocal = 0b100;
     public static int isMethod = 0b1000;
-    public static int isArray = 0b10000;
-    public static int isArrayLen = 0b100000;
 
     public static Tri<Integer, Env, String> resolveAmbiguity(Env env, ArrayList<String> name) throws TypeCheckException {
         return resolveAmbiguity(env, new ArrayList<>(name), false);
@@ -108,13 +107,6 @@ public class Names extends ExpressionContent {
 
             if (staticOnly) {
                 JoosType type = env.getStaticFieldInfo(curName).getTypeInfo().getJoosType();
-                if (type instanceof ArrayType) {
-                    if (name.get(1).equals("length")) {
-
-                    } else {
-                        throw new TypeCheckException("unmatched Type : " + curName);
-                    }
-                }
                 ClassEnv nextEnv = type.getClassEnv();
                 if (nextEnv == null) {
                     throw new TypeCheckException("Primitive type cannot have field/method access");
@@ -123,9 +115,6 @@ public class Names extends ExpressionContent {
                 return resolveAmbiguity(nextEnv, name, false);
             } else if (env.isLocalVariableDeclared(curName)) { //is local var
                 JoosType type = env.getVarInfo(curName).getTypeInfo().getJoosType();
-                if (type instanceof ArrayType) {
-                    throw new TypeCheckException("unmatched Type : " + curName);
-                }
                 ClassEnv nextEnv = type.getClassEnv();
                 if (nextEnv == null) {
                     throw new TypeCheckException("Primitive type cannot have field/method access");
@@ -135,12 +124,6 @@ public class Names extends ExpressionContent {
             } else if (env.isFieldDeclared(curName)) {
                 JoosType type = env.getFieldInfo(curName).getTypeInfo().getJoosType();
                 ClassEnv nextEnv = type.getClassEnv();
-                if (type instanceof ArrayType) {
-                    throw new TypeCheckException("unmatched Type : " + curName);
-                }
-                if (nextEnv == null) {
-                    throw new TypeCheckException("Primitive type cannot have field/method access");
-                }
                 name.remove(0);
                 return resolveAmbiguity(nextEnv, name, false);
             } else {

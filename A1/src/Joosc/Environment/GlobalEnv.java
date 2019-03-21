@@ -7,6 +7,7 @@ import Joosc.ASTModel.Program;
 import Joosc.ASTModel.Type;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 import Joosc.util.TreeSet;
 
@@ -117,6 +118,8 @@ public class GlobalEnv implements Env {
             classEnv.getFullMethodSignature();
             classEnv.addSuperToJooscType();
         }
+
+        ArrayType.initIllusion();
 
         for (ClassEnv classEnv : classEnvs) {
             classEnv.resolveFieldsAndLocalVar();

@@ -46,7 +46,6 @@ public class Joosc {
         JoosParse parse = new JoosParse();
         parse.parse(tokens);
         ParseTree tree = parse.getTree();
-        // tree.print();
 
         JoosAST ast = new JoosAST(tree);
         ast.checkFileName(file);
@@ -67,10 +66,6 @@ public class Joosc {
 
             for (String filename : argList) {
                 astList.add(process(filename));
-            }
-
-            if (A4_骗分_FLAG) {
-                exitOnCode(0);
             }
 
             ArrayList<Program> asts = astList.stream().map(x -> new Program(x.getRoot()))
@@ -126,7 +121,6 @@ public class Joosc {
             e.printStackTrace();
             return exitOnCode(3);
         }
-
         return exitOnCode(0);
     }
 

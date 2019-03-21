@@ -1,10 +1,14 @@
 package Joosc.TypeSystem;
 
+import Joosc.ASTBuilding.JoosAST;
+import Joosc.ASTModel.Program;
 import Joosc.Environment.ClassEnv;
+import Joosc.Environment.GlobalEnv;
 import Joosc.Exceptions.ASTException;
 import Joosc.Joosc;
 import Joosc.Parser.JoosParse;
 import Joosc.Scanner.JoosScan;
+import Joosc.Token.Token;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -59,8 +63,13 @@ public class ArrayType extends JoosType{
     public static void initIllusion() {
         try {
             JoosScan scan = new JoosScan(new File((Joosc.IDE_FLAG ? "src/" : "") + "Joosc/TypeSystem/ArrayTemplate.java"));
-            
-        } catch (FileNotFoundException e) {
+            scan.scan();
+            JoosParse parse = new JoosParse();
+            parse.parse(scan.getOutput());
+            Program p = new Program(new JoosAST(parse.getTree()).getRoot());
+            illusionaryEnv = new ClassEnv(p, GlobalEnv.instance);
+            illusionaryEnv.semanticAnalysis();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

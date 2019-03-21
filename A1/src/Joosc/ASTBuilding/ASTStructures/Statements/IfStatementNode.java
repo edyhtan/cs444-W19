@@ -17,7 +17,8 @@ public class IfStatementNode extends StatementNode {
     IfStatementNode(ParseTree tree) throws ASTException {
         List<ParseTree> children = tree.getChildren();
 
-        expression = null;
+        expression = ExpressionNode.resolveExpressionNode(children.get(2));
+
         thenClause = StatementNode.resolveStatementNode(children.get(4));
         if (children.size() > 5) {
             elseClause = StatementNode.resolveStatementNode(children.get(6));

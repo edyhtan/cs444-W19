@@ -56,8 +56,6 @@ public class ExpressionBinary extends Expression {
         ArrayList<String> string = new ArrayList<>(Arrays.asList("java", "lang", "String"));
         JoosType stringType = JoosType.getJoosType(string);
 
-        System.err.println(RHS.getClass().getCanonicalName());
-
         JoosType lhsType = LHS.getType();
         JoosType rhsType = RHS.getType();
 
@@ -97,6 +95,10 @@ public class ExpressionBinary extends Expression {
             // comparison
             case EQ:
             case NE:
+                if (lhsType.equals(JoosType.VOID) || rhsType.equals(JoosType.VOID)) {
+                    throw new TypeCheckException("Void return value cannot be used in equality");
+                }
+
                 if ((JoosType.isNumber(lhsType) && JoosType.isNumber(rhsType))
                         || (lhsType.isA(rhsType) || rhsType.isA(lhsType))) {
                     joosType = JoosType.getJoosType("boolean");
@@ -109,6 +111,9 @@ public class ExpressionBinary extends Expression {
             case GT:
             case LT:
             case LE:
+                if (lhsType.equals(JoosType.VOID) || rhsType.equals(JoosType.VOID)) {
+                    throw new TypeCheckException("Void return value cannot be used in equality");
+                }
                 if (JoosType.isNumber(lhsType) && JoosType.isNumber(rhsType)) {
                     joosType = JoosType.getJoosType("boolean");
                 } else {

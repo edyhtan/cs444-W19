@@ -21,6 +21,7 @@ public class FullRunSuite {
 
         int correct = 0;
         int i = 0;
+
         for (; i < listOfFiles.length; i++) {
             arg[1] = listOfFiles[i].getName();
 
