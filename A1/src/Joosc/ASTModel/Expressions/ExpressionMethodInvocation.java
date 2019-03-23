@@ -1,14 +1,15 @@
 package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionMethodInvocationNode;
-import Joosc.Environment.*;
+import Joosc.Environment.Env;
+import Joosc.Environment.FieldsVarInfo;
+import Joosc.Environment.MethodInfo;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
 import Joosc.util.Tri;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -118,7 +119,7 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
         }
 
         if (matchingMethod == null) {
-            throw new TypeCheckException("No matching method signature");
+            throw new TypeCheckException("No matching method signature: " + this.getMethodSimpleName());
         }
 
         return matchingMethod.getReturnType().getJoosType();
