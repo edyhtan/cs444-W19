@@ -69,6 +69,7 @@ public class ArrayType extends JoosType{
             Program p = new Program(new JoosAST(parse.getTree()).getRoot());
             illusionaryEnv = new ClassEnv(p, GlobalEnv.instance);
             illusionaryEnv.semanticAnalysis();
+            illusionaryEnv.variableContain();
         } catch (Exception e) {
             e.printStackTrace();
         }

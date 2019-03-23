@@ -9,7 +9,10 @@ import Joosc.TypeSystem.JoosType;
 public abstract class Expression extends HasType implements AST {
     Symbol kind;
     protected JoosType joosType;
-     public static Expression convertExpressionNode(ExpressionNode node) {
+    protected boolean isFinal = false;
+
+
+    public static Expression convertExpressionNode(ExpressionNode node) {
         if(node instanceof ExpressionBinaryNode) {
             return new ExpressionBinary((ExpressionBinaryNode) node);
         }
@@ -52,4 +55,7 @@ public abstract class Expression extends HasType implements AST {
 
     public abstract JoosType getType() throws TypeCheckException;
 
+    public boolean isFinal() {
+        return isFinal;
+    }
 }

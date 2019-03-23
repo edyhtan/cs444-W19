@@ -73,7 +73,7 @@ public class ExpressionBinary extends Expression {
                 break;
             // assignability
             case Equal:
-                if (lhsType.assignable(rhsType)) {
+                if (lhsType.assignable(rhsType) && !LHS.isFinal()) {
                     joosType = lhsType;
                 } else {
                     throw new TypeCheckException(String.format("Assignment type incompatible: %s, %s",

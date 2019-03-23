@@ -39,7 +39,7 @@ public class Names extends ExpressionContent {
 
         String fvname = nameInfo.get3();
         Env accessorEnv = nameInfo.get2();
-        FieldsVarInfo fieldInfo = accessorEnv.getFieldInfo(fvname);
+        FieldsVarInfo fieldInfo;
 
         if ((smallInfo & isLocal) != 0) {
             fieldInfo = accessorEnv.getVarInfo(fvname);
@@ -55,6 +55,11 @@ public class Names extends ExpressionContent {
             joosType = fieldInfo.getTypeInfo().getJoosType();
         } else {
             throw new TypeCheckException("Name " + nameInfo.get3() + " is not a valid accessor");
+        }
+
+        // final fields
+        if ((smallInfo & isFinalFields) != 0) {
+            isFinal = true;
         }
 
         // check protected fields access
@@ -95,6 +100,7 @@ public class Names extends ExpressionContent {
     public static int isField = 0b10;
     public static int isLocal = 0b100;
     public static int isMethod = 0b1000;
+    public static int isFinalFields = 0b10000;
 
     public static Tri<Integer, Env, String> resolveAmbiguity(Env env, ArrayList<String> name) throws TypeCheckException {
         return resolveAmbiguity(env, new ArrayList<>(name), false);
@@ -102,6 +108,7 @@ public class Names extends ExpressionContent {
 
     private static Tri<Integer, Env, String> resolveAmbiguity(Env env, ArrayList<String> name, boolean staticOnly)
             throws TypeCheckException {
+
         if (name.size() > 1) {
             String curName= name.get(0);
 
