@@ -159,20 +159,24 @@ public class JoosType {
 
 
     public boolean isA(JoosType type) {
+        if (this.equals(NULL)) {
+            return !type.isPrimitive() || type instanceof ArrayType;
+        }
+
         if (this instanceof ArrayType) {
             return type.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "Object"))))
                     || type.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "Cloneable"))))
-                    || type.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "io", "Serializable"))))
-                    || type.equals(NULL);
+                    || type.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "io", "Serializable"))));
+        }
+
+        if (this.equals(type)) {
+            return true;
         }
 
         if (this.isPrimitive() && type.isPrimitive) {
             return this.isPrimitive() && type.isPrimitive();
         }
 
-        if (this.equals(type)) {
-            return true;
-        }
         return (this == NULL && !type.isPrimitive) || hasParent(type);
     }
 

@@ -46,6 +46,17 @@ public class ArrayType extends JoosType{
                 || type.equals(NULL);
     }
 
+    public boolean assignable(JoosType type) {
+        if (type instanceof ArrayType) {
+            if (joosType.equals(JoosType.getJoosType("int")) &&
+                    ((ArrayType) type).getJoosType().equals(JoosType.getJoosType("byte"))) {
+                return false; // special case
+            }
+            return this.getJoosType().assignable(((ArrayType) type).getJoosType());
+        }
+        return type.equals(NULL);
+    }
+
     public ArrayList<String> getTypeName() {
         ArrayList<String> arr = new ArrayList<>(super.getTypeName());
         arr.add("[]");

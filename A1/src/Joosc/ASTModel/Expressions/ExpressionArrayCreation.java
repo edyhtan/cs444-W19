@@ -42,12 +42,12 @@ public class ExpressionArrayCreation extends ExpressionPrimary {
     public JoosType getType() throws TypeCheckException {
         JoosType sizeType = sizeExpression.getType();
         if(JoosType.isNumber(sizeType)) {
-            // primitive
-            if(arrayType.getNames() == null || arrayType.getNames().isEmpty()) {
-                joosType = new ArrayType(joosType);
-            } else { // reference
-                System.err.println(joosType.getTypeName());
-                joosType = new ArrayType(joosType);
+            if (!(joosType instanceof ArrayType)) {
+                if (arrayType.getNames() == null || arrayType.getNames().isEmpty()) {
+                    joosType = new ArrayType(joosType);
+                } else { // reference
+                    joosType = new ArrayType(joosType);
+                }
             }
         } else {
             throw new TypeCheckException("Type incompatible: " + sizeType);

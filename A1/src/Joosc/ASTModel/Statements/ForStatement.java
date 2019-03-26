@@ -6,6 +6,7 @@ import Joosc.Environment.Env;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
 
@@ -74,6 +75,8 @@ public class ForStatement extends HasScope implements Statement, HasExpression {
         if(forInit instanceof HasExpression) ((HasExpression) forInit).checkType();
         if(forUpdate instanceof HasExpression) ((HasExpression) forUpdate).checkType();
         if(statement instanceof HasExpression) ((HasExpression) statement).checkType();
-        expression.getType();
+        if (expression.getType() == JoosType.NULL) {
+            throw new TypeCheckException("Cannot use NULL statements in for loop");
+        }
     }
 }
