@@ -102,7 +102,7 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
                 boolean valid = true;
 
                 for (int i = 0; i < argTypeList.size(); i += 1) {
-                    valid = argTypeList.get(i).isA(candidateParamTypeList.get(i).getTypeInfo().getJoosType());
+                    valid = argTypeList.get(i).equals(candidateParamTypeList.get(i).getTypeInfo().getJoosType());
                     if (!valid) {
                         break;
                     }

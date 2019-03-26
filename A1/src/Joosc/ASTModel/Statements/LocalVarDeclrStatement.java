@@ -5,12 +5,9 @@ import Joosc.ASTModel.Expressions.Expression;
 import Joosc.ASTModel.Type;
 import Joosc.Environment.Env;
 import Joosc.Environment.FieldsVarInfo;
-import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
-
-import java.util.ArrayList;
 
 public class LocalVarDeclrStatement implements Statement, HasExpression {
     private Type type;
@@ -58,7 +55,8 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
         JoosType initExprType = initExpression.getType();
 
         if (!info.getTypeInfo().getJoosType().assignable(initExprType)) {
-            throw new TypeCheckException(String.format("Incompatible Type %s, %s", String.join(".", info.getTypeInfo().getJoosType().getTypeName()),
+            throw new TypeCheckException(String.format("Incompatible Type: %s, %s",
+                    String.join(".", info.getTypeInfo().getJoosType().getTypeName()),
                     String.join(".", initExprType.getTypeName())));
         }
     }
