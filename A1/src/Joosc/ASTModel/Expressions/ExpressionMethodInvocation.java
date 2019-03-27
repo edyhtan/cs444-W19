@@ -101,7 +101,7 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
                 ArrayList<FieldsVarInfo> candidateParamTypeList = kvp.getValue().getParamTypeList();
                 boolean valid = true;
 
-                for (int i = 0; i < argTypeList.size(); i += 1) {
+                for (int i = 0; i < argTypeList.size(); ++i) {
                     valid = argTypeList.get(i).equals(candidateParamTypeList.get(i).getTypeInfo().getJoosType());
                     if (!valid) {
                         break;

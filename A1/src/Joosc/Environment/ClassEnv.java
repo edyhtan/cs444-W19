@@ -324,6 +324,10 @@ public class ClassEnv implements Env {
         }
     }
 
+    public HashMap<String, MethodInfo> getConstructorSignature() {
+        return constructorSignature;
+    }
+
     @Override
     public HashMap<String, MethodInfo> getAllMethodSignature() {
         return fullMethodSignature;
