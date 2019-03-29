@@ -41,11 +41,12 @@ public class ExpressionClassInstanceCreation extends Expression {
     }
 
     @Override
-    public void validate() throws NamingResolveException {
+    public Env validate() throws NamingResolveException {
         joosType = getEnv().typeResolve(classType.getNames());
         for (Expression arg: argList) {
             arg.validate();
         }
+        return null;
     }
 
     @Override
@@ -70,42 +71,23 @@ public class ExpressionClassInstanceCreation extends Expression {
             throw new TypeCheckException("Type Not Found: " + String.join(".", fullname));
         }
 
-        ArrayList<JoosType> argTypeList = new ArrayList<>();
+
+
+        ArrayList<String> argTypeList = new ArrayList<>();
+        argTypeList.add(fullname.get(fullname.size()-1));
+
         for (Expression arg : argList) {
-            argTypeList.add(arg.getType());
+            argTypeList.add(arg.getType().getQualifiedName());
         }
 
         MethodInfo matchingCtor = null;
         ClassEnv matchingClass = joosType.getClassEnv();
 
-        String simpleName = fullname.get(fullname.size()-1);
-
-        for (Map.Entry<String, MethodInfo> kvp : matchingClass.getConstructorSignature().entrySet()) {
-            if (simpleName.equals(kvp.getValue().getMethodSimpleName())
-                    &&  argTypeList.size() == kvp.getValue().getParamTypeList().size()) {
-
-                ArrayList<FieldsVarInfo> candidateParamTypeList = kvp.getValue().getParamTypeList();
-                boolean valid = true;
-
-                for (int i = 0; i < argTypeList.size(); ++i) {
-                    valid = argTypeList.get(i).equals(candidateParamTypeList.get(i).getTypeInfo().getJoosType());
-                    if (!valid) {
-                        break;
-                    }
-                }
-
-                if (!valid) {
-                    continue;
-                } else if (matchingCtor != null){
-                    throw new TypeCheckException("Ambiguous constructor signature:" + simpleName);
-                } else {
-                    matchingCtor = kvp.getValue();
-                }
-            }
-        }
+        String callSignature= String.join(",", argTypeList);
+        matchingCtor = matchingClass.getConstructorSignature().getOrDefault(callSignature, null);
 
         if (matchingCtor == null) {
-            throw new TypeCheckException("No matching method constructor: " + simpleName);
+            throw new TypeCheckException("No matching method constructor: " + argTypeList);
         }
 
         return joosType;

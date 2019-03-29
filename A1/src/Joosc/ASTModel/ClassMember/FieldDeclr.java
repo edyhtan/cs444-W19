@@ -52,12 +52,12 @@ public class FieldDeclr extends Scope implements ClassMemberDeclr, HasExpression
         return name;
     }
 
-    public Type getType() {
-        return type;
-    }
-
     public ArrayList<Symbol> getModifiers() {
         return modifiers;
+    }
+
+    public Type getType() {
+        return type;
     }
 
     public Expression getInitExpression() {
@@ -90,5 +90,25 @@ public class FieldDeclr extends Scope implements ClassMemberDeclr, HasExpression
                         String.join(".", initType.getTypeName()));
             }
         }
+    }
+
+    @Override
+    public void setMethodSignature(String signature) {
+
+    }
+
+    @Override
+    public String getMethodSignature() {
+        return null;
+    }
+
+    @Override
+    public void setType(JoosType type) {
+
+    }
+
+    @Override
+    public JoosType getJoosType() {
+        return joosType;
     }
 }

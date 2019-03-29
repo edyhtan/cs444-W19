@@ -6,6 +6,7 @@ import Joosc.Environment.Env;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
 
@@ -59,6 +60,8 @@ public class IfStatement extends HasScope implements Statement, HasExpression {
 
     @Override
     public  void checkType() throws TypeCheckException {
-        expression.getType();
+        if (!expression.getType().equals(JoosType.getJoosType("boolean"))) {
+            throw new TypeCheckException("Condition expression must be a boolean type");
+        }
     }
 }

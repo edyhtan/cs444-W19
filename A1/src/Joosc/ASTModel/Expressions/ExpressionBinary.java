@@ -45,9 +45,10 @@ public class ExpressionBinary extends Expression {
     }
 
     @Override
-    public void validate() throws NamingResolveException {
+    public Env validate() throws NamingResolveException {
         LHS.validate();
         RHS.validate();
+        return null;
     }
 
     @Override

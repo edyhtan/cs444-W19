@@ -5,6 +5,8 @@ import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.Statements.Statement;
 import Joosc.ASTModel.Type;
 import Joosc.Environment.LocalEnv;
+import Joosc.Scanner.JoosScan;
+import Joosc.TypeSystem.JoosType;
 import Joosc.util.Pair;
 
 import java.util.ArrayList;
@@ -17,6 +19,9 @@ public class ConstructorDeclr implements ClassBodyDeclr, Method {
     private ArrayList<Statement> bodyBlock;
     private ArrayList<String> canonicalID;
     private LocalEnv localEnv;
+
+    private String methodSignature;
+    private JoosType returnType;
 
     public ConstructorDeclr(ConstructorDeclrNode node) {
         modifiers = node.getModifiers();
@@ -57,5 +62,25 @@ public class ConstructorDeclr implements ClassBodyDeclr, Method {
 
     public ArrayList<Symbol> getModifiers() {
         return modifiers;
+    }
+
+    @Override
+    public void setMethodSignature(String signature) {
+        methodSignature = signature;
+    }
+
+    @Override
+    public String getMethodSignature() {
+        return methodSignature;
+    }
+
+    @Override
+    public void setType(JoosType type) {
+        returnType = type;
+    }
+
+    @Override
+    public JoosType getJoosType() {
+        return returnType;
     }
 }

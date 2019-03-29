@@ -96,6 +96,8 @@ public class LocalEnv implements Env {
                         forinitLocal.addInfo(info);
                     }
                 }
+                ((ForStatement)ast).getExpression().addEnv(this);
+                ((HasExpression)((ForStatement)ast).getForUpdate()).checkExpression(this);
             }
             statements = ((HasScope) ast).getBlock();
         } else {
@@ -225,5 +227,13 @@ public class LocalEnv implements Env {
     @Override
     public HashMap<String, MethodInfo> getAllMethodSignature() {
         return parent.getAllMethodSignature();
+    }
+
+    public String getCurMethodSignature() {
+        return currentMethod.getMethodSignature();
+    }
+
+    public JoosType getCurMethodReturnType() {
+        return currentMethod.getJoosType();
     }
 }

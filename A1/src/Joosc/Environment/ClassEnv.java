@@ -242,7 +242,6 @@ public class ClassEnv implements Env {
         }
 
         for (MethodDeclr method : typeDeclr.getMethods()) {
-
             MethodInfo tempMethodInfo = buildMethodInfo(method);
 
             if (typeDeclr instanceof InterfaceDeclr) {
@@ -273,6 +272,8 @@ public class ClassEnv implements Env {
             }
 
             methodSignature.put(tempMethodInfo.getSignatureStr(), tempMethodInfo);
+            method.setMethodSignature(tempMethodInfo.getSignatureStr());
+            method.setType(tempMethodInfo.getReturnType().getJoosType());
         }
         if (!typeDeclr.getSimpleName().equals("Object")) {
             if (methodSignature.containsKey("getClass")) {
@@ -291,16 +292,7 @@ public class ClassEnv implements Env {
 
         MethodInfo replaced = map.get(sig);
         if (replaced.returnType.equals(info.returnType)) {
-
-            if (replaced.modifiers.contains(Symbol.Public) && replaced.modifiers.contains(Symbol.Abstract)
-                    && info.modifiers.contains(Symbol.Protected) ||
-                    replaced.modifiers.contains(Symbol.Protected) && info.modifiers.contains(Symbol.Abstract)
-                    && info.modifiers.contains(Symbol.Public))  {
-                throw new NamingResolveException("Cannot replace a public method with protected method: "
-                        + replaced.signatureStr);
-            }
-
-            if (!info.modifiers.contains(Symbol.Abstract)) {
+            if (info.modifiers.contains(Symbol.Public)) {
                 map.put(sig, info);
             }
         } else {
@@ -316,6 +308,10 @@ public class ClassEnv implements Env {
         }
 
         MethodInfo replaced = map.get(sig);
+        if (replaced.modifiers.contains(Symbol.Public) && info.modifiers.contains(Symbol.Protected)) {
+            throw new NamingResolveException("Cannot replace public method with protected.");
+        }
+
         if (replaced.returnType.equals(info.returnType)) {
             checkReplace(replaced, info);
             map.put(sig, info);
@@ -350,29 +346,45 @@ public class ClassEnv implements Env {
         }
 
         if (!methodContainComplete) {
+            ClassEnv parentClassEnv = null;
+
             // inheritance
             for (JoosType parentName : superSet) {
                 ClassEnv parentEnv = globalEnv.getClassEnv(parentName.getTypeName());
 
-                for (MethodInfo info: parentEnv.getFullMethodSignature().values()) {
+                if (parentEnv.typeDeclr instanceof ClassDeclr) {
+                    parentClassEnv = parentEnv;
+                }
+
+                for (MethodInfo info : parentEnv.getFullMethodSignature().values()) {
                     if (parentEnv.typeDeclr instanceof InterfaceDeclr && info.signatureStr.equals("getClass")) {
                         throw new NamingResolveException("FUCK YOU LEATHERMAN");
                     }
-                    replaceMapParent(fullMethodSignature, info);
+                    if (parentEnv.typeDeclr instanceof ClassDeclr && info.modifiers.contains(Symbol.Abstract) ||
+                            parentEnv.typeDeclr instanceof InterfaceDeclr) {
+                        replaceMapParent(fullMethodSignature, info);
+                    }
                 }
             }
 
             // replace
-            for (MethodInfo localMethods:methodSignature.values()) {
+            if (parentClassEnv != null) {
+                for (MethodInfo info : parentClassEnv.getFullMethodSignature().values()) {
+                    if (!info.modifiers.contains(Symbol.Abstract)) {
+                        replaceMapLocal(fullMethodSignature, info);
+                    }
+                }
+            }
+
+            for (MethodInfo localMethods : methodSignature.values()) {
                 replaceMapLocal(fullMethodSignature, localMethods);
             }
 
             if (typeDeclr instanceof ClassDeclr && !typeDeclr.getModifiers().contains(Symbol.Abstract)) {
-                for (MethodInfo info: fullMethodSignature.values()) {
+                for (MethodInfo info : fullMethodSignature.values()) {
                     if (info.modifiers.contains(Symbol.Abstract)) {
-
                         throw new NamingResolveException("Abstract methods " + info.signatureStr +
-                                " not implemented in " + typeDeclr.getSimpleName());
+                                    " not implemented in " + typeDeclr.getSimpleName());
                     }
                 }
             }
@@ -392,8 +404,9 @@ public class ClassEnv implements Env {
             for (Pair<Type, String> param : ctor.getFormalParamList()) {
                 paramList.add(typeResolve(param.getValue(), param.getKey(), new ArrayList<>()));
             }
-            MethodInfo tempCtorInfo =
-                    new MethodInfo(ctor, paramList);
+            MethodInfo tempCtorInfo = new MethodInfo(ctor, paramList);
+            ctor.setMethodSignature(tempCtorInfo.signatureStr);
+            ctor.setType(joosType);
             if (constructorSignature.containsKey(tempCtorInfo.getSignatureStr())) {
                 throw new NamingResolveException("Duplicate constructor with same signature in class/interface "
                         + String.join(".", typeDeclr.getCanonicalName()) + ". ");
@@ -567,7 +580,6 @@ public class ClassEnv implements Env {
         boolean isArray = type.getKind() == Symbol.ArrayType;
         TypeInfo typeInfo = new TypeInfo(isArray);
 
-        // fuck this
         if (type.getNames() == null || type.getNames().size() == 0) {
             ArrayList<String> name;
             if (isArray) {

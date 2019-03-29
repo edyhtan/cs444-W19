@@ -35,8 +35,9 @@ public class ExpressionFieldAccess extends Expression {
     }
 
     @Override
-    public void validate() throws NamingResolveException {
+    public Env validate() throws NamingResolveException {
         fieldParentExpression.validate();
+        return null;
     }
 
     @Override

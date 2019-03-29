@@ -3,7 +3,6 @@ package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionTypeNode;
 import Joosc.Environment.Env;
-import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.ArrayType;
@@ -26,8 +25,9 @@ public class ExpressionType extends Expression {
     }
 
     @Override
-    public void validate() throws NamingResolveException {
+    public Env validate() throws NamingResolveException {
         joosType = getEnv().typeResolve(typeName);
+        return null;
     }
 
     @Override

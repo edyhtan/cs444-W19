@@ -6,7 +6,6 @@ import Joosc.ASTModel.Type;
 import Joosc.Environment.Env;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
-import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 
 public class ExpressionUnary extends Expression {
@@ -46,11 +45,12 @@ public class ExpressionUnary extends Expression {
     }
 
     @Override
-    public void validate() throws NamingResolveException {
+    public Env validate() throws NamingResolveException {
         if (castingType != null) {
             joosType = getEnv().typeResolve(castingType).getJoosType();
         }
         targetNode.validate();
+        return null;
     }
 
     @Override
