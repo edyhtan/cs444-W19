@@ -28,14 +28,22 @@ public class ClassDeclr implements TypeDeclr {
         parentClass = node.getParentClassIdentifier();
         interfaces = node.getInterfaceTypes();
         name = node.getName();
-        constructor = node.getConstructor().stream().map(ConstructorDeclr::new)
-                .collect(Collectors.toCollection(ArrayList::new));
-        fields = node.getFields().stream().map(FieldDeclr::new)
-                .collect(Collectors.toCollection(ArrayList::new));
-        methods = node.getMethods().stream().map(MethodDeclr::new)
-                .collect(Collectors.toCollection(ArrayList::new));
+        constructor = new ArrayList<>();
+        fields = new ArrayList<>();
+        methods = new ArrayList<>();
+
         classBodyDeclrNodes = node.getClassBodyDeclrNodes().stream().map(ClassBodyDeclr::convertClassBodyDeclrNode)
                 .collect(Collectors.toCollection(ArrayList::new));
+
+        for (ClassBodyDeclr body: classBodyDeclrNodes) {
+            if (body instanceof ConstructorDeclr) {
+                constructor.add((ConstructorDeclr) body);
+            } else if (body instanceof MethodDeclr) {
+                methods.add((MethodDeclr) body);
+            } else if (body instanceof FieldDeclr) {
+                fields.add((FieldDeclr) body);
+            }
+        }
     }
 
     @Override

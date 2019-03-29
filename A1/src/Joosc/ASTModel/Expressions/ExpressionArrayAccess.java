@@ -2,14 +2,12 @@ package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionArrayAccessNode;
 import Joosc.Environment.Env;
-import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 import Joosc.util.Tri;
 
-import javax.naming.Name;
 import java.util.ArrayList;
 
 public class ExpressionArrayAccess extends ExpressionPrimary {
@@ -45,11 +43,12 @@ public class ExpressionArrayAccess extends ExpressionPrimary {
     }
 
     @Override
-    public void validate() throws NamingResolveException {
+    public Env validate() throws NamingResolveException {
         if (referenceExpression != null)
             referenceExpression.validate();
         indexExpression.validate();
 
+        return null;
     }
 
     @Override

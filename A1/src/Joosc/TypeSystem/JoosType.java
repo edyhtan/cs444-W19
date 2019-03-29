@@ -159,13 +159,16 @@ public class JoosType {
 
 
     public boolean isA(JoosType type) {
+        if (!isPrimitive && type.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "Object"))))) {
+            return true;
+        }
+
         if (this.equals(NULL)) {
             return !type.isPrimitive() || type instanceof ArrayType;
         }
 
         if (this instanceof ArrayType) {
-            return type.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "Object"))))
-                    || type.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "Cloneable"))))
+            return type.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "Cloneable"))))
                     || type.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "io", "Serializable"))));
         }
 
@@ -178,6 +181,10 @@ public class JoosType {
         }
 
         return (this == NULL && !type.isPrimitive) || hasParent(type);
+    }
+
+    public String getQualifiedName() {
+        return String.join(".", getTypeName());
     }
 
     // unit tests

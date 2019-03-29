@@ -1,6 +1,7 @@
 package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.Environment.Env;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
@@ -19,8 +20,9 @@ public class Literal extends ExpressionContent {
     }
 
     @Override
-    public void validate() throws NamingResolveException {
+    public Env validate() throws NamingResolveException {
 
+        return null;
     }
 
     @Override

@@ -27,8 +27,8 @@ public class Names extends ExpressionContent {
     }
 
     @Override
-    public void validate() throws NamingResolveException {
-
+    public Env validate() throws NamingResolveException {
+        return null;
     }
 
     @Override
@@ -151,8 +151,16 @@ public class Names extends ExpressionContent {
                 while (name.size() != 0) {
                     prefix.add(name.get(0));
                     name.remove(0);
+
                     if (prefix.size() == 1) {
-                        JoosType type = env.findResolvedType(prefix.get(0));
+                        JoosType type;
+
+                        try {
+                            type = env.typeResolve(prefix);
+                        } catch (NamingResolveException e) {
+                            type = null;
+                        }
+
                         if (type != null) {
                             ClassEnv nextEnv = type.getClassEnv();
                             return resolveAmbiguity(nextEnv, name, true, isArray);

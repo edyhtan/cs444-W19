@@ -7,6 +7,7 @@ import Joosc.ASTModel.AST;
 import Joosc.ASTModel.Statements.Statement;
 import Joosc.ASTModel.Type;
 import Joosc.Environment.LocalEnv;
+import Joosc.TypeSystem.JoosType;
 import Joosc.util.Pair;
 
 import java.util.ArrayList;
@@ -28,5 +29,9 @@ public interface ClassBodyDeclr extends AST {
     ArrayList<Pair<Type, String>> getFormalParamList();
     ArrayList<Statement> getBodyBlock();
     String getName();
+    String getMethodSignature();
+    void setMethodSignature(String signature);
 
+    void setType(JoosType type);
+    JoosType getJoosType();
 }

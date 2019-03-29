@@ -60,14 +60,6 @@ public class ForStatement extends HasScope implements Statement, HasExpression {
         if (forInit != null) {
             ((HasExpression) forInit).checkExpression(env);
         }
-
-        if (expression != null) {
-            expression.addEnv(env);
-        }
-
-        if (forUpdate != null) {
-            ((HasExpression) forUpdate).checkExpression(env);
-        }
     }
 
     @Override

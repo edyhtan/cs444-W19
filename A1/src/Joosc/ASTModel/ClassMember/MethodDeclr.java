@@ -13,6 +13,7 @@ import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 import Joosc.util.Pair;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -24,6 +25,9 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
     ArrayList<Statement> bodyBlock;
     ArrayList<String> canonicalID;
     LocalEnv localEnv;
+
+    String methodSignature;
+    JoosType returnType;
 
     public MethodDeclr(MethodDeclrNode node) {
         modifiers = node.getModifiers();
@@ -127,6 +131,26 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
 
     public ArrayList<Symbol> getModifiers() {
         return modifiers;
+    }
+
+    @Override
+    public void setMethodSignature(String signature) {
+        methodSignature = signature;
+    }
+
+    @Override
+    public String getMethodSignature() {
+        return methodSignature;
+    }
+
+    @Override
+    public void setType(JoosType type) {
+        returnType = type;
+    }
+
+    @Override
+    public JoosType getJoosType() {
+        return returnType;
     }
 
     @Override

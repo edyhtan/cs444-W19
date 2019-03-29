@@ -1,6 +1,7 @@
 package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionMethodInvocationNode;
+import Joosc.Environment.ClassEnv;
 import Joosc.Environment.Env;
 import Joosc.Environment.FieldsVarInfo;
 import Joosc.Environment.MethodInfo;
@@ -54,7 +55,7 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
     }
 
     @Override
-    public void validate() throws NamingResolveException {
+    public Env validate() throws NamingResolveException {
         if (methodParentExpression != null) {
             methodParentExpression.validate();
         }
@@ -62,6 +63,7 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
         for (Expression expression : argList) {
             expression.validate();
         }
+        return null;
     }
 
     public String getMethodSimpleName() {
@@ -75,51 +77,32 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
     @Override
     public JoosType getType() throws TypeCheckException {
         Env env;
+        String simpleName;
 
         if (methodName == null) {
             if (methodParentExpression.getType().isPrimitive()) {
                 throw new TypeCheckException("Cannot invoke methods on primitive types");
             }
             env = methodParentExpression.getType().getClassEnv();
-
+            simpleName = methodIdentifier;
         } else {
             Tri<Integer, Env, String> tri = Names.resolveAmbiguity(getEnv(), methodName);
             env = tri.get2();
+            simpleName = methodName.get(methodName.size()-1);
         }
 
-        ArrayList<JoosType> argTypeList = new ArrayList<>();
+        ArrayList<String> argTypeList = new ArrayList<>();
+        argTypeList.add(simpleName);
         for (Expression arg : argList) {
-            argTypeList.add(arg.getType());
+            argTypeList.add(arg.getType().getQualifiedName());
         }
 
         MethodInfo matchingMethod = null;
-
-        for (Map.Entry<String, MethodInfo> kvp : env.getAllMethodSignature().entrySet()) {
-            if (this.getMethodSimpleName().equals(kvp.getValue().getMethodSimpleName())
-                &&  argTypeList.size() == kvp.getValue().getParamTypeList().size()) {
-
-                ArrayList<FieldsVarInfo> candidateParamTypeList = kvp.getValue().getParamTypeList();
-                boolean valid = true;
-
-                for (int i = 0; i < argTypeList.size(); ++i) {
-                    valid = argTypeList.get(i).equals(candidateParamTypeList.get(i).getTypeInfo().getJoosType());
-                    if (!valid) {
-                        break;
-                    }
-                }
-
-                if (!valid) {
-                    continue;
-                } else if (matchingMethod != null){
-                    throw new TypeCheckException("Ambiguous method signature:" + this.getMethodSimpleName());
-                } else {
-                    matchingMethod = kvp.getValue();
-                }
-            }
-        }
+        String callSignature = String.join(",", argTypeList);
+        matchingMethod = env.getAllMethodSignature().getOrDefault(callSignature, null);
 
         if (matchingMethod == null) {
-            throw new TypeCheckException("No matching method signature: " + this.getMethodSimpleName());
+            throw new TypeCheckException("No matching method signature: " + callSignature);
         }
 
         return matchingMethod.getReturnType().getJoosType();
