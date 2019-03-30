@@ -242,4 +242,9 @@ public class LocalEnv implements Env {
     public JoosType getCurMethodReturnType() {
         return currentMethod.getJoosType();
     }
+
+    @Override
+    public ArrayList<String> getPackageDeclr() {
+        return parent.getPackageDeclr();
+    }
 }

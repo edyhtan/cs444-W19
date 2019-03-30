@@ -89,7 +89,13 @@ public class ExpressionClassInstanceCreation extends Expression {
         }
 
         if (matchingCtor.getModifiers().contains(Symbol.Protected)) {
-            ClassEnv env = joosType.getClassEnv();
+            if (!joosType.isA(getEnv().getJoosType()) && !getEnv().getJoosType().isA(joosType)) {
+                throw new TypeCheckException("Protected Access on constructor " + callSignature);
+            }
+
+            if (!joosType.getClassEnv().getPackageDeclr().equals(getEnv().getPackageDeclr())) {
+                throw new TypeCheckException("Protected Access on constructor " + callSignature);
+            }
         }
 
         return joosType;

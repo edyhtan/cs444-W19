@@ -1,6 +1,7 @@
 package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionMethodInvocationNode;
+import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.Environment.Env;
 import Joosc.Environment.MethodInfo;
 import Joosc.Exceptions.NamingResolveException;
@@ -108,6 +109,14 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
         joosType = matchingMethod.getReturnType().getJoosType();
 
 
+        if (matchingMethod.getModifiers().contains(Symbol.Protected)) {
+            JoosType accessType = env.getJoosType();
+            if (!accessType.isA(getEnv().getJoosType()) && !getEnv().getJoosType().isA(accessType)) {
+                throw new TypeCheckException("Protected Access on method " + callSignature);
+            }
+        }
+
+
         if (matchingMethod.isStatic()) {
             if (methodName != null) {
                 if (methodName.size() == 1) {
@@ -148,7 +157,6 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
                 throw new TypeCheckException("Explicit this access inside static method: " + callSignature);
             }
         }
-
 
         return joosType;
     }

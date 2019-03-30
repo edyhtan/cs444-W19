@@ -689,4 +689,9 @@ public class ClassEnv implements Env {
 
         return null;
     }
+
+    @Override
+    public ArrayList<String> getPackageDeclr() {
+        return packageDeclr;
+    }
 }

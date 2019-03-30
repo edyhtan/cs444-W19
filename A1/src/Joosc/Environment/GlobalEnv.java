@@ -223,9 +223,13 @@ public class GlobalEnv implements Env {
         return null;
     }
 
-
     @Override
     public HashMap<String, MethodInfo> getAllMethodSignature() {
+        return null;
+    }
+
+    @Override
+    public ArrayList<String> getPackageDeclr() {
         return null;
     }
 }
