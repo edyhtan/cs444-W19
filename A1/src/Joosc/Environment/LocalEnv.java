@@ -97,7 +97,8 @@ public class LocalEnv implements Env {
                     }
                 }
                 ((ForStatement)ast).getExpression().addEnv(this);
-                ((HasExpression)((ForStatement)ast).getForUpdate()).checkExpression(this);
+                if (((ForStatement)ast).getForUpdate() != null)
+                    ((HasExpression)((ForStatement)ast).getForUpdate()).checkExpression(this);
             }
             statements = ((HasScope) ast).getBlock();
         } else {

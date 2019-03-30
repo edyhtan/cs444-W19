@@ -134,15 +134,14 @@ public class ClassEnv implements Env {
             for (FieldDeclr fieldDeclr : fieldDeclrs) {
                 String fieldName = fieldDeclr.getName();
                 FieldsVarInfo fieldsVarInfo = typeResolve(fieldName, fieldDeclr.getType(), fieldDeclr.getModifiers());
-                fieldDeclr.addJoosType(fieldsVarInfo.getTypeInfo().getJoosType());
-                fieldDeclr.addEnv(this);
-                fieldDeclr.checkExpression(this);
-
                 if (!fields.containsKey(fieldName)) {
                     fields.put(fieldName, fieldsVarInfo);
                 } else {
                     throw new NamingResolveException("found more than one field with name " + fieldDeclr.getName());
                 }
+                fieldDeclr.addJoosType(fieldsVarInfo.getTypeInfo().getJoosType());
+                fieldDeclr.addEnv(this);
+                fieldDeclr.checkExpression(this);
             }
         }
     }

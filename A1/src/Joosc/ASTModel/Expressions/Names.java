@@ -113,7 +113,11 @@ public class Names extends ExpressionContent {
             String curName= name.get(0);
 
             if (staticOnly) {
-                JoosType type = env.getStaticFieldInfo(curName).getTypeInfo().getJoosType();
+                FieldsVarInfo staticField = env.getStaticFieldInfo(curName);
+                if (staticField == null) {
+                    throw new TypeCheckException("static field not found");
+                }
+                JoosType type = staticField.getTypeInfo().getJoosType();
                 if (type instanceof ArrayType) {
                     isArray = true;
                 }

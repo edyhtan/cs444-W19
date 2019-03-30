@@ -71,8 +71,6 @@ public class ExpressionClassInstanceCreation extends Expression {
             throw new TypeCheckException("Type Not Found: " + String.join(".", fullname));
         }
 
-
-
         ArrayList<String> argTypeList = new ArrayList<>();
         argTypeList.add(fullname.get(fullname.size()-1));
 
@@ -88,6 +86,10 @@ public class ExpressionClassInstanceCreation extends Expression {
 
         if (matchingCtor == null) {
             throw new TypeCheckException("No matching method constructor: " + argTypeList);
+        }
+
+        if (matchingCtor.getModifiers().contains(Symbol.Protected)) {
+            ClassEnv env = joosType.getClassEnv();
         }
 
         return joosType;
