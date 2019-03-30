@@ -108,7 +108,6 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
         joosType = matchingMethod.getReturnType().getJoosType();
 
 
-
         if (matchingMethod.isStatic()) {
             if (methodName != null) {
                 if (methodName.size() == 1) {
@@ -124,12 +123,12 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
                     }
                 }
             } else {
-                if(methodParentExpression instanceof This) {
+                if (methodParentExpression instanceof This) {
                     throw new TypeCheckException("Static method accessed from this: " + callSignature);
                 }
             }
         } else { // non-static methods
-            if(methodName != null) {
+            if (methodName != null) {
                 if (methodName.size() > 1) {
                     ArrayList<String> accessor = new ArrayList<>(methodName);
                     accessor.remove(accessor.size() - 1);
@@ -138,16 +137,18 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
 
                     if (!getEnv().isLocalVariableDeclared(accessorInfo.get3())
                             && accessorTypeName.get(accessorTypeName.size() - 1).equals(accessorInfo.get3())) {
-                            throw new TypeCheckException("Non-static method accessed from class: " + callSignature);
-                        }
+                        throw new TypeCheckException("Non-static method accessed from class: " + callSignature);
                     }
-                } else if (parentIsStatic && getEnv().hasMethodSignature(callSignature)) {
-                    throw new TypeCheckException("Implicit this access inside static method: " + callSignature);
+                } else { // size == 1
+                    if (parentIsStatic)
+                        throw new TypeCheckException("Implicit this access inside static method: " + callSignature);
                 }
             }
-            if(parentIsStatic && methodParentExpression instanceof This) {
+            if (parentIsStatic && methodParentExpression instanceof This) {
                 throw new TypeCheckException("Explicit this access inside static method: " + callSignature);
             }
+        }
+
 
         return joosType;
     }
