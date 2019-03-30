@@ -1,7 +1,6 @@
 package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.Constants.Symbol;
-import Joosc.ASTModel.ClassMember.MethodDeclr;
 import Joosc.Environment.ClassEnv;
 import Joosc.Environment.Env;
 import Joosc.Environment.FieldsVarInfo;
@@ -81,11 +80,40 @@ public class Names extends ExpressionContent {
             }
         }
 
-        if(accessorEnv.getCurrentMethod() instanceof MethodDeclr
-                && ((MethodDeclr) getEnv().getCurrentMethod()).getModifiers().contains(Symbol.Static)) {
-            if((smallInfo & isLocal) == 0 && accessorEnv.isFieldDeclared(fvname)
+        // check static field access
+        if(fieldInfo.getModifiers().contains(Symbol.Static)) {
+            if(name.size() > 1) {
+                ArrayList<String> accessor = new ArrayList<>(name);
+                accessor.remove(accessor.size() - 1);
+                for (int i = accessor.size() - 1; i >= 0; --i) {
+                    if (getEnv().isLocalVariableDeclared(accessor.get(i))) {
+                        throw new TypeCheckException("Static field cannot be accessed from instance: " + fvname);
+                    }
+                }
+            }
+        }
+
+        if (this.parentIsStatic) {
+            // name resolves to a non-static field
+            if ((smallInfo & isLocal) == 0 && (smallInfo & isField) != 0
                     && !fieldInfo.getModifiers().contains(Symbol.Static)) {
-                throw new TypeCheckException("Cannot access non-static field in a static method: " + fvname);
+                if(name.size() > 1) { // qualified
+                    ArrayList<String> accessor = new ArrayList<>(name);
+                    accessor.remove(accessor.size() - 1);
+
+                    // check if accessor is an instance
+                    int i;
+                    for(i = accessor.size() - 1; i >= 0; --i) {
+                        if (getEnv().isLocalVariableDeclared(accessor.get(i))) {
+                            break;
+                        }
+                    }
+                    if (i < 0) {
+                        throw new TypeCheckException("Static field cannot access non-static fields: " + name);
+                    }
+                } else { // simple name
+                    throw new TypeCheckException("Static field cannot access non-static fields: " + name);
+                }
             }
         }
 
@@ -110,7 +138,7 @@ public class Names extends ExpressionContent {
             throws TypeCheckException {
 
         if (name.size() > 1) {
-            String curName= name.get(0);
+            String curName = name.get(0);
 
             if (staticOnly) {
                 FieldsVarInfo staticField = env.getStaticFieldInfo(curName);
@@ -177,7 +205,7 @@ public class Names extends ExpressionContent {
                     }
                 }
 
-                throw new TypeCheckException("No Namespace found: " +  String.join(".", prefix));
+                throw new TypeCheckException("No Namespace found: " + String.join(".", prefix));
             }
         } else {
             int smallInfo = 0;

@@ -16,6 +16,7 @@ public class IfStatement extends HasScope implements Statement, HasExpression {
     private Statement thenClause;
     private ElseBlock elseClause = null;
     private LocalEnv localEnv= null;
+    private boolean parentIsStatic;
 
     public IfStatement(IfStatementNode node) {
         expression = Expression.convertExpressionNode(node.getExpression());
@@ -63,5 +64,10 @@ public class IfStatement extends HasScope implements Statement, HasExpression {
         if (!expression.getType().equals(JoosType.getJoosType("boolean"))) {
             throw new TypeCheckException("Condition expression must be a boolean type");
         }
+    }
+
+    @Override
+    public void setParentIsStatic(boolean parentIsStatic) {
+        this.parentIsStatic = parentIsStatic;
     }
 }

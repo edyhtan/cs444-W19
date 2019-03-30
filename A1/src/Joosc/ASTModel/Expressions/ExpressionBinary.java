@@ -56,6 +56,9 @@ public class ExpressionBinary extends Expression {
         ArrayList<String> string = new ArrayList<>(Arrays.asList("java", "lang", "String"));
         JoosType stringType = JoosType.getJoosType(string);
 
+        LHS.setParentIsStatic(this.parentIsStatic);
+        RHS.setParentIsStatic(this.parentIsStatic);
+
         JoosType lhsType = LHS.getType();
         JoosType rhsType = RHS.getType();
 

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class WhileStatement extends HasScope implements Statement, HasExpression {
     private Expression expression;
     private Statement statement;
+    private boolean parentIsStatic;
 
     public WhileStatement(WhileStatementNode node) {
         expression = Expression.convertExpressionNode(node.getExpression());
@@ -53,5 +54,10 @@ public class WhileStatement extends HasScope implements Statement, HasExpression
         if (!expression.getType().equals(JoosType.getJoosType("boolean"))) {
             throw new TypeCheckException("Condition expression must be boolean type");
         }
+    }
+
+    @Override
+    public void setParentIsStatic(boolean parentIsStatic) {
+        this.parentIsStatic = parentIsStatic;
     }
 }

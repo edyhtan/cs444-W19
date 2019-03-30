@@ -3,6 +3,7 @@ package Joosc.ASTModel.ClassMember;
 import Joosc.ASTBuilding.ASTStructures.AbstractMethodDeclrNode;
 import Joosc.ASTBuilding.ASTStructures.MethodDeclrNode;
 import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.ASTModel.Statements.HasExpression;
 import Joosc.ASTModel.Statements.ReturnStatement;
 import Joosc.ASTModel.Statements.Statement;
 import Joosc.ASTModel.Type;
@@ -13,7 +14,6 @@ import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 import Joosc.util.Pair;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -62,7 +62,16 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
         localEnv = node.localEnv;
     }
 
-    // TODO: check here!!!!!!
+    public void validateStaticAccess() throws TypeCheckException {
+        if(modifiers.contains(Symbol.Static)) {
+            bodyBlock.forEach(x -> {
+                if(x instanceof HasExpression) {
+                    ((HasExpression) x).setParentIsStatic(true);
+                }
+            });
+        }
+    }
+
     public void validateReturnType() throws TypeCheckException, NamingResolveException {
         JoosType returnJoosType;
         if(type.getArrayKind() == null) {
@@ -91,10 +100,6 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
                                     actual.getTypeName()));
                 }
             }
-        } else {
-//            if(!returnJoosType.equals(JoosType.VOID)) {
-//                throw new TypeCheckException("Method body missing for non-void methods.");
-//            }
         }
     }
 

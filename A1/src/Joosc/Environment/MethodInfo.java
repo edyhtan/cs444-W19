@@ -66,5 +66,10 @@ public class MethodInfo {
 
     public ArrayList<Symbol> getModifiers() {
         return modifiers;
+
+    }
+
+    public boolean isStatic() {
+        return modifiers.contains(Symbol.Static);
     }
 }

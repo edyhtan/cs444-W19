@@ -10,6 +10,11 @@ public abstract class Expression extends HasType implements AST {
     Symbol kind;
     protected JoosType joosType;
     protected boolean isFinal = false;
+    protected boolean parentIsStatic = false;
+
+    public void setParentIsStatic(boolean parentIsStatic) {
+        this.parentIsStatic = parentIsStatic;
+    }
 
 
     public static Expression convertExpressionNode(ExpressionNode node) {

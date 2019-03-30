@@ -2,7 +2,6 @@ package Joosc.ASTModel.Statements;
 
 import Joosc.ASTBuilding.ASTStructures.Statements.BlockNode;
 import Joosc.Environment.LocalEnv;
-import Joosc.Exceptions.TypeCheckException;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -10,6 +9,7 @@ import java.util.stream.Collectors;
 public class Block extends HasScope implements Statement {
     private ArrayList<Statement> statements = new ArrayList<>();
     private LocalEnv env;
+    private boolean parentIsStatic;
 
     public Block(BlockNode node) {
         if (node.getStatements() != null) {

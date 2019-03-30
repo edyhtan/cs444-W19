@@ -1,8 +1,6 @@
 package Joosc.ASTModel.Statements;
 
 
-import Joosc.Exceptions.TypeCheckException;
-
 import java.util.ArrayList;
 
 public class ElseBlock extends HasScope implements Statement {
@@ -10,6 +8,7 @@ public class ElseBlock extends HasScope implements Statement {
     public ElseBlock(Statement statement) {
         this.statement = statement;
     }
+
 
     @Override
     public ArrayList<Statement> getBlock() {

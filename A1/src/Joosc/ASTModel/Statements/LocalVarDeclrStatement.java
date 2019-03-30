@@ -14,6 +14,7 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
     private String id;
     private Expression initExpression;
     FieldsVarInfo info;
+    private boolean parentIsStatic;
 
     public LocalVarDeclrStatement(LocalVarDeclrStatementNode node) {
         type = new Type(node.getType());
@@ -59,5 +60,10 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
                     String.join(".", info.getTypeInfo().getJoosType().getTypeName()),
                     String.join(".", initExprType.getTypeName())));
         }
+    }
+
+    @Override
+    public void setParentIsStatic(boolean parentIsStatic) {
+        this.parentIsStatic = parentIsStatic;
     }
 }

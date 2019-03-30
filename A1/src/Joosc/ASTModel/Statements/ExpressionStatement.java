@@ -3,12 +3,12 @@ package Joosc.ASTModel.Statements;
 import Joosc.ASTBuilding.ASTStructures.Statements.ExpressionStatementNode;
 import Joosc.ASTModel.Expressions.Expression;
 import Joosc.Environment.Env;
-import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 
 public class ExpressionStatement implements Statement, HasExpression {
     private Expression expression;
+    private boolean parentIsStatic;
 
     public ExpressionStatement(ExpressionStatementNode node) {
         expression = Expression.convertExpressionNode(node.getExpression());
@@ -26,6 +26,12 @@ public class ExpressionStatement implements Statement, HasExpression {
 
     @Override
     public void checkType() throws TypeCheckException {
+        expression.setParentIsStatic(this.parentIsStatic);
         expression.getType();
+    }
+
+    @Override
+    public void setParentIsStatic(boolean parentIsStatic) {
+        this.parentIsStatic = parentIsStatic;
     }
 }

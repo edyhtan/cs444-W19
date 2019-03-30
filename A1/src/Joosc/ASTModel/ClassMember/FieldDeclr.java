@@ -83,13 +83,22 @@ public class FieldDeclr extends Scope implements ClassMemberDeclr, HasExpression
     @Override
     public void checkType() throws TypeCheckException {
         if (initExpression != null) {
+            if(modifiers.contains(Symbol.Static)) {
+                initExpression.setParentIsStatic(true);
+            }
             JoosType initType = initExpression.getType();
+
 
             if (!joosType.assignable(initType)) {
                 throw new TypeCheckException("Unmatched type in field declaration: " + String.join(".", joosType.getTypeName()) + " " +
                         String.join(".", initType.getTypeName()));
             }
         }
+    }
+
+    @Override
+    public void setParentIsStatic(boolean parentIsStatic) {
+
     }
 
     @Override

@@ -106,6 +106,10 @@ public class LocalEnv implements Env {
             System.exit(6);
         }
 
+        if(ast instanceof MethodDeclr) {
+            ((MethodDeclr) ast).validateStaticAccess();
+        }
+
         for (Statement statement : statements) {
             if (statement instanceof HasScope) {
                 ((LocalEnv)((HasScope) statement).getEnv()).resolveLocalVariableAndAccess();
@@ -137,6 +141,7 @@ public class LocalEnv implements Env {
         if(ast instanceof MethodDeclr) {
             ((MethodDeclr) ast).validateReturnType();
         }
+
     }
 
     @Override

@@ -3,7 +3,6 @@ package Joosc.ASTModel.Statements;
 import Joosc.ASTBuilding.ASTStructures.Statements.ForStatementNode;
 import Joosc.ASTModel.Expressions.Expression;
 import Joosc.Environment.Env;
-import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
@@ -15,6 +14,7 @@ public class ForStatement extends HasScope implements Statement, HasExpression {
     private Expression expression = null;
     private Statement forUpdate = null;
     private Statement statement;
+    private boolean parentIsStatic;
 
     public ForStatement(ForStatementNode node) {
         forInit = Statement.convertStatementNode(node.getForInit());
@@ -70,5 +70,10 @@ public class ForStatement extends HasScope implements Statement, HasExpression {
         if (expression.getType() == JoosType.NULL) {
             throw new TypeCheckException("Cannot use NULL statements in for loop");
         }
+    }
+
+    @Override
+    public void setParentIsStatic(boolean parentIsStatic) {
+        this.parentIsStatic = parentIsStatic;
     }
 }
