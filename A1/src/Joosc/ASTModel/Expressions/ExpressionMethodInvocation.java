@@ -76,7 +76,7 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
         Env env;
         String simpleName;
 
-        if(methodParentExpression!= null) {
+        if (methodParentExpression != null) {
             methodParentExpression.setParentIsStatic(this.parentIsStatic);
         }
 
@@ -89,7 +89,7 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
         } else {
             Tri<Integer, Env, String> tri = Names.resolveAmbiguity(getEnv(), methodName);
             env = tri.get2();
-            simpleName = methodName.get(methodName.size()-1);
+            simpleName = methodName.get(methodName.size() - 1);
         }
 
         ArrayList<String> argTypeList = new ArrayList<>();
@@ -107,14 +107,47 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
         }
         joosType = matchingMethod.getReturnType().getJoosType();
 
-        if(this.parentIsStatic) {
-            if(methodName!= null) {
-//                System.out.println(methodName);
-//                if(!matchingMethod.isStatic()) {
-//                    throw new TypeCheckException("Static method cannot invoke non-static method: " + callSignature);
-//                }
+
+
+        if (matchingMethod.isStatic()) {
+            if (methodName != null) {
+                if (methodName.size() == 1) {
+                    throw new TypeCheckException("Static method invoked without class accessor: " + callSignature);
+                } else {
+                    ArrayList<String> accessor = new ArrayList<>(methodName);
+                    accessor.remove(accessor.size() - 1);
+                    int i;
+                    for (i = accessor.size() - 1; i >= 0; --i) {
+                        if (getEnv().isLocalVariableDeclared(accessor.get(i))) {
+                            throw new TypeCheckException("Static method accessed from instance: " + callSignature);
+                        }
+                    }
+                }
+            } else {
+                if(methodParentExpression instanceof This) {
+                    throw new TypeCheckException("Static method accessed from this: " + callSignature);
+                }
             }
-        }
+        } else { // non-static methods
+            if(methodName != null) {
+                if (methodName.size() > 1) {
+                    ArrayList<String> accessor = new ArrayList<>(methodName);
+                    accessor.remove(accessor.size() - 1);
+                    Tri<Integer, Env, String> accessorInfo = Names.resolveAmbiguity(env, accessor);
+                    ArrayList<String> accessorTypeName = accessorInfo.get2().getJoosType().getTypeName();
+
+                    if (!getEnv().isLocalVariableDeclared(accessorInfo.get3())
+                            && accessorTypeName.get(accessorTypeName.size() - 1).equals(accessorInfo.get3())) {
+                            throw new TypeCheckException("Non-static method accessed from class: " + callSignature);
+                        }
+                    }
+                } else if (parentIsStatic && getEnv().hasMethodSignature(callSignature)) {
+                    throw new TypeCheckException("Implicit this access inside static method: " + callSignature);
+                }
+            }
+            if(parentIsStatic && methodParentExpression instanceof This) {
+                throw new TypeCheckException("Explicit this access inside static method: " + callSignature);
+            }
 
         return joosType;
     }
