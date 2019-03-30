@@ -505,6 +505,19 @@ public class ClassEnv implements Env {
         return fullSuperSet;
     }
 
+    public void resolveDefaultSuperCtor() throws TypeCheckException {
+        for(JoosType parentType : this.fullSuperSet) {
+            if(parentType.getClassEnv().getTypeDeclr() instanceof ClassDeclr) {
+                ClassEnv parentEnv = parentType.getClassEnv();
+                String defaultCtor = parentType.getTypeName().get(parentType.getTypeName().size()-1);
+                if(!parentEnv.constructorSignature.containsKey(defaultCtor)) {
+                    throw new TypeCheckException("Missing default constructor for super class: " + parentType.getTypeName());
+                }
+
+            }
+        }
+    }
+
     private void constructLocalEnvironment() {
         if (typeDeclr instanceof ClassDeclr) {
             ArrayList<ClassBodyDeclr> methodDeclrs = ((ClassDeclr) typeDeclr).getClassBodyDeclrNodes();

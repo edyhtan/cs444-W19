@@ -117,6 +117,7 @@ public class GlobalEnv implements Env {
             classEnv.variableContain();
             classEnv.getFullMethodSignature();
             classEnv.addSuperToJooscType();
+            classEnv.resolveDefaultSuperCtor();
         }
 
         ArrayType.initIllusion();
