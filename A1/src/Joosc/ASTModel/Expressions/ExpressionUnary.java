@@ -55,6 +55,8 @@ public class ExpressionUnary extends Expression {
 
     @Override
     public JoosType getType() throws TypeCheckException {
+        targetNode.setParentIsStatic(this.parentIsStatic);
+
         JoosType targetNodeType = targetNode.getType();
         if (joosType != null) { // casting
             if (!(joosType.isA(targetNodeType) || targetNodeType.isA(joosType))) {

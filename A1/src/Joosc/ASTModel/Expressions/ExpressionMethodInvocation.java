@@ -1,9 +1,7 @@
 package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionMethodInvocationNode;
-import Joosc.Environment.ClassEnv;
 import Joosc.Environment.Env;
-import Joosc.Environment.FieldsVarInfo;
 import Joosc.Environment.MethodInfo;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
@@ -11,7 +9,6 @@ import Joosc.TypeSystem.JoosType;
 import Joosc.util.Tri;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ExpressionMethodInvocation extends ExpressionPrimary {
@@ -79,6 +76,10 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
         Env env;
         String simpleName;
 
+        if(methodParentExpression!= null) {
+            methodParentExpression.setParentIsStatic(this.parentIsStatic);
+        }
+
         if (methodName == null) {
             if (methodParentExpression.getType().isPrimitive()) {
                 throw new TypeCheckException("Cannot invoke methods on primitive types");
@@ -104,7 +105,17 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
         if (matchingMethod == null) {
             throw new TypeCheckException("No matching method signature: " + callSignature);
         }
+        joosType = matchingMethod.getReturnType().getJoosType();
 
-        return matchingMethod.getReturnType().getJoosType();
+        if(this.parentIsStatic) {
+            if(methodName!= null) {
+//                System.out.println(methodName);
+//                if(!matchingMethod.isStatic()) {
+//                    throw new TypeCheckException("Static method cannot invoke non-static method: " + callSignature);
+//                }
+            }
+        }
+
+        return joosType;
     }
 }

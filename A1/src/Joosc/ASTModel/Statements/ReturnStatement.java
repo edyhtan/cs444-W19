@@ -2,7 +2,6 @@ package Joosc.ASTModel.Statements;
 
 import Joosc.ASTBuilding.ASTStructures.Statements.ReturnStatementNode;
 import Joosc.ASTModel.Expressions.Expression;
-import Joosc.ASTModel.Type;
 import Joosc.Environment.Env;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
@@ -12,6 +11,7 @@ import Joosc.TypeSystem.JoosType;
 public class ReturnStatement implements Statement, HasExpression {
     private Expression expression = null;
     private Env env;
+    private boolean parentIsStatic;
 
     public ReturnStatement(ReturnStatementNode node) {
         expression = Expression.convertExpressionNode(node.getExpression());
@@ -36,6 +36,7 @@ public class ReturnStatement implements Statement, HasExpression {
         JoosType returnType = local.getCurMethodReturnType();
 
         if (expression != null) {
+            expression.setParentIsStatic(this.parentIsStatic);
             JoosType expressionType = expression.getType();
 
             if (returnType.equals(JoosType.VOID)) {
@@ -48,5 +49,10 @@ public class ReturnStatement implements Statement, HasExpression {
                 throw new TypeCheckException("no return types on non-void methods");
             }
         }
+    }
+
+    @Override
+    public void setParentIsStatic(boolean parentIsStatic) {
+        this.parentIsStatic = parentIsStatic;
     }
 }

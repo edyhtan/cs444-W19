@@ -81,11 +81,18 @@ public class Names extends ExpressionContent {
             }
         }
 
-        if(accessorEnv.getCurrentMethod() instanceof MethodDeclr
+        if (accessorEnv.getCurrentMethod() instanceof MethodDeclr
                 && ((MethodDeclr) getEnv().getCurrentMethod()).getModifiers().contains(Symbol.Static)) {
-            if((smallInfo & isLocal) == 0 && accessorEnv.isFieldDeclared(fvname)
+            if ((smallInfo & isLocal) == 0 && accessorEnv.isFieldDeclared(fvname)
                     && !fieldInfo.getModifiers().contains(Symbol.Static)) {
                 throw new TypeCheckException("Cannot access non-static field in a static method: " + fvname);
+            }
+        }
+
+        if (this.parentIsStatic) {
+            if ((smallInfo & isLocal) == 0 && accessorEnv.isFieldDeclared(fvname)
+                    && !fieldInfo.getModifiers().contains(Symbol.Static)) {
+                throw new TypeCheckException("Static field cannot access non-static fields: " + name);
             }
         }
 
@@ -110,7 +117,7 @@ public class Names extends ExpressionContent {
             throws TypeCheckException {
 
         if (name.size() > 1) {
-            String curName= name.get(0);
+            String curName = name.get(0);
 
             if (staticOnly) {
                 JoosType type = env.getStaticFieldInfo(curName).getTypeInfo().getJoosType();
@@ -173,7 +180,7 @@ public class Names extends ExpressionContent {
                     }
                 }
 
-                throw new TypeCheckException("No Namespace found: " +  String.join(".", prefix));
+                throw new TypeCheckException("No Namespace found: " + String.join(".", prefix));
             }
         } else {
             int smallInfo = 0;
