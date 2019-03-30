@@ -111,13 +111,13 @@ public class GlobalEnv implements Env {
 
         for (ClassEnv classEnv : classEnvs) {
             classEnv.getFullSuperSet(new TreeSet<>());
+            classEnv.resolveDefaultSuperCtor();
         }
 
         for (ClassEnv classEnv : classEnvs) {
             classEnv.variableContain();
             classEnv.getFullMethodSignature();
             classEnv.addSuperToJooscType();
-            classEnv.resolveDefaultSuperCtor();
         }
 
         ArrayType.initIllusion();

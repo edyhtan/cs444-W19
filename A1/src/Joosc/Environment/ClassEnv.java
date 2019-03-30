@@ -416,7 +416,7 @@ public class ClassEnv implements Env {
         }
     }
 
-    private void resolveHierarchy() throws NamingResolveException {
+    private void resolveHierarchy() throws NamingResolveException, TypeCheckException {
         if (typeDeclr instanceof ClassDeclr) {
             ArrayList<String> extend = ((ClassDeclr) typeDeclr).getParentClass();
 
@@ -506,14 +506,13 @@ public class ClassEnv implements Env {
     }
 
     public void resolveDefaultSuperCtor() throws TypeCheckException {
-        for(JoosType parentType : this.fullSuperSet) {
+        for(JoosType parentType : this.superSet) {
             if(parentType.getClassEnv().getTypeDeclr() instanceof ClassDeclr) {
                 ClassEnv parentEnv = parentType.getClassEnv();
                 String defaultCtor = parentType.getTypeName().get(parentType.getTypeName().size()-1);
                 if(!parentEnv.constructorSignature.containsKey(defaultCtor)) {
-                    throw new TypeCheckException("Missing default constructor for super class: " + parentType.getTypeName());
+                    throw new TypeCheckException("Implicit super constructor undefined: " + parentType.getTypeName());
                 }
-
             }
         }
     }
