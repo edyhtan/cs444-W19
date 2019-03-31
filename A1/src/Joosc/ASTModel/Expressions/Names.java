@@ -146,7 +146,6 @@ public class Names extends ExpressionContent {
             if (staticOnly) {
                 FieldsVarInfo staticField = env.getStaticFieldInfo(curName);
                 if (staticField == null) {
-                    System.out.println(env.getJoosType().getTypeName());
                     throw new TypeCheckException("static field not found: " + curName);
                 }
                 JoosType type = staticField.getTypeInfo().getJoosType();
