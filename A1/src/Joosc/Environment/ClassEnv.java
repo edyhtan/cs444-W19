@@ -695,4 +695,9 @@ public class ClassEnv implements Env {
     public ArrayList<String> getPackageDeclr() {
         return packageDeclr;
     }
+
+    @Override
+    public HashMap<String, MethodInfo> getDeclaredMethodSignature() {
+        return methodSignature;
+    }
 }

@@ -257,4 +257,8 @@ public class GlobalEnv implements Env {
     public ArrayList<String> getPackageDeclr() {
         return null;
     }
+    @Override
+    public HashMap<String, MethodInfo> getDeclaredMethodSignature() {
+        return null;
+    }
 }

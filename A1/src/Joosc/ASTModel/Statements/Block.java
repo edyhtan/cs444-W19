@@ -11,6 +11,10 @@ public class Block extends HasScope implements Statement {
     private LocalEnv env;
     private boolean parentIsStatic;
 
+    public Block(Statement statement) {
+        statements.add(statement);
+    }
+
     public Block(BlockNode node) {
         if (node.getStatements() != null) {
             statements = node.getStatements().stream().map(stmt -> Statement.convertStatementNode(stmt))

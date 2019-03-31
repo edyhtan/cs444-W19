@@ -36,6 +36,7 @@ public interface Env {
     JoosType findResolvedType(String name);
 
     HashMap<String, MethodInfo> getAllMethodSignature();
+    HashMap<String, MethodInfo> getDeclaredMethodSignature();
     ArrayList<String> getPackageDeclr();
 }
 

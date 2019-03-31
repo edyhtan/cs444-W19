@@ -13,14 +13,14 @@ public class ForStatement extends HasScope implements Statement, HasExpression {
     private Statement forInit = null;
     private Expression expression = null;
     private Statement forUpdate = null;
-    private Statement statement;
+    private Block statement;
     private boolean parentIsStatic;
 
     public ForStatement(ForStatementNode node) {
         forInit = Statement.convertStatementNode(node.getForInit());
         forUpdate = Statement.convertStatementNode(node.getForUpdate());
         expression = Expression.convertExpressionNode(node.getExpression());
-        statement = Statement.convertStatementNode(node.getStatement());
+        statement = new Block(Statement.convertStatementNode(node.getStatement()));
     }
 
     public Statement getStatement() {
@@ -41,13 +41,7 @@ public class ForStatement extends HasScope implements Statement, HasExpression {
 
     @Override
     public ArrayList<Statement> getBlock() {
-        if (statement instanceof Block) {
-            return ((Block) statement).getBlock();
-        } else {
-            ArrayList<Statement> statements = new ArrayList<>();
-            statements.add(statement);
-            return statements;
-        }
+        return statement.getBlock();
     }
 
     @Override
