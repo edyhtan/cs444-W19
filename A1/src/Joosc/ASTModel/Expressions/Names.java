@@ -32,8 +32,11 @@ public class Names extends ExpressionContent {
 
     @Override
     public JoosType getType() throws TypeCheckException {
-
-        Tri<Integer, Env, String> nameInfo = resolveAmbiguity(getEnv(), name);
+        boolean isDefaultPkg = false;
+        if(getEnv().getCurrentClass().getClassEnv().getPackageDeclr() == null) {
+            isDefaultPkg = true;
+        }
+        Tri<Integer, Env, String> nameInfo = resolveAmbiguity(getEnv(), name, isDefaultPkg);
         int smallInfo = nameInfo.get1();
 
         String fvname = nameInfo.get3();
@@ -81,8 +84,8 @@ public class Names extends ExpressionContent {
         }
 
         // check static field access
-        if(fieldInfo.getModifiers().contains(Symbol.Static)) {
-            if(name.size() > 1) {
+        if (fieldInfo.getModifiers().contains(Symbol.Static)) {
+            if (name.size() > 1) {
                 ArrayList<String> accessor = new ArrayList<>(name);
                 accessor.remove(accessor.size() - 1);
                 for (int i = accessor.size() - 1; i >= 0; --i) {
@@ -97,13 +100,13 @@ public class Names extends ExpressionContent {
             // name resolves to a non-static field
             if ((smallInfo & isLocal) == 0 && (smallInfo & isField) != 0
                     && !fieldInfo.getModifiers().contains(Symbol.Static)) {
-                if(name.size() > 1) { // qualified
+                if (name.size() > 1) { // qualified
                     ArrayList<String> accessor = new ArrayList<>(name);
                     accessor.remove(accessor.size() - 1);
 
                     // check if accessor is an instance
                     int i;
-                    for(i = accessor.size() - 1; i >= 0; --i) {
+                    for (i = accessor.size() - 1; i >= 0; --i) {
                         if (getEnv().isLocalVariableDeclared(accessor.get(i))) {
                             break;
                         }
@@ -130,11 +133,11 @@ public class Names extends ExpressionContent {
     public static int isMethod = 0b1000;
     public static int isFinalFields = 0b10000;
 
-    public static Tri<Integer, Env, String> resolveAmbiguity(Env env, ArrayList<String> name) throws TypeCheckException {
-        return resolveAmbiguity(env, new ArrayList<>(name), false, false);
+    public static Tri<Integer, Env, String> resolveAmbiguity(Env env, ArrayList<String> name, boolean isDefaultPkg) throws TypeCheckException {
+        return resolveAmbiguity(env, new ArrayList<>(name), false, false, isDefaultPkg);
     }
 
-    private static Tri<Integer, Env, String> resolveAmbiguity(Env env, ArrayList<String> name, boolean staticOnly, boolean isArray)
+    private static Tri<Integer, Env, String> resolveAmbiguity(Env env, ArrayList<String> name, boolean staticOnly, boolean isArray, boolean isDefaultPkg)
             throws TypeCheckException {
 
         if (name.size() > 1) {
@@ -143,7 +146,8 @@ public class Names extends ExpressionContent {
             if (staticOnly) {
                 FieldsVarInfo staticField = env.getStaticFieldInfo(curName);
                 if (staticField == null) {
-                    throw new TypeCheckException("static field not found");
+                    System.out.println(env.getJoosType().getTypeName());
+                    throw new TypeCheckException("static field not found: " + curName);
                 }
                 JoosType type = staticField.getTypeInfo().getJoosType();
                 if (type instanceof ArrayType) {
@@ -154,7 +158,7 @@ public class Names extends ExpressionContent {
                     throw new TypeCheckException("Primitive type cannot have field/method access");
                 }
                 name.remove(0);
-                return resolveAmbiguity(nextEnv, name, false, isArray);
+                return resolveAmbiguity(nextEnv, name, false, isArray, isDefaultPkg);
             } else if (env.isLocalVariableDeclared(curName)) { //is local var
                 JoosType type = env.getVarInfo(curName).getTypeInfo().getJoosType();
                 if (type instanceof ArrayType) {
@@ -165,7 +169,7 @@ public class Names extends ExpressionContent {
                     throw new TypeCheckException("Primitive type cannot have field/method access");
                 }
                 name.remove(0);
-                return resolveAmbiguity(nextEnv, name, false, isArray);
+                return resolveAmbiguity(nextEnv, name, false, isArray, isDefaultPkg);
             } else if (env.isFieldDeclared(curName)) {
                 JoosType type = env.getFieldInfo(curName).getTypeInfo().getJoosType();
                 if (type instanceof ArrayType) {
@@ -176,7 +180,7 @@ public class Names extends ExpressionContent {
                 if (nextEnv == null) {
                     throw new TypeCheckException("Primitive type cannot have field/method access");
                 }
-                return resolveAmbiguity(nextEnv, name, false, isArray);
+                return resolveAmbiguity(nextEnv, name, false, isArray, isDefaultPkg);
             } else {
                 ArrayList<String> prefix = new ArrayList<>();
 
@@ -195,13 +199,14 @@ public class Names extends ExpressionContent {
 
                         if (type != null) {
                             ClassEnv nextEnv = type.getClassEnv();
-                            return resolveAmbiguity(nextEnv, name, true, isArray);
+                            return resolveAmbiguity(nextEnv, name, true, isArray, isDefaultPkg);
                         }
                     }
 
-                    ClassEnv nextEnv = GlobalEnv.instance.getClassEnv(prefix);
+                    ClassEnv nextEnv = GlobalEnv.instance.getClassEnv(prefix, isDefaultPkg);
+
                     if (nextEnv != null) {
-                        return resolveAmbiguity(nextEnv, name, true, isArray);
+                        return resolveAmbiguity(nextEnv, name, true, isArray, isDefaultPkg);
                     }
                 }
 

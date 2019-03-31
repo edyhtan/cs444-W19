@@ -22,6 +22,7 @@ public class ClassEnv implements Env {
     HashMap<String, FieldsVarInfo> fields = new HashMap<>();
     ArrayList<String> packageDeclr;
     JoosType joosType;
+    boolean isDefaultPkg;
 
     HashMap<String, JoosType> resolvedTypes = new HashMap<>();
 
@@ -56,6 +57,7 @@ public class ClassEnv implements Env {
         this.program = program;
         packageDeclr = program.getPackageDeclr();
         constructLocalEnvironment();
+        isDefaultPkg = (packageDeclr == null || packageDeclr.isEmpty());
     }
 
     public void resolveImports() throws NamingResolveException {
@@ -157,7 +159,7 @@ public class ClassEnv implements Env {
 
     private void addImplicitDeclr() throws NamingResolveException {
         // interface has no direct globalEnv - implicit declaration
-        ClassEnv javaLangObject = globalEnv.getClassEnv(javaLangObjectName);
+        ClassEnv javaLangObject = globalEnv.getClassEnv(javaLangObjectName, false);
         for (MethodDeclr method : javaLangObject.typeDeclr.getMethods()) {
             if (method.getModifiers().contains(Symbol.Final)) {
                 continue;
@@ -223,9 +225,8 @@ public class ClassEnv implements Env {
         }
 
         if (typeDeclr instanceof ClassDeclr) {
-
             if (extendName != null && extendName.getTypeName().size() > 0) {
-                ClassEnv parentClassEnv = globalEnv.getClassEnv(extendName.getTypeName());
+                ClassEnv parentClassEnv = globalEnv.getClassEnv(extendName.getTypeName(), isDefaultPkg);
                 parentClassEnv.variableContain();
                 containedFields.putAll(parentClassEnv.containedFields);
             }
@@ -349,7 +350,7 @@ public class ClassEnv implements Env {
 
             // inheritance
             for (JoosType parentName : superSet) {
-                ClassEnv parentEnv = globalEnv.getClassEnv(parentName.getTypeName());
+                ClassEnv parentEnv = globalEnv.getClassEnv(parentName.getTypeName(), isDefaultPkg);
 
                 if (parentEnv.typeDeclr instanceof ClassDeclr) {
                     parentClassEnv = parentEnv;
@@ -397,7 +398,6 @@ public class ClassEnv implements Env {
         if (typeDeclr instanceof InterfaceDeclr) {
             return;
         }
-        //TypeInfo ctorType = new TypeInfo(false, JoosType.getJoosType(typeDeclr.getCanonicalName()));
         for (ConstructorDeclr ctor : ((ClassDeclr) typeDeclr).getConstructor()) {
             ArrayList<FieldsVarInfo> paramList = new ArrayList<>();
             for (Pair<Type, String> param : ctor.getFormalParamList()) {
@@ -424,7 +424,8 @@ public class ClassEnv implements Env {
             if (extend.size() > 0) {
                 JoosType extendType = typeResolve(extend);
                 superSet.add(extendType);
-                parentClassEnv = globalEnv.getClassEnv(typeResolve(extend).getTypeName());
+
+                parentClassEnv = globalEnv.getClassEnv(typeResolve(extend).getTypeName(), isDefaultPkg);
 
                 // Null check
                 if (parentClassEnv == null) {
@@ -454,7 +455,7 @@ public class ClassEnv implements Env {
         ArrayList<ArrayList<String>> interfaces = typeDeclr.getParentInterfaces();
         for (ArrayList<String> pInterface : interfaces) {
             JoosType interfaceType = typeResolve(pInterface);
-            ClassEnv parentInterfaceEnv = globalEnv.getClassEnv(interfaceType.getTypeName());
+            ClassEnv parentInterfaceEnv = globalEnv.getClassEnv(interfaceType.getTypeName(), isDefaultPkg);
 
             // Cannot implement class
             if (parentInterfaceEnv.typeDeclr instanceof ClassDeclr) {
@@ -488,7 +489,7 @@ public class ClassEnv implements Env {
         if (!fullSuperSetComplete) {
             fullSuperSet.addAll(superSet);
             for (JoosType className : superSet) {
-                ClassEnv classEnv = globalEnv.getClassEnv(className.getTypeName());
+                ClassEnv classEnv = globalEnv.getClassEnv(className.getTypeName(), isDefaultPkg);
 
                 TreeSet<ArrayList<String>> nextSet = set.newChild();
                 nextSet.addItem(typeDeclr.getCanonicalName());
