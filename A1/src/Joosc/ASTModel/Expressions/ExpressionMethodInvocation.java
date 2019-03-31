@@ -118,7 +118,7 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
             if (getEnv().getJoosType().isA(accessType) && !matchingMethod.getModifiers().contains(Symbol.Static)) {
                 throw new TypeCheckException("Protected Access on method " + callSignature);
             }
-            
+
             if (accessType.isA(getEnv().getJoosType()) &&
                     env.getDeclaredMethodSignature().containsKey(matchingMethod.getSignatureStr())) {
                 throw new TypeCheckException("Protected Access on method " + callSignature);
