@@ -247,4 +247,8 @@ public class LocalEnv implements Env {
     public ArrayList<String> getPackageDeclr() {
         return parent.getPackageDeclr();
     }
+    @Override
+    public HashMap<String, MethodInfo> getDeclaredMethodSignature() {
+        return parent.getDeclaredMethodSignature();
+    }
 }
