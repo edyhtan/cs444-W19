@@ -13,6 +13,7 @@ import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -99,5 +100,16 @@ public class ExpressionClassInstanceCreation extends Expression {
         }
 
         return joosType;
+    }
+
+    @Override
+    public void forwardDeclaration(String fieldname, HashSet<String> initializedName) throws TypeCheckException {
+        if (joosType == getEnv().getJoosType()) {
+            throw new TypeCheckException("Cannot initialize this instance in initializer");
+        }
+
+        for (Expression arg:argList) {
+            arg.forwardDeclaration(fieldname, initializedName);
+        }
     }
 }

@@ -149,8 +149,11 @@ public class ClassEnv implements Env {
     private void fieldTypeCheck() throws TypeCheckException {
         if (typeDeclr instanceof ClassDeclr) {
             ArrayList<FieldDeclr> fieldDeclrs = ((ClassDeclr) typeDeclr).getFields();
+            HashSet<String> declaredField = new HashSet<>();
             for (FieldDeclr fieldDeclr : fieldDeclrs) {
                 fieldDeclr.checkType();
+                if (!fieldDeclr.getModifiers().contains(Symbol.Static))
+                    fieldDeclr.checkForwardDeclaration(declaredField);
             }
         }
     }
@@ -529,6 +532,7 @@ public class ClassEnv implements Env {
     }
 
     public void resolveFieldsAndLocalVar() throws NamingResolveException, TypeCheckException {
+
         fieldTypeCheck();
         for (LocalEnv localEnv:localEnvs) {
             localEnv.resolveLocalVariableAndAccess();
@@ -698,5 +702,9 @@ public class ClassEnv implements Env {
     @Override
     public HashMap<String, MethodInfo> getDeclaredMethodSignature() {
         return methodSignature;
+    }
+
+    public HashSet<String> getFieldsName() {
+        return new HashSet<>(fields.keySet());
     }
 }

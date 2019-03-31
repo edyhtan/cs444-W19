@@ -10,6 +10,7 @@ import Joosc.TypeSystem.JoosType;
 import Joosc.util.Tri;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.stream.Collectors;
 
 public class ExpressionMethodInvocation extends ExpressionPrimary {
@@ -17,6 +18,7 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
     private ArrayList<Expression> argList;
     private Expression methodParentExpression;
     private String methodIdentifier;
+    private boolean isStatic = false;
 
 
     public ExpressionMethodInvocation(ExpressionMethodInvocationNode node) {
@@ -73,6 +75,21 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
     }
 
     @Override
+    public void forwardDeclaration(String fieldname, HashSet<String> declared) throws TypeCheckException {
+        if (!isLHS) {
+            if (methodParentExpression != null) {
+                methodParentExpression.forwardDeclaration(fieldname, declared);
+            } else if (!isStatic && (methodName.get(0).equals(fieldname) || !declared.contains(methodName.get(0)))) {
+                throw new TypeCheckException("field " + fieldname + " cannot be forward referenced");
+            }
+        }
+
+        for (Expression arg:argList) {
+            arg.forwardDeclaration(fieldname, declared);
+        }
+    }
+
+    @Override
     public JoosType getType() throws TypeCheckException {
         Env env;
         String simpleName;
@@ -91,6 +108,9 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
             Tri<Integer, Env, String> tri = Names.resolveAmbiguity(getEnv(), methodName);
             env = tri.get2();
             simpleName = methodName.get(methodName.size() - 1);
+            if ((tri.get1() & Names.isStatic) != 0) {
+                isStatic = true;
+            }
         }
 
         ArrayList<String> argTypeList = new ArrayList<>();

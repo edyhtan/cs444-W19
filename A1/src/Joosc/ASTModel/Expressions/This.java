@@ -6,6 +6,7 @@ import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class This extends ExpressionContent {
     @Override
@@ -19,5 +20,10 @@ public class This extends ExpressionContent {
         ArrayList<String> currentClassFullName = getEnv().getCurrentClass().getCanonicalName();
         joosType = JoosType.getJoosType(currentClassFullName);
         return joosType;
+    }
+
+    @Override
+    public void forwardDeclaration(String fieldname, HashSet<String> initializedName) throws TypeCheckException {
+
     }
 }

@@ -8,6 +8,8 @@ import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
 
+import java.util.HashSet;
+
 public class ExpressionUnary extends Expression {
     private Symbol kind;
     private Symbol unaryOperator;
@@ -74,5 +76,10 @@ public class ExpressionUnary extends Expression {
             }
         }
         return joosType;
+    }
+
+    @Override
+    public void forwardDeclaration(String fieldname, HashSet<String> initializedName) throws TypeCheckException {
+        targetNode.forwardDeclaration(fieldname, initializedName);
     }
 }

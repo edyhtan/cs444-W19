@@ -9,6 +9,7 @@ import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class ExpressionType extends Expression {
     ArrayList<String> typeName;
@@ -37,4 +38,7 @@ public class ExpressionType extends Expression {
         }
         return joosType;
     }
+
+    @Override
+    public void forwardDeclaration(String fieldname, HashSet<String> initializedName) throws TypeCheckException { }
 }

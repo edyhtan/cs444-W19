@@ -2,6 +2,7 @@ package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionBinaryNode;
 import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.Environment.ClassEnv;
 import Joosc.Environment.Env;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
@@ -9,6 +10,8 @@ import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class ExpressionBinary extends Expression {
     private Symbol kind, operator;
@@ -148,5 +151,16 @@ public class ExpressionBinary extends Expression {
         }
 
         return joosType;
+    }
+
+    @Override
+    public void forwardDeclaration(String fieldname, HashSet<String> initializedName) throws TypeCheckException {
+        switch (operator) {
+            case Equal:
+                LHS.setIsLHS(true);
+            default:
+                LHS.forwardDeclaration(fieldname, initializedName);
+                RHS.forwardDeclaration(fieldname, initializedName);
+        }
     }
 }

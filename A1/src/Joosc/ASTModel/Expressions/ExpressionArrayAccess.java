@@ -9,12 +9,14 @@ import Joosc.TypeSystem.JoosType;
 import Joosc.util.Tri;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class ExpressionArrayAccess extends ExpressionPrimary {
 
     private ArrayList<String> referenceName;
     private Expression referenceExpression;
     private Expression indexExpression;
+    private boolean isStatic = false;
 
     public ExpressionArrayAccess(ExpressionArrayAccessNode node) {
         referenceName = node.getReferenceName();
@@ -63,6 +65,7 @@ public class ExpressionArrayAccess extends ExpressionPrimary {
             Tri<Integer, Env, String> nameInfo = Names.resolveAmbiguity(getEnv(), referenceName);
 
             if ((nameInfo.get1() & Names.isStatic) != 0) {
+                isStatic = true;
                 joosType = nameInfo.get2().getStaticFieldInfo(nameInfo.get3()).getTypeInfo().getJoosType();
             }
             if ((nameInfo.get1() & Names.isField) != 0) {
@@ -81,5 +84,17 @@ public class ExpressionArrayAccess extends ExpressionPrimary {
             throw new TypeCheckException("Unmatched Type " + joosType.getTypeName() + " with [].");
         }
         return ((ArrayType)joosType).getJoosType();
+    }
+
+    @Override
+    public void forwardDeclaration(String fieldname, HashSet<String> initializedName) throws TypeCheckException {
+        if (!isLHS) {
+            if (referenceExpression != null) {
+                referenceExpression.forwardDeclaration(fieldname, initializedName);
+            } else if (!isStatic && (referenceName.get(0).equals(fieldname) || !initializedName.contains(referenceName.get(0)))) {
+                throw new TypeCheckException("field " + fieldname + " cannot be forward referenced");
+            }
+        }
+        indexExpression.forwardDeclaration(fieldname, initializedName);
     }
 }

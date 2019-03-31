@@ -8,6 +8,7 @@ import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 
 public class Literal extends ExpressionContent {
     public String literal;
@@ -43,5 +44,10 @@ public class Literal extends ExpressionContent {
             joosType = JoosType.getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "String")));
         }
         return joosType;
+    }
+
+    @Override
+    public void forwardDeclaration(String fieldname, HashSet<String> initializedName) throws TypeCheckException {
+
     }
 }

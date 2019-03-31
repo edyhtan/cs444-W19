@@ -6,14 +6,22 @@ import Joosc.ASTModel.AST;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
 
+import java.util.HashSet;
+
 public abstract class Expression extends HasType implements AST {
     Symbol kind;
     protected JoosType joosType;
     protected boolean isFinal = false;
     protected boolean parentIsStatic = false;
+    protected boolean isLHS = false;
+
 
     public void setParentIsStatic(boolean parentIsStatic) {
         this.parentIsStatic = parentIsStatic;
+    }
+
+    public void setIsLHS(boolean isLHS) {
+        this.isLHS = isLHS;
     }
 
 
@@ -59,8 +67,10 @@ public abstract class Expression extends HasType implements AST {
     }
 
     public abstract JoosType getType() throws TypeCheckException;
+    public abstract void forwardDeclaration(String fieldname, HashSet<String> initializedName) throws TypeCheckException;
 
     public boolean isFinal() {
         return isFinal;
     }
+    public boolean isLHS() { return isLHS; }
 }

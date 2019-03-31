@@ -9,6 +9,8 @@ import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
 
+import java.util.HashSet;
+
 public class ExpressionFieldAccess extends Expression {
     private String fieldIdentifier;
     private Expression fieldParentExpression;
@@ -75,5 +77,12 @@ public class ExpressionFieldAccess extends Expression {
             throw new TypeCheckException("Field is not declared: " + fieldIdentifier);
         }
         return joosType;
+    }
+
+    @Override
+    public void forwardDeclaration(String fieldname, HashSet<String> initializedName) throws TypeCheckException {
+        if (fieldParentExpression != null) {
+            fieldParentExpression.forwardDeclaration(fieldname, initializedName);
+        }
     }
 }

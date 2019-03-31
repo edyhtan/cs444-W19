@@ -14,6 +14,7 @@ import Joosc.TypeSystem.JoosType;
 import Joosc.util.Pair;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class FieldDeclr extends Scope implements ClassMemberDeclr, HasExpression {
     private ArrayList<Symbol> modifiers;
@@ -96,15 +97,18 @@ public class FieldDeclr extends Scope implements ClassMemberDeclr, HasExpression
         }
     }
 
-    @Override
-    public void setParentIsStatic(boolean parentIsStatic) {
-
+    public void checkForwardDeclaration(HashSet<String> declared) throws TypeCheckException {
+        declared.add(name);
+        if (initExpression != null) {
+            initExpression.forwardDeclaration(name, declared);
+        }
     }
 
     @Override
-    public void setMethodSignature(String signature) {
+    public void setParentIsStatic(boolean parentIsStatic) { }
 
-    }
+    @Override
+    public void setMethodSignature(String signature) { }
 
     @Override
     public String getMethodSignature() {
@@ -112,12 +116,11 @@ public class FieldDeclr extends Scope implements ClassMemberDeclr, HasExpression
     }
 
     @Override
-    public void setType(JoosType type) {
-
-    }
+    public void setType(JoosType type) { }
 
     @Override
     public JoosType getJoosType() {
         return joosType;
     }
+
 }

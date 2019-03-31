@@ -1,6 +1,7 @@
 package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.ASTModel.Type;
 import Joosc.Environment.ClassEnv;
 import Joosc.Environment.Env;
 import Joosc.Environment.FieldsVarInfo;
@@ -12,11 +13,12 @@ import Joosc.TypeSystem.JoosType;
 import Joosc.util.Tri;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Names extends ExpressionContent {
     ArrayList<String> name;
     FieldsVarInfo info;
-
+    boolean staticPrefix = false;
     public Names(ArrayList<String> name) {
         this.name = name;
     }
@@ -45,6 +47,8 @@ public class Names extends ExpressionContent {
             joosType = fieldInfo.getTypeInfo().getJoosType();
         } else if ((smallInfo & isStatic) != 0) {
             fieldInfo = accessorEnv.getStaticFieldInfo(fvname);
+            staticPrefix = true;
+
             if (fieldInfo == null) {
                 throw new TypeCheckException(fvname + " is not Static.");
             }
@@ -119,6 +123,14 @@ public class Names extends ExpressionContent {
 
         return joosType;
     }
+
+    @Override
+    public void forwardDeclaration(String fieldname, HashSet<String> declared) throws TypeCheckException {
+        if (!isLHS && !staticPrefix && (name.get(0).equals(fieldname) || !declared.contains(name.get(0)))) {
+            throw new TypeCheckException(name.get(0) + " is has not initialized or not declared.");
+        }
+    }
+
 
     private boolean qualified() {
         return name.size() > 1;

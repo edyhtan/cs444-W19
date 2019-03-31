@@ -8,6 +8,8 @@ import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 
+import java.util.HashSet;
+
 public class ExpressionArrayCreation extends ExpressionPrimary {
     private Expression sizeExpression;
     private Type arrayType;
@@ -53,5 +55,10 @@ public class ExpressionArrayCreation extends ExpressionPrimary {
             throw new TypeCheckException("Type incompatible: " + sizeType);
         }
         return joosType;
+    }
+
+    @Override
+    public void forwardDeclaration(String fieldname, HashSet<String> initializedName) throws TypeCheckException {
+        sizeExpression.forwardDeclaration(fieldname, initializedName);
     }
 }
