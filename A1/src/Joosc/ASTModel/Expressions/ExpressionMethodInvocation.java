@@ -105,7 +105,14 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
             env = methodParentExpression.getType().getClassEnv();
             simpleName = methodIdentifier;
         } else {
-            Tri<Integer, Env, String> tri = Names.resolveAmbiguity(getEnv(), methodName);
+            boolean isDefaultPkg = false;
+            if(getEnv().getCurrentClass().getClassEnv().getPackageDeclr() == null
+                    || getEnv().getCurrentClass().getClassEnv().getPackageDeclr().isEmpty()) {
+                isDefaultPkg = true;
+            }
+
+
+            Tri<Integer, Env, String> tri = Names.resolveAmbiguity(getEnv(), methodName, isDefaultPkg);
             env = tri.get2();
             simpleName = methodName.get(methodName.size() - 1);
             if ((tri.get1() & Names.isStatic) != 0) {
@@ -169,7 +176,13 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
                 if (methodName.size() > 1) {
                     ArrayList<String> accessor = new ArrayList<>(methodName);
                     accessor.remove(accessor.size() - 1);
-                    Tri<Integer, Env, String> accessorInfo = Names.resolveAmbiguity(env, accessor);
+
+                    boolean isDefaultPkg = false;
+                    if(getEnv().getCurrentClass().getClassEnv().getPackageDeclr() == null) {
+                        isDefaultPkg = true;
+                    }
+
+                    Tri<Integer, Env, String> accessorInfo = Names.resolveAmbiguity(env, accessor, isDefaultPkg);
                     ArrayList<String> accessorTypeName = accessorInfo.get2().getJoosType().getTypeName();
 
                     if (!getEnv().isLocalVariableDeclared(accessorInfo.get3())

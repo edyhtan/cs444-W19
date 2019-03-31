@@ -62,7 +62,12 @@ public class ExpressionArrayAccess extends ExpressionPrimary {
         }
 
         if (referenceExpression == null) {
-            Tri<Integer, Env, String> nameInfo = Names.resolveAmbiguity(getEnv(), referenceName);
+            boolean isDefaultPkg = false;
+            if(getEnv().getCurrentClass().getClassEnv().getPackageDeclr() == null
+                    || getEnv().getCurrentClass().getClassEnv().getPackageDeclr().isEmpty()) {
+                isDefaultPkg = true;
+            }
+            Tri<Integer, Env, String> nameInfo = Names.resolveAmbiguity(getEnv(), referenceName, isDefaultPkg);
 
             if ((nameInfo.get1() & Names.isStatic) != 0) {
                 isStatic = true;
