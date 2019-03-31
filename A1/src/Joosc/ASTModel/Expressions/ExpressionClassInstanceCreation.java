@@ -1,15 +1,20 @@
 package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionClassInstanceCreationNode;
+import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.ASTModel.ClassInterface.ClassDeclr;
 import Joosc.ASTModel.Type;
+import Joosc.Environment.ClassEnv;
 import Joosc.Environment.Env;
-import Joosc.Environment.GlobalEnv;
-import Joosc.Environment.LocalEnv;
+import Joosc.Environment.FieldsVarInfo;
+import Joosc.Environment.MethodInfo;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ExpressionClassInstanceCreation extends Expression {
@@ -33,15 +38,16 @@ public class ExpressionClassInstanceCreation extends Expression {
     @Override
     public void addEnv(Env env) {
         super.addEnv(env);
-        argList.forEach(x->x.addEnv(env));
+        argList.forEach(x -> x.addEnv(env));
     }
 
     @Override
-    public void validate() throws NamingResolveException {
+    public Env validate() throws NamingResolveException {
         joosType = getEnv().typeResolve(classType.getNames());
-        for (Expression arg: argList) {
+        for (Expression arg : argList) {
             arg.validate();
         }
+        return null;
     }
 
     @Override
@@ -57,8 +63,40 @@ public class ExpressionClassInstanceCreation extends Expression {
             joosType = JoosType.getJoosType(fullname);
         }
 
+        if (joosType.getClassEnv().getTypeDeclr() instanceof ClassDeclr
+                && joosType.getClassEnv().getTypeDeclr().getModifiers().contains(Symbol.Abstract)) {
+            throw new TypeCheckException("Cannot create instance of abstract class: " + joosType.getTypeName());
+        }
+
         if (joosType == null) {
             throw new TypeCheckException("Type Not Found: " + String.join(".", fullname));
+        }
+
+        ArrayList<String> argTypeList = new ArrayList<>();
+        argTypeList.add(fullname.get(fullname.size() - 1));
+
+        for (Expression arg : argList) {
+            argTypeList.add(arg.getType().getQualifiedName());
+        }
+
+        MethodInfo matchingCtor = null;
+        ClassEnv matchingClass = joosType.getClassEnv();
+
+        String callSignature = String.join(",", argTypeList);
+        matchingCtor = matchingClass.getConstructorSignature().getOrDefault(callSignature, null);
+
+        if (matchingCtor == null) {
+            throw new TypeCheckException("No matching method constructor: " + argTypeList);
+        }
+
+        if (matchingCtor.getModifiers().contains(Symbol.Protected)) {
+            if (!joosType.isA(getEnv().getJoosType()) && !getEnv().getJoosType().isA(joosType)) {
+                throw new TypeCheckException("Protected Access on constructor " + callSignature);
+            }
+
+            if (!joosType.getClassEnv().getPackageDeclr().equals(getEnv().getPackageDeclr())) {
+                throw new TypeCheckException("Protected Access on constructor " + callSignature);
+            }
         }
 
         return joosType;
@@ -67,5 +105,15 @@ public class ExpressionClassInstanceCreation extends Expression {
     @Override
     public boolean isConstantExpression() {
         return false;
+    }
+
+    public void forwardDeclaration(String fieldname, HashSet<String> initializedName) throws TypeCheckException {
+        if (joosType == getEnv().getJoosType()) {
+            throw new TypeCheckException("Cannot initialize this instance in initializer");
+        }
+
+        for (Expression arg : argList) {
+            arg.forwardDeclaration(fieldname, initializedName);
+        }
     }
 }

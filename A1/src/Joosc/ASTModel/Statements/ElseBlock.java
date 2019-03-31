@@ -1,17 +1,16 @@
 package Joosc.ASTModel.Statements;
 
-
-import Joosc.Exceptions.TypeCheckException;
 import Joosc.Exceptions.UnreachableStatementException;
 
 import java.util.ArrayList;
 
 public class ElseBlock extends HasScope implements Statement {
     Statement statement;
+    public boolean in, out;
+
     public ElseBlock(Statement statement) {
         this.statement = statement;
     }
-    public boolean in,out;
 
     @Override
     public ArrayList<Statement> getBlock() {

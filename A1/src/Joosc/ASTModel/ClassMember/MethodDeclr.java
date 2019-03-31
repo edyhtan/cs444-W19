@@ -3,16 +3,21 @@ package Joosc.ASTModel.ClassMember;
 import Joosc.ASTBuilding.ASTStructures.AbstractMethodDeclrNode;
 import Joosc.ASTBuilding.ASTStructures.MethodDeclrNode;
 import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.ASTModel.Statements.HasExpression;
+import Joosc.ASTModel.Statements.ReturnStatement;
 import Joosc.ASTModel.Statements.Statement;
 import Joosc.ASTModel.Type;
 import Joosc.Environment.LocalEnv;
+import Joosc.Exceptions.NamingResolveException;
+import Joosc.Exceptions.TypeCheckException;
 import Joosc.Exceptions.UninitializedVariableException;
 import Joosc.Exceptions.UnreachableStatementException;
+import Joosc.TypeSystem.ArrayType;
+import Joosc.TypeSystem.JoosType;
 import Joosc.util.Pair;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class MethodDeclr implements ClassMemberDeclr, Method {
@@ -23,6 +28,9 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
     ArrayList<Statement> bodyBlock;
     ArrayList<String> canonicalID;
     LocalEnv localEnv;
+
+    String methodSignature;
+    JoosType returnType;
 
     public MethodDeclr(MethodDeclrNode node) {
         modifiers = node.getModifiers();
@@ -53,10 +61,10 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
         type = node.type;
         name = node.name;
         formalParamList = new ArrayList<>(node.formalParamList);
-        bodyBlock = node.bodyBlock == null ? new ArrayList<>() : new ArrayList<> (node.bodyBlock);
-//        canonicalID = new ArrayList<>(node.canonicalID);
+        bodyBlock = node.bodyBlock == null ? new ArrayList<>() : new ArrayList<>(node.bodyBlock);
         localEnv = node.localEnv;
     }
+
 
     @Override
     public void reachabilityAnalysis() throws UnreachableStatementException {
@@ -83,6 +91,47 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
     public void definiteAssignmentAnalysis(HashMap initializedFields) throws UninitializedVariableException {
         HashMap localInitializedFields = (HashMap) initializedFields.clone();
         // TODO
+    }
+
+    public void validateStaticAccess() throws TypeCheckException {
+        if (modifiers.contains(Symbol.Static)) {
+            bodyBlock.forEach(x -> {
+                if (x instanceof HasExpression) {
+                    ((HasExpression) x).setParentIsStatic(true);
+                }
+            });
+        }
+    }
+
+    public void validateReturnType() throws TypeCheckException, NamingResolveException {
+        JoosType returnJoosType;
+        if (type.getArrayKind() == null) {
+            // primitive
+            if (type.getNames() == null || type.getNames().isEmpty()) {
+                returnJoosType = JoosType.getJoosType(type.getKind().getSymbolString());
+            } else { // reference
+                returnJoosType = localEnv.findResolvedType(type.getTypeName().get(0));
+            }
+        } else {
+            if (type.getNames() == null || type.getNames().isEmpty()) {
+                returnJoosType = new ArrayType(localEnv.typeResolve(type.getTypeName()));
+            } else { // reference
+                returnJoosType = new ArrayType(localEnv.typeResolve(type.getTypeName()));
+            }
+        }
+
+        if (bodyBlock.size() > 0) {
+            Statement lastStatement = bodyBlock.get(bodyBlock.size() - 1);
+            if (lastStatement instanceof ReturnStatement && ((ReturnStatement) lastStatement).getExpression() != null) {
+                JoosType actual = ((ReturnStatement) lastStatement).getExpression().getType();
+                if (!actual.isA(returnJoosType)) {
+                    throw new TypeCheckException(
+                            String.format("Method declared return type does not match actual return type： %s, %s.",
+                                    returnJoosType.getTypeName(),
+                                    actual.getTypeName()));
+                }
+            }
+        }
     }
 
     public void buildCanonicalName(ArrayList<String> className) {
@@ -118,6 +167,26 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
 
     public ArrayList<Symbol> getModifiers() {
         return modifiers;
+    }
+
+    @Override
+    public void setMethodSignature(String signature) {
+        methodSignature = signature;
+    }
+
+    @Override
+    public String getMethodSignature() {
+        return methodSignature;
+    }
+
+    @Override
+    public void setType(JoosType type) {
+        returnType = type;
+    }
+
+    @Override
+    public JoosType getJoosType() {
+        return returnType;
     }
 
     @Override

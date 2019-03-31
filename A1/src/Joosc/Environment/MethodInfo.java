@@ -63,4 +63,13 @@ public class MethodInfo {
     public TypeInfo getReturnType() {
         return returnType;
     }
+
+    public ArrayList<Symbol> getModifiers() {
+        return modifiers;
+
+    }
+
+    public boolean isStatic() {
+        return modifiers.contains(Symbol.Static);
+    }
 }

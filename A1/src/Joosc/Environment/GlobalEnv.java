@@ -7,6 +7,7 @@ import Joosc.ASTModel.Program;
 import Joosc.ASTModel.Type;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 import Joosc.util.TreeSet;
 
@@ -51,13 +52,29 @@ public class GlobalEnv implements Env {
         }
     }
 
-    public ClassEnv getClassEnv(ArrayList<String> qualifiedName) {
-        for (ClassEnv env : classEnvs) {
-            if (env.typeDeclr.getCanonicalName().equals(qualifiedName)) {
-                return env;
+    public ClassEnv getClassEnv(ArrayList<String> qualifiedName, boolean isDefaultPkg) {
+        if (isDefaultPkg) {
+            String simpleName = qualifiedName.get(0);
+            JoosType found = GlobalEnv.instance.defaultPackage.getTypes().get(simpleName);
+            if (found != null) {
+                return found.getClassEnv();
             }
         }
-        return null;
+
+        ArrayList<String> prefix = new ArrayList<>(qualifiedName);
+        String name = prefix.remove(prefix.size() - 1);
+        PackageNames pkg = getPackageLayer(prefix);
+        if (pkg != null) {
+            JoosType found = pkg.types.get(name);
+
+            if (found != null) {
+                return found.getClassEnv();
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -110,6 +127,7 @@ public class GlobalEnv implements Env {
 
         for (ClassEnv classEnv : classEnvs) {
             classEnv.getFullSuperSet(new TreeSet<>());
+            classEnv.resolveDefaultSuperCtor();
         }
 
         for (ClassEnv classEnv : classEnvs) {
@@ -117,6 +135,8 @@ public class GlobalEnv implements Env {
             classEnv.getFullMethodSignature();
             classEnv.addSuperToJooscType();
         }
+
+        ArrayType.initIllusion();
 
         for (ClassEnv classEnv : classEnvs) {
             classEnv.resolveFieldsAndLocalVar();
@@ -192,10 +212,19 @@ public class GlobalEnv implements Env {
         PackageNames(String packageName) {
             name = packageName;
         }
+
+        public HashMap<String, JoosType> getTypes() {
+            return types;
+        }
+
+        public HashMap<String, PackageNames> getSubPackage() {
+            return subPackage;
+        }
+
     }
 
     @Override
-    public FieldsVarInfo getFieldInfo(String name){
+    public FieldsVarInfo getFieldInfo(String name) {
         return null;
     }
 
@@ -219,9 +248,17 @@ public class GlobalEnv implements Env {
         return null;
     }
 
-
     @Override
     public HashMap<String, MethodInfo> getAllMethodSignature() {
+        return null;
+    }
+
+    @Override
+    public ArrayList<String> getPackageDeclr() {
+        return null;
+    }
+    @Override
+    public HashMap<String, MethodInfo> getDeclaredMethodSignature() {
         return null;
     }
 }

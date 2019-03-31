@@ -2,7 +2,6 @@ package Joosc.ASTModel.Statements;
 
 import Joosc.ASTBuilding.ASTStructures.Statements.BlockNode;
 import Joosc.Environment.LocalEnv;
-import Joosc.Exceptions.TypeCheckException;
 import Joosc.Exceptions.UnreachableStatementException;
 
 import java.util.ArrayList;
@@ -12,6 +11,11 @@ public class Block extends HasScope implements Statement {
     private ArrayList<Statement> statements = new ArrayList<>();
     private LocalEnv env;
     public boolean in, out;
+    private boolean parentIsStatic;
+
+    public Block(Statement statement) {
+        statements.add(statement);
+    }
 
     public Block(BlockNode node) {
         if (node.getStatements() != null) {

@@ -1,15 +1,16 @@
 package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionMethodInvocationNode;
-import Joosc.Environment.*;
+import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.Environment.Env;
+import Joosc.Environment.MethodInfo;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
 import Joosc.util.Tri;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
 import java.util.stream.Collectors;
 
 public class ExpressionMethodInvocation extends ExpressionPrimary {
@@ -17,6 +18,7 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
     private ArrayList<Expression> argList;
     private Expression methodParentExpression;
     private String methodIdentifier;
+    private boolean isStatic = false;
 
 
     public ExpressionMethodInvocation(ExpressionMethodInvocationNode node) {
@@ -53,7 +55,7 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
     }
 
     @Override
-    public void validate() throws NamingResolveException {
+    public Env validate() throws NamingResolveException {
         if (methodParentExpression != null) {
             methodParentExpression.validate();
         }
@@ -61,6 +63,7 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
         for (Expression expression : argList) {
             expression.validate();
         }
+        return null;
     }
 
     public String getMethodSimpleName() {
@@ -72,55 +75,131 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
     }
 
     @Override
+    public void forwardDeclaration(String fieldname, HashSet<String> declared) throws TypeCheckException {
+        if (!isLHS) {
+            if (methodParentExpression != null) {
+                methodParentExpression.forwardDeclaration(fieldname, declared);
+            } else if (!isStatic && (methodName.get(0).equals(fieldname) || !declared.contains(methodName.get(0)))) {
+                throw new TypeCheckException("field " + fieldname + " cannot be forward referenced");
+            }
+        }
+
+        for (Expression arg : argList) {
+            arg.forwardDeclaration(fieldname, declared);
+        }
+    }
+
+    @Override
     public JoosType getType() throws TypeCheckException {
         Env env;
+        String simpleName;
+
+        if (methodParentExpression != null) {
+            methodParentExpression.setParentIsStatic(this.parentIsStatic);
+        }
+
         if (methodName == null) {
             if (methodParentExpression.getType().isPrimitive()) {
                 throw new TypeCheckException("Cannot invoke methods on primitive types");
             }
             env = methodParentExpression.getType().getClassEnv();
-
+            simpleName = methodIdentifier;
         } else {
-            Tri<Integer, Env, String> tri = Names.resolveAmbiguity(getEnv(), methodName);
+            boolean isDefaultPkg = false;
+            if (getEnv().getCurrentClass().getClassEnv().getPackageDeclr() == null
+                    || getEnv().getCurrentClass().getClassEnv().getPackageDeclr().isEmpty()) {
+                isDefaultPkg = true;
+            }
+
+
+            Tri<Integer, Env, String> tri = Names.resolveAmbiguity(getEnv(), methodName, isDefaultPkg);
             env = tri.get2();
-        }
-
-        ArrayList<JoosType> argTypeList = new ArrayList<>();
-        for (Expression arg : argList) {
-            argTypeList.add(arg.getType());
-        }
-
-        MethodInfo matchingMethod = null;
-
-        for (Map.Entry<String, MethodInfo> kvp : env.getAllMethodSignature().entrySet()) {
-            if (this.getMethodSimpleName().equals(kvp.getValue().getMethodSimpleName())
-                &&  argTypeList.size() == kvp.getValue().getParamTypeList().size()) {
-
-                ArrayList<FieldsVarInfo> candidateParamTypeList = kvp.getValue().getParamTypeList();
-                boolean valid = true;
-
-                for (int i = 0; i < argTypeList.size(); i += 1) {
-                    valid = argTypeList.get(i).isA(candidateParamTypeList.get(i).getTypeInfo().getJoosType());
-                    if (!valid) {
-                        break;
-                    }
-                }
-
-                if (!valid) {
-                    continue;
-                } else if (matchingMethod != null){
-                    throw new TypeCheckException("Ambiguous method signature:" + this.getMethodSimpleName());
-                } else {
-                    matchingMethod = kvp.getValue();
-                }
+            simpleName = methodName.get(methodName.size() - 1);
+            if ((tri.get1() & Names.isStatic) != 0) {
+                isStatic = true;
             }
         }
 
-        if (matchingMethod == null) {
-            throw new TypeCheckException("No matching method signature");
+        ArrayList<String> argTypeList = new ArrayList<>();
+        argTypeList.add(simpleName);
+        for (Expression arg : argList) {
+            argTypeList.add(arg.getType().getQualifiedName());
         }
 
-        return matchingMethod.getReturnType().getJoosType();
+        MethodInfo matchingMethod = null;
+        String callSignature = String.join(",", argTypeList);
+
+        matchingMethod = env.getAllMethodSignature().getOrDefault(callSignature, null);
+
+        if (matchingMethod == null) {
+            throw new TypeCheckException("No matching method signature: " + callSignature);
+        }
+        joosType = matchingMethod.getReturnType().getJoosType();
+
+        if (matchingMethod.getModifiers().contains(Symbol.Protected) && !getEnv().getJoosType().equals(env.getJoosType())) {
+            JoosType accessType = env.getJoosType();
+            if (!accessType.isA(getEnv().getJoosType()) && !getEnv().getJoosType().isA(accessType)) {
+                throw new TypeCheckException("Protected Access on method " + callSignature);
+            }
+
+            if (getEnv().getJoosType().isA(accessType) && !matchingMethod.getModifiers().contains(Symbol.Static)) {
+                throw new TypeCheckException("Protected Access on method " + callSignature);
+            }
+
+            if (accessType.isA(getEnv().getJoosType()) &&
+                    env.getDeclaredMethodSignature().containsKey(matchingMethod.getSignatureStr())) {
+                throw new TypeCheckException("Protected Access on method " + callSignature);
+            }
+        }
+
+        if (matchingMethod.isStatic()) {
+            if (methodName != null) {
+                if (methodName.size() == 1) {
+                    throw new TypeCheckException("Static method invoked without class accessor: " + callSignature);
+                } else {
+                    ArrayList<String> accessor = new ArrayList<>(methodName);
+                    accessor.remove(accessor.size() - 1);
+                    int i;
+                    for (i = accessor.size() - 1; i >= 0; --i) {
+                        if (getEnv().isLocalVariableDeclared(accessor.get(i))) {
+                            throw new TypeCheckException("Static method accessed from instance: " + callSignature);
+                        }
+                    }
+                }
+            } else {
+                if (methodParentExpression instanceof This) {
+                    throw new TypeCheckException("Static method accessed from this: " + callSignature);
+                }
+            }
+        } else { // non-static methods
+            if (methodName != null) {
+                if (methodName.size() > 1) {
+                    ArrayList<String> accessor = new ArrayList<>(methodName);
+                    accessor.remove(accessor.size() - 1);
+
+                    boolean isDefaultPkg = false;
+                    if (getEnv().getCurrentClass().getClassEnv().getPackageDeclr() == null) {
+                        isDefaultPkg = true;
+                    }
+
+                    Tri<Integer, Env, String> accessorInfo = Names.resolveAmbiguity(env, accessor, isDefaultPkg);
+                    ArrayList<String> accessorTypeName = accessorInfo.get2().getJoosType().getTypeName();
+
+                    if (!getEnv().isLocalVariableDeclared(accessorInfo.get3())
+                            && accessorTypeName.get(accessorTypeName.size() - 1).equals(accessorInfo.get3())) {
+                        throw new TypeCheckException("Non-static method accessed from class: " + callSignature);
+                    }
+                } else { // size == 1
+                    if (parentIsStatic)
+                        throw new TypeCheckException("Implicit this access inside static method: " + callSignature);
+                }
+            }
+            if (parentIsStatic && methodParentExpression instanceof This) {
+                throw new TypeCheckException("Explicit this access inside static method: " + callSignature);
+            }
+        }
+
+        return joosType;
     }
 
     @Override

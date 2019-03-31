@@ -2,20 +2,20 @@ package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionBinaryNode;
 import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.Environment.ClassEnv;
 import Joosc.Environment.Env;
-import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
-import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class ExpressionBinary extends Expression implements ConstantExpression {
     private Symbol kind, operator;
     private Expression LHS, RHS;
-
     private ConstantLiteral constantLiteral = null;
 
     public ExpressionBinary(ExpressionBinaryNode node) {
@@ -49,9 +49,10 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
     }
 
     @Override
-    public void validate() throws NamingResolveException {
+    public Env validate() throws NamingResolveException {
         LHS.validate();
         RHS.validate();
+        return null;
     }
 
     @Override
@@ -59,7 +60,8 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
         ArrayList<String> string = new ArrayList<>(Arrays.asList("java", "lang", "String"));
         JoosType stringType = JoosType.getJoosType(string);
 
-        System.err.println(RHS.getClass().getCanonicalName());
+        LHS.setParentIsStatic(this.parentIsStatic);
+        RHS.setParentIsStatic(this.parentIsStatic);
 
         JoosType lhsType = LHS.getType();
         JoosType rhsType = RHS.getType();
@@ -73,25 +75,16 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                     joosType = JoosType.getJoosType("int");
                 } else {
                     throw new TypeCheckException(String.format("+ operator type incompatible: %s, %s",
-                            lhsType.getTypeName() , rhsType.getTypeName()));
+                            lhsType.getTypeName(), rhsType.getTypeName()));
                 }
                 break;
             // assignability
             case Equal:
-                if(rhsType instanceof ArrayType) {
-                    if(rhsType.isA(lhsType)) {
-                        joosType = new ArrayType(lhsType);
-                    } else {
-                        throw new TypeCheckException(String.format("Array assignment type incompatible: %s, %s",
-                                lhsType.getTypeName() , rhsType.getTypeName()));
-                    }
+                if (lhsType.assignable(rhsType) && !LHS.isFinal()) {
+                    joosType = lhsType;
                 } else {
-                    if (rhsType.isA(lhsType)) {
-                        joosType = lhsType;
-                    } else {
-                        throw new TypeCheckException(String.format("Assignment type incompatible: %s, %s",
-                                lhsType.getTypeName() , rhsType.getTypeName()));
-                    }
+                    throw new TypeCheckException(String.format("Assignment type incompatible: %s, %s",
+                            lhsType.getTypeName(), rhsType.getTypeName()));
                 }
                 break;
             // arithmetic operations
@@ -109,6 +102,10 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
             // comparison
             case EQ:
             case NE:
+                if (lhsType.equals(JoosType.VOID) || rhsType.equals(JoosType.VOID)) {
+                    throw new TypeCheckException("Void return value cannot be used in equality");
+                }
+
                 if ((JoosType.isNumber(lhsType) && JoosType.isNumber(rhsType))
                         || (lhsType.isA(rhsType) || rhsType.isA(lhsType))) {
                     joosType = JoosType.getJoosType("boolean");
@@ -121,6 +118,9 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
             case GT:
             case LT:
             case LE:
+                if (lhsType.equals(JoosType.VOID) || rhsType.equals(JoosType.VOID)) {
+                    throw new TypeCheckException("Void return value cannot be used in equality");
+                }
                 if (JoosType.isNumber(lhsType) && JoosType.isNumber(rhsType)) {
                     joosType = JoosType.getJoosType("boolean");
                 } else {
@@ -238,5 +238,15 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
     @Override
     public ConstantLiteral evaluateConstant() {
         return constantLiteral;
+    }
+
+    public void forwardDeclaration(String fieldname, HashSet<String> initializedName) throws TypeCheckException {
+        switch (operator) {
+            case Equal:
+                LHS.setIsLHS(true);
+            default:
+                LHS.forwardDeclaration(fieldname, initializedName);
+                RHS.forwardDeclaration(fieldname, initializedName);
+        }
     }
 }

@@ -2,21 +2,21 @@ package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionArrayAccessNode;
 import Joosc.Environment.Env;
-import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 import Joosc.util.Tri;
 
-import javax.naming.Name;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class ExpressionArrayAccess extends ExpressionPrimary {
 
     private ArrayList<String> referenceName;
     private Expression referenceExpression;
     private Expression indexExpression;
+    private boolean isStatic = false;
 
     public ExpressionArrayAccess(ExpressionArrayAccessNode node) {
         referenceName = node.getReferenceName();
@@ -45,11 +45,12 @@ public class ExpressionArrayAccess extends ExpressionPrimary {
     }
 
     @Override
-    public void validate() throws NamingResolveException {
+    public Env validate() throws NamingResolveException {
         if (referenceExpression != null)
             referenceExpression.validate();
         indexExpression.validate();
 
+        return null;
     }
 
     @Override
@@ -61,9 +62,15 @@ public class ExpressionArrayAccess extends ExpressionPrimary {
         }
 
         if (referenceExpression == null) {
-            Tri<Integer, Env, String> nameInfo = Names.resolveAmbiguity(getEnv(), referenceName);
+            boolean isDefaultPkg = false;
+            if (getEnv().getCurrentClass().getClassEnv().getPackageDeclr() == null
+                    || getEnv().getCurrentClass().getClassEnv().getPackageDeclr().isEmpty()) {
+                isDefaultPkg = true;
+            }
+            Tri<Integer, Env, String> nameInfo = Names.resolveAmbiguity(getEnv(), referenceName, isDefaultPkg);
 
             if ((nameInfo.get1() & Names.isStatic) != 0) {
+                isStatic = true;
                 joosType = nameInfo.get2().getStaticFieldInfo(nameInfo.get3()).getTypeInfo().getJoosType();
             }
             if ((nameInfo.get1() & Names.isField) != 0) {
@@ -81,11 +88,22 @@ public class ExpressionArrayAccess extends ExpressionPrimary {
         if (!(joosType instanceof ArrayType)) {
             throw new TypeCheckException("Unmatched Type " + joosType.getTypeName() + " with [].");
         }
-        return ((ArrayType)joosType).getJoosType();
+        return ((ArrayType) joosType).getJoosType();
     }
 
     @Override
     public boolean isConstantExpression() {
         return false;
+    }
+
+    public void forwardDeclaration(String fieldname, HashSet<String> initializedName) throws TypeCheckException {
+        if (!isLHS) {
+            if (referenceExpression != null) {
+                referenceExpression.forwardDeclaration(fieldname, initializedName);
+            } else if (!isStatic && (referenceName.get(0).equals(fieldname) || !initializedName.contains(referenceName.get(0)))) {
+                throw new TypeCheckException("field " + fieldname + " cannot be forward referenced");
+            }
+        }
+        indexExpression.forwardDeclaration(fieldname, initializedName);
     }
 }

@@ -7,10 +7,13 @@ import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.Exceptions.UnreachableStatementException;
+import Joosc.TypeSystem.JoosType;
 
 public class ReturnStatement implements Statement, HasExpression {
     private Expression expression = null;
     public boolean in, out;
+    private Env env;
+    private boolean parentIsStatic;
 
     public ReturnStatement(ReturnStatementNode node) {
         expression = Expression.convertExpressionNode(node.getExpression());
@@ -22,6 +25,7 @@ public class ReturnStatement implements Statement, HasExpression {
 
     @Override
     public void checkExpression(Env env) throws NamingResolveException {
+        this.env = env;
         if (expression != null) {
             expression.addEnv(env);
             expression.validate();
@@ -30,7 +34,28 @@ public class ReturnStatement implements Statement, HasExpression {
 
     @Override
     public void checkType() throws TypeCheckException {
-        if(expression!=null) expression.getType();
+        LocalEnv local = (LocalEnv) env;
+        JoosType returnType = local.getCurMethodReturnType();
+
+        if (expression != null) {
+            expression.setParentIsStatic(this.parentIsStatic);
+            JoosType expressionType = expression.getType();
+
+            if (returnType.equals(JoosType.VOID)) {
+                throw new TypeCheckException("return values on void return types");
+            } else if (!expressionType.isA(returnType)) {
+                throw new TypeCheckException("unmatched return type");
+            }
+        } else {
+            if (!returnType.equals(JoosType.VOID)) {
+                throw new TypeCheckException("no return types on non-void methods");
+            }
+        }
+    }
+
+    @Override
+    public void setParentIsStatic(boolean parentIsStatic) {
+        this.parentIsStatic = parentIsStatic;
     }
 
     @Override

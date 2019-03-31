@@ -4,10 +4,11 @@ import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionUnaryNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.Type;
 import Joosc.Environment.Env;
-import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
+
+import java.util.HashSet;
 
 public class ExpressionUnary extends Expression implements ConstantExpression {
     private Symbol kind;
@@ -49,15 +50,18 @@ public class ExpressionUnary extends Expression implements ConstantExpression {
     }
 
     @Override
-    public void validate() throws NamingResolveException {
+    public Env validate() throws NamingResolveException {
         if (castingType != null) {
             joosType = getEnv().typeResolve(castingType).getJoosType();
         }
         targetNode.validate();
+        return null;
     }
 
     @Override
     public JoosType getType() throws TypeCheckException {
+        targetNode.setParentIsStatic(this.parentIsStatic);
+
         JoosType targetNodeType = targetNode.getType();
         if (joosType != null) { // casting
             if (!(joosType.isA(targetNodeType) || targetNodeType.isA(joosType))) {
@@ -108,5 +112,9 @@ public class ExpressionUnary extends Expression implements ConstantExpression {
     @Override
     public ConstantLiteral evaluateConstant() {
         return constantLiteral;
+    }
+
+    public void forwardDeclaration(String fieldname, HashSet<String> initializedName) throws TypeCheckException {
+        targetNode.forwardDeclaration(fieldname, initializedName);
     }
 }

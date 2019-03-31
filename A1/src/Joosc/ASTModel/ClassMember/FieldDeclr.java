@@ -3,19 +3,18 @@ package Joosc.ASTModel.ClassMember;
 import Joosc.ASTBuilding.ASTStructures.FieldDeclrNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.Expressions.Expression;
-import Joosc.ASTModel.ClassMember.ClassMemberDeclr;
 import Joosc.ASTModel.Scope;
 import Joosc.ASTModel.Statements.HasExpression;
 import Joosc.ASTModel.Statements.Statement;
 import Joosc.ASTModel.Type;
 import Joosc.Environment.Env;
-import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
 import Joosc.util.Pair;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class FieldDeclr extends Scope implements ClassMemberDeclr, HasExpression {
     private ArrayList<Symbol> modifiers;
@@ -54,12 +53,12 @@ public class FieldDeclr extends Scope implements ClassMemberDeclr, HasExpression
         return name;
     }
 
-    public Type getType() {
-        return type;
-    }
-
     public ArrayList<Symbol> getModifiers() {
         return modifiers;
+    }
+
+    public Type getType() {
+        return type;
     }
 
     public Expression getInitExpression() {
@@ -85,12 +84,46 @@ public class FieldDeclr extends Scope implements ClassMemberDeclr, HasExpression
     @Override
     public void checkType() throws TypeCheckException {
         if (initExpression != null) {
+            if (modifiers.contains(Symbol.Static)) {
+                initExpression.setParentIsStatic(true);
+            }
             JoosType initType = initExpression.getType();
 
-            if (!joosType.isA(initType)) {
-                throw new TypeCheckException("unmatched type: " + String.join(".", joosType.getTypeName()) + " " +
+
+            if (!joosType.assignable(initType)) {
+                throw new TypeCheckException("Unmatched type in field declaration: " + String.join(".", joosType.getTypeName()) + " " +
                         String.join(".", initType.getTypeName()));
             }
         }
     }
+
+    public void checkForwardDeclaration(HashSet<String> declared) throws TypeCheckException {
+        declared.add(name);
+        if (initExpression != null) {
+            initExpression.forwardDeclaration(name, declared);
+        }
+    }
+
+    @Override
+    public void setParentIsStatic(boolean parentIsStatic) {
+    }
+
+    @Override
+    public void setMethodSignature(String signature) {
+    }
+
+    @Override
+    public String getMethodSignature() {
+        return null;
+    }
+
+    @Override
+    public void setType(JoosType type) {
+    }
+
+    @Override
+    public JoosType getJoosType() {
+        return joosType;
+    }
+
 }

@@ -1,5 +1,6 @@
 package Joosc;
 
+import Joosc.Environment.GlobalEnv;
 import Joosc.TypeSystem.JoosType;
 
 import java.io.File;
@@ -19,8 +20,11 @@ public class FullRunSuite {
             }
         }));
 
+
+
         int correct = 0;
         int i = 0;
+
         for (; i < listOfFiles.length; i++) {
             arg[1] = listOfFiles[i].getName();
 
@@ -33,6 +37,7 @@ public class FullRunSuite {
             String status = (result == 0 || result == 42) ? (expected == result) ? "PASSED" : "FAILED" : "ERROR(" + result + ")";
             System.out.printf(getColor(status) + "\n", status, arg[1]);
             JoosType.clean();
+            GlobalEnv.instance = null;
         }
         System.out.printf("test results: %d/%d", correct, i);
     }
