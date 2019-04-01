@@ -1,6 +1,6 @@
 package Joosc.ASTModel.ClassInterface;
 
-import Joosc.ASTBuilding.ASTStructures.*;
+import Joosc.ASTBuilding.ASTStructures.ClassDeclrNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.ClassMember.ClassBodyDeclr;
 import Joosc.ASTModel.ClassMember.ConstructorDeclr;
@@ -11,7 +11,6 @@ import Joosc.Exceptions.UninitializedVariableException;
 import Joosc.Exceptions.UnreachableStatementException;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.stream.Collectors;
 
 public class ClassDeclr implements TypeDeclr {
@@ -31,14 +30,22 @@ public class ClassDeclr implements TypeDeclr {
         parentClass = node.getParentClassIdentifier();
         interfaces = node.getInterfaceTypes();
         name = node.getName();
-        constructor = node.getConstructor().stream().map(ConstructorDeclr::new)
-                .collect(Collectors.toCollection(ArrayList::new));
-        fields = node.getFields().stream().map(FieldDeclr::new)
-                .collect(Collectors.toCollection(ArrayList::new));
-        methods = node.getMethods().stream().map(MethodDeclr::new)
-                .collect(Collectors.toCollection(ArrayList::new));
+        constructor = new ArrayList<>();
+        fields = new ArrayList<>();
+        methods = new ArrayList<>();
+
         classBodyDeclrNodes = node.getClassBodyDeclrNodes().stream().map(ClassBodyDeclr::convertClassBodyDeclrNode)
                 .collect(Collectors.toCollection(ArrayList::new));
+
+        for (ClassBodyDeclr body : classBodyDeclrNodes) {
+            if (body instanceof ConstructorDeclr) {
+                constructor.add((ConstructorDeclr) body);
+            } else if (body instanceof MethodDeclr) {
+                methods.add((MethodDeclr) body);
+            } else if (body instanceof FieldDeclr) {
+                fields.add((FieldDeclr) body);
+            }
+        }
     }
 
     @Override
@@ -53,6 +60,7 @@ public class ClassDeclr implements TypeDeclr {
 
     @Override
     public void definiteAssignmentAnalysis() throws UninitializedVariableException {
+
     }
 
     @Override
@@ -71,7 +79,7 @@ public class ClassDeclr implements TypeDeclr {
     }
 
     @Override
-    public ArrayList<MethodDeclr>  getMethods(){
+    public ArrayList<MethodDeclr> getMethods() {
         return methods;
     }
 

@@ -8,6 +8,8 @@ import java.util.HashMap;
 
 public interface Method {
     void addLocalEnvironment(LocalEnv localEnv);
+
     void reachabilityAnalysis() throws UnreachableStatementException;
+
     void definiteAssignmentAnalysis(HashMap initializedFields) throws UninitializedVariableException;
 }

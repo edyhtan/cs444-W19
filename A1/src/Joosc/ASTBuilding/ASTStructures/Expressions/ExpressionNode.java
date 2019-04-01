@@ -48,7 +48,6 @@ public abstract class ExpressionNode extends ASTNode {
                 return new ExpressionClassInstanceCreationNode(parseTree);
             case ArrayType:
             case ClassOrInterfaceType:
-                System.err.println("reached");
                 return new ExpressionTypeNode(contentNode);
             default:
                 throw new InvalidParseTreeStructureException(parseTree, "No matching expressions");

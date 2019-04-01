@@ -1,12 +1,15 @@
 package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.Environment.Env;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.Exceptions.UnreachableStatementException;
 import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 
 public class Literal extends ExpressionContent implements ConstantExpression {
     public String literal;
@@ -18,8 +21,14 @@ public class Literal extends ExpressionContent implements ConstantExpression {
     }
 
     @Override
-    public void validate() throws NamingResolveException {
+    public void localVarSelfReference(String id) throws UnreachableStatementException {
 
+    }
+
+    @Override
+    public Env validate() throws NamingResolveException {
+
+        return null;
     }
 
     @Override
@@ -30,10 +39,10 @@ public class Literal extends ExpressionContent implements ConstantExpression {
         if (kind.equals(Symbol.BooleanLiteral.getSymbolString())) {
             joosType = JoosType.getJoosType("boolean");
         }
-        if (kind.equals(Symbol.CharLiteral.getSymbolString())){
+        if (kind.equals(Symbol.CharLiteral.getSymbolString())) {
             joosType = JoosType.getJoosType("char");
         }
-        if (kind.equals(Symbol.Null.getSymbolString())){
+        if (kind.equals(Symbol.Null.getSymbolString())) {
             joosType = JoosType.NULL;
         }
         if (kind.equals(Symbol.StringLiteral.getSymbolString())) {
@@ -57,6 +66,16 @@ public class Literal extends ExpressionContent implements ConstantExpression {
 
     @Override
     public ConstantLiteral evaluateConstant() {
+        try {
+            joosType = getType();
+        } catch (Exception e) {
+            System.exit(4);
+        }
         return new ConstantLiteral(literal, joosType);
+    }
+
+    @Override
+    public void forwardDeclaration(String fieldname, HashSet<String> initializedName) throws TypeCheckException {
+
     }
 }

@@ -2,15 +2,14 @@ package Joosc.ASTModel.Statements;
 
 import Joosc.ASTBuilding.ASTStructures.Statements.*;
 import Joosc.ASTModel.AST;
-import Joosc.Exceptions.TypeCheckException;
 import Joosc.Exceptions.UnreachableStatementException;
-
-import javax.swing.plaf.nimbus.State;
 
 public interface Statement extends AST {
 
     void reachabilityAnalysis(boolean input) throws UnreachableStatementException;
+
     boolean getIn();
+
     boolean getOut();
 
     static Statement convertStatementNode(StatementNode node) {

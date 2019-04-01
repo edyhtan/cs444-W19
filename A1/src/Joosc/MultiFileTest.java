@@ -51,6 +51,6 @@ public class MultiFileTest {
     }
 
     public static void main(String args[]) {
-        run(args);
+        System.exit(run(args));
     }
 }

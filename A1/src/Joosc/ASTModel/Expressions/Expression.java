@@ -4,11 +4,25 @@ import Joosc.ASTBuilding.ASTStructures.Expressions.*;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.AST;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.Exceptions.UnreachableStatementException;
 import Joosc.TypeSystem.JoosType;
+
+import java.util.HashSet;
 
 public abstract class Expression extends HasType implements AST {
     Symbol kind;
     protected JoosType joosType;
+    protected boolean isLHS = false;
+    protected boolean isFinal = false;
+    protected boolean parentIsStatic = false;
+
+    public void setParentIsStatic(boolean parentIsStatic) {
+        this.parentIsStatic = parentIsStatic;
+    }
+
+    public void setIsLHS(boolean isLHS) {
+        this.isLHS = isLHS;
+    }
 
     public static Expression convertExpressionNode(ExpressionNode node) {
         if (node instanceof ExpressionBinaryNode) {
@@ -53,6 +67,18 @@ public abstract class Expression extends HasType implements AST {
 
     public abstract JoosType getType() throws TypeCheckException;
 
+    public abstract void forwardDeclaration(String fieldname, HashSet<String> initializedName) throws TypeCheckException;
+
+    public abstract void localVarSelfReference(String id) throws UnreachableStatementException;
+
     public abstract boolean isConstantExpression();
 
+
+    public boolean isFinal() {
+        return isFinal;
+    }
+
+    public boolean isLHS() {
+        return isLHS;
+    }
 }

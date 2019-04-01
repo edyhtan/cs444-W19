@@ -4,17 +4,18 @@ import Joosc.ASTBuilding.ASTStructures.Statements.WhileStatementNode;
 import Joosc.ASTModel.Expressions.ConstantExpression;
 import Joosc.ASTModel.Expressions.Expression;
 import Joosc.Environment.Env;
-import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.Exceptions.UnreachableStatementException;
+import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
 
 public class WhileStatement extends HasScope implements Statement, HasExpression {
     private Expression expression;
     private Statement statement;
-    boolean in,out;
+    boolean in, out;
+    private boolean parentIsStatic;
 
     public WhileStatement(WhileStatementNode node) {
         expression = Expression.convertExpressionNode(node.getExpression());
@@ -48,12 +49,20 @@ public class WhileStatement extends HasScope implements Statement, HasExpression
     // TODO: check type is boolean
     @Override
     public void checkExpression(Env env) throws NamingResolveException {
-
+        expression.addEnv(env);
+        expression.validate();
     }
 
     @Override
     public void checkType() throws TypeCheckException {
+        if (!expression.getType().equals(JoosType.getJoosType("boolean"))) {
+            throw new TypeCheckException("Condition expression must be boolean type");
+        }
+    }
 
+    @Override
+    public void setParentIsStatic(boolean parentIsStatic) {
+        this.parentIsStatic = parentIsStatic;
     }
 
     @Override

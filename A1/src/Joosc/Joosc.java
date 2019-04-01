@@ -16,13 +16,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-import static java.lang.System.exit;
-
 public class Joosc {
     public static boolean IDE_FLAG = true;
     public static boolean RUN_SUITE_FLAG = false;
     public static final boolean PRINT_AST = false;
-    public static final boolean A4_骗分_FLAG = false;
 
     private static String getFileName(String path) {
         String[] temp = path.split("/");
@@ -31,7 +28,7 @@ public class Joosc {
 
     public static int exitOnCode(int code) {
         if (!RUN_SUITE_FLAG) {
-            exit(code);
+            System.exit(code);
         }
         return code;
     }
@@ -54,12 +51,6 @@ public class Joosc {
         return ast;
     }
 
-    public static void 骗分(String filename) {
-        if (filename.contains("Je")) {
-            exitOnCode(42);
-        }
-    }
-
     public static int run(String args[]) {
         ArrayList<String> argList = new ArrayList<>(Arrays.asList(args));
         IDE_FLAG = !argList.contains("-t");
@@ -71,15 +62,7 @@ public class Joosc {
             ArrayList<JoosAST> astList = new ArrayList<>();
 
             for (String filename : argList) {
-                if (A4_骗分_FLAG) {
-                    骗分(filename);
-                } else {
-                    astList.add(process(filename));
-                }
-            }
-
-            if (A4_骗分_FLAG) {
-                exitOnCode(0);
+                astList.add(process(filename));
             }
 
             ArrayList<Program> asts = astList.stream().map(x -> new Program(x.getRoot()))
@@ -97,11 +80,12 @@ public class Joosc {
             e.printStackTrace();
             return exitOnCode(42);
         } catch (TypeCheckException e) {
-            System.err.printf("ERROR: Type check error: %s\n", e.getLocalizedMessage());
+            System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
             e.printStackTrace();
             return exitOnCode(42);
         } catch (NamingResolveException e) {
-            System.err.printf("ERROR: Naming resolve error: %s\n", e.getLocalizedMessage());
+            System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
+            e.printStackTrace();
             return exitOnCode(42);
         } catch (FileNotFoundException e) {
             System.err.printf("ERROR: file not found: %s\n", e.getLocalizedMessage());
@@ -115,7 +99,6 @@ public class Joosc {
             return exitOnCode(42);
         } catch (InvalidSyntaxException e) {
             System.err.printf("ERROR: invalid syntax at %d, on state %d, with input %s\n", e.getLocation(), e.getState(), e.getInput());
-            //e.printParseTree();
             return exitOnCode(42);
         } catch (InvalidParseTreeStructureException e) {
             e.printStackTrace();
@@ -144,7 +127,6 @@ public class Joosc {
             e.printStackTrace();
             return exitOnCode(3);
         }
-
         return exitOnCode(0);
     }
 

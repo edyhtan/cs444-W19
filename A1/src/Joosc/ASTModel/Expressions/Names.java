@@ -1,19 +1,24 @@
 package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.Constants.Symbol;
-import Joosc.Environment.*;
+import Joosc.Environment.ClassEnv;
+import Joosc.Environment.Env;
+import Joosc.Environment.FieldsVarInfo;
+import Joosc.Environment.GlobalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.Exceptions.UnreachableStatementException;
 import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 import Joosc.util.Tri;
 
-import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Names extends ExpressionContent {
     ArrayList<String> name;
     FieldsVarInfo info;
+    boolean staticPrefix = false;
 
     public Names(ArrayList<String> name) {
         this.name = name;
@@ -24,24 +29,37 @@ public class Names extends ExpressionContent {
     }
 
     @Override
-    public void validate() throws NamingResolveException {
+    public void localVarSelfReference(String id) throws UnreachableStatementException {
+        if (!staticPrefix && name.get(0).equals(id)) {
+            throw new UnreachableStatementException("Initializing name with itself: " + id);
+        }
+    }
 
+    @Override
+    public Env validate() throws NamingResolveException {
+        return null;
     }
 
     @Override
     public JoosType getType() throws TypeCheckException {
-        Tri<Integer, Env, String> nameInfo = resolveAmbiguity(getEnv(), name);
+        boolean isDefaultPkg = false;
+        if (getEnv().getCurrentClass().getClassEnv().getPackageDeclr() == null) {
+            isDefaultPkg = true;
+        }
+        Tri<Integer, Env, String> nameInfo = resolveAmbiguity(getEnv(), name, isDefaultPkg);
         int smallInfo = nameInfo.get1();
 
         String fvname = nameInfo.get3();
         Env accessorEnv = nameInfo.get2();
-        FieldsVarInfo fieldInfo = accessorEnv.getFieldInfo(fvname);
+        FieldsVarInfo fieldInfo;
 
         if ((smallInfo & isLocal) != 0) {
             fieldInfo = accessorEnv.getVarInfo(fvname);
             joosType = fieldInfo.getTypeInfo().getJoosType();
         } else if ((smallInfo & isStatic) != 0) {
             fieldInfo = accessorEnv.getStaticFieldInfo(fvname);
+            staticPrefix = true;
+
             if (fieldInfo == null) {
                 throw new TypeCheckException(fvname + " is not Static.");
             }
@@ -51,6 +69,11 @@ public class Names extends ExpressionContent {
             joosType = fieldInfo.getTypeInfo().getJoosType();
         } else {
             throw new TypeCheckException("Name " + nameInfo.get3() + " is not a valid accessor");
+        }
+
+        // final fields
+        if ((smallInfo & isFinalFields) != 0) {
+            isFinal = true;
         }
 
         // check protected fields access
@@ -72,8 +95,53 @@ public class Names extends ExpressionContent {
             }
         }
 
+        // check static field access
+        if (fieldInfo.getModifiers().contains(Symbol.Static)) {
+            if (name.size() > 1) {
+                ArrayList<String> accessor = new ArrayList<>(name);
+                accessor.remove(accessor.size() - 1);
+                for (int i = accessor.size() - 1; i >= 0; --i) {
+                    if (getEnv().isLocalVariableDeclared(accessor.get(i))) {
+                        throw new TypeCheckException("Static field cannot be accessed from instance: " + fvname);
+                    }
+                }
+            }
+        }
+
+        if (this.parentIsStatic) {
+            // name resolves to a non-static field
+            if ((smallInfo & isLocal) == 0 && (smallInfo & isField) != 0
+                    && !fieldInfo.getModifiers().contains(Symbol.Static)) {
+                if (name.size() > 1) { // qualified
+                    ArrayList<String> accessor = new ArrayList<>(name);
+                    accessor.remove(accessor.size() - 1);
+
+                    // check if accessor is an instance
+                    int i;
+                    for (i = accessor.size() - 1; i >= 0; --i) {
+                        if (getEnv().isLocalVariableDeclared(accessor.get(i))) {
+                            break;
+                        }
+                    }
+                    if (i < 0) {
+                        throw new TypeCheckException("Static field cannot access non-static fields: " + name);
+                    }
+                } else { // simple name
+                    throw new TypeCheckException("Static field cannot access non-static fields: " + name);
+                }
+            }
+        }
+
         return joosType;
     }
+
+    @Override
+    public void forwardDeclaration(String fieldname, HashSet<String> declared) throws TypeCheckException {
+        if (!isLHS && !staticPrefix && (name.get(0).equals(fieldname) || !declared.contains(name.get(0)))) {
+            throw new TypeCheckException(name.get(0) + " is has not initialized or not declared.");
+        }
+    }
+
 
     private boolean qualified() {
         return name.size() > 1;
@@ -83,82 +151,95 @@ public class Names extends ExpressionContent {
     public static int isField = 0b10;
     public static int isLocal = 0b100;
     public static int isMethod = 0b1000;
-    public static int isArray = 0b10000;
-    public static int isArrayLen = 0b100000;
+    public static int isFinalFields = 0b10000;
 
-    public static Tri<Integer, Env, String> resolveAmbiguity(Env env, ArrayList<String> name) throws TypeCheckException {
-        return resolveAmbiguity(env, new ArrayList<>(name), false);
+    public static Tri<Integer, Env, String> resolveAmbiguity(Env env, ArrayList<String> name, boolean isDefaultPkg) throws TypeCheckException {
+        return resolveAmbiguity(env, new ArrayList<>(name), false, false, isDefaultPkg);
     }
 
-    private static Tri<Integer, Env, String> resolveAmbiguity(Env env, ArrayList<String> name, boolean staticOnly)
+    private static Tri<Integer, Env, String> resolveAmbiguity(Env env, ArrayList<String> name, boolean staticOnly, boolean isArray, boolean isDefaultPkg)
             throws TypeCheckException {
+
         if (name.size() > 1) {
-            String curName= name.get(0);
+            String curName = name.get(0);
 
             if (staticOnly) {
-                JoosType type = env.getStaticFieldInfo(curName).getTypeInfo().getJoosType();
+                FieldsVarInfo staticField = env.getStaticFieldInfo(curName);
+                if (staticField == null) {
+                    throw new TypeCheckException("static field not found: " + curName);
+                }
+                JoosType type = staticField.getTypeInfo().getJoosType();
                 if (type instanceof ArrayType) {
-                    if (name.get(1).equals("length")) {
-
-                    } else {
-                        throw new TypeCheckException("unmatched Type : " + curName);
-                    }
+                    isArray = true;
                 }
                 ClassEnv nextEnv = type.getClassEnv();
                 if (nextEnv == null) {
                     throw new TypeCheckException("Primitive type cannot have field/method access");
                 }
                 name.remove(0);
-                return resolveAmbiguity(nextEnv, name, false);
+                return resolveAmbiguity(nextEnv, name, false, isArray, isDefaultPkg);
             } else if (env.isLocalVariableDeclared(curName)) { //is local var
                 JoosType type = env.getVarInfo(curName).getTypeInfo().getJoosType();
                 if (type instanceof ArrayType) {
-                    throw new TypeCheckException("unmatched Type : " + curName);
+                    isArray = true;
                 }
                 ClassEnv nextEnv = type.getClassEnv();
                 if (nextEnv == null) {
                     throw new TypeCheckException("Primitive type cannot have field/method access");
                 }
                 name.remove(0);
-                return resolveAmbiguity(nextEnv, name, false);
+                return resolveAmbiguity(nextEnv, name, false, isArray, isDefaultPkg);
             } else if (env.isFieldDeclared(curName)) {
                 JoosType type = env.getFieldInfo(curName).getTypeInfo().getJoosType();
-                ClassEnv nextEnv = type.getClassEnv();
                 if (type instanceof ArrayType) {
-                    throw new TypeCheckException("unmatched Type : " + curName);
+                    isArray = true;
                 }
+                ClassEnv nextEnv = type.getClassEnv();
+                name.remove(0);
                 if (nextEnv == null) {
                     throw new TypeCheckException("Primitive type cannot have field/method access");
                 }
-                name.remove(0);
-                return resolveAmbiguity(nextEnv, name, false);
+                return resolveAmbiguity(nextEnv, name, false, isArray, isDefaultPkg);
             } else {
                 ArrayList<String> prefix = new ArrayList<>();
 
                 while (name.size() != 0) {
                     prefix.add(name.get(0));
                     name.remove(0);
+
                     if (prefix.size() == 1) {
-                        JoosType type = env.findResolvedType(prefix.get(0));
+                        JoosType type;
+
+                        try {
+                            type = env.typeResolve(prefix);
+                        } catch (NamingResolveException e) {
+                            type = null;
+                        }
+
                         if (type != null) {
                             ClassEnv nextEnv = type.getClassEnv();
-                            return resolveAmbiguity(nextEnv, name, true);
+                            return resolveAmbiguity(nextEnv, name, true, isArray, isDefaultPkg);
                         }
                     }
 
-                    ClassEnv nextEnv = GlobalEnv.instance.getClassEnv(prefix);
+                    ClassEnv nextEnv = GlobalEnv.instance.getClassEnv(prefix, isDefaultPkg);
+
                     if (nextEnv != null) {
-                        return resolveAmbiguity(nextEnv, name, true);
+                        return resolveAmbiguity(nextEnv, name, true, isArray, isDefaultPkg);
                     }
                 }
 
-                throw new TypeCheckException("No Namespace found: " +  String.join(".", prefix));
+                throw new TypeCheckException("No Namespace found: " + String.join(".", prefix));
             }
         } else {
             int smallInfo = 0;
 
             if (name.size() == 0) {
                 throw new TypeCheckException("No Namespace found");
+            }
+
+            if (name.get(0).equals("length") && isArray) {
+                smallInfo = smallInfo | isFinalFields;
             }
 
             if (staticOnly) {

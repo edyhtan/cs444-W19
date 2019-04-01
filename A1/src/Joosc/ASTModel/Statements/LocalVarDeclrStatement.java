@@ -5,13 +5,12 @@ import Joosc.ASTModel.Expressions.Expression;
 import Joosc.ASTModel.Type;
 import Joosc.Environment.Env;
 import Joosc.Environment.FieldsVarInfo;
-import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.Exceptions.UnreachableStatementException;
 import Joosc.TypeSystem.JoosType;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 public class LocalVarDeclrStatement implements Statement, HasExpression {
     private Type type;
@@ -19,6 +18,7 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
     private Expression initExpression;
     FieldsVarInfo info;
     public boolean in, out;
+    private boolean parentIsStatic;
 
     public LocalVarDeclrStatement(LocalVarDeclrStatementNode node) {
         type = new Type(node.getType());
@@ -59,8 +59,9 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
 
         JoosType initExprType = initExpression.getType();
 
-        if (!initExprType.isA(info.getTypeInfo().getJoosType())) {
-            throw new TypeCheckException(String.format("Incompatible Type %s, %s", String.join(".", info.getTypeInfo().getJoosType().getTypeName()),
+        if (!info.getTypeInfo().getJoosType().assignable(initExprType)) {
+            throw new TypeCheckException(String.format("Incompatible Type: %s, %s",
+                    String.join(".", info.getTypeInfo().getJoosType().getTypeName()),
                     String.join(".", initExprType.getTypeName())));
         }
     }
@@ -71,6 +72,12 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
         if (!in) {
             throw new UnreachableStatementException("Unreachable statement");
         }
+        if (initExpression == null) {
+            throw new UnreachableStatementException("Local variable declare without initialization");
+        }
+
+        initExpression.localVarSelfReference(id);
+
         out = input;
     }
 
@@ -84,4 +91,14 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
         return out;
     }
 
+    public void setParentIsStatic(boolean parentIsStatic) {
+        this.parentIsStatic = parentIsStatic;
+    }
+
+    class FoolSet<T> extends HashSet<T> {
+        @Override
+        public boolean contains(Object o) {
+            return true;
+        }
+    }
 }

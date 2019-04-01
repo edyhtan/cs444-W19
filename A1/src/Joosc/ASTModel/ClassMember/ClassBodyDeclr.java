@@ -6,18 +6,18 @@ import Joosc.ASTBuilding.ASTStructures.ConstructorDeclrNode;
 import Joosc.ASTModel.AST;
 import Joosc.ASTModel.Statements.Statement;
 import Joosc.ASTModel.Type;
-import Joosc.Environment.LocalEnv;
+import Joosc.TypeSystem.JoosType;
 import Joosc.util.Pair;
 
 import java.util.ArrayList;
 
 public interface ClassBodyDeclr extends AST {
-    static ClassBodyDeclr convertClassBodyDeclrNode(ClassBodyDeclrNode node){
-        if(node instanceof ConstructorDeclrNode) {
+    static ClassBodyDeclr convertClassBodyDeclrNode(ClassBodyDeclrNode node) {
+        if (node instanceof ConstructorDeclrNode) {
             return new ConstructorDeclr((ConstructorDeclrNode) node);
         }
 
-        if(node instanceof ClassMemberDeclrNode) {
+        if (node instanceof ClassMemberDeclrNode) {
             return ClassMemberDeclr.convertClassMemeberDeclrNode((ClassMemberDeclrNode) node);
         }
 
@@ -25,8 +25,18 @@ public interface ClassBodyDeclr extends AST {
     }
 
     void buildCanonicalName(ArrayList<String> className);
+
     ArrayList<Pair<Type, String>> getFormalParamList();
+
     ArrayList<Statement> getBodyBlock();
+
     String getName();
 
+    String getMethodSignature();
+
+    void setMethodSignature(String signature);
+
+    void setType(JoosType type);
+
+    JoosType getJoosType();
 }

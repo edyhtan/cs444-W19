@@ -1,14 +1,24 @@
 package Joosc.TypeSystem;
 
+import Joosc.ASTBuilding.JoosAST;
+import Joosc.ASTModel.Program;
 import Joosc.Environment.ClassEnv;
+import Joosc.Environment.GlobalEnv;
 import Joosc.Exceptions.ASTException;
+import Joosc.Joosc;
+import Joosc.Parser.JoosParse;
+import Joosc.Scanner.JoosScan;
+import Joosc.Token.Token;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
 public class ArrayType extends JoosType{
     JoosType joosType;
+    public static ClassEnv illusionaryEnv;
 
     public ArrayType(ClassEnv classEnv) {
         super(classEnv);
@@ -25,6 +35,14 @@ public class ArrayType extends JoosType{
         return this.joosType.getTypeName().equals(arrayType.joosType.typeName);
     }
 
+    public boolean equals(JoosType joosType) {
+        if (joosType instanceof ArrayType) {
+            return this.equals((ArrayType) joosType);
+        } else {
+            return false;
+        }
+    }
+
     public boolean isA(JoosType type) {
         if (type instanceof ArrayType) {
             return this.joosType.isA(((ArrayType)type).joosType);
@@ -36,13 +54,47 @@ public class ArrayType extends JoosType{
                 || type.equals(NULL);
     }
 
+    public boolean assignable(JoosType type) {
+        if (type instanceof ArrayType) {
+            if (joosType.equals(JoosType.getJoosType("int")) &&
+                    ((ArrayType) type).getJoosType().equals(JoosType.getJoosType("byte"))) {
+                return false; // special case
+            }
+            return this.getJoosType().assignable(((ArrayType) type).getJoosType());
+        }
+        return type.equals(NULL);
+    }
+
     public ArrayList<String> getTypeName() {
         ArrayList<String> arr = new ArrayList<>(super.getTypeName());
         arr.add("[]");
         return arr;
     }
 
+    public String getQualifiedName() {
+        return String.join(".", joosType.getTypeName()) + "[]";
+    }
+
     public JoosType getJoosType() {
         return joosType;
+    }
+
+    public ClassEnv getClassEnv() {
+        return illusionaryEnv;
+    }
+
+    public static void initIllusion() {
+        try {
+            JoosScan scan = new JoosScan(new File((Joosc.IDE_FLAG ? "src/" : "") + "Joosc/TypeSystem/ArrayTemplate.java"));
+            scan.scan();
+            JoosParse parse = new JoosParse();
+            parse.parse(scan.getOutput());
+            Program p = new Program(new JoosAST(parse.getTree()).getRoot());
+            illusionaryEnv = new ClassEnv(p, GlobalEnv.instance);
+            illusionaryEnv.semanticAnalysis();
+            illusionaryEnv.variableContain();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

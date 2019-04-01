@@ -58,7 +58,6 @@ public class JoosType {
 
     JoosType(JoosType type) {
         typeName = type.typeName;
-        classEnv = type.classEnv;
         isPrimitive = type.isPrimitive;
         allParents = type.allParents;
     }
@@ -145,21 +144,50 @@ public class JoosType {
         return this.isPrimitive && this.typeName.get(0).equals(primitiveTypeName);
     }
 
+    // Assign
+    public boolean assignable(JoosType type) {
+        if (this.equals(type)) {
+            return true;
+        }
+
+        if (this.isPrimitive() && type.isPrimitive()) {
+            return this.equals(getJoosType("int")) && type.equals(getJoosType("short")) ||
+                    this.equals(getJoosType("short")) && type.equals(getJoosType("byte")) ||
+                    this.equals(getJoosType("int")) && type.equals(getJoosType("char")) ||
+                    this.equals(getJoosType("int")) && type.equals(getJoosType("byte"));
+        } else {
+            return type.isA(this);
+        }
+    }
+
+
     public boolean isA(JoosType type) {
+        if (!isPrimitive && type.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "Object"))))) {
+            return true;
+        }
+
+        if (this.equals(NULL)) {
+            return !type.isPrimitive() || type instanceof ArrayType;
+        }
+
         if (this instanceof ArrayType) {
-            return type.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "Object"))))
-                    || type.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "Cloneable"))))
-                    || type.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "io", "Serializable"))))
-                    || type.equals(NULL);
+            return type.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "Cloneable"))))
+                    || type.equals(getJoosType(new ArrayList<>(Arrays.asList("java", "io", "Serializable"))));
         }
 
         if (this.equals(type)) {
             return true;
         }
-        if (this.isPrimitive() && type.isPrimitive()) {
-            return isNumber(this) && isNumber(type);
+
+        if (this.isPrimitive() && type.isPrimitive) {
+            return this.isPrimitive() && type.isPrimitive();
         }
+
         return (this == NULL && !type.isPrimitive) || hasParent(type);
+    }
+
+    public String getQualifiedName() {
+        return String.join(".", getTypeName());
     }
 
     // unit tests
