@@ -49,6 +49,7 @@ public class ClassEnv implements Env {
 
     // variable contain
     private boolean variableContainComplete = false;
+
     protected HashMap<String, FieldsVarInfo> containedFields = new HashMap();
 
     public ClassEnv(Program program, GlobalEnv parent) {
