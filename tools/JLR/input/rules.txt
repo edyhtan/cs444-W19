@@ -218,7 +218,7 @@ Primary                : PrimaryNoNewArray
 Primary                : ArrayCreation
 PrimaryNoNewArray      : Literal
 PrimaryNoNewArray      : this
-PrimaryNoNewArray      : ( Expression )
+PrimaryNoNewArray      : ( Type )
 PrimaryNoNewArray      : ClassInstanceCreation
 PrimaryNoNewArray      : FieldAccess
 PrimaryNoNewArray      : MethodInvocation
@@ -259,7 +259,7 @@ RelationalExpression   : RelationalExpression < AddExpression
 RelationalExpression   : RelationalExpression > AddExpression
 RelationalExpression   : RelationalExpression >= AddExpression
 RelationalExpression   : RelationalExpression <= AddExpression
-RelationalExpression   : RelationalExpression instanceof AddExpression
+RelationalExpression   : RelationalExpression instanceof ReferenceType
 EqualityExpression     : RelationalExpression
 EqualityExpression     : EqualityExpression == RelationalExpression
 EqualityExpression     : EqualityExpression != RelationalExpression

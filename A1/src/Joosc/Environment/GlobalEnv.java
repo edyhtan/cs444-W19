@@ -1,13 +1,19 @@
 package Joosc.Environment;
 
+import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.ClassInterface.TypeDeclr;
 import Joosc.ASTModel.ClassMember.ClassBodyDeclr;
 import Joosc.ASTModel.Program;
 import Joosc.ASTModel.Type;
 import Joosc.Exceptions.NamingResolveException;
+import Joosc.Exceptions.TypeCheckException;
+import Joosc.TypeSystem.JoosType;
 import Joosc.util.TreeSet;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 
 public class GlobalEnv implements Env {
     ArrayList<Program> programs;
@@ -15,16 +21,18 @@ public class GlobalEnv implements Env {
     PackageNames defaultPackage = new PackageNames("");
     PackageNames rootPackage = new PackageNames("");
 
-    HashMap<ArrayList<String>, HashSet<ArrayList<String>>> hierarchy;
-
+    public static GlobalEnv instance = null;
 
     public GlobalEnv(ArrayList<Program> programs) {
         this.programs = programs;
 
         // sub environment
         classEnvs = new ArrayList<>();
-        hierarchy = new HashMap<>();
-        programs.forEach(x -> classEnvs.add(new ClassEnv(x, this)));
+        programs.forEach(x -> {
+            classEnvs.add(new ClassEnv(x, this));
+        });
+
+        instance = this;
     }
 
     private void nameConflict() throws NamingResolveException {
@@ -73,12 +81,17 @@ public class GlobalEnv implements Env {
     }
 
     @Override
-    public FieldsVarInfo typeResolve(String name, Type type) throws NamingResolveException {
+    public boolean hasMethodSignature(String f) {
+        return false;
+    }
+
+    @Override
+    public FieldsVarInfo typeResolve(String name, Type type, ArrayList<Symbol> modifiers) throws NamingResolveException {
         return null;
     }
 
     @Override
-    public ArrayList<String> typeResolve(ArrayList<String> type) throws NamingResolveException {
+    public JoosType typeResolve(ArrayList<String> type) throws NamingResolveException {
         return null;
     }
 
@@ -88,28 +101,31 @@ public class GlobalEnv implements Env {
     }
 
     @Override
-    public void resolveName() throws NamingResolveException {
+    public void semanticAnalysis() throws NamingResolveException, TypeCheckException {
         buildAndResolvePackage();
         nameConflict();
         for (ClassEnv classEnv : classEnvs) {
-            classEnv.resolveName();
+            classEnv.semanticAnalysis();
         }
-        classEnvs.forEach(x -> hierarchy.put(x.typeDeclr.getCanonicalName(), x.superSet));
 
         for (ClassEnv classEnv : classEnvs) {
             classEnv.getFullSuperSet(new TreeSet<>());
         }
 
-        //TODO: contain
         for (ClassEnv classEnv : classEnvs) {
             classEnv.variableContain();
             classEnv.getFullMethodSignature();
+            classEnv.addSuperToJooscType();
         }
 
-        for (ClassEnv classEnv: classEnvs) {
+        for (ClassEnv classEnv : classEnvs) {
             classEnv.resolveFieldsAndLocalVar();
         }
-        //classEnvs.forEach(x -> x.printInfo(true));
+    }
+
+    @Override
+    public JoosType getJoosType() {
+        return null;
     }
 
     public void buildAndResolvePackage() throws NamingResolveException {
@@ -118,14 +134,14 @@ public class GlobalEnv implements Env {
             ArrayList<String> packageLayer = program.getPackageDeclr();
 
             if (packageLayer.size() == 0) {
-                defaultPackage.types.add(program.getTypeDeclr().getSimpleName());
+                defaultPackage.types.put(program.getTypeDeclr().getSimpleName(), new JoosType(program.getTypeDeclr().getClassEnv()));
                 continue;
             }
 
             PackageNames currentPackageLevel = rootPackage;
             for (String packageName : packageLayer) {
                 HashMap<String, PackageNames> subPackage = currentPackageLevel.subPackage;
-                if (currentPackageLevel.types.contains(packageName)) {
+                if (currentPackageLevel.types.containsKey(packageName)) {
                     throw new NamingResolveException("Prefix of a package is a declared type");
                 }
                 if (!subPackage.containsKey(packageName)) {
@@ -137,11 +153,10 @@ public class GlobalEnv implements Env {
             if (currentPackageLevel.subPackage.containsKey(program.getTypeDeclr().getSimpleName())) {
                 throw new NamingResolveException("Prefix of a package is a declared type");
             }
-            currentPackageLevel.types.add(program.getTypeDeclr().getSimpleName());
-        }
 
-        //defaultPackage.print(0);
-        //rootPackage.print(0);
+            currentPackageLevel.types.put(program.getTypeDeclr().getSimpleName(),
+                    new JoosType(program.getTypeDeclr().getClassEnv()));
+        }
     }
 
 
@@ -151,7 +166,7 @@ public class GlobalEnv implements Env {
         if (packageLayer == null) {
             return false;
         } else if (!isOnDemand) {
-            return packageLayer.types.contains(importName.get(importName.size() - 1));
+            return packageLayer.types.containsKey(importName.get(importName.size() - 1));
         } else {
             return true;
         }
@@ -169,40 +184,44 @@ public class GlobalEnv implements Env {
         return currentLevel;
     }
 
-    public void printHierarchy() {
-        System.out.println("-----hierarchy--------");
-        for (ArrayList<String> key : hierarchy.keySet()) {
-            System.out.print(key + "-> \t");
-            hierarchy.get(key).forEach(x -> System.out.print(x + " "));
-            System.out.print("\n");
-        }
-        System.out.println("-----------------------");
-    }
-
-
     public class PackageNames {
         String name;
         HashMap<String, PackageNames> subPackage = new HashMap<>();
-        ArrayList<String> types = new ArrayList<>();
+        HashMap<String, JoosType> types = new HashMap<>();
 
         PackageNames(String packageName) {
             name = packageName;
         }
+    }
 
-        boolean nameEquals(String name) {
-            return this.name.equals(name);
-        }
+    @Override
+    public FieldsVarInfo getFieldInfo(String name){
+        return null;
+    }
 
-        void print(int level) {
-            for (int i = 0; i < level; i++)
-                System.err.print("  |");
-            System.err.print("--" + name + "\n");
-            subPackage.forEach((x, y) -> y.print(level + 1));
-            types.forEach(x -> {
-                for (int i = 0; i < level + 1; i++)
-                    System.err.print("  |");
-                System.err.print("==" + x + "\n");
-            });
-        }
+    @Override
+    public FieldsVarInfo getVarInfo(String name) {
+        return null;
+    }
+
+    @Override
+    public JoosType findResolvedType(String name) {
+        return null;
+    }
+
+    @Override
+    public FieldsVarInfo getStaticFieldInfo(String name) {
+        return null;
+    }
+
+    @Override
+    public FieldsVarInfo getDeclaredFieldInfo(String name) {
+        return null;
+    }
+
+
+    @Override
+    public HashMap<String, MethodInfo> getAllMethodSignature() {
+        return null;
     }
 }

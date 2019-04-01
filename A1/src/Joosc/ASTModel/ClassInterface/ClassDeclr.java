@@ -7,8 +7,11 @@ import Joosc.ASTModel.ClassMember.ConstructorDeclr;
 import Joosc.ASTModel.ClassMember.FieldDeclr;
 import Joosc.ASTModel.ClassMember.MethodDeclr;
 import Joosc.Environment.ClassEnv;
+import Joosc.Exceptions.UninitializedVariableException;
+import Joosc.Exceptions.UnreachableStatementException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.stream.Collectors;
 
 public class ClassDeclr implements TypeDeclr {
@@ -36,6 +39,20 @@ public class ClassDeclr implements TypeDeclr {
                 .collect(Collectors.toCollection(ArrayList::new));
         classBodyDeclrNodes = node.getClassBodyDeclrNodes().stream().map(ClassBodyDeclr::convertClassBodyDeclrNode)
                 .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    @Override
+    public void reachabilityAnalysis() throws UnreachableStatementException {
+        for (MethodDeclr method : methods) {
+            method.reachabilityAnalysis();
+        }
+        for (ConstructorDeclr constructorDeclr : constructor) {
+            constructorDeclr.reachabilityAnalysis();
+        }
+    }
+
+    @Override
+    public void definiteAssignmentAnalysis() throws UninitializedVariableException {
     }
 
     @Override
@@ -88,5 +105,10 @@ public class ClassDeclr implements TypeDeclr {
     @Override
     public String getSimpleName() {
         return name;
+    }
+
+    @Override
+    public ClassEnv getClassEnv() {
+        return env;
     }
 }

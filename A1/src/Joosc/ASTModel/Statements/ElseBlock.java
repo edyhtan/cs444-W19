@@ -1,7 +1,8 @@
 package Joosc.ASTModel.Statements;
 
 
-import Joosc.Environment.LocalEnv;
+import Joosc.Exceptions.TypeCheckException;
+import Joosc.Exceptions.UnreachableStatementException;
 
 import java.util.ArrayList;
 
@@ -10,6 +11,7 @@ public class ElseBlock extends HasScope implements Statement {
     public ElseBlock(Statement statement) {
         this.statement = statement;
     }
+    public boolean in,out;
 
     @Override
     public ArrayList<Statement> getBlock() {
@@ -26,4 +28,22 @@ public class ElseBlock extends HasScope implements Statement {
     public void passDownScopes() {
 
     }
+
+    @Override
+    public void reachabilityAnalysis(boolean input) throws UnreachableStatementException {
+        in = input;
+        statement.reachabilityAnalysis(in);
+        out = statement.getOut();
+    }
+
+    @Override
+    public boolean getIn() {
+        return in;
+    }
+
+    @Override
+    public boolean getOut() {
+        return out;
+    }
+
 }

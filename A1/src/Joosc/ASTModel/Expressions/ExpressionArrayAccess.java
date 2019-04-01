@@ -1,9 +1,15 @@
 package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionArrayAccessNode;
+import Joosc.Environment.Env;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
+import Joosc.Exceptions.TypeCheckException;
+import Joosc.TypeSystem.ArrayType;
+import Joosc.TypeSystem.JoosType;
+import Joosc.util.Tri;
 
+import javax.naming.Name;
 import java.util.ArrayList;
 
 public class ExpressionArrayAccess extends ExpressionPrimary {
@@ -31,7 +37,7 @@ public class ExpressionArrayAccess extends ExpressionPrimary {
     }
 
     @Override
-    public void addEnv(LocalEnv env) {
+    public void addEnv(Env env) {
         super.addEnv(env);
         if (referenceExpression != null)
             referenceExpression.addEnv(env);
@@ -43,5 +49,43 @@ public class ExpressionArrayAccess extends ExpressionPrimary {
         if (referenceExpression != null)
             referenceExpression.validate();
         indexExpression.validate();
+
+    }
+
+    @Override
+    public JoosType getType() throws TypeCheckException {
+        JoosType indexType = indexExpression.getType();
+
+        if (!JoosType.isNumber(indexType)) {
+            throw new TypeCheckException("Type incompatible for array index: " + indexType.getTypeName());
+        }
+
+        if (referenceExpression == null) {
+            Tri<Integer, Env, String> nameInfo = Names.resolveAmbiguity(getEnv(), referenceName);
+
+            if ((nameInfo.get1() & Names.isStatic) != 0) {
+                joosType = nameInfo.get2().getStaticFieldInfo(nameInfo.get3()).getTypeInfo().getJoosType();
+            }
+            if ((nameInfo.get1() & Names.isField) != 0) {
+                joosType = nameInfo.get2().getFieldInfo(nameInfo.get3()).getTypeInfo().getJoosType();
+            }
+            if ((nameInfo.get1() & Names.isLocal) != 0) {
+                joosType = nameInfo.get2().getVarInfo(nameInfo.get3()).getTypeInfo().getJoosType();
+            }
+            if (joosType == null) {
+                throw new TypeCheckException("Name " + String.join(".", referenceName) + " not found.");
+            }
+        } else {
+            joosType = referenceExpression.getType();
+        }
+        if (!(joosType instanceof ArrayType)) {
+            throw new TypeCheckException("Unmatched Type " + joosType.getTypeName() + " with [].");
+        }
+        return ((ArrayType)joosType).getJoosType();
+    }
+
+    @Override
+    public boolean isConstantExpression() {
+        return false;
     }
 }

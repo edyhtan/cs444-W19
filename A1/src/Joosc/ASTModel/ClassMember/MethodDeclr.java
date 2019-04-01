@@ -6,9 +6,12 @@ import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.Statements.Statement;
 import Joosc.ASTModel.Type;
 import Joosc.Environment.LocalEnv;
+import Joosc.Exceptions.UninitializedVariableException;
+import Joosc.Exceptions.UnreachableStatementException;
 import Joosc.util.Pair;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -53,6 +56,29 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
         bodyBlock = node.bodyBlock == null ? new ArrayList<>() : new ArrayList<> (node.bodyBlock);
 //        canonicalID = new ArrayList<>(node.canonicalID);
         localEnv = node.localEnv;
+    }
+
+    @Override
+    public void reachabilityAnalysis() throws UnreachableStatementException {
+        boolean lastOut = true;
+        for (Statement stmt : bodyBlock) {
+            if (!lastOut) {
+                throw new UnreachableStatementException();
+            }
+            stmt.reachabilityAnalysis(lastOut);
+            lastOut = stmt.getOut();
+        }
+        if (type.getKind() != null && type.getKind().equals(Symbol.Void)) {
+            if (bodyBlock.get(bodyBlock.size() - 1).getOut()) {
+                throw new UnreachableStatementException("Missing return statement");
+            }
+        }
+    }
+
+    @Override
+    public void definiteAssignmentAnalysis(HashMap initializedFields) throws UninitializedVariableException {
+        HashMap localInitializedFields = (HashMap) initializedFields.clone();
+        // TODO
     }
 
     public void buildCanonicalName(ArrayList<String> className) {

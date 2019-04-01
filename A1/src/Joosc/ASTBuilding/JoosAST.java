@@ -2,15 +2,13 @@ package Joosc.ASTBuilding;
 
 import Joosc.ASTBuilding.ASTStructures.Program;
 import Joosc.ASTBuilding.Constants.Symbol;
-import Joosc.Exceptions.ASTException;
-import Joosc.Exceptions.InvalidParseTreeStructureException;
-import Joosc.Exceptions.WeedingFailureException;
-import Joosc.Exceptions.WrongFileNameException;
+import Joosc.Exceptions.*;
+import Joosc.Joosc;
 import Joosc.Parser.LRGrammar.ParseTree;
 
 public class JoosAST {
     private Program root;
-    boolean WINDOWS = true;
+    boolean WINDOWS = false;
 
     public JoosAST(ParseTree parseTree) throws ASTException {
         if (parseTree.getKind() != Symbol.S) {
@@ -33,10 +31,12 @@ public class JoosAST {
         if (WINDOWS) {
             // things looks messy on windows
             String[] splitFiles = file.split("\\\\");
+            file = splitFiles[splitFiles.length - 1];
         }
 
         String filename = file.split("[.]")[0];
         String suffix = file.split("[.]")[1];
+
 
         if(!className.equals(filename)) {
             throw new WrongFileNameException("Class name does not match file name, found file name " + filename + ", class name " + className);

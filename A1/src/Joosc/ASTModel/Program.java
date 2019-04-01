@@ -5,6 +5,9 @@ import Joosc.ASTBuilding.ASTStructures.InterfaceDeclrNode;
 import Joosc.ASTModel.ClassInterface.ClassDeclr;
 import Joosc.ASTModel.ClassInterface.InterfaceDeclr;
 import Joosc.ASTModel.ClassInterface.TypeDeclr;
+import Joosc.Exceptions.UninitializedVariableException;
+import Joosc.Exceptions.UnreachableStatementException;
+
 import java.util.ArrayList;
 
 public class Program implements AST {
@@ -36,6 +39,19 @@ public class Program implements AST {
             sb.append(s).append(".");
         }
         return sb.toString();
+    }
+
+    public void reachabilityAnalysis() throws UnreachableStatementException {
+        typeDeclr.reachabilityAnalysis();
+    }
+
+    public void definiteAssignmentAnalysis() throws UninitializedVariableException {
+
+    }
+
+    public void staticAnalysis() throws UnreachableStatementException, UninitializedVariableException {
+        reachabilityAnalysis();
+        definiteAssignmentAnalysis();
     }
 
     public ArrayList<String> getPackageDeclr() {

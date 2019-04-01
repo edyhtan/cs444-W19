@@ -4,19 +4,27 @@ import Joosc.ASTBuilding.ASTStructures.FieldDeclrNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.Expressions.Expression;
 import Joosc.ASTModel.ClassMember.ClassMemberDeclr;
+import Joosc.ASTModel.Scope;
+import Joosc.ASTModel.Statements.HasExpression;
 import Joosc.ASTModel.Statements.Statement;
 import Joosc.ASTModel.Type;
+import Joosc.Environment.Env;
 import Joosc.Environment.LocalEnv;
+import Joosc.Exceptions.NamingResolveException;
+import Joosc.Exceptions.TypeCheckException;
+import Joosc.TypeSystem.JoosType;
 import Joosc.util.Pair;
 
 import java.util.ArrayList;
 
-public class FieldDeclr implements ClassMemberDeclr {
+public class FieldDeclr extends Scope implements ClassMemberDeclr, HasExpression {
     private ArrayList<Symbol> modifiers;
     private Type type;
     private String name;
     private Expression initExpression;
     private ArrayList<String> canonicalID;
+
+    private JoosType joosType;
 
     public FieldDeclr(FieldDeclrNode node) {
         modifiers = node.getModifiers();
@@ -60,5 +68,29 @@ public class FieldDeclr implements ClassMemberDeclr {
 
     public ArrayList<String> getCanonicalID() {
         return canonicalID;
+    }
+
+    public void addJoosType(JoosType joosType) {
+        this.joosType = joosType;
+    }
+
+    @Override
+    public void checkExpression(Env env) throws NamingResolveException {
+        if (initExpression != null) {
+            initExpression.addEnv(env);
+            initExpression.validate();
+        }
+    }
+
+    @Override
+    public void checkType() throws TypeCheckException {
+        if (initExpression != null) {
+            JoosType initType = initExpression.getType();
+
+            if (!joosType.isA(initType)) {
+                throw new TypeCheckException("unmatched type: " + String.join(".", joosType.getTypeName()) + " " +
+                        String.join(".", initType.getTypeName()));
+            }
+        }
     }
 }

@@ -1,15 +1,15 @@
 package Joosc.ASTModel;
 
-import Joosc.Environment.LocalEnv;
+import Joosc.Environment.Env;
 
 public abstract class Scope {
-    LocalEnv env;
+    Env env;
 
-    public LocalEnv getEnv() {
+    public Env getEnv() {
         return env;
     }
 
-    public void addEnv(LocalEnv env) {
+    public void addEnv(Env env) {
         this.env = env;
     }
 }

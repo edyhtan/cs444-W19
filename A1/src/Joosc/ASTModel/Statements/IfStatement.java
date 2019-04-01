@@ -1,8 +1,10 @@
 package Joosc.ASTModel.Statements;
 
-import Joosc.ASTModel.Expressions.Expression;
 import Joosc.ASTBuilding.ASTStructures.Statements.IfStatementNode;
+import Joosc.ASTModel.Expressions.Expression;
 import Joosc.Environment.LocalEnv;
+import Joosc.Exceptions.TypeCheckException;
+import Joosc.Exceptions.UnreachableStatementException;
 
 import java.util.ArrayList;
 
@@ -12,6 +14,8 @@ public class IfStatement extends HasScope implements Statement {
     private Statement thenClause;
     private ElseBlock elseClause = null;
     private LocalEnv localEnv= null;
+
+    public boolean in,out;
 
     public IfStatement(IfStatementNode node) {
         expression = Expression.convertExpressionNode(node.getExpression());
@@ -46,4 +50,26 @@ public class IfStatement extends HasScope implements Statement {
     public void passDownScopes() {
 
     }
+
+    @Override
+    public void reachabilityAnalysis(boolean input) throws UnreachableStatementException {
+        in = input;
+        thenClause.reachabilityAnalysis(in);
+        out = thenClause.getOut();
+        if (elseClause != null) {
+            elseClause.reachabilityAnalysis(in);
+            out = out || elseClause.getOut();
+        }
+    }
+
+    @Override
+    public boolean getIn() {
+        return in;
+    }
+
+    @Override
+    public boolean getOut() {
+        return out;
+    }
+
 }

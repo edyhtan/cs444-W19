@@ -1,14 +1,19 @@
 package Joosc.Environment;
 
+import Joosc.ASTBuilding.Constants.Symbol;
+
+import java.sql.Array;
 import java.util.ArrayList;
 
 public class FieldsVarInfo {
     String name;
-
     TypeInfo typeInfo;
+    ArrayList<Symbol> modifiers;
 
-    public FieldsVarInfo(String name, TypeInfo typeInfo) {
+    public FieldsVarInfo(String name, TypeInfo typeInfo, ArrayList<Symbol> modifiers) {
+        this.name = name;
         this.typeInfo = typeInfo;
+        this.modifiers = modifiers;
     }
 
     public String getFieldName() {
@@ -27,25 +32,11 @@ public class FieldsVarInfo {
         return typeInfo.isArray;
     }
 
-    public boolean isTypePrimitive() {
-        return typeInfo.isPrimitive;
+    public ArrayList<Symbol> getModifiers() {
+        return modifiers;
     }
 
-//    Legacy Code:
-//    Type type;
-//    public FieldsVarInfo(String name, ArrayList<String> typeName, boolean isPrimitive, boolean isArray) {
-//        type = new Type(typeName, isPrimitive, isArray);
-//        this.name = name;
-//    }
-//    class Type {
-//        boolean isPrimitive;
-//        boolean isArray;
-//        ArrayList<String> fullName;
-//
-//        Type(ArrayList<String> name, boolean isPrimitive, boolean isArray) {
-//            fullName = name;
-//            this.isPrimitive = isPrimitive;
-//            this.isArray = isArray;
-//        }
-//    }
+    public boolean isTypePrimitive() {
+        return typeInfo.isPrimitive();
+    }
 }

@@ -1,10 +1,13 @@
 package Joosc.ASTModel.Statements;
 
 import Joosc.ASTBuilding.ASTStructures.Statements.ForStatementNode;
+import Joosc.ASTModel.Expressions.ConstantExpression;
 import Joosc.ASTModel.Expressions.Expression;
-import Joosc.Environment.GlobalEnv;
+import Joosc.Environment.Env;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
+import Joosc.Exceptions.TypeCheckException;
+import Joosc.Exceptions.UnreachableStatementException;
 
 import java.util.ArrayList;
 
@@ -13,6 +16,7 @@ public class ForStatement extends HasScope implements Statement, HasExpression {
     private Expression expression = null;
     private Statement forUpdate = null;
     private Statement statement;
+    public boolean in,out;
 
     public ForStatement(ForStatementNode node) {
         forInit = Statement.convertStatementNode(node.getForInit());
@@ -54,7 +58,63 @@ public class ForStatement extends HasScope implements Statement, HasExpression {
     }
 
     @Override
-    public void checkExpression(LocalEnv env) throws NamingResolveException {
+    public void checkExpression(Env env) throws NamingResolveException {
+        if (forInit != null) {
+            ((HasExpression) forInit).checkExpression(env);
+        }
 
+        if (expression != null) {
+            expression.addEnv(env);
+        }
+
+        if (forUpdate != null) {
+            ((HasExpression) forUpdate).checkExpression(env);
+        }
     }
+
+    @Override
+    public void checkType() throws TypeCheckException {
+        if(forInit instanceof HasExpression) ((HasExpression) forInit).checkType();
+        if(forUpdate instanceof HasExpression) ((HasExpression) forUpdate).checkType();
+        if(statement instanceof HasExpression) ((HasExpression) statement).checkType();
+        expression.getType();
+    }
+
+    @Override
+    public void reachabilityAnalysis(boolean input) throws UnreachableStatementException {
+        in = input;
+        if (!in) {
+            throw new UnreachableStatementException("Unreachable statement");
+        }
+        if (expression == null) {
+            statement.reachabilityAnalysis(in);
+            out = false;
+        } else {    // Cond exp is not null
+            if (expression.isConstantExpression()) {
+                ConstantExpression constantExpression = (ConstantExpression) expression;
+                // Type checked. It must be a boolean exp. true or false
+                if(constantExpression.evaluateConstant().toBoolean()) {
+                    statement.reachabilityAnalysis(in);
+                    out = false;
+                } else {
+                    statement.reachabilityAnalysis(false);
+                    out = in;
+                }
+            } else {
+                statement.reachabilityAnalysis(in);
+                out = in;
+            }
+        }
+    }
+
+    @Override
+    public boolean getIn() {
+        return in;
+    }
+
+    @Override
+    public boolean getOut() {
+        return out;
+    }
+
 }

@@ -23,7 +23,7 @@
 //
 //    public AbstractMethodDeclr(AbstractMethodDeclrNode node) {
 //        modifiers = node.getModifiers();
-//        type = new Type(node.getType());
+//        type = new Type(node.checkType());
 //        name = node.getName();
 //        formalParamList = node.getFormalParamList().stream()
 //                .map(pair -> new Pair<>(new Type(pair.getKey()), pair.getValue()))
@@ -34,7 +34,7 @@
 //      // TODO
 //    }
 //
-//    public Type getType() {
+//    public Type checkType() {
 //        return type;
 //    }
 //
