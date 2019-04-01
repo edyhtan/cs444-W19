@@ -63,7 +63,7 @@ public class ExpressionUnary extends Expression implements ConstantExpression {
         targetNode.setParentIsStatic(this.parentIsStatic);
 
         JoosType targetNodeType = targetNode.getType();
-        if (joosType != null) { // casting
+        if (castingType != null) { // casting
             if (!(joosType.isA(targetNodeType) || targetNodeType.isA(joosType))) {
                 throw new TypeCheckException("Cannot cast " + targetNodeType.getTypeName()
                         + " to " + joosType.getTypeName());
