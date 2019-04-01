@@ -4,6 +4,7 @@ import Joosc.ASTBuilding.ASTStructures.Expressions.*;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.AST;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.Exceptions.UnreachableStatementException;
 import Joosc.TypeSystem.JoosType;
 
 import java.util.HashSet;
@@ -68,6 +69,7 @@ public abstract class Expression extends HasType implements AST {
 
     public abstract void forwardDeclaration(String fieldname, HashSet<String> initializedName) throws TypeCheckException;
 
+    public abstract void localVarSelfReference(String id) throws UnreachableStatementException;
 
     public abstract boolean isConstantExpression();
 

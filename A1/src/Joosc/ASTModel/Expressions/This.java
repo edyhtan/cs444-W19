@@ -3,6 +3,7 @@ package Joosc.ASTModel.Expressions;
 import Joosc.Environment.Env;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.Exceptions.UnreachableStatementException;
 import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
@@ -26,7 +27,10 @@ public class This extends ExpressionContent {
     public boolean isConstantExpression() {
         return false;
     }
-    public void forwardDeclaration(String fieldname, HashSet<String> initializedName) throws TypeCheckException {
 
-    }
+    @Override
+    public void forwardDeclaration(String fieldname, HashSet<String> initializedName) throws TypeCheckException { }
+
+    @Override
+    public void localVarSelfReference(String id) throws UnreachableStatementException { }
 }

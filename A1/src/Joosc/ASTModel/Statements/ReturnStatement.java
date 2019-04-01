@@ -1,6 +1,7 @@
 package Joosc.ASTModel.Statements;
 
 import Joosc.ASTBuilding.ASTStructures.Statements.ReturnStatementNode;
+import Joosc.ASTModel.ClassMember.ConstructorDeclr;
 import Joosc.ASTModel.Expressions.Expression;
 import Joosc.Environment.Env;
 import Joosc.Environment.LocalEnv;
@@ -36,6 +37,10 @@ public class ReturnStatement implements Statement, HasExpression {
     public void checkType() throws TypeCheckException {
         LocalEnv local = (LocalEnv) env;
         JoosType returnType = local.getCurMethodReturnType();
+
+        if (env.getCurrentMethod() instanceof ConstructorDeclr) {
+            return;
+        }
 
         if (expression != null) {
             expression.setParentIsStatic(this.parentIsStatic);

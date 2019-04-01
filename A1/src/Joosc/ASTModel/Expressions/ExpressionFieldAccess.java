@@ -7,6 +7,7 @@ import Joosc.Environment.Env;
 import Joosc.Environment.FieldsVarInfo;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.Exceptions.UnreachableStatementException;
 import Joosc.TypeSystem.JoosType;
 
 import java.util.HashSet;
@@ -87,6 +88,13 @@ public class ExpressionFieldAccess extends Expression {
     public void forwardDeclaration(String fieldname, HashSet<String> initializedName) throws TypeCheckException {
         if (fieldParentExpression != null) {
             fieldParentExpression.forwardDeclaration(fieldname, initializedName);
+        }
+    }
+
+    @Override
+    public void localVarSelfReference(String id) throws UnreachableStatementException {
+        if (fieldParentExpression != null) {
+            fieldParentExpression.localVarSelfReference(id);
         }
     }
 }

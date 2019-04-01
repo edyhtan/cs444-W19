@@ -6,6 +6,7 @@ import Joosc.Environment.Env;
 import Joosc.Environment.MethodInfo;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.Exceptions.UnreachableStatementException;
 import Joosc.TypeSystem.JoosType;
 import Joosc.util.Tri;
 
@@ -86,6 +87,19 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
 
         for (Expression arg : argList) {
             arg.forwardDeclaration(fieldname, declared);
+        }
+    }
+
+    @Override
+    public void localVarSelfReference(String id) throws UnreachableStatementException {
+        if (methodParentExpression != null) {
+            methodParentExpression.localVarSelfReference(id);
+        } else if (!isStatic && (methodName.get(0).equals(id))) {
+            throw new UnreachableStatementException("field " + id + " cannot be forward referenced");
+        }
+
+        for (Expression arg : argList) {
+            arg.localVarSelfReference(id);
         }
     }
 

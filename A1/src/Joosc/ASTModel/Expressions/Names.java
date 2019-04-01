@@ -7,6 +7,7 @@ import Joosc.Environment.FieldsVarInfo;
 import Joosc.Environment.GlobalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.Exceptions.UnreachableStatementException;
 import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 import Joosc.util.Tri;
@@ -25,6 +26,13 @@ public class Names extends ExpressionContent {
 
     public ArrayList<String> getName() {
         return name;
+    }
+
+    @Override
+    public void localVarSelfReference(String id) throws UnreachableStatementException {
+        if (!staticPrefix && name.get(0).equals(id)) {
+            throw new UnreachableStatementException("Initializing name with itself: " + id);
+        }
     }
 
     @Override

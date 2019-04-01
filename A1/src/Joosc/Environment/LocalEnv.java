@@ -130,9 +130,8 @@ public class LocalEnv implements Env {
                 symbolTable.put(localVar.getId(), info);
                 localVar.addInfo(info);
             }
-
             if (statement instanceof HasExpression) {
-               ((HasExpression) statement).checkType();
+                ((HasExpression) statement).checkType();
             }
         }
 

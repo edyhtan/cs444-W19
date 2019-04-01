@@ -4,6 +4,7 @@ import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionArrayAccessNode;
 import Joosc.Environment.Env;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.Exceptions.UnreachableStatementException;
 import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 import Joosc.util.Tri;
@@ -96,6 +97,7 @@ public class ExpressionArrayAccess extends ExpressionPrimary {
         return false;
     }
 
+    @Override
     public void forwardDeclaration(String fieldname, HashSet<String> initializedName) throws TypeCheckException {
         if (!isLHS) {
             if (referenceExpression != null) {
@@ -105,5 +107,14 @@ public class ExpressionArrayAccess extends ExpressionPrimary {
             }
         }
         indexExpression.forwardDeclaration(fieldname, initializedName);
+    }
+
+    @Override
+    public void localVarSelfReference(String id) throws UnreachableStatementException {
+        if (referenceExpression != null) {
+            referenceExpression.localVarSelfReference(id);
+        } else if (!isStatic && (referenceName.get(0).equals(id))) {
+            throw new UnreachableStatementException("local var " + id + " cannot be forward referenced");
+        }
     }
 }

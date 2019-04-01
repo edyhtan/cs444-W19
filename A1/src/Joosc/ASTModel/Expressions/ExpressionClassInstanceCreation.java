@@ -10,6 +10,7 @@ import Joosc.Environment.FieldsVarInfo;
 import Joosc.Environment.MethodInfo;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.Exceptions.UnreachableStatementException;
 import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
@@ -114,6 +115,13 @@ public class ExpressionClassInstanceCreation extends Expression {
 
         for (Expression arg : argList) {
             arg.forwardDeclaration(fieldname, initializedName);
+        }
+    }
+
+    @Override
+    public void localVarSelfReference(String id) throws UnreachableStatementException {
+        for (Expression arg : argList) {
+            arg.localVarSelfReference(id);
         }
     }
 }

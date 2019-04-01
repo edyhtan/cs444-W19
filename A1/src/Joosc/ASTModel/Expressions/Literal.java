@@ -4,6 +4,7 @@ import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.Environment.Env;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.Exceptions.UnreachableStatementException;
 import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
@@ -17,6 +18,11 @@ public class Literal extends ExpressionContent implements ConstantExpression {
     public Literal(String literal, String kind) {
         this.kind = kind;
         this.literal = literal;
+    }
+
+    @Override
+    public void localVarSelfReference(String id) throws UnreachableStatementException {
+
     }
 
     @Override

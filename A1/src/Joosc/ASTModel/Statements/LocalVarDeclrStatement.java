@@ -10,6 +10,8 @@ import Joosc.Exceptions.TypeCheckException;
 import Joosc.Exceptions.UnreachableStatementException;
 import Joosc.TypeSystem.JoosType;
 
+import java.util.HashSet;
+
 public class LocalVarDeclrStatement implements Statement, HasExpression {
     private Type type;
     private String id;
@@ -73,6 +75,9 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
         if (initExpression == null) {
             throw new UnreachableStatementException("Local variable declare without initialization");
         }
+
+        initExpression.localVarSelfReference(id);
+
         out = input;
     }
 
@@ -90,4 +95,10 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
         this.parentIsStatic = parentIsStatic;
     }
 
+    class FoolSet<T> extends HashSet<T> {
+        @Override
+        public boolean contains(Object o) {
+            return true;
+        }
+    }
 }

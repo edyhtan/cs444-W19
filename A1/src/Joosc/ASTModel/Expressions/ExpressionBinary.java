@@ -6,6 +6,7 @@ import Joosc.Environment.ClassEnv;
 import Joosc.Environment.Env;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.Exceptions.UnreachableStatementException;
 import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
@@ -248,5 +249,11 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 LHS.forwardDeclaration(fieldname, initializedName);
                 RHS.forwardDeclaration(fieldname, initializedName);
         }
+    }
+
+    @Override
+    public void localVarSelfReference(String id) throws UnreachableStatementException {
+        LHS.localVarSelfReference(id);
+        RHS.localVarSelfReference(id);
     }
 }

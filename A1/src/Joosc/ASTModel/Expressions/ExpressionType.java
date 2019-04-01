@@ -4,6 +4,7 @@ import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionTypeNode;
 import Joosc.Environment.Env;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.Exceptions.UnreachableStatementException;
 import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 
@@ -43,6 +44,9 @@ public class ExpressionType extends Expression {
         return false;
     }
 
-    public void forwardDeclaration(String fieldname, HashSet<String> initializedName) throws TypeCheckException {
-    }
+    @Override
+    public void forwardDeclaration(String fieldname, HashSet<String> initializedName) throws TypeCheckException { }
+
+    @Override
+    public void localVarSelfReference(String id) throws UnreachableStatementException { }
 }

@@ -5,6 +5,7 @@ import Joosc.ASTModel.Type;
 import Joosc.Environment.Env;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.Exceptions.UnreachableStatementException;
 import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 
@@ -64,5 +65,10 @@ public class ExpressionArrayCreation extends ExpressionPrimary {
 
     public void forwardDeclaration(String fieldname, HashSet<String> initializedName) throws TypeCheckException {
         sizeExpression.forwardDeclaration(fieldname, initializedName);
+    }
+
+    @Override
+    public void localVarSelfReference(String id) throws UnreachableStatementException {
+        sizeExpression.localVarSelfReference(id);
     }
 }
