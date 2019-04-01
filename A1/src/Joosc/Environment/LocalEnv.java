@@ -132,7 +132,7 @@ public class LocalEnv implements Env {
             }
 
             if (statement instanceof HasExpression) {
-               // ((HasExpression) statement).checkType();
+               ((HasExpression) statement).checkType();
             }
         }
 
