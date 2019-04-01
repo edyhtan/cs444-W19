@@ -39,6 +39,9 @@ public class ReturnStatement implements Statement, HasExpression {
         JoosType returnType = local.getCurMethodReturnType();
 
         if (env.getCurrentMethod() instanceof ConstructorDeclr) {
+            if (expression != null) {
+                throw new TypeCheckException("Constructors may only have null return value.");
+            }
             return;
         }
 
