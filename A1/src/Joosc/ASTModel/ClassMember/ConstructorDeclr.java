@@ -5,9 +5,14 @@ import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.Statements.Statement;
 import Joosc.ASTModel.Type;
 import Joosc.Environment.LocalEnv;
+import Joosc.Exceptions.UninitializedVariableException;
+import Joosc.Exceptions.UnreachableStatementException;
+
+import Joosc.TypeSystem.JoosType;
 import Joosc.util.Pair;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.stream.Collectors;
 
 public class ConstructorDeclr implements ClassBodyDeclr, Method {
@@ -17,6 +22,9 @@ public class ConstructorDeclr implements ClassBodyDeclr, Method {
     private ArrayList<Statement> bodyBlock;
     private ArrayList<String> canonicalID;
     private LocalEnv localEnv;
+
+    private String methodSignature;
+    private JoosType returnType;
 
     public ConstructorDeclr(ConstructorDeclrNode node) {
         modifiers = node.getModifiers();
@@ -28,6 +36,23 @@ public class ConstructorDeclr implements ClassBodyDeclr, Method {
 
         bodyBlock = node.getBodyBlock().stream().map(Statement::convertStatementNode)
                 .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    @Override
+    public void reachabilityAnalysis() throws UnreachableStatementException {
+        boolean lastOut = true;
+        for (Statement stmt : bodyBlock) {
+            if (!lastOut) {
+                throw new UnreachableStatementException();
+            }
+            stmt.reachabilityAnalysis(lastOut);
+            lastOut = stmt.getOut();
+        }
+    }
+
+    @Override
+    public void definiteAssignmentAnalysis(HashMap initializedFields) throws UninitializedVariableException {
+        //TODO
     }
 
     @Override
@@ -57,5 +82,25 @@ public class ConstructorDeclr implements ClassBodyDeclr, Method {
 
     public ArrayList<Symbol> getModifiers() {
         return modifiers;
+    }
+
+    @Override
+    public void setMethodSignature(String signature) {
+        methodSignature = signature;
+    }
+
+    @Override
+    public String getMethodSignature() {
+        return methodSignature;
+    }
+
+    @Override
+    public void setType(JoosType type) {
+        returnType = type;
+    }
+
+    @Override
+    public JoosType getJoosType() {
+        return returnType;
     }
 }

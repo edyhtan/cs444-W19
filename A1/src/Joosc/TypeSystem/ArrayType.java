@@ -35,6 +35,14 @@ public class ArrayType extends JoosType{
         return this.joosType.getTypeName().equals(arrayType.joosType.typeName);
     }
 
+    public boolean equals(JoosType joosType) {
+        if (joosType instanceof ArrayType) {
+            return this.equals((ArrayType) joosType);
+        } else {
+            return false;
+        }
+    }
+
     public boolean isA(JoosType type) {
         if (type instanceof ArrayType) {
             return this.joosType.isA(((ArrayType)type).joosType);
@@ -61,6 +69,10 @@ public class ArrayType extends JoosType{
         ArrayList<String> arr = new ArrayList<>(super.getTypeName());
         arr.add("[]");
         return arr;
+    }
+
+    public String getQualifiedName() {
+        return String.join(".", joosType.getTypeName()) + "[]";
     }
 
     public JoosType getJoosType() {

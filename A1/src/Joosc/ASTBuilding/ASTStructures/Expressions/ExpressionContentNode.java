@@ -27,7 +27,9 @@ public class ExpressionContentNode extends ExpressionNode {
             case Literal:
                 ParseTree child = parseTree.getChild(0);
                 kind = child.getKind().getSymbolString();
-                literal = child.getLexeme();
+                literal = kind.equals("BooleanLiteral")
+                        ? child.getChild(0).getLexeme()
+                        : child.getLexeme();
                 break;
         }
     }

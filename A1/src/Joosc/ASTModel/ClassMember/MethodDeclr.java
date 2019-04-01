@@ -3,17 +3,21 @@ package Joosc.ASTModel.ClassMember;
 import Joosc.ASTBuilding.ASTStructures.AbstractMethodDeclrNode;
 import Joosc.ASTBuilding.ASTStructures.MethodDeclrNode;
 import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.ASTModel.Statements.HasExpression;
 import Joosc.ASTModel.Statements.ReturnStatement;
 import Joosc.ASTModel.Statements.Statement;
 import Joosc.ASTModel.Type;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.Exceptions.UninitializedVariableException;
+import Joosc.Exceptions.UnreachableStatementException;
 import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 import Joosc.util.Pair;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.stream.Collectors;
 
 public class MethodDeclr implements ClassMemberDeclr, Method {
@@ -24,6 +28,9 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
     ArrayList<Statement> bodyBlock;
     ArrayList<String> canonicalID;
     LocalEnv localEnv;
+
+    String methodSignature;
+    JoosType returnType;
 
     public MethodDeclr(MethodDeclrNode node) {
         modifiers = node.getModifiers();
@@ -54,14 +61,51 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
         type = node.type;
         name = node.name;
         formalParamList = new ArrayList<>(node.formalParamList);
-        bodyBlock = node.bodyBlock == null ? new ArrayList<>() : new ArrayList<> (node.bodyBlock);
+        bodyBlock = node.bodyBlock == null ? new ArrayList<>() : new ArrayList<>(node.bodyBlock);
         localEnv = node.localEnv;
     }
 
-    // TODO: check here!!!!!!
+
+    @Override
+    public void reachabilityAnalysis() throws UnreachableStatementException {
+        boolean lastOut = true;
+        // No bodyBlock, we good
+        if (bodyBlock != null) {
+            for (Statement stmt : bodyBlock) {
+                if (!lastOut) {
+                    throw new UnreachableStatementException();
+                }
+                stmt.reachabilityAnalysis(lastOut);
+                lastOut = stmt.getOut();
+            }
+        }
+
+        if (type.getKind() != null && !type.getKind().equals(Symbol.Void)) {
+            if (lastOut && !modifiers.contains(Symbol.Native) && !modifiers.contains(Symbol.Abstract)) {
+                throw new UnreachableStatementException("Missing return statement");
+            }
+        }
+    }
+
+    @Override
+    public void definiteAssignmentAnalysis(HashMap initializedFields) throws UninitializedVariableException {
+        HashMap localInitializedFields = (HashMap) initializedFields.clone();
+        // TODO
+    }
+
+    public void validateStaticAccess() throws TypeCheckException {
+        if (modifiers.contains(Symbol.Static)) {
+            bodyBlock.forEach(x -> {
+                if (x instanceof HasExpression) {
+                    ((HasExpression) x).setParentIsStatic(true);
+                }
+            });
+        }
+    }
+
     public void validateReturnType() throws TypeCheckException, NamingResolveException {
         JoosType returnJoosType;
-        if(type.getArrayKind() == null) {
+        if (type.getArrayKind() == null) {
             // primitive
             if (type.getNames() == null || type.getNames().isEmpty()) {
                 returnJoosType = JoosType.getJoosType(type.getKind().getSymbolString());
@@ -76,7 +120,7 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
             }
         }
 
-        if(bodyBlock.size() > 0) {
+        if (bodyBlock.size() > 0) {
             Statement lastStatement = bodyBlock.get(bodyBlock.size() - 1);
             if (lastStatement instanceof ReturnStatement && ((ReturnStatement) lastStatement).getExpression() != null) {
                 JoosType actual = ((ReturnStatement) lastStatement).getExpression().getType();
@@ -87,10 +131,6 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
                                     actual.getTypeName()));
                 }
             }
-        } else {
-//            if(!returnJoosType.equals(JoosType.VOID)) {
-//                throw new TypeCheckException("Method body missing for non-void methods.");
-//            }
         }
     }
 
@@ -127,6 +167,26 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
 
     public ArrayList<Symbol> getModifiers() {
         return modifiers;
+    }
+
+    @Override
+    public void setMethodSignature(String signature) {
+        methodSignature = signature;
+    }
+
+    @Override
+    public String getMethodSignature() {
+        return methodSignature;
+    }
+
+    @Override
+    public void setType(JoosType type) {
+        returnType = type;
+    }
+
+    @Override
+    public JoosType getJoosType() {
+        return returnType;
     }
 
     @Override

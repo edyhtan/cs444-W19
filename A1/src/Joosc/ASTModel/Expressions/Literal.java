@@ -1,26 +1,34 @@
 package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.Environment.Env;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.Exceptions.UnreachableStatementException;
 import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 
-public class Literal extends ExpressionContent {
+public class Literal extends ExpressionContent implements ConstantExpression {
     public String literal;
     public String kind;
 
     public Literal(String literal, String kind) {
         this.kind = kind;
         this.literal = literal;
+    }
+
+    @Override
+    public void localVarSelfReference(String id) throws UnreachableStatementException {
 
     }
 
     @Override
-    public void validate() throws NamingResolveException {
+    public Env validate() throws NamingResolveException {
 
+        return null;
     }
 
     @Override
@@ -31,15 +39,43 @@ public class Literal extends ExpressionContent {
         if (kind.equals(Symbol.BooleanLiteral.getSymbolString())) {
             joosType = JoosType.getJoosType("boolean");
         }
-        if (kind.equals(Symbol.CharLiteral.getSymbolString())){
+        if (kind.equals(Symbol.CharLiteral.getSymbolString())) {
             joosType = JoosType.getJoosType("char");
         }
-        if (kind.equals(Symbol.Null.getSymbolString())){
+        if (kind.equals(Symbol.Null.getSymbolString())) {
             joosType = JoosType.NULL;
         }
         if (kind.equals(Symbol.StringLiteral.getSymbolString())) {
             joosType = JoosType.getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "String")));
         }
         return joosType;
+    }
+
+    public String getLiteral() {
+        return literal;
+    }
+
+    public String getKind() {
+        return kind;
+    }
+
+    @Override
+    public boolean isConstantExpression() {
+        return true;
+    }
+
+    @Override
+    public ConstantLiteral evaluateConstant() {
+        try {
+            joosType = getType();
+        } catch (Exception e) {
+            System.exit(4);
+        }
+        return new ConstantLiteral(literal, joosType);
+    }
+
+    @Override
+    public void forwardDeclaration(String fieldname, HashSet<String> initializedName) throws TypeCheckException {
+
     }
 }

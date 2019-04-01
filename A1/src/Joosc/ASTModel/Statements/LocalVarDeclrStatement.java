@@ -7,13 +7,18 @@ import Joosc.Environment.Env;
 import Joosc.Environment.FieldsVarInfo;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.Exceptions.UnreachableStatementException;
 import Joosc.TypeSystem.JoosType;
+
+import java.util.HashSet;
 
 public class LocalVarDeclrStatement implements Statement, HasExpression {
     private Type type;
     private String id;
     private Expression initExpression;
     FieldsVarInfo info;
+    public boolean in, out;
+    private boolean parentIsStatic;
 
     public LocalVarDeclrStatement(LocalVarDeclrStatementNode node) {
         type = new Type(node.getType());
@@ -58,6 +63,42 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
             throw new TypeCheckException(String.format("Incompatible Type: %s, %s",
                     String.join(".", info.getTypeInfo().getJoosType().getTypeName()),
                     String.join(".", initExprType.getTypeName())));
+        }
+    }
+
+    @Override
+    public void reachabilityAnalysis(boolean input) throws UnreachableStatementException {
+        in = input;
+        if (!in) {
+            throw new UnreachableStatementException("Unreachable statement");
+        }
+        if (initExpression == null) {
+            throw new UnreachableStatementException("Local variable declare without initialization");
+        }
+
+        initExpression.localVarSelfReference(id);
+
+        out = input;
+    }
+
+    @Override
+    public boolean getIn() {
+        return in;
+    }
+
+    @Override
+    public boolean getOut() {
+        return out;
+    }
+
+    public void setParentIsStatic(boolean parentIsStatic) {
+        this.parentIsStatic = parentIsStatic;
+    }
+
+    class FoolSet<T> extends HashSet<T> {
+        @Override
+        public boolean contains(Object o) {
+            return true;
         }
     }
 }

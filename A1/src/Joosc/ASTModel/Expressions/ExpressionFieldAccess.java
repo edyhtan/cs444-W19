@@ -7,7 +7,10 @@ import Joosc.Environment.Env;
 import Joosc.Environment.FieldsVarInfo;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
+import Joosc.Exceptions.UnreachableStatementException;
 import Joosc.TypeSystem.JoosType;
+
+import java.util.HashSet;
 
 public class ExpressionFieldAccess extends Expression {
     private String fieldIdentifier;
@@ -35,8 +38,9 @@ public class ExpressionFieldAccess extends Expression {
     }
 
     @Override
-    public void validate() throws NamingResolveException {
+    public Env validate() throws NamingResolveException {
         fieldParentExpression.validate();
+        return null;
     }
 
     @Override
@@ -62,10 +66,10 @@ public class ExpressionFieldAccess extends Expression {
                     }
                 }
             }
-            if(getEnv().getCurrentMethod() instanceof MethodDeclr) {
+            if (getEnv().getCurrentMethod() instanceof MethodDeclr) {
                 MethodDeclr currentMethod = (MethodDeclr) getEnv().getCurrentMethod();
-                if(currentMethod.getModifiers().contains(Symbol.Static)) {
-                    if(fieldParentExpression instanceof This) {
+                if (currentMethod.getModifiers().contains(Symbol.Static)) {
+                    if (fieldParentExpression instanceof This) {
                         throw new TypeCheckException("A This expression must not occur in a static context.");
                     }
                 }
@@ -74,5 +78,23 @@ public class ExpressionFieldAccess extends Expression {
             throw new TypeCheckException("Field is not declared: " + fieldIdentifier);
         }
         return joosType;
+    }
+
+    public boolean isConstantExpression() {
+        return false;
+    }
+
+    @Override
+    public void forwardDeclaration(String fieldname, HashSet<String> initializedName) throws TypeCheckException {
+        if (fieldParentExpression != null) {
+            fieldParentExpression.forwardDeclaration(fieldname, initializedName);
+        }
+    }
+
+    @Override
+    public void localVarSelfReference(String id) throws UnreachableStatementException {
+        if (fieldParentExpression != null) {
+            fieldParentExpression.localVarSelfReference(id);
+        }
     }
 }

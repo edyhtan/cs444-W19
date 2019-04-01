@@ -2,11 +2,9 @@ package Joosc.Environment;
 
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.AST;
+import Joosc.ASTModel.ClassInterface.ClassDeclr;
 import Joosc.ASTModel.ClassInterface.TypeDeclr;
-import Joosc.ASTModel.ClassMember.ClassBodyDeclr;
-import Joosc.ASTModel.ClassMember.ConstructorDeclr;
-import Joosc.ASTModel.ClassMember.Method;
-import Joosc.ASTModel.ClassMember.MethodDeclr;
+import Joosc.ASTModel.ClassMember.*;
 import Joosc.ASTModel.Scope;
 import Joosc.ASTModel.Statements.*;
 import Joosc.ASTModel.Type;
@@ -96,11 +94,18 @@ public class LocalEnv implements Env {
                         forinitLocal.addInfo(info);
                     }
                 }
+                ((ForStatement)ast).getExpression().addEnv(this);
+                if (((ForStatement)ast).getForUpdate() != null)
+                    ((HasExpression)((ForStatement)ast).getForUpdate()).checkExpression(this);
             }
             statements = ((HasScope) ast).getBlock();
         } else {
             statements = new ArrayList<>(); // shouldn't ever fall into this clause.
             System.exit(6);
+        }
+
+        if(ast instanceof MethodDeclr) {
+            ((MethodDeclr) ast).validateStaticAccess();
         }
 
         for (Statement statement : statements) {
@@ -125,7 +130,6 @@ public class LocalEnv implements Env {
                 symbolTable.put(localVar.getId(), info);
                 localVar.addInfo(info);
             }
-
             if (statement instanceof HasExpression) {
                 ((HasExpression) statement).checkType();
             }
@@ -134,6 +138,7 @@ public class LocalEnv implements Env {
         if(ast instanceof MethodDeclr) {
             ((MethodDeclr) ast).validateReturnType();
         }
+
     }
 
     @Override
@@ -225,5 +230,30 @@ public class LocalEnv implements Env {
     @Override
     public HashMap<String, MethodInfo> getAllMethodSignature() {
         return parent.getAllMethodSignature();
+    }
+
+    public String getCurMethodSignature() {
+        return currentMethod.getMethodSignature();
+    }
+
+    public JoosType getCurMethodReturnType() {
+        return currentMethod.getJoosType();
+    }
+
+    @Override
+    public ArrayList<String> getPackageDeclr() {
+        return parent.getPackageDeclr();
+    }
+    @Override
+    public HashMap<String, MethodInfo> getDeclaredMethodSignature() {
+        return parent.getDeclaredMethodSignature();
+    }
+
+    private void checkForwardReference() throws TypeCheckException {
+        if (currentClass instanceof ClassDeclr) {
+            for (FieldDeclr fd: ((ClassDeclr) currentClass).getFields()) {
+
+            }
+        }
     }
 }
