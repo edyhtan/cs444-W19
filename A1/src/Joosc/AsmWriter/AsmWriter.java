@@ -5,6 +5,7 @@ import java.io.PrintStream;
 
 public class AsmWriter {
     PrintStream out;
+    private static String binaryTemplate = "%s %s, %s";
 
     public AsmWriter(PrintStream out) {
         this.out = out;
@@ -214,6 +215,10 @@ public class AsmWriter {
         idiv(reg.toString(), Integer.toString(i));
     }
 
+    public void getBit(Register reg, int i) {
+        out.println(String.format(binaryTemplate, "shr", reg, i));
+    }
+
     /**
      * Followed by push caller-save regs on stack
      * */
@@ -230,6 +235,10 @@ public class AsmWriter {
         mov(Register.esp, Register.ebp);
         pop(Register.ebp);
         ret();
+    }
+
+    public void outputInit() {
+
     }
 
 }
