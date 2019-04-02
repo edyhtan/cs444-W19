@@ -1,0 +1,11 @@
+mov ebx,[label]
+mov eax,1
+int 0x80
+
+
+
+label:
+dd 1234
+
+
+
