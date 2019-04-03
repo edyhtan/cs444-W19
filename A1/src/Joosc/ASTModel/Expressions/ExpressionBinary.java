@@ -2,6 +2,7 @@ package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionBinaryNode;
 import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.AsmWriter.AsmWriter;
 import Joosc.Environment.ClassEnv;
 import Joosc.Environment.Env;
 import Joosc.Exceptions.NamingResolveException;
@@ -255,5 +256,18 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
     public void localVarSelfReference(String id) throws UnreachableStatementException {
         LHS.localVarSelfReference(id);
         RHS.localVarSelfReference(id);
+    }
+
+    //Code Gen
+    AsmWriter asmWriter;
+
+    @Override
+    public void codeGen(int indent) {
+
+    }
+
+    @Override
+    public void addWriter(AsmWriter writer) {
+        asmWriter = writer;
     }
 }

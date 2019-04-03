@@ -73,6 +73,7 @@ public class Joosc {
 
             for (Program ast : asts) {
                 ast.staticAnalysis();
+                ast.codeGen(0);
             }
 
         } catch (UnreachableStatementException e) {

@@ -1,5 +1,6 @@
 package Joosc.ASTModel.Expressions;
 
+import Joosc.AsmWriter.AsmWriter;
 import Joosc.Environment.Env;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
@@ -33,4 +34,17 @@ public class This extends ExpressionContent {
 
     @Override
     public void localVarSelfReference(String id) throws UnreachableStatementException { }
+
+    //Code Gen
+    AsmWriter asmWriter;
+
+    @Override
+    public void codeGen(int indent) {
+
+    }
+
+    @Override
+    public void addWriter(AsmWriter writer) {
+        asmWriter = writer;
+    }
 }

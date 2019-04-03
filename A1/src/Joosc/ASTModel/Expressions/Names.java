@@ -1,6 +1,7 @@
 package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.AsmWriter.AsmWriter;
 import Joosc.Environment.ClassEnv;
 import Joosc.Environment.Env;
 import Joosc.Environment.FieldsVarInfo;
@@ -265,5 +266,18 @@ public class Names extends ExpressionContent {
     @Override
     public boolean isConstantExpression() {
         return false;
+    }
+
+    //Code Gen
+    AsmWriter asmWriter;
+
+    @Override
+    public void codeGen(int indent) {
+
+    }
+
+    @Override
+    public void addWriter(AsmWriter writer) {
+        asmWriter = writer;
     }
 }

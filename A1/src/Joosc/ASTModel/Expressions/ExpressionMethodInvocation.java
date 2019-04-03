@@ -2,6 +2,7 @@ package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionMethodInvocationNode;
 import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.AsmWriter.AsmWriter;
 import Joosc.Environment.Env;
 import Joosc.Environment.MethodInfo;
 import Joosc.Exceptions.NamingResolveException;
@@ -219,5 +220,18 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
     @Override
     public boolean isConstantExpression() {
         return false;
+    }
+
+    //Code Gen
+    AsmWriter asmWriter;
+
+    @Override
+    public void codeGen(int indent) {
+
+    }
+
+    @Override
+    public void addWriter(AsmWriter writer) {
+        asmWriter = writer;
     }
 }

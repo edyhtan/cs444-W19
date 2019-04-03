@@ -6,10 +6,13 @@ import Joosc.ASTModel.ClassMember.ClassBodyDeclr;
 import Joosc.ASTModel.ClassMember.ConstructorDeclr;
 import Joosc.ASTModel.ClassMember.FieldDeclr;
 import Joosc.ASTModel.ClassMember.MethodDeclr;
+import Joosc.AsmWriter.AsmWriter;
 import Joosc.Environment.ClassEnv;
 import Joosc.Exceptions.UninitializedVariableException;
 import Joosc.Exceptions.UnreachableStatementException;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -118,5 +121,71 @@ public class ClassDeclr implements TypeDeclr {
     @Override
     public ClassEnv getClassEnv() {
         return env;
+    }
+
+    //Code Gen
+    AsmWriter asmWriter;
+    String classTagName;
+    String classSIT;
+    String classParentMatrix;
+
+    @Override
+    public void codeGen(int indent) {
+        File output = new File("output/" + String.join("_", getCanonicalName()) + ".s");
+
+        try {
+            addWriter(new AsmWriter(output.getPath()));
+        } catch (FileNotFoundException e) {
+            // Do Nothing
+        }
+
+        // Class Tag
+        classTagName = "__class_" + String.join("_", getCanonicalName());
+        asmWriter.println("\t" + "global " + classTagName);
+        asmWriter.label(classTagName);
+
+        classSIT = "__ref_SIT_" + String.join("_", getCanonicalName());
+        classParentMatrix = "__ref_PARENTS_" + String.join("_", getCanonicalName());
+
+
+        asmWriter.println("section .data");
+        asmWriter.println("");
+
+        // Class SIT
+        asmWriter.println("\t\t" + "global " + classSIT);
+        asmWriter.println("\t" + classSIT + "\t\t" + "dd 0");
+        asmWriter.println("");
+
+        // Class Parent Matrix
+        asmWriter.println("\t\t" + "global " + classParentMatrix);
+        asmWriter.println("\t" + classParentMatrix + "\t\t" + "dd 0");
+        asmWriter.println("");
+
+        // Fields
+        for (FieldDeclr field: fields) {
+            field.addWriter(asmWriter);
+            if (field.getModifiers().contains(Symbol.Static)) {
+                String staticLabel = "__field_" + String.join("_", canonicalID) + "_" + field.getName();
+                field.setStaticFieldLabel(staticLabel);
+
+                asmWriter.println("\t" + "global " + staticLabel);
+                asmWriter.label("\t" + staticLabel);
+                asmWriter.println("\t\t" + "dd 0");
+                asmWriter.println("");
+            }
+        }
+
+        // method gen
+        asmWriter.println("section .text");
+        asmWriter.println("");
+
+
+        // end
+        asmWriter.close();
+    }
+
+    @Override
+    public void addWriter(AsmWriter writer) {
+        asmWriter = writer;
     }
 }

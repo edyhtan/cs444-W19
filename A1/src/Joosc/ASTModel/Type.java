@@ -2,6 +2,7 @@ package Joosc.ASTModel;
 
 import Joosc.ASTBuilding.ASTStructures.TypeNode;
 import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.AsmWriter.AsmWriter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,5 +40,18 @@ public class Type implements AST {
                 return new ArrayList<>(Arrays.asList(getKind().getSymbolString()));
             }
         }
+    }
+
+    //Code Gen
+    AsmWriter asmWriter;
+
+    @Override
+    public void codeGen(int indent) {
+
+    }
+
+    @Override
+    public void addWriter(AsmWriter writer) {
+        asmWriter = writer;
     }
 }

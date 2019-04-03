@@ -30,7 +30,7 @@ public class AsmWriter {
     }
 
     public void println(String content) {
-        out.print(content);
+        out.println(content);
     }
 
     public void dd(String content) {

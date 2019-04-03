@@ -1,5 +1,6 @@
 package Joosc.ASTModel.Statements;
 
+import Joosc.AsmWriter.AsmWriter;
 import Joosc.Exceptions.UnreachableStatementException;
 
 import java.util.ArrayList;
@@ -43,6 +44,19 @@ public class ElseBlock extends HasScope implements Statement {
     @Override
     public boolean getOut() {
         return out;
+    }
+
+    //Code Gen
+    AsmWriter asmWriter;
+
+    @Override
+    public void codeGen(int indent) {
+
+    }
+
+    @Override
+    public void addWriter(AsmWriter writer) {
+        asmWriter = writer;
     }
 
 }

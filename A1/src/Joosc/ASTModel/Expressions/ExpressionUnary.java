@@ -3,6 +3,7 @@ package Joosc.ASTModel.Expressions;
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionUnaryNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.Type;
+import Joosc.AsmWriter.AsmWriter;
 import Joosc.Environment.Env;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
@@ -123,5 +124,18 @@ public class ExpressionUnary extends Expression implements ConstantExpression {
     @Override
     public void localVarSelfReference(String id) throws UnreachableStatementException {
         targetNode.localVarSelfReference(id);
+    }
+
+    //Code Gen
+    AsmWriter asmWriter;
+
+    @Override
+    public void codeGen(int indent) {
+
+    }
+
+    @Override
+    public void addWriter(AsmWriter writer) {
+        asmWriter = writer;
     }
 }

@@ -2,6 +2,7 @@ package Joosc.ASTModel.Statements;
 
 import Joosc.ASTBuilding.ASTStructures.Statements.ExpressionStatementNode;
 import Joosc.ASTModel.Expressions.Expression;
+import Joosc.AsmWriter.AsmWriter;
 import Joosc.Environment.Env;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
@@ -53,5 +54,18 @@ public class ExpressionStatement implements Statement, HasExpression {
 
     public void setParentIsStatic(boolean parentIsStatic) {
         this.parentIsStatic = parentIsStatic;
+    }
+
+    //Code Gen
+    AsmWriter asmWriter;
+
+    @Override
+    public void codeGen(int indent) {
+
+    }
+
+    @Override
+    public void addWriter(AsmWriter writer) {
+        asmWriter = writer;
     }
 }

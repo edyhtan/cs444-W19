@@ -7,6 +7,7 @@ import Joosc.ASTModel.Statements.HasExpression;
 import Joosc.ASTModel.Statements.ReturnStatement;
 import Joosc.ASTModel.Statements.Statement;
 import Joosc.ASTModel.Type;
+import Joosc.AsmWriter.AsmWriter;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
@@ -192,5 +193,18 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
     @Override
     public void addLocalEnvironment(LocalEnv localEnv) {
         this.localEnv = localEnv;
+    }
+
+    //Code Gen
+    AsmWriter asmWriter;
+
+    @Override
+    public void codeGen(int indent) {
+
+    }
+
+    @Override
+    public void addWriter(AsmWriter writer) {
+        asmWriter = writer;
     }
 }

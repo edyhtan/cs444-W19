@@ -3,6 +3,7 @@ package Joosc.ASTModel.Expressions;
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionFieldAccessNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.ClassMember.MethodDeclr;
+import Joosc.AsmWriter.AsmWriter;
 import Joosc.Environment.Env;
 import Joosc.Environment.FieldsVarInfo;
 import Joosc.Exceptions.NamingResolveException;
@@ -96,5 +97,18 @@ public class ExpressionFieldAccess extends Expression {
         if (fieldParentExpression != null) {
             fieldParentExpression.localVarSelfReference(id);
         }
+    }
+
+    //Code Gen
+    AsmWriter asmWriter;
+
+    @Override
+    public void codeGen(int indent) {
+
+    }
+
+    @Override
+    public void addWriter(AsmWriter writer) {
+        asmWriter = writer;
     }
 }

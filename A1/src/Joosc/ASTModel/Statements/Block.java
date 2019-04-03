@@ -1,6 +1,7 @@
 package Joosc.ASTModel.Statements;
 
 import Joosc.ASTBuilding.ASTStructures.Statements.BlockNode;
+import Joosc.AsmWriter.AsmWriter;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.UnreachableStatementException;
 
@@ -59,6 +60,19 @@ public class Block extends HasScope implements Statement {
     @Override
     public boolean getOut() {
         return out;
+    }
+
+    //Code Gen
+    AsmWriter asmWriter;
+
+    @Override
+    public void codeGen(int indent) {
+
+    }
+
+    @Override
+    public void addWriter(AsmWriter writer) {
+        asmWriter = writer;
     }
 
 }

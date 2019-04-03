@@ -3,6 +3,7 @@ package Joosc.ASTModel.ClassInterface;
 import Joosc.ASTBuilding.ASTStructures.InterfaceDeclrNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.ClassMember.MethodDeclr;
+import Joosc.AsmWriter.AsmWriter;
 import Joosc.Environment.ClassEnv;
 import Joosc.Exceptions.UninitializedVariableException;
 
@@ -72,6 +73,19 @@ public class InterfaceDeclr implements TypeDeclr {
     @Override
     public ClassEnv getClassEnv() {
         return env;
+    }
+
+    //Code Gen
+    AsmWriter asmWriter;
+
+    @Override
+    public void codeGen(int indent) {
+
+    }
+
+    @Override
+    public void addWriter(AsmWriter writer) {
+        asmWriter = writer;
     }
 
 }

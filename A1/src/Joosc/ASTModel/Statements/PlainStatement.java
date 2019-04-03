@@ -2,6 +2,7 @@ package Joosc.ASTModel.Statements;
 
 import Joosc.ASTBuilding.ASTStructures.Statements.PlainStatementNode;
 import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.AsmWriter.AsmWriter;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.Exceptions.UnreachableStatementException;
 
@@ -36,6 +37,19 @@ public class PlainStatement implements Statement {
     @Override
     public boolean getOut() {
         return out;
+    }
+
+    //Code Gen
+    AsmWriter asmWriter;
+
+    @Override
+    public void codeGen(int indent) {
+
+    }
+
+    @Override
+    public void addWriter(AsmWriter writer) {
+        asmWriter = writer;
     }
 
 }
