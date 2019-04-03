@@ -3,6 +3,7 @@ package Joosc.ASTModel.Statements;
 import Joosc.ASTBuilding.ASTStructures.Statements.WhileStatementNode;
 import Joosc.ASTModel.Expressions.ConstantExpression;
 import Joosc.ASTModel.Expressions.Expression;
+import Joosc.AsmWriter.AsmWriter;
 import Joosc.Environment.Env;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
@@ -98,6 +99,19 @@ public class WhileStatement extends HasScope implements Statement, HasExpression
     @Override
     public boolean getOut() {
         return out;
+    }
+
+    //Code Gen
+    AsmWriter asmWriter;
+
+    @Override
+    public void codeGen(int indent) {
+
+    }
+
+    @Override
+    public void addWriter(AsmWriter writer) {
+        asmWriter = writer;
     }
 
 }

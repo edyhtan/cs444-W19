@@ -5,6 +5,7 @@ import Joosc.ASTBuilding.ASTStructures.InterfaceDeclrNode;
 import Joosc.ASTModel.ClassInterface.ClassDeclr;
 import Joosc.ASTModel.ClassInterface.InterfaceDeclr;
 import Joosc.ASTModel.ClassInterface.TypeDeclr;
+import Joosc.AsmWriter.AsmWriter;
 import Joosc.Exceptions.UninitializedVariableException;
 import Joosc.Exceptions.UnreachableStatementException;
 
@@ -68,5 +69,19 @@ public class Program implements AST {
 
     public ArrayList<ArrayList<String>> getOnDemandTypeImport() {
         return onDemandTypeImport;
+    }
+
+    //Code Gen
+    AsmWriter asmWriter;
+
+    @Override
+    public void codeGen(int indent) {
+        typeDeclr.codeGen(indent);
+
+    }
+
+    @Override
+    public void addWriter(AsmWriter writer) {
+        asmWriter = writer;
     }
 }

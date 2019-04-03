@@ -3,6 +3,7 @@ package Joosc.ASTModel.Statements;
 import Joosc.ASTBuilding.ASTStructures.Statements.LocalVarDeclrStatementNode;
 import Joosc.ASTModel.Expressions.Expression;
 import Joosc.ASTModel.Type;
+import Joosc.AsmWriter.AsmWriter;
 import Joosc.Environment.Env;
 import Joosc.Environment.FieldsVarInfo;
 import Joosc.Exceptions.NamingResolveException;
@@ -95,10 +96,16 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
         this.parentIsStatic = parentIsStatic;
     }
 
-    class FoolSet<T> extends HashSet<T> {
-        @Override
-        public boolean contains(Object o) {
-            return true;
-        }
+    //Code Gen
+    AsmWriter asmWriter;
+
+    @Override
+    public void codeGen(int indent) {
+
+    }
+
+    @Override
+    public void addWriter(AsmWriter writer) {
+        asmWriter = writer;
     }
 }

@@ -261,8 +261,7 @@ public class ClassEnv implements Env {
                     tempMethodInfo.modifiers.add(Symbol.Public);
             }
 
-            if (methodSignature.containsKey(tempMethodInfo.getSignatureStr())
-                    || implicitDeclr.containsKey(tempMethodInfo.signatureStr)) {
+            if (methodSignature.containsKey(tempMethodInfo.getSignatureStr())) {
                 throw new NamingResolveException("Duplicate method with same signature "
                         + tempMethodInfo.getSignatureStr() + " in class " + typeDeclr.getSimpleName());
             }
@@ -277,6 +276,7 @@ public class ClassEnv implements Env {
             if (implicitDeclr.containsKey(tempMethodInfo.getSignatureStr())) {
                 MethodInfo implicitDeclrMethod = implicitDeclr.get(tempMethodInfo.getSignatureStr());
                 checkReplace(implicitDeclrMethod, tempMethodInfo);
+                implicitDeclr.remove(tempMethodInfo.getSignatureStr());
             }
 
             methodSignature.put(tempMethodInfo.getSignatureStr(), tempMethodInfo);
@@ -340,9 +340,6 @@ public class ClassEnv implements Env {
     HashMap<String, MethodInfo> getFullMethodSignature() throws NamingResolveException {
         if (!implicitDeclr.isEmpty()) { // empty interface with only implicit declared methods
             methodSignature.putAll(implicitDeclr);
-            if (methodSignature.size() == implicitDeclr.size()) {
-                methodContainComplete = true;
-            }
         }
 
         if (methodContainComplete) {
@@ -378,7 +375,8 @@ public class ClassEnv implements Env {
             // replace
             if (parentClassEnv != null) {
                 for (MethodInfo info : parentClassEnv.getFullMethodSignature().values()) {
-                    if (!info.modifiers.contains(Symbol.Abstract)) {
+                    if (!info.modifiers.contains(Symbol.Abstract) &&
+                            !methodSignature.keySet().contains(info.getSignatureStr())) {
                         replaceMapLocal(fullMethodSignature, info);
                     }
                 }

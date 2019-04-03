@@ -4,6 +4,7 @@ import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionClassInstanceCreati
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.ClassInterface.ClassDeclr;
 import Joosc.ASTModel.Type;
+import Joosc.AsmWriter.AsmWriter;
 import Joosc.Environment.ClassEnv;
 import Joosc.Environment.Env;
 import Joosc.Environment.FieldsVarInfo;
@@ -123,5 +124,18 @@ public class ExpressionClassInstanceCreation extends Expression {
         for (Expression arg : argList) {
             arg.localVarSelfReference(id);
         }
+    }
+
+    //Code Gen
+    AsmWriter asmWriter;
+
+    @Override
+    public void codeGen(int indent) {
+
+    }
+
+    @Override
+    public void addWriter(AsmWriter writer) {
+        asmWriter = writer;
     }
 }

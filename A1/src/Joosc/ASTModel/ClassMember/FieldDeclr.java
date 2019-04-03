@@ -7,12 +7,15 @@ import Joosc.ASTModel.Scope;
 import Joosc.ASTModel.Statements.HasExpression;
 import Joosc.ASTModel.Statements.Statement;
 import Joosc.ASTModel.Type;
+import Joosc.AsmWriter.AsmWriter;
 import Joosc.Environment.Env;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
 import Joosc.util.Pair;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -126,4 +129,22 @@ public class FieldDeclr extends Scope implements ClassMemberDeclr, HasExpression
         return joosType;
     }
 
+
+    // Code Gen
+    AsmWriter asmWriter;
+    String staticFieldLabel;
+
+    @Override
+    public void codeGen(int indent) {
+
+    }
+
+    @Override
+    public void addWriter(AsmWriter writer) {
+        asmWriter = writer;
+    }
+
+    public void setStaticFieldLabel(String label) {
+        staticFieldLabel = label;
+    }
 }

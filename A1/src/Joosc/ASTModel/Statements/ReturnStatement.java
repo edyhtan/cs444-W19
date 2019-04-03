@@ -3,6 +3,7 @@ package Joosc.ASTModel.Statements;
 import Joosc.ASTBuilding.ASTStructures.Statements.ReturnStatementNode;
 import Joosc.ASTModel.ClassMember.ConstructorDeclr;
 import Joosc.ASTModel.Expressions.Expression;
+import Joosc.AsmWriter.AsmWriter;
 import Joosc.Environment.Env;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
@@ -83,6 +84,19 @@ public class ReturnStatement implements Statement, HasExpression {
     @Override
     public boolean getOut() {
         return out;
+    }
+
+    //Code Gen
+    AsmWriter asmWriter;
+
+    @Override
+    public void codeGen(int indent) {
+
+    }
+
+    @Override
+    public void addWriter(AsmWriter writer) {
+        asmWriter = writer;
     }
 
 }

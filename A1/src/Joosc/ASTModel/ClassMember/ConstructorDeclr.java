@@ -4,6 +4,7 @@ import Joosc.ASTBuilding.ASTStructures.ConstructorDeclrNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.Statements.Statement;
 import Joosc.ASTModel.Type;
+import Joosc.AsmWriter.AsmWriter;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.UninitializedVariableException;
 import Joosc.Exceptions.UnreachableStatementException;
@@ -102,5 +103,18 @@ public class ConstructorDeclr implements ClassBodyDeclr, Method {
     @Override
     public JoosType getJoosType() {
         return returnType;
+    }
+
+    //Code Gen
+    AsmWriter asmWriter;
+
+    @Override
+    public void codeGen(int indent) {
+
+    }
+
+    @Override
+    public void addWriter(AsmWriter writer) {
+        asmWriter = writer;
     }
 }
