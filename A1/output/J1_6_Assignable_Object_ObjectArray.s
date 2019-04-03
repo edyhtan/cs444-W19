@@ -1,0 +1,12 @@
+	global __class_J1_6_Assignable_Object_ObjectArray
+__class_J1_6_Assignable_Object_ObjectArray:
+section .data
+
+		global __ref_SIT_J1_6_Assignable_Object_ObjectArray
+	__ref_SIT_J1_6_Assignable_Object_ObjectArray		dd 0
+
+		global __ref_PARENTS_J1_6_Assignable_Object_ObjectArray
+	__ref_PARENTS_J1_6_Assignable_Object_ObjectArray		dd 0
+
+section .text
+

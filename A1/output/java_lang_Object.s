@@ -10,3 +10,18 @@ section .data
 
 section .text
 
+		global __method_java_lang_Object_equals_java.lang.Object
+	__method_java_lang_Object_equals_java.lang.Object:
+
+		global __method_java_lang_Object_toString
+	__method_java_lang_Object_toString:
+
+		global __method_java_lang_Object_hashCode
+	__method_java_lang_Object_hashCode:
+
+		global __method_java_lang_Object_clone
+	__method_java_lang_Object_clone:
+
+		global __method_java_lang_Object_getClass
+	__method_java_lang_Object_getClass:
+

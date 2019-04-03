@@ -10,3 +10,48 @@ section .data
 
 section .text
 
+		global __method_java_io_PrintStream_print_java.lang.String
+	__method_java_io_PrintStream_print_java.lang.String:
+
+		global __method_java_io_PrintStream_println
+	__method_java_io_PrintStream_println:
+
+		global __method_java_io_PrintStream_println_java.lang.String
+	__method_java_io_PrintStream_println_java.lang.String:
+
+		global __method_java_io_PrintStream_println_java.lang.Object
+	__method_java_io_PrintStream_println_java.lang.Object:
+
+		global __method_java_io_PrintStream_println_boolean
+	__method_java_io_PrintStream_println_boolean:
+
+		global __method_java_io_PrintStream_println_byte
+	__method_java_io_PrintStream_println_byte:
+
+		global __method_java_io_PrintStream_println_char
+	__method_java_io_PrintStream_println_char:
+
+		global __method_java_io_PrintStream_println_short
+	__method_java_io_PrintStream_println_short:
+
+		global __method_java_io_PrintStream_println_int
+	__method_java_io_PrintStream_println_int:
+
+		global __method_java_io_PrintStream_print_java.lang.Object
+	__method_java_io_PrintStream_print_java.lang.Object:
+
+		global __method_java_io_PrintStream_print_boolean
+	__method_java_io_PrintStream_print_boolean:
+
+		global __method_java_io_PrintStream_print_byte
+	__method_java_io_PrintStream_print_byte:
+
+		global __method_java_io_PrintStream_print_char
+	__method_java_io_PrintStream_print_char:
+
+		global __method_java_io_PrintStream_print_short
+	__method_java_io_PrintStream_print_short:
+
+		global __method_java_io_PrintStream_print_int
+	__method_java_io_PrintStream_print_int:
+

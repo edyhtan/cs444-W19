@@ -14,3 +14,12 @@ section .data
 
 section .text
 
+		global __method_java_lang_Integer_intValue
+	__method_java_lang_Integer_intValue:
+
+		global __method_java_lang_Integer_parseInt_java.lang.String
+	__method_java_lang_Integer_parseInt_java.lang.String:
+
+		global __method_java_lang_Integer_toString
+	__method_java_lang_Integer_toString:
+

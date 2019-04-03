@@ -10,3 +10,9 @@ section .data
 
 section .text
 
+		global __method_java_lang_Short_intValue
+	__method_java_lang_Short_intValue:
+
+		global __method_java_lang_Short_toString
+	__method_java_lang_Short_toString:
+

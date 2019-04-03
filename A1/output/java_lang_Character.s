@@ -10,3 +10,6 @@ section .data
 
 section .text
 
+		global __method_java_lang_Character_toString
+	__method_java_lang_Character_toString:
+

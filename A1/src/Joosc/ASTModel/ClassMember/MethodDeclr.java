@@ -197,9 +197,25 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
 
     //Code Gen
     AsmWriter asmWriter;
+    String methodLabel;
+
+    public void setMethodLabel(String methodLabel) {
+        this.methodLabel = methodLabel;
+    }
 
     @Override
     public void codeGen(int indent) {
+        asmWriter.indent(indent+1);
+        asmWriter.println("global " + methodLabel);
+        asmWriter.indent(indent);
+        asmWriter.label(methodLabel);
+
+        for(Pair<Type, String> param : formalParamList) {
+
+        }
+
+
+        asmWriter.println("");
 
     }
 

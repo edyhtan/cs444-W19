@@ -1,0 +1,12 @@
+	global __class_J1_1_Instanceof_OfCastExpression
+__class_J1_1_Instanceof_OfCastExpression:
+section .data
+
+		global __ref_SIT_J1_1_Instanceof_OfCastExpression
+	__ref_SIT_J1_1_Instanceof_OfCastExpression		dd 0
+
+		global __ref_PARENTS_J1_1_Instanceof_OfCastExpression
+	__ref_PARENTS_J1_1_Instanceof_OfCastExpression		dd 0
+
+section .text
+

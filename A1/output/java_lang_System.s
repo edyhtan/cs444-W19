@@ -14,3 +14,6 @@ section .data
 
 section .text
 
+		global __method_java_lang_System_gc
+	__method_java_lang_System_gc:
+

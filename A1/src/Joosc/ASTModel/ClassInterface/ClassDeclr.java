@@ -179,6 +179,13 @@ public class ClassDeclr implements TypeDeclr {
         asmWriter.println("section .text");
         asmWriter.println("");
 
+        for(MethodDeclr method: methods) {
+            method.addWriter(asmWriter);
+            String methodLabel = "__method_"+String.join("_", canonicalID) + "_" + method.getMethodSignature().replace(',', '_');
+            method.setMethodLabel(methodLabel);
+            method.codeGen(indent+1);
+        }
+
 
         // end
         asmWriter.close();

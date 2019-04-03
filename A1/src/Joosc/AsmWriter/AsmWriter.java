@@ -2,6 +2,7 @@ package Joosc.AsmWriter;
 
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.util.Collections;
 
 public class AsmWriter {
     PrintStream out;
@@ -239,6 +240,10 @@ public class AsmWriter {
 
     public void outputInit() {
 
+    }
+
+    public void indent(int num) {
+        out.print(String.join("", Collections.nCopies(num, "\t")));
     }
 
 }

@@ -1,0 +1,20 @@
+	global __class_J2_A_FieldInitialization_Static_Before
+__class_J2_A_FieldInitialization_Static_Before:
+section .data
+
+		global __ref_SIT_J2_A_FieldInitialization_Static_Before
+	__ref_SIT_J2_A_FieldInitialization_Static_Before		dd 0
+
+		global __ref_PARENTS_J2_A_FieldInitialization_Static_Before
+	__ref_PARENTS_J2_A_FieldInitialization_Static_Before		dd 0
+
+	global __field_J2_A_FieldInitialization_Static_Before_b
+	__field_J2_A_FieldInitialization_Static_Before_b:
+		dd 0
+
+	global __field_J2_A_FieldInitialization_Static_Before_a
+	__field_J2_A_FieldInitialization_Static_Before_a:
+		dd 0
+
+section .text
+

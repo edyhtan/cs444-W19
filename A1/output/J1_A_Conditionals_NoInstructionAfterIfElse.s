@@ -1,0 +1,12 @@
+	global __class_J1_A_Conditionals_NoInstructionAfterIfElse
+__class_J1_A_Conditionals_NoInstructionAfterIfElse:
+section .data
+
+		global __ref_SIT_J1_A_Conditionals_NoInstructionAfterIfElse
+	__ref_SIT_J1_A_Conditionals_NoInstructionAfterIfElse		dd 0
+
+		global __ref_PARENTS_J1_A_Conditionals_NoInstructionAfterIfElse
+	__ref_PARENTS_J1_A_Conditionals_NoInstructionAfterIfElse		dd 0
+
+section .text
+

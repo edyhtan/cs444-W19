@@ -10,3 +10,9 @@ section .data
 
 section .text
 
+		global __method_java_util_Arrays_equals_boolean[]_boolean[]
+	__method_java_util_Arrays_equals_boolean[]_boolean[]:
+
+		global __method_java_util_Arrays_equals_char[]_char[]
+	__method_java_util_Arrays_equals_char[]_char[]:
+

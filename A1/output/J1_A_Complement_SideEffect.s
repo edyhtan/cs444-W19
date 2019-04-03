@@ -1,0 +1,18 @@
+	global __class_J1_A_Complement_SideEffect
+__class_J1_A_Complement_SideEffect:
+section .data
+
+		global __ref_SIT_J1_A_Complement_SideEffect
+	__ref_SIT_J1_A_Complement_SideEffect		dd 0
+
+		global __ref_PARENTS_J1_A_Complement_SideEffect
+	__ref_PARENTS_J1_A_Complement_SideEffect		dd 0
+
+section .text
+
+		global __method_J1_A_Complement_SideEffect_incCount
+	__method_J1_A_Complement_SideEffect_incCount:
+
+		global __method_J1_A_Complement_SideEffect_test
+	__method_J1_A_Complement_SideEffect_test:
+
