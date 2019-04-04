@@ -780,7 +780,7 @@ public class ClassEnv implements Env {
         methodCallTable.forEach((k, v) -> {
             int ind = (new ArrayList<>(methodCallTable.keySet())).indexOf(k);
             if (v.callReference == null) {
-                v.callReference = "__m_" + ind;
+                v.callReference = v.methodLabel;
                 v.external = false;
             }
             v.methodOffset = 8 + 4 * ind;

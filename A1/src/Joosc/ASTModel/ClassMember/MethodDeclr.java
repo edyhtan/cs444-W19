@@ -223,6 +223,8 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
             asmWriter.outputInit();
         }
 
+        asmWriter.indent(indent + 1);
+        asmWriter.global(methodLabel);
         asmWriter.indent(indent);
         asmWriter.label(methodLabel);
 

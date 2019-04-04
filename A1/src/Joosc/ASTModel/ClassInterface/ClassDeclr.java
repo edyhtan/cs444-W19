@@ -167,14 +167,11 @@ public class ClassDeclr implements TypeDeclr {
         asmWriter.println("\t" + classParentMatrix + "\t\t" + "dd 0");
         asmWriter.println("");
 
+        asmWriter.print("\t");
+        asmWriter.println("; Methods\t");
         for (MethodInfo info:env.methodCallTable.values()) {
             asmWriter.print("\t\t");
-            asmWriter.global(info.methodLabel);
-            asmWriter.print("\t");
-            asmWriter.label(info.methodLabel);
-            asmWriter.print("\t\t");
-            asmWriter.dd(info.external ? String.format("[%s]", info.callReference) : info.callReference);
-            asmWriter.println("");
+            asmWriter.dd(info.external ? info.callReference : info.methodLabel);
         }
 
 
@@ -198,7 +195,7 @@ public class ClassDeclr implements TypeDeclr {
 
         for (MethodDeclr method : methods) {
             method.addWriter(asmWriter);
-            String methodLabel = env.methodCallTable.get(method.getMethodSignature()).callReference;
+            String methodLabel = env.methodCallTable.get(method.getMethodSignature()).methodLabel;
             method.setMethodLabel(methodLabel);
             method.codeGen(indent + 1);
         }
