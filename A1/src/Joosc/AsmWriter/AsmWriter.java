@@ -239,7 +239,6 @@ public class AsmWriter {
     }
 
     public void outputInit() {
-
     }
 
     public void indent(int num) {
