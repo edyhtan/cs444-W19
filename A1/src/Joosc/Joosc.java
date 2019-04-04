@@ -72,6 +72,7 @@ public class Joosc {
             globalEnvironment.semanticAnalysis();
 
             for (Program ast : asts) {
+                Program.globalCount = 0;
                 ast.staticAnalysis();
                 ast.codeGen(0);
             }
