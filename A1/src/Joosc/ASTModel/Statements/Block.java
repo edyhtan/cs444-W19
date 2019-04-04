@@ -40,8 +40,8 @@ public class Block extends HasScope implements Statement {
     @Override
     public void setNumLocalVars() {
         int count = 0;
-        for(Statement statement: statements) {
-            if(statement instanceof LocalVarDeclrStatement) count++;
+        for (Statement statement : statements) {
+            if (statement instanceof LocalVarDeclrStatement) count++;
         }
 
         this.numLocalVars = count;
@@ -90,8 +90,12 @@ public class Block extends HasScope implements Statement {
         }
         asmWriter.indent(indent);
 
-        // pop all local vars
-        asmWriter.add(Register.esp, (numLocalVars * 4));
+        if (numLocalVars > 0) {
+            asmWriter.indent(indent);
+            // pop all local vars
+            asmWriter.add(Register.esp, (numLocalVars * 4));
+            asmWriter.println("");
+        }
     }
 
     @Override
