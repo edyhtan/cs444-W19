@@ -758,6 +758,16 @@ public class ClassEnv implements Env {
 
         methodSignature.forEach(methodCallTable::put);
 
+        methodCallTable.forEach((k, v) -> {
+            v.methodLabel = (v.modifiers.contains(Symbol.Static) ? "__STATIC_" : "__")
+                    + "method__" + joosType.getQualifiedName().replace('.', '_')
+                    + "__"
+                    + k.replace(',', '$').replace("[]", "@").replace('.', '_')
+                    + (k.split(",").length > 1 ? "$" : "");
+            v.methodOffset = 8 + 4 *
+                    (new ArrayList<>(methodCallTable.keySet())).indexOf(k);
+        });
+
     }
 
 }
