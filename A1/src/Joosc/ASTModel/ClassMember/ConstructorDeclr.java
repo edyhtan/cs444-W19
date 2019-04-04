@@ -108,6 +108,9 @@ public class ConstructorDeclr implements ClassBodyDeclr, Method {
     //Code Gen
     AsmWriter asmWriter;
 
+    /**
+     *
+     * */
     @Override
     public void codeGen(int indent) {
 
