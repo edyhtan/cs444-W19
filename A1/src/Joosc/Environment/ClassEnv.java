@@ -234,7 +234,7 @@ public class ClassEnv implements Env {
 
     public void variableContain() {
         if (variableContainComplete) {
-            return ;
+            return;
         }
 
         if (typeDeclr instanceof ClassDeclr) {
@@ -397,7 +397,7 @@ public class ClassEnv implements Env {
                 for (MethodInfo info : fullMethodSignature.values()) {
                     if (info.modifiers.contains(Symbol.Abstract)) {
                         throw new NamingResolveException("Abstract methods " + info.signatureStr +
-                                    " not implemented in " + typeDeclr.getSimpleName());
+                                " not implemented in " + typeDeclr.getSimpleName());
                     }
                 }
             }
@@ -520,11 +520,11 @@ public class ClassEnv implements Env {
     }
 
     public void resolveDefaultSuperCtor() throws TypeCheckException {
-        for(JoosType parentType : this.superSet) {
-            if(parentType.getClassEnv().getTypeDeclr() instanceof ClassDeclr) {
+        for (JoosType parentType : this.superSet) {
+            if (parentType.getClassEnv().getTypeDeclr() instanceof ClassDeclr) {
                 ClassEnv parentEnv = parentType.getClassEnv();
-                String defaultCtor = parentType.getTypeName().get(parentType.getTypeName().size()-1);
-                if(!parentEnv.constructorSignature.containsKey(defaultCtor)) {
+                String defaultCtor = parentType.getTypeName().get(parentType.getTypeName().size() - 1);
+                if (!parentEnv.constructorSignature.containsKey(defaultCtor)) {
                     throw new TypeCheckException("Implicit super constructor undefined: " + parentType.getTypeName());
                 }
             }
@@ -546,7 +546,7 @@ public class ClassEnv implements Env {
     public void resolveFieldsAndLocalVar() throws NamingResolveException, TypeCheckException {
 
         fieldTypeCheck();
-        for (LocalEnv localEnv:localEnvs) {
+        for (LocalEnv localEnv : localEnvs) {
             localEnv.resolveLocalVariableAndAccess();
         }
     }
@@ -595,7 +595,7 @@ public class ClassEnv implements Env {
 
     /**
      * This should be named as something like fieldTypeResolve
-     * */
+     */
     @Override
     public FieldsVarInfo typeResolve(String name, Type type, ArrayList<Symbol> modifiers) throws NamingResolveException {
         TypeInfo fieldType = typeResolve(type);
@@ -661,7 +661,7 @@ public class ClassEnv implements Env {
     }
 
     public void addSuperToJooscType() {
-        for (JoosType parent:fullSuperSet) {
+        for (JoosType parent : fullSuperSet) {
             joosType.addParent(parent);
         }
     }
@@ -674,7 +674,7 @@ public class ClassEnv implements Env {
 
     @Override
     public boolean hasMethodSignature(String f) {
-        return fullMethodSignature.keySet().stream().map(x->x.split(",")[0].equals(f)).reduce(false, (a,b) -> a|b);
+        return fullMethodSignature.keySet().stream().map(x -> x.split(",")[0].equals(f)).reduce(false, (a, b) -> a | b);
     }
 
     @Override
@@ -683,7 +683,7 @@ public class ClassEnv implements Env {
     }
 
     @Override
-    public FieldsVarInfo getFieldInfo(String name){
+    public FieldsVarInfo getFieldInfo(String name) {
         return containedFields.getOrDefault(name, null);
     }
 
@@ -709,6 +709,13 @@ public class ClassEnv implements Env {
     @Override
     public ArrayList<String> getPackageDeclr() {
         return packageDeclr;
+    }
+
+    @Override
+    public void assignOffset(String name, int offset) {
+        if (fields.containsKey(name)) {
+            fields.get(name).setOffset(offset);
+        }
     }
 
     @Override
@@ -754,21 +761,39 @@ public class ClassEnv implements Env {
 
         if (extendName != null) {
             extendName.getClassEnv().buildMethodCallTable();
-            extendName.getClassEnv().methodCallTable.forEach(methodCallTable::put);
+            LinkedHashMap<String, MethodInfo> parentMethods = extendName.getClassEnv().methodCallTable;
+            for (String key: parentMethods.keySet()) {
+                MethodInfo info = new MethodInfo(parentMethods.get(key));
+                info.callReference = info.methodLabel;
+                createMethodLabel(key, info);
+                methodCallTable.put(key, info);
+            }
         }
 
-        methodSignature.forEach(methodCallTable::put);
+        for (String key:methodSignature.keySet()) {
+            MethodInfo info = methodSignature.get(key);
+            if (!methodCallTable.containsKey(key)) {
+                createMethodLabel(key, info);
+                methodCallTable.put(key, info);
+            }
+        }
 
         methodCallTable.forEach((k, v) -> {
-            v.methodLabel = (v.modifiers.contains(Symbol.Static) ? "__STATIC_" : "__")
-                    + "method__" + joosType.getQualifiedName().replace('.', '_')
-                    + "__"
-                    + k.replace(',', '$').replace("[]", "@").replace('.', '_')
-                    + (k.split(",").length > 1 ? "$" : "");
-            v.methodOffset = 8 + 4 *
-                    (new ArrayList<>(methodCallTable.keySet())).indexOf(k);
+            int ind = (new ArrayList<>(methodCallTable.keySet())).indexOf(k);
+            if (v.callReference == null) {
+                v.callReference = v.methodLabel;
+                v.external = false;
+            }
+            v.methodOffset = 8 + 4 * ind;
         });
+    }
 
+    public void createMethodLabel(String k, MethodInfo v) {
+        v.methodLabel = (v.modifiers.contains(Symbol.Static) ? "__STATIC_" : "__")
+                + "method__" + joosType.getQualifiedName().replace('.', '_')
+                + "__"
+                + k.replace(',', '$').replace("[]", "@").replace('.', '_')
+                + (k.split(",").length > 1 ? "$" : "");
     }
 
     public void buildConstructorLabel() {
@@ -783,5 +808,4 @@ public class ClassEnv implements Env {
                     + (k.split(",").length > 1 ? "$" : "");
         });
     }
-
 }

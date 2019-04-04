@@ -2,6 +2,7 @@ package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.AsmWriter.AsmWriter;
+import Joosc.AsmWriter.Register;
 import Joosc.Environment.Env;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
@@ -85,7 +86,8 @@ public class Literal extends ExpressionContent implements ConstantExpression {
 
     @Override
     public void codeGen(int indent) {
-
+        asmWriter.indent(indent);
+        asmWriter.mov(Register.eax, literal);
     }
 
     @Override

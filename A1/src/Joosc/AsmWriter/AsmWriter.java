@@ -1,5 +1,10 @@
 package Joosc.AsmWriter;
 
+import Joosc.ASTModel.Expressions.Expression;
+
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+import java.util.Collections;
 import Joosc.ASTModel.ClassInterface.ClassDeclr;
 import Joosc.ASTModel.ClassInterface.InterfaceDeclr;
 import Joosc.ASTModel.ClassInterface.TypeDeclr;
@@ -8,12 +13,6 @@ import Joosc.Environment.GlobalEnv;
 import Joosc.Environment.MethodInfo;
 import Joosc.util.ArrayLinkedHashSet;
 
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
 
 public class AsmWriter {
     PrintStream out;
@@ -80,6 +79,14 @@ public class AsmWriter {
 
     public void cmp(Register reg1, Register reg2) {
         cmp(reg1.toString(), reg2.toString());
+    }
+
+    public void cmp(Register reg, String str) {
+        cmp(reg.toString(), str);
+    }
+
+    public void je(String label) {
+        out.println("je " + label);
     }
 
     public void jg(String label) {
@@ -232,6 +239,17 @@ public class AsmWriter {
         out.println(String.format(binaryTemplate, "shr", reg, i));
     }
 
+    public void iffalse(Expression expression, String label, int indent) {
+        indent(indent);
+        println(";expression code...");
+        expression.codeGen(indent);
+
+        indent(indent);
+        cmp(Register.eax, "0");
+        indent(indent);
+        je(label);
+    }
+
     /**
      * Followed by push caller-save regs on stack
      * */
@@ -248,6 +266,10 @@ public class AsmWriter {
         mov(Register.esp, Register.ebp);
         pop(Register.ebp);
         ret();
+    }
+
+    public void indent(int num) {
+        out.print(String.join("", Collections.nCopies(num, "\t")));
     }
 
     public void malloc(int size) {

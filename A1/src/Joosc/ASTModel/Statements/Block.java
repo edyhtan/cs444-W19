@@ -2,6 +2,7 @@ package Joosc.ASTModel.Statements;
 
 import Joosc.ASTBuilding.ASTStructures.Statements.BlockNode;
 import Joosc.AsmWriter.AsmWriter;
+import Joosc.AsmWriter.Register;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.UnreachableStatementException;
 
@@ -23,6 +24,7 @@ public class Block extends HasScope implements Statement {
             statements = node.getStatements().stream().map(stmt -> Statement.convertStatementNode(stmt))
                     .collect(Collectors.toCollection(ArrayList::new));
         }
+        setNumLocalVars();
     }
 
     @Override
@@ -33,6 +35,21 @@ public class Block extends HasScope implements Statement {
     @Override
     public void passDownScopes() {
 
+    }
+
+    @Override
+    public void setNumLocalVars() {
+        int count = 0;
+        for (Statement statement : statements) {
+            if (statement instanceof LocalVarDeclrStatement) count++;
+        }
+
+        this.numLocalVars = count;
+    }
+
+    @Override
+    public int getNumLocalVars() {
+        return this.numLocalVars;
     }
 
     @Override
@@ -67,7 +84,18 @@ public class Block extends HasScope implements Statement {
 
     @Override
     public void codeGen(int indent) {
+        for (Statement statement : statements) {
+            statement.addWriter(asmWriter);
+            statement.codeGen(indent);
+        }
+        asmWriter.indent(indent);
 
+        if (numLocalVars > 0) {
+            asmWriter.indent(indent);
+            // pop all local vars
+            asmWriter.add(Register.esp, (numLocalVars * 4));
+            asmWriter.println("");
+        }
     }
 
     @Override

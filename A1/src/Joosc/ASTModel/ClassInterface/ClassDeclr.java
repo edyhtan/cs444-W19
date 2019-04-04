@@ -8,6 +8,7 @@ import Joosc.ASTModel.ClassMember.FieldDeclr;
 import Joosc.ASTModel.ClassMember.MethodDeclr;
 import Joosc.AsmWriter.AsmWriter;
 import Joosc.Environment.ClassEnv;
+import Joosc.Environment.MethodInfo;
 import Joosc.Exceptions.UninitializedVariableException;
 import Joosc.Exceptions.UnreachableStatementException;
 
@@ -168,8 +169,16 @@ public class ClassDeclr implements TypeDeclr {
         asmWriter.println("\t" + classParentMatrix + "\t\t" + "dd 0");
         asmWriter.println("");
 
+        asmWriter.print("\t");
+        asmWriter.println("; Methods\t");
+        for (MethodInfo info:env.methodCallTable.values()) {
+            asmWriter.print("\t\t");
+            asmWriter.dd(info.external ? info.callReference : info.methodLabel);
+        }
+
+
         // Fields
-        for (FieldDeclr field: fields) {
+        for (FieldDeclr field : fields) {
             field.addWriter(asmWriter);
             if (field.getModifiers().contains(Symbol.Static)) {
                 String staticLabel = "__field_" + String.join("_", canonicalID) + "_" + field.getName();
@@ -185,6 +194,13 @@ public class ClassDeclr implements TypeDeclr {
         // method gen
         asmWriter.println("section .text");
         asmWriter.println("");
+
+        for (MethodDeclr method : methods) {
+            method.addWriter(asmWriter);
+            String methodLabel = env.methodCallTable.get(method.getMethodSignature()).methodLabel;
+            method.setMethodLabel(methodLabel);
+            method.codeGen(indent + 1);
+        }
 
 
         // end

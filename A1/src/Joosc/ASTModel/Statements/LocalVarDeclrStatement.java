@@ -4,14 +4,13 @@ import Joosc.ASTBuilding.ASTStructures.Statements.LocalVarDeclrStatementNode;
 import Joosc.ASTModel.Expressions.Expression;
 import Joosc.ASTModel.Type;
 import Joosc.AsmWriter.AsmWriter;
+import Joosc.AsmWriter.Register;
 import Joosc.Environment.Env;
 import Joosc.Environment.FieldsVarInfo;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.Exceptions.UnreachableStatementException;
 import Joosc.TypeSystem.JoosType;
-
-import java.util.HashSet;
 
 public class LocalVarDeclrStatement implements Statement, HasExpression {
     private Type type;
@@ -101,7 +100,12 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
 
     @Override
     public void codeGen(int indent) {
+        initExpression.addWriter(asmWriter);
+        initExpression.codeGen(indent);
 
+        asmWriter.indent(indent);
+        String tmp = Register.ebp + String.valueOf(info.getOffset());
+        asmWriter.movToAddr(tmp, Register.eax);
     }
 
     @Override

@@ -3,7 +3,9 @@ package Joosc.ASTModel.Statements;
 import Joosc.ASTBuilding.ASTStructures.Statements.ForStatementNode;
 import Joosc.ASTModel.Expressions.ConstantExpression;
 import Joosc.ASTModel.Expressions.Expression;
+import Joosc.ASTModel.Program;
 import Joosc.AsmWriter.AsmWriter;
+import Joosc.AsmWriter.Register;
 import Joosc.Environment.Env;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
@@ -25,6 +27,7 @@ public class ForStatement extends HasScope implements Statement, HasExpression {
         forUpdate = Statement.convertStatementNode(node.getForUpdate());
         expression = Expression.convertExpressionNode(node.getExpression());
         statement = new Block(Statement.convertStatementNode(node.getStatement()));
+        setNumLocalVars();
     }
 
     public Statement getStatement() {
@@ -51,6 +54,18 @@ public class ForStatement extends HasScope implements Statement, HasExpression {
     @Override
     public void passDownScopes() {
 
+    }
+
+    @Override
+    public void setNumLocalVars() {
+        if(forInit!= null) numLocalVars += Statement.findLocalVarCount(forInit);
+        if(forUpdate!=null)numLocalVars += Statement.findLocalVarCount(forUpdate);
+        numLocalVars += statement.getNumLocalVars();
+    }
+
+    @Override
+    public int getNumLocalVars() {
+        return this.numLocalVars;
     }
 
     @Override
@@ -118,10 +133,18 @@ public class ForStatement extends HasScope implements Statement, HasExpression {
 
     //Code Gen
     AsmWriter asmWriter;
+    int offset;
 
     @Override
     public void codeGen(int indent) {
+        this.offset = Program.globalCount;
+        Program.globalCount++;
 
+        if(numLocalVars > 0) {
+            asmWriter.indent(indent);
+            // pop all local vars
+            asmWriter.add(Register.esp, (numLocalVars * 4));
+        }
     }
 
     @Override

@@ -3,11 +3,10 @@ package Joosc.ASTModel.ClassMember;
 import Joosc.ASTBuilding.ASTStructures.AbstractMethodDeclrNode;
 import Joosc.ASTBuilding.ASTStructures.MethodDeclrNode;
 import Joosc.ASTBuilding.Constants.Symbol;
-import Joosc.ASTModel.Statements.HasExpression;
-import Joosc.ASTModel.Statements.ReturnStatement;
-import Joosc.ASTModel.Statements.Statement;
+import Joosc.ASTModel.Statements.*;
 import Joosc.ASTModel.Type;
 import Joosc.AsmWriter.AsmWriter;
+import Joosc.AsmWriter.Register;
 import Joosc.Environment.LocalEnv;
 import Joosc.Environment.MethodInfo;
 import Joosc.Exceptions.NamingResolveException;
@@ -183,6 +182,14 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
         return methodSignature;
     }
 
+    public String getSigLabel() {
+        String label = this.methodSignature.replace(',', '_').replace("[]", "@");
+        if (modifiers.contains(Symbol.Static)) {
+            return "_STATIC_" + label;
+        } else return label;
+
+    }
+
     @Override
     public void setType(JoosType type) {
         returnType = type;
@@ -200,9 +207,77 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
 
     //Code Gen
     AsmWriter asmWriter;
+    String methodLabel;
+
+    public void setMethodLabel(String methodLabel) {
+        this.methodLabel = methodLabel;
+    }
+
+    public String getMethodLabel() {
+        return this.methodLabel;
+    }
 
     @Override
     public void codeGen(int indent) {
+        if (name.equals("test") && modifiers.contains(Symbol.Static)) {
+            asmWriter.outputInit();
+        }
+
+        asmWriter.indent(indent + 1);
+        asmWriter.global(methodLabel);
+        asmWriter.indent(indent);
+        asmWriter.label(methodLabel);
+
+        asmWriter.indent(indent + 1);
+        asmWriter.push(Register.ebp);
+        asmWriter.indent(indent + 1);
+        asmWriter.mov(Register.ebp, Register.esp);
+        asmWriter.println("");
+
+
+        // TODO: distinguish static && non-static
+        // extra one for eip
+        int size = formalParamList.size() + 1;
+        for (int i = 0; i < formalParamList.size(); ++i) {
+            Pair<Type, String> param = formalParamList.get(i);
+            localEnv.assignOffset(param.getValue(), (size - i) * 4);
+        }
+
+
+        int total = 0;
+        for (Statement statement : bodyBlock) {
+            statement.addWriter(asmWriter);
+
+            if (statement instanceof LocalVarDeclrStatement) {
+                total++;
+                localEnv.assignOffset(((LocalVarDeclrStatement) statement).getId(), -4 * total);
+            }
+            if (statement instanceof Block) {
+                for (Statement blkStatement : ((Block) statement).getBlock()) {
+                    if (blkStatement instanceof LocalVarDeclrStatement) {
+                        total++;
+                        localEnv.assignOffset(((LocalVarDeclrStatement) blkStatement).getId(), -4 * total);
+                    }
+                }
+            }
+        }
+
+        asmWriter.indent(indent+1);
+        asmWriter.sub(Register.esp, total * 4);
+
+        for (Statement statement : bodyBlock) {
+            statement.codeGen(indent + 1);
+        }
+
+        asmWriter.println("");
+        asmWriter.indent(indent+1);
+        asmWriter.label("_method_return_" + methodLabel);
+        asmWriter.indent(indent + 2);
+        asmWriter.pop(Register.ebp);
+        asmWriter.indent(indent + 2);
+        asmWriter.ret();
+
+        asmWriter.println("");
 
     }
 

@@ -1,0 +1,146 @@
+31
+start
+intLiteral$0
+intLiteral$1
+intLiteral$2
+operator
+operator$>
+operator$<
+operator$!
+operator$=
+operator$&
+operator$|
+operator$/
+operator$*
+separator
+comment$//
+comment$/*
+comment$/*+
+comment$/*+*
+comment
+charLiteral
+charLiteral$'
+charLiteral$\
+charLiteral$\2
+charLiteral$\1
+charLiteral$filled
+string
+string$"
+string$\
+string$\2
+string$\1
+id_keyword
+18
+intLiteral$0
+intLiteral$1
+intLiteral$2
+operator
+operator$>
+operator$<
+operator$!
+operator$=
+operator$/
+operator$*
+operator$&
+operator$|
+separator
+comment$//
+comment
+charLiteral
+string
+id_keyword
+95
+start 0 intLiteral$0
+start 1 9 intLiteral$1
+intLiteral$1 0 9 intLiteral$1
+intLiteral$1 I intLiteral$2
+start + operator
+start - operator
+start * operator$*
+start / operator$/
+start % operator
+start & operator$&
+start ^ operator
+operator$& & operator
+start ! operator$!
+operator$! = operator
+start | operator$|
+operator$| | operator
+start < operator$<
+operator$< = operator
+start > operator$>
+operator$> = operator
+start = operator$=
+operator$= = operator
+start ( separator
+start ) separator
+start ; separator
+start { separator
+start } separator
+start [ separator
+start ] separator
+start . separator
+start , separator
+operator$/ / comment$//
+operator$/ * comment$/*
+comment$/* 000 127 comment$/*+
+comment$/* * comment$/*+*
+comment$/*+ 000 127 comment$/*+
+comment$/*+ * comment$/*+*
+comment$/*+* 000 127 comment$/*+
+comment$/*+* * comment$/*+*
+comment$/*+* / comment
+start ' charLiteral$'
+charLiteral$' 000 011 charLiteral$filled
+charLiteral$' 013 127 charLiteral$filled
+charLiteral$filled ' charLiteral
+charLiteral$filled ' charLiteral
+charLiteral$' \ charLiteral$\
+charLiteral$\ b charLiteral$filled
+charLiteral$\ t charLiteral$filled
+charLiteral$\ n charLiteral$filled
+charLiteral$\ f charLiteral$filled
+charLiteral$\ r charLiteral$filled
+charLiteral$\ " charLiteral$filled
+charLiteral$\ ' charLiteral$filled
+charLiteral$\ \ charLiteral$filled
+charLiteral$\ 0 3 charLiteral$\2
+charLiteral$\ 4 7 charLiteral$\1
+charLiteral$\2 0 7 charLiteral$\1
+charLiteral$\2 ' charLiteral
+string$\1 0 7 charLiteral$filled
+charLiteral$\1 ' charLiteral
+charLiteral$\1 0 7 charLiteral$filled
+start " string$"
+string$" 000 011 string$"
+string$" 013 127 string$"
+string$" " string
+string$" \ string$\
+string$\ b string$"
+string$\ t string$"
+string$\ n string$"
+string$\ f string$"
+string$\ r string$"
+string$\ " string$"
+string$\ ' string$"
+string$\ \ string$"
+string$\ 0 3 string$\2
+string$\ 4 7 string$\1
+string$\2 000 011 string$"
+string$\2 013 127 string$"
+string$\2 0 7 string$\1
+string$\2 " string
+string$\2 \ string$\
+string$\1 000 011 string$"
+string$\1 013 127 string$"
+string$\1 " string
+string$\1 \ string$\
+start A Z id_keyword
+start a z id_keyword
+start $ id_keyword
+start _ id_keyword
+id_keyword A Z id_keyword
+id_keyword a z id_keyword
+id_keyword $ id_keyword
+id_keyword _ id_keyword
+id_keyword 0 9 id_keyword

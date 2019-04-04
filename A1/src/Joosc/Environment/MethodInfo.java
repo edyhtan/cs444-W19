@@ -11,12 +11,15 @@ import java.util.ArrayList;
 public class MethodInfo {
     String signatureStr;
     String methodSimpleName;
-    public String methodLabel;
-    public int methodOffset;
     TypeInfo returnType;
     ArrayList<FieldsVarInfo> paramTypeList;
     ArrayList<Symbol> modifiers;
     Method ast;
+
+    public String methodLabel;
+    public int methodOffset;
+    public String callReference = null;
+    public boolean external = true;
 
     public static String buildSignatureStr(String methodSimpleName, ArrayList<JoosType> argList) {
         return argList.stream()
@@ -44,6 +47,17 @@ public class MethodInfo {
         signatureStr = paramTypeList.stream()
                 .map(x->x.getFullTypeName() + (x.isTypeArray()? "[]" : ""))
                 .reduce(ctor.getName(), (s, t) -> s + "," + t);
+    }
+
+    public MethodInfo(MethodInfo info) {
+        signatureStr = info.signatureStr;
+        methodSimpleName = info.methodSimpleName;
+        returnType = info.returnType;
+        paramTypeList = info.paramTypeList;
+        modifiers = info.modifiers;
+        ast = info.ast;
+
+        methodLabel = info.methodLabel;
     }
 
     public String getSignatureStr() {

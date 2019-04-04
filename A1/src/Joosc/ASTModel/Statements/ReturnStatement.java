@@ -2,6 +2,7 @@ package Joosc.ASTModel.Statements;
 
 import Joosc.ASTBuilding.ASTStructures.Statements.ReturnStatementNode;
 import Joosc.ASTModel.ClassMember.ConstructorDeclr;
+import Joosc.ASTModel.ClassMember.MethodDeclr;
 import Joosc.ASTModel.Expressions.Expression;
 import Joosc.AsmWriter.AsmWriter;
 import Joosc.Environment.Env;
@@ -91,6 +92,15 @@ public class ReturnStatement implements Statement, HasExpression {
 
     @Override
     public void codeGen(int indent) {
+        if (expression != null) {
+            expression.addWriter(asmWriter);
+            expression.codeGen(indent);
+        }
+
+        asmWriter.indent(indent);
+        // TODO: maybe change the label
+        String returnLabel = "_method_return_" + ((MethodDeclr) env.getCurrentMethod()).getMethodLabel();
+        asmWriter.jmp(returnLabel);
 
     }
 

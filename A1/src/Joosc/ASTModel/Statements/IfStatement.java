@@ -2,7 +2,9 @@ package Joosc.ASTModel.Statements;
 
 import Joosc.ASTBuilding.ASTStructures.Statements.IfStatementNode;
 import Joosc.ASTModel.Expressions.Expression;
+import Joosc.ASTModel.Program;
 import Joosc.AsmWriter.AsmWriter;
+import Joosc.AsmWriter.Register;
 import Joosc.Environment.Env;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
@@ -27,6 +29,7 @@ public class IfStatement extends HasScope implements Statement, HasExpression {
         thenClause = Statement.convertStatementNode(node.getThenClause());
         elseClause = node.getElseClause() == null ? null
                 : new ElseBlock(Statement.convertStatementNode(node.getElseClause()));
+        setNumLocalVars();
     }
 
     public Expression getExpression() {
@@ -55,6 +58,17 @@ public class IfStatement extends HasScope implements Statement, HasExpression {
     @Override
     public void passDownScopes() {
 
+    }
+
+    @Override
+    public void setNumLocalVars() {
+        numLocalVars += Statement.findLocalVarCount(thenClause);
+        if (elseClause != null) numLocalVars += elseClause.getNumLocalVars();
+    }
+
+    @Override
+    public int getNumLocalVars() {
+        return this.numLocalVars;
     }
 
     @Override
@@ -98,10 +112,48 @@ public class IfStatement extends HasScope implements Statement, HasExpression {
 
     //Code Gen
     AsmWriter asmWriter;
+    int offset;
 
     @Override
     public void codeGen(int indent) {
+        this.offset = Program.globalCount;
+        Program.globalCount++;
 
+        expression.addWriter(asmWriter);
+        thenClause.addWriter(asmWriter);
+        if (elseClause != null) elseClause.addWriter(asmWriter);
+
+        asmWriter.iffalse(expression, ".else" + offset, indent);
+
+        asmWriter.indent(indent);
+        asmWriter.println(";thenClause ...");
+        thenClause.codeGen(indent);
+        asmWriter.println("");
+
+        asmWriter.indent(indent);
+        asmWriter.jmp(".endif" + offset);
+        asmWriter.println("");
+
+        asmWriter.indent(indent);
+        asmWriter.label(".else" + offset);
+
+        if (elseClause != null) {
+            asmWriter.indent(indent + 1);
+            asmWriter.println(";elseClause ...");
+            elseClause.codeGen(indent + 1);
+            asmWriter.println("");
+        }
+
+        asmWriter.indent(indent);
+        asmWriter.label(".endif" + offset);
+
+
+        if (numLocalVars > 0) {
+            asmWriter.indent(indent);
+            // pop all local vars
+            asmWriter.add(Register.esp, (numLocalVars * 4));
+            asmWriter.println("");
+        }
     }
 
     @Override

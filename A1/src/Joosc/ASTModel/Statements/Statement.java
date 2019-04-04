@@ -39,4 +39,11 @@ public interface Statement extends AST {
 
         return null;
     }
+
+    static int findLocalVarCount(Statement statement) {
+        int count = 0;
+        if(statement instanceof LocalVarDeclrStatement) count++;
+        if(statement instanceof Block) count+= ((Block) statement).getNumLocalVars();
+        return count;
+    }
 }

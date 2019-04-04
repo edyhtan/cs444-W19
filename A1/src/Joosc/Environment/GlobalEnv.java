@@ -263,6 +263,12 @@ public class GlobalEnv implements Env {
     public ArrayList<String> getPackageDeclr() {
         return null;
     }
+
+    @Override
+    public void assignOffset(String name, int offset) {
+
+    }
+
     @Override
     public HashMap<String, MethodInfo> getDeclaredMethodSignature() {
         return null;
