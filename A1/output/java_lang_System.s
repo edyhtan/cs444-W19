@@ -13,12 +13,14 @@ section .data
 
 section .text
 
-		global __method_java_lang_System__STATIC_gc
-	__method_java_lang_System__STATIC_gc:
+		global __STATIC_method__java_lang_System__gc
+	__STATIC_method__java_lang_System__gc:
 		push ebp
 		mov ebp,esp
 
-	_method_return___method_java_lang_System__STATIC_gc:
+		sub esp,0
+
+	_method_return___STATIC_method__java_lang_System__gc:
 		pop ebp
 		ret
 

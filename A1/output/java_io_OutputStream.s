@@ -10,39 +10,47 @@ section .data
 
 section .text
 
-		global __method_java_io_OutputStream_write_char
-	__method_java_io_OutputStream_write_char:
+		global __method__java_io_PrintStream__write$char$
+	__method__java_io_PrintStream__write$char$:
 		push ebp
 		mov ebp,esp
 
-	_method_return___method_java_io_OutputStream_write_char:
+		sub esp,0
+
+	_method_return___method__java_io_PrintStream__write$char$:
 		pop ebp
 		ret
 
-		global __method_java_io_OutputStream_write_int
-	__method_java_io_OutputStream_write_int:
+		global __method__java_io_PrintStream__write$int$
+	__method__java_io_PrintStream__write$int$:
 		push ebp
 		mov ebp,esp
 
-	_method_return___method_java_io_OutputStream_write_int:
+		sub esp,0
+
+	_method_return___method__java_io_PrintStream__write$int$:
 		pop ebp
 		ret
 
-		global __method_java_io_OutputStream__STATIC_nativeWrite_int
-	__method_java_io_OutputStream__STATIC_nativeWrite_int:
+		global __STATIC_method__java_io_PrintStream__nativeWrite$int$
+	__STATIC_method__java_io_PrintStream__nativeWrite$int$:
 		push ebp
 		mov ebp,esp
 
-	_method_return___method_java_io_OutputStream__STATIC_nativeWrite_int:
+		sub esp,0
+
+	_method_return___STATIC_method__java_io_PrintStream__nativeWrite$int$:
 		pop ebp
 		ret
 
-		global __method_java_io_OutputStream_flush
-	__method_java_io_OutputStream_flush:
+		global __method__java_io_PrintStream__flush
+	__method__java_io_PrintStream__flush:
 		push ebp
 		mov ebp,esp
 
-	_method_return___method_java_io_OutputStream_flush:
+		sub esp,0
+
+	_method_return___method__java_io_PrintStream__flush:
 		pop ebp
 		ret
 

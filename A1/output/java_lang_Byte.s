@@ -13,13 +13,15 @@ section .data
 
 section .text
 
-		global __method_java_lang_Byte_toString
-	__method_java_lang_Byte_toString:
+		global __method__java_lang_Byte__toString
+	__method__java_lang_Byte__toString:
 		push ebp
 		mov ebp,esp
-		jmp _method_return___method_java_lang_Byte_toString
 
-	_method_return___method_java_lang_Byte_toString:
+		sub esp,0
+		jmp _method_return___method__java_lang_Byte__toString
+
+	_method_return___method__java_lang_Byte__toString:
 		pop ebp
 		ret
 

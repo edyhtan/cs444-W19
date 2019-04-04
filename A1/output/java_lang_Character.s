@@ -10,13 +10,15 @@ section .data
 
 section .text
 
-		global __method_java_lang_Character_toString
-	__method_java_lang_Character_toString:
+		global __method__java_lang_Character__toString
+	__method__java_lang_Character__toString:
 		push ebp
 		mov ebp,esp
-		jmp _method_return___method_java_lang_Character_toString
 
-	_method_return___method_java_lang_Character_toString:
+		sub esp,0
+		jmp _method_return___method__java_lang_Character__toString
+
+	_method_return___method__java_lang_Character__toString:
 		pop ebp
 		ret
 

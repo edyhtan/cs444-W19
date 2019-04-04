@@ -13,33 +13,74 @@ section .data
 
 section .text
 
-		global __method_java_lang_Integer_intValue
-	__method_java_lang_Integer_intValue:
+		global __method__java_lang_Integer__intValue
+	__method__java_lang_Integer__intValue:
 		push ebp
 		mov ebp,esp
-		jmp _method_return___method_java_lang_Integer_intValue
 
-	_method_return___method_java_lang_Integer_intValue:
+		sub esp,0
+		jmp _method_return___method__java_lang_Integer__intValue
+
+	_method_return___method__java_lang_Integer__intValue:
 		pop ebp
 		ret
 
-		global __method_java_lang_Integer__STATIC_parseInt_java.lang.String
-	__method_java_lang_Integer__STATIC_parseInt_java.lang.String:
+		global __STATIC_method__java_lang_Integer__parseInt$java_lang_String$
+	__STATIC_method__java_lang_Integer__parseInt$java_lang_String$:
 		push ebp
 		mov ebp,esp
-		jmp _method_return___method_java_lang_Integer__STATIC_parseInt_java.lang.String
 
-	_method_return___method_java_lang_Integer__STATIC_parseInt_java.lang.String:
+		sub esp,12
+		mov eax,0
+		mov [ebp-4],eax
+		mov eax,false
+		mov [ebp-8],eax
+		mov eax,0
+		mov [ebp-12],eax
+		.while0:
+			;expression code...
+			cmp eax,0
+			je .endwhile0
+			;expression code...
+			cmp eax,0
+			je .else1
+			;thenClause ...
+
+			jmp .endif1
+
+			.else1:
+				;elseClause ...
+				
+			.endif1:
+						;statement code...
+			jmp .while0
+
+		.endwhile0:
+
+		;expression code...
+		cmp eax,0
+		je .else2
+		;thenClause ...
+
+		jmp .endif2
+
+		.else2:
+		.endif2:
+		jmp _method_return___STATIC_method__java_lang_Integer__parseInt$java_lang_String$
+
+	_method_return___STATIC_method__java_lang_Integer__parseInt$java_lang_String$:
 		pop ebp
 		ret
 
-		global __method_java_lang_Integer_toString
-	__method_java_lang_Integer_toString:
+		global __method__java_lang_Integer__toString
+	__method__java_lang_Integer__toString:
 		push ebp
 		mov ebp,esp
-		jmp _method_return___method_java_lang_Integer_toString
 
-	_method_return___method_java_lang_Integer_toString:
+		sub esp,0
+		jmp _method_return___method__java_lang_Integer__toString
+
+	_method_return___method__java_lang_Integer__toString:
 		pop ebp
 		ret
 

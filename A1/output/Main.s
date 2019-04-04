@@ -10,3 +10,14 @@ section .data
 
 section .text
 
+		global __method__Main__test
+	__method__Main__test:
+		push ebp
+		mov ebp,esp
+
+		sub esp,0
+
+	_method_return___method__Main__test:
+		pop ebp
+		ret
+

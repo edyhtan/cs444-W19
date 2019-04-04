@@ -10,23 +10,27 @@ section .data
 
 section .text
 
-		global __method_java_lang_Short_intValue
-	__method_java_lang_Short_intValue:
+		global __method__java_lang_Short__intValue
+	__method__java_lang_Short__intValue:
 		push ebp
 		mov ebp,esp
-		jmp _method_return___method_java_lang_Short_intValue
 
-	_method_return___method_java_lang_Short_intValue:
+		sub esp,0
+		jmp _method_return___method__java_lang_Short__intValue
+
+	_method_return___method__java_lang_Short__intValue:
 		pop ebp
 		ret
 
-		global __method_java_lang_Short_toString
-	__method_java_lang_Short_toString:
+		global __method__java_lang_Short__toString
+	__method__java_lang_Short__toString:
 		push ebp
 		mov ebp,esp
-		jmp _method_return___method_java_lang_Short_toString
 
-	_method_return___method_java_lang_Short_toString:
+		sub esp,0
+		jmp _method_return___method__java_lang_Short__toString
+
+	_method_return___method__java_lang_Short__toString:
 		pop ebp
 		ret
 

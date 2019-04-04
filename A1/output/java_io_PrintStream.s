@@ -10,139 +10,169 @@ section .data
 
 section .text
 
-		global __method_java_io_PrintStream_print_java.lang.String
-	__method_java_io_PrintStream_print_java.lang.String:
+		global __method__java_io_PrintStream__print$java_lang_String$
+	__method__java_io_PrintStream__print$java_lang_String$:
 		push ebp
 		mov ebp,esp
+
+		sub esp,0
 		add esp,4
 
-	_method_return___method_java_io_PrintStream_print_java.lang.String:
+	_method_return___method__java_io_PrintStream__print$java_lang_String$:
 		pop ebp
 		ret
 
-		global __method_java_io_PrintStream_println
-	__method_java_io_PrintStream_println:
+		global __method__java_io_PrintStream__println
+	__method__java_io_PrintStream__println:
 		push ebp
 		mov ebp,esp
 
-	_method_return___method_java_io_PrintStream_println:
+		sub esp,0
+
+	_method_return___method__java_io_PrintStream__println:
 		pop ebp
 		ret
 
-		global __method_java_io_PrintStream_println_java.lang.String
-	__method_java_io_PrintStream_println_java.lang.String:
+		global __method__java_io_PrintStream__println$java_lang_String$
+	__method__java_io_PrintStream__println$java_lang_String$:
 		push ebp
 		mov ebp,esp
 
-	_method_return___method_java_io_PrintStream_println_java.lang.String:
+		sub esp,0
+
+	_method_return___method__java_io_PrintStream__println$java_lang_String$:
 		pop ebp
 		ret
 
-		global __method_java_io_PrintStream_println_java.lang.Object
-	__method_java_io_PrintStream_println_java.lang.Object:
+		global __method__java_io_PrintStream__println$java_lang_Object$
+	__method__java_io_PrintStream__println$java_lang_Object$:
 		push ebp
 		mov ebp,esp
 
-	_method_return___method_java_io_PrintStream_println_java.lang.Object:
+		sub esp,0
+
+	_method_return___method__java_io_PrintStream__println$java_lang_Object$:
 		pop ebp
 		ret
 
-		global __method_java_io_PrintStream_println_boolean
-	__method_java_io_PrintStream_println_boolean:
+		global __method__java_io_PrintStream__println$boolean$
+	__method__java_io_PrintStream__println$boolean$:
 		push ebp
 		mov ebp,esp
 
-	_method_return___method_java_io_PrintStream_println_boolean:
+		sub esp,0
+
+	_method_return___method__java_io_PrintStream__println$boolean$:
 		pop ebp
 		ret
 
-		global __method_java_io_PrintStream_println_byte
-	__method_java_io_PrintStream_println_byte:
+		global __method__java_io_PrintStream__println$byte$
+	__method__java_io_PrintStream__println$byte$:
 		push ebp
 		mov ebp,esp
 
-	_method_return___method_java_io_PrintStream_println_byte:
+		sub esp,0
+
+	_method_return___method__java_io_PrintStream__println$byte$:
 		pop ebp
 		ret
 
-		global __method_java_io_PrintStream_println_char
-	__method_java_io_PrintStream_println_char:
+		global __method__java_io_PrintStream__println$char$
+	__method__java_io_PrintStream__println$char$:
 		push ebp
 		mov ebp,esp
 
-	_method_return___method_java_io_PrintStream_println_char:
+		sub esp,0
+
+	_method_return___method__java_io_PrintStream__println$char$:
 		pop ebp
 		ret
 
-		global __method_java_io_PrintStream_println_short
-	__method_java_io_PrintStream_println_short:
+		global __method__java_io_PrintStream__println$short$
+	__method__java_io_PrintStream__println$short$:
 		push ebp
 		mov ebp,esp
 
-	_method_return___method_java_io_PrintStream_println_short:
+		sub esp,0
+
+	_method_return___method__java_io_PrintStream__println$short$:
 		pop ebp
 		ret
 
-		global __method_java_io_PrintStream_println_int
-	__method_java_io_PrintStream_println_int:
+		global __method__java_io_PrintStream__println$int$
+	__method__java_io_PrintStream__println$int$:
 		push ebp
 		mov ebp,esp
 
-	_method_return___method_java_io_PrintStream_println_int:
+		sub esp,0
+
+	_method_return___method__java_io_PrintStream__println$int$:
 		pop ebp
 		ret
 
-		global __method_java_io_PrintStream_print_java.lang.Object
-	__method_java_io_PrintStream_print_java.lang.Object:
+		global __method__java_io_PrintStream__print$java_lang_Object$
+	__method__java_io_PrintStream__print$java_lang_Object$:
 		push ebp
 		mov ebp,esp
 
-	_method_return___method_java_io_PrintStream_print_java.lang.Object:
+		sub esp,0
+
+	_method_return___method__java_io_PrintStream__print$java_lang_Object$:
 		pop ebp
 		ret
 
-		global __method_java_io_PrintStream_print_boolean
-	__method_java_io_PrintStream_print_boolean:
+		global __method__java_io_PrintStream__print$boolean$
+	__method__java_io_PrintStream__print$boolean$:
 		push ebp
 		mov ebp,esp
 
-	_method_return___method_java_io_PrintStream_print_boolean:
+		sub esp,0
+
+	_method_return___method__java_io_PrintStream__print$boolean$:
 		pop ebp
 		ret
 
-		global __method_java_io_PrintStream_print_byte
-	__method_java_io_PrintStream_print_byte:
+		global __method__java_io_PrintStream__print$byte$
+	__method__java_io_PrintStream__print$byte$:
 		push ebp
 		mov ebp,esp
 
-	_method_return___method_java_io_PrintStream_print_byte:
+		sub esp,0
+
+	_method_return___method__java_io_PrintStream__print$byte$:
 		pop ebp
 		ret
 
-		global __method_java_io_PrintStream_print_char
-	__method_java_io_PrintStream_print_char:
+		global __method__java_io_PrintStream__print$char$
+	__method__java_io_PrintStream__print$char$:
 		push ebp
 		mov ebp,esp
 
-	_method_return___method_java_io_PrintStream_print_char:
+		sub esp,0
+
+	_method_return___method__java_io_PrintStream__print$char$:
 		pop ebp
 		ret
 
-		global __method_java_io_PrintStream_print_short
-	__method_java_io_PrintStream_print_short:
+		global __method__java_io_PrintStream__print$short$
+	__method__java_io_PrintStream__print$short$:
 		push ebp
 		mov ebp,esp
 
-	_method_return___method_java_io_PrintStream_print_short:
+		sub esp,0
+
+	_method_return___method__java_io_PrintStream__print$short$:
 		pop ebp
 		ret
 
-		global __method_java_io_PrintStream_print_int
-	__method_java_io_PrintStream_print_int:
+		global __method__java_io_PrintStream__print$int$
+	__method__java_io_PrintStream__print$int$:
 		push ebp
 		mov ebp,esp
 
-	_method_return___method_java_io_PrintStream_print_int:
+		sub esp,0
+
+	_method_return___method__java_io_PrintStream__print$int$:
 		pop ebp
 		ret
 

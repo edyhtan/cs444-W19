@@ -129,6 +129,7 @@ public class ClassDeclr implements TypeDeclr {
     String classSIT;
     String classParentMatrix;
 
+
     @Override
     public void codeGen(int indent) {
         File output = new File("output/" + String.join("_", getCanonicalName()) + ".s");
@@ -168,8 +169,8 @@ public class ClassDeclr implements TypeDeclr {
                 String staticLabel = "__field_" + String.join("_", canonicalID) + "_" + field.getName();
                 field.setStaticFieldLabel(staticLabel);
 
-                asmWriter.println("\t" + "global " + staticLabel);
-                asmWriter.label("\t" + staticLabel);
+                asmWriter.println("\t\t" + "global " + staticLabel);
+                asmWriter.print("\t" + staticLabel);
                 asmWriter.println("\t\t" + "dd 0");
                 asmWriter.println("");
             }

@@ -10,192 +10,486 @@ section .data
 
 section .text
 
-		global __method_java_lang_String_length
-	__method_java_lang_String_length:
+		global __method__java_lang_String__length
+	__method__java_lang_String__length:
 		push ebp
 		mov ebp,esp
-		jmp _method_return___method_java_lang_String_length
 
-	_method_return___method_java_lang_String_length:
+		sub esp,0
+		jmp _method_return___method__java_lang_String__length
+
+	_method_return___method__java_lang_String__length:
 		pop ebp
 		ret
 
-		global __method_java_lang_String_charAt_int
-	__method_java_lang_String_charAt_int:
+		global __method__java_lang_String__charAt$int$
+	__method__java_lang_String__charAt$int$:
 		push ebp
 		mov ebp,esp
-		jmp _method_return___method_java_lang_String_charAt_int
 
-	_method_return___method_java_lang_String_charAt_int:
+		sub esp,0
+		jmp _method_return___method__java_lang_String__charAt$int$
+
+	_method_return___method__java_lang_String__charAt$int$:
 		pop ebp
 		ret
 
-		global __method_java_lang_String_concat_java.lang.String
-	__method_java_lang_String_concat_java.lang.String:
-		push ebp
-		mov ebp,esp
-		jmp _method_return___method_java_lang_String_concat_java.lang.String
-
-	_method_return___method_java_lang_String_concat_java.lang.String:
-		pop ebp
-		ret
-
-		global __method_java_lang_String__STATIC_valueOf_char
-	__method_java_lang_String__STATIC_valueOf_char:
-		push ebp
-		mov ebp,esp
-		jmp _method_return___method_java_lang_String__STATIC_valueOf_char
-
-	_method_return___method_java_lang_String__STATIC_valueOf_char:
-		pop ebp
-		ret
-
-		global __method_java_lang_String__STATIC_valueOf_int
-	__method_java_lang_String__STATIC_valueOf_int:
-		push ebp
-		mov ebp,esp
-		jmp _method_return___method_java_lang_String__STATIC_valueOf_int
-
-	_method_return___method_java_lang_String__STATIC_valueOf_int:
-		pop ebp
-		ret
-
-		global __method_java_lang_String__STATIC_valueOf_short
-	__method_java_lang_String__STATIC_valueOf_short:
-		push ebp
-		mov ebp,esp
-		jmp _method_return___method_java_lang_String__STATIC_valueOf_short
-
-	_method_return___method_java_lang_String__STATIC_valueOf_short:
-		pop ebp
-		ret
-
-		global __method_java_lang_String__STATIC_valueOf_byte
-	__method_java_lang_String__STATIC_valueOf_byte:
-		push ebp
-		mov ebp,esp
-		jmp _method_return___method_java_lang_String__STATIC_valueOf_byte
-
-	_method_return___method_java_lang_String__STATIC_valueOf_byte:
-		pop ebp
-		ret
-
-		global __method_java_lang_String__STATIC_valueOf_boolean
-	__method_java_lang_String__STATIC_valueOf_boolean:
+		global __method__java_lang_String__concat$java_lang_String$
+	__method__java_lang_String__concat$java_lang_String$:
 		push ebp
 		mov ebp,esp
 
-	_method_return___method_java_lang_String__STATIC_valueOf_boolean:
-		pop ebp
-		ret
-
-		global __method_java_lang_String__STATIC_valueOf_java.lang.Object
-	__method_java_lang_String__STATIC_valueOf_java.lang.Object:
-		push ebp
-		mov ebp,esp
-
-	_method_return___method_java_lang_String__STATIC_valueOf_java.lang.Object:
-		pop ebp
-		ret
-
-		global __method_java_lang_String__STATIC_valueOf_java.lang.String
-	__method_java_lang_String__STATIC_valueOf_java.lang.String:
-		push ebp
-		mov ebp,esp
-
-	_method_return___method_java_lang_String__STATIC_valueOf_java.lang.String:
-		pop ebp
-		ret
-
-		global __method_java_lang_String_equals_java.lang.Object
-	__method_java_lang_String_equals_java.lang.Object:
-		push ebp
-		mov ebp,esp
-		jmp _method_return___method_java_lang_String_equals_java.lang.Object
-
-	_method_return___method_java_lang_String_equals_java.lang.Object:
-		pop ebp
-		ret
-
-		global __method_java_lang_String_substring_int_int
-	__method_java_lang_String_substring_int_int:
-		push ebp
-		mov ebp,esp
-		jmp _method_return___method_java_lang_String_substring_int_int
-
-	_method_return___method_java_lang_String_substring_int_int:
-		pop ebp
-		ret
-
-		global __method_java_lang_String_trim
-	__method_java_lang_String_trim:
-		push ebp
-		mov ebp,esp
-
-	_method_return___method_java_lang_String_trim:
-		pop ebp
-		ret
-
-		global __method_java_lang_String_hashCode
-	__method_java_lang_String_hashCode:
-		push ebp
-		mov ebp,esp
-		add esp,4
-		jmp _method_return___method_java_lang_String_hashCode
-
-	_method_return___method_java_lang_String_hashCode:
-		pop ebp
-		ret
-
-		global __method_java_lang_String_toString
-	__method_java_lang_String_toString:
-		push ebp
-		mov ebp,esp
-		jmp _method_return___method_java_lang_String_toString
-
-	_method_return___method_java_lang_String_toString:
-		pop ebp
-		ret
-
-		global __method_java_lang_String_compareTo_java.lang.Object
-	__method_java_lang_String_compareTo_java.lang.Object:
-		push ebp
-		mov ebp,esp
-		jmp _method_return___method_java_lang_String_compareTo_java.lang.Object
-
-	_method_return___method_java_lang_String_compareTo_java.lang.Object:
-		pop ebp
-		ret
-
-		global __method_java_lang_String_compareTo_java.lang.String
-	__method_java_lang_String_compareTo_java.lang.String:
-		push ebp
-		mov ebp,esp
+		sub esp,8
 		mov eax,0
-		jmp _method_return___method_java_lang_String_compareTo_java.lang.String
+		mov [ebp-4],eax
+		mov [ebp-8],eax
+		jmp _method_return___method__java_lang_String__concat$java_lang_String$
 
-	_method_return___method_java_lang_String_compareTo_java.lang.String:
+	_method_return___method__java_lang_String__concat$java_lang_String$:
 		pop ebp
 		ret
 
-		global __method_java_lang_String_toCharArray
-	__method_java_lang_String_toCharArray:
+		global __STATIC_method__java_lang_String__valueOf$char$
+	__STATIC_method__java_lang_String__valueOf$char$:
 		push ebp
 		mov ebp,esp
+
+		sub esp,4
+		mov [ebp-4],eax
+		jmp _method_return___STATIC_method__java_lang_String__valueOf$char$
+
+	_method_return___STATIC_method__java_lang_String__valueOf$char$:
+		pop ebp
+		ret
+
+		global __STATIC_method__java_lang_String__valueOf$int$
+	__STATIC_method__java_lang_String__valueOf$int$:
+		push ebp
+		mov ebp,esp
+
+		sub esp,16
+		mov [ebp-4],eax
+		mov eax,0
+		mov [ebp-8],eax
+		mov eax,false
+		mov [ebp-12],eax
+		;expression code...
+		cmp eax,0
+		je .else2
+		;thenClause ...
+		mov eax,"-2147483648"
+		jmp _method_return___STATIC_method__java_lang_String__valueOf$int$
+
+		jmp .endif2
+
+		.else2:
+		.endif2:
+		;expression code...
+		cmp eax,0
+		je .else3
+		;thenClause ...
+		
+		jmp .endif3
+
+		.else3:
+		.endif3:
+		;expression code...
+		cmp eax,0
+		je .else4
+		;thenClause ...
+		
+		jmp .endif4
+
+		.else4:
+			;elseClause ...
+			.while5:
+				;expression code...
+				cmp eax,0
+				je .endwhile5
+				mov [ebp0],eax
+								add esp,4
+
+				;statement code...
+				jmp .while5
+
+			.endwhile5:
+
+			add esp,4
+
+			
+		.endif4:
+		;expression code...
+		cmp eax,0
+		je .else6
+		;thenClause ...
+		
+		jmp .endif6
+
+		.else6:
+		.endif6:
+		mov [ebp-16],eax
+		jmp _method_return___STATIC_method__java_lang_String__valueOf$int$
+
+	_method_return___STATIC_method__java_lang_String__valueOf$int$:
+		pop ebp
+		ret
+
+		global __STATIC_method__java_lang_String__valueOf$short$
+	__STATIC_method__java_lang_String__valueOf$short$:
+		push ebp
+		mov ebp,esp
+
+		sub esp,0
+		jmp _method_return___STATIC_method__java_lang_String__valueOf$short$
+
+	_method_return___STATIC_method__java_lang_String__valueOf$short$:
+		pop ebp
+		ret
+
+		global __STATIC_method__java_lang_String__valueOf$byte$
+	__STATIC_method__java_lang_String__valueOf$byte$:
+		push ebp
+		mov ebp,esp
+
+		sub esp,0
+		jmp _method_return___STATIC_method__java_lang_String__valueOf$byte$
+
+	_method_return___STATIC_method__java_lang_String__valueOf$byte$:
+		pop ebp
+		ret
+
+		global __STATIC_method__java_lang_String__valueOf$boolean$
+	__STATIC_method__java_lang_String__valueOf$boolean$:
+		push ebp
+		mov ebp,esp
+
+		sub esp,0
+		;expression code...
+		cmp eax,0
+		je .else8
+		;thenClause ...
+		mov eax,"true"
+		jmp _method_return___STATIC_method__java_lang_String__valueOf$boolean$
+
+		jmp .endif8
+
+		.else8:
+			;elseClause ...
+			mov eax,"false"
+			jmp _method_return___STATIC_method__java_lang_String__valueOf$boolean$
+
+		.endif8:
+
+	_method_return___STATIC_method__java_lang_String__valueOf$boolean$:
+		pop ebp
+		ret
+
+		global __STATIC_method__java_lang_String__valueOf$java_lang_Object$
+	__STATIC_method__java_lang_String__valueOf$java_lang_Object$:
+		push ebp
+		mov ebp,esp
+
+		sub esp,0
+		;expression code...
+		cmp eax,0
+		je .else9
+		;thenClause ...
+		mov eax,"null"
+		jmp _method_return___STATIC_method__java_lang_String__valueOf$java_lang_Object$
+
+		jmp .endif9
+
+		.else9:
+			;elseClause ...
+			jmp _method_return___STATIC_method__java_lang_String__valueOf$java_lang_Object$
+
+		.endif9:
+
+	_method_return___STATIC_method__java_lang_String__valueOf$java_lang_Object$:
+		pop ebp
+		ret
+
+		global __STATIC_method__java_lang_String__valueOf$java_lang_String$
+	__STATIC_method__java_lang_String__valueOf$java_lang_String$:
+		push ebp
+		mov ebp,esp
+
+		sub esp,0
+		;expression code...
+		cmp eax,0
+		je .else10
+		;thenClause ...
+		mov eax,"null"
+		jmp _method_return___STATIC_method__java_lang_String__valueOf$java_lang_String$
+
+		jmp .endif10
+
+		.else10:
+			;elseClause ...
+			jmp _method_return___STATIC_method__java_lang_String__valueOf$java_lang_String$
+
+		.endif10:
+
+	_method_return___STATIC_method__java_lang_String__valueOf$java_lang_String$:
+		pop ebp
+		ret
+
+		global __method__java_lang_String__equals$java_lang_Object$
+	__method__java_lang_String__equals$java_lang_Object$:
+		push ebp
+		mov ebp,esp
+
+		sub esp,0
+		;expression code...
+		cmp eax,0
+		je .else11
+		;thenClause ...
+		mov eax,false
+		jmp _method_return___method__java_lang_String__equals$java_lang_Object$
+
+		jmp .endif11
+
+		.else11:
+		.endif11:
+		;expression code...
+		cmp eax,0
+		je .else12
+		;thenClause ...
+		mov eax,false
+		jmp _method_return___method__java_lang_String__equals$java_lang_Object$
+
+		jmp .endif12
+
+		.else12:
+		.endif12:
+		jmp _method_return___method__java_lang_String__equals$java_lang_Object$
+
+	_method_return___method__java_lang_String__equals$java_lang_Object$:
+		pop ebp
+		ret
+
+		global __method__java_lang_String__substring$int$int$
+	__method__java_lang_String__substring$int$int$:
+		push ebp
+		mov ebp,esp
+
+		sub esp,8
+		mov eax,0
+		mov [ebp-4],eax
+		;expression code...
+		cmp eax,0
+		je .else13
+		;thenClause ...
+		mov eax,""
+		jmp _method_return___method__java_lang_String__substring$int$int$
+
+		jmp .endif13
+
+		.else13:
+		.endif13:
+		;expression code...
+		cmp eax,0
+		je .else14
+		;thenClause ...
+		mov eax,""
+		jmp _method_return___method__java_lang_String__substring$int$int$
+
+		jmp .endif14
+
+		.else14:
+		.endif14:
+		;expression code...
+		cmp eax,0
+		je .else15
+		;thenClause ...
+		mov eax,""
+		jmp _method_return___method__java_lang_String__substring$int$int$
+
+		jmp .endif15
+
+		.else15:
+		.endif15:
+		mov [ebp-8],eax
+		jmp _method_return___method__java_lang_String__substring$int$int$
+
+	_method_return___method__java_lang_String__substring$int$int$:
+		pop ebp
+		ret
+
+		global __method__java_lang_String__trim
+	__method__java_lang_String__trim:
+		push ebp
+		mov ebp,esp
+
+		sub esp,8
+		mov eax,0
+		mov [ebp-4],eax
+		mov eax,0
+		mov [ebp-8],eax
+		;expression code...
+		cmp eax,0
+		je .else19
+		;thenClause ...
+		mov eax,""
+		jmp _method_return___method__java_lang_String__trim
+
+		jmp .endif19
+
+		.else19:
+			;elseClause ...
+			jmp _method_return___method__java_lang_String__trim
+
+		.endif19:
+
+	_method_return___method__java_lang_String__trim:
+		pop ebp
+		ret
+
+		global __method__java_lang_String__hashCode
+	__method__java_lang_String__hashCode:
+		push ebp
+		mov ebp,esp
+
+		sub esp,4
+		mov eax,0
+		mov [ebp-4],eax
 		add esp,4
-		jmp _method_return___method_java_lang_String_toCharArray
+		jmp _method_return___method__java_lang_String__hashCode
 
-	_method_return___method_java_lang_String_toCharArray:
+	_method_return___method__java_lang_String__hashCode:
 		pop ebp
 		ret
 
-		global __method_java_lang_String_indexOf_java.lang.String
-	__method_java_lang_String_indexOf_java.lang.String:
+		global __method__java_lang_String__toString
+	__method__java_lang_String__toString:
 		push ebp
 		mov ebp,esp
-		jmp _method_return___method_java_lang_String_indexOf_java.lang.String
 
-	_method_return___method_java_lang_String_indexOf_java.lang.String:
+		sub esp,0
+		jmp _method_return___method__java_lang_String__toString
+
+	_method_return___method__java_lang_String__toString:
+		pop ebp
+		ret
+
+		global __method__java_lang_String__compareTo$java_lang_Object$
+	__method__java_lang_String__compareTo$java_lang_Object$:
+		push ebp
+		mov ebp,esp
+
+		sub esp,0
+		jmp _method_return___method__java_lang_String__compareTo$java_lang_Object$
+
+	_method_return___method__java_lang_String__compareTo$java_lang_Object$:
+		pop ebp
+		ret
+
+		global __method__java_lang_String__compareTo$java_lang_String$
+	__method__java_lang_String__compareTo$java_lang_String$:
+		push ebp
+		mov ebp,esp
+
+		sub esp,8
+		mov eax,0
+		mov [ebp-4],eax
+		mov eax,true
+		mov [ebp-8],eax
+		.while21:
+			;expression code...
+			cmp eax,0
+			je .endwhile21
+			;expression code...
+			cmp eax,0
+			je .else22
+			;thenClause ...
+			mov eax,0
+			jmp _method_return___method__java_lang_String__compareTo$java_lang_String$
+
+			jmp .endif22
+
+			.else22:
+			.endif22:
+			;expression code...
+			cmp eax,0
+			je .else23
+			;thenClause ...
+			jmp _method_return___method__java_lang_String__compareTo$java_lang_String$
+
+			jmp .endif23
+
+			.else23:
+			.endif23:
+			;expression code...
+			cmp eax,0
+			je .else24
+			;thenClause ...
+			mov eax,1
+			jmp _method_return___method__java_lang_String__compareTo$java_lang_String$
+
+			jmp .endif24
+
+			.else24:
+			.endif24:
+			;expression code...
+			cmp eax,0
+			je .else25
+			;thenClause ...
+			jmp _method_return___method__java_lang_String__compareTo$java_lang_String$
+
+			jmp .endif25
+
+			.else25:
+			.endif25:
+			;expression code...
+			cmp eax,0
+			je .else26
+			;thenClause ...
+			mov eax,1
+			jmp _method_return___method__java_lang_String__compareTo$java_lang_String$
+
+			jmp .endif26
+
+			.else26:
+			.endif26:
+						;statement code...
+			jmp .while21
+
+		.endwhile21:
+
+		mov eax,0
+		jmp _method_return___method__java_lang_String__compareTo$java_lang_String$
+
+	_method_return___method__java_lang_String__compareTo$java_lang_String$:
+		pop ebp
+		ret
+
+		global __method__java_lang_String__toCharArray
+	__method__java_lang_String__toCharArray:
+		push ebp
+		mov ebp,esp
+
+		sub esp,4
+		mov [ebp-4],eax
+		add esp,4
+		jmp _method_return___method__java_lang_String__toCharArray
+
+	_method_return___method__java_lang_String__toCharArray:
+		pop ebp
+		ret
+
+		global __method__java_lang_String__indexOf$java_lang_String$
+	__method__java_lang_String__indexOf$java_lang_String$:
+		push ebp
+		mov ebp,esp
+
+		sub esp,8
+		mov eax,0
+		mov [ebp-4],eax
+		mov eax,0
+		mov [ebp-8],eax
+		jmp _method_return___method__java_lang_String__indexOf$java_lang_String$
+
+	_method_return___method__java_lang_String__indexOf$java_lang_String$:
 		pop ebp
 		ret
 

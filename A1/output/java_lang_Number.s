@@ -10,12 +10,14 @@ section .data
 
 section .text
 
-		global __method_java_lang_Number_intValue
-	__method_java_lang_Number_intValue:
+		global __method__java_lang_Number__intValue
+	__method__java_lang_Number__intValue:
 		push ebp
 		mov ebp,esp
 
-	_method_return___method_java_lang_Number_intValue:
+		sub esp,0
+
+	_method_return___method__java_lang_Number__intValue:
 		pop ebp
 		ret
 

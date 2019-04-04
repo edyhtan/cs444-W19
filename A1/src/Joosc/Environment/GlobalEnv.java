@@ -17,8 +17,8 @@ import java.util.HashSet;
 import java.util.List;
 
 public class GlobalEnv implements Env {
-    ArrayList<Program> programs;
-    ArrayList<ClassEnv> classEnvs;
+    public ArrayList<Program> programs;
+    public ArrayList<ClassEnv> classEnvs;
     PackageNames defaultPackage = new PackageNames("");
     PackageNames rootPackage = new PackageNames("");
 

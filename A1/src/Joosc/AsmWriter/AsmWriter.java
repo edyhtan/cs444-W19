@@ -5,6 +5,12 @@ import Joosc.ASTModel.Expressions.Expression;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.Collections;
+import Joosc.ASTModel.ClassInterface.ClassDeclr;
+import Joosc.ASTModel.ClassInterface.InterfaceDeclr;
+import Joosc.ASTModel.ClassInterface.TypeDeclr;
+import Joosc.Environment.ClassEnv;
+import Joosc.Environment.GlobalEnv;
+import java.util.LinkedHashSet;
 
 public class AsmWriter {
     PrintStream out;
@@ -259,11 +265,33 @@ public class AsmWriter {
         ret();
     }
 
-    public void outputInit() {
-    }
 
     public void indent(int num) {
         out.print(String.join("", Collections.nCopies(num, "\t")));
+    }
+
+    public void outputInit() {
+        out.println("\t" + "global _start");
+        out.println("_start:");
+
+        LinkedHashSet<String> allMethods = new LinkedHashSet<>();
+
+        // Create List of All Interface call header
+        for (ClassEnv classEnv: GlobalEnv.instance.classEnvs) {
+            if (classEnv.getTypeDeclr() instanceof InterfaceDeclr) {
+                allMethods.addAll(classEnv.getAllMethodSignature().keySet());
+            }
+        }
+
+        // Create SIT
+        for (ClassEnv classEnv: GlobalEnv.instance.classEnvs) {
+            if (classEnv.getTypeDeclr() instanceof ClassDeclr) {
+                ClassDeclr classDeclr = (ClassDeclr) classEnv.getTypeDeclr();
+                for (String methodName: allMethods) {
+
+                }
+            }
+        }
     }
 
 }

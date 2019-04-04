@@ -10,16 +10,18 @@ section .data
 
 section .text
 
-		global _start
-	_start:
-		global __method_A__STATIC_test
-	__method_A__STATIC_test:
+	global _start
+_start:
+		global __STATIC_method__A__test
+	__STATIC_method__A__test:
 		push ebp
 		mov ebp,esp
-		mov eax,123123
-		jmp _method_return___method_A__STATIC_test
 
-	_method_return___method_A__STATIC_test:
+		sub esp,0
+		mov eax,123123
+		jmp _method_return___STATIC_method__A__test
+
+	_method_return___STATIC_method__A__test:
 		pop ebp
 		ret
 

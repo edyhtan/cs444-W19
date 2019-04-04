@@ -10,56 +10,66 @@ section .data
 
 section .text
 
-		global __method_java_lang_Object_equals_java.lang.Object
-	__method_java_lang_Object_equals_java.lang.Object:
+		global __method__Main__equals$java_lang_Object$
+	__method__Main__equals$java_lang_Object$:
 		push ebp
 		mov ebp,esp
-		jmp _method_return___method_java_lang_Object_equals_java.lang.Object
 
-	_method_return___method_java_lang_Object_equals_java.lang.Object:
+		sub esp,0
+		jmp _method_return___method__Main__equals$java_lang_Object$
+
+	_method_return___method__Main__equals$java_lang_Object$:
 		pop ebp
 		ret
 
-		global __method_java_lang_Object_toString
-	__method_java_lang_Object_toString:
+		global __method__Main__toString
+	__method__Main__toString:
 		push ebp
 		mov ebp,esp
+
+		sub esp,0
 		mov eax,"Some random object"
-		jmp _method_return___method_java_lang_Object_toString
+		jmp _method_return___method__Main__toString
 
-	_method_return___method_java_lang_Object_toString:
+	_method_return___method__Main__toString:
 		pop ebp
 		ret
 
-		global __method_java_lang_Object_hashCode
-	__method_java_lang_Object_hashCode:
+		global __method__Main__hashCode
+	__method__Main__hashCode:
 		push ebp
 		mov ebp,esp
+
+		sub esp,0
 		mov eax,42
-		jmp _method_return___method_java_lang_Object_hashCode
+		jmp _method_return___method__Main__hashCode
 
-	_method_return___method_java_lang_Object_hashCode:
+	_method_return___method__Main__hashCode:
 		pop ebp
 		ret
 
-		global __method_java_lang_Object_clone
-	__method_java_lang_Object_clone:
+		global __method__Main__clone
+	__method__Main__clone:
 		push ebp
 		mov ebp,esp
-		jmp _method_return___method_java_lang_Object_clone
 
-	_method_return___method_java_lang_Object_clone:
+		sub esp,0
+		jmp _method_return___method__Main__clone
+
+	_method_return___method__Main__clone:
 		pop ebp
 		ret
 
-		global __method_java_lang_Object_getClass
-	__method_java_lang_Object_getClass:
+		global __method__Main__getClass
+	__method__Main__getClass:
 		push ebp
 		mov ebp,esp
+
+		sub esp,0
 		mov eax,null
-		jmp _method_return___method_java_lang_Object_getClass
+		jmp _method_return___method__Main__getClass
 
-	_method_return___method_java_lang_Object_getClass:
+	_method_return___method__Main__getClass:
 		pop ebp
 		ret
 
