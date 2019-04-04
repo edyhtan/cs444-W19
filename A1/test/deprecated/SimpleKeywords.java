@@ -1,0 +1,3 @@
+class SimpleKeywords {
+    public SimpleKeywords () {}
+}

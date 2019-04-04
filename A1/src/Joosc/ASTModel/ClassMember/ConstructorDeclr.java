@@ -6,6 +6,7 @@ import Joosc.ASTModel.Statements.Statement;
 import Joosc.ASTModel.Type;
 import Joosc.AsmWriter.AsmWriter;
 import Joosc.Environment.LocalEnv;
+import Joosc.Environment.MethodInfo;
 import Joosc.Exceptions.UninitializedVariableException;
 import Joosc.Exceptions.UnreachableStatementException;
 
@@ -26,6 +27,8 @@ public class ConstructorDeclr implements ClassBodyDeclr, Method {
 
     private String methodSignature;
     private JoosType returnType;
+
+    public MethodInfo info;
 
     public ConstructorDeclr(ConstructorDeclrNode node) {
         modifiers = node.getModifiers();
@@ -113,7 +116,7 @@ public class ConstructorDeclr implements ClassBodyDeclr, Method {
      * */
     @Override
     public void codeGen(int indent) {
-
+        asmWriter.label("");
     }
 
     @Override

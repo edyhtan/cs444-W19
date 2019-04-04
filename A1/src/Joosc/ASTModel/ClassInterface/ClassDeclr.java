@@ -144,6 +144,8 @@ public class ClassDeclr implements TypeDeclr {
         try {
             addWriter(new AsmWriter(output.getPath()));
         } catch (FileNotFoundException e) {
+            System.err.println("Cannot create writer");
+            System.exit(1);
             // Do Nothing
         }
 
