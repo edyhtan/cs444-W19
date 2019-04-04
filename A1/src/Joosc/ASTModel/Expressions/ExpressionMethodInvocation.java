@@ -22,6 +22,8 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
     private String methodIdentifier;
     private boolean isStatic = false;
 
+    private MethodInfo matchingMethod;
+
 
     public ExpressionMethodInvocation(ExpressionMethodInvocationNode node) {
         methodName = node.getMethodName();
@@ -213,6 +215,7 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
                 throw new TypeCheckException("Explicit this access inside static method: " + callSignature);
             }
         }
+        this.matchingMethod = matchingMethod;
 
         return joosType;
     }
@@ -227,6 +230,9 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
 
     @Override
     public void codeGen(int indent) {
+        if(methodParentExpression != null) methodParentExpression.addWriter(asmWriter);
+
+
 
     }
 

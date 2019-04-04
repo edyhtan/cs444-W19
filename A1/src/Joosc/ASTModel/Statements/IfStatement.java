@@ -62,7 +62,7 @@ public class IfStatement extends HasScope implements Statement, HasExpression {
     @Override
     public void setNumLocalVars() {
         numLocalVars += Statement.findLocalVarCount(thenClause);
-        numLocalVars += elseClause.getNumLocalVars();
+        if(elseClause != null) numLocalVars += elseClause.getNumLocalVars();
     }
 
     @Override
@@ -115,10 +115,12 @@ public class IfStatement extends HasScope implements Statement, HasExpression {
     @Override
     public void codeGen(int indent) {
 
-        asmWriter.indent(indent);
-        // pop all local vars
-        asmWriter.add(Register.esp, (numLocalVars * 4));
 
+        if(numLocalVars > 0) {
+            asmWriter.indent(indent);
+            // pop all local vars
+            asmWriter.add(Register.esp, (numLocalVars * 4));
+        }
     }
 
     @Override

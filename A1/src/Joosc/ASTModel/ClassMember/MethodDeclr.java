@@ -184,7 +184,7 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
     public String getSigLabel() {
         String label = this.methodSignature.replace(',', '_').replace("[]", "@");
         if (modifiers.contains(Symbol.Static)) {
-            return "STATIC_" + label;
+            return "_STATIC_" + label;
         } else return label;
 
     }
@@ -212,15 +212,17 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
         this.methodLabel = methodLabel;
     }
 
+    public String getMethodLabel() {
+        return this.methodLabel;
+    }
+
     @Override
     public void codeGen(int indent) {
         if (name.equals("test") && modifiers.contains(Symbol.Static)) {
-            asmWriter.indent(indent + 1);
-            asmWriter.println("global _start");
-            asmWriter.indent(indent);
-            asmWriter.label("_start");
             asmWriter.outputInit();
         }
+
+
         asmWriter.indent(indent + 1);
         asmWriter.println("global " + methodLabel);
         asmWriter.indent(indent);
@@ -243,6 +245,9 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
             statement.codeGen(indent + 1);
         }
 
+        asmWriter.println("");
+        asmWriter.indent(indent);
+        asmWriter.label("_method_return_" + methodLabel);
         asmWriter.indent(indent + 1);
         asmWriter.pop(Register.ebp);
         asmWriter.indent(indent + 1);

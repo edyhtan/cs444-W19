@@ -11,8 +11,6 @@ import Joosc.Exceptions.TypeCheckException;
 import Joosc.Exceptions.UnreachableStatementException;
 import Joosc.TypeSystem.JoosType;
 
-import java.util.HashSet;
-
 public class LocalVarDeclrStatement implements Statement, HasExpression {
     private Type type;
     private String id;

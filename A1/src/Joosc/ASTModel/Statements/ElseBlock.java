@@ -66,9 +66,11 @@ public class ElseBlock extends HasScope implements Statement {
         statement.addWriter(asmWriter);
         statement.codeGen(indent);
 
-        asmWriter.indent(indent);
-        // pop all local vars
-        asmWriter.add(Register.esp, (numLocalVars * 4));
+        if(numLocalVars > 0) {
+            asmWriter.indent(indent);
+            // pop all local vars
+            asmWriter.add(Register.esp, (numLocalVars * 4));
+        }
     }
 
     @Override

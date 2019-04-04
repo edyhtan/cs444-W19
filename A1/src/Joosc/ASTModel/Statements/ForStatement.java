@@ -57,8 +57,8 @@ public class ForStatement extends HasScope implements Statement, HasExpression {
 
     @Override
     public void setNumLocalVars() {
-        numLocalVars += Statement.findLocalVarCount(forInit);
-        numLocalVars += Statement.findLocalVarCount(forUpdate);
+        if(forInit!= null) numLocalVars += Statement.findLocalVarCount(forInit);
+        if(forUpdate!=null)numLocalVars += Statement.findLocalVarCount(forUpdate);
         numLocalVars += statement.getNumLocalVars();
     }
 
@@ -136,9 +136,11 @@ public class ForStatement extends HasScope implements Statement, HasExpression {
     @Override
     public void codeGen(int indent) {
 
-        asmWriter.indent(indent);
-        // pop all local vars
-        asmWriter.add(Register.esp, (numLocalVars * 4));
+        if(numLocalVars > 0) {
+            asmWriter.indent(indent);
+            // pop all local vars
+            asmWriter.add(Register.esp, (numLocalVars * 4));
+        }
     }
 
     @Override
