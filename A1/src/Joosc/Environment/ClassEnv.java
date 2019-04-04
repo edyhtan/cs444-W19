@@ -760,21 +760,38 @@ public class ClassEnv implements Env {
 
         if (extendName != null) {
             extendName.getClassEnv().buildMethodCallTable();
-            extendName.getClassEnv().methodCallTable.forEach(methodCallTable::put);
+            LinkedHashMap<String, MethodInfo> parentMethods = extendName.getClassEnv().methodCallTable;
+            for (String key: parentMethods.keySet()) {
+                MethodInfo info = new MethodInfo(parentMethods.get(key));
+                info.callReference = info.methodLabel;
+                createMethodLabel(key, info);
+                methodCallTable.put(key, info);
+            }
         }
 
-        methodSignature.forEach(methodCallTable::put);
+        for (String key:methodSignature.keySet()) {
+            MethodInfo info = methodSignature.get(key);
+            if (!methodCallTable.containsKey(key)) {
+                createMethodLabel(key, info);
+                methodCallTable.put(key, info);
+            }
+        }
 
         methodCallTable.forEach((k, v) -> {
-            v.methodLabel = (v.modifiers.contains(Symbol.Static) ? "__STATIC_" : "__")
-                    + "method__" + joosType.getQualifiedName().replace('.', '_')
-                    + "__"
-                    + k.replace(',', '$').replace("[]", "@").replace('.', '_')
-                    + (k.split(",").length > 1 ? "$" : "");
-            v.methodOffset = 8 + 4 *
-                    (new ArrayList<>(methodCallTable.keySet())).indexOf(k);
+            int ind = (new ArrayList<>(methodCallTable.keySet())).indexOf(k);
+            if (v.callReference == null) {
+                v.callReference = "__m_" + ind;
+                v.external = false;
+            }
+            v.methodOffset = 8 + 4 * ind;
         });
-
     }
 
+    public void createMethodLabel(String k, MethodInfo v) {
+        v.methodLabel = (v.modifiers.contains(Symbol.Static) ? "__STATIC_" : "__")
+                + "method__" + joosType.getQualifiedName().replace('.', '_')
+                + "__"
+                + k.replace(',', '$').replace("[]", "@").replace('.', '_')
+                + (k.split(",").length > 1 ? "$" : "");
+    }
 }

@@ -223,8 +223,6 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
             asmWriter.outputInit();
         }
 
-        asmWriter.indent(indent + 1);
-        asmWriter.println("global " + methodLabel);
         asmWriter.indent(indent);
         asmWriter.label(methodLabel);
 
@@ -270,11 +268,11 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
         }
 
         asmWriter.println("");
-        asmWriter.indent(indent);
+        asmWriter.indent(indent+1);
         asmWriter.label("_method_return_" + methodLabel);
-        asmWriter.indent(indent + 1);
+        asmWriter.indent(indent + 2);
         asmWriter.pop(Register.ebp);
-        asmWriter.indent(indent + 1);
+        asmWriter.indent(indent + 2);
         asmWriter.ret();
 
         asmWriter.println("");
