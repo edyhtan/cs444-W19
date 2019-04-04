@@ -12,13 +12,37 @@ section .text
 
 		global __method_java_io_OutputStream_write_char
 	__method_java_io_OutputStream_write_char:
+		push ebp
+		mov ebp,esp
+
+	_method_return___method_java_io_OutputStream_write_char:
+		pop ebp
+		ret
 
 		global __method_java_io_OutputStream_write_int
 	__method_java_io_OutputStream_write_int:
+		push ebp
+		mov ebp,esp
 
-		global __method_java_io_OutputStream_nativeWrite_int
-	__method_java_io_OutputStream_nativeWrite_int:
+	_method_return___method_java_io_OutputStream_write_int:
+		pop ebp
+		ret
+
+		global __method_java_io_OutputStream__STATIC_nativeWrite_int
+	__method_java_io_OutputStream__STATIC_nativeWrite_int:
+		push ebp
+		mov ebp,esp
+
+	_method_return___method_java_io_OutputStream__STATIC_nativeWrite_int:
+		pop ebp
+		ret
 
 		global __method_java_io_OutputStream_flush
 	__method_java_io_OutputStream_flush:
+		push ebp
+		mov ebp,esp
+
+	_method_return___method_java_io_OutputStream_flush:
+		pop ebp
+		ret
 

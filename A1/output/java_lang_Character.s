@@ -12,4 +12,11 @@ section .text
 
 		global __method_java_lang_Character_toString
 	__method_java_lang_Character_toString:
+		push ebp
+		mov ebp,esp
+		jmp _method_return___method_java_lang_Character_toString
+
+	_method_return___method_java_lang_Character_toString:
+		pop ebp
+		ret
 

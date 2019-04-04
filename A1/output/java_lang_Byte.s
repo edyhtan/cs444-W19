@@ -16,4 +16,11 @@ section .text
 
 		global __method_java_lang_Byte_toString
 	__method_java_lang_Byte_toString:
+		push ebp
+		mov ebp,esp
+		jmp _method_return___method_java_lang_Byte_toString
+
+	_method_return___method_java_lang_Byte_toString:
+		pop ebp
+		ret
 

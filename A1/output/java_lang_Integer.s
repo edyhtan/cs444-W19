@@ -16,10 +16,31 @@ section .text
 
 		global __method_java_lang_Integer_intValue
 	__method_java_lang_Integer_intValue:
+		push ebp
+		mov ebp,esp
+		jmp _method_return___method_java_lang_Integer_intValue
 
-		global __method_java_lang_Integer_parseInt_java.lang.String
-	__method_java_lang_Integer_parseInt_java.lang.String:
+	_method_return___method_java_lang_Integer_intValue:
+		pop ebp
+		ret
+
+		global __method_java_lang_Integer__STATIC_parseInt_java.lang.String
+	__method_java_lang_Integer__STATIC_parseInt_java.lang.String:
+		push ebp
+		mov ebp,esp
+		jmp _method_return___method_java_lang_Integer__STATIC_parseInt_java.lang.String
+
+	_method_return___method_java_lang_Integer__STATIC_parseInt_java.lang.String:
+		pop ebp
+		ret
 
 		global __method_java_lang_Integer_toString
 	__method_java_lang_Integer_toString:
+		push ebp
+		mov ebp,esp
+		jmp _method_return___method_java_lang_Integer_toString
+
+	_method_return___method_java_lang_Integer_toString:
+		pop ebp
+		ret
 

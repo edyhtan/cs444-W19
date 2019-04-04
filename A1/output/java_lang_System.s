@@ -14,6 +14,12 @@ section .data
 
 section .text
 
-		global __method_java_lang_System_gc
-	__method_java_lang_System_gc:
+		global __method_java_lang_System__STATIC_gc
+	__method_java_lang_System__STATIC_gc:
+		push ebp
+		mov ebp,esp
+
+	_method_return___method_java_lang_System__STATIC_gc:
+		pop ebp
+		ret
 

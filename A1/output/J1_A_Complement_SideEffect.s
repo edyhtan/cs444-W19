@@ -12,7 +12,17 @@ section .text
 
 		global __method_J1_A_Complement_SideEffect_incCount
 	__method_J1_A_Complement_SideEffect_incCount:
+		push ebp
+		mov ebp,esp
+		pop ebp
+		ret
 
-		global __method_J1_A_Complement_SideEffect_test
-	__method_J1_A_Complement_SideEffect_test:
+		global _start
+	_start:
+		global __method_J1_A_Complement_SideEffect_STATIC_test
+	__method_J1_A_Complement_SideEffect_STATIC_test:
+		push ebp
+		mov ebp,esp
+		pop ebp
+		ret
 

@@ -10,9 +10,27 @@ section .data
 
 section .text
 
-		global __method_java_util_Arrays_equals_boolean[]_boolean[]
-	__method_java_util_Arrays_equals_boolean[]_boolean[]:
+		global __method_java_util_Arrays__STATIC_equals_boolean@_boolean@
+	__method_java_util_Arrays__STATIC_equals_boolean@_boolean@:
+		push ebp
+		mov ebp,esp
+		add esp,4
+		mov eax,true
+		jmp _method_return___method_java_util_Arrays__STATIC_equals_boolean@_boolean@
 
-		global __method_java_util_Arrays_equals_char[]_char[]
-	__method_java_util_Arrays_equals_char[]_char[]:
+	_method_return___method_java_util_Arrays__STATIC_equals_boolean@_boolean@:
+		pop ebp
+		ret
+
+		global __method_java_util_Arrays__STATIC_equals_char@_char@
+	__method_java_util_Arrays__STATIC_equals_char@_char@:
+		push ebp
+		mov ebp,esp
+		add esp,4
+		mov eax,true
+		jmp _method_return___method_java_util_Arrays__STATIC_equals_char@_char@
+
+	_method_return___method_java_util_Arrays__STATIC_equals_char@_char@:
+		pop ebp
+		ret
 

@@ -12,7 +12,21 @@ section .text
 
 		global __method_java_lang_Short_intValue
 	__method_java_lang_Short_intValue:
+		push ebp
+		mov ebp,esp
+		jmp _method_return___method_java_lang_Short_intValue
+
+	_method_return___method_java_lang_Short_intValue:
+		pop ebp
+		ret
 
 		global __method_java_lang_Short_toString
 	__method_java_lang_Short_toString:
+		push ebp
+		mov ebp,esp
+		jmp _method_return___method_java_lang_Short_toString
+
+	_method_return___method_java_lang_Short_toString:
+		pop ebp
+		ret
 
