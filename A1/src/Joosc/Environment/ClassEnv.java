@@ -53,7 +53,8 @@ public class ClassEnv implements Env {
     protected HashMap<String, FieldsVarInfo> containedFields = new HashMap();
 
     // Symbol table
-    LinkedHashMap<String, FieldsVarInfo> symbolTable = null;
+    public LinkedHashMap<String, FieldsVarInfo> symbolTable = null;
+    public LinkedHashMap<String, MethodInfo> methodCallTable = null;
 
     public ClassEnv(Program program, GlobalEnv parent) {
         typeDeclr = program.getTypeDeclr();
@@ -715,6 +716,9 @@ public class ClassEnv implements Env {
         return new HashSet<>(fields.keySet());
     }
 
+    /**
+     *  We combine field name with class name because duplicate fields simultaneously exist
+     * */
     public void buildSymbolTable() {
 
         if (symbolTable != null) {
@@ -726,13 +730,30 @@ public class ClassEnv implements Env {
             return;
         }
         extendName.getClassEnv().buildSymbolTable();
-        extendName.getClassEnv().symbolTable.forEach( (key, value) -> {
-            this.symbolTable.put(key, value);
-        });
+        extendName.getClassEnv().symbolTable.forEach(symbolTable::put);
 
         fields.forEach( (key, value) -> {
             this.symbolTable.put(joosType.getQualifiedName() + "::" + key, value);
         });
+
+    }
+
+    /**
+     * We do not combine method name with class name because duplicate method replaces the parent implementation
+     * */
+    public void buildMethodCallTable() {
+
+        if (methodCallTable != null) {
+            return;
+        }
+        methodCallTable = new LinkedHashMap<>();
+
+        if (extendName != null) {
+            extendName.getClassEnv().buildMethodCallTable();
+            extendName.getClassEnv().methodCallTable.forEach(methodCallTable::put);
+        }
+
+        methodSignature.forEach(methodCallTable::put);
 
     }
 
