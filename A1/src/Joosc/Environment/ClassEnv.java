@@ -52,6 +52,10 @@ public class ClassEnv implements Env {
 
     protected HashMap<String, FieldsVarInfo> containedFields = new HashMap();
 
+    // Symbol table
+    public LinkedHashMap<String, FieldsVarInfo> symbolTable = null;
+    public LinkedHashMap<String, MethodInfo> methodCallTable = null;
+
     public ClassEnv(Program program, GlobalEnv parent) {
         typeDeclr = program.getTypeDeclr();
         typeDeclr.addEnv(this);
@@ -718,4 +722,56 @@ public class ClassEnv implements Env {
     public HashSet<String> getFieldsName() {
         return new HashSet<>(fields.keySet());
     }
+
+    /**
+     *  We combine field name with class name because duplicate fields simultaneously exist
+     * */
+    public void buildSymbolTable() {
+
+        if (symbolTable != null) {
+            return;
+        }
+        symbolTable = new LinkedHashMap<>();
+
+        if (extendName == null) {
+            return;
+        }
+        extendName.getClassEnv().buildSymbolTable();
+        extendName.getClassEnv().symbolTable.forEach(symbolTable::put);
+
+        fields.forEach( (key, value) -> {
+            this.symbolTable.put(joosType.getQualifiedName() + "::" + key, value);
+        });
+
+    }
+
+    /**
+     * We do not combine method name with class name because duplicate method replaces the parent implementation
+     * */
+    public void buildMethodCallTable() {
+
+        if (methodCallTable != null) {
+            return;
+        }
+        methodCallTable = new LinkedHashMap<>();
+
+        if (extendName != null) {
+            extendName.getClassEnv().buildMethodCallTable();
+            extendName.getClassEnv().methodCallTable.forEach(methodCallTable::put);
+        }
+
+        methodSignature.forEach(methodCallTable::put);
+
+        methodCallTable.forEach((k, v) -> {
+            v.methodLabel = (v.modifiers.contains(Symbol.Static) ? "__STATIC_" : "__")
+                    + "method__" + joosType.getQualifiedName().replace('.', '_')
+                    + "__"
+                    + k.replace(',', '$').replace("[]", "@").replace('.', '_')
+                    + (k.split(",").length > 1 ? "$" : "");
+            v.methodOffset = 8 + 4 *
+                    (new ArrayList<>(methodCallTable.keySet())).indexOf(k);
+        });
+
+    }
+
 }

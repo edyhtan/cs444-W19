@@ -11,6 +11,8 @@ import java.util.ArrayList;
 public class MethodInfo {
     String signatureStr;
     String methodSimpleName;
+    public String methodLabel;
+    public int methodOffset;
     TypeInfo returnType;
     ArrayList<FieldsVarInfo> paramTypeList;
     ArrayList<Symbol> modifiers;
