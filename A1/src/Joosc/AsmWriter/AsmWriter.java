@@ -267,6 +267,10 @@ public class AsmWriter {
                 ClassDeclr classDeclr = (ClassDeclr) classEnv.getTypeDeclr();
                 for (String methodName: allMethods) {
 
+
+                    if (classEnv.methodCallTable.containsKey(methodName)) {
+
+                    }
                 }
             }
         }

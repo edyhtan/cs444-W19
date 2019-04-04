@@ -284,6 +284,8 @@ public class ClassEnv implements Env {
                 implicitDeclr.remove(tempMethodInfo.getSignatureStr());
             }
 
+            method.info = tempMethodInfo;
+
             methodSignature.put(tempMethodInfo.getSignatureStr(), tempMethodInfo);
             method.setMethodSignature(tempMethodInfo.getSignatureStr());
             method.setType(tempMethodInfo.getReturnType().getJoosType());
