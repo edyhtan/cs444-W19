@@ -1,7 +1,18 @@
 package Joosc.AsmWriter;
 
+import Joosc.ASTModel.ClassInterface.ClassDeclr;
+import Joosc.ASTModel.ClassInterface.InterfaceDeclr;
+import Joosc.ASTModel.ClassInterface.TypeDeclr;
+import Joosc.Environment.ClassEnv;
+import Joosc.Environment.GlobalEnv;
+import Joosc.Environment.MethodInfo;
+
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 
 public class AsmWriter {
     PrintStream out;
@@ -238,7 +249,27 @@ public class AsmWriter {
     }
 
     public void outputInit() {
+        out.println("\t" + "global _start");
+        out.println("_start:");
 
+        LinkedHashSet<String> allMethods = new LinkedHashSet<>();
+
+        // Create List of All Interface call header
+        for (ClassEnv classEnv: GlobalEnv.instance.classEnvs) {
+            if (classEnv.getTypeDeclr() instanceof InterfaceDeclr) {
+                allMethods.addAll(classEnv.getAllMethodSignature().keySet());
+            }
+        }
+
+        // Create SIT
+        for (ClassEnv classEnv: GlobalEnv.instance.classEnvs) {
+            if (classEnv.getTypeDeclr() instanceof ClassDeclr) {
+                ClassDeclr classDeclr = (ClassDeclr) classEnv.getTypeDeclr();
+                for (String methodName: allMethods) {
+
+                }
+            }
+        }
     }
 
 }
