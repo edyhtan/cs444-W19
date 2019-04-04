@@ -424,6 +424,7 @@ public class ClassEnv implements Env {
                         + String.join(".", typeDeclr.getCanonicalName()) + ". ");
             } else {
                 constructorSignature.put(tempCtorInfo.getSignatureStr(), tempCtorInfo);
+                ctor.info = tempCtorInfo;
             }
         }
     }
@@ -771,6 +772,9 @@ public class ClassEnv implements Env {
     }
 
     public void buildConstructorLabel() {
+        if (!(typeDeclr instanceof ClassDeclr)) {
+            return;
+        }
         constructorSignature.forEach((k, v) -> {
             v.methodLabel = "__constructor__"
                     + joosType.getQualifiedName().replace('.', '_')
