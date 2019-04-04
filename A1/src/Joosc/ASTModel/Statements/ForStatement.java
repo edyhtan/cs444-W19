@@ -3,6 +3,7 @@ package Joosc.ASTModel.Statements;
 import Joosc.ASTBuilding.ASTStructures.Statements.ForStatementNode;
 import Joosc.ASTModel.Expressions.ConstantExpression;
 import Joosc.ASTModel.Expressions.Expression;
+import Joosc.ASTModel.Program;
 import Joosc.AsmWriter.AsmWriter;
 import Joosc.AsmWriter.Register;
 import Joosc.Environment.Env;
@@ -132,9 +133,12 @@ public class ForStatement extends HasScope implements Statement, HasExpression {
 
     //Code Gen
     AsmWriter asmWriter;
+    int offset;
 
     @Override
     public void codeGen(int indent) {
+        this.offset = Program.globalCount;
+        Program.globalCount++;
 
         if(numLocalVars > 0) {
             asmWriter.indent(indent);
