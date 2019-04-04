@@ -10,11 +10,18 @@ import Joosc.ASTModel.ClassInterface.InterfaceDeclr;
 import Joosc.ASTModel.ClassInterface.TypeDeclr;
 import Joosc.Environment.ClassEnv;
 import Joosc.Environment.GlobalEnv;
-import java.util.LinkedHashSet;
+import Joosc.Environment.MethodInfo;
+import Joosc.util.ArrayLinkedHashSet;
+
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 public class AsmWriter {
     PrintStream out;
     private static String binaryTemplate = "%s %s, %s";
+    public static ArrayLinkedHashSet<String> allMethods = new ArrayLinkedHashSet<>();
 
     public AsmWriter(PrintStream out) {
         this.out = out;
@@ -270,11 +277,15 @@ public class AsmWriter {
         out.print(String.join("", Collections.nCopies(num, "\t")));
     }
 
+    public void malloc(int size) {
+        mov(Register.eax, size);
+        extern("_malloc");
+        call("_malloc");
+    }
+
     public void outputInit() {
         out.println("\t" + "global _start");
         out.println("_start:");
-
-        LinkedHashSet<String> allMethods = new LinkedHashSet<>();
 
         // Create List of All Interface call header
         for (ClassEnv classEnv: GlobalEnv.instance.classEnvs) {
@@ -287,9 +298,13 @@ public class AsmWriter {
         for (ClassEnv classEnv: GlobalEnv.instance.classEnvs) {
             if (classEnv.getTypeDeclr() instanceof ClassDeclr) {
                 ClassDeclr classDeclr = (ClassDeclr) classEnv.getTypeDeclr();
+                classDeclr.buildCompilerLabel();
+
+                malloc(allMethods.size() * 4);
+                mov(Register.ebx, classDeclr.classSIT);
+                movToAddr(Register.ebx, Register.eax);
+
                 for (String methodName: allMethods) {
-
-
                     if (classEnv.methodCallTable.containsKey(methodName)) {
 
                     }
