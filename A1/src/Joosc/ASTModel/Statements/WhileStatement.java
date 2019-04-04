@@ -21,6 +21,7 @@ public class WhileStatement extends HasScope implements Statement, HasExpression
     public WhileStatement(WhileStatementNode node) {
         expression = Expression.convertExpressionNode(node.getExpression());
         statement = Statement.convertStatementNode(node.getStatement());
+        setNumLocalVars();
     }
 
     public Expression getExpression() {
@@ -45,6 +46,16 @@ public class WhileStatement extends HasScope implements Statement, HasExpression
     @Override
     public void passDownScopes() {
 
+    }
+
+    @Override
+    public void setNumLocalVars() {
+        this.numLocalVars = Statement.findLocalVarCount(statement);
+    }
+
+    @Override
+    public int getNumLocalVars() {
+        return this.numLocalVars;
     }
 
     // TODO: check type is boolean

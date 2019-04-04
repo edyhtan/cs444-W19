@@ -3,6 +3,7 @@ package Joosc.ASTModel.Statements;
 import Joosc.ASTBuilding.ASTStructures.Statements.IfStatementNode;
 import Joosc.ASTModel.Expressions.Expression;
 import Joosc.AsmWriter.AsmWriter;
+import Joosc.AsmWriter.Register;
 import Joosc.Environment.Env;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
@@ -27,6 +28,7 @@ public class IfStatement extends HasScope implements Statement, HasExpression {
         thenClause = Statement.convertStatementNode(node.getThenClause());
         elseClause = node.getElseClause() == null ? null
                 : new ElseBlock(Statement.convertStatementNode(node.getElseClause()));
+        setNumLocalVars();
     }
 
     public Expression getExpression() {
@@ -55,6 +57,17 @@ public class IfStatement extends HasScope implements Statement, HasExpression {
     @Override
     public void passDownScopes() {
 
+    }
+
+    @Override
+    public void setNumLocalVars() {
+        numLocalVars += Statement.findLocalVarCount(thenClause);
+        numLocalVars += elseClause.getNumLocalVars();
+    }
+
+    @Override
+    public int getNumLocalVars() {
+        return this.numLocalVars;
     }
 
     @Override
@@ -101,6 +114,10 @@ public class IfStatement extends HasScope implements Statement, HasExpression {
 
     @Override
     public void codeGen(int indent) {
+
+        asmWriter.indent(indent);
+        // pop all local vars
+        asmWriter.add(Register.esp, (numLocalVars * 4));
 
     }
 

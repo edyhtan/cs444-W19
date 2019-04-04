@@ -24,6 +24,7 @@ public class Block extends HasScope implements Statement {
             statements = node.getStatements().stream().map(stmt -> Statement.convertStatementNode(stmt))
                     .collect(Collectors.toCollection(ArrayList::new));
         }
+        setNumLocalVars();
     }
 
     @Override
@@ -37,13 +38,18 @@ public class Block extends HasScope implements Statement {
     }
 
     @Override
-    public void setNumLocalVar() {
+    public void setNumLocalVars() {
         int count = 0;
         for(Statement statement: statements) {
             if(statement instanceof LocalVarDeclrStatement) count++;
         }
 
         this.numLocalVars = count;
+    }
+
+    @Override
+    public int getNumLocalVars() {
+        return this.numLocalVars;
     }
 
     @Override
