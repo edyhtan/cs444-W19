@@ -2,13 +2,13 @@ package Joosc.Environment;
 
 import Joosc.ASTBuilding.Constants.Symbol;
 
-import java.sql.Array;
 import java.util.ArrayList;
 
 public class FieldsVarInfo {
     String name;
     TypeInfo typeInfo;
     ArrayList<Symbol> modifiers;
+    int offset;
 
     public FieldsVarInfo(String name, TypeInfo typeInfo, ArrayList<Symbol> modifiers) {
         this.name = name;
@@ -38,5 +38,13 @@ public class FieldsVarInfo {
 
     public boolean isTypePrimitive() {
         return typeInfo.isPrimitive();
+    }
+
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
     }
 }

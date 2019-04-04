@@ -38,5 +38,7 @@ public interface Env {
     HashMap<String, MethodInfo> getAllMethodSignature();
     HashMap<String, MethodInfo> getDeclaredMethodSignature();
     ArrayList<String> getPackageDeclr();
+
+    void assignOffset(String name, int offset);
 }
 

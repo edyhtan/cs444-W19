@@ -77,7 +77,7 @@ public class LocalEnv implements Env {
                     }
                 }
             }
-            if(ast instanceof ConstructorDeclr && !((ConstructorDeclr) ast).getName().equals(currentClass.getSimpleName())) {
+            if (ast instanceof ConstructorDeclr && !((ConstructorDeclr) ast).getName().equals(currentClass.getSimpleName())) {
                 throw new TypeCheckException("Bad constructor name: " + ((ConstructorDeclr) ast).getName());
             }
             statements = ((ClassBodyDeclr) ast).getBodyBlock();
@@ -94,9 +94,9 @@ public class LocalEnv implements Env {
                         forinitLocal.addInfo(info);
                     }
                 }
-                ((ForStatement)ast).getExpression().addEnv(this);
-                if (((ForStatement)ast).getForUpdate() != null)
-                    ((HasExpression)((ForStatement)ast).getForUpdate()).checkExpression(this);
+                ((ForStatement) ast).getExpression().addEnv(this);
+                if (((ForStatement) ast).getForUpdate() != null)
+                    ((HasExpression) ((ForStatement) ast).getForUpdate()).checkExpression(this);
             }
             statements = ((HasScope) ast).getBlock();
         } else {
@@ -104,16 +104,16 @@ public class LocalEnv implements Env {
             System.exit(6);
         }
 
-        if(ast instanceof MethodDeclr) {
+        if (ast instanceof MethodDeclr) {
             ((MethodDeclr) ast).validateStaticAccess();
         }
 
         for (Statement statement : statements) {
             if (statement instanceof HasScope) {
-                ((LocalEnv)((HasScope) statement).getEnv()).resolveLocalVariableAndAccess();
+                ((LocalEnv) ((HasScope) statement).getEnv()).resolveLocalVariableAndAccess();
                 if (statement instanceof IfStatement) {
                     if (((IfStatement) statement).getElseClause() != null) {
-                        ((LocalEnv)((IfStatement) statement).getElseClause().getEnv()).resolveLocalVariableAndAccess();
+                        ((LocalEnv) ((IfStatement) statement).getElseClause().getEnv()).resolveLocalVariableAndAccess();
                     }
                 }
             }
@@ -135,10 +135,14 @@ public class LocalEnv implements Env {
             }
         }
 
-        if(ast instanceof MethodDeclr) {
+        if (ast instanceof MethodDeclr) {
             ((MethodDeclr) ast).validateReturnType();
         }
 
+    }
+
+    public HashMap<String, FieldsVarInfo> getSymbolTable() {
+        return symbolTable;
     }
 
     @Override
@@ -198,7 +202,7 @@ public class LocalEnv implements Env {
     }
 
     @Override
-    public FieldsVarInfo getFieldInfo(String name){
+    public FieldsVarInfo getFieldInfo(String name) {
         return parent.getFieldInfo(name);
     }
 
@@ -244,6 +248,7 @@ public class LocalEnv implements Env {
     public ArrayList<String> getPackageDeclr() {
         return parent.getPackageDeclr();
     }
+
     @Override
     public HashMap<String, MethodInfo> getDeclaredMethodSignature() {
         return parent.getDeclaredMethodSignature();
@@ -251,9 +256,17 @@ public class LocalEnv implements Env {
 
     private void checkForwardReference() throws TypeCheckException {
         if (currentClass instanceof ClassDeclr) {
-            for (FieldDeclr fd: ((ClassDeclr) currentClass).getFields()) {
+            for (FieldDeclr fd : ((ClassDeclr) currentClass).getFields()) {
 
             }
+        }
+    }
+
+    public void assignOffset(String name, int offset) {
+        if (symbolTable.containsKey(name)) {
+            symbolTable.get(name).setOffset(offset);
+        } else {
+            parent.assignOffset(name, offset);
         }
     }
 }
