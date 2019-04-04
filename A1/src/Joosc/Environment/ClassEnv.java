@@ -794,4 +794,14 @@ public class ClassEnv implements Env {
                 + k.replace(',', '$').replace("[]", "@").replace('.', '_')
                 + (k.split(",").length > 1 ? "$" : "");
     }
+
+    public void buildConstructorLabel() {
+        constructorSignature.forEach((k, v) -> {
+            v.methodLabel = "__constructor__"
+                    + joosType.getQualifiedName().replace('.', '_')
+                    + "__"
+                    + k.replace(',', '$').replace("[]", "@").replace('.', '_')
+                    + (k.split(",").length > 1 ? "$" : "");
+        });
+    }
 }

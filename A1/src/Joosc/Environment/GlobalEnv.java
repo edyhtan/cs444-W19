@@ -145,6 +145,7 @@ public class GlobalEnv implements Env {
         for (ClassEnv classEnv : classEnvs) {
             classEnv.buildSymbolTable();
             classEnv.buildMethodCallTable();
+            classEnv.buildConstructorLabel();
         }
     }
 

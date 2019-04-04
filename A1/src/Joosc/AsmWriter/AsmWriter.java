@@ -13,10 +13,6 @@ import Joosc.Environment.GlobalEnv;
 import Joosc.Environment.MethodInfo;
 import Joosc.util.ArrayLinkedHashSet;
 
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
 public class AsmWriter {
     PrintStream out;
@@ -271,7 +267,6 @@ public class AsmWriter {
         pop(Register.ebp);
         ret();
     }
-
 
     public void indent(int num) {
         out.print(String.join("", Collections.nCopies(num, "\t")));
