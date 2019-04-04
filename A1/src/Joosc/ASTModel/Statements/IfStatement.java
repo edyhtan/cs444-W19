@@ -127,7 +127,7 @@ public class IfStatement extends HasScope implements Statement, HasExpression {
 
         asmWriter.indent(indent);
         asmWriter.println(";thenClause ...");
-        thenClause.codeGen(indent);
+        thenClause.codeGen(indent + 1);
         asmWriter.println("");
 
         asmWriter.indent(indent);

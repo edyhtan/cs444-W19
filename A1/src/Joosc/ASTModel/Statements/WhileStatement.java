@@ -131,10 +131,14 @@ public class WhileStatement extends HasScope implements Statement, HasExpression
 
         asmWriter.iffalse(expression, ".endwhile" + offset, indent+1);
 
-        statement.codeGen(indent+1);
+        asmWriter.println("");
         asmWriter.indent(indent+1);
         asmWriter.println(";statement code...");
 
+        statement.codeGen(indent+2);
+
+
+        asmWriter.println("");
         asmWriter.indent(indent+1);
         asmWriter.jmp(".while" + offset);
 

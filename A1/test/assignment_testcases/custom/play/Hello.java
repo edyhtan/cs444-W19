@@ -6,7 +6,14 @@ public class Hello {
     }
 
     public boolean like(Hello who) {
-        who.whatYouSee();
+        while (who != null) {
+            while (who == null)
+                if (who != null)
+                    if ( who instanceof Hello ){
+
+                    }
+                else ;
+        }
         return who.like(this);
     }
 }
