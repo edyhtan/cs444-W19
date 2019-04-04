@@ -222,7 +222,6 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
             asmWriter.outputInit();
         }
 
-
         asmWriter.indent(indent + 1);
         asmWriter.println("global " + methodLabel);
         asmWriter.indent(indent);
@@ -233,6 +232,8 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
         asmWriter.indent(indent + 1);
         asmWriter.mov(Register.ebp, Register.esp);
 
+
+        // TODO: distinguish static && non-static
         // extra one for eip
         int size = formalParamList.size() + 1;
         for (int i = 0; i < formalParamList.size(); ++i) {

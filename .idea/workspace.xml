@@ -2,51 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="87a665fb-9607-4c36-97d8-4c3c12615a75" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/A1/output/J1_A_Complement_SideEffect.s" afterPath="$PROJECT_DIR$/A1/output/J1_A_Complement_SideEffect.s" />
-      <change beforePath="$PROJECT_DIR$/A1/output/java_io_OutputStream.s" afterPath="$PROJECT_DIR$/A1/output/java_io_OutputStream.s" />
-      <change beforePath="$PROJECT_DIR$/A1/output/java_io_PrintStream.s" afterPath="$PROJECT_DIR$/A1/output/java_io_PrintStream.s" />
-      <change beforePath="$PROJECT_DIR$/A1/output/java_lang_Boolean.s" afterPath="$PROJECT_DIR$/A1/output/java_lang_Boolean.s" />
-      <change beforePath="$PROJECT_DIR$/A1/output/java_lang_Byte.s" afterPath="$PROJECT_DIR$/A1/output/java_lang_Byte.s" />
-      <change beforePath="$PROJECT_DIR$/A1/output/java_lang_Character.s" afterPath="$PROJECT_DIR$/A1/output/java_lang_Character.s" />
-      <change beforePath="$PROJECT_DIR$/A1/output/java_lang_Integer.s" afterPath="$PROJECT_DIR$/A1/output/java_lang_Integer.s" />
-      <change beforePath="$PROJECT_DIR$/A1/output/java_lang_Number.s" afterPath="$PROJECT_DIR$/A1/output/java_lang_Number.s" />
-      <change beforePath="$PROJECT_DIR$/A1/output/java_lang_Object.s" afterPath="$PROJECT_DIR$/A1/output/java_lang_Object.s" />
-      <change beforePath="$PROJECT_DIR$/A1/output/java_lang_Short.s" afterPath="$PROJECT_DIR$/A1/output/java_lang_Short.s" />
-      <change beforePath="$PROJECT_DIR$/A1/output/java_lang_String.s" afterPath="$PROJECT_DIR$/A1/output/java_lang_String.s" />
-      <change beforePath="$PROJECT_DIR$/A1/output/java_lang_System.s" afterPath="$PROJECT_DIR$/A1/output/java_lang_System.s" />
-      <change beforePath="$PROJECT_DIR$/A1/output/java_util_Arrays.s" afterPath="$PROJECT_DIR$/A1/output/java_util_Arrays.s" />
       <change beforePath="$PROJECT_DIR$/A1/src/Joosc/ASTModel/ClassInterface/ClassDeclr.java" afterPath="$PROJECT_DIR$/A1/src/Joosc/ASTModel/ClassInterface/ClassDeclr.java" />
       <change beforePath="$PROJECT_DIR$/A1/src/Joosc/ASTModel/ClassMember/MethodDeclr.java" afterPath="$PROJECT_DIR$/A1/src/Joosc/ASTModel/ClassMember/MethodDeclr.java" />
-      <change beforePath="$PROJECT_DIR$/A1/src/Joosc/ASTModel/Expressions/ExpressionMethodInvocation.java" afterPath="$PROJECT_DIR$/A1/src/Joosc/ASTModel/Expressions/ExpressionMethodInvocation.java" />
-      <change beforePath="$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/ElseBlock.java" afterPath="$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/ElseBlock.java" />
-      <change beforePath="$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/ForStatement.java" afterPath="$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/ForStatement.java" />
-      <change beforePath="$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/IfStatement.java" afterPath="$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/IfStatement.java" />
-      <change beforePath="$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/LocalVarDeclrStatement.java" afterPath="$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/LocalVarDeclrStatement.java" />
-      <change beforePath="$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/ReturnStatement.java" afterPath="$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/ReturnStatement.java" />
-      <change beforePath="$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/WhileStatement.java" afterPath="$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/WhileStatement.java" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/ClassInterface/ClassDeclr.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/ClassInterface/ClassDeclr.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/ClassMember/MethodDeclr.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/ClassMember/MethodDeclr.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Expressions/ExpressionMethodInvocation.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Expressions/ExpressionMethodInvocation.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Expressions/Literal.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Expressions/Literal.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Statements/Block.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Statements/Block.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Statements/ElseBlock.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Statements/ElseBlock.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Statements/ForStatement.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Statements/ForStatement.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Statements/HasScope.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Statements/HasScope.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Statements/IfStatement.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Statements/IfStatement.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Statements/ReturnStatement.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Statements/ReturnStatement.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Statements/Statement.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Statements/Statement.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Statements/WhileStatement.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Statements/WhileStatement.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/AsmWriter/AsmWriter.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/AsmWriter/AsmWriter.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/Environment/ClassEnv.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/Environment/ClassEnv.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/Environment/Env.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/Environment/Env.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/Environment/FieldsVarInfo.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/Environment/FieldsVarInfo.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/Environment/GlobalEnv.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/Environment/GlobalEnv.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/Environment/LocalEnv.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/Environment/LocalEnv.class" />
-      <change beforePath="$PROJECT_DIR$/out/test/A1/assignment_testcases/custom/play/Hello.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/test/A1/assignment_testcases/custom/play/Main.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/test/A1/assignment_testcases/custom/play/Static.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/test/A1/assignment_testcases/custom/play/foo/bar.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/A1/src/Joosc/Environment/LocalEnv.java" afterPath="$PROJECT_DIR$/A1/src/Joosc/Environment/LocalEnv.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -61,21 +19,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="A.s" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/A1/output/A.s">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="23" column="11" lean-forward="true" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MethodDeclr.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MethodDeclr.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/ClassMember/MethodDeclr.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="365">
-              <caret line="224" column="0" lean-forward="false" selection-start-line="224" selection-start-column="0" selection-end-line="224" selection-end-column="0" />
+            <state relative-caret-position="273">
+              <caret line="235" column="49" lean-forward="true" selection-start-line="235" selection-start-column="49" selection-end-line="235" selection-end-column="49" />
               <folding>
                 <element signature="e#6245#6246#0" expanded="true" />
                 <element signature="e#6283#6284#0" expanded="true" />
@@ -83,25 +31,31 @@
                 <element signature="e#6974#6975#0" expanded="true" />
                 <element signature="e#7012#7013#0" expanded="true" />
                 <element signature="e#7051#7052#0" expanded="true" />
-                <element signature="e#8338#8339#0" expanded="true" />
-                <element signature="e#8372#8373#0" expanded="true" />
+                <element signature="e#8388#8389#0" expanded="true" />
+                <element signature="e#8422#8423#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ElseBlock.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/ElseBlock.java">
+      <file leaf-file-name="LocalEnv.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/A1/src/Joosc/Environment/LocalEnv.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="72" column="9" lean-forward="false" selection-start-line="72" selection-start-column="9" selection-end-line="72" selection-end-column="9" />
+            <state relative-caret-position="108">
+              <caret line="25" column="43" lean-forward="false" selection-start-line="25" selection-start-column="43" selection-end-line="25" selection-end-column="43" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ReturnStatement.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/ReturnStatement.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="402">
+              <caret line="101" column="102" lean-forward="false" selection-start-line="101" selection-start-column="88" selection-end-line="101" selection-end-column="102" />
               <folding>
-                <element signature="e#845#846#0" expanded="true" />
-                <element signature="e#919#920#0" expanded="true" />
-                <element signature="e#969#970#0" expanded="true" />
-                <element signature="e#1009#1010#0" expanded="true" />
-                <element signature="e#1770#1771#0" expanded="true" />
-                <element signature="e#1804#1805#0" expanded="true" />
+                <element signature="e#3247#3248#0" expanded="true" />
+                <element signature="e#3281#3282#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -110,8 +64,8 @@
       <file leaf-file-name="WhileStatement.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/WhileStatement.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="159">
-              <caret line="120" column="0" lean-forward="true" selection-start-line="120" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
+            <state relative-caret-position="561">
+              <caret line="53" column="49" lean-forward="true" selection-start-line="53" selection-start-column="49" selection-end-line="53" selection-end-column="49" />
               <folding>
                 <element signature="e#1531#1532#0" expanded="true" />
                 <element signature="e#1605#1606#0" expanded="true" />
@@ -122,68 +76,63 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Statement.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/Statement.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="499">
+              <caret line="45" column="51" lean-forward="true" selection-start-line="45" selection-start-column="51" selection-end-line="45" selection-end-column="51" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Block.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/Block.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ForStatement.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/ForStatement.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-795">
+              <caret line="59" column="18" lean-forward="false" selection-start-line="59" selection-start-column="11" selection-end-line="59" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HasScope.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/HasScope.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="10" column="40" lean-forward="false" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="40" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="PlainStatement.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/PlainStatement.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-266">
+            <state relative-caret-position="-62">
               <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LocalVarDeclrStatement.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/LocalVarDeclrStatement.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="101" column="0" lean-forward="true" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ClassDeclr.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ClassDeclr.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/ClassInterface/ClassDeclr.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2278">
-              <caret line="170" column="66" lean-forward="true" selection-start-line="170" selection-start-column="66" selection-end-line="170" selection-end-column="66" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AsmWriter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/A1/src/Joosc/AsmWriter/AsmWriter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="516">
-              <caret line="243" column="16" lean-forward="false" selection-start-line="243" selection-start-column="16" selection-end-line="243" selection-end-column="16" />
-              <folding>
-                <element signature="e#5650#5651#0" expanded="true" />
-                <element signature="e#5724#5725#0" expanded="true" />
-                <marker date="1554336161275" expanded="true" signature="5610:5616" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ReturnStatement.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/ReturnStatement.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="74">
-              <caret line="94" column="0" lean-forward="false" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="9" />
-              <folding>
-                <element signature="e#3247#3248#0" expanded="true" />
-                <element signature="e#3281#3282#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="A.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/A1/test/assignment_testcases/custom/play/A.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="21" lean-forward="false" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
+            <state relative-caret-position="347">
+              <caret line="181" column="8" lean-forward="false" selection-start-line="181" selection-start-column="8" selection-end-line="186" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -279,7 +228,6 @@
         <option value="$PROJECT_DIR$/A1/src/Joosc/Environment/Env.java" />
         <option value="$PROJECT_DIR$/A1/src/Joosc/Environment/GlobalEnv.java" />
         <option value="$PROJECT_DIR$/A1/src/Joosc/Environment/ClassEnv.java" />
-        <option value="$PROJECT_DIR$/A1/src/Joosc/Environment/LocalEnv.java" />
         <option value="$PROJECT_DIR$/A1/src/Joosc/Environment/FieldsVarInfo.java" />
         <option value="$PROJECT_DIR$/A1/src/Joosc/ASTModel/Expressions/Literal.java" />
         <option value="$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/HasScope.java" />
@@ -293,8 +241,9 @@
         <option value="$PROJECT_DIR$/A1/test/assignment_testcases/custom/play/A.java" />
         <option value="$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/ReturnStatement.java" />
         <option value="$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/LocalVarDeclrStatement.java" />
-        <option value="$PROJECT_DIR$/A1/src/Joosc/ASTModel/ClassMember/MethodDeclr.java" />
         <option value="$PROJECT_DIR$/A1/src/Joosc/ASTModel/ClassInterface/ClassDeclr.java" />
+        <option value="$PROJECT_DIR$/A1/src/Joosc/Environment/LocalEnv.java" />
+        <option value="$PROJECT_DIR$/A1/src/Joosc/ASTModel/ClassMember/MethodDeclr.java" />
       </list>
     </option>
   </component>
@@ -897,8 +846,8 @@
         <state relative-caret-position="680">
           <caret line="46" column="18" lean-forward="false" selection-start-line="46" selection-start-column="18" selection-end-line="46" selection-end-column="18" />
           <folding>
-            <element signature="e#1737#1738#0" expanded="false" />
-            <element signature="e#1772#1773#0" expanded="false" />
+            <element signature="e#1797#1798#0" expanded="false" />
+            <element signature="e#1832#1833#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1076,19 +1025,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/A1/src/Joosc/Environment/LocalEnv.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="144" column="8" lean-forward="false" selection-start-line="144" selection-start-column="8" selection-end-line="144" selection-end-column="27" />
-          <folding>
-            <element signature="e#6129#6130#0" expanded="false" />
-            <element signature="e#6163#6164#0" expanded="false" />
-            <element signature="e#7663#7664#0" expanded="false" />
-            <element signature="e#7711#7712#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/A1/stdlib2.0/java/util/Arrays.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-92">
@@ -1149,40 +1085,9 @@
         <state relative-caret-position="187">
           <caret line="24" column="9" lean-forward="false" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
           <folding>
-            <element signature="e#28226#28227#0" expanded="true" />
-            <element signature="e#28289#28290#0" expanded="true" />
+            <element signature="e#28384#28385#0" expanded="false" />
+            <element signature="e#28447#28448#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/Statement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="46" column="21" lean-forward="false" selection-start-line="46" selection-start-column="21" selection-end-line="46" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/Block.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding>
-            <element signature="e#573#574#0" expanded="true" />
-            <element signature="e#614#615#0" expanded="true" />
-            <element signature="e#1355#1356#0" expanded="true" />
-            <element signature="e#1395#1396#0" expanded="true" />
-            <element signature="e#2492#2493#0" expanded="true" />
-            <element signature="e#2526#2527#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/HasScope.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="11" column="42" lean-forward="true" selection-start-line="11" selection-start-column="42" selection-end-line="11" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1191,29 +1096,10 @@
         <state relative-caret-position="299">
           <caret line="122" column="9" lean-forward="true" selection-start-line="118" selection-start-column="8" selection-end-line="122" selection-end-column="9" />
           <folding>
-            <element signature="e#2011#2012#0" expanded="true" />
-            <element signature="e#2051#2052#0" expanded="true" />
-            <element signature="e#3422#3423#0" expanded="true" />
-            <element signature="e#3456#3457#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/ForStatement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="142" column="9" lean-forward="false" selection-start-line="142" selection-start-column="9" selection-end-line="142" selection-end-column="9" />
-          <folding>
-            <element signature="e#1957#1958#0" expanded="true" />
-            <element signature="e#1997#1998#0" expanded="true" />
-            <element signature="e#2834#2835#0" expanded="true" />
-            <element signature="e#2886#2887#0" expanded="true" />
-            <element signature="e#3952#3953#0" expanded="true" />
-            <element signature="e#3977#3978#0" expanded="true" />
-            <element signature="e#4022#4023#0" expanded="true" />
-            <element signature="e#4048#4049#0" expanded="true" />
-            <element signature="e#4384#4385#0" expanded="true" />
-            <element signature="e#4418#4419#0" expanded="true" />
+            <element signature="e#2011#2012#0" expanded="false" />
+            <element signature="e#2051#2052#0" expanded="false" />
+            <element signature="e#3422#3423#0" expanded="false" />
+            <element signature="e#3456#3457#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1239,12 +1125,12 @@
         <state relative-caret-position="311">
           <caret line="72" column="9" lean-forward="false" selection-start-line="72" selection-start-column="9" selection-end-line="72" selection-end-column="9" />
           <folding>
-            <element signature="e#845#846#0" expanded="true" />
-            <element signature="e#919#920#0" expanded="true" />
-            <element signature="e#969#970#0" expanded="true" />
-            <element signature="e#1009#1010#0" expanded="true" />
-            <element signature="e#1770#1771#0" expanded="true" />
-            <element signature="e#1804#1805#0" expanded="true" />
+            <element signature="e#845#846#0" expanded="false" />
+            <element signature="e#919#920#0" expanded="false" />
+            <element signature="e#969#970#0" expanded="false" />
+            <element signature="e#1009#1010#0" expanded="false" />
+            <element signature="e#1770#1771#0" expanded="false" />
+            <element signature="e#1804#1805#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1252,40 +1138,8 @@
     <entry file="file://$PROJECT_DIR$/A1/output/A.s">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
-          <caret line="23" column="11" lean-forward="true" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
+          <caret line="23" column="11" lean-forward="false" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/ReturnStatement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="74">
-          <caret line="94" column="0" lean-forward="false" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="9" />
-          <folding>
-            <element signature="e#3247#3248#0" expanded="true" />
-            <element signature="e#3281#3282#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/PlainStatement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-266">
-          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/WhileStatement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="120" column="0" lean-forward="true" selection-start-line="120" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
-          <folding>
-            <element signature="e#1531#1532#0" expanded="true" />
-            <element signature="e#1605#1606#0" expanded="true" />
-            <element signature="e#1655#1656#0" expanded="true" />
-            <element signature="e#1695#1696#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1296,7 +1150,7 @@
           <folding>
             <element signature="e#5650#5651#0" expanded="true" />
             <element signature="e#5724#5725#0" expanded="true" />
-            <marker date="1554336161275" expanded="true" signature="5610:5616" ph="{...}" />
+            <marker date="1554356695696" expanded="true" signature="5610:5616" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1304,25 +1158,8 @@
     <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/LocalVarDeclrStatement.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
-          <caret line="101" column="0" lean-forward="true" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
+          <caret line="101" column="0" lean-forward="false" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/ClassMember/MethodDeclr.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="224" column="0" lean-forward="false" selection-start-line="224" selection-start-column="0" selection-end-line="224" selection-end-column="0" />
-          <folding>
-            <element signature="e#6245#6246#0" expanded="true" />
-            <element signature="e#6283#6284#0" expanded="true" />
-            <element signature="e#6928#6929#0" expanded="true" />
-            <element signature="e#6974#6975#0" expanded="true" />
-            <element signature="e#7012#7013#0" expanded="true" />
-            <element signature="e#7051#7052#0" expanded="true" />
-            <element signature="e#8338#8339#0" expanded="true" />
-            <element signature="e#8372#8373#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1336,9 +1173,100 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/ClassInterface/ClassDeclr.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2278">
-          <caret line="170" column="66" lean-forward="true" selection-start-line="170" selection-start-column="66" selection-end-line="170" selection-end-column="66" />
+        <state relative-caret-position="347">
+          <caret line="181" column="8" lean-forward="false" selection-start-line="181" selection-start-column="8" selection-end-line="186" selection-end-column="9" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/HasScope.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="10" column="40" lean-forward="false" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/PlainStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-62">
+          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/WhileStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="53" column="49" lean-forward="true" selection-start-line="53" selection-start-column="49" selection-end-line="53" selection-end-column="49" />
+          <folding>
+            <element signature="e#1531#1532#0" expanded="true" />
+            <element signature="e#1605#1606#0" expanded="true" />
+            <element signature="e#1655#1656#0" expanded="true" />
+            <element signature="e#1695#1696#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/Statement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="499">
+          <caret line="45" column="51" lean-forward="true" selection-start-line="45" selection-start-column="51" selection-end-line="45" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/Block.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/ForStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-795">
+          <caret line="59" column="18" lean-forward="false" selection-start-line="59" selection-start-column="11" selection-end-line="59" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/ReturnStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="402">
+          <caret line="101" column="102" lean-forward="false" selection-start-line="101" selection-start-column="88" selection-end-line="101" selection-end-column="102" />
+          <folding>
+            <element signature="e#3247#3248#0" expanded="true" />
+            <element signature="e#3281#3282#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/A1/src/Joosc/Environment/LocalEnv.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="25" column="43" lean-forward="false" selection-start-line="25" selection-start-column="43" selection-end-line="25" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/ClassMember/MethodDeclr.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="235" column="49" lean-forward="true" selection-start-line="235" selection-start-column="49" selection-end-line="235" selection-end-column="49" />
+          <folding>
+            <element signature="e#6245#6246#0" expanded="true" />
+            <element signature="e#6283#6284#0" expanded="true" />
+            <element signature="e#6928#6929#0" expanded="true" />
+            <element signature="e#6974#6975#0" expanded="true" />
+            <element signature="e#7012#7013#0" expanded="true" />
+            <element signature="e#7051#7052#0" expanded="true" />
+            <element signature="e#8388#8389#0" expanded="true" />
+            <element signature="e#8422#8423#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

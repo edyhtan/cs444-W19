@@ -23,6 +23,8 @@ public class LocalEnv implements Env {
     Env parent;
     TypeDeclr currentClass;
     ClassBodyDeclr currentMethod;
+    // TODO: how to pass __this to children
+    int __this;
 
     public LocalEnv(AST ast, Env parent) {
         this.ast = ast;

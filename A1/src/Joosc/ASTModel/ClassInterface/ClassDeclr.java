@@ -181,7 +181,7 @@ public class ClassDeclr implements TypeDeclr {
 
         for (MethodDeclr method : methods) {
             method.addWriter(asmWriter);
-            String methodLabel = "__method_" + String.join("_", canonicalID) + "_""__method_" + String.join( + method.getSigLabel();
+            String methodLabel = env.methodCallTable.get(method.getMethodSignature()).methodLabel;
             method.setMethodLabel(methodLabel);
             method.codeGen(indent + 1);
         }
