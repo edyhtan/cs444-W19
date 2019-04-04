@@ -149,7 +149,7 @@ public class IfStatement extends HasScope implements Statement, HasExpression {
 
 
         if (numLocalVars > 0) {
-            asmWriter.indent(indent);
+            asmWriter.indent(indent + 1);
             // pop all local vars
             asmWriter.add(Register.esp, (numLocalVars * 4));
             asmWriter.println("");
