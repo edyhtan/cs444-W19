@@ -125,9 +125,16 @@ public class ClassDeclr implements TypeDeclr {
 
     //Code Gen
     AsmWriter asmWriter;
-    String classTagName;
-    String classSIT;
-    String classParentMatrix;
+    public String classTagName;
+    public String classSIT;
+    public String classParentMatrix;
+
+
+    public void buildCompilerLabel() {
+        classTagName = "__class_" + String.join("_", getCanonicalName());
+        classSIT = "__ref_SIT_" + String.join("_", getCanonicalName());
+        classParentMatrix = "__ref_PARENTS_" + String.join("_", getCanonicalName());
+    }
 
     @Override
     public void codeGen(int indent) {
@@ -139,13 +146,11 @@ public class ClassDeclr implements TypeDeclr {
             // Do Nothing
         }
 
+        buildCompilerLabel();
+
         // Class Tag
-        classTagName = "__class_" + String.join("_", getCanonicalName());
         asmWriter.println("\t" + "global " + classTagName);
         asmWriter.label(classTagName);
-
-        classSIT = "__ref_SIT_" + String.join("_", getCanonicalName());
-        classParentMatrix = "__ref_PARENTS_" + String.join("_", getCanonicalName());
 
 
         asmWriter.println("section .data");
@@ -168,8 +173,8 @@ public class ClassDeclr implements TypeDeclr {
                 String staticLabel = "__field_" + String.join("_", canonicalID) + "_" + field.getName();
                 field.setStaticFieldLabel(staticLabel);
 
-                asmWriter.println("\t" + "global " + staticLabel);
-                asmWriter.label("\t" + staticLabel);
+                asmWriter.println("\t\t" + "global " + staticLabel);
+                asmWriter.print("\t" + staticLabel);
                 asmWriter.println("\t\t" + "dd 0");
                 asmWriter.println("");
             }

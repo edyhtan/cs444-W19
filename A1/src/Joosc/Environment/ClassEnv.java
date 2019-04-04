@@ -50,6 +50,7 @@ public class ClassEnv implements Env {
     // variable contain
     private boolean variableContainComplete = false;
 
+
     protected HashMap<String, FieldsVarInfo> containedFields = new HashMap();
 
     // Symbol table
@@ -282,6 +283,8 @@ public class ClassEnv implements Env {
                 checkReplace(implicitDeclrMethod, tempMethodInfo);
                 implicitDeclr.remove(tempMethodInfo.getSignatureStr());
             }
+
+            method.info = tempMethodInfo;
 
             methodSignature.put(tempMethodInfo.getSignatureStr(), tempMethodInfo);
             method.setMethodSignature(tempMethodInfo.getSignatureStr());

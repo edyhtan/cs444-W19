@@ -1,11 +1,24 @@
 package Joosc.AsmWriter;
 
+import Joosc.ASTModel.ClassInterface.ClassDeclr;
+import Joosc.ASTModel.ClassInterface.InterfaceDeclr;
+import Joosc.ASTModel.ClassInterface.TypeDeclr;
+import Joosc.Environment.ClassEnv;
+import Joosc.Environment.GlobalEnv;
+import Joosc.Environment.MethodInfo;
+import Joosc.util.ArrayLinkedHashSet;
+
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 
 public class AsmWriter {
     PrintStream out;
     private static String binaryTemplate = "%s %s, %s";
+    public static ArrayLinkedHashSet<String> allMethods = new ArrayLinkedHashSet<>();
 
     public AsmWriter(PrintStream out) {
         this.out = out;
@@ -116,7 +129,7 @@ public class AsmWriter {
     }
 
     public void mov(String str1, String str2) {
-        out.println("mov " + str1 + "," + str2);
+        out.println("mov " + str1 + ", " + str2);
     }
 
     public void mov(Register reg, String str) {
@@ -237,8 +250,51 @@ public class AsmWriter {
         ret();
     }
 
-    public void outputInit() {
+    public void malloc(int size) {
+        mov(Register.eax, size);
+        extern("_malloc");
+        call("_malloc");
+    }
 
+    public void outputInit() {
+        out.println("\t" + "global _start");
+        out.println("_start:");
+
+        // Create List of All Interface call header
+        for (ClassEnv classEnv: GlobalEnv.instance.classEnvs) {
+            if (classEnv.getTypeDeclr() instanceof InterfaceDeclr) {
+                allMethods.addAll(classEnv.getAllMethodSignature().keySet());
+            }
+        }
+
+        // Create SIT
+        for (ClassEnv classEnv: GlobalEnv.instance.classEnvs) {
+            if (classEnv.getTypeDeclr() instanceof ClassDeclr) {
+                ClassDeclr classDeclr = (ClassDeclr) classEnv.getTypeDeclr();
+                classDeclr.buildCompilerLabel();
+
+                out.println();
+                malloc(allMethods.size() * 4);
+
+                out.println();
+                extern(classDeclr.classSIT);
+                mov(Register.ebx, classDeclr.classSIT);
+                movToAddr(Register.ebx, Register.eax);
+
+                for (String methodName: allMethods) {
+                    if (classEnv.methodCallTable.containsKey(methodName)) {
+                        String callRef = classEnv.methodCallTable.get(methodName).methodLabel;
+                        out.println();
+                        out.print("\t");
+                        extern(callRef);
+                        out.print("\t");
+                        mov(Register.ebx, callRef);
+                        out.print("\t");
+                        movToAddr("eax + " + allMethods.indexOf(methodName) * 4, Register.ebx);
+                    }
+                }
+            }
+        }
     }
 
 }
