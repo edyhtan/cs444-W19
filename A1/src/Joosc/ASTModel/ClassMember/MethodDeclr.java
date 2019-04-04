@@ -3,9 +3,7 @@ package Joosc.ASTModel.ClassMember;
 import Joosc.ASTBuilding.ASTStructures.AbstractMethodDeclrNode;
 import Joosc.ASTBuilding.ASTStructures.MethodDeclrNode;
 import Joosc.ASTBuilding.Constants.Symbol;
-import Joosc.ASTModel.Statements.HasExpression;
-import Joosc.ASTModel.Statements.ReturnStatement;
-import Joosc.ASTModel.Statements.Statement;
+import Joosc.ASTModel.Statements.*;
 import Joosc.ASTModel.Type;
 import Joosc.AsmWriter.AsmWriter;
 import Joosc.AsmWriter.Register;
@@ -231,6 +229,7 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
         asmWriter.push(Register.ebp);
         asmWriter.indent(indent + 1);
         asmWriter.mov(Register.ebp, Register.esp);
+        asmWriter.println("");
 
 
         // TODO: distinguish static && non-static
@@ -241,8 +240,29 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
             localEnv.assignOffset(param.getValue(), (size - i) * 4);
         }
 
+
+        int total = 0;
         for (Statement statement : bodyBlock) {
             statement.addWriter(asmWriter);
+
+            if (statement instanceof LocalVarDeclrStatement) {
+                total++;
+                localEnv.assignOffset(((LocalVarDeclrStatement) statement).getId(), -4 * total);
+            }
+            if (statement instanceof Block) {
+                for (Statement blkStatement : ((Block) statement).getBlock()) {
+                    if (blkStatement instanceof LocalVarDeclrStatement) {
+                        total++;
+                        localEnv.assignOffset(((LocalVarDeclrStatement) blkStatement).getId(), -4 * total);
+                    }
+                }
+            }
+        }
+
+        asmWriter.indent(indent+1);
+        asmWriter.sub(Register.esp, total * 4);
+
+        for (Statement statement : bodyBlock) {
             statement.codeGen(indent + 1);
         }
 
