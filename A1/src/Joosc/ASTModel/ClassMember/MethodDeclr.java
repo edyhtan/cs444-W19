@@ -8,6 +8,7 @@ import Joosc.ASTModel.Type;
 import Joosc.AsmWriter.AsmWriter;
 import Joosc.AsmWriter.Register;
 import Joosc.Environment.LocalEnv;
+import Joosc.Environment.MethodInfo;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.Exceptions.UninitializedVariableException;
@@ -31,6 +32,8 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
 
     String methodSignature;
     JoosType returnType;
+
+    public MethodInfo info;
 
     public MethodDeclr(MethodDeclrNode node) {
         modifiers = node.getModifiers();
