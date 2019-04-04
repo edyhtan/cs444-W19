@@ -106,7 +106,6 @@ public class WhileStatement extends HasScope implements Statement, HasExpression
 
     @Override
     public void codeGen(int indent) {
-
     }
 
     @Override

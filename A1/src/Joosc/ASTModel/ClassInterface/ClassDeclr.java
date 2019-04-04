@@ -162,7 +162,7 @@ public class ClassDeclr implements TypeDeclr {
         asmWriter.println("");
 
         // Fields
-        for (FieldDeclr field: fields) {
+        for (FieldDeclr field : fields) {
             field.addWriter(asmWriter);
             if (field.getModifiers().contains(Symbol.Static)) {
                 String staticLabel = "__field_" + String.join("_", canonicalID) + "_" + field.getName();
@@ -179,11 +179,11 @@ public class ClassDeclr implements TypeDeclr {
         asmWriter.println("section .text");
         asmWriter.println("");
 
-        for(MethodDeclr method: methods) {
+        for (MethodDeclr method : methods) {
             method.addWriter(asmWriter);
-            String methodLabel = "__method_"+String.join("_", canonicalID) + "_" + method.getMethodSignature().replace(',', '_');
+            String methodLabel = "__method_" + String.join("_", canonicalID) + "_" + method.getSigLabel();
             method.setMethodLabel(methodLabel);
-            method.codeGen(indent+1);
+            method.codeGen(indent + 1);
         }
 
 

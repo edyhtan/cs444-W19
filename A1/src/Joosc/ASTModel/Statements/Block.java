@@ -2,6 +2,7 @@ package Joosc.ASTModel.Statements;
 
 import Joosc.ASTBuilding.ASTStructures.Statements.BlockNode;
 import Joosc.AsmWriter.AsmWriter;
+import Joosc.AsmWriter.Register;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.UnreachableStatementException;
 
@@ -36,6 +37,16 @@ public class Block extends HasScope implements Statement {
     }
 
     @Override
+    public void setNumLocalVar() {
+        int count = 0;
+        for(Statement statement: statements) {
+            if(statement instanceof LocalVarDeclrStatement) count++;
+        }
+
+        this.numLocalVars = count;
+    }
+
+    @Override
     public void reachabilityAnalysis(boolean input) throws UnreachableStatementException {
         in = input;
         if (!in) {
@@ -67,7 +78,14 @@ public class Block extends HasScope implements Statement {
 
     @Override
     public void codeGen(int indent) {
+        for (Statement statement : statements) {
+            statement.addWriter(asmWriter);
+            statement.codeGen(indent);
+        }
+        asmWriter.indent(indent);
 
+        // pop all local vars
+        asmWriter.add(Register.esp, (numLocalVars * 4));
     }
 
     @Override

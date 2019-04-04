@@ -52,6 +52,8 @@ public class ElseBlock extends HasScope implements Statement {
     @Override
     public void codeGen(int indent) {
 
+        statement.addWriter(asmWriter);
+        statement.codeGen(indent);
     }
 
     @Override

@@ -8,6 +8,7 @@ import Joosc.ASTModel.Statements.ReturnStatement;
 import Joosc.ASTModel.Statements.Statement;
 import Joosc.ASTModel.Type;
 import Joosc.AsmWriter.AsmWriter;
+import Joosc.AsmWriter.Register;
 import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
@@ -180,6 +181,14 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
         return methodSignature;
     }
 
+    public String getSigLabel() {
+        String label = this.methodSignature.replace(',', '_').replace("[]", "@");
+        if (modifiers.contains(Symbol.Static)) {
+            return "STATIC_" + label;
+        } else return label;
+
+    }
+
     @Override
     public void setType(JoosType type) {
         returnType = type;
@@ -205,15 +214,39 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
 
     @Override
     public void codeGen(int indent) {
-        asmWriter.indent(indent+1);
+        if (name.equals("test") && modifiers.contains(Symbol.Static)) {
+            asmWriter.indent(indent + 1);
+            asmWriter.println("global _start");
+            asmWriter.indent(indent);
+            asmWriter.label("_start");
+            asmWriter.outputInit();
+        }
+        asmWriter.indent(indent + 1);
         asmWriter.println("global " + methodLabel);
         asmWriter.indent(indent);
         asmWriter.label(methodLabel);
 
-        for(Pair<Type, String> param : formalParamList) {
+        asmWriter.indent(indent + 1);
+        asmWriter.push(Register.ebp);
+        asmWriter.indent(indent + 1);
+        asmWriter.mov(Register.ebp, Register.esp);
 
+        // extra one for eip
+        int size = formalParamList.size() + 1;
+        for (int i = 0; i < formalParamList.size(); ++i) {
+            Pair<Type, String> param = formalParamList.get(i);
+            localEnv.assignOffset(param.getValue(), (size - i) * 4);
         }
 
+        for (Statement statement : bodyBlock) {
+            statement.addWriter(asmWriter);
+            statement.codeGen(indent + 1);
+        }
+
+        asmWriter.indent(indent + 1);
+        asmWriter.pop(Register.ebp);
+        asmWriter.indent(indent + 1);
+        asmWriter.ret();
 
         asmWriter.println("");
 
