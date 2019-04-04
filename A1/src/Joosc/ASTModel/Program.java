@@ -73,11 +73,11 @@ public class Program implements AST {
 
     //Code Gen
     AsmWriter asmWriter;
+    public static int globalCount = 0; // for control flow labels, reset to zero per Program
 
     @Override
     public void codeGen(int indent) {
         typeDeclr.codeGen(indent);
-
     }
 
     @Override
