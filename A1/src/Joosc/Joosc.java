@@ -2,6 +2,7 @@ package Joosc;
 
 import Joosc.ASTBuilding.JoosAST;
 import Joosc.ASTModel.Program;
+import Joosc.AsmWriter.AsmWriter;
 import Joosc.Environment.GlobalEnv;
 import Joosc.Exceptions.*;
 
@@ -76,6 +77,8 @@ public class Joosc {
                 ast.staticAnalysis();
                 ast.codeGen(0);
             }
+
+            new AsmWriter(System.out).outputInit();
 
         } catch (UnreachableStatementException e) {
             System.err.printf("ERROR: Static analysis error: %s\n", e.getLocalizedMessage());
