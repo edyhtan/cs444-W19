@@ -52,6 +52,9 @@ public class ClassEnv implements Env {
 
     protected HashMap<String, FieldsVarInfo> containedFields = new HashMap();
 
+    // Symbol table
+    LinkedHashMap<String, FieldsVarInfo> symbolTable = null;
+
     public ClassEnv(Program program, GlobalEnv parent) {
         typeDeclr = program.getTypeDeclr();
         typeDeclr.addEnv(this);
@@ -711,4 +714,26 @@ public class ClassEnv implements Env {
     public HashSet<String> getFieldsName() {
         return new HashSet<>(fields.keySet());
     }
+
+    public void buildSymbolTable() {
+
+        if (symbolTable != null) {
+            return;
+        }
+        symbolTable = new LinkedHashMap<>();
+
+        if (extendName == null) {
+            return;
+        }
+        extendName.getClassEnv().buildSymbolTable();
+        extendName.getClassEnv().symbolTable.forEach( (key, value) -> {
+            this.symbolTable.put(key, value);
+        });
+
+        fields.forEach( (key, value) -> {
+            this.symbolTable.put(joosType.getQualifiedName() + "::" + key, value);
+        });
+
+    }
+
 }
