@@ -3,6 +3,7 @@ package Joosc.ASTModel.Statements;
 import Joosc.ASTBuilding.ASTStructures.Statements.WhileStatementNode;
 import Joosc.ASTModel.Expressions.ConstantExpression;
 import Joosc.ASTModel.Expressions.Expression;
+import Joosc.ASTModel.Program;
 import Joosc.AsmWriter.AsmWriter;
 import Joosc.AsmWriter.Register;
 import Joosc.Environment.Env;
@@ -115,14 +116,39 @@ public class WhileStatement extends HasScope implements Statement, HasExpression
 
     //Code Gen
     AsmWriter asmWriter;
+    int offset;
 
     @Override
     public void codeGen(int indent) {
+        this.offset = Program.globalCount;
+        Program.globalCount++;
+
+        expression.addWriter(asmWriter);
+        statement.addWriter(asmWriter);
+
+        asmWriter.indent(indent);
+        asmWriter.label(".while" + offset);
+
+        asmWriter.iffalse(expression, ".endwhile" + offset, indent+1);
+
+        statement.codeGen(indent+1);
+        asmWriter.indent(indent+1);
+        asmWriter.println(";statement code...");
+
+        asmWriter.indent(indent+1);
+        asmWriter.jmp(".while" + offset);
+
+        asmWriter.println("");
+
+        asmWriter.indent(indent);
+        asmWriter.label(".endwhile" + offset);
+        asmWriter.println("");
 
         if(numLocalVars > 0) {
             asmWriter.indent(indent);
             // pop all local vars
             asmWriter.add(Register.esp, (numLocalVars * 4));
+            asmWriter.println("");
         }
     }
 
