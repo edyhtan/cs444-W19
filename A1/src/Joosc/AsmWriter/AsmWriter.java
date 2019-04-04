@@ -129,7 +129,7 @@ public class AsmWriter {
     }
 
     public void mov(String str1, String str2) {
-        out.println("mov " + str1 + "," + str2);
+        out.println("mov " + str1 + ", " + str2);
     }
 
     public void mov(Register reg, String str) {
@@ -273,13 +273,24 @@ public class AsmWriter {
                 ClassDeclr classDeclr = (ClassDeclr) classEnv.getTypeDeclr();
                 classDeclr.buildCompilerLabel();
 
+                out.println();
                 malloc(allMethods.size() * 4);
+
+                out.println();
+                extern(classDeclr.classSIT);
                 mov(Register.ebx, classDeclr.classSIT);
                 movToAddr(Register.ebx, Register.eax);
 
                 for (String methodName: allMethods) {
                     if (classEnv.methodCallTable.containsKey(methodName)) {
-
+                        String callRef = classEnv.methodCallTable.get(methodName).methodLabel;
+                        out.println();
+                        out.print("\t");
+                        extern(callRef);
+                        out.print("\t");
+                        mov(Register.ebx, callRef);
+                        out.print("\t");
+                        movToAddr("eax + " + allMethods.indexOf(methodName) * 4, Register.ebx);
                     }
                 }
             }
