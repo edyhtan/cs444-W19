@@ -1,3 +1,14 @@
+extern __method__java_lang_Object__clone
+extern __STATIC_method__java_io_OutputStream__nativeWrite$int$
+extern __method__java_lang_Object__toString
+extern __constructor__java_io_OutputStream__OutputStream
+extern __method__java_lang_Object__hashCode
+extern __method__java_io_OutputStream__write$int$
+extern __method__java_io_OutputStream__write$char$
+extern __method__java_lang_Object__getClass
+extern __method__java_io_OutputStream__flush
+extern __method__java_lang_Object__equals$java_lang_Object$
+
 	global __class_java_io_PrintStream
 __class_java_io_PrintStream:
 
@@ -12,16 +23,7 @@ section .data
 		dd 0000010000000011b
 
 	; Methods	
-			extern __method__java_lang_Object__getClass
-			extern __method__java_lang_Object__hashCode
-			extern __method__java_lang_Object__equals$java_lang_Object$
-			extern __method__java_lang_Object__clone
-			extern __method__java_lang_Object__toString
-			extern __method__java_io_OutputStream__flush
-			extern __STATIC_method__java_io_OutputStream__nativeWrite$int$
-			extern __method__java_io_OutputStream__write$int$
-			extern __method__java_io_OutputStream__write$char$
-		dd __method__java_lang_Object__getClass
+																													dd __method__java_lang_Object__getClass
 		dd __method__java_lang_Object__hashCode
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
@@ -242,8 +244,7 @@ section .text
 		mov ebp, esp
 		mov eax, [ebp + 8]
 		push eax
-			extern __constructor__java_io_OutputStream__OutputStream
-		mov eax, __constructor__java_io_OutputStream__OutputStream
+					mov eax, __constructor__java_io_OutputStream__OutputStream
 		call eax
 		sub esp,4
 ;; Field init, push object to stack

@@ -1,3 +1,11 @@
+extern __method__java_lang_Object__clone
+extern __malloc
+extern __method__java_lang_Object__toString
+extern __constructor__java_lang_Object__Object
+extern __method__java_lang_Object__hashCode
+extern __method__java_lang_Object__getClass
+extern __method__java_lang_Object__equals$java_lang_Object$
+
 	global __class_java_lang_String
 __class_java_lang_String:
 
@@ -12,12 +20,7 @@ section .data
 		dd 0001010000000000b
 
 	; Methods	
-			extern __method__java_lang_Object__getClass
-			extern __method__java_lang_Object__hashCode
-			extern __method__java_lang_Object__equals$java_lang_Object$
-			extern __method__java_lang_Object__clone
-			extern __method__java_lang_Object__toString
-		dd __method__java_lang_Object__getClass
+																	dd __method__java_lang_Object__getClass
 		dd __method__java_lang_Object__hashCode
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
@@ -120,6 +123,21 @@ section .text
 
 		.endfor1:
 
+		;; Allocating size of 1
+		mov eax, 1
+				call __malloc
+					mov ebx, __class_java_lang_String
+		mov [eax], ebx
+
+		;; Pushing object
+		push eax
+
+		;; Pushing args:
+
+			
+					call __constructor__java_lang_String__String$char@$
+		add esp,4
+		pop eax
 		jmp _method_return___method__java_lang_String__concat$java_lang_String$
 
 		_method_return___method__java_lang_String__concat$java_lang_String$:
@@ -135,6 +153,25 @@ section .text
 				;; ---declare newchars
 		push eax
 
+<<<<<<< HEAD
+=======
+		mov [ebp+-4], eax
+		;; Allocating size of 1
+		mov eax, 1
+				call __malloc
+					mov ebx, __class_java_lang_String
+		mov [eax], ebx
+
+		;; Pushing object
+		push eax
+
+		;; Pushing args:
+
+			
+					call __constructor__java_lang_String__String$char@$
+		add esp,4
+		pop eax
+>>>>>>> origin/A5-new
 		jmp _method_return___STATIC_method__java_lang_String__valueOf$char$
 
 		_method_return___STATIC_method__java_lang_String__valueOf$char$:
@@ -247,6 +284,21 @@ section .text
 
 		.endfor7:
 
+		;; Allocating size of 1
+		mov eax, 1
+				call __malloc
+					mov ebx, __class_java_lang_String
+		mov [eax], ebx
+
+		;; Pushing object
+		push eax
+
+		;; Pushing args:
+
+			
+					call __constructor__java_lang_String__String$char@$
+		add esp,4
+		pop eax
 		jmp _method_return___STATIC_method__java_lang_String__valueOf$int$
 
 		_method_return___STATIC_method__java_lang_String__valueOf$int$:
@@ -451,6 +503,21 @@ section .text
 
 		.endfor16:
 
+		;; Allocating size of 1
+		mov eax, 1
+				call __malloc
+					mov ebx, __class_java_lang_String
+		mov [eax], ebx
+
+		;; Pushing object
+		push eax
+
+		;; Pushing args:
+
+			
+					call __constructor__java_lang_String__String$char@$
+		add esp,4
+		pop eax
 		jmp _method_return___method__java_lang_String__substring$int$int$
 
 		_method_return___method__java_lang_String__substring$int$int$:
@@ -828,8 +895,7 @@ section .text
 		mov ebp, esp
 		mov eax, [ebp + 8]
 		push eax
-			extern __constructor__java_lang_Object__Object
-		mov eax, __constructor__java_lang_Object__Object
+					mov eax, __constructor__java_lang_Object__Object
 		call eax
 		sub esp,4
 ;; Field init, push object to stack
@@ -853,8 +919,7 @@ mov eax, 0
 		mov ebp, esp
 		mov eax, [ebp + 12]
 		push eax
-			extern __constructor__java_lang_Object__Object
-		mov eax, __constructor__java_lang_Object__Object
+					mov eax, __constructor__java_lang_Object__Object
 		call eax
 		sub esp,4
 ;; Field init, push object to stack
@@ -898,8 +963,7 @@ mov eax, 0
 		mov ebp, esp
 		mov eax, [ebp + 12]
 		push eax
-			extern __constructor__java_lang_Object__Object
-		mov eax, __constructor__java_lang_Object__Object
+					mov eax, __constructor__java_lang_Object__Object
 		call eax
 		sub esp,4
 ;; Field init, push object to stack

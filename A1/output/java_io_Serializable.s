@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 	global __class_java_io_Serializable
 __class_java_io_Serializable:
 
@@ -9,3 +10,5 @@ section .data
 		global __ref_PARENTS_java_io_Serializable
 	__ref_PARENTS_java_io_Serializable:		dd 0000010000000100b
 
+=======
+>>>>>>> origin/A5-new

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 	global __class_java_lang_Cloneable
 __class_java_lang_Cloneable:
 
@@ -9,3 +10,5 @@ section .data
 		global __ref_PARENTS_java_lang_Cloneable
 	__ref_PARENTS_java_lang_Cloneable:		dd 0000010010000000b
 
+=======
+>>>>>>> origin/A5-new

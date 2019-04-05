@@ -1,3 +1,4 @@
+
 	global __class_java_lang_Object
 __class_java_lang_Object:
 

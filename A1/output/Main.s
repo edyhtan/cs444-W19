@@ -2,24 +2,22 @@ extern __method__java_lang_Object__clone
 extern __malloc
 extern __method__java_lang_Object__toString
 extern __constructor__java_lang_Object__Object
-extern __constructor__java_io_PrintStream__PrintStream
 extern __method__java_lang_Object__hashCode
 extern __method__java_lang_Object__getClass
+extern __class_Hello
 extern __method__java_lang_Object__equals$java_lang_Object$
-extern __class_java_io_PrintStream
+extern __constructor__Hello__Hello$int$
 
-	global __class_java_lang_System
-__class_java_lang_System:
+	global __class_Main
+__class_Main:
 
 section .data
 
-		global __ref_SIT_java_lang_System
-	__ref_SIT_java_lang_System:
-		dd 0
+		global __ref_SIT_Main
+	__ref_SIT_Main:		dd 0
 
-		global __ref_PARENTS_java_lang_System
-	__ref_PARENTS_java_lang_System:
-		dd 0010010000000000b
+		global __ref_PARENTS_Main
+	__ref_PARENTS_Main:		dd 01000000010000000000b
 
 	; Methods	
 																	dd __method__java_lang_Object__getClass
@@ -27,28 +25,40 @@ section .data
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
 		dd __method__java_lang_Object__toString
-		dd __STATIC_method__java_lang_System__gc
-		global __field_java_lang_System_out
-	__field_java_lang_System_out		dd 0
-
+		dd __method__Main__test
 
 section .text
 
 ;; -----Methods-----
-		global __STATIC_method__java_lang_System__gc
-	__STATIC_method__java_lang_System__gc:
+		global __method__Main__test
+	__method__Main__test:
 		push ebp
 		mov ebp, esp
 
-		
-		_method_return___STATIC_method__java_lang_System__gc:
-			mov esp, ebp
+				;; Allocating size of 1
+		mov eax, 1
+				call __malloc
+					mov ebx, __class_Hello
+		mov [eax], ebx
+
+		;; Pushing object
+		push eax
+
+		;; Pushing args:
+			mov eax, 233
+
+			
+					call __constructor__Hello__Hello$int$
+		add esp,4
+		pop eax
+
+		_method_return___method__Main__test:
 			pop ebp
 			ret
 
 ;; -----Constructors-----
-		global __constructor__java_lang_System__System
-	__constructor__java_lang_System__System:
+		global __constructor__Main__Main
+	__constructor__Main__Main:
 		push ebp
 		mov ebp, esp
 		mov eax, [ebp + 8]
@@ -59,22 +69,10 @@ section .text
 ;; Field init, push object to stack
 		mov eax, [ebp + 8]
 		push eax
-;; Field init:: out
-				;; Allocating size of 0
+;; Field init:: h
 				mov eax, 0
-								call __malloc
-									mov ebx, __class_java_io_PrintStream
-				mov [eax], ebx
-
-				;; Pushing object
-				push eax
-
-				;; Pushing args:
-									call __constructor__java_io_PrintStream__PrintStream
-				add esp,0
-				pop eax
 		mov ebx, [esp]
-		add ebx,0
+		add ebx,4
 		mov [ebx], eax
 ;; Field init end, pop object
 		add esp,4
