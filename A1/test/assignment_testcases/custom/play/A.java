@@ -2,7 +2,7 @@ public class A {
 
     public A() {}
     public static int test(int a, int b) {
-        if(1>2 && 2<3) return 1;
+        if(5 == 4 || 10-3!=6) return 1;
         return 2;
     }
 

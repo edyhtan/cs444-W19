@@ -388,40 +388,49 @@ global @@@@main
 		mov ebp, esp
 
 				;expression code...
-		;; logical_and
-		;; compare_gt
+		;; logical_or
+		;; compare_eq
 		;; LHS code...
-		mov eax, 1
+		mov eax, 5
 		push eax
 		;; RHS code...
-		mov eax, 2
+		mov eax, 4
 		pop ebx
 		cmp ebx, eax
-		jg .gt1
+		je .eq1
 		mov eax, 0
-		jmp .end_gt1
-		.gt1:
+		jmp .end_eq1
+		.eq1:
 			mov eax, 1
-		.end_gt1:
+		.end_eq1:
 
-		cmp eax, 0
-		je .end_and0
-		;; compare_lt
+		cmp eax, 1
+		je .end_or0
+		;; compare_ne
 		;; LHS code...
-		mov eax, 2
+		;; Minus
+		;; LHS code...
+		mov eax, 10
 		push eax
 		;; RHS code...
 		mov eax, 3
 		pop ebx
-		cmp ebx, eax
-		jl .lt2
-		mov eax, 0
-		jmp .end_lt2
-		.lt2:
-			mov eax, 1
-		.end_lt2:
+		sub ebx, eax
+		mov eax, ebx
 
-		.end_and0:
+		push eax
+		;; RHS code...
+		mov eax, 6
+		pop ebx
+		cmp ebx, eax
+		jne .ne2
+		mov eax, 0
+		jmp .end_ne2
+		.ne2:
+			mov eax, 1
+		.end_ne2:
+
+		.end_or0:
 
 		cmp eax, 0
 		je .else0
