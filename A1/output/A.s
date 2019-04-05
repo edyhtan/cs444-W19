@@ -4,13 +4,13 @@ extern __constructor__java_lang_Object__Object
 extern __method__java_lang_Object__getClass
 extern __ref_SIT_foo_bar
 extern __ref_SIT_java_lang_Short
-extern __class_Main
 extern __ref_SIT_Main
 extern __ref_SIT_java_lang_Character
 extern __ref_SIT_java_lang_String
 extern __ref_SIT_Hello
-extern __constructor__Main__Main
+extern __constructor__Static__Static
 extern __ref_SIT_java_lang_Integer
+extern __class_Static
 extern __method__java_lang_Object__toString
 extern __ref_SIT_java_lang_Boolean
 extern __ref_SIT_java_lang_Class
@@ -389,37 +389,47 @@ global @@@@main
 		push ebp
 		mov ebp, esp
 
-		;; ---declare a
-		;; Allocating size of 12
-		mov eax, 12
+		;; ---declare x
+		;; Allocating size of 16
+		mov eax, 16
 				call __malloc
-					mov ebx, __class_Main
+					mov ebx, __class_Static
 		mov [eax], ebx
 
 		;; Pushing object
 		push eax
 
 		;; Pushing args:
-					call __constructor__Main__Main
+					call __constructor__Static__Static
 		add esp,0
 		pop eax
 
 
 		push eax
-		;; ---end of declare a
+		;; ---end of declare x
+
+		;; ---declare y
+		;; Local Var x
+		mov eax, ebp
+		sub eax,4
+		mov eax, [eax]
+
+
+		push eax
+		;; ---end of declare y
 
 		;expression code...
 		mov eax, 1
 		cmp eax,0
 		je .else0
 		;thenClause ...
-			;; Local Var a
+			;; Local Var y
 			mov eax, ebp
-			sub eax,4
+			sub eax,8
 			mov eax, [eax]
 
-			;; Field b
-			add eax,8
+			;; Field a
+			add eax,4
 			mov eax, [eax]
 
 			jmp _method_return___STATIC_method__A__test

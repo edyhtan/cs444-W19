@@ -24,24 +24,10 @@ section .data
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
 		dd __method__java_lang_Object__toString
-		dd __method__Static__foo2
 
 section .text
 
 ;; -----Methods-----
-		global __method__Static__foo2
-	__method__Static__foo2:
-		push ebp
-		mov ebp, esp
-
-		mov eax, 0
-		jmp _method_return___method__Static__foo2
-
-		_method_return___method__Static__foo2:
-			mov esp, ebp
-			pop ebp
-			ret
-
 ;; -----Constructors-----
 		global __constructor__Static__Static
 	__constructor__Static__Static:
@@ -55,8 +41,8 @@ section .text
 ;; Field init, push object to stack
 		mov eax, [ebp + 8]
 		push eax
-;; Field init:: static__
-				mov eax, 0
+;; Field init:: a
+				mov eax, 4
 		mov ebx, [esp]
 		add ebx,12
 		mov [ebx], eax
