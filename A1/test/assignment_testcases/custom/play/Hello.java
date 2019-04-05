@@ -8,6 +8,10 @@ public class Hello {
         new Hello();
     }
 
+    public Hello(int a) {
+
+    }
+
     public void whatYouSee() {
     }
 

@@ -108,3 +108,32 @@ section .text
 		mov esp, ebp
 		pop ebp
 		ret
+		global __constructor__Hello__Hello$int$
+	__constructor__Hello__Hello$int$:
+		push ebp
+		mov ebp, esp
+		mov eax, [ebp + 12]
+		push eax
+					mov eax, __constructor__java_lang_Object__Object
+		call eax
+		sub esp,4
+;; Field init, push object to stack
+		mov eax, [ebp + 12]
+		push eax
+;; Field init:: k
+				mov eax, 0
+		mov ebx, [esp]
+		add ebx,4
+		mov [ebx], eax
+;; Field init:: staticInt
+				mov eax, 0
+		mov ebx, [esp]
+		add ebx,0
+		mov [ebx], eax
+;; Field init end, pop object
+		add esp,4
+;; Constructor Body
+;; Epilogue
+		mov esp, ebp
+		pop ebp
+		ret

@@ -57,7 +57,7 @@ section .text
 ;; Field init:: static__
 				mov eax, 0
 		mov ebx, [esp]
-		add ebx,4
+		add ebx,8
 		mov [ebx], eax
 ;; Field init end, pop object
 		add esp,4
