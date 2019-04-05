@@ -225,8 +225,8 @@ section .text
 		mov ebp, esp
 		mov eax, [ebp + 8]
 		push eax
-			extern __constuctor__java_io_OutputStream__OutputStream
-		mov eax, __constuctor__java_io_OutputStream__OutputStream
+			extern __constructor__java_io_OutputStream__OutputStream
+		mov eax, __constructor__java_io_OutputStream__OutputStream
 		call eax
 		sub esp,4
 ;; Field init, push object to stack

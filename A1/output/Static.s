@@ -46,8 +46,8 @@ section .text
 		mov ebp, esp
 		mov eax, [ebp + 8]
 		push eax
-			extern __constuctor__Main__Main
-		mov eax, __constuctor__Main__Main
+			extern __constructor__Main__Main
+		mov eax, __constructor__Main__Main
 		call eax
 		sub esp,4
 ;; Field init, push object to stack

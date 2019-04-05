@@ -42,8 +42,8 @@ section .text
 		mov ebp, esp
 		mov eax, [ebp + 12]
 		push eax
-			extern __constuctor__java_lang_Object__Object
-		mov eax, __constuctor__java_lang_Object__Object
+			extern __constructor__java_lang_Object__Object
+		mov eax, __constructor__java_lang_Object__Object
 		call eax
 		sub esp,4
 ;; Field init, push object to stack
@@ -67,8 +67,8 @@ mov eax, 0
 		mov ebp, esp
 		mov eax, [ebp + 8]
 		push eax
-			extern __constuctor__java_lang_Object__Object
-		mov eax, __constuctor__java_lang_Object__Object
+			extern __constructor__java_lang_Object__Object
+		mov eax, __constructor__java_lang_Object__Object
 		call eax
 		sub esp,4
 ;; Field init, push object to stack
