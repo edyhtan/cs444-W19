@@ -243,27 +243,19 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
             localEnv.assignOffset(param.getValue(), (size - i) * 4);
         }
 
-
-        int total = 0;
         for (Statement statement : bodyBlock) {
             statement.addWriter(asmWriter);
 
-            if (statement instanceof LocalVarDeclrStatement) {
-                total++;
-                localEnv.assignOffset(((LocalVarDeclrStatement) statement).getId(), -4 * total);
-            }
-            if (statement instanceof Block) {
-                for (Statement blkStatement : ((Block) statement).getBlock()) {
-                    if (blkStatement instanceof LocalVarDeclrStatement) {
-                        total++;
-                        localEnv.assignOffset(((LocalVarDeclrStatement) blkStatement).getId(), -4 * total);
-                    }
+            Statement.assignOffset(statement, localEnv);
+
+            if (statement instanceof ForStatement) {
+                if(((ForStatement)statement).getBlock().size() == 1 && ((ForStatement)statement).getBlock().get(0) instanceof Block) {
+                    Statement.assignOffset(((ForStatement) statement).getStatement(), (LocalEnv)((HasScope)((ForStatement) statement).getStatement().getBlock().get(0)).getEnv());
                 }
             }
         }
 
-        asmWriter.indent(indent+1);
-        asmWriter.sub(Register.esp, total * 4);
+        asmWriter.indent(indent + 1);
 
         for (Statement statement : bodyBlock) {
             statement.codeGen(indent + 1);

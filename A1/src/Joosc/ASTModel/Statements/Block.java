@@ -87,8 +87,8 @@ public class Block extends HasScope implements Statement {
         for (Statement statement : statements) {
             statement.addWriter(asmWriter);
             statement.codeGen(indent);
+            asmWriter.println("");
         }
-        asmWriter.indent(indent);
 
         if (numLocalVars > 0) {
             asmWriter.indent(indent);

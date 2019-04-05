@@ -129,17 +129,13 @@ public class WhileStatement extends HasScope implements Statement, HasExpression
         asmWriter.indent(indent);
         asmWriter.label(".while" + offset);
 
-        asmWriter.iffalse(expression, ".endwhile" + offset, indent+1);
+        asmWriter.iffalse(expression, ".endwhile" + offset, indent + 1);
 
-        asmWriter.println("");
-        asmWriter.indent(indent+1);
+        asmWriter.indent(indent + 1);
         asmWriter.println(";statement code...");
+        statement.codeGen(indent + 1);
 
-        statement.codeGen(indent+2);
-
-
-        asmWriter.println("");
-        asmWriter.indent(indent+1);
+        asmWriter.indent(indent + 1);
         asmWriter.jmp(".while" + offset);
 
         asmWriter.println("");
@@ -148,8 +144,8 @@ public class WhileStatement extends HasScope implements Statement, HasExpression
         asmWriter.label(".endwhile" + offset);
         asmWriter.println("");
 
-        if(numLocalVars > 0) {
-            asmWriter.indent(indent);
+        if (numLocalVars > 0) {
+            asmWriter.indent(indent + 1);
             // pop all local vars
             asmWriter.add(Register.esp, (numLocalVars * 4));
             asmWriter.println("");

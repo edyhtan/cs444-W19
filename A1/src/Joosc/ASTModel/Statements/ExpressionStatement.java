@@ -61,7 +61,8 @@ public class ExpressionStatement implements Statement, HasExpression {
 
     @Override
     public void codeGen(int indent) {
-
+        expression.addWriter(asmWriter);
+        expression.codeGen(indent);
     }
 
     @Override
