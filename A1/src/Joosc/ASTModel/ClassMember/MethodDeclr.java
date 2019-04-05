@@ -221,6 +221,9 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
     public void codeGen(int indent) {
         if (name.equals("test") && modifiers.contains(Symbol.Static)) {
             asmWriter.outputInit();
+            asmWriter.println("");
+            asmWriter.global("@@@@main");
+            asmWriter.label("@@@@main");
         }
 
         asmWriter.indent(indent + 1);

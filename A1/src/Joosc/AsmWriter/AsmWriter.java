@@ -133,7 +133,7 @@ public class AsmWriter {
         out.println("int " + addr);
     }
 
-    public void exit(int retCode) {
+    public void exit(String retCode) {
         mov(Register.eax, 1);
         mov(Register.ebx, retCode);
         _int("0x80");
@@ -364,5 +364,14 @@ public class AsmWriter {
                 }
             }
         }
+
+        out.println("");
+
+        call("@@@@main");
+        mov(Register.ebx, Register.eax);
+        mov(Register.eax, 1);
+        out.println("int 0x80");
+
+        out.println("");
     }
 }
