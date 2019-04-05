@@ -9,7 +9,7 @@ section .data
 
 		global __ref_PARENTS_java_lang_String
 	__ref_PARENTS_java_lang_String:
-		dd 00000001010000000000b
+		dd 0001010000000000b
 
 	; Methods	
 			extern __method__java_lang_Object__getClass
@@ -83,11 +83,11 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ---declare i
+				;; ---declare i
 		mov eax, 0
 		push eax
 
-;; ---declare newchars
+		;; ---declare newchars
 		push eax
 
 		;forInit code...
@@ -132,7 +132,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ---declare newchars
+				;; ---declare newchars
 		push eax
 
 		jmp _method_return___STATIC_method__java_lang_String__valueOf$char$
@@ -147,14 +147,14 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ---declare ret
+				;; ---declare ret
 		push eax
 
-;; ---declare j
+		;; ---declare j
 		mov eax, 0
 		push eax
 
-;; ---declare wasneg
+		;; ---declare wasneg
 		mov eax, 0
 		push eax
 
@@ -195,7 +195,7 @@ section .text
 				cmp eax,0
 				je .endwhile5
 				;statement code...
-;; ---declare d
+				;; ---declare d
 				push eax
 
 
@@ -229,7 +229,7 @@ section .text
 
 		.else6:
 		.endif6:
-;; ---declare ret2
+		;; ---declare ret2
 		push eax
 
 		;forInit code...
@@ -399,7 +399,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ---declare k
+				;; ---declare k
 		mov eax, 0
 		push eax
 
@@ -433,7 +433,7 @@ section .text
 
 		.else15:
 		.endif15:
-;; ---declare ret
+		;; ---declare ret
 		push eax
 
 		;forInit code...
@@ -463,11 +463,11 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ---declare i
+				;; ---declare i
 		mov eax, 0
 		push eax
 
-;; ---declare j
+		;; ---declare j
 		mov eax, 0
 		push eax
 
@@ -525,12 +525,12 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ---declare h
+				;; ---declare h
 		mov eax, 0
 		push eax
 
 		;forInit code...
-;; ---declare i
+		;; ---declare i
 		mov eax, 0
 		push eax
 
@@ -591,11 +591,11 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ---declare i
+				;; ---declare i
 		mov eax, 0
 		push eax
 
-;; ---declare b
+		;; ---declare b
 		mov eax, 1
 		push eax
 
@@ -685,11 +685,11 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ---declare ret
+				;; ---declare ret
 		push eax
 
 		;forInit code...
-;; ---declare i
+		;; ---declare i
 		mov eax, 0
 		push eax
 
@@ -726,11 +726,11 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ---declare offset
+				;; ---declare offset
 		mov eax, 0
 		push eax
 
-;; ---declare i
+		;; ---declare i
 		mov eax, 0
 		push eax
 
@@ -741,7 +741,7 @@ section .text
 			cmp eax,0
 			je .endfor28
 			;statement code...
-;; ---declare found
+			;; ---declare found
 			mov eax, 1
 			push eax
 
@@ -869,7 +869,7 @@ mov eax, 0
 		add esp,4
 ;; Constructor Body
 			;forInit code...
-;; ---declare i
+			;; ---declare i
 			mov eax, 0
 			push eax
 

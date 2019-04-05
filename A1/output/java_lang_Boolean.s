@@ -9,7 +9,7 @@ section .data
 
 		global __ref_PARENTS_java_lang_Boolean
 	__ref_PARENTS_java_lang_Boolean:
-		dd 00000000010000001000b
+		dd 0000010000001000b
 
 	; Methods	
 			extern __method__java_lang_Object__getClass

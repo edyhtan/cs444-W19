@@ -9,7 +9,7 @@ section .data
 
 		global __ref_PARENTS_java_lang_Integer
 	__ref_PARENTS_java_lang_Integer:
-		dd 00000000011100000000b
+		dd 0000011100000000b
 
 	; Methods	
 			extern __method__java_lang_Object__getClass
@@ -56,15 +56,15 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ---declare ret
+				;; ---declare ret
 		mov eax, 0
 		push eax
 
-;; ---declare neg
+		;; ---declare neg
 		mov eax, 0
 		push eax
 
-;; ---declare i
+		;; ---declare i
 		mov eax, 0
 		push eax
 

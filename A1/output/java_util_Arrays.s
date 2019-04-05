@@ -9,7 +9,7 @@ section .data
 
 		global __ref_PARENTS_java_util_Arrays
 	__ref_PARENTS_java_util_Arrays:
-		dd 00000100010000000000b
+		dd 0100010000000000b
 
 	; Methods	
 			extern __method__java_lang_Object__getClass
@@ -45,7 +45,7 @@ section .text
 		.else0:
 		.endif0:
 		;forInit code...
-;; ---declare i
+		;; ---declare i
 		mov eax, 0
 		push eax
 
@@ -100,7 +100,7 @@ section .text
 		.else3:
 		.endif3:
 		;forInit code...
-;; ---declare i
+		;; ---declare i
 		mov eax, 0
 		push eax
 

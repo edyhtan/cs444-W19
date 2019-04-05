@@ -9,7 +9,7 @@ section .data
 
 		global __ref_PARENTS_java_io_PrintStream
 	__ref_PARENTS_java_io_PrintStream:
-		dd 00000000010000000011b
+		dd 0000010000000011b
 
 	; Methods	
 			extern __method__java_lang_Object__getClass
@@ -55,7 +55,7 @@ section .text
 		mov ebp, esp
 
 				;forInit code...
-;; ---declare i
+		;; ---declare i
 		mov eax, 0
 		push eax
 

@@ -9,7 +9,7 @@ section .data
 
 		global __ref_PARENTS_java_io_OutputStream
 	__ref_PARENTS_java_io_OutputStream:
-		dd 00000000010000000001b
+		dd 0000010000000001b
 
 	; Methods	
 			extern __method__java_lang_Object__getClass

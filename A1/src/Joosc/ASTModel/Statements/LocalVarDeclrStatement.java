@@ -100,6 +100,7 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
 
     @Override
     public void codeGen(int indent) {
+        asmWriter.indent(indent);
         asmWriter.comment("---declare " + id);
         initExpression.addWriter(asmWriter);
         initExpression.codeGen(indent);
