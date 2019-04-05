@@ -4,10 +4,10 @@ __class_java_lang_Boolean:
 section .data
 
 		global __ref_SIT_java_lang_Boolean
-	__ref_SIT_java_lang_Boolean		dd 0
+	__ref_SIT_java_lang_Boolean:		dd 0
 
 		global __ref_PARENTS_java_lang_Boolean
-	__ref_PARENTS_java_lang_Boolean		dd 00000000010000001000b
+	__ref_PARENTS_java_lang_Boolean:		dd 00000000010000001000b
 
 	; Methods	
 			extern __method__java_lang_Object__getClass

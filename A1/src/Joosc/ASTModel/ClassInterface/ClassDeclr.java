@@ -161,12 +161,12 @@ public class ClassDeclr implements TypeDeclr {
 
         // Class SIT
         asmWriter.println("\t\t" + "global " + classSIT);
-        asmWriter.println("\t" + classSIT + "\t\t" + "dd 0");
+        asmWriter.println("\t" + classSIT + ":\t\t" + "dd 0");
         asmWriter.println("");
 
         // Class Parent Matrix
         asmWriter.println("\t\t" + "global " + classParentMatrix);
-        asmWriter.println("\t" + classParentMatrix + "\t\t" + "dd " + AsmWriter.parentMatrix.get(env.getJoosType()) + "b");
+        asmWriter.println("\t" + classParentMatrix + ":\t\t" + "dd " + AsmWriter.parentMatrix.get(env.getJoosType()) + "b");
         asmWriter.println("");
 
         asmWriter.print("\t");

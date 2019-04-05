@@ -4,10 +4,10 @@ __class_Hello:
 section .data
 
 		global __ref_SIT_Hello
-	__ref_SIT_Hello		dd 0
+	__ref_SIT_Hello:		dd 0
 
 		global __ref_PARENTS_Hello
-	__ref_PARENTS_Hello		dd 00100000010000000000b
+	__ref_PARENTS_Hello:		dd 00100000010000000000b
 
 	; Methods	
 			extern __method__java_lang_Object__getClass

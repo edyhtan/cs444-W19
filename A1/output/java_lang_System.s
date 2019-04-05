@@ -4,10 +4,10 @@ __class_java_lang_System:
 section .data
 
 		global __ref_SIT_java_lang_System
-	__ref_SIT_java_lang_System		dd 0
+	__ref_SIT_java_lang_System:		dd 0
 
 		global __ref_PARENTS_java_lang_System
-	__ref_PARENTS_java_lang_System		dd 00000010010000000000b
+	__ref_PARENTS_java_lang_System:		dd 00000010010000000000b
 
 	; Methods	
 			extern __method__java_lang_Object__getClass

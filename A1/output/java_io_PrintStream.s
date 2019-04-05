@@ -4,10 +4,10 @@ __class_java_io_PrintStream:
 section .data
 
 		global __ref_SIT_java_io_PrintStream
-	__ref_SIT_java_io_PrintStream		dd 0
+	__ref_SIT_java_io_PrintStream:		dd 0
 
 		global __ref_PARENTS_java_io_PrintStream
-	__ref_PARENTS_java_io_PrintStream		dd 00000000010000000011b
+	__ref_PARENTS_java_io_PrintStream:		dd 00000000010000000011b
 
 	; Methods	
 			extern __method__java_lang_Object__getClass

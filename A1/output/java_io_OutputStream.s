@@ -4,10 +4,10 @@ __class_java_io_OutputStream:
 section .data
 
 		global __ref_SIT_java_io_OutputStream
-	__ref_SIT_java_io_OutputStream		dd 0
+	__ref_SIT_java_io_OutputStream:		dd 0
 
 		global __ref_PARENTS_java_io_OutputStream
-	__ref_PARENTS_java_io_OutputStream		dd 00000000010000000001b
+	__ref_PARENTS_java_io_OutputStream:		dd 00000000010000000001b
 
 	; Methods	
 			extern __method__java_lang_Object__getClass

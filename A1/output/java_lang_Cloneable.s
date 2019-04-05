@@ -4,8 +4,8 @@ __class_java_lang_Cloneable:
 section .data
 
 		global __ref_SIT_java_lang_Cloneable
-	__ref_SIT_java_lang_Cloneable		dd 0
+	__ref_SIT_java_lang_Cloneable:		dd 0
 
 		global __ref_PARENTS_java_lang_Cloneable
-	__ref_PARENTS_java_lang_Cloneable		dd 00000000010010000000b
+	__ref_PARENTS_java_lang_Cloneable:		dd 00000000010010000000b
 
