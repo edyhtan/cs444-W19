@@ -389,7 +389,7 @@ global @@@@main
 		mov ebp, esp
 
 				;expression code...
-		;; -----le
+		;; -----gt
 		;; LHS code...
 		;; Div
 		;; RHS code...
@@ -427,12 +427,12 @@ global @@@@main
 		mov eax, 5
 		pop ebx
 		cmp ebx,eax
-		jle .le0
+		jg .gt0
 		mov eax, 0
-		jmp .end_le0
-		.le0:
+		jmp .end_gt0
+		.gt0:
 			mov eax, 1
-		.end_le0:
+		.end_gt0:
 
 		cmp eax,0
 		je .else0
