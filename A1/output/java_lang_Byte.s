@@ -39,7 +39,7 @@ section .text
 			ret
 
 ;; -----Constructors-----
-		extern __constructor__java_lang_Byte__Byte$byte$
+		global __constructor__java_lang_Byte__Byte$byte$
 	__constructor__java_lang_Byte__Byte$byte$:
 		push ebp
 		mov ebp, esp
@@ -67,7 +67,7 @@ mov eax, 0
 		mov esp, ebp
 		pop ebp
 		ret
-		extern __constructor__java_lang_Byte__Byte
+		global __constructor__java_lang_Byte__Byte
 	__constructor__java_lang_Byte__Byte:
 		push ebp
 		mov ebp, esp

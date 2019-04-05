@@ -39,7 +39,7 @@ section .text
 			ret
 
 ;; -----Constructors-----
-		extern __constructor__java_lang_Boolean__Boolean$boolean$
+		global __constructor__java_lang_Boolean__Boolean$boolean$
 	__constructor__java_lang_Boolean__Boolean$boolean$:
 		push ebp
 		mov ebp, esp
@@ -67,7 +67,7 @@ mov eax, 0
 		mov esp, ebp
 		pop ebp
 		ret
-		extern __constructor__java_lang_Boolean__Boolean
+		global __constructor__java_lang_Boolean__Boolean
 	__constructor__java_lang_Boolean__Boolean:
 		push ebp
 		mov ebp, esp

@@ -36,7 +36,7 @@ section .text
 			ret
 
 ;; -----Constructors-----
-		extern __constructor__java_lang_Character__Character$char$
+		global __constructor__java_lang_Character__Character$char$
 	__constructor__java_lang_Character__Character$char$:
 		push ebp
 		mov ebp, esp
@@ -60,7 +60,7 @@ mov eax, 0
 		mov esp, ebp
 		pop ebp
 		ret
-		extern __constructor__java_lang_Character__Character
+		global __constructor__java_lang_Character__Character
 	__constructor__java_lang_Character__Character:
 		push ebp
 		mov ebp, esp

@@ -25,7 +25,7 @@ section .text
 
 ;; -----Methods-----
 ;; -----Constructors-----
-		extern __constructor__java_lang_Class__Class
+		global __constructor__java_lang_Class__Class
 	__constructor__java_lang_Class__Class:
 		push ebp
 		mov ebp, esp

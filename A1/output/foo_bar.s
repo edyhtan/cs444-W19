@@ -25,7 +25,7 @@ section .text
 
 ;; -----Methods-----
 ;; -----Constructors-----
-		extern __constructor__foo_bar__bar
+		global __constructor__foo_bar__bar
 	__constructor__foo_bar__bar:
 		push ebp
 		mov ebp, esp

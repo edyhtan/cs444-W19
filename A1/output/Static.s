@@ -40,7 +40,7 @@ section .text
 			ret
 
 ;; -----Constructors-----
-		extern __constructor__Static__Static
+		global __constructor__Static__Static
 	__constructor__Static__Static:
 		push ebp
 		mov ebp, esp

@@ -39,7 +39,7 @@ section .text
 			ret
 
 ;; -----Constructors-----
-		extern __constructor__java_lang_System__System
+		global __constructor__java_lang_System__System
 	__constructor__java_lang_System__System:
 		push ebp
 		mov ebp, esp

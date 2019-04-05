@@ -36,7 +36,7 @@ section .text
 			ret
 
 ;; -----Constructors-----
-		extern __constructor__Main__Main
+		global __constructor__Main__Main
 	__constructor__Main__Main:
 		push ebp
 		mov ebp, esp

@@ -749,7 +749,7 @@ section .text
 			ret
 
 ;; -----Constructors-----
-		extern __constructor__java_lang_String__String
+		global __constructor__java_lang_String__String
 	__constructor__java_lang_String__String:
 		push ebp
 		mov ebp, esp
@@ -773,7 +773,7 @@ mov eax, 0
 		mov esp, ebp
 		pop ebp
 		ret
-		extern __constructor__java_lang_String__String$char@$
+		global __constructor__java_lang_String__String$char@$
 	__constructor__java_lang_String__String$char@$:
 		push ebp
 		mov ebp, esp
@@ -817,7 +817,7 @@ mov eax, 0
 		mov esp, ebp
 		pop ebp
 		ret
-		extern __constructor__java_lang_String__String$java_lang_String$
+		global __constructor__java_lang_String__String$java_lang_String$
 	__constructor__java_lang_String__String$java_lang_String$:
 		push ebp
 		mov ebp, esp

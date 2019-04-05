@@ -108,7 +108,7 @@ section .text
 			ret
 
 ;; -----Constructors-----
-		extern __constructor__java_lang_Integer__Integer$int$
+		global __constructor__java_lang_Integer__Integer$int$
 	__constructor__java_lang_Integer__Integer$int$:
 		push ebp
 		mov ebp, esp
@@ -137,7 +137,7 @@ mov eax, 0
 		mov esp, ebp
 		pop ebp
 		ret
-		extern __constructor__java_lang_Integer__Integer$java_lang_String$
+		global __constructor__java_lang_Integer__Integer$java_lang_String$
 	__constructor__java_lang_Integer__Integer$java_lang_String$:
 		push ebp
 		mov ebp, esp
@@ -166,7 +166,7 @@ mov eax, 0
 		mov esp, ebp
 		pop ebp
 		ret
-		extern __constructor__java_lang_Integer__Integer
+		global __constructor__java_lang_Integer__Integer
 	__constructor__java_lang_Integer__Integer:
 		push ebp
 		mov ebp, esp

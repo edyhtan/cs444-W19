@@ -77,7 +77,7 @@ section .text
 			ret
 
 ;; -----Constructors-----
-		extern __constructor__java_lang_Object__Object
+		global __constructor__java_lang_Object__Object
 	__constructor__java_lang_Object__Object:
 		push ebp
 		mov ebp, esp

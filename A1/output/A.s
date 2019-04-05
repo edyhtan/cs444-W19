@@ -480,7 +480,7 @@ global @@@@main
 			ret
 
 ;; -----Constructors-----
-		extern __constructor__A__A
+		global __constructor__A__A
 	__constructor__A__A:
 		push ebp
 		mov ebp, esp

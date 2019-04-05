@@ -69,7 +69,7 @@ section .text
 			ret
 
 ;; -----Constructors-----
-		extern __constructor__java_io_OutputStream__OutputStream
+		global __constructor__java_io_OutputStream__OutputStream
 	__constructor__java_io_OutputStream__OutputStream:
 		push ebp
 		mov ebp, esp

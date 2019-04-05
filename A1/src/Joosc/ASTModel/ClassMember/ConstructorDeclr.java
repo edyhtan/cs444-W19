@@ -117,7 +117,7 @@ public class ConstructorDeclr implements ClassBodyDeclr, Method {
     public void codeGen(int indent) {
         // Ctor label
         asmWriter.indent(2);
-        asmWriter.extern(info.methodLabel);
+        asmWriter.global(info.methodLabel);
         asmWriter.indent(indent);
         asmWriter.label(info.methodLabel);
         indent += 1;

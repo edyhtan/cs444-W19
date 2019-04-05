@@ -49,7 +49,7 @@ section .text
 			ret
 
 ;; -----Constructors-----
-		extern __constructor__java_lang_Short__Short$short$
+		global __constructor__java_lang_Short__Short$short$
 	__constructor__java_lang_Short__Short$short$:
 		push ebp
 		mov ebp, esp
@@ -73,7 +73,7 @@ mov eax, 0
 		mov esp, ebp
 		pop ebp
 		ret
-		extern __constructor__java_lang_Short__Short
+		global __constructor__java_lang_Short__Short
 	__constructor__java_lang_Short__Short:
 		push ebp
 		mov ebp, esp

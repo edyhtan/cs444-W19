@@ -36,7 +36,7 @@ section .text
 			ret
 
 ;; -----Constructors-----
-		extern __constructor__java_lang_Number__Number
+		global __constructor__java_lang_Number__Number
 	__constructor__java_lang_Number__Number:
 		push ebp
 		mov ebp, esp

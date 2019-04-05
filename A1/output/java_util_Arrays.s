@@ -135,7 +135,7 @@ section .text
 			ret
 
 ;; -----Constructors-----
-		extern __constructor__java_util_Arrays__Arrays
+		global __constructor__java_util_Arrays__Arrays
 	__constructor__java_util_Arrays__Arrays:
 		push ebp
 		mov ebp, esp

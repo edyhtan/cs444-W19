@@ -60,7 +60,7 @@ section .text
 			ret
 
 ;; -----Constructors-----
-		extern __constructor__Hello__Hello
+		global __constructor__Hello__Hello
 	__constructor__Hello__Hello:
 		push ebp
 		mov ebp, esp

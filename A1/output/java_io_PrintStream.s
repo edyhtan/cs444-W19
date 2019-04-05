@@ -219,7 +219,7 @@ section .text
 			ret
 
 ;; -----Constructors-----
-		extern __constructor__java_io_PrintStream__PrintStream
+		global __constructor__java_io_PrintStream__PrintStream
 	__constructor__java_io_PrintStream__PrintStream:
 		push ebp
 		mov ebp, esp
