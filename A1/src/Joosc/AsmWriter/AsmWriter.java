@@ -255,20 +255,24 @@ public class AsmWriter {
     }
 
     /**
-     * Followed by push caller-save regs on stack
+     * Followed by push caller-save regs(esp, ebp) on stack
      * */
-    public void prologue(int frameSize) {
+    public void prologue(int indent) {
+        indent(indent);
         push(Register.ebp);
+        indent(indent);
         mov(Register.ebp, Register.esp);
-        sub(Register.esp, 12);
     }
 
     /**
-     * After popping callee-save regs
+     * After popping caller-save regs, ret
      * */
-    public void epilogue() {
+    public void epilogue(int indent) {
+        indent(indent);
         mov(Register.esp, Register.ebp);
+        indent(indent);
         pop(Register.ebp);
+        indent(indent);
         ret();
     }
 
