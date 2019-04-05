@@ -755,6 +755,7 @@ section .text
 		mov ebp, esp
 		mov eax, [ebp + 8]
 		push eax
+			extern __constuctor__java_lang_Object__Object
 		mov eax, __constuctor__java_lang_Object__Object
 		call eax
 		sub esp,4
@@ -779,6 +780,7 @@ mov eax, 0
 		mov ebp, esp
 		mov eax, [ebp + 12]
 		push eax
+			extern __constuctor__java_lang_Object__Object
 		mov eax, __constuctor__java_lang_Object__Object
 		call eax
 		sub esp,4
@@ -823,6 +825,7 @@ mov eax, 0
 		mov ebp, esp
 		mov eax, [ebp + 12]
 		push eax
+			extern __constuctor__java_lang_Object__Object
 		mov eax, __constuctor__java_lang_Object__Object
 		call eax
 		sub esp,4

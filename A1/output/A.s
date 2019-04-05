@@ -486,6 +486,7 @@ global @@@@main
 		mov ebp, esp
 		mov eax, [ebp + 8]
 		push eax
+			extern __constuctor__java_lang_Object__Object
 		mov eax, __constuctor__java_lang_Object__Object
 		call eax
 		sub esp,4

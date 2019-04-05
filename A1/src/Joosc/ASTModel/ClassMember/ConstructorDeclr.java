@@ -139,6 +139,8 @@ public class ConstructorDeclr implements ClassBodyDeclr, Method {
                     + extendType.getQualifiedName().replace('.', '_')
                     + "__"
                     + extendType.getClassEnv().getTypeDeclr().getSimpleName();
+            asmWriter.indent(indent + 1);
+            asmWriter.extern(parentConstructorLabel);
             asmWriter.indent(indent);
             asmWriter.mov(Register.eax, parentConstructorLabel);
 
