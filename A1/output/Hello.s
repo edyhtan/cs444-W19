@@ -94,7 +94,8 @@ section .text
 			;; Allocating size of 1
 			mov eax, 1
 						call __malloc
-							mov [eax], __class_Hello
+							mov ebx, __class_Hello
+			mov [eax], ebx
 
 			;; Pushing object
 			push eax

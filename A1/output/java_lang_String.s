@@ -110,7 +110,8 @@ section .text
 		;; Allocating size of 1
 		mov eax, 1
 				call __malloc
-					mov [eax], __class_java_lang_String
+					mov ebx, __class_java_lang_String
+		mov [eax], ebx
 
 		;; Pushing object
 		push eax
@@ -138,7 +139,8 @@ section .text
 		;; Allocating size of 1
 		mov eax, 1
 				call __malloc
-					mov [eax], __class_java_lang_String
+					mov ebx, __class_java_lang_String
+		mov [eax], ebx
 
 		;; Pushing object
 		push eax
@@ -258,7 +260,8 @@ section .text
 		;; Allocating size of 1
 		mov eax, 1
 				call __malloc
-					mov [eax], __class_java_lang_String
+					mov ebx, __class_java_lang_String
+		mov [eax], ebx
 
 		;; Pushing object
 		push eax
@@ -459,7 +462,8 @@ section .text
 		;; Allocating size of 1
 		mov eax, 1
 				call __malloc
-					mov [eax], __class_java_lang_String
+					mov ebx, __class_java_lang_String
+		mov [eax], ebx
 
 		;; Pushing object
 		push eax

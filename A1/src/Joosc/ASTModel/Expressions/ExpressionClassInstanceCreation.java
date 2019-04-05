@@ -143,7 +143,9 @@ public class ExpressionClassInstanceCreation extends Expression {
         asmWriter.indent(indent + 1);
         asmWriter.extern(classTag);
         asmWriter.indent(indent);
-        asmWriter.movToAddr(Register.eax, classTag);
+        asmWriter.mov(Register.ebx, classTag);
+        asmWriter.indent(indent);
+        asmWriter.movToAddr(Register.eax, Register.ebx);
         asmWriter.println("");
 
         asmWriter.indent(indent);

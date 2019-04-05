@@ -60,7 +60,8 @@ section .text
 				;; Allocating size of 0
 				mov eax, 0
 								call __malloc
-									mov [eax], __class_java_io_PrintStream
+									mov ebx, __class_java_io_PrintStream
+				mov [eax], ebx
 
 				;; Pushing object
 				push eax
