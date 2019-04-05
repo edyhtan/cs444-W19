@@ -472,8 +472,24 @@ global @@@@main
 		push ebp
 		mov ebp, esp
 
-				mov eax, 123
-		jmp _method_return___STATIC_method__A__test
+				;expression code...
+		mov eax, 1
+		cmp eax,0
+		je .else0
+		;thenClause ...
+			mov eax, 111
+			jmp _method_return___STATIC_method__A__test
+
+
+		jmp .endif0
+
+		.else0:
+			;elseClause ...
+			mov eax, 0
+			jmp _method_return___STATIC_method__A__test
+
+
+		.endif0:
 
 		_method_return___STATIC_method__A__test:
 			pop ebp

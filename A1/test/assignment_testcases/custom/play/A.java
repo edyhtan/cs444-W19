@@ -2,6 +2,10 @@ public class A {
 
     public A() {}
     public static int test() {
-        return 123;
+        if (true) {
+            return 111;
+        } else {
+            return 0;
+        }
     }
 }
