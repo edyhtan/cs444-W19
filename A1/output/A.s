@@ -391,7 +391,7 @@ global @@@@main
 		;; RHS code...
 		mov eax, 2
 		pop ebx
-		sub ebx,eax
+		imul ebx,eax
 		mov eax, ebx
 
 		push eax
