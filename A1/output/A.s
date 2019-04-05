@@ -386,12 +386,12 @@ global @@@@main
 				;expression code...
 		;; LHS code...
 		;; LHS code...
-		mov eax, 1
+		mov eax, 4
 		push eax
 		;; RHS code...
-		mov eax, 1
+		mov eax, 2
 		pop ebx
-		add ebx, eax
+		sub ebx,eax
 		mov eax, ebx
 
 		push eax
@@ -399,12 +399,10 @@ global @@@@main
 		mov eax, 2
 		pop ebx
 		cmp eax,ebx
-		jne .ne0
+		je .eq0
 		mov eax, 0
-		jmp .end_ne0
-		.ne0:
+		.eq0:
 			mov eax, 1
-		.end_ne0:
 
 		cmp eax,0
 		je .else0
