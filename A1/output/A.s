@@ -393,10 +393,11 @@ global @@@@main
 		je __exception
 		push eax
 		;; LHS code...
-		mov eax, 4
+		mov eax, 6
 		pop ebx
 		mov edx, 0
 		idiv ebx
+mov eax, edx
 
 		push eax
 		;; RHS code...
