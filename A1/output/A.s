@@ -416,13 +416,13 @@ global @@@@main
 		;; RHS code...
 		mov eax, 2
 		pop ebx
-		cmp eax,ebx
-		je .eq0
+		cmp ebx,eax
+		jg .gt0
 		mov eax, 0
-		jmp .end_eq0
-		.eq0:
+		jmp .end_gt0
+		.gt0:
 			mov eax, 1
-		.end_eq0:
+		.end_gt0:
 
 		cmp eax,0
 		je .else0

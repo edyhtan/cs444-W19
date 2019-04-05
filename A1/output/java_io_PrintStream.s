@@ -54,6 +54,17 @@ section .text
 
 		.for0:
 			;expression code...
+			;; LHS code...
+			push eax
+			;; RHS code...
+			pop ebx
+			cmp ebx,eax
+			jl .lt0
+			mov eax, 0
+			jmp .end_lt0
+			.lt0:
+				mov eax, 1
+			.end_lt0:
 
 			cmp eax,0
 			je .endfor0

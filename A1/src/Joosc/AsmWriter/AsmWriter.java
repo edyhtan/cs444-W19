@@ -124,6 +124,14 @@ public class AsmWriter {
         println("jg " + label);
     }
 
+    public void jl(String label) {
+        println("jl " + label);
+    }
+
+    public void jle(String label) {
+        println("jle " + label);
+    }
+
     public void jae(String label) {
         println("jae " + label);
     }
@@ -134,6 +142,10 @@ public class AsmWriter {
 
     public void ja(String label) {
         println("ja " + label);
+    }
+
+    public void jge(String label) {
+        println("jge " + label);
     }
 
     public void jbe(String label) {
@@ -426,6 +438,38 @@ public class AsmWriter {
         RHS.codeGen(indent);
         indent(indent);
         pop(Register.ebx);
+    }
+
+    public void compare(Expression LHS, Expression RHS, int indent, String operation, String label, int offset){
+        String jumpTo = "."+label + offset;
+        String endLabel = ".end_" + label + offset;
+        evalLHSthenRHS(LHS, RHS, indent);
+        indent(indent);
+        cmp(Register.ebx, Register.eax);
+        indent(indent);
+        if(operation.equals("je")) {
+            je(jumpTo);
+        } else if(operation.equals("jne")) {
+            jne(jumpTo);
+        } else if(operation.equals("jge")) {
+            jge(jumpTo);
+        } else if(operation.equals("jg")) {
+            jg(jumpTo);
+        } else if(operation.equals("jl")) {
+            jl(jumpTo);
+        } else if(operation.equals("jle")) {
+            jle(jumpTo);
+        }
+        indent(indent);
+        mov(Register.eax, "0");
+        indent(indent);
+        jmp(endLabel);
+        indent(indent);
+        label(jumpTo);
+        indent(indent + 1);
+        mov(Register.eax, "1");
+        indent(indent);
+        label(endLabel);
     }
 
 }

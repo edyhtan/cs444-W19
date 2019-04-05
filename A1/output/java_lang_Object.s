@@ -30,7 +30,7 @@ section .text
 		push eax
 		;; RHS code...
 		pop ebx
-		cmp eax,ebx
+		cmp ebx,eax
 		je .eq0
 		mov eax, 0
 		jmp .end_eq0

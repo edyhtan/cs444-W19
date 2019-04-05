@@ -7,7 +7,8 @@ add esp, 4
 add esp, 4
 add esp, 4
 add esp, 4
-jne .ne0
+add ebx, eax
+jne .ne3
 add esp, 4
 add ebx, 4
 add esp, 4
@@ -95,6 +96,17 @@ section .text
 
 		.for0:
 			;expression code...
+			;; LHS code...
+			push eax
+			;; RHS code...
+			pop ebx
+			cmp ebx,eax
+			jl .lt0
+			mov eax, 0
+			jmp .end_lt0
+			.lt0:
+				mov eax, 1
+			.end_lt0:
 
 			cmp eax,0
 			je .endfor0
@@ -114,6 +126,17 @@ section .text
 
 		.for1:
 			;expression code...
+			;; LHS code...
+			push eax
+			;; RHS code...
+			pop ebx
+			cmp ebx,eax
+			jl .lt1
+			mov eax, 0
+			jmp .end_lt1
+			.lt1:
+				mov eax, 1
+			.end_lt1:
 
 			cmp eax,0
 			je .endfor1
@@ -198,7 +221,7 @@ section .text
 		push eax
 		;; RHS code...
 		pop ebx
-		cmp eax,ebx
+		cmp ebx,eax
 		je .eq0
 		mov eax, 0
 		jmp .end_eq0
@@ -216,6 +239,18 @@ section .text
 		.else2:
 		.endif2:
 		;expression code...
+		;; LHS code...
+		push eax
+		;; RHS code...
+		mov eax, 0
+		pop ebx
+		cmp ebx,eax
+		jl .lt1
+		mov eax, 0
+		jmp .end_lt1
+		.lt1:
+			mov eax, 1
+		.end_lt1:
 
 		cmp eax,0
 		je .else3
@@ -235,13 +270,13 @@ section .text
 		;; RHS code...
 		mov eax, 0
 		pop ebx
-		cmp eax,ebx
-		je .eq1
+		cmp ebx,eax
+		je .eq2
 		mov eax, 0
-		jmp .end_eq1
-		.eq1:
+		jmp .end_eq2
+		.eq2:
 			mov eax, 1
-		.end_eq1:
+		.end_eq2:
 
 		cmp eax,0
 		je .else4
@@ -257,6 +292,18 @@ section .text
 			;elseClause ...
 			.while5:
 				;expression code...
+				;; LHS code...
+				push eax
+				;; RHS code...
+				mov eax, 0
+				pop ebx
+				cmp ebx,eax
+				jg .gt3
+				mov eax, 0
+				jmp .end_gt3
+				.gt3:
+					mov eax, 1
+				.end_gt3:
 
 				cmp eax,0
 				je .endwhile5
@@ -312,6 +359,17 @@ section .text
 
 		.for7:
 			;expression code...
+			;; LHS code...
+			push eax
+			;; RHS code...
+			pop ebx
+			cmp ebx,eax
+			jl .lt4
+			mov eax, 0
+			jmp .end_lt4
+			.lt4:
+				mov eax, 1
+			.end_lt4:
 
 			cmp eax,0
 			je .endfor7
@@ -402,7 +460,7 @@ section .text
 		;; RHS code...
 		mov eax, 0
 		pop ebx
-		cmp eax,ebx
+		cmp ebx,eax
 		je .eq0
 		mov eax, 0
 		jmp .end_eq0
@@ -438,7 +496,7 @@ section .text
 		;; RHS code...
 		mov eax, 0
 		pop ebx
-		cmp eax,ebx
+		cmp ebx,eax
 		je .eq0
 		mov eax, 0
 		jmp .end_eq0
@@ -474,7 +532,7 @@ section .text
 		;; RHS code...
 		mov eax, 0
 		pop ebx
-		cmp eax,ebx
+		cmp ebx,eax
 		je .eq0
 		mov eax, 0
 		jmp .end_eq0
@@ -519,6 +577,18 @@ section .text
 
 		mov [ebp-4], eax
 		;expression code...
+		;; LHS code...
+		push eax
+		;; RHS code...
+		mov eax, 0
+		pop ebx
+		cmp ebx,eax
+		jl .lt0
+		mov eax, 0
+		jmp .end_lt0
+		.lt0:
+			mov eax, 1
+		.end_lt0:
 
 		cmp eax,0
 		je .else13
@@ -530,6 +600,17 @@ section .text
 		.else13:
 		.endif13:
 		;expression code...
+		;; LHS code...
+		push eax
+		;; RHS code...
+		pop ebx
+		cmp ebx,eax
+		jg .gt1
+		mov eax, 0
+		jmp .end_gt1
+		.gt1:
+			mov eax, 1
+		.end_gt1:
 
 		cmp eax,0
 		je .else14
@@ -541,6 +622,17 @@ section .text
 		.else14:
 		.endif14:
 		;expression code...
+		;; LHS code...
+		push eax
+		;; RHS code...
+		pop ebx
+		cmp ebx,eax
+		jl .lt2
+		mov eax, 0
+		jmp .end_lt2
+		.lt2:
+			mov eax, 1
+		.end_lt2:
 
 		cmp eax,0
 		je .else15
@@ -559,6 +651,17 @@ section .text
 
 		.for16:
 			;expression code...
+			;; LHS code...
+			push eax
+			;; RHS code...
+			pop ebx
+			cmp ebx,eax
+			jl .lt3
+			mov eax, 0
+			jmp .end_lt3
+			.lt3:
+				mov eax, 1
+			.end_lt3:
 
 			cmp eax,0
 			je .endfor16
@@ -643,6 +746,17 @@ section .text
 		.endfor18:
 
 		;expression code...
+		;; LHS code...
+		push eax
+		;; RHS code...
+		pop ebx
+		cmp ebx,eax
+		jg .gt0
+		mov eax, 0
+		jmp .end_gt0
+		.gt0:
+			mov eax, 1
+		.end_gt0:
 
 		cmp eax,0
 		je .else19
@@ -678,6 +792,17 @@ section .text
 
 		.for20:
 			;expression code...
+			;; LHS code...
+			push eax
+			;; RHS code...
+			pop ebx
+			cmp ebx,eax
+			jl .lt0
+			mov eax, 0
+			jmp .end_lt0
+			.lt0:
+				mov eax, 1
+			.end_lt0:
 
 			cmp eax,0
 			je .endfor20
@@ -753,6 +878,17 @@ section .text
 			.endif22:
 
 			;expression code...
+			;; LHS code...
+			push eax
+			;; RHS code...
+			pop ebx
+			cmp ebx,eax
+			jge .ge0
+			mov eax, 0
+			jmp .end_ge0
+			.ge0:
+				mov eax, 1
+			.end_ge0:
 
 			cmp eax,0
 			je .else23
@@ -765,6 +901,17 @@ section .text
 			.endif23:
 
 			;expression code...
+			;; LHS code...
+			push eax
+			;; RHS code...
+			pop ebx
+			cmp ebx,eax
+			jge .ge1
+			mov eax, 0
+			jmp .end_ge1
+			.ge1:
+				mov eax, 1
+			.end_ge1:
 
 			cmp eax,0
 			je .else24
@@ -778,6 +925,17 @@ section .text
 			.endif24:
 
 			;expression code...
+			;; LHS code...
+			push eax
+			;; RHS code...
+			pop ebx
+			cmp ebx,eax
+			jl .lt2
+			mov eax, 0
+			jmp .end_lt2
+			.lt2:
+				mov eax, 1
+			.end_lt2:
 
 			cmp eax,0
 			je .else25
@@ -790,6 +948,17 @@ section .text
 			.endif25:
 
 			;expression code...
+			;; LHS code...
+			push eax
+			;; RHS code...
+			pop ebx
+			cmp ebx,eax
+			jg .gt3
+			mov eax, 0
+			jmp .end_gt3
+			.gt3:
+				mov eax, 1
+			.end_gt3:
 
 			cmp eax,0
 			je .else26
@@ -831,6 +1000,17 @@ section .text
 
 		.for27:
 			;expression code...
+			;; LHS code...
+			push eax
+			;; RHS code...
+			pop ebx
+			cmp ebx,eax
+			jl .lt0
+			mov eax, 0
+			jmp .end_lt0
+			.lt0:
+				mov eax, 1
+			.end_lt0:
 
 			cmp eax,0
 			je .endfor27
@@ -870,6 +1050,17 @@ section .text
 
 		.for28:
 			;expression code...
+			;; LHS code...
+			push eax
+			;; RHS code...
+			pop ebx
+			cmp ebx,eax
+			jl .lt0
+			mov eax, 0
+			jmp .end_lt0
+			.lt0:
+				mov eax, 1
+			.end_lt0:
 
 			cmp eax,0
 			je .endfor28
@@ -884,11 +1075,39 @@ section .text
 
 			.for29:
 				;expression code...
+				;; LHS code...
+				push eax
+				;; RHS code...
+				pop ebx
+				cmp ebx,eax
+				jl .lt1
+				mov eax, 0
+				jmp .end_lt1
+				.lt1:
+					mov eax, 1
+				.end_lt1:
 
 				cmp eax,0
 				je .endfor29
 				;statement code...
 				;expression code...
+				;; LHS code...
+				;; LHS code...
+				push eax
+				;; RHS code...
+				pop ebx
+								mov eax, ebx
+
+				push eax
+				;; RHS code...
+				pop ebx
+				cmp ebx,eax
+				jge .ge2
+				mov eax, 0
+				jmp .end_ge2
+				.ge2:
+					mov eax, 1
+				.end_ge2:
 
 				cmp eax,0
 				je .else30
@@ -904,12 +1123,12 @@ section .text
 					push eax
 					;; RHS code...
 					pop ebx
-					cmp eax,ebx
+					cmp ebx,eax
 										mov eax, 0
-					jmp .end_ne0
-					.ne0:
+					jmp .end_ne3
+					.ne3:
 						mov eax, 1
-					.end_ne0:
+					.end_ne3:
 
 					cmp eax,0
 					je .else31
@@ -1009,6 +1228,17 @@ mov eax, 0
 
 			.for33:
 				;expression code...
+				;; LHS code...
+				push eax
+				;; RHS code...
+				pop ebx
+				cmp ebx,eax
+				jl .lt4
+				mov eax, 0
+				jmp .end_lt4
+				.lt4:
+					mov eax, 1
+				.end_lt4:
 
 				cmp eax,0
 				je .endfor33

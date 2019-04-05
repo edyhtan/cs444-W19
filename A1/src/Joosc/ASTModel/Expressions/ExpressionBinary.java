@@ -346,47 +346,38 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 offset = MethodDeclr.PER_METHOD_COUNT;
                 MethodDeclr.PER_METHOD_COUNT++;
 
-                asmWriter.evalLHSthenRHS(LHS, RHS, indent);
-                asmWriter.indent(indent);
-                asmWriter.cmp(Register.eax, Register.ebx);
-                asmWriter.indent(indent);
-                asmWriter.je(".eq" + offset);
-                asmWriter.indent(indent);
-                asmWriter.mov(Register.eax, "0");
-                asmWriter.indent(indent);
-                asmWriter.jmp(".end_eq" + offset);
-                asmWriter.indent(indent);
-                asmWriter.label(".eq" + offset);
-                asmWriter.indent(indent + 1);
-                asmWriter.mov(Register.eax, "1");
-                asmWriter.indent(indent);
-                asmWriter.label(".end_eq" + offset);
+                asmWriter.compare(LHS, RHS, indent, "je", "eq", offset);
                 break;
             case NE:
                 offset = MethodDeclr.PER_METHOD_COUNT;
                 MethodDeclr.PER_METHOD_COUNT++;
 
-                asmWriter.evalLHSthenRHS(LHS, RHS, indent);
-                asmWriter.indent(indent);
-                asmWriter.cmp(Register.eax, Register.ebx);
-                asmWriter.indent(indent);
-                asmWriter.jne(".ne" + offset);
-                asmWriter.indent(indent);
-                asmWriter.mov(Register.eax, "0");
-                asmWriter.indent(indent);
-                asmWriter.jmp(".end_ne" + offset);
-                asmWriter.indent(indent);
-                asmWriter.label(".ne" + offset);
-                asmWriter.indent(indent + 1);
-                asmWriter.mov(Register.eax, "1");
-                asmWriter.indent(indent);
-                asmWriter.label(".end_ne" + offset);
+                asmWriter.compare(LHS, RHS, indent, "jne", "ne", offset);
                 break;
+            // TODO: check if LHS && RHS is char / octal - use unsigned
             case GE:
-            case GT:
-            case LT:
-            case LE:
+                offset = MethodDeclr.PER_METHOD_COUNT;
+                MethodDeclr.PER_METHOD_COUNT++;
 
+                asmWriter.compare(LHS, RHS, indent,"jge", "ge", offset);
+                break;
+            case GT:
+                offset = MethodDeclr.PER_METHOD_COUNT;
+                MethodDeclr.PER_METHOD_COUNT++;
+
+                asmWriter.compare(LHS, RHS, indent, "jg", "gt", offset);
+                break;
+            case LT:
+                offset = MethodDeclr.PER_METHOD_COUNT;
+                MethodDeclr.PER_METHOD_COUNT++;
+
+                asmWriter.compare(LHS, RHS, indent, "jl", "lt", offset);
+                break;
+            case LE:
+                offset = MethodDeclr.PER_METHOD_COUNT;
+                MethodDeclr.PER_METHOD_COUNT++;
+
+                asmWriter.compare(LHS, RHS, indent, "jle", "le", offset);
                 break;
             case Instanceof:
 
