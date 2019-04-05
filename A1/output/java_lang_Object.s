@@ -4,10 +4,10 @@ __class_java_lang_Object:
 section .data
 
 		global __ref_SIT_java_lang_Object
-	__ref_SIT_java_lang_Object		dd 0
+	__ref_SIT_java_lang_Object:		dd 0
 
 		global __ref_PARENTS_java_lang_Object
-	__ref_PARENTS_java_lang_Object		dd 00000000001000000000b
+	__ref_PARENTS_java_lang_Object:		dd 00000000001000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -18,7 +18,7 @@ section .data
 
 section .text
 
------Methods-----
+;; -----Methods-----
 		global __method__java_lang_Object__equals$java_lang_Object$
 	__method__java_lang_Object__equals$java_lang_Object$:
 		push ebp
@@ -87,7 +87,7 @@ section .text
 			ret
 
 ;; -----Constructors-----
-		extern __constructor__java_lang_Object__Object
+		global __constructor__java_lang_Object__Object
 	__constructor__java_lang_Object__Object:
 		push ebp
 		mov ebp, esp

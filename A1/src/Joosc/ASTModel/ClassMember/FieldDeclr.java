@@ -130,7 +130,6 @@ public class FieldDeclr extends Scope implements ClassMemberDeclr, HasExpression
         return joosType;
     }
 
-
     // Code Gen
     AsmWriter asmWriter;
     String staticFieldLabel;

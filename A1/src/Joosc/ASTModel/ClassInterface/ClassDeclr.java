@@ -161,16 +161,24 @@ public class ClassDeclr implements TypeDeclr {
 
         // Class SIT
         asmWriter.println("\t\t" + "global " + classSIT);
-        asmWriter.println("\t" + classSIT + "\t\t" + "dd 0");
+        asmWriter.println("\t" + classSIT + ":\t\t" + "dd 0");
         asmWriter.println("");
 
         // Class Parent Matrix
         asmWriter.println("\t\t" + "global " + classParentMatrix);
-        asmWriter.println("\t" + classParentMatrix + "\t\t" + "dd " + AsmWriter.parentMatrix.get(env.getJoosType()) + "b");
+        asmWriter.println("\t" + classParentMatrix + ":\t\t" + "dd " + AsmWriter.parentMatrix.get(env.getJoosType()) + "b");
         asmWriter.println("");
 
         asmWriter.print("\t");
         asmWriter.println("; Methods\t");
+
+        for (MethodInfo info:env.methodCallTable.values()) {
+            if (info.external) {
+                asmWriter.print("\t\t\t");
+                asmWriter.extern(info.callReference);
+            }
+        }
+
         for (MethodInfo info:env.methodCallTable.values()) {
             asmWriter.print("\t\t");
             asmWriter.dd(info.external ? info.callReference : info.methodLabel);
@@ -195,7 +203,7 @@ public class ClassDeclr implements TypeDeclr {
         asmWriter.println("section .text");
         asmWriter.println("");
 
-        asmWriter.println("-----Methods-----");
+        asmWriter.comment("-----Methods-----");
         for (MethodDeclr method : methods) {
             method.addWriter(asmWriter);
             String methodLabel = env.methodCallTable.get(method.getMethodSignature()).methodLabel;

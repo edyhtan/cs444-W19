@@ -141,7 +141,7 @@ public class AsmWriter {
         out.println("int " + addr);
     }
 
-    public void exit(int retCode) {
+    public void exit(String retCode) {
         mov(Register.eax, 1);
         mov(Register.ebx, retCode);
         _int("0x80");
@@ -286,8 +286,8 @@ public class AsmWriter {
 
     public void malloc(int size) {
         mov(Register.eax, size);
-        extern("_malloc");
-        call("_malloc");
+        extern("__malloc");
+        call("__malloc");
     }
 
     private static int pushBit(int ref, int bit) {
@@ -333,12 +333,13 @@ public class AsmWriter {
         // call eax
     }
 
-    public void outputInit() {
+    public void outputInit(JoosType currentType) {
         out.println("\t" + "global _start");
         out.println("_start:");
 
         // Create SIT
         for (ClassEnv classEnv: GlobalEnv.instance.classEnvs) {
+
             if (classEnv.getTypeDeclr() instanceof ClassDeclr) {
                 ClassDeclr classDeclr = (ClassDeclr) classEnv.getTypeDeclr();
                 classDeclr.buildCompilerLabel();
@@ -347,13 +348,15 @@ public class AsmWriter {
                 malloc(allMethods.size() * 4);
 
                 out.println();
-                extern(classDeclr.classSIT);
+                if (!classEnv.getJoosType().equals(currentType)) {
+                    extern(classDeclr.classSIT);
+                }
                 mov(Register.ebx, classDeclr.classSIT);
                 movToAddr(Register.ebx, Register.eax);
 
                 for (String methodName: allMethods) {
                     if (classEnv.methodCallTable.containsKey(methodName)) {
-                        String callRef = classEnv.methodCallTable.get(methodName).methodLabel;
+                        String callRef = classEnv.methodCallTable.get(methodName).callReference;
                         out.println();
                         out.print("\t");
                         extern(callRef);
@@ -365,6 +368,15 @@ public class AsmWriter {
                 }
             }
         }
+
+        out.println("");
+
+        call("@@@@main");
+        mov(Register.ebx, Register.eax);
+        mov(Register.eax, 1);
+        out.println("int 0x80");
+
+        out.println("");
     }
 
     public void comment(String cmt) {

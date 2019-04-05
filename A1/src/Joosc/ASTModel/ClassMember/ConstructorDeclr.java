@@ -117,7 +117,7 @@ public class ConstructorDeclr implements ClassBodyDeclr, Method {
     public void codeGen(int indent) {
         // Ctor label
         asmWriter.indent(2);
-        asmWriter.extern(info.methodLabel);
+        asmWriter.global(info.methodLabel);
         asmWriter.indent(indent);
         asmWriter.label(info.methodLabel);
         indent += 1;
@@ -135,10 +135,12 @@ public class ConstructorDeclr implements ClassBodyDeclr, Method {
             asmWriter.push(Register.eax);
             // Call parent constructor
             String parentConstructorLabel =
-                    "__constuctor__"
+                    "__constructor__"
                     + extendType.getQualifiedName().replace('.', '_')
                     + "__"
                     + extendType.getClassEnv().getTypeDeclr().getSimpleName();
+            asmWriter.indent(indent + 1);
+            asmWriter.extern(parentConstructorLabel);
             asmWriter.indent(indent);
             asmWriter.mov(Register.eax, parentConstructorLabel);
 

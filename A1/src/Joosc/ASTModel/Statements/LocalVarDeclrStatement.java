@@ -107,7 +107,7 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
         asmWriter.println("");
 
         asmWriter.indent(indent);
-        String tmp = Register.ebp + String.valueOf(info.getOffset());
+        String tmp = Register.ebp + "+" + String.valueOf(info.getOffset());
         asmWriter.movToAddr(tmp, Register.eax);
     }
 

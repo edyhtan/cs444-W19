@@ -4,12 +4,17 @@ __class_java_lang_Byte:
 section .data
 
 		global __ref_SIT_java_lang_Byte
-	__ref_SIT_java_lang_Byte		dd 0
+	__ref_SIT_java_lang_Byte:		dd 0
 
 		global __ref_PARENTS_java_lang_Byte
-	__ref_PARENTS_java_lang_Byte		dd 00000000001001000000b
+	__ref_PARENTS_java_lang_Byte:		dd 00000000001001000000b
 
 	; Methods	
+			extern __method__java_lang_Object__getClass
+			extern __method__java_lang_Object__hashCode
+			extern __method__java_lang_Object__equals$java_lang_Object$
+			extern __method__java_lang_Object__clone
+			extern __method__java_lang_Object__toString
 		dd __method__java_lang_Object__getClass
 		dd __method__java_lang_Object__hashCode
 		dd __method__java_lang_Object__equals$java_lang_Object$
@@ -21,7 +26,7 @@ section .data
 
 section .text
 
------Methods-----
+;; -----Methods-----
 		global __method__java_lang_Byte__toString
 	__method__java_lang_Byte__toString:
 		push ebp
@@ -34,13 +39,14 @@ section .text
 			ret
 
 ;; -----Constructors-----
-		extern __constructor__java_lang_Byte__Byte$byte$
+		global __constructor__java_lang_Byte__Byte$byte$
 	__constructor__java_lang_Byte__Byte$byte$:
 		push ebp
 		mov ebp, esp
 		mov eax, [ebp + 12]
 		push eax
-		mov eax, __constuctor__java_lang_Object__Object
+			extern __constructor__java_lang_Object__Object
+		mov eax, __constructor__java_lang_Object__Object
 		call eax
 		sub esp,4
 ;; Field init, push object to stack
@@ -63,13 +69,13 @@ mov eax, 0
 		mov esp, ebp
 		pop ebp
 		ret
-		extern __constructor__java_lang_Byte__Byte
+		global __constructor__java_lang_Byte__Byte
 	__constructor__java_lang_Byte__Byte:
 		push ebp
 		mov ebp, esp
 		mov eax, [ebp + 8]
 		push eax
-		mov eax, __constuctor__java_lang_Object__Object
+					mov eax, __constructor__java_lang_Object__Object
 		call eax
 		sub esp,4
 ;; Field init, push object to stack
