@@ -1,4 +1,7 @@
 public class Hello {
+
+    public Hello k = null;
+
     public Hello() {
     }
 
@@ -6,14 +9,10 @@ public class Hello {
     }
 
     public boolean like(Hello who) {
-        while (who != null) {
-            while (who == null)
-                if (who != null)
-                    if ( who instanceof Hello ){
-
-                    }
-                else ;
-        }
         return who.like(this);
+    }
+
+    public Hello k() {
+        return this;
     }
 }

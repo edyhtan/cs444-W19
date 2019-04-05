@@ -155,7 +155,7 @@ public class ClassDeclr implements TypeDeclr {
         asmWriter.println("\t" + "global " + classTagName);
         asmWriter.label(classTagName);
 
-
+        asmWriter.println("");
         asmWriter.println("section .data");
         asmWriter.println("");
 
@@ -166,7 +166,7 @@ public class ClassDeclr implements TypeDeclr {
 
         // Class Parent Matrix
         asmWriter.println("\t\t" + "global " + classParentMatrix);
-        asmWriter.println("\t" + classParentMatrix + "\t\t" + "dd 0");
+        asmWriter.println("\t" + classParentMatrix + "\t\t" + "dd " + AsmWriter.parentMatrix.get(env.getJoosType()) + "b");
         asmWriter.println("");
 
         asmWriter.print("\t");
@@ -175,7 +175,6 @@ public class ClassDeclr implements TypeDeclr {
             asmWriter.print("\t\t");
             asmWriter.dd(info.external ? info.callReference : info.methodLabel);
         }
-
 
         // Fields
         for (FieldDeclr field : fields) {
@@ -192,6 +191,7 @@ public class ClassDeclr implements TypeDeclr {
         }
 
         // method gen
+        asmWriter.println("");
         asmWriter.println("section .text");
         asmWriter.println("");
 
@@ -201,7 +201,6 @@ public class ClassDeclr implements TypeDeclr {
             method.setMethodLabel(methodLabel);
             method.codeGen(indent + 1);
         }
-
 
         // end
         asmWriter.close();

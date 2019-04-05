@@ -48,13 +48,18 @@ public class LocalEnv implements Env {
             System.exit(5); // bad but fine...
         }
 
-        for (Statement statement : statements) {
-            if (hasSubEnvironment(statement)) {
-                subEnvs.add(new LocalEnv(statement, this));
-                if (statement instanceof IfStatement) {
-                    ElseBlock elseBlock = ((IfStatement) statement).getElseClause();
-                    if (elseBlock != null) {
-                        subEnvs.add(new LocalEnv(elseBlock, this));
+        if (ast instanceof ForStatement) {
+            Block statement = (Block)((ForStatement)ast).getStatement();
+            statement.addEnv(new LocalEnv(statement, this));
+        } else {
+            for (Statement statement : statements) {
+                if (hasSubEnvironment(statement)) {
+                    subEnvs.add(new LocalEnv(statement, this));
+                    if (statement instanceof IfStatement) {
+                        ElseBlock elseBlock = ((IfStatement) statement).getElseClause();
+                        if (elseBlock != null) {
+                            subEnvs.add(new LocalEnv(elseBlock, this));
+                        }
                     }
                 }
             }
@@ -110,30 +115,34 @@ public class LocalEnv implements Env {
             ((MethodDeclr) ast).validateStaticAccess();
         }
 
-        for (Statement statement : statements) {
-            if (statement instanceof HasScope) {
-                ((LocalEnv) ((HasScope) statement).getEnv()).resolveLocalVariableAndAccess();
-                if (statement instanceof IfStatement) {
-                    if (((IfStatement) statement).getElseClause() != null) {
-                        ((LocalEnv) ((IfStatement) statement).getElseClause().getEnv()).resolveLocalVariableAndAccess();
+        if (ast instanceof ForStatement) {
+            ((LocalEnv)((Block)((ForStatement) ast).getStatement()).getEnv()).resolveLocalVariableAndAccess();
+        } else {
+            for (Statement statement : statements) {
+                if (statement instanceof HasScope) {
+                    ((LocalEnv) ((HasScope) statement).getEnv()).resolveLocalVariableAndAccess();
+                    if (statement instanceof IfStatement) {
+                        if (((IfStatement) statement).getElseClause() != null) {
+                            ((LocalEnv) ((IfStatement) statement).getElseClause().getEnv()).resolveLocalVariableAndAccess();
+                        }
                     }
                 }
-            }
 
-            if (statement instanceof HasExpression) {
-                ((HasExpression) statement).checkExpression(this);
-            }
-            if (statement instanceof LocalVarDeclrStatement) {
-                LocalVarDeclrStatement localVar = (LocalVarDeclrStatement) statement;
-                if (isLocalVariableDeclared(localVar.getId())) {
-                    throw new NamingResolveException("Duplicated Local Variable: " + localVar.getId());
+                if (statement instanceof HasExpression) {
+                    ((HasExpression) statement).checkExpression(this);
                 }
-                FieldsVarInfo info = typeResolve(localVar.getId(), localVar.getType(), new ArrayList<>());
-                symbolTable.put(localVar.getId(), info);
-                localVar.addInfo(info);
-            }
-            if (statement instanceof HasExpression) {
-                ((HasExpression) statement).checkType();
+                if (statement instanceof LocalVarDeclrStatement) {
+                    LocalVarDeclrStatement localVar = (LocalVarDeclrStatement) statement;
+                    if (isLocalVariableDeclared(localVar.getId())) {
+                        throw new NamingResolveException("Duplicated Local Variable: " + localVar.getId());
+                    }
+                    FieldsVarInfo info = typeResolve(localVar.getId(), localVar.getType(), new ArrayList<>());
+                    symbolTable.put(localVar.getId(), info);
+                    localVar.addInfo(info);
+                }
+                if (statement instanceof HasExpression) {
+                    ((HasExpression) statement).checkType();
+                }
             }
         }
 

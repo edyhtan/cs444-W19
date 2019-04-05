@@ -4,13 +4,16 @@ import Joosc.ASTModel.Expressions.Expression;
 
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.util.BitSet;
 import java.util.Collections;
 import Joosc.ASTModel.ClassInterface.ClassDeclr;
 import Joosc.ASTModel.ClassInterface.InterfaceDeclr;
-import Joosc.ASTModel.ClassInterface.TypeDeclr;
 import Joosc.Environment.ClassEnv;
 import Joosc.Environment.GlobalEnv;
 import Joosc.Environment.MethodInfo;
+import Joosc.Scanner.JoosScan;
+import Joosc.TypeSystem.JoosType;
+import Joosc.util.ArrayLinkedHashMap;
 import Joosc.util.ArrayLinkedHashSet;
 
 
@@ -18,6 +21,7 @@ public class AsmWriter {
     PrintStream out;
     private static String binaryTemplate = "%s %s, %s";
     public static ArrayLinkedHashSet<String> allMethods = new ArrayLinkedHashSet<>();
+    public static ArrayLinkedHashMap<JoosType, String> parentMatrix = new ArrayLinkedHashMap<>();
 
     public AsmWriter(PrintStream out) {
         this.out = out;
@@ -278,16 +282,55 @@ public class AsmWriter {
         call("_malloc");
     }
 
-    public void outputInit() {
-        out.println("\t" + "global _start");
-        out.println("_start:");
+    private static int pushBit(int ref, int bit) {
+        return (ref << 1) | bit;
+    }
 
+    public static void initTable() {
         // Create List of All Interface call header
-        for (ClassEnv classEnv: GlobalEnv.instance.classEnvs) {
+        for (ClassEnv classEnv : GlobalEnv.instance.classEnvs) {
             if (classEnv.getTypeDeclr() instanceof InterfaceDeclr) {
                 allMethods.addAll(classEnv.getAllMethodSignature().keySet());
             }
         }
+
+        // Parent Matrix
+        for (ClassEnv env: GlobalEnv.instance.classEnvs) {
+            System.err.println(env.getJoosType().getTypeName());
+            parentMatrix.put(env.getJoosType(), "");
+        }
+
+        System.err.println(parentMatrix.size());
+
+        // Compute Marrix
+        for (JoosType type: parentMatrix.keySet()) {
+            for (JoosType type2: parentMatrix.keySet()) {
+                int bit = 0;
+                if (type.isA(type2)) {
+                    bit = 1;
+                }
+                String ref = Integer.toString(bit) + parentMatrix.get(type);
+                parentMatrix.put(type, ref);
+            }
+            System.err.println(parentMatrix.get(type) + " " + type.getTypeName());
+        }
+    }
+
+    public void callSITFunction(Register reg, String methodSignature, int indent) {
+        int offset = allMethods.indexOf(methodSignature);
+
+        indent(indent);
+        movFromAddr(reg, reg);
+        indent(indent);
+        movFromAddr(reg, reg);
+        indent(indent);
+        movFromAddr(reg, reg + "+"  + Integer.toString(offset*4));
+        // call eax
+    }
+
+    public void outputInit() {
+        out.println("\t" + "global _start");
+        out.println("_start:");
 
         // Create SIT
         for (ClassEnv classEnv: GlobalEnv.instance.classEnvs) {
@@ -318,5 +361,4 @@ public class AsmWriter {
             }
         }
     }
-
 }
