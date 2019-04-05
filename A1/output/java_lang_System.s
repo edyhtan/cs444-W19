@@ -1,8 +1,14 @@
 add esp, 0
 add ebx, 0
 add esp, 4
+extern __method__java_lang_Object__clone
 extern __malloc
+extern __method__java_lang_Object__toString
+extern __constructor__java_lang_Object__Object
 extern __constructor__java_io_PrintStream__PrintStream
+extern __method__java_lang_Object__hashCode
+extern __method__java_lang_Object__getClass
+extern __method__java_lang_Object__equals$java_lang_Object$
 extern __class_java_io_PrintStream
 
 	global __class_java_lang_System
@@ -11,13 +17,15 @@ __class_java_lang_System:
 section .data
 
 		global __ref_SIT_java_lang_System
-	__ref_SIT_java_lang_System		dd 0
+	__ref_SIT_java_lang_System:
+		dd 0
 
 		global __ref_PARENTS_java_lang_System
-	__ref_PARENTS_java_lang_System		dd 00000000001000010000b
+	__ref_PARENTS_java_lang_System:
+		dd 00000000001000010000b
 
 	; Methods	
-		dd __method__java_lang_Object__getClass
+																	dd __method__java_lang_Object__getClass
 		dd __method__java_lang_Object__hashCode
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
@@ -29,7 +37,7 @@ section .data
 
 section .text
 
------Methods-----
+;; -----Methods-----
 		global __STATIC_method__java_lang_System__gc
 	__STATIC_method__java_lang_System__gc:
 		push ebp
@@ -37,16 +45,18 @@ section .text
 
 		
 		_method_return___STATIC_method__java_lang_System__gc:
+			mov esp, ebp
 			pop ebp
 			ret
 
 ;; -----Constructors-----
-			__constructor__java_lang_System__System:
+		global __constructor__java_lang_System__System
+	__constructor__java_lang_System__System:
 		push ebp
 		mov ebp, esp
 		mov eax, [ebp + 8]
 		push eax
-		mov eax, __constuctor__java_lang_Object__Object
+					mov eax, __constructor__java_lang_Object__Object
 		call eax
 		sub esp,4
 ;; Field init, push object to stack

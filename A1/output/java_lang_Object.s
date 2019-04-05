@@ -1,3 +1,4 @@
+add eax, 8
 add esp, 4
 
 	global __class_java_lang_Object
@@ -6,10 +7,12 @@ __class_java_lang_Object:
 section .data
 
 		global __ref_SIT_java_lang_Object
-	__ref_SIT_java_lang_Object		dd 0
+	__ref_SIT_java_lang_Object:
+		dd 0
 
 		global __ref_PARENTS_java_lang_Object
-	__ref_PARENTS_java_lang_Object		dd 00000000001000000000b
+	__ref_PARENTS_java_lang_Object:
+		dd 00000000001000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -20,7 +23,7 @@ section .data
 
 section .text
 
------Methods-----
+;; -----Methods-----
 		global __method__java_lang_Object__equals$java_lang_Object$
 	__method__java_lang_Object__equals$java_lang_Object$:
 		push ebp
@@ -29,6 +32,10 @@ section .text
 				;; LHS code...
 		push eax
 		;; RHS code...
+		;; Local Var other
+		mov eax, ebp
+				mov eax, [eax]
+
 		pop ebx
 		cmp ebx,eax
 		je .eq0
@@ -41,6 +48,7 @@ section .text
 		jmp _method_return___method__java_lang_Object__equals$java_lang_Object$
 
 		_method_return___method__java_lang_Object__equals$java_lang_Object$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -52,6 +60,7 @@ section .text
 						jmp _method_return___method__java_lang_Object__toString
 
 		_method_return___method__java_lang_Object__toString:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -64,6 +73,7 @@ section .text
 		jmp _method_return___method__java_lang_Object__hashCode
 
 		_method_return___method__java_lang_Object__hashCode:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -75,6 +85,7 @@ section .text
 				jmp _method_return___method__java_lang_Object__clone
 
 		_method_return___method__java_lang_Object__clone:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -87,11 +98,13 @@ section .text
 		jmp _method_return___method__java_lang_Object__getClass
 
 		_method_return___method__java_lang_Object__getClass:
+			mov esp, ebp
 			pop ebp
 			ret
 
 ;; -----Constructors-----
-			__constructor__java_lang_Object__Object:
+		global __constructor__java_lang_Object__Object
+	__constructor__java_lang_Object__Object:
 		push ebp
 		mov ebp, esp
 ;; Field init, push object to stack

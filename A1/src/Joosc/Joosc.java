@@ -78,7 +78,6 @@ public class Joosc {
             }
 
             AsmWriter asm = new AsmWriter(System.out);
-            //asm.outputInit();
 
         } catch (UnreachableStatementException e) {
             System.err.printf("ERROR: Static analysis error: %s\n", e.getLocalizedMessage());

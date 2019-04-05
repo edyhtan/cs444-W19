@@ -348,7 +348,7 @@ public class AsmWriter {
 
         // Compute Marrix
         for (JoosType type: parentMatrix.keySet()) {
-            for (JoosType type2: parentMatrix.keySet()) {
+            for (JoosType type2 : parentMatrix.keySet()) {
                 int bit = 0;
                 if (type.isA(type2)) {
                     bit = 1;
@@ -357,6 +357,7 @@ public class AsmWriter {
                 parentMatrix.put(type, ref);
             }
             //System.err.println(parentMatrix.get(type) + " " + type.getTypeName());
+
         }
     }
 

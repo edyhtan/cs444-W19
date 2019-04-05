@@ -22,7 +22,7 @@ public class ClassEnv implements Env {
     HashMap<String, FieldsVarInfo> fields = new HashMap<>();
     HashMap<String, FieldsVarInfo> initializedFields = new HashMap<>();
     ArrayList<String> packageDeclr;
-    JoosType joosType;
+    public JoosType joosType;
     boolean isDefaultPkg;
 
     HashMap<String, JoosType> resolvedTypes = new HashMap<>();
@@ -814,5 +814,10 @@ public class ClassEnv implements Env {
                     + k.replace(',', '$').replace("[]", "@").replace('.', '_')
                     + (k.split(",").length > 1 ? "$" : "");
         });
+    }
+
+    @Override
+    public ClassEnv getClassEnv() {
+        return this;
     }
 }

@@ -234,6 +234,13 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
         asmWriter.indent(indent);
         asmWriter.label(methodLabel);
 
+        if (modifiers.contains(Symbol.Native)) {
+            asmWriter.indent(indent + 1);
+            asmWriter.extern("NATIVEjava.io.OutputStream.nativeWrite");
+            asmWriter.jmp("NATIVEjava.io.OutputStream.nativeWrite");
+            return;
+        }
+
         asmWriter.indent(indent + 1);
         asmWriter.push(Register.ebp);
         asmWriter.indent(indent + 1);
@@ -247,6 +254,10 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
         for (int i = 0; i < formalParamList.size(); ++i) {
             Pair<Type, String> param = formalParamList.get(i);
             localEnv.assignOffset(param.getValue(), (size - i) * 4);
+        }
+
+        if (getModifiers().contains(Symbol.Static)) {
+            localEnv.setThis((size+1)*4);
         }
 
         for (Statement statement : bodyBlock) {
@@ -270,6 +281,8 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
         asmWriter.println("");
         asmWriter.indent(indent+1);
         asmWriter.label("_method_return_" + methodLabel);
+        asmWriter.indent(indent + 2);
+        asmWriter.mov(Register.esp, Register.ebp);
         asmWriter.indent(indent + 2);
         asmWriter.pop(Register.ebp);
         asmWriter.indent(indent + 2);

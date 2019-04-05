@@ -2,6 +2,12 @@ add ebx, 4
 add esp, 4
 add ebx, 4
 add esp, 4
+extern __method__java_lang_Object__clone
+extern __method__java_lang_Object__toString
+extern __constructor__java_lang_Object__Object
+extern __method__java_lang_Object__hashCode
+extern __method__java_lang_Object__getClass
+extern __method__java_lang_Object__equals$java_lang_Object$
 
 	global __class_java_lang_Character
 __class_java_lang_Character:
@@ -9,13 +15,15 @@ __class_java_lang_Character:
 section .data
 
 		global __ref_SIT_java_lang_Character
-	__ref_SIT_java_lang_Character		dd 0
+	__ref_SIT_java_lang_Character:
+		dd 0
 
 		global __ref_PARENTS_java_lang_Character
-	__ref_PARENTS_java_lang_Character		dd 00000000101000000000b
+	__ref_PARENTS_java_lang_Character:
+		dd 00000000101000000000b
 
 	; Methods	
-		dd __method__java_lang_Object__getClass
+																	dd __method__java_lang_Object__getClass
 		dd __method__java_lang_Object__hashCode
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
@@ -23,7 +31,7 @@ section .data
 
 section .text
 
------Methods-----
+;; -----Methods-----
 		global __method__java_lang_Character__toString
 	__method__java_lang_Character__toString:
 		push ebp
@@ -32,16 +40,18 @@ section .text
 				jmp _method_return___method__java_lang_Character__toString
 
 		_method_return___method__java_lang_Character__toString:
+			mov esp, ebp
 			pop ebp
 			ret
 
 ;; -----Constructors-----
-			__constructor__java_lang_Character__Character$char$:
+		global __constructor__java_lang_Character__Character$char$
+	__constructor__java_lang_Character__Character$char$:
 		push ebp
 		mov ebp, esp
 		mov eax, [ebp + 12]
 		push eax
-		mov eax, __constuctor__java_lang_Object__Object
+					mov eax, __constructor__java_lang_Object__Object
 		call eax
 		sub esp,4
 ;; Field init, push object to stack
@@ -58,12 +68,13 @@ mov eax, 0
 		mov esp, ebp
 		pop ebp
 		ret
-			__constructor__java_lang_Character__Character:
+		global __constructor__java_lang_Character__Character
+	__constructor__java_lang_Character__Character:
 		push ebp
 		mov ebp, esp
 		mov eax, [ebp + 8]
 		push eax
-		mov eax, __constuctor__java_lang_Object__Object
+					mov eax, __constructor__java_lang_Object__Object
 		call eax
 		sub esp,4
 ;; Field init, push object to stack

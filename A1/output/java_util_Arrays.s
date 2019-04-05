@@ -1,10 +1,28 @@
+add eax, 12
+add eax, 4
+add eax, 8
+add eax, 4
 jne .ne0
+add eax, 12
+add eax, 4
 jne .ne2
 add esp, 4
+add eax, 12
+add eax, 4
+add eax, 8
+add eax, 4
 jne .ne0
+add eax, 12
+add eax, 4
 jne .ne2
 add esp, 4
 add esp, 4
+extern __method__java_lang_Object__clone
+extern __method__java_lang_Object__toString
+extern __constructor__java_lang_Object__Object
+extern __method__java_lang_Object__hashCode
+extern __method__java_lang_Object__getClass
+extern __method__java_lang_Object__equals$java_lang_Object$
 
 	global __class_java_util_Arrays
 __class_java_util_Arrays:
@@ -12,13 +30,15 @@ __class_java_util_Arrays:
 section .data
 
 		global __ref_SIT_java_util_Arrays
-	__ref_SIT_java_util_Arrays		dd 0
+	__ref_SIT_java_util_Arrays:
+		dd 0
 
 		global __ref_PARENTS_java_util_Arrays
-	__ref_PARENTS_java_util_Arrays		dd 00000000001000000001b
+	__ref_PARENTS_java_util_Arrays:
+		dd 00000000001000000001b
 
 	; Methods	
-		dd __method__java_lang_Object__getClass
+																	dd __method__java_lang_Object__getClass
 		dd __method__java_lang_Object__hashCode
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
@@ -28,7 +48,7 @@ section .data
 
 section .text
 
------Methods-----
+;; -----Methods-----
 		global __STATIC_method__java_util_Arrays__equals$boolean@$boolean@$
 	__STATIC_method__java_util_Arrays__equals$boolean@$boolean@$:
 		push ebp
@@ -36,8 +56,24 @@ section .text
 
 				;expression code...
 		;; LHS code...
+		;; Local Var a1
+		mov eax, ebp
+				mov eax, [eax]
+
+		;; Field length
+		mov eax, ebp
+				mov eax, [eax]
+
 		push eax
 		;; RHS code...
+		;; Local Var a2
+		mov eax, ebp
+				mov eax, [eax]
+
+		;; Field length
+		mov eax, ebp
+				mov eax, [eax]
+
 		pop ebx
 		cmp ebx,eax
 				mov eax, 0
@@ -57,16 +93,29 @@ section .text
 		.else0:
 		.endif0:
 		;forInit code...
-		sub esp,4
+		;; ---declare i
 		mov eax, 0
+		push eax
 
-		mov [ebp-4], eax
 
 		.for1:
 			;expression code...
 			;; LHS code...
+			;; Local Var i
+			mov eax, ebp
+			sub eax,4
+			mov eax, [eax]
+
 			push eax
 			;; RHS code...
+			;; Local Var a1
+			mov eax, ebp
+						mov eax, [eax]
+
+			;; Field length
+			mov eax, ebp
+						mov eax, [eax]
+
 			pop ebx
 			cmp ebx,eax
 			jl .lt1
@@ -115,6 +164,7 @@ section .text
 		jmp _method_return___STATIC_method__java_util_Arrays__equals$boolean@$boolean@$
 
 		_method_return___STATIC_method__java_util_Arrays__equals$boolean@$boolean@$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -125,8 +175,24 @@ section .text
 
 				;expression code...
 		;; LHS code...
+		;; Local Var a1
+		mov eax, ebp
+				mov eax, [eax]
+
+		;; Field length
+		mov eax, ebp
+				mov eax, [eax]
+
 		push eax
 		;; RHS code...
+		;; Local Var a2
+		mov eax, ebp
+				mov eax, [eax]
+
+		;; Field length
+		mov eax, ebp
+				mov eax, [eax]
+
 		pop ebx
 		cmp ebx,eax
 				mov eax, 0
@@ -146,16 +212,29 @@ section .text
 		.else3:
 		.endif3:
 		;forInit code...
-		sub esp,4
+		;; ---declare i
 		mov eax, 0
+		push eax
 
-		mov [ebp-4], eax
 
 		.for4:
 			;expression code...
 			;; LHS code...
+			;; Local Var i
+			mov eax, ebp
+			sub eax,4
+			mov eax, [eax]
+
 			push eax
 			;; RHS code...
+			;; Local Var a1
+			mov eax, ebp
+						mov eax, [eax]
+
+			;; Field length
+			mov eax, ebp
+						mov eax, [eax]
+
 			pop ebx
 			cmp ebx,eax
 			jl .lt1
@@ -203,16 +282,18 @@ section .text
 		jmp _method_return___STATIC_method__java_util_Arrays__equals$char@$char@$
 
 		_method_return___STATIC_method__java_util_Arrays__equals$char@$char@$:
+			mov esp, ebp
 			pop ebp
 			ret
 
 ;; -----Constructors-----
-			__constructor__java_util_Arrays__Arrays:
+		global __constructor__java_util_Arrays__Arrays
+	__constructor__java_util_Arrays__Arrays:
 		push ebp
 		mov ebp, esp
 		mov eax, [ebp + 8]
 		push eax
-		mov eax, __constuctor__java_lang_Object__Object
+					mov eax, __constructor__java_lang_Object__Object
 		call eax
 		sub esp,4
 ;; Field init, push object to stack

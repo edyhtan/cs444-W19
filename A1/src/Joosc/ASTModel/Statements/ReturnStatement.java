@@ -98,7 +98,6 @@ public class ReturnStatement implements Statement, HasExpression {
         }
 
         asmWriter.indent(indent);
-        // TODO: maybe change the label
         String returnLabel = "_method_return_" + ((MethodDeclr) env.getCurrentMethod()).getMethodLabel();
         asmWriter.jmp(returnLabel);
 

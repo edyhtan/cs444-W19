@@ -3,20 +3,14 @@ add esp, 4
 extern __ref_SIT_java_lang_Number
 extern __exception
 extern __malloc
-extern __method__java_lang_Number__hashCode
-extern __method__java_lang_Number__clone
-extern __method__java_io_OutputStream__toString
+extern __constructor__java_lang_Object__Object
+extern __method__java_lang_Object__getClass
 extern __ref_SIT_foo_bar
 extern __ref_SIT_java_lang_Short
 extern __ref_SIT_Main
-extern __method__java_lang_Number__toString
 extern __ref_SIT_java_lang_Character
 extern __ref_SIT_java_lang_String
 extern __ref_SIT_Hello
-extern __method__Main__hashCode
-extern __method__Main__clone
-extern __method__Main__equals$java_lang_Object$
-extern __method__java_lang_Number__equals$java_lang_Object$
 extern __ref_SIT_java_lang_Integer
 extern __method__java_lang_Object__toString
 extern __ref_SIT_java_lang_Class
@@ -26,13 +20,9 @@ extern __method__java_lang_Object__equals$java_lang_Object$
 extern __ref_SIT_java_io_PrintStream
 extern __method__java_lang_Object__clone
 extern __ref_SIT_java_lang_Object
-extern __method__Main__toString
 extern __method__java_lang_Object__hashCode
 extern __ref_SIT_java_lang_Byte
-extern __method__java_io_OutputStream__clone
 extern __ref_SIT_Static
-extern __method__java_io_OutputStream__hashCode
-extern __method__java_io_OutputStream__equals$java_lang_Object$
 extern __ref_SIT_java_lang_System
 extern __ref_SIT_java_io_OutputStream
 
@@ -42,13 +32,15 @@ __class_A:
 section .data
 
 		global __ref_SIT_A
-	__ref_SIT_A		dd 0
+	__ref_SIT_A:
+		dd 0
 
 		global __ref_PARENTS_A
-	__ref_PARENTS_A		dd 10000000001000000000b
+	__ref_PARENTS_A:
+		dd 10000000001000000000b
 
 	; Methods	
-		dd __method__java_lang_Object__getClass
+																	dd __method__java_lang_Object__getClass
 		dd __method__java_lang_Object__hashCode
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
@@ -57,7 +49,7 @@ section .data
 
 section .text
 
------Methods-----
+;; -----Methods-----
 	global _start
 _start:
 
@@ -85,16 +77,16 @@ call __malloc
 mov ebx, __ref_SIT_java_io_PrintStream
 mov [ebx], eax
 
-		mov ebx, __method__java_io_OutputStream__hashCode
+		mov ebx, __method__java_lang_Object__hashCode
 	mov [eax + 0], ebx
 
-		mov ebx, __method__java_io_OutputStream__equals$java_lang_Object$
+		mov ebx, __method__java_lang_Object__equals$java_lang_Object$
 	mov [eax + 4], ebx
 
-		mov ebx, __method__java_io_OutputStream__clone
+		mov ebx, __method__java_lang_Object__clone
 	mov [eax + 8], ebx
 
-		mov ebx, __method__java_io_OutputStream__toString
+		mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
 mov eax, 16
@@ -139,16 +131,16 @@ call __malloc
 mov ebx, __ref_SIT_java_lang_Integer
 mov [ebx], eax
 
-		mov ebx, __method__java_lang_Number__hashCode
+		mov ebx, __method__java_lang_Object__hashCode
 	mov [eax + 0], ebx
 
-		mov ebx, __method__java_lang_Number__equals$java_lang_Object$
+		mov ebx, __method__java_lang_Object__equals$java_lang_Object$
 	mov [eax + 4], ebx
 
-		mov ebx, __method__java_lang_Number__clone
+		mov ebx, __method__java_lang_Object__clone
 	mov [eax + 8], ebx
 
-		mov ebx, __method__java_lang_Number__toString
+		mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
 mov eax, 16
@@ -175,16 +167,16 @@ call __malloc
 mov ebx, __ref_SIT_java_lang_Short
 mov [ebx], eax
 
-		mov ebx, __method__java_lang_Number__hashCode
+		mov ebx, __method__java_lang_Object__hashCode
 	mov [eax + 0], ebx
 
-		mov ebx, __method__java_lang_Number__equals$java_lang_Object$
+		mov ebx, __method__java_lang_Object__equals$java_lang_Object$
 	mov [eax + 4], ebx
 
-		mov ebx, __method__java_lang_Number__clone
+		mov ebx, __method__java_lang_Object__clone
 	mov [eax + 8], ebx
 
-		mov ebx, __method__java_lang_Number__toString
+		mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
 mov eax, 16
@@ -355,16 +347,16 @@ call __malloc
 mov ebx, __ref_SIT_Static
 mov [ebx], eax
 
-		mov ebx, __method__Main__hashCode
+		mov ebx, __method__java_lang_Object__hashCode
 	mov [eax + 0], ebx
 
-		mov ebx, __method__Main__equals$java_lang_Object$
+		mov ebx, __method__java_lang_Object__equals$java_lang_Object$
 	mov [eax + 4], ebx
 
-		mov ebx, __method__Main__clone
+		mov ebx, __method__java_lang_Object__clone
 	mov [eax + 8], ebx
 
-		mov ebx, __method__Main__toString
+		mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
 mov eax, 16
@@ -439,16 +431,18 @@ global @@@@main
 		jmp _method_return___STATIC_method__A__test$int$int$
 
 		_method_return___STATIC_method__A__test$int$int$:
+			mov esp, ebp
 			pop ebp
 			ret
 
 ;; -----Constructors-----
-			__constructor__A__A:
+		global __constructor__A__A
+	__constructor__A__A:
 		push ebp
 		mov ebp, esp
 		mov eax, [ebp + 8]
 		push eax
-		mov eax, __constuctor__java_lang_Object__Object
+					mov eax, __constructor__java_lang_Object__Object
 		call eax
 		sub esp,4
 ;; Field init, push object to stack

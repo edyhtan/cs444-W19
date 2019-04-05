@@ -93,6 +93,10 @@ public class ArrayType extends JoosType{
             illusionaryEnv = new ClassEnv(p, GlobalEnv.instance);
             illusionaryEnv.semanticAnalysis();
             illusionaryEnv.variableContain();
+            illusionaryEnv.joosType = new JoosType(illusionaryEnv);
+            illusionaryEnv.buildMethodCallTable();
+            illusionaryEnv.buildSymbolTable();
+            illusionaryEnv.buildConstructorLabel();
         } catch (Exception e) {
             e.printStackTrace();
         }

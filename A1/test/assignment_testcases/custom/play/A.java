@@ -7,4 +7,5 @@ public class A {
         }
         return 123;
     }
+
 }

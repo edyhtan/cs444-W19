@@ -1,5 +1,15 @@
 add esp, 4
 add esp, 4
+extern __method__java_lang_Object__clone
+extern __STATIC_method__java_io_OutputStream__nativeWrite$int$
+extern __method__java_lang_Object__toString
+extern __constructor__java_io_OutputStream__OutputStream
+extern __method__java_lang_Object__hashCode
+extern __method__java_io_OutputStream__write$int$
+extern __method__java_io_OutputStream__write$char$
+extern __method__java_lang_Object__getClass
+extern __method__java_io_OutputStream__flush
+extern __method__java_lang_Object__equals$java_lang_Object$
 
 	global __class_java_io_PrintStream
 __class_java_io_PrintStream:
@@ -7,17 +17,19 @@ __class_java_io_PrintStream:
 section .data
 
 		global __ref_SIT_java_io_PrintStream
-	__ref_SIT_java_io_PrintStream		dd 0
+	__ref_SIT_java_io_PrintStream:
+		dd 0
 
 		global __ref_PARENTS_java_io_PrintStream
-	__ref_PARENTS_java_io_PrintStream		dd 00000000001000001010b
+	__ref_PARENTS_java_io_PrintStream:
+		dd 00000000001000001010b
 
 	; Methods	
-		dd __method__java_io_OutputStream__getClass
-		dd __method__java_io_OutputStream__hashCode
-		dd __method__java_io_OutputStream__equals$java_lang_Object$
-		dd __method__java_io_OutputStream__clone
-		dd __method__java_io_OutputStream__toString
+																													dd __method__java_lang_Object__getClass
+		dd __method__java_lang_Object__hashCode
+		dd __method__java_lang_Object__equals$java_lang_Object$
+		dd __method__java_lang_Object__clone
+		dd __method__java_lang_Object__toString
 		dd __method__java_io_OutputStream__flush
 		dd __STATIC_method__java_io_OutputStream__nativeWrite$int$
 		dd __method__java_io_OutputStream__write$int$
@@ -40,21 +52,26 @@ section .data
 
 section .text
 
------Methods-----
+;; -----Methods-----
 		global __method__java_io_PrintStream__print$java_lang_String$
 	__method__java_io_PrintStream__print$java_lang_String$:
 		push ebp
 		mov ebp, esp
 
 				;forInit code...
-		sub esp,4
+		;; ---declare i
 		mov eax, 0
+		push eax
 
-		mov [ebp-4], eax
 
 		.for0:
 			;expression code...
 			;; LHS code...
+			;; Local Var i
+			mov eax, ebp
+			sub eax,4
+			mov eax, [eax]
+
 			push eax
 			;; RHS code...
 			pop ebx
@@ -81,6 +98,7 @@ section .text
 			
 
 		_method_return___method__java_io_PrintStream__print$java_lang_String$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -91,6 +109,7 @@ section .text
 
 		
 		_method_return___method__java_io_PrintStream__println:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -101,6 +120,7 @@ section .text
 
 		
 		_method_return___method__java_io_PrintStream__println$java_lang_String$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -111,6 +131,7 @@ section .text
 
 		
 		_method_return___method__java_io_PrintStream__println$java_lang_Object$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -121,6 +142,7 @@ section .text
 
 		
 		_method_return___method__java_io_PrintStream__println$boolean$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -131,6 +153,7 @@ section .text
 
 		
 		_method_return___method__java_io_PrintStream__println$byte$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -141,6 +164,7 @@ section .text
 
 		
 		_method_return___method__java_io_PrintStream__println$char$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -151,6 +175,7 @@ section .text
 
 		
 		_method_return___method__java_io_PrintStream__println$short$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -161,6 +186,7 @@ section .text
 
 		
 		_method_return___method__java_io_PrintStream__println$int$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -171,6 +197,7 @@ section .text
 
 		
 		_method_return___method__java_io_PrintStream__print$java_lang_Object$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -181,6 +208,7 @@ section .text
 
 		
 		_method_return___method__java_io_PrintStream__print$boolean$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -191,6 +219,7 @@ section .text
 
 		
 		_method_return___method__java_io_PrintStream__print$byte$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -201,6 +230,7 @@ section .text
 
 		
 		_method_return___method__java_io_PrintStream__print$char$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -211,6 +241,7 @@ section .text
 
 		
 		_method_return___method__java_io_PrintStream__print$short$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -221,16 +252,18 @@ section .text
 
 		
 		_method_return___method__java_io_PrintStream__print$int$:
+			mov esp, ebp
 			pop ebp
 			ret
 
 ;; -----Constructors-----
-			__constructor__java_io_PrintStream__PrintStream:
+		global __constructor__java_io_PrintStream__PrintStream
+	__constructor__java_io_PrintStream__PrintStream:
 		push ebp
 		mov ebp, esp
 		mov eax, [ebp + 8]
 		push eax
-		mov eax, __constuctor__java_io_OutputStream__OutputStream
+					mov eax, __constructor__java_io_OutputStream__OutputStream
 		call eax
 		sub esp,4
 ;; Field init, push object to stack

@@ -59,4 +59,15 @@ public class SymbolTable {
             }
         }
     }
+
+    public FieldsVarInfo getOffSet(String name) {
+        if (table.containsKey(name)) {
+            return table.get(name);
+        } else {
+            if (parent == null) {
+                return null;
+            }
+            return parent.getOffSet(name);
+        }
+    }
 }

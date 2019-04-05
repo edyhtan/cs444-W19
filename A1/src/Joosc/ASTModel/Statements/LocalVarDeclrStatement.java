@@ -101,14 +101,12 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
     @Override
     public void codeGen(int indent) {
         asmWriter.indent(indent);
-        asmWriter.sub(Register.esp, 4);
+        asmWriter.comment("---declare " + id);
         initExpression.addWriter(asmWriter);
         initExpression.codeGen(indent);
-        asmWriter.println("");
-
         asmWriter.indent(indent);
-        String tmp = Register.ebp + "+" + String.valueOf(info.getOffset());
-        asmWriter.movToAddr(tmp, Register.eax);
+        asmWriter.push(Register.eax);
+        asmWriter.println("");
     }
 
     @Override

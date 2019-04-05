@@ -5,7 +5,13 @@ add esp, 0
 add ebx, 4
 add ebx, 0
 add esp, 4
+extern __method__java_lang_Object__clone
 extern __malloc
+extern __method__java_lang_Object__toString
+extern __constructor__java_lang_Object__Object
+extern __method__java_lang_Object__hashCode
+extern __method__java_lang_Object__getClass
+extern __method__java_lang_Object__equals$java_lang_Object$
 
 	global __class_Hello
 __class_Hello:
@@ -13,13 +19,15 @@ __class_Hello:
 section .data
 
 		global __ref_SIT_Hello
-	__ref_SIT_Hello		dd 0
+	__ref_SIT_Hello:
+		dd 0
 
 		global __ref_PARENTS_Hello
-	__ref_PARENTS_Hello		dd 00001000001000000000b
+	__ref_PARENTS_Hello:
+		dd 00001000001000000000b
 
 	; Methods	
-		dd __method__java_lang_Object__getClass
+																	dd __method__java_lang_Object__getClass
 		dd __method__java_lang_Object__hashCode
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
@@ -33,7 +41,7 @@ section .data
 
 section .text
 
------Methods-----
+;; -----Methods-----
 		global __method__Hello__whatYouSee
 	__method__Hello__whatYouSee:
 		push ebp
@@ -41,6 +49,7 @@ section .text
 
 		
 		_method_return___method__Hello__whatYouSee:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -52,6 +61,7 @@ section .text
 				jmp _method_return___method__Hello__like$Hello$
 
 		_method_return___method__Hello__like$Hello$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -63,16 +73,18 @@ section .text
 				jmp _method_return___method__Hello__k
 
 		_method_return___method__Hello__k:
+			mov esp, ebp
 			pop ebp
 			ret
 
 ;; -----Constructors-----
-			__constructor__Hello__Hello:
+		global __constructor__Hello__Hello
+	__constructor__Hello__Hello:
 		push ebp
 		mov ebp, esp
 		mov eax, [ebp + 8]
 		push eax
-		mov eax, __constuctor__java_lang_Object__Object
+					mov eax, __constructor__java_lang_Object__Object
 		call eax
 		sub esp,4
 ;; Field init, push object to stack
@@ -104,12 +116,13 @@ section .text
 		mov esp, ebp
 		pop ebp
 		ret
-			__constructor__Hello__Hello$int$:
+		global __constructor__Hello__Hello$int$
+	__constructor__Hello__Hello$int$:
 		push ebp
 		mov ebp, esp
 		mov eax, [ebp + 12]
 		push eax
-		mov eax, __constuctor__java_lang_Object__Object
+					mov eax, __constructor__java_lang_Object__Object
 		call eax
 		sub esp,4
 ;; Field init, push object to stack
