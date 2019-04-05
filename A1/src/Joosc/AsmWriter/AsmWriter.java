@@ -332,12 +332,13 @@ public class AsmWriter {
         // call eax
     }
 
-    public void outputInit() {
+    public void outputInit(JoosType currentType) {
         out.println("\t" + "global _start");
         out.println("_start:");
 
         // Create SIT
         for (ClassEnv classEnv: GlobalEnv.instance.classEnvs) {
+
             if (classEnv.getTypeDeclr() instanceof ClassDeclr) {
                 ClassDeclr classDeclr = (ClassDeclr) classEnv.getTypeDeclr();
                 classDeclr.buildCompilerLabel();
@@ -346,7 +347,9 @@ public class AsmWriter {
                 malloc(allMethods.size() * 4);
 
                 out.println();
-                extern(classDeclr.classSIT);
+                if (!classEnv.getJoosType().equals(currentType)) {
+                    extern(classDeclr.classSIT);
+                }
                 mov(Register.ebx, classDeclr.classSIT);
                 movToAddr(Register.ebx, Register.eax);
 

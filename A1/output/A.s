@@ -343,7 +343,6 @@ mov eax, 16
 extern _malloc
 call _malloc
 
-extern __ref_SIT_A
 mov ebx, __ref_SIT_A
 mov [ebx], eax
 
