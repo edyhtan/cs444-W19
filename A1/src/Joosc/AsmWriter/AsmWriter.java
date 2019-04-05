@@ -282,8 +282,8 @@ public class AsmWriter {
 
     public void malloc(int size) {
         mov(Register.eax, size);
-        extern("_malloc");
-        call("_malloc");
+        extern("__malloc");
+        call("__malloc");
     }
 
     private static int pushBit(int ref, int bit) {

@@ -28,8 +28,8 @@ section .text
 _start:
 
 mov eax, 16
-extern _malloc
-call _malloc
+extern __malloc
+call __malloc
 
 extern __ref_SIT_java_io_OutputStream
 mov ebx, __ref_SIT_java_io_OutputStream
@@ -52,8 +52,8 @@ mov [ebx], eax
 	mov [eax + 12], ebx
 
 mov eax, 16
-extern _malloc
-call _malloc
+extern __malloc
+call __malloc
 
 extern __ref_SIT_java_io_PrintStream
 mov ebx, __ref_SIT_java_io_PrintStream
@@ -76,8 +76,8 @@ mov [ebx], eax
 	mov [eax + 12], ebx
 
 mov eax, 16
-extern _malloc
-call _malloc
+extern __malloc
+call __malloc
 
 extern __ref_SIT_java_lang_Boolean
 mov ebx, __ref_SIT_java_lang_Boolean
@@ -100,8 +100,8 @@ mov [ebx], eax
 	mov [eax + 12], ebx
 
 mov eax, 16
-extern _malloc
-call _malloc
+extern __malloc
+call __malloc
 
 extern __ref_SIT_java_lang_Byte
 mov ebx, __ref_SIT_java_lang_Byte
@@ -124,8 +124,8 @@ mov [ebx], eax
 	mov [eax + 12], ebx
 
 mov eax, 16
-extern _malloc
-call _malloc
+extern __malloc
+call __malloc
 
 extern __ref_SIT_java_lang_Character
 mov ebx, __ref_SIT_java_lang_Character
@@ -148,8 +148,8 @@ mov [ebx], eax
 	mov [eax + 12], ebx
 
 mov eax, 16
-extern _malloc
-call _malloc
+extern __malloc
+call __malloc
 
 extern __ref_SIT_java_lang_Class
 mov ebx, __ref_SIT_java_lang_Class
@@ -172,8 +172,8 @@ mov [ebx], eax
 	mov [eax + 12], ebx
 
 mov eax, 16
-extern _malloc
-call _malloc
+extern __malloc
+call __malloc
 
 extern __ref_SIT_java_lang_Integer
 mov ebx, __ref_SIT_java_lang_Integer
@@ -196,8 +196,8 @@ mov [ebx], eax
 	mov [eax + 12], ebx
 
 mov eax, 16
-extern _malloc
-call _malloc
+extern __malloc
+call __malloc
 
 extern __ref_SIT_java_lang_Number
 mov ebx, __ref_SIT_java_lang_Number
@@ -220,8 +220,8 @@ mov [ebx], eax
 	mov [eax + 12], ebx
 
 mov eax, 16
-extern _malloc
-call _malloc
+extern __malloc
+call __malloc
 
 extern __ref_SIT_java_lang_Object
 mov ebx, __ref_SIT_java_lang_Object
@@ -244,8 +244,8 @@ mov [ebx], eax
 	mov [eax + 12], ebx
 
 mov eax, 16
-extern _malloc
-call _malloc
+extern __malloc
+call __malloc
 
 extern __ref_SIT_java_lang_Short
 mov ebx, __ref_SIT_java_lang_Short
@@ -268,8 +268,8 @@ mov [ebx], eax
 	mov [eax + 12], ebx
 
 mov eax, 16
-extern _malloc
-call _malloc
+extern __malloc
+call __malloc
 
 extern __ref_SIT_java_lang_String
 mov ebx, __ref_SIT_java_lang_String
@@ -292,8 +292,8 @@ mov [ebx], eax
 	mov [eax + 12], ebx
 
 mov eax, 16
-extern _malloc
-call _malloc
+extern __malloc
+call __malloc
 
 extern __ref_SIT_java_lang_System
 mov ebx, __ref_SIT_java_lang_System
@@ -316,8 +316,8 @@ mov [ebx], eax
 	mov [eax + 12], ebx
 
 mov eax, 16
-extern _malloc
-call _malloc
+extern __malloc
+call __malloc
 
 extern __ref_SIT_java_util_Arrays
 mov ebx, __ref_SIT_java_util_Arrays
@@ -340,8 +340,8 @@ mov [ebx], eax
 	mov [eax + 12], ebx
 
 mov eax, 16
-extern _malloc
-call _malloc
+extern __malloc
+call __malloc
 
 mov ebx, __ref_SIT_A
 mov [ebx], eax
@@ -363,8 +363,8 @@ mov [ebx], eax
 	mov [eax + 12], ebx
 
 mov eax, 16
-extern _malloc
-call _malloc
+extern __malloc
+call __malloc
 
 extern __ref_SIT_foo_bar
 mov ebx, __ref_SIT_foo_bar
@@ -387,8 +387,8 @@ mov [ebx], eax
 	mov [eax + 12], ebx
 
 mov eax, 16
-extern _malloc
-call _malloc
+extern __malloc
+call __malloc
 
 extern __ref_SIT_Hello
 mov ebx, __ref_SIT_Hello
@@ -411,8 +411,8 @@ mov [ebx], eax
 	mov [eax + 12], ebx
 
 mov eax, 16
-extern _malloc
-call _malloc
+extern __malloc
+call __malloc
 
 extern __ref_SIT_Main
 mov ebx, __ref_SIT_Main
@@ -435,8 +435,8 @@ mov [ebx], eax
 	mov [eax + 12], ebx
 
 mov eax, 16
-extern _malloc
-call _malloc
+extern __malloc
+call __malloc
 
 extern __ref_SIT_Static
 mov ebx, __ref_SIT_Static
