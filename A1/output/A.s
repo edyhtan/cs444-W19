@@ -410,13 +410,7 @@ global @@@@main
 		;; ---end of declare x
 
 		;; ---declare y
-		;; Local Var x
-		mov eax, ebp
-		sub eax,4
-		cmp eax,0
-		je __exception
-		mov eax, [eax]
-
+		mov eax, 0
 
 		push eax
 		;; ---end of declare y
