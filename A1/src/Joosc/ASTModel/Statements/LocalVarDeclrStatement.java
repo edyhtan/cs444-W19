@@ -100,8 +100,11 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
 
     @Override
     public void codeGen(int indent) {
+        asmWriter.indent(indent);
+        asmWriter.sub(Register.esp, 4);
         initExpression.addWriter(asmWriter);
         initExpression.codeGen(indent);
+
 
         asmWriter.indent(indent);
         String tmp = Register.ebp + String.valueOf(info.getOffset());

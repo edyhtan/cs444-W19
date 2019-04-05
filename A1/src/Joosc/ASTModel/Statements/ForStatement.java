@@ -30,7 +30,7 @@ public class ForStatement extends HasScope implements Statement, HasExpression {
         setNumLocalVars();
     }
 
-    public Statement getStatement() {
+    public Block getStatement() {
         return statement;
     }
 
@@ -58,8 +58,8 @@ public class ForStatement extends HasScope implements Statement, HasExpression {
 
     @Override
     public void setNumLocalVars() {
-        if(forInit!= null) numLocalVars += Statement.findLocalVarCount(forInit);
-        if(forUpdate!=null)numLocalVars += Statement.findLocalVarCount(forUpdate);
+        if (forInit != null) numLocalVars += Statement.findLocalVarCount(forInit);
+        if (forUpdate != null) numLocalVars += Statement.findLocalVarCount(forUpdate);
         numLocalVars += statement.getNumLocalVars();
     }
 
@@ -84,7 +84,7 @@ public class ForStatement extends HasScope implements Statement, HasExpression {
         if (forInit instanceof HasExpression) ((HasExpression) forInit).checkType();
         if (forUpdate instanceof HasExpression) ((HasExpression) forUpdate).checkType();
         if (statement instanceof HasExpression) ((HasExpression) statement).checkType();
-        if (expression.getType() == JoosType.NULL) {
+        if (expression != null && expression.getType() == JoosType.NULL) {
             throw new TypeCheckException("Cannot use NULL statements in for loop");
         }
     }
@@ -140,11 +140,49 @@ public class ForStatement extends HasScope implements Statement, HasExpression {
         this.offset = Program.globalCount;
         Program.globalCount++;
 
-        if(numLocalVars > 0) {
+        if (forInit != null) forInit.addWriter(asmWriter);
+        if (forUpdate != null) forUpdate.addWriter(asmWriter);
+        if (expression != null) expression.addWriter(asmWriter);
+        statement.addWriter(asmWriter);
+
+        if (forInit != null) {
             asmWriter.indent(indent);
+            asmWriter.println(";forInit code...");
+            forInit.codeGen(indent);
+        }
+
+        asmWriter.indent(indent);
+        asmWriter.label(".for" + offset);
+
+        if (expression != null) {
+            asmWriter.iffalse(expression, ".endfor" + offset, indent + 1);
+        }
+
+        asmWriter.indent(indent + 1);
+        asmWriter.println(";statement code...");
+        statement.codeGen(indent + 1);
+        asmWriter.println("");
+
+        if (forUpdate != null) {
+            asmWriter.indent(indent + 1);
+            asmWriter.println(";forUpdate code...");
+            forUpdate.codeGen(indent + 1);
+        }
+
+        asmWriter.indent(indent + 1);
+        asmWriter.jmp(".for" + offset);
+
+        asmWriter.println("");
+
+        asmWriter.indent(indent);
+        asmWriter.label(".endfor" + offset);
+
+        if (numLocalVars > 0) {
+            asmWriter.indent(indent + 1);
             // pop all local vars
             asmWriter.add(Register.esp, (numLocalVars * 4));
         }
+        asmWriter.println("");
     }
 
     @Override
