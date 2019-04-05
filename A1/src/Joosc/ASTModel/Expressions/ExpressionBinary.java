@@ -350,13 +350,17 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 asmWriter.indent(indent);
                 asmWriter.cmp(Register.eax, Register.ebx);
                 asmWriter.indent(indent);
-                asmWriter.je(".eq"+offset);
+                asmWriter.je(".eq" + offset);
                 asmWriter.indent(indent);
                 asmWriter.mov(Register.eax, "0");
                 asmWriter.indent(indent);
-                asmWriter.label(".eq"+offset);
-                asmWriter.indent(indent+1);
+                asmWriter.jmp(".end_eq" + offset);
+                asmWriter.indent(indent);
+                asmWriter.label(".eq" + offset);
+                asmWriter.indent(indent + 1);
                 asmWriter.mov(Register.eax, "1");
+                asmWriter.indent(indent);
+                asmWriter.label(".end_eq" + offset);
                 break;
             case NE:
                 offset = MethodDeclr.PER_METHOD_COUNT;
@@ -366,17 +370,17 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 asmWriter.indent(indent);
                 asmWriter.cmp(Register.eax, Register.ebx);
                 asmWriter.indent(indent);
-                asmWriter.jne(".ne"+offset);
+                asmWriter.jne(".ne" + offset);
                 asmWriter.indent(indent);
                 asmWriter.mov(Register.eax, "0");
                 asmWriter.indent(indent);
-                asmWriter.jmp(".end_ne"+offset);
+                asmWriter.jmp(".end_ne" + offset);
                 asmWriter.indent(indent);
-                asmWriter.label(".ne"+offset);
-                asmWriter.indent(indent+1);
+                asmWriter.label(".ne" + offset);
+                asmWriter.indent(indent + 1);
                 asmWriter.mov(Register.eax, "1");
                 asmWriter.indent(indent);
-                asmWriter.label(".end_ne"+offset);
+                asmWriter.label(".end_ne" + offset);
                 break;
             case GE:
             case GT:

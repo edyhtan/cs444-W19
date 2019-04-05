@@ -31,8 +31,10 @@ section .text
 		cmp eax,ebx
 		je .eq0
 		mov eax, 0
+		jmp .end_eq0
 		.eq0:
 			mov eax, 1
+		.end_eq0:
 
 		jmp _method_return___method__java_lang_Object__equals$java_lang_Object$
 

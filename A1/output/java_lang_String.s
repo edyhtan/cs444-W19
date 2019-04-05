@@ -157,8 +157,10 @@ section .text
 		cmp eax,ebx
 		je .eq0
 		mov eax, 0
+		jmp .end_eq0
 		.eq0:
 			mov eax, 1
+		.end_eq0:
 
 		cmp eax,0
 		je .else2
@@ -192,8 +194,10 @@ section .text
 		cmp eax,ebx
 		je .eq1
 		mov eax, 0
+		jmp .end_eq1
 		.eq1:
 			mov eax, 1
+		.end_eq1:
 
 		cmp eax,0
 		je .else4
@@ -347,8 +351,10 @@ mov eax, edx
 		cmp eax,ebx
 		je .eq0
 		mov eax, 0
+		jmp .end_eq0
 		.eq0:
 			mov eax, 1
+		.end_eq0:
 
 		cmp eax,0
 		je .else9
@@ -381,8 +387,10 @@ mov eax, edx
 		cmp eax,ebx
 		je .eq0
 		mov eax, 0
+		jmp .end_eq0
 		.eq0:
 			mov eax, 1
+		.end_eq0:
 
 		cmp eax,0
 		je .else10
@@ -415,8 +423,10 @@ mov eax, edx
 		cmp eax,ebx
 		je .eq0
 		mov eax, 0
+		jmp .end_eq0
 		.eq0:
 			mov eax, 1
+		.end_eq0:
 
 		cmp eax,0
 		je .else11
