@@ -10,17 +10,17 @@ section .data
 	__ref_PARENTS_java_lang_Integer		dd 00000000011100000000b
 
 	; Methods	
-			extern __method__java_lang_Number__getClass
-			extern __method__java_lang_Number__hashCode
-			extern __method__java_lang_Number__equals$java_lang_Object$
-			extern __method__java_lang_Number__clone
-			extern __method__java_lang_Number__toString
+			extern __method__java_lang_Object__getClass
+			extern __method__java_lang_Object__hashCode
+			extern __method__java_lang_Object__equals$java_lang_Object$
+			extern __method__java_lang_Object__clone
+			extern __method__java_lang_Object__toString
 			extern __method__java_lang_Number__intValue
-		dd __method__java_lang_Number__getClass
-		dd __method__java_lang_Number__hashCode
-		dd __method__java_lang_Number__equals$java_lang_Object$
-		dd __method__java_lang_Number__clone
-		dd __method__java_lang_Number__toString
+		dd __method__java_lang_Object__getClass
+		dd __method__java_lang_Object__hashCode
+		dd __method__java_lang_Object__equals$java_lang_Object$
+		dd __method__java_lang_Object__clone
+		dd __method__java_lang_Object__toString
 		dd __method__java_lang_Number__intValue
 		dd __STATIC_method__java_lang_Integer__parseInt$java_lang_String$
 		global __field_java_lang_Integer_MAX_VALUE

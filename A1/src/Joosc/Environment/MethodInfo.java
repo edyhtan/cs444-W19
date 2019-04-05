@@ -57,7 +57,7 @@ public class MethodInfo {
         modifiers = info.modifiers;
         ast = info.ast;
 
-        methodLabel = info.methodLabel;
+        methodLabel = info.callReference;
     }
 
     public String getSignatureStr() {

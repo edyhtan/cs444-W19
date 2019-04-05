@@ -10,17 +10,17 @@ section .data
 	__ref_PARENTS_Static		dd 11000000010000000000b
 
 	; Methods	
-			extern __method__Main__getClass
-			extern __method__Main__hashCode
-			extern __method__Main__equals$java_lang_Object$
-			extern __method__Main__clone
-			extern __method__Main__toString
+			extern __method__java_lang_Object__getClass
+			extern __method__java_lang_Object__hashCode
+			extern __method__java_lang_Object__equals$java_lang_Object$
+			extern __method__java_lang_Object__clone
+			extern __method__java_lang_Object__toString
 			extern __method__Main__test
-		dd __method__Main__getClass
-		dd __method__Main__hashCode
-		dd __method__Main__equals$java_lang_Object$
-		dd __method__Main__clone
-		dd __method__Main__toString
+		dd __method__java_lang_Object__getClass
+		dd __method__java_lang_Object__hashCode
+		dd __method__java_lang_Object__equals$java_lang_Object$
+		dd __method__java_lang_Object__clone
+		dd __method__java_lang_Object__toString
 		dd __method__Main__test
 		dd __method__Static__foo2
 
