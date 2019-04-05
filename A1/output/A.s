@@ -385,14 +385,18 @@ global @@@@main
 
 				;expression code...
 		;; LHS code...
-		;; LHS code...
-		mov eax, 4
-		push eax
 		;; RHS code...
 		mov eax, 2
+		cmp eax,0
+		extern __exception
+
+		je __exception
+		push eax
+		;; LHS code...
+		mov eax, 4
 		pop ebx
-		imul ebx,eax
-		mov eax, ebx
+		mov edx, 0
+		idiv ebx
 
 		push eax
 		;; RHS code...
