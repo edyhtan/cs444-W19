@@ -393,13 +393,35 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 asmWriter.indent(indent);
                 asmWriter.cmp(Register.ebx, "1");
                 asmWriter.indent(indent);
-                asmWriter.je(".end_eager_or"+offset);
+                asmWriter.je(".is_true"+offset);
                 asmWriter.indent(indent);
-                asmWriter.cmp(Register.eax, "1");
+                asmWriter.jmp(".end_eager_or"+offset);
                 asmWriter.indent(indent);
+                asmWriter.label(".is_true"+offset);
+                asmWriter.indent(indent+1);
+                asmWriter.mov(Register.eax, "1");
+                asmWriter.indent(indent);
+                asmWriter.label(".end_eager_or"+offset);
                 break;
             case Amp:
+                offset = MethodDeclr.PER_METHOD_COUNT;
+                MethodDeclr.PER_METHOD_COUNT++;
 
+                asmWriter.indent(indent);
+                asmWriter.comment("eager_and");
+                asmWriter.evalLHSthenRHS(LHS, RHS, indent);
+                asmWriter.indent(indent);
+                asmWriter.cmp(Register.ebx, "0");
+                asmWriter.indent(indent);
+                asmWriter.je(".is_false"+offset);
+                asmWriter.indent(indent);
+                asmWriter.jmp(".end_eager_and"+offset);
+                asmWriter.indent(indent);
+                asmWriter.label(".is_false"+offset);
+                asmWriter.indent(indent+1);
+                asmWriter.mov(Register.eax, "0");
+                asmWriter.indent(indent);
+                asmWriter.label(".end_eager_and"+offset);
                 break;
         }
         asmWriter.println("");

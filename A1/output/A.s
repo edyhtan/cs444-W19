@@ -1,25 +1,24 @@
 extern __ref_SIT_java_lang_Number
-extern __exception
 extern __malloc
-extern __constructor__java_lang_Object__Object
-extern __method__java_lang_Object__getClass
-extern __ref_SIT_foo_bar
-extern __ref_SIT_java_lang_Short
-extern __ref_SIT_Main
-extern __ref_SIT_java_lang_Character
-extern __ref_SIT_java_lang_String
-extern __ref_SIT_Hello
 extern __ref_SIT_java_lang_Integer
 extern __method__java_lang_Object__toString
+extern __constructor__java_lang_Object__Object
+extern __method__java_lang_Object__getClass
 extern __ref_SIT_java_lang_Class
 extern __ref_SIT_java_lang_Boolean
+extern __ref_SIT_foo_bar
 extern __ref_SIT_java_util_Arrays
 extern __method__java_lang_Object__equals$java_lang_Object$
+extern __ref_SIT_java_lang_Short
 extern __ref_SIT_java_io_PrintStream
+extern __ref_SIT_Main
+extern __ref_SIT_java_lang_Character
 extern __method__java_lang_Object__clone
 extern __ref_SIT_java_lang_Object
 extern __method__java_lang_Object__hashCode
+extern __ref_SIT_java_lang_String
 extern __ref_SIT_java_lang_Byte
+extern __ref_SIT_Hello
 extern __ref_SIT_Static
 extern __ref_SIT_java_lang_System
 extern __ref_SIT_java_io_OutputStream
@@ -389,52 +388,19 @@ global @@@@main
 		mov ebp, esp
 
 				;expression code...
-		;; logical_and
-		;; compare_eq
+		;; eager_and
 		;; LHS code...
-		mov eax, 5
-		push eax
-		;; RHS code...
-		mov eax, 4
-		pop ebx
-		cmp ebx, eax
-		je .eq1
-		mov eax, 0
-		jmp .end_eq1
-		.eq1:
-			mov eax, 1
-		.end_eq1:
-
-		cmp eax, 0
-		je .end_and0
-		;; compare_eq
-		;; LHS code...
-		;; Div
-		;; RHS code...
-		mov eax, 0
-		cmp eax, 0
-		
-		je __exception
-		push eax
-		;; LHS code...
-		mov eax, 3
-		pop ebx
-		mov edx, 0
-		idiv ebx
-
+		mov eax, 1
 		push eax
 		;; RHS code...
 		mov eax, 0
 		pop ebx
-		cmp ebx, eax
-		je .eq2
-		mov eax, 0
-		jmp .end_eq2
-		.eq2:
-			mov eax, 1
-		.end_eq2:
-
-		.end_and0:
+		cmp ebx, 0
+		je .is_false0
+		jmp .end_eager_and0
+		.is_false0:
+			mov eax, 0
+		.end_eager_and0:
 
 		cmp eax, 0
 		je .else0
