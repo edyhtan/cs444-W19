@@ -149,6 +149,7 @@ public class ForStatement extends HasScope implements Statement, HasExpression {
             asmWriter.indent(indent);
             asmWriter.println(";forInit code...");
             forInit.codeGen(indent);
+            asmWriter.println("");
         }
 
         asmWriter.indent(indent);
@@ -167,6 +168,7 @@ public class ForStatement extends HasScope implements Statement, HasExpression {
             asmWriter.indent(indent + 1);
             asmWriter.println(";forUpdate code...");
             forUpdate.codeGen(indent + 1);
+            asmWriter.println("");
         }
 
         asmWriter.indent(indent + 1);

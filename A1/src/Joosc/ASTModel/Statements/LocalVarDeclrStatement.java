@@ -104,7 +104,7 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
         asmWriter.sub(Register.esp, 4);
         initExpression.addWriter(asmWriter);
         initExpression.codeGen(indent);
-
+        asmWriter.println("");
 
         asmWriter.indent(indent);
         String tmp = Register.ebp + String.valueOf(info.getOffset());

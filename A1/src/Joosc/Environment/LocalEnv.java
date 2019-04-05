@@ -12,13 +12,14 @@ import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
 import Joosc.util.Pair;
+import Joosc.util.SymbolTable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class LocalEnv implements Env {
     AST ast;
-    HashMap<String, FieldsVarInfo> symbolTable = new HashMap<>();
+    SymbolTable symbolTable;
     ArrayList<LocalEnv> subEnvs = new ArrayList<>();
     Env parent;
     TypeDeclr currentClass;
@@ -32,6 +33,8 @@ public class LocalEnv implements Env {
         currentClass = parent.getCurrentClass();
         currentMethod = (ast instanceof ClassBodyDeclr) ? (ClassBodyDeclr) ast : parent.getCurrentMethod();
         ArrayList<Statement> statements;
+        if(parent instanceof LocalEnv) symbolTable = new SymbolTable(((LocalEnv) parent).getSymbolTable());
+        else symbolTable = new SymbolTable(null);
 
         if (ast instanceof Scope) {
             ((Scope) ast).addEnv(this);
@@ -47,14 +50,18 @@ public class LocalEnv implements Env {
             statements = null;
             System.exit(5); // bad but fine...
         }
-
-        for (Statement statement : statements) {
-            if (hasSubEnvironment(statement)) {
-                subEnvs.add(new LocalEnv(statement, this));
-                if (statement instanceof IfStatement) {
-                    ElseBlock elseBlock = ((IfStatement) statement).getElseClause();
-                    if (elseBlock != null) {
-                        subEnvs.add(new LocalEnv(elseBlock, this));
+        if (ast instanceof ForStatement) {
+            Block statement = ((ForStatement) ast).getStatement();
+            statement.addEnv(new LocalEnv(statement, this));
+        } else {
+            for (Statement statement : statements) {
+                if (hasSubEnvironment(statement)) {
+                    subEnvs.add(new LocalEnv(statement, this));
+                    if (statement instanceof IfStatement) {
+                        ElseBlock elseBlock = ((IfStatement) statement).getElseClause();
+                        if (elseBlock != null) {
+                            subEnvs.add(new LocalEnv(elseBlock, this));
+                        }
                     }
                 }
             }
@@ -72,10 +79,10 @@ public class LocalEnv implements Env {
             ArrayList<Pair<Type, String>> param = ((ClassBodyDeclr) ast).getFormalParamList();
             if (param != null) {
                 for (Pair<Type, String> pair : param) {
-                    if (symbolTable.containsKey(pair.getValue())) {
+                    if (symbolTable.getTable().containsKey(pair.getValue())) {
                         throw new NamingResolveException("Duplicated Local Parameter Name: " + pair.getValue());
                     } else {
-                        symbolTable.put(pair.getValue(), typeResolve(pair.getValue(), pair.getKey(), new ArrayList<>()));
+                        symbolTable.getTable().put(pair.getValue(), typeResolve(pair.getValue(), pair.getKey(), new ArrayList<>()));
                     }
                 }
             }
@@ -92,11 +99,11 @@ public class LocalEnv implements Env {
                         throw new NamingResolveException("Duplicated Local Variable name: " + forinitLocal.getId());
                     } else {
                         FieldsVarInfo info = typeResolve(forinitLocal.getId(), forinitLocal.getType(), new ArrayList<>());
-                        symbolTable.put(forinitLocal.getId(), info);
+                        symbolTable.getTable().put(forinitLocal.getId(), info);
                         forinitLocal.addInfo(info);
                     }
                 }
-                if(((ForStatement) ast).getExpression() != null) ((ForStatement) ast).getExpression().addEnv(this);
+                if (((ForStatement) ast).getExpression() != null) ((ForStatement) ast).getExpression().addEnv(this);
                 if (((ForStatement) ast).getForUpdate() != null)
                     ((HasExpression) ((ForStatement) ast).getForUpdate()).checkExpression(this);
             }
@@ -109,31 +116,34 @@ public class LocalEnv implements Env {
         if (ast instanceof MethodDeclr) {
             ((MethodDeclr) ast).validateStaticAccess();
         }
-
-        for (Statement statement : statements) {
-            if (statement instanceof HasScope) {
-                ((LocalEnv) ((HasScope) statement).getEnv()).resolveLocalVariableAndAccess();
-                if (statement instanceof IfStatement) {
-                    if (((IfStatement) statement).getElseClause() != null) {
-                        ((LocalEnv) ((IfStatement) statement).getElseClause().getEnv()).resolveLocalVariableAndAccess();
+        if (ast instanceof ForStatement) {
+            ((LocalEnv)(((ForStatement) ast).getStatement()).getEnv()).resolveLocalVariableAndAccess();
+        } else {
+            for (Statement statement : statements) {
+                if (statement instanceof HasScope) {
+                    ((LocalEnv) ((HasScope) statement).getEnv()).resolveLocalVariableAndAccess();
+                    if (statement instanceof IfStatement) {
+                        if (((IfStatement) statement).getElseClause() != null) {
+                            ((LocalEnv) ((IfStatement) statement).getElseClause().getEnv()).resolveLocalVariableAndAccess();
+                        }
                     }
                 }
-            }
 
-            if (statement instanceof HasExpression) {
-                ((HasExpression) statement).checkExpression(this);
-            }
-            if (statement instanceof LocalVarDeclrStatement) {
-                LocalVarDeclrStatement localVar = (LocalVarDeclrStatement) statement;
-                if (isLocalVariableDeclared(localVar.getId())) {
-                    throw new NamingResolveException("Duplicated Local Variable: " + localVar.getId());
+                if (statement instanceof HasExpression) {
+                    ((HasExpression) statement).checkExpression(this);
                 }
-                FieldsVarInfo info = typeResolve(localVar.getId(), localVar.getType(), new ArrayList<>());
-                symbolTable.put(localVar.getId(), info);
-                localVar.addInfo(info);
-            }
-            if (statement instanceof HasExpression) {
-                ((HasExpression) statement).checkType();
+                if (statement instanceof LocalVarDeclrStatement) {
+                    LocalVarDeclrStatement localVar = (LocalVarDeclrStatement) statement;
+                    if (isLocalVariableDeclared(localVar.getId())) {
+                        throw new NamingResolveException("Duplicated Local Variable: " + localVar.getId());
+                    }
+                    FieldsVarInfo info = typeResolve(localVar.getId(), localVar.getType(), new ArrayList<>());
+                    symbolTable.getTable().put(localVar.getId(), info);
+                    localVar.addInfo(info);
+                }
+                if (statement instanceof HasExpression) {
+                    ((HasExpression) statement).checkType();
+                }
             }
         }
 
@@ -143,7 +153,11 @@ public class LocalEnv implements Env {
 
     }
 
-    public HashMap<String, FieldsVarInfo> getSymbolTable() {
+    public HashMap<String, FieldsVarInfo> getSymbolTableMap() {
+        return symbolTable.getTable();
+    }
+
+    public SymbolTable getSymbolTable() {
         return symbolTable;
     }
 
@@ -164,7 +178,7 @@ public class LocalEnv implements Env {
 
     @Override
     public boolean isLocalVariableDeclared(String simpleName) {
-        return symbolTable.containsKey(simpleName) || parent.isLocalVariableDeclared(simpleName);
+        return symbolTable.getTable().containsKey(simpleName) || parent.isLocalVariableDeclared(simpleName);
     }
 
     @Override
@@ -221,7 +235,7 @@ public class LocalEnv implements Env {
 
     @Override
     public FieldsVarInfo getVarInfo(String name) {
-        FieldsVarInfo info = symbolTable.getOrDefault(name, null);
+        FieldsVarInfo info = symbolTable.getTable().getOrDefault(name, null);
         if (info == null) {
             info = parent.getVarInfo(name);
         }
@@ -265,10 +279,29 @@ public class LocalEnv implements Env {
     }
 
     public void assignOffset(String name, int offset) {
-        if (symbolTable.containsKey(name)) {
-            symbolTable.get(name).setOffset(offset);
+        if (symbolTable.getTable().containsKey(name)) {
+            symbolTable.getTable().get(name).setOffset(offset);
         } else {
             parent.assignOffset(name, offset);
         }
+    }
+
+    public void printOffset() {
+        if(symbolTable.getParent() != null) {
+            symbolTable.getParent().getTable().forEach((x, y) -> System.out.println(x + " " + y.getOffset()));
+        }
+        symbolTable.getTable().forEach((x, y) -> System.out.println(x + " " + y.getOffset()));
+    }
+
+    public int getLastOffset() {
+        return symbolTable.getLastOffset();
+    }
+
+    public void incLastOffset() {
+        symbolTable.incLastOffset();
+    }
+
+    public Env getParent() {
+        return parent;
     }
 }

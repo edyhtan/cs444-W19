@@ -711,6 +711,8 @@ public class ClassEnv implements Env {
     public void assignOffset(String name, int offset) {
         if (fields.containsKey(name)) {
             fields.get(name).setOffset(offset);
+        } else {
+            System.out.println("ASSIGN FAIL");
         }
     }
 
