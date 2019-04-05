@@ -16,7 +16,7 @@ section .data
 
 		global __ref_PARENTS_java_lang_Number
 	__ref_PARENTS_java_lang_Number:
-		dd 0000011000000000b
+		dd 00000000011000000000b
 
 	; Methods	
 																	dd __method__java_lang_Object__getClass
@@ -34,7 +34,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		
+
 		_method_return___method__java_lang_Number__intValue:
 			mov esp, ebp
 			pop ebp

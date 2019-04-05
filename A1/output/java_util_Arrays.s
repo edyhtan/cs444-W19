@@ -16,7 +16,7 @@ section .data
 
 		global __ref_PARENTS_java_util_Arrays
 	__ref_PARENTS_java_util_Arrays:
-		dd 0100010000000000b
+		dd 00000100010000000000b
 
 	; Methods	
 																	dd __method__java_lang_Object__getClass
@@ -35,7 +35,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;expression code...
+		;expression code...
 		cmp eax,0
 		je .else0
 		;thenClause ...
@@ -49,7 +49,9 @@ section .text
 		;forInit code...
 		;; ---declare i
 		mov eax, 0
+
 		push eax
+		;; ---end of declare i
 
 
 		.for1:
@@ -90,7 +92,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;expression code...
+		;expression code...
 		cmp eax,0
 		je .else3
 		;thenClause ...
@@ -104,7 +106,9 @@ section .text
 		;forInit code...
 		;; ---declare i
 		mov eax, 0
+
 		push eax
+		;; ---end of declare i
 
 
 		.for4:

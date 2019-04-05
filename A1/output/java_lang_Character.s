@@ -16,7 +16,7 @@ section .data
 
 		global __ref_PARENTS_java_lang_Character
 	__ref_PARENTS_java_lang_Character:
-		dd 0000010000100000b
+		dd 00000000010000100000b
 
 	; Methods	
 																	dd __method__java_lang_Object__getClass
@@ -33,7 +33,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				jmp _method_return___method__java_lang_Character__toString
+		jmp _method_return___method__java_lang_Character__toString
 
 		_method_return___method__java_lang_Character__toString:
 			mov esp, ebp

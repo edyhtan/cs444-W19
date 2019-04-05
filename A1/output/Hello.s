@@ -12,10 +12,12 @@ __class_Hello:
 section .data
 
 		global __ref_SIT_Hello
-	__ref_SIT_Hello:		dd 0
+	__ref_SIT_Hello:
+		dd 0
 
 		global __ref_PARENTS_Hello
-	__ref_PARENTS_Hello:		dd 00100000010000000000b
+	__ref_PARENTS_Hello:
+		dd 00100000010000000000b
 
 	; Methods	
 																	dd __method__java_lang_Object__getClass
@@ -38,8 +40,9 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		
+
 		_method_return___method__Hello__whatYouSee:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -48,9 +51,10 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				jmp _method_return___method__Hello__like$Hello$
+		jmp _method_return___method__Hello__like$Hello$
 
 		_method_return___method__Hello__like$Hello$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -59,9 +63,10 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				jmp _method_return___method__Hello__k
+		jmp _method_return___method__Hello__k
 
 		_method_return___method__Hello__k:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -91,8 +96,8 @@ section .text
 ;; Field init end, pop object
 		add esp,4
 ;; Constructor Body
-			;; Allocating size of 1
-			mov eax, 1
+			;; Allocating size of 8
+			mov eax, 8
 						call __malloc
 							mov ebx, __class_Hello
 			mov [eax], ebx
@@ -104,6 +109,7 @@ section .text
 							call __constructor__Hello__Hello
 			add esp,0
 			pop eax
+
 ;; Epilogue
 		mov esp, ebp
 		pop ebp

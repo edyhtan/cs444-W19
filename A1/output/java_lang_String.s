@@ -17,7 +17,7 @@ section .data
 
 		global __ref_PARENTS_java_lang_String
 	__ref_PARENTS_java_lang_String:
-		dd 0001010000000000b
+		dd 00000001010000000000b
 
 	; Methods	
 																	dd __method__java_lang_Object__getClass
@@ -50,15 +50,13 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;; Implicit This
+		;; Implicit This
 		mov eax, [ebp + 0]
 		;; Field chars
-		mov eax, ebp
 		add eax,4
 		mov eax, [eax]
 
 		;; Field length
-		mov eax, ebp
 		add eax,4
 		mov eax, [eax]
 
@@ -74,7 +72,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				jmp _method_return___method__java_lang_String__charAt$int$
+		jmp _method_return___method__java_lang_String__charAt$int$
 
 		_method_return___method__java_lang_String__charAt$int$:
 			mov esp, ebp
@@ -86,12 +84,16 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;; ---declare i
+		;; ---declare i
 		mov eax, 0
+
 		push eax
+		;; ---end of declare i
 
 		;; ---declare newchars
+
 		push eax
+		;; ---end of declare newchars
 
 		;forInit code...
 
@@ -123,8 +125,8 @@ section .text
 
 		.endfor1:
 
-		;; Allocating size of 1
-		mov eax, 1
+		;; Allocating size of 8
+		mov eax, 8
 				call __malloc
 					mov ebx, __class_java_lang_String
 		mov [eax], ebx
@@ -133,11 +135,17 @@ section .text
 		push eax
 
 		;; Pushing args:
+			;; Local Var newchars
+			mov eax, ebp
+			sub eax,8
+			mov eax, [eax]
+
 
 			
 					call __constructor__java_lang_String__String$char@$
 		add esp,4
 		pop eax
+
 		jmp _method_return___method__java_lang_String__concat$java_lang_String$
 
 		_method_return___method__java_lang_String__concat$java_lang_String$:
@@ -150,14 +158,13 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;; ---declare newchars
-		push eax
+		;; ---declare newchars
 
-<<<<<<< HEAD
-=======
-		mov [ebp+-4], eax
-		;; Allocating size of 1
-		mov eax, 1
+		push eax
+		;; ---end of declare newchars
+
+		;; Allocating size of 8
+		mov eax, 8
 				call __malloc
 					mov ebx, __class_java_lang_String
 		mov [eax], ebx
@@ -166,12 +173,17 @@ section .text
 		push eax
 
 		;; Pushing args:
+			;; Local Var newchars
+			mov eax, ebp
+			sub eax,4
+			mov eax, [eax]
+
 
 			
 					call __constructor__java_lang_String__String$char@$
 		add esp,4
 		pop eax
->>>>>>> origin/A5-new
+
 		jmp _method_return___STATIC_method__java_lang_String__valueOf$char$
 
 		_method_return___STATIC_method__java_lang_String__valueOf$char$:
@@ -184,16 +196,22 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;; ---declare ret
+		;; ---declare ret
+
 		push eax
+		;; ---end of declare ret
 
 		;; ---declare j
 		mov eax, 0
+
 		push eax
+		;; ---end of declare j
 
 		;; ---declare wasneg
 		mov eax, 0
+
 		push eax
+		;; ---end of declare wasneg
 
 		;expression code...
 		cmp eax,0
@@ -233,7 +251,9 @@ section .text
 				je .endwhile5
 				;statement code...
 				;; ---declare d
+
 				push eax
+				;; ---end of declare d
 
 
 
@@ -267,7 +287,9 @@ section .text
 		.else6:
 		.endif6:
 		;; ---declare ret2
+
 		push eax
+		;; ---end of declare ret2
 
 		;forInit code...
 
@@ -284,8 +306,8 @@ section .text
 
 		.endfor7:
 
-		;; Allocating size of 1
-		mov eax, 1
+		;; Allocating size of 8
+		mov eax, 8
 				call __malloc
 					mov ebx, __class_java_lang_String
 		mov [eax], ebx
@@ -294,11 +316,17 @@ section .text
 		push eax
 
 		;; Pushing args:
+			;; Local Var ret2
+			mov eax, ebp
+			sub eax,16
+			mov eax, [eax]
+
 
 			
 					call __constructor__java_lang_String__String$char@$
 		add esp,4
 		pop eax
+
 		jmp _method_return___STATIC_method__java_lang_String__valueOf$int$
 
 		_method_return___STATIC_method__java_lang_String__valueOf$int$:
@@ -311,7 +339,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				jmp _method_return___STATIC_method__java_lang_String__valueOf$short$
+		jmp _method_return___STATIC_method__java_lang_String__valueOf$short$
 
 		_method_return___STATIC_method__java_lang_String__valueOf$short$:
 			mov esp, ebp
@@ -323,7 +351,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				jmp _method_return___STATIC_method__java_lang_String__valueOf$byte$
+		jmp _method_return___STATIC_method__java_lang_String__valueOf$byte$
 
 		_method_return___STATIC_method__java_lang_String__valueOf$byte$:
 			mov esp, ebp
@@ -335,7 +363,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;expression code...
+		;expression code...
 		;; Local Var b
 		mov eax, ebp
 		add eax,8
@@ -364,7 +392,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;expression code...
+		;expression code...
 		cmp eax,0
 		je .else9
 		;thenClause ...
@@ -388,7 +416,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;expression code...
+		;expression code...
 		cmp eax,0
 		je .else10
 		;thenClause ...
@@ -417,7 +445,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;expression code...
+		;expression code...
 		cmp eax,0
 		je .else11
 		;thenClause ...
@@ -451,9 +479,11 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;; ---declare k
+		;; ---declare k
 		mov eax, 0
+
 		push eax
+		;; ---end of declare k
 
 		;expression code...
 		cmp eax,0
@@ -486,7 +516,9 @@ section .text
 		.else15:
 		.endif15:
 		;; ---declare ret
+
 		push eax
+		;; ---end of declare ret
 
 		;forInit code...
 
@@ -503,8 +535,8 @@ section .text
 
 		.endfor16:
 
-		;; Allocating size of 1
-		mov eax, 1
+		;; Allocating size of 8
+		mov eax, 8
 				call __malloc
 					mov ebx, __class_java_lang_String
 		mov [eax], ebx
@@ -513,11 +545,17 @@ section .text
 		push eax
 
 		;; Pushing args:
+			;; Local Var ret
+			mov eax, ebp
+			sub eax,8
+			mov eax, [eax]
+
 
 			
 					call __constructor__java_lang_String__String$char@$
 		add esp,4
 		pop eax
+
 		jmp _method_return___method__java_lang_String__substring$int$int$
 
 		_method_return___method__java_lang_String__substring$int$int$:
@@ -530,13 +568,17 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;; ---declare i
+		;; ---declare i
 		mov eax, 0
+
 		push eax
+		;; ---end of declare i
 
 		;; ---declare j
 		mov eax, 0
+
 		push eax
+		;; ---end of declare j
 
 		;forInit code...
 
@@ -592,14 +634,18 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;; ---declare h
+		;; ---declare h
 		mov eax, 0
+
 		push eax
+		;; ---end of declare h
 
 		;forInit code...
 		;; ---declare i
 		mov eax, 0
+
 		push eax
+		;; ---end of declare i
 
 
 		.for20:
@@ -634,7 +680,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				jmp _method_return___method__java_lang_String__toString
+		jmp _method_return___method__java_lang_String__toString
 
 		_method_return___method__java_lang_String__toString:
 			mov esp, ebp
@@ -646,7 +692,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				jmp _method_return___method__java_lang_String__compareTo$java_lang_Object$
+		jmp _method_return___method__java_lang_String__compareTo$java_lang_Object$
 
 		_method_return___method__java_lang_String__compareTo$java_lang_Object$:
 			mov esp, ebp
@@ -658,13 +704,17 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;; ---declare i
+		;; ---declare i
 		mov eax, 0
+
 		push eax
+		;; ---end of declare i
 
 		;; ---declare b
 		mov eax, 1
+
 		push eax
+		;; ---end of declare b
 
 		.while21:
 			;expression code...
@@ -752,13 +802,17 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;; ---declare ret
+		;; ---declare ret
+
 		push eax
+		;; ---end of declare ret
 
 		;forInit code...
 		;; ---declare i
 		mov eax, 0
+
 		push eax
+		;; ---end of declare i
 
 
 		.for27:
@@ -793,13 +847,17 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;; ---declare offset
+		;; ---declare offset
 		mov eax, 0
+
 		push eax
+		;; ---end of declare offset
 
 		;; ---declare i
 		mov eax, 0
+
 		push eax
+		;; ---end of declare i
 
 		;forInit code...
 
@@ -810,7 +868,9 @@ section .text
 			;statement code...
 			;; ---declare found
 			mov eax, 1
+
 			push eax
+			;; ---end of declare found
 
 
 			;forInit code...
@@ -936,7 +996,9 @@ mov eax, 0
 			;forInit code...
 			;; ---declare i
 			mov eax, 0
+
 			push eax
+			;; ---end of declare i
 
 
 			.for33:

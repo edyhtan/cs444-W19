@@ -16,7 +16,7 @@ section .data
 
 		global __ref_PARENTS_java_lang_Boolean
 	__ref_PARENTS_java_lang_Boolean:
-		dd 0000010000001000b
+		dd 00000000010000001000b
 
 	; Methods	
 																	dd __method__java_lang_Object__getClass
@@ -36,7 +36,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				jmp _method_return___method__java_lang_Boolean__toString
+		jmp _method_return___method__java_lang_Boolean__toString
 
 		_method_return___method__java_lang_Boolean__toString:
 			mov esp, ebp

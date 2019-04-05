@@ -20,7 +20,7 @@ section .data
 
 		global __ref_PARENTS_java_io_PrintStream
 	__ref_PARENTS_java_io_PrintStream:
-		dd 0000010000000011b
+		dd 00000000010000000011b
 
 	; Methods	
 																													dd __method__java_lang_Object__getClass
@@ -56,10 +56,12 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;forInit code...
+		;forInit code...
 		;; ---declare i
 		mov eax, 0
+
 		push eax
+		;; ---end of declare i
 
 
 		.for0:
@@ -88,7 +90,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		
+
 		_method_return___method__java_io_PrintStream__println:
 			mov esp, ebp
 			pop ebp
@@ -99,7 +101,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		
+
 		_method_return___method__java_io_PrintStream__println$java_lang_String$:
 			mov esp, ebp
 			pop ebp
@@ -110,7 +112,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		
+
 		_method_return___method__java_io_PrintStream__println$java_lang_Object$:
 			mov esp, ebp
 			pop ebp
@@ -121,7 +123,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		
+
 		_method_return___method__java_io_PrintStream__println$boolean$:
 			mov esp, ebp
 			pop ebp
@@ -132,7 +134,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		
+
 		_method_return___method__java_io_PrintStream__println$byte$:
 			mov esp, ebp
 			pop ebp
@@ -143,7 +145,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		
+
 		_method_return___method__java_io_PrintStream__println$char$:
 			mov esp, ebp
 			pop ebp
@@ -154,7 +156,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		
+
 		_method_return___method__java_io_PrintStream__println$short$:
 			mov esp, ebp
 			pop ebp
@@ -165,7 +167,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		
+
 		_method_return___method__java_io_PrintStream__println$int$:
 			mov esp, ebp
 			pop ebp
@@ -176,7 +178,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		
+
 		_method_return___method__java_io_PrintStream__print$java_lang_Object$:
 			mov esp, ebp
 			pop ebp
@@ -187,7 +189,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		
+
 		_method_return___method__java_io_PrintStream__print$boolean$:
 			mov esp, ebp
 			pop ebp
@@ -198,7 +200,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		
+
 		_method_return___method__java_io_PrintStream__print$byte$:
 			mov esp, ebp
 			pop ebp
@@ -209,7 +211,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		
+
 		_method_return___method__java_io_PrintStream__print$char$:
 			mov esp, ebp
 			pop ebp
@@ -220,7 +222,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		
+
 		_method_return___method__java_io_PrintStream__print$short$:
 			mov esp, ebp
 			pop ebp
@@ -231,7 +233,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		
+
 		_method_return___method__java_io_PrintStream__print$int$:
 			mov esp, ebp
 			pop ebp

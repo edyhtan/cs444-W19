@@ -17,7 +17,7 @@ section .data
 
 		global __ref_PARENTS_java_lang_Integer
 	__ref_PARENTS_java_lang_Integer:
-		dd 0000011100000000b
+		dd 00000000011100000000b
 
 	; Methods	
 																				dd __method__java_lang_Object__getClass
@@ -39,10 +39,9 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;; Implicit This
+		;; Implicit This
 		mov eax, [ebp + 0]
 		;; Field value
-		mov eax, ebp
 		add eax,4
 		mov eax, [eax]
 
@@ -58,17 +57,23 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;; ---declare ret
+		;; ---declare ret
 		mov eax, 0
+
 		push eax
+		;; ---end of declare ret
 
 		;; ---declare neg
 		mov eax, 0
+
 		push eax
+		;; ---end of declare neg
 
 		;; ---declare i
 		mov eax, 0
+
 		push eax
+		;; ---end of declare i
 
 		.while0:
 			;expression code...
@@ -124,7 +129,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				jmp _method_return___method__java_lang_Integer__toString
+		jmp _method_return___method__java_lang_Integer__toString
 
 		_method_return___method__java_lang_Integer__toString:
 			mov esp, ebp
