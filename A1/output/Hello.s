@@ -1,10 +1,3 @@
-add ebx, 4
-add ebx, 0
-add esp, 4
-add esp, 0
-add ebx, 4
-add ebx, 0
-add esp, 4
 extern __method__java_lang_Object__clone
 extern __malloc
 extern __method__java_lang_Object__toString
@@ -93,13 +86,16 @@ section .text
 ;; Field init:: k
 				mov eax, 0
 		mov ebx, [esp]
-				mov [ebx], eax
+		add ebx, 4
+		mov [ebx], eax
 ;; Field init:: staticInt
 				mov eax, 0
 		mov ebx, [esp]
-				mov [ebx], eax
+		add ebx, 0
+		mov [ebx], eax
 ;; Field init end, pop object
-		;; Constructor Body
+		add esp, 4
+;; Constructor Body
 			;; Allocating size of 1
 			mov eax, 1
 						call __malloc
@@ -111,7 +107,8 @@ section .text
 
 			;; Pushing args:
 							call __constructor__Hello__Hello
-						pop eax
+			add esp, 0
+			pop eax
 ;; Epilogue
 		mov esp, ebp
 		pop ebp
@@ -131,13 +128,16 @@ section .text
 ;; Field init:: k
 				mov eax, 0
 		mov ebx, [esp]
-				mov [ebx], eax
+		add ebx, 4
+		mov [ebx], eax
 ;; Field init:: staticInt
 				mov eax, 0
 		mov ebx, [esp]
-				mov [ebx], eax
+		add ebx, 0
+		mov [ebx], eax
 ;; Field init end, pop object
-		;; Constructor Body
+		add esp, 4
+;; Constructor Body
 ;; Epilogue
 		mov esp, ebp
 		pop ebp

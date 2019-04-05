@@ -1,13 +1,3 @@
-add eax, 4
-add ebx, 4
-add ebx, 0
-add esp, 4
-add ebx, 4
-add ebx, 0
-add esp, 4
-add ebx, 4
-add ebx, 0
-add esp, 4
 extern __method__java_lang_Object__clone
 extern __method__java_lang_Number__intValue
 extern __method__java_lang_Object__toString
@@ -53,7 +43,8 @@ section .text
 		mov eax, [ebp + 0]
 		;; Field value
 		mov eax, ebp
-				mov eax, [eax]
+		add eax, 4
+		mov eax, [eax]
 
 		jmp _method_return___method__java_lang_Integer__intValue
 
@@ -84,8 +75,9 @@ section .text
 
 			cmp eax,0
 			je .endwhile0
-			;statement code...
+			;; while statement code...
 			;expression code...
+			;; -----eq
 			;; LHS code...
 			push eax
 			;; RHS code...
@@ -174,13 +166,16 @@ section .text
 ;; Field init:: value
 mov eax, 0
 		mov ebx, [esp]
-				mov [ebx], eax
+		add ebx, 4
+		mov [ebx], eax
 ;; Field init:: MAX_VALUE
 				mov eax, 2147483647
 		mov ebx, [esp]
-				mov [ebx], eax
+		add ebx, 0
+		mov [ebx], eax
 ;; Field init end, pop object
-		;; Constructor Body
+		add esp, 4
+;; Constructor Body
 
 ;; Epilogue
 		mov esp, ebp
@@ -201,13 +196,16 @@ mov eax, 0
 ;; Field init:: value
 mov eax, 0
 		mov ebx, [esp]
-				mov [ebx], eax
+		add ebx, 4
+		mov [ebx], eax
 ;; Field init:: MAX_VALUE
 				mov eax, 2147483647
 		mov ebx, [esp]
-				mov [ebx], eax
+		add ebx, 0
+		mov [ebx], eax
 ;; Field init end, pop object
-		;; Constructor Body
+		add esp, 4
+;; Constructor Body
 
 ;; Epilogue
 		mov esp, ebp
@@ -228,13 +226,16 @@ mov eax, 0
 ;; Field init:: value
 mov eax, 0
 		mov ebx, [esp]
-				mov [ebx], eax
+		add ebx, 4
+		mov [ebx], eax
 ;; Field init:: MAX_VALUE
 				mov eax, 2147483647
 		mov ebx, [esp]
-				mov [ebx], eax
+		add ebx, 0
+		mov [ebx], eax
 ;; Field init end, pop object
-		;; Constructor Body
+		add esp, 4
+;; Constructor Body
 
 ;; Epilogue
 		mov esp, ebp

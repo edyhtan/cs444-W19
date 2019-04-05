@@ -1,5 +1,3 @@
-add esp, 4
-add esp, 4
 extern __method__java_lang_Object__clone
 extern __STATIC_method__java_io_OutputStream__nativeWrite$int$
 extern __method__java_lang_Object__toString
@@ -66,22 +64,6 @@ section .text
 
 		.for0:
 			;expression code...
-			;; LHS code...
-			;; Local Var i
-			mov eax, ebp
-			sub eax,4
-			mov eax, [eax]
-
-			push eax
-			;; RHS code...
-			pop ebx
-			cmp ebx,eax
-			jl .lt0
-			mov eax, 0
-			jmp .end_lt0
-			.lt0:
-				mov eax, 1
-			.end_lt0:
 
 			cmp eax,0
 			je .endfor0
@@ -95,7 +77,8 @@ section .text
 			jmp .for0
 
 		.endfor0:
-			
+			add esp, 4
+
 
 		_method_return___method__java_io_PrintStream__print$java_lang_String$:
 			mov esp, ebp
@@ -270,7 +253,8 @@ section .text
 		mov eax, [ebp + 8]
 		push eax
 ;; Field init end, pop object
-		;; Constructor Body
+		add esp, 4
+;; Constructor Body
 ;; Epilogue
 		mov esp, ebp
 		pop ebp

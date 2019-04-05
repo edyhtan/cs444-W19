@@ -121,7 +121,6 @@ public class IfStatement extends HasScope implements Statement, HasExpression {
 
         expression.addWriter(asmWriter);
         thenClause.addWriter(asmWriter);
-        if (elseClause != null) elseClause.addWriter(asmWriter);
 
         asmWriter.iffalse(expression, ".else" + offset, indent);
 
@@ -138,6 +137,7 @@ public class IfStatement extends HasScope implements Statement, HasExpression {
         asmWriter.label(".else" + offset);
 
         if (elseClause != null) {
+            elseClause.addWriter(asmWriter);
             asmWriter.indent(indent + 1);
             asmWriter.println(";elseClause ...");
             elseClause.codeGen(indent + 1);

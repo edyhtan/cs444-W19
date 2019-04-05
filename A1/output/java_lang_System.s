@@ -1,6 +1,3 @@
-add esp, 0
-add ebx, 0
-add esp, 4
 extern __method__java_lang_Object__clone
 extern __malloc
 extern __method__java_lang_Object__toString
@@ -74,11 +71,14 @@ section .text
 
 				;; Pushing args:
 									call __constructor__java_io_PrintStream__PrintStream
-								pop eax
+				add esp, 0
+				pop eax
 		mov ebx, [esp]
-				mov [ebx], eax
+		add ebx, 0
+		mov [ebx], eax
 ;; Field init end, pop object
-		;; Constructor Body
+		add esp, 4
+;; Constructor Body
 ;; Epilogue
 		mov esp, ebp
 		pop ebp

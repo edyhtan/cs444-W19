@@ -1,6 +1,3 @@
-add esp, 4
-add ebx, 4
-add esp, 4
 extern __method__java_lang_Object__clone
 extern __malloc
 extern __method__java_lang_Object__toString
@@ -54,7 +51,8 @@ section .text
 
 			
 					call __constructor__Hello__Hello$int$
-				pop eax
+		add esp, 4
+		pop eax
 
 		_method_return___method__Main__test:
 			mov esp, ebp
@@ -77,9 +75,11 @@ section .text
 ;; Field init:: h
 				mov eax, 0
 		mov ebx, [esp]
-				mov [ebx], eax
+		add ebx, 4
+		mov [ebx], eax
 ;; Field init end, pop object
-		;; Constructor Body
+		add esp, 4
+;; Constructor Body
 ;; Epilogue
 		mov esp, ebp
 		pop ebp

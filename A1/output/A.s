@@ -1,5 +1,3 @@
-idiv ebx
-add esp, 4
 extern __ref_SIT_java_lang_Number
 extern __exception
 extern __malloc
@@ -391,7 +389,9 @@ global @@@@main
 		mov ebp, esp
 
 				;expression code...
+		;; -----gt
 		;; LHS code...
+		;; Mod
 		;; RHS code...
 		mov eax, 2
 		cmp eax,0
@@ -402,7 +402,8 @@ global @@@@main
 		mov eax, 6
 		pop ebx
 		mov edx, 0
-		mov eax, edx
+		idiv ebx
+mov eax, edx
 
 		push eax
 		;; RHS code...
@@ -449,7 +450,8 @@ global @@@@main
 		mov eax, [ebp + 8]
 		push eax
 ;; Field init end, pop object
-		;; Constructor Body
+		add esp, 4
+;; Constructor Body
 ;; Epilogue
 		mov esp, ebp
 		pop ebp

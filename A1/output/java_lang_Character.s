@@ -1,7 +1,3 @@
-add ebx, 4
-add esp, 4
-add ebx, 4
-add esp, 4
 extern __method__java_lang_Object__clone
 extern __method__java_lang_Object__toString
 extern __constructor__java_lang_Object__Object
@@ -60,9 +56,11 @@ section .text
 ;; Field init:: value
 mov eax, 0
 		mov ebx, [esp]
-				mov [ebx], eax
+		add ebx, 4
+		mov [ebx], eax
 ;; Field init end, pop object
-		;; Constructor Body
+		add esp, 4
+;; Constructor Body
 
 ;; Epilogue
 		mov esp, ebp
@@ -83,9 +81,11 @@ mov eax, 0
 ;; Field init:: value
 mov eax, 0
 		mov ebx, [esp]
-				mov [ebx], eax
+		add ebx, 4
+		mov [ebx], eax
 ;; Field init end, pop object
-		;; Constructor Body
+		add esp, 4
+;; Constructor Body
 ;; Epilogue
 		mov esp, ebp
 		pop ebp

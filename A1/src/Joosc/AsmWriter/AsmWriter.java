@@ -117,7 +117,7 @@ public class AsmWriter {
     }
 
     public void jne(String label) {
-        out.println("jne " + label);
+        println("jne " + label);
     }
 
     public void jg(String label) {
@@ -235,7 +235,7 @@ public class AsmWriter {
     }
 
     public void add(String str1, String str2) {
-        out.println("add " + str1 + ", " + str2);
+        println("add " + str1 + ", " + str2);
     }
 
     public void add(Register reg1, Register reg2) {
@@ -260,7 +260,7 @@ public class AsmWriter {
 
 
     public void imul(String str1, String str2) {
-        out.println("imul " + str1 + "," + str2);
+        println("imul " + str1 + "," + str2);
     }
 
     public void imul(Register reg1, Register reg2) {
@@ -272,7 +272,7 @@ public class AsmWriter {
     }
 
     public void idiv(String str1) {
-        out.println("idiv " + str1);
+        println("idiv " + str1);
     }
 
     public void idiv(Register reg) {
@@ -444,6 +444,8 @@ public class AsmWriter {
     public void compare(Expression LHS, Expression RHS, int indent, String operation, String label, int offset){
         String jumpTo = "."+label + offset;
         String endLabel = ".end_" + label + offset;
+        indent(indent);
+        comment("-----" + label);
         evalLHSthenRHS(LHS, RHS, indent);
         indent(indent);
         cmp(Register.ebx, Register.eax);

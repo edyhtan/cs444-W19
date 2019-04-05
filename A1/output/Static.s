@@ -1,5 +1,3 @@
-add ebx, 8
-add esp, 4
 extern __method__java_lang_Object__clone
 extern __method__java_lang_Object__toString
 extern __method__java_lang_Object__hashCode
@@ -62,9 +60,11 @@ section .text
 ;; Field init:: static__
 				mov eax, 0
 		mov ebx, [esp]
-				mov [ebx], eax
+		add ebx, 8
+		mov [ebx], eax
 ;; Field init end, pop object
-		;; Constructor Body
+		add esp, 4
+;; Constructor Body
 ;; Epilogue
 		mov esp, ebp
 		pop ebp

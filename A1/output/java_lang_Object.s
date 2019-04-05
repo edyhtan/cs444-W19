@@ -1,5 +1,3 @@
-add eax, 8
-add esp, 4
 
 	global __class_java_lang_Object
 __class_java_lang_Object:
@@ -29,12 +27,14 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;; LHS code...
+				;; -----eq
+		;; LHS code...
 		push eax
 		;; RHS code...
 		;; Local Var other
 		mov eax, ebp
-				mov eax, [eax]
+		add eax, 8
+		mov eax, [eax]
 
 		pop ebx
 		cmp ebx,eax
@@ -111,7 +111,8 @@ section .text
 		mov eax, [ebp + 8]
 		push eax
 ;; Field init end, pop object
-		;; Constructor Body
+		add esp, 4
+;; Constructor Body
 ;; Epilogue
 		mov esp, ebp
 		pop ebp

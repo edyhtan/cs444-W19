@@ -1,50 +1,3 @@
-add eax, 4
-add eax, 4
-add esp, 4
-add esp, 4
-add eax, 8
-add eax, 8
-add eax, 8
-add eax, 8
-add eax, 8
-idiv ebx
-add esp, 4
-add esp, 4
-add eax, 8
-add esp, 4
-add eax, 8
-add eax, 8
-add eax, 8
-add eax, 8
-add eax, 8
-add eax, 12
-add eax, 8
-add eax, 8
-add eax, 12
-add eax, 8
-add esp, 4
-add eax, 4
-add eax, 4
-add esp, 4
-add eax, 4
-add eax, 4
-add eax, 8
-add eax, 4
-add eax, 4
-add eax, 4
-add esp, 4
-add ebx, eax
-jne .ne3
-add esp, 4
-add ebx, 4
-add esp, 4
-add ebx, 4
-add esp, 4
-add eax, 4
-add eax, 4
-add esp, 4
-add ebx, 4
-add esp, 4
 extern __method__java_lang_Object__clone
 extern __exception
 extern __malloc
@@ -102,11 +55,13 @@ section .text
 		mov eax, [ebp + 0]
 		;; Field chars
 		mov eax, ebp
-				mov eax, [eax]
+		add eax, 4
+		mov eax, [eax]
 
 		;; Field length
 		mov eax, ebp
-				mov eax, [eax]
+		add eax, 4
+		mov eax, [eax]
 
 		jmp _method_return___method__java_lang_String__length
 
@@ -144,22 +99,6 @@ section .text
 
 		.for0:
 			;expression code...
-			;; LHS code...
-			;; Local Var i
-			mov eax, ebp
-			sub eax,4
-			mov eax, [eax]
-
-			push eax
-			;; RHS code...
-			pop ebx
-			cmp ebx,eax
-			jl .lt0
-			mov eax, 0
-			jmp .end_lt0
-			.lt0:
-				mov eax, 1
-			.end_lt0:
 
 			cmp eax,0
 			je .endfor0
@@ -179,22 +118,6 @@ section .text
 
 		.for1:
 			;expression code...
-			;; LHS code...
-			;; Local Var i
-			mov eax, ebp
-			sub eax,4
-			mov eax, [eax]
-
-			push eax
-			;; RHS code...
-			pop ebx
-			cmp ebx,eax
-			jl .lt1
-			mov eax, 0
-			jmp .end_lt1
-			.lt1:
-				mov eax, 1
-			.end_lt1:
 
 			cmp eax,0
 			je .endfor1
@@ -227,7 +150,8 @@ section .text
 
 			
 					call __constructor__java_lang_String__String$char@$
-				pop eax
+		add esp, 4
+		pop eax
 		jmp _method_return___method__java_lang_String__concat$java_lang_String$
 
 		_method_return___method__java_lang_String__concat$java_lang_String$:
@@ -262,7 +186,8 @@ section .text
 
 			
 					call __constructor__java_lang_String__String$char@$
-				pop eax
+		add esp, 4
+		pop eax
 		jmp _method_return___STATIC_method__java_lang_String__valueOf$char$
 
 		_method_return___STATIC_method__java_lang_String__valueOf$char$:
@@ -287,10 +212,12 @@ section .text
 		push eax
 
 		;expression code...
+		;; -----eq
 		;; LHS code...
 		;; Local Var i
 		mov eax, ebp
-				mov eax, [eax]
+		add eax, 8
+		mov eax, [eax]
 
 		push eax
 		;; RHS code...
@@ -313,22 +240,6 @@ section .text
 		.else2:
 		.endif2:
 		;expression code...
-		;; LHS code...
-		;; Local Var i
-		mov eax, ebp
-				mov eax, [eax]
-
-		push eax
-		;; RHS code...
-		mov eax, 0
-		pop ebx
-		cmp ebx,eax
-		jl .lt1
-		mov eax, 0
-		jmp .end_lt1
-		.lt1:
-			mov eax, 1
-		.end_lt1:
 
 		cmp eax,0
 		je .else3
@@ -343,10 +254,12 @@ section .text
 		.else3:
 		.endif3:
 		;expression code...
+		;; -----eq
 		;; LHS code...
 		;; Local Var i
 		mov eax, ebp
-				mov eax, [eax]
+		add eax, 8
+		mov eax, [eax]
 
 		push eax
 		;; RHS code...
@@ -374,10 +287,12 @@ section .text
 			;elseClause ...
 			.while5:
 				;expression code...
+				;; -----gt
 				;; LHS code...
 				;; Local Var i
 				mov eax, ebp
-								mov eax, [eax]
+				add eax, 8
+				mov eax, [eax]
 
 				push eax
 				;; RHS code...
@@ -393,8 +308,9 @@ section .text
 
 				cmp eax,0
 				je .endwhile5
-				;statement code...
+				;; while statement code...
 				;; ---declare d
+				;; Mod
 				;; RHS code...
 				mov eax, 10
 				cmp eax,0
@@ -404,11 +320,13 @@ section .text
 				;; LHS code...
 				;; Local Var i
 				mov eax, ebp
-								mov eax, [eax]
+				add eax, 8
+				mov eax, [eax]
 
 				pop ebx
 				mov edx, 0
-				mov eax, edx
+				idiv ebx
+mov eax, edx
 
 				push eax
 
@@ -419,12 +337,14 @@ section .text
 
 
 
-				
+				add esp, 4
+
 				jmp .while5
 
 			.endwhile5:
 
-				
+				add esp, 4
+
 
 
 		.endif4:
@@ -454,26 +374,6 @@ section .text
 
 		.for7:
 			;expression code...
-			;; LHS code...
-			;; Local Var i
-			mov eax, ebp
-						mov eax, [eax]
-
-			push eax
-			;; RHS code...
-			;; Local Var j
-			mov eax, ebp
-			sub eax,8
-			mov eax, [eax]
-
-			pop ebx
-			cmp ebx,eax
-			jl .lt4
-			mov eax, 0
-			jmp .end_lt4
-			.lt4:
-				mov eax, 1
-			.end_lt4:
 
 			cmp eax,0
 			je .endfor7
@@ -506,7 +406,8 @@ section .text
 
 			
 					call __constructor__java_lang_String__String$char@$
-				pop eax
+		add esp, 4
+		pop eax
 		jmp _method_return___STATIC_method__java_lang_String__valueOf$int$
 
 		_method_return___STATIC_method__java_lang_String__valueOf$int$:
@@ -546,7 +447,8 @@ section .text
 				;expression code...
 		;; Local Var b
 		mov eax, ebp
-				mov eax, [eax]
+		add eax, 8
+		mov eax, [eax]
 
 		cmp eax,0
 		je .else8
@@ -572,10 +474,12 @@ section .text
 		mov ebp, esp
 
 				;expression code...
+		;; -----eq
 		;; LHS code...
 		;; Local Var o
 		mov eax, ebp
-				mov eax, [eax]
+		add eax, 8
+		mov eax, [eax]
 
 		push eax
 		;; RHS code...
@@ -613,10 +517,12 @@ section .text
 		mov ebp, esp
 
 				;expression code...
+		;; -----eq
 		;; LHS code...
 		;; Local Var o
 		mov eax, ebp
-				mov eax, [eax]
+		add eax, 8
+		mov eax, [eax]
 
 		push eax
 		;; RHS code...
@@ -641,7 +547,8 @@ section .text
 			;elseClause ...
 			;; Local Var o
 			mov eax, ebp
-						mov eax, [eax]
+			add eax, 8
+			mov eax, [eax]
 
 			jmp _method_return___STATIC_method__java_lang_String__valueOf$java_lang_String$
 
@@ -658,10 +565,12 @@ section .text
 		mov ebp, esp
 
 				;expression code...
+		;; -----eq
 		;; LHS code...
 		;; Local Var o
 		mov eax, ebp
-				mov eax, [eax]
+		add eax, 8
+		mov eax, [eax]
 
 		push eax
 		;; RHS code...
@@ -713,22 +622,6 @@ section .text
 		push eax
 
 		;expression code...
-		;; LHS code...
-		;; Local Var i
-		mov eax, ebp
-				mov eax, [eax]
-
-		push eax
-		;; RHS code...
-		mov eax, 0
-		pop ebx
-		cmp ebx,eax
-		jl .lt0
-		mov eax, 0
-		jmp .end_lt0
-		.lt0:
-			mov eax, 1
-		.end_lt0:
 
 		cmp eax,0
 		je .else13
@@ -740,10 +633,12 @@ section .text
 		.else13:
 		.endif13:
 		;expression code...
+		;; -----gt
 		;; LHS code...
 		;; Local Var j
 		mov eax, ebp
-				mov eax, [eax]
+		add eax, 8
+		mov eax, [eax]
 
 		push eax
 		;; RHS code...
@@ -766,25 +661,6 @@ section .text
 		.else14:
 		.endif14:
 		;expression code...
-		;; LHS code...
-		;; Local Var j
-		mov eax, ebp
-				mov eax, [eax]
-
-		push eax
-		;; RHS code...
-		;; Local Var i
-		mov eax, ebp
-				mov eax, [eax]
-
-		pop ebx
-		cmp ebx,eax
-		jl .lt2
-		mov eax, 0
-		jmp .end_lt2
-		.lt2:
-			mov eax, 1
-		.end_lt2:
 
 		cmp eax,0
 		je .else15
@@ -803,26 +679,6 @@ section .text
 
 		.for16:
 			;expression code...
-			;; LHS code...
-			;; Local Var k
-			mov eax, ebp
-			sub eax,4
-			mov eax, [eax]
-
-			push eax
-			;; RHS code...
-			;; Local Var j
-			mov eax, ebp
-						mov eax, [eax]
-
-			pop ebx
-			cmp ebx,eax
-			jl .lt3
-			mov eax, 0
-			jmp .end_lt3
-			.lt3:
-				mov eax, 1
-			.end_lt3:
 
 			cmp eax,0
 			je .endfor16
@@ -855,7 +711,8 @@ section .text
 
 			
 					call __constructor__java_lang_String__String$char@$
-				pop eax
+		add esp, 4
+		pop eax
 		jmp _method_return___method__java_lang_String__substring$int$int$
 
 		_method_return___method__java_lang_String__substring$int$int$:
@@ -913,6 +770,7 @@ section .text
 		.endfor18:
 
 		;expression code...
+		;; -----gt
 		;; LHS code...
 		;; Local Var i
 		mov eax, ebp
@@ -970,32 +828,6 @@ section .text
 
 		.for20:
 			;expression code...
-			;; LHS code...
-			;; Local Var i
-			mov eax, ebp
-			sub eax,8
-			mov eax, [eax]
-
-			push eax
-			;; RHS code...
-			;; Implicit This
-			mov eax, [ebp + 0]
-			;; Field chars
-			mov eax, ebp
-						mov eax, [eax]
-
-			;; Field length
-			mov eax, ebp
-						mov eax, [eax]
-
-			pop ebx
-			cmp ebx,eax
-			jl .lt0
-			mov eax, 0
-			jmp .end_lt0
-			.lt0:
-				mov eax, 1
-			.end_lt0:
 
 			cmp eax,0
 			je .endfor20
@@ -1010,7 +842,8 @@ section .text
 			jmp .for20
 
 		.endfor20:
-			
+			add esp, 4
+
 		;; Local Var h
 		mov eax, ebp
 		sub eax,4
@@ -1069,7 +902,7 @@ section .text
 
 			cmp eax,0
 			je .endwhile21
-			;statement code...
+			;; while statement code...
 			;expression code...
 
 			cmp eax,0
@@ -1084,32 +917,6 @@ section .text
 			.endif22:
 
 			;expression code...
-			;; LHS code...
-			;; Local Var i
-			mov eax, ebp
-			sub eax,4
-			mov eax, [eax]
-
-			push eax
-			;; RHS code...
-			;; Implicit This
-			mov eax, [ebp + 0]
-			;; Field chars
-			mov eax, ebp
-						mov eax, [eax]
-
-			;; Field length
-			mov eax, ebp
-						mov eax, [eax]
-
-			pop ebx
-			cmp ebx,eax
-			jge .ge0
-			mov eax, 0
-			jmp .end_ge0
-			.ge0:
-				mov eax, 1
-			.end_ge0:
 
 			cmp eax,0
 			je .else23
@@ -1122,34 +929,6 @@ section .text
 			.endif23:
 
 			;expression code...
-			;; LHS code...
-			;; Local Var i
-			mov eax, ebp
-			sub eax,4
-			mov eax, [eax]
-
-			push eax
-			;; RHS code...
-			;; Local Var other
-			mov eax, ebp
-						mov eax, [eax]
-
-			;; Field chars
-			mov eax, ebp
-						mov eax, [eax]
-
-			;; Field length
-			mov eax, ebp
-						mov eax, [eax]
-
-			pop ebx
-			cmp ebx,eax
-			jge .ge1
-			mov eax, 0
-			jmp .end_ge1
-			.ge1:
-				mov eax, 1
-			.end_ge1:
 
 			cmp eax,0
 			je .else24
@@ -1163,17 +942,6 @@ section .text
 			.endif24:
 
 			;expression code...
-			;; LHS code...
-			push eax
-			;; RHS code...
-			pop ebx
-			cmp ebx,eax
-			jl .lt2
-			mov eax, 0
-			jmp .end_lt2
-			.lt2:
-				mov eax, 1
-			.end_lt2:
 
 			cmp eax,0
 			je .else25
@@ -1186,6 +954,7 @@ section .text
 			.endif25:
 
 			;expression code...
+			;; -----gt
 			;; LHS code...
 			push eax
 			;; RHS code...
@@ -1239,31 +1008,6 @@ section .text
 
 		.for27:
 			;expression code...
-			;; LHS code...
-			;; Local Var i
-			mov eax, ebp
-			sub eax,8
-			mov eax, [eax]
-
-			push eax
-			;; RHS code...
-			;; Local Var ret
-			mov eax, ebp
-			sub eax,4
-			mov eax, [eax]
-
-			;; Field length
-			mov eax, ebp
-						mov eax, [eax]
-
-			pop ebx
-			cmp ebx,eax
-			jl .lt0
-			mov eax, 0
-			jmp .end_lt0
-			.lt0:
-				mov eax, 1
-			.end_lt0:
 
 			cmp eax,0
 			je .endfor27
@@ -1278,7 +1022,8 @@ section .text
 			jmp .for27
 
 		.endfor27:
-			
+			add esp, 4
+
 		;; Local Var ret
 		mov eax, ebp
 		sub eax,4
@@ -1309,22 +1054,6 @@ section .text
 
 		.for28:
 			;expression code...
-			;; LHS code...
-			;; Local Var offset
-			mov eax, ebp
-			sub eax,4
-			mov eax, [eax]
-
-			push eax
-			;; RHS code...
-			pop ebx
-			cmp ebx,eax
-			jl .lt0
-			mov eax, 0
-			jmp .end_lt0
-			.lt0:
-				mov eax, 1
-			.end_lt0:
 
 			cmp eax,0
 			je .endfor28
@@ -1339,54 +1068,11 @@ section .text
 
 			.for29:
 				;expression code...
-				;; LHS code...
-				;; Local Var i
-				mov eax, ebp
-				sub eax,8
-				mov eax, [eax]
-
-				push eax
-				;; RHS code...
-				pop ebx
-				cmp ebx,eax
-				jl .lt1
-				mov eax, 0
-				jmp .end_lt1
-				.lt1:
-					mov eax, 1
-				.end_lt1:
 
 				cmp eax,0
 				je .endfor29
 				;statement code...
 				;expression code...
-				;; LHS code...
-				;; LHS code...
-				;; Local Var i
-				mov eax, ebp
-				sub eax,8
-				mov eax, [eax]
-
-				push eax
-				;; RHS code...
-				;; Local Var offset
-				mov eax, ebp
-				sub eax,4
-				mov eax, [eax]
-
-				pop ebx
-								mov eax, ebx
-
-				push eax
-				;; RHS code...
-				pop ebx
-				cmp ebx,eax
-				jge .ge2
-				mov eax, 0
-				jmp .end_ge2
-				.ge2:
-					mov eax, 1
-				.end_ge2:
 
 				cmp eax,0
 				je .else30
@@ -1398,12 +1084,14 @@ section .text
 				.else30:
 					;elseClause ...
 					;expression code...
+					;; -----ne
 					;; LHS code...
 					push eax
 					;; RHS code...
 					pop ebx
 					cmp ebx,eax
-										mov eax, 0
+					jne .ne3
+					mov eax, 0
 					jmp .end_ne3
 					.ne3:
 						mov eax, 1
@@ -1452,7 +1140,8 @@ section .text
 			.else32:
 			.endif32:
 
-			
+			add esp, 4
+
 
 
 			;forUpdate code...
@@ -1485,9 +1174,11 @@ section .text
 ;; Field init:: chars
 mov eax, 0
 		mov ebx, [esp]
-				mov [ebx], eax
+		add ebx, 4
+		mov [ebx], eax
 ;; Field init end, pop object
-		;; Constructor Body
+		add esp, 4
+;; Constructor Body
 
 ;; Epilogue
 		mov esp, ebp
@@ -1508,9 +1199,11 @@ mov eax, 0
 ;; Field init:: chars
 mov eax, 0
 		mov ebx, [esp]
-				mov [ebx], eax
+		add ebx, 4
+		mov [ebx], eax
 ;; Field init end, pop object
-		;; Constructor Body
+		add esp, 4
+;; Constructor Body
 
 			;forInit code...
 			;; ---declare i
@@ -1520,27 +1213,6 @@ mov eax, 0
 
 			.for33:
 				;expression code...
-				;; LHS code...
-				push eax
-				;; RHS code...
-				;; Implicit This
-				mov eax, [ebp + 0]
-				;; Field chars
-				mov eax, ebp
-								mov eax, [eax]
-
-				;; Field length
-				mov eax, ebp
-								mov eax, [eax]
-
-				pop ebx
-				cmp ebx,eax
-				jl .lt4
-				mov eax, 0
-				jmp .end_lt4
-				.lt4:
-					mov eax, 1
-				.end_lt4:
 
 				cmp eax,0
 				je .endfor33
@@ -1554,7 +1226,8 @@ mov eax, 0
 				jmp .for33
 
 			.endfor33:
-				
+				add esp, 4
+
 ;; Epilogue
 		mov esp, ebp
 		pop ebp
@@ -1574,9 +1247,11 @@ mov eax, 0
 ;; Field init:: chars
 mov eax, 0
 		mov ebx, [esp]
-				mov [ebx], eax
+		add ebx, 4
+		mov [ebx], eax
 ;; Field init end, pop object
-		;; Constructor Body
+		add esp, 4
+;; Constructor Body
 
 ;; Epilogue
 		mov esp, ebp

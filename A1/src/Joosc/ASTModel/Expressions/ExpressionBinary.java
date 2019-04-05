@@ -269,6 +269,8 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
 
         switch (operator) {
             case Plus:
+                asmWriter.indent(indent);
+                asmWriter.comment("Plus");
                 asmWriter.evalLHSthenRHS(LHS, RHS, indent);
                 asmWriter.indent(indent);
                 asmWriter.add(Register.ebx, Register.eax);
@@ -281,6 +283,8 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 break;
             // arithmetic operations
             case Minus:
+                asmWriter.indent(indent);
+                asmWriter.comment("Minus");
                 asmWriter.evalLHSthenRHS(LHS, RHS, indent);
                 asmWriter.indent(indent);
                 asmWriter.sub(Register.ebx, Register.eax);
@@ -288,6 +292,8 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 asmWriter.mov(Register.eax, Register.ebx);
                 break;
             case Star:
+                asmWriter.indent(indent);
+                asmWriter.comment("Mult");
                 asmWriter.evalLHSthenRHS(LHS, RHS, indent);
                 asmWriter.indent(indent);
                 asmWriter.imul(Register.ebx, Register.eax);
@@ -295,6 +301,8 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 asmWriter.mov(Register.eax, Register.ebx);
                 break;
             case Slash:
+                asmWriter.indent(indent);
+                asmWriter.comment("Div");
                 asmWriter.indent(indent);
                 asmWriter.comment("RHS code...");
                 RHS.codeGen(indent);
@@ -318,6 +326,8 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 asmWriter.idiv(Register.ebx);
                 break;
             case Percent:
+                asmWriter.indent(indent);
+                asmWriter.comment("Mod");
                 asmWriter.indent(indent);
                 asmWriter.comment("RHS code...");
                 RHS.codeGen(indent);
@@ -359,7 +369,7 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 offset = MethodDeclr.PER_METHOD_COUNT;
                 MethodDeclr.PER_METHOD_COUNT++;
 
-                asmWriter.compare(LHS, RHS, indent,"jge", "ge", offset);
+//                asmWriter.compare(LHS, RHS, indent,"jge", "ge", offset);
                 break;
             case GT:
                 offset = MethodDeclr.PER_METHOD_COUNT;
@@ -371,13 +381,13 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 offset = MethodDeclr.PER_METHOD_COUNT;
                 MethodDeclr.PER_METHOD_COUNT++;
 
-                asmWriter.compare(LHS, RHS, indent, "jl", "lt", offset);
+//                asmWriter.compare(LHS, RHS, indent, "jl", "lt", offset);
                 break;
             case LE:
                 offset = MethodDeclr.PER_METHOD_COUNT;
                 MethodDeclr.PER_METHOD_COUNT++;
 
-                asmWriter.compare(LHS, RHS, indent, "jle", "le", offset);
+//                asmWriter.compare(LHS, RHS, indent, "jle", "le", offset);
                 break;
             case Instanceof:
 
