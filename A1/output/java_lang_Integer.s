@@ -45,8 +45,11 @@ section .text
 		mov eax, [ebp + 0]
 		;; Field value
 		add eax,4
+		push eax
+		mov eax, [eax]
 		cmp eax,0
 		je __exception
+		pop eax
 		mov eax, [eax]
 
 		jmp _method_return___method__java_lang_Integer__intValue
@@ -106,8 +109,11 @@ section .text
 		;; Local Var neg
 		mov eax, ebp
 		sub eax,8
+		push eax
+		mov eax, [eax]
 		cmp eax,0
 		je __exception
+		pop eax
 		mov eax, [eax]
 
 		cmp eax,0
@@ -121,8 +127,11 @@ section .text
 		;; Local Var ret
 		mov eax, ebp
 		sub eax,4
+		push eax
+		mov eax, [eax]
 		cmp eax,0
 		je __exception
+		pop eax
 		mov eax, [eax]
 
 		jmp _method_return___STATIC_method__java_lang_Integer__parseInt$java_lang_String$
@@ -144,8 +153,11 @@ section .text
 			mov eax, [ebp + 0]
 			;; Field value
 			add eax,4
+			push eax
+			mov eax, [eax]
 			cmp eax,0
 			je __exception
+			pop eax
 			mov eax, [eax]
 
 			push eax

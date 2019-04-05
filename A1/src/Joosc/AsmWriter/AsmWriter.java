@@ -419,9 +419,15 @@ public class AsmWriter {
     public void nullCheck(int indent) {
         extern("__exception");
         indent(indent);
+        push(Register.eax);
+        indent(indent);
+        movFromAddr(Register.eax, Register.eax);
+        indent(indent);
         cmp(Register.eax, "0");
         indent(indent);
         println("je __exception");
+        indent(indent);
+        pop(Register.eax);
     }
 
 }

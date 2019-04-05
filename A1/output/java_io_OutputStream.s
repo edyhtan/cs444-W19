@@ -64,8 +64,11 @@ section .text
 			;; Local Var b
 			mov eax, ebp
 			add eax,8
+			push eax
+			mov eax, [eax]
 			cmp eax,0
 			je __exception
+			pop eax
 			mov eax, [eax]
 
 			push eax

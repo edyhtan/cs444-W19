@@ -86,8 +86,11 @@ section .text
 					;; Local Var i
 					mov eax, ebp
 					sub eax,4
+					push eax
+					mov eax, [eax]
 					cmp eax,0
 					je __exception
+					pop eax
 					mov eax, [eax]
 
 					push eax
@@ -146,8 +149,11 @@ section .text
 			;; Local Var s
 			mov eax, ebp
 			add eax,8
+			push eax
+			mov eax, [eax]
 			cmp eax,0
 			je __exception
+			pop eax
 			mov eax, [eax]
 
 			push eax
@@ -184,8 +190,11 @@ section .text
 				;; Local Var b
 				mov eax, ebp
 				add eax,8
+				push eax
+				mov eax, [eax]
 				cmp eax,0
 				je __exception
+				pop eax
 				mov eax, [eax]
 
 				push eax
@@ -218,8 +227,11 @@ section .text
 				;; Local Var b
 				mov eax, ebp
 				add eax,8
+				push eax
+				mov eax, [eax]
 				cmp eax,0
 				je __exception
+				pop eax
 				mov eax, [eax]
 
 				push eax
@@ -252,8 +264,11 @@ section .text
 				;; Local Var b
 				mov eax, ebp
 				add eax,8
+				push eax
+				mov eax, [eax]
 				cmp eax,0
 				je __exception
+				pop eax
 				mov eax, [eax]
 
 				push eax
@@ -286,8 +301,11 @@ section .text
 				;; Local Var b
 				mov eax, ebp
 				add eax,8
+				push eax
+				mov eax, [eax]
 				cmp eax,0
 				je __exception
+				pop eax
 				mov eax, [eax]
 
 				push eax
@@ -320,8 +338,11 @@ section .text
 				;; Local Var b
 				mov eax, ebp
 				add eax,8
+				push eax
+				mov eax, [eax]
 				cmp eax,0
 				je __exception
+				pop eax
 				mov eax, [eax]
 
 				push eax
@@ -354,8 +375,11 @@ section .text
 				;; Local Var b
 				mov eax, ebp
 				add eax,8
+				push eax
+				mov eax, [eax]
 				cmp eax,0
 				je __exception
+				pop eax
 				mov eax, [eax]
 
 				push eax
@@ -388,8 +412,11 @@ section .text
 				;; Local Var b
 				mov eax, ebp
 				add eax,8
+				push eax
+				mov eax, [eax]
 				cmp eax,0
 				je __exception
+				pop eax
 				mov eax, [eax]
 
 				push eax
@@ -422,8 +449,11 @@ section .text
 				;; Local Var b
 				mov eax, ebp
 				add eax,8
+				push eax
+				mov eax, [eax]
 				cmp eax,0
 				je __exception
+				pop eax
 				mov eax, [eax]
 
 				push eax
@@ -456,8 +486,11 @@ section .text
 				;; Local Var b
 				mov eax, ebp
 				add eax,8
+				push eax
+				mov eax, [eax]
 				cmp eax,0
 				je __exception
+				pop eax
 				mov eax, [eax]
 
 				push eax
@@ -490,8 +523,11 @@ section .text
 				;; Local Var b
 				mov eax, ebp
 				add eax,8
+				push eax
+				mov eax, [eax]
 				cmp eax,0
 				je __exception
+				pop eax
 				mov eax, [eax]
 
 				push eax
@@ -524,8 +560,11 @@ section .text
 				;; Local Var b
 				mov eax, ebp
 				add eax,8
+				push eax
+				mov eax, [eax]
 				cmp eax,0
 				je __exception
+				pop eax
 				mov eax, [eax]
 
 				push eax
@@ -558,8 +597,11 @@ section .text
 				;; Local Var b
 				mov eax, ebp
 				add eax,8
+				push eax
+				mov eax, [eax]
 				cmp eax,0
 				je __exception
+				pop eax
 				mov eax, [eax]
 
 				push eax

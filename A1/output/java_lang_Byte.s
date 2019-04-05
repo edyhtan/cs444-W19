@@ -45,8 +45,11 @@ section .text
 			mov eax, [ebp + 0]
 			;; Field value
 			add eax,4
+			push eax
+			mov eax, [eax]
 			cmp eax,0
 			je __exception
+			pop eax
 			mov eax, [eax]
 
 			push eax

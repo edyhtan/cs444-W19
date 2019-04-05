@@ -423,14 +423,20 @@ global @@@@main
 			;; Local Var y
 			mov eax, ebp
 			sub eax,8
+			push eax
+			mov eax, [eax]
 			cmp eax,0
 			je __exception
+			pop eax
 			mov eax, [eax]
 
 			;; Field a
 			add eax,4
+			push eax
+			mov eax, [eax]
 			cmp eax,0
 			je __exception
+			pop eax
 			mov eax, [eax]
 
 			jmp _method_return___STATIC_method__A__test
