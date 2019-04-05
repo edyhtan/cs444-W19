@@ -159,13 +159,12 @@ public class ExpressionClassInstanceCreation extends Expression {
         for(Expression arg : argList) {
             arg.addWriter(asmWriter);
             arg.codeGen(indent + 1);
-            asmWriter.println("");
             asmWriter.indent(indent + 1);
+            asmWriter.push(Register.eax);
             asmWriter.println("");
         }
 
         String label = matchingCtor.methodLabel;
-        asmWriter.indent(indent + 1);
         asmWriter.extern(label);
         asmWriter.indent(indent);
         asmWriter.call(label);
