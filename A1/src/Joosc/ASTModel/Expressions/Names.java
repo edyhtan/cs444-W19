@@ -326,6 +326,7 @@ public class Names extends ExpressionContent implements HasAddress {
         }
 
         if ( !isAddress || name.size() > 0 ) {
+            asmWriter.nullCheck(indent);
             asmWriter.indent(indent);
             asmWriter.movFromAddr(Register.eax, Register.eax);
         }

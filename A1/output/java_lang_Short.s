@@ -1,10 +1,12 @@
 extern __method__java_lang_Object__clone
+extern __exception
 extern __method__java_lang_Number__intValue
 extern __method__java_lang_Object__toString
 extern __constructor__java_lang_Number__Number
 extern __method__java_lang_Object__hashCode
 extern __method__java_lang_Object__getClass
 extern __method__java_lang_Object__equals$java_lang_Object$
+extern __STATIC_method__java_lang_String__valueOf$short$
 
 	global __class_java_lang_Short
 __class_java_lang_Short:
@@ -47,6 +49,22 @@ section .text
 		push ebp
 		mov ebp, esp
 
+		;; Method Invocation:
+		;; o.code
+		;; Pushing args
+			;; Implicit This
+			mov eax, [ebp + 0]
+			;; Field value
+			add eax,4
+			cmp eax,0
+			je __exception
+			mov eax, [eax]
+
+			push eax
+
+		call __STATIC_method__java_lang_String__valueOf$short$
+
+		add esp,8
 		jmp _method_return___method__java_lang_Short__toString
 
 		_method_return___method__java_lang_Short__toString:

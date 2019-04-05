@@ -70,7 +70,7 @@ section .text
 				push eax
 
 				;; Pushing args:
-									call __constructor__java_io_PrintStream__PrintStream
+				call __constructor__java_io_PrintStream__PrintStream
 				add esp,0
 				pop eax
 

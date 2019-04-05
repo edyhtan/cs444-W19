@@ -421,7 +421,7 @@ public class AsmWriter {
         indent(indent);
         cmp(Register.eax, "0");
         indent(indent);
-        println("jne __exception");
+        println("je __exception");
     }
 
 }

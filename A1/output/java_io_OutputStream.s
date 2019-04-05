@@ -1,4 +1,5 @@
 extern __method__java_lang_Object__clone
+extern __exception
 extern __method__java_lang_Object__toString
 extern __constructor__java_lang_Object__Object
 extern __method__java_lang_Object__hashCode
@@ -38,6 +39,14 @@ section .text
 		push ebp
 		mov ebp, esp
 
+		;; Method Invocation:
+		;; o.code
+		;; Pushing args
+			push eax
+
+		call __method__java_io_OutputStream__write$int$
+
+		add esp,8
 
 		_method_return___method__java_io_OutputStream__write$char$:
 			mov esp, ebp
@@ -49,6 +58,21 @@ section .text
 		push ebp
 		mov ebp, esp
 
+		;; Method Invocation:
+		;; o.code
+		;; Pushing args
+			;; Local Var b
+			mov eax, ebp
+			add eax,8
+			cmp eax,0
+			je __exception
+			mov eax, [eax]
+
+			push eax
+
+		call __STATIC_method__java_io_OutputStream__nativeWrite$int$
+
+		add esp,8
 
 		_method_return___method__java_io_OutputStream__write$int$:
 			mov esp, ebp

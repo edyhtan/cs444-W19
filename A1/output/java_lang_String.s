@@ -1,10 +1,12 @@
-extern __method__java_lang_Object__clone
+extern __exception
 extern __malloc
 extern __method__java_lang_Object__toString
 extern __constructor__java_lang_Object__Object
-extern __method__java_lang_Object__hashCode
 extern __method__java_lang_Object__getClass
 extern __method__java_lang_Object__equals$java_lang_Object$
+extern __STATIC_method__java_util_Arrays__equals$char@$char@$
+extern __method__java_lang_Object__clone
+extern __method__java_lang_Object__hashCode
 
 	global __class_java_lang_String
 __class_java_lang_String:
@@ -54,10 +56,14 @@ section .text
 		mov eax, [ebp + 0]
 		;; Field chars
 		add eax,4
+		cmp eax,0
+		je __exception
 		mov eax, [eax]
 
 		;; Field length
 		add eax,4
+		cmp eax,0
+		je __exception
 		mov eax, [eax]
 
 		jmp _method_return___method__java_lang_String__length
@@ -138,11 +144,13 @@ section .text
 			;; Local Var newchars
 			mov eax, ebp
 			sub eax,8
+			cmp eax,0
+			je __exception
 			mov eax, [eax]
 
+			push eax
 
-			
-					call __constructor__java_lang_String__String$char@$
+		call __constructor__java_lang_String__String$char@$
 		add esp,4
 		pop eax
 
@@ -176,11 +184,13 @@ section .text
 			;; Local Var newchars
 			mov eax, ebp
 			sub eax,4
+			cmp eax,0
+			je __exception
 			mov eax, [eax]
 
+			push eax
 
-			
-					call __constructor__java_lang_String__String$char@$
+		call __constructor__java_lang_String__String$char@$
 		add esp,4
 		pop eax
 
@@ -274,6 +284,8 @@ section .text
 		;; Local Var wasneg
 		mov eax, ebp
 		sub eax,12
+		cmp eax,0
+		je __exception
 		mov eax, [eax]
 
 		cmp eax,0
@@ -319,11 +331,13 @@ section .text
 			;; Local Var ret2
 			mov eax, ebp
 			sub eax,16
+			cmp eax,0
+			je __exception
 			mov eax, [eax]
 
+			push eax
 
-			
-					call __constructor__java_lang_String__String$char@$
+		call __constructor__java_lang_String__String$char@$
 		add esp,4
 		pop eax
 
@@ -339,6 +353,14 @@ section .text
 		push ebp
 		mov ebp, esp
 
+		;; Method Invocation:
+		;; o.code
+		;; Pushing args
+			push eax
+
+		call __STATIC_method__java_lang_String__valueOf$int$
+
+		add esp,8
 		jmp _method_return___STATIC_method__java_lang_String__valueOf$short$
 
 		_method_return___STATIC_method__java_lang_String__valueOf$short$:
@@ -351,6 +373,14 @@ section .text
 		push ebp
 		mov ebp, esp
 
+		;; Method Invocation:
+		;; o.code
+		;; Pushing args
+			push eax
+
+		call __STATIC_method__java_lang_String__valueOf$int$
+
+		add esp,8
 		jmp _method_return___STATIC_method__java_lang_String__valueOf$byte$
 
 		_method_return___STATIC_method__java_lang_String__valueOf$byte$:
@@ -367,6 +397,8 @@ section .text
 		;; Local Var b
 		mov eax, ebp
 		add eax,8
+		cmp eax,0
+		je __exception
 		mov eax, [eax]
 
 		cmp eax,0
@@ -402,6 +434,12 @@ section .text
 
 		.else9:
 			;elseClause ...
+			;; Method Invocation:
+			;; o.code
+			;; Pushing args
+			call __method__java_lang_Object__toString
+
+			add esp,4
 			jmp _method_return___STATIC_method__java_lang_String__valueOf$java_lang_Object$
 
 		.endif9:
@@ -429,6 +467,8 @@ section .text
 			;; Local Var o
 			mov eax, ebp
 			add eax,8
+			cmp eax,0
+			je __exception
 			mov eax, [eax]
 
 			jmp _method_return___STATIC_method__java_lang_String__valueOf$java_lang_String$
@@ -467,6 +507,24 @@ section .text
 
 		.else12:
 		.endif12:
+		;; Method Invocation:
+		;; o.code
+		;; Pushing args
+			;; Implicit This
+			mov eax, [ebp + 0]
+			;; Field chars
+			add eax,4
+			cmp eax,0
+			je __exception
+			mov eax, [eax]
+
+			push eax
+
+			push eax
+
+		call __STATIC_method__java_util_Arrays__equals$char@$char@$
+
+		add esp,12
 		jmp _method_return___method__java_lang_String__equals$java_lang_Object$
 
 		_method_return___method__java_lang_String__equals$java_lang_Object$:
@@ -548,11 +606,13 @@ section .text
 			;; Local Var ret
 			mov eax, ebp
 			sub eax,8
+			cmp eax,0
+			je __exception
 			mov eax, [eax]
 
+			push eax
 
-			
-					call __constructor__java_lang_String__String$char@$
+		call __constructor__java_lang_String__String$char@$
 		add esp,4
 		pop eax
 
@@ -620,6 +680,23 @@ section .text
 
 		.else19:
 			;elseClause ...
+			;; Method Invocation:
+			;; o.code
+			;; Pushing args
+				;; Local Var i
+				mov eax, ebp
+				sub eax,4
+				cmp eax,0
+				je __exception
+				mov eax, [eax]
+
+				push eax
+
+				push eax
+
+			call __method__java_lang_String__substring$int$int$
+
+			add esp,12
 			jmp _method_return___method__java_lang_String__trim
 
 		.endif19:
@@ -666,6 +743,8 @@ section .text
 		;; Local Var h
 		mov eax, ebp
 		sub eax,4
+		cmp eax,0
+		je __exception
 		mov eax, [eax]
 
 		jmp _method_return___method__java_lang_String__hashCode
@@ -692,6 +771,14 @@ section .text
 		push ebp
 		mov ebp, esp
 
+		;; Method Invocation:
+		;; o.code
+		;; Pushing args
+			push eax
+
+		call __method__java_lang_String__compareTo$java_lang_String$
+
+		add esp,8
 		jmp _method_return___method__java_lang_String__compareTo$java_lang_Object$
 
 		_method_return___method__java_lang_String__compareTo$java_lang_Object$:
@@ -721,6 +808,8 @@ section .text
 			;; Local Var b
 			mov eax, ebp
 			sub eax,8
+			cmp eax,0
+			je __exception
 			mov eax, [eax]
 
 			cmp eax,0
@@ -833,6 +922,8 @@ section .text
 		;; Local Var ret
 		mov eax, ebp
 		sub eax,4
+		cmp eax,0
+		je __exception
 		mov eax, [eax]
 
 		jmp _method_return___method__java_lang_String__toCharArray
@@ -914,6 +1005,8 @@ section .text
 			;; Local Var found
 			mov eax, ebp
 			sub eax,12
+			cmp eax,0
+			je __exception
 			mov eax, [eax]
 
 			cmp eax,0
@@ -922,6 +1015,8 @@ section .text
 				;; Local Var offset
 				mov eax, ebp
 				sub eax,4
+				cmp eax,0
+				je __exception
 				mov eax, [eax]
 
 				jmp _method_return___method__java_lang_String__indexOf$java_lang_String$

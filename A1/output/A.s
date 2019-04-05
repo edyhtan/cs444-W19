@@ -1,4 +1,5 @@
 extern __ref_SIT_java_lang_Number
+extern __exception
 extern __malloc
 extern __constructor__java_lang_Object__Object
 extern __method__java_lang_Object__getClass
@@ -400,7 +401,7 @@ global @@@@main
 		push eax
 
 		;; Pushing args:
-					call __constructor__Static__Static
+		call __constructor__Static__Static
 		add esp,0
 		pop eax
 
@@ -409,7 +410,13 @@ global @@@@main
 		;; ---end of declare x
 
 		;; ---declare y
-		mov eax, 0
+		;; Local Var x
+		mov eax, ebp
+		sub eax,4
+		cmp eax,0
+		je __exception
+		mov eax, [eax]
+
 
 		push eax
 		;; ---end of declare y
@@ -422,10 +429,14 @@ global @@@@main
 			;; Local Var y
 			mov eax, ebp
 			sub eax,8
+			cmp eax,0
+			je __exception
 			mov eax, [eax]
 
 			;; Field a
 			add eax,4
+			cmp eax,0
+			je __exception
 			mov eax, [eax]
 
 			jmp _method_return___STATIC_method__A__test
