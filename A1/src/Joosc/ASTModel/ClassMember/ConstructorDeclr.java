@@ -135,7 +135,7 @@ public class ConstructorDeclr implements ClassBodyDeclr, Method {
             asmWriter.push(Register.eax);
             // Call parent constructor
             String parentConstructorLabel =
-                    "__constuctor__"
+                    "__constructor__"
                     + extendType.getQualifiedName().replace('.', '_')
                     + "__"
                     + extendType.getClassEnv().getTypeDeclr().getSimpleName();
