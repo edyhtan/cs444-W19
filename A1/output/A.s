@@ -472,7 +472,7 @@ global @@@@main
 		mov ebp, esp
 
 		sub esp,0
-		mov eax, 123123
+		mov eax, 123
 		jmp _method_return___STATIC_method__A__test
 
 		_method_return___STATIC_method__A__test:
