@@ -5,6 +5,7 @@ import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.Statements.Statement;
 import Joosc.ASTModel.Type;
 import Joosc.AsmWriter.AsmWriter;
+import Joosc.AsmWriter.Register;
 import Joosc.Environment.LocalEnv;
 import Joosc.Environment.MethodInfo;
 import Joosc.Exceptions.UninitializedVariableException;
@@ -111,12 +112,22 @@ public class ConstructorDeclr implements ClassBodyDeclr, Method {
     //Code Gen
     AsmWriter asmWriter;
 
-    /**
-     *
-     * */
     @Override
     public void codeGen(int indent) {
-        asmWriter.label("");
+        // Ctor label
+        asmWriter.indent(indent);
+        asmWriter.label(info.methodLabel);
+
+        asmWriter.prologue(indent);
+
+        // Code for ctor body
+        for(Statement stmt : bodyBlock) {
+            stmt.codeGen(indent + 1);
+        }
+
+        // Epilogue
+        asmWriter.epilogue(indent);
+
     }
 
     @Override
