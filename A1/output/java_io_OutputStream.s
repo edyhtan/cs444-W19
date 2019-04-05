@@ -54,6 +54,8 @@ section .text
 
 		global __STATIC_method__java_io_OutputStream__nativeWrite$int$
 	__STATIC_method__java_io_OutputStream__nativeWrite$int$:
+		extern NATIVEjava.io.OutputStream.nativeWrite
+jmp NATIVEjava.io.OutputStream.nativeWrite
 		push ebp
 		mov ebp, esp
 

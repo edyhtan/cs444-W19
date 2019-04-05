@@ -231,6 +231,13 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
         asmWriter.indent(indent);
         asmWriter.label(methodLabel);
 
+        if (modifiers.contains(Symbol.Native)) {
+            asmWriter.indent(indent + 1);
+            asmWriter.extern("NATIVEjava.io.OutputStream.nativeWrite");
+            asmWriter.jmp("NATIVEjava.io.OutputStream.nativeWrite");
+            return;
+        }
+
         asmWriter.indent(indent + 1);
         asmWriter.push(Register.ebp);
         asmWriter.indent(indent + 1);
