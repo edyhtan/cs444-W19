@@ -72,26 +72,100 @@ section .text
 
 		.while0:
 			;expression code...
+			;; logical_and
+			;; compare_lt
+			;; LHS code...
+			;; Local Var i
+			mov eax, ebp
+			sub eax, 12
+			mov eax, [eax]
 
-			cmp eax,0
-			je .endwhile0
-			;; while statement code...
-			;expression code...
-			;; -----eq
+			push eax
+			;; RHS code...
+			pop ebx
+			cmp ebx, eax
+			jl .lt1
+			mov eax, 0
+			jmp .end_lt1
+			.lt1:
+				mov eax, 1
+			.end_lt1:
+
+			cmp eax, 0
+			je .end_and0
+			;; logical_or
+			;; compare_eq
 			;; LHS code...
 			push eax
 			;; RHS code...
 			mov eax, 39
 			pop ebx
-			cmp ebx,eax
-			je .eq0
+			cmp ebx, eax
+			je .eq3
 			mov eax, 0
-			jmp .end_eq0
-			.eq0:
+			jmp .end_eq3
+			.eq3:
 				mov eax, 1
-			.end_eq0:
+			.end_eq3:
 
-			cmp eax,0
+			cmp eax, 1
+			je .end_or2
+			;; logical_and
+			;; compare_ge
+			;; LHS code...
+			push eax
+			;; RHS code...
+			mov eax, 39
+			pop ebx
+			cmp ebx, eax
+			jge .ge5
+			mov eax, 0
+			jmp .end_ge5
+			.ge5:
+				mov eax, 1
+			.end_ge5:
+
+			cmp eax, 0
+			je .end_and4
+			;; compare_le
+			;; LHS code...
+			push eax
+			;; RHS code...
+			mov eax, 39
+			pop ebx
+			cmp ebx, eax
+			jle .le6
+			mov eax, 0
+			jmp .end_le6
+			.le6:
+				mov eax, 1
+			.end_le6:
+
+			.end_and4:
+
+			.end_or2:
+
+			.end_and0:
+
+			cmp eax, 0
+			je .endwhile0
+			;; while statement code...
+			;expression code...
+			;; compare_eq
+			;; LHS code...
+			push eax
+			;; RHS code...
+			mov eax, 39
+			pop ebx
+			cmp ebx, eax
+			je .eq7
+			mov eax, 0
+			jmp .end_eq7
+			.eq7:
+				mov eax, 1
+			.end_eq7:
+
+			cmp eax, 0
 			je .else1
 			;thenClause ...
 
@@ -114,10 +188,10 @@ section .text
 		;expression code...
 		;; Local Var neg
 		mov eax, ebp
-		sub eax,8
+		sub eax, 8
 		mov eax, [eax]
 
-		cmp eax,0
+		cmp eax, 0
 		je .else2
 		;thenClause ...
 
@@ -128,7 +202,7 @@ section .text
 		.endif2:
 		;; Local Var ret
 		mov eax, ebp
-		sub eax,4
+		sub eax, 4
 		mov eax, [eax]
 
 		jmp _method_return___STATIC_method__java_lang_Integer__parseInt$java_lang_String$
@@ -159,7 +233,7 @@ section .text
 		push eax
 					mov eax, __constructor__java_lang_Number__Number
 		call eax
-		sub esp,4
+		sub esp, 4
 ;; Field init, push object to stack
 		mov eax, [ebp + 12]
 		push eax
@@ -189,7 +263,7 @@ mov eax, 0
 		push eax
 					mov eax, __constructor__java_lang_Number__Number
 		call eax
-		sub esp,4
+		sub esp, 4
 ;; Field init, push object to stack
 		mov eax, [ebp + 12]
 		push eax
@@ -219,7 +293,7 @@ mov eax, 0
 		push eax
 					mov eax, __constructor__java_lang_Number__Number
 		call eax
-		sub esp,4
+		sub esp, 4
 ;; Field init, push object to stack
 		mov eax, [ebp + 8]
 		push eax

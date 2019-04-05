@@ -64,17 +64,17 @@ section .text
 
 		.for0:
 			;expression code...
-			;; -----lt
+			;; compare_lt
 			;; LHS code...
 			;; Local Var i
 			mov eax, ebp
-			sub eax,4
+			sub eax, 4
 			mov eax, [eax]
 
 			push eax
 			;; RHS code...
 			pop ebx
-			cmp ebx,eax
+			cmp ebx, eax
 			jl .lt0
 			mov eax, 0
 			jmp .end_lt0
@@ -82,7 +82,7 @@ section .text
 				mov eax, 1
 			.end_lt0:
 
-			cmp eax,0
+			cmp eax, 0
 			je .endfor0
 			;statement code...
 
@@ -265,7 +265,7 @@ section .text
 		push eax
 					mov eax, __constructor__java_io_OutputStream__OutputStream
 		call eax
-		sub esp,4
+		sub esp, 4
 ;; Field init, push object to stack
 		mov eax, [ebp + 8]
 		push eax

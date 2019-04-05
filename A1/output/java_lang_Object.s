@@ -27,7 +27,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;; -----eq
+				;; compare_eq
 		;; LHS code...
 		push eax
 		;; RHS code...
@@ -37,7 +37,7 @@ section .text
 		mov eax, [eax]
 
 		pop ebx
-		cmp ebx,eax
+		cmp ebx, eax
 		je .eq0
 		mov eax, 0
 		jmp .end_eq0

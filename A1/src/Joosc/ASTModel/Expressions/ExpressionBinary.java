@@ -301,54 +301,12 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 asmWriter.mov(Register.eax, Register.ebx);
                 break;
             case Slash:
-                asmWriter.indent(indent);
-                asmWriter.comment("Div");
-                asmWriter.indent(indent);
-                asmWriter.comment("RHS code...");
-                RHS.codeGen(indent);
-                asmWriter.indent(indent);
-                asmWriter.cmp(Register.eax, "0");
-                asmWriter.indent(indent);
-                asmWriter.extern("__exception");
-                asmWriter.println("");
-                asmWriter.indent(indent);
-                asmWriter.je("__exception");
-                asmWriter.indent(indent);
-                asmWriter.push(Register.eax);
-                asmWriter.indent(indent);
-                asmWriter.comment("LHS code...");
-                LHS.codeGen(indent);
-                asmWriter.indent(indent);
-                asmWriter.pop(Register.ebx);
-                asmWriter.indent(indent);
-                asmWriter.mov(Register.edx, 0);
-                asmWriter.indent(indent);
-                asmWriter.idiv(Register.ebx);
+                asmWriter.div(LHS, RHS, indent);
                 break;
             case Percent:
+                asmWriter.div(LHS, RHS, indent);
                 asmWriter.indent(indent);
                 asmWriter.comment("Mod");
-                asmWriter.indent(indent);
-                asmWriter.comment("RHS code...");
-                RHS.codeGen(indent);
-                asmWriter.indent(indent);
-                asmWriter.cmp(Register.eax, "0");
-                asmWriter.indent(indent);
-                asmWriter.extern("__exception");
-                asmWriter.println("");
-                asmWriter.indent(indent);
-                asmWriter.je("__exception");
-                asmWriter.indent(indent);
-                asmWriter.push(Register.eax);
-                asmWriter.indent(indent);
-                asmWriter.comment("LHS code...");
-                LHS.codeGen(indent);
-                asmWriter.indent(indent);
-                asmWriter.pop(Register.ebx);
-                asmWriter.indent(indent);
-                asmWriter.mov(Register.edx, 0);
-                asmWriter.indent(indent);
-                asmWriter.idiv(Register.ebx);
                 asmWriter.mov(Register.eax, Register.edx);
                 break;
             // comparison
@@ -394,10 +352,52 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 break;
             // logical operations
             case And:
+                offset = MethodDeclr.PER_METHOD_COUNT;
+                MethodDeclr.PER_METHOD_COUNT++;
 
+                asmWriter.indent(indent);
+                asmWriter.comment("logical_and");
+                LHS.codeGen(indent);
+                asmWriter.indent(indent);
+                asmWriter.cmp(Register.eax, "0");
+                asmWriter.indent(indent);
+                asmWriter.je(".end_and"+offset);
+                RHS.codeGen(indent);
+                asmWriter.indent(indent);
+                asmWriter.label(".end_and"+offset);
+                break;
             case Or:
+                offset = MethodDeclr.PER_METHOD_COUNT;
+                MethodDeclr.PER_METHOD_COUNT++;
+
+                asmWriter.indent(indent);
+                asmWriter.comment("logical_or");
+                LHS.codeGen(indent);
+                asmWriter.indent(indent);
+                asmWriter.cmp(Register.eax, "1");
+                asmWriter.indent(indent);
+                asmWriter.je(".end_or"+offset);
+                RHS.codeGen(indent);
+                asmWriter.indent(indent);
+                asmWriter.label(".end_or"+offset);
+                break;
             case Cap:
+                break;
             case Bar:
+                offset = MethodDeclr.PER_METHOD_COUNT;
+                MethodDeclr.PER_METHOD_COUNT++;
+
+                asmWriter.indent(indent);
+                asmWriter.comment("eager_or");
+                asmWriter.evalLHSthenRHS(LHS, RHS, indent);
+                asmWriter.indent(indent);
+                asmWriter.cmp(Register.ebx, "1");
+                asmWriter.indent(indent);
+                asmWriter.je(".end_eager_or"+offset);
+                asmWriter.indent(indent);
+                asmWriter.cmp(Register.eax, "1");
+                asmWriter.indent(indent);
+                break;
             case Amp:
 
                 break;

@@ -101,7 +101,7 @@ public class AsmWriter {
     }
 
     public void cmp(String str1, String str2) {
-        println("cmp " + str1 + "," + str2);
+        println("cmp " + str1 + ", " + str2);
     }
 
     public void cmp(Register reg1, Register reg2) {
@@ -247,7 +247,7 @@ public class AsmWriter {
     }
 
     public void sub(String str1, String str2) {
-        println("sub " + str1 + "," + str2);
+        println("sub " + str1 + ", " + str2);
     }
 
     public void sub(Register reg1, Register reg2) {
@@ -260,7 +260,7 @@ public class AsmWriter {
 
 
     public void imul(String str1, String str2) {
-        println("imul " + str1 + "," + str2);
+        println("imul " + str1 + ", " + str2);
     }
 
     public void imul(Register reg1, Register reg2) {
@@ -280,7 +280,7 @@ public class AsmWriter {
     }
 
     public void getBit(Register reg, int i) {
-        println(String.format(binaryTemplate, "shr", reg, i));
+        println(String.format(binaryTemplate, "shr ", reg, i));
     }
 
     public void iffalse(Expression expression, String label, int indent) {
@@ -356,7 +356,6 @@ public class AsmWriter {
                 String ref = Integer.toString(bit) + parentMatrix.get(type);
                 parentMatrix.put(type, ref);
             }
-            //System.err.println(parentMatrix.get(type) + " " + type.getTypeName());
 
         }
     }
@@ -445,7 +444,7 @@ public class AsmWriter {
         String jumpTo = "."+label + offset;
         String endLabel = ".end_" + label + offset;
         indent(indent);
-        comment("-----" + label);
+        comment("compare_" + label);
         evalLHSthenRHS(LHS, RHS, indent);
         indent(indent);
         cmp(Register.ebx, Register.eax);
@@ -474,5 +473,33 @@ public class AsmWriter {
         indent(indent);
         label(endLabel);
     }
+
+    public void div(Expression LHS, Expression RHS, int indent){
+        indent(indent);
+        comment("Div");
+        indent(indent);
+        comment("RHS code...");
+        RHS.codeGen(indent);
+        // check div by zero
+        indent(indent);
+        cmp(Register.eax, "0");
+        indent(indent);
+        extern("__exception");
+        println("");
+        indent(indent);
+        je("__exception");
+        indent(indent);
+        push(Register.eax);
+        indent(indent);
+        comment("LHS code...");
+        LHS.codeGen(indent);
+        indent(indent);
+        pop(Register.ebx);
+        indent(indent);
+        mov(Register.edx, 0);
+        indent(indent);
+        idiv(Register.ebx);
+    }
+
 
 }

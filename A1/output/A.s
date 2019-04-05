@@ -1,25 +1,24 @@
 extern __ref_SIT_java_lang_Number
-extern __exception
 extern __malloc
-extern __constructor__java_lang_Object__Object
-extern __method__java_lang_Object__getClass
-extern __ref_SIT_foo_bar
-extern __ref_SIT_java_lang_Short
-extern __ref_SIT_Main
-extern __ref_SIT_java_lang_Character
-extern __ref_SIT_java_lang_String
-extern __ref_SIT_Hello
 extern __ref_SIT_java_lang_Integer
 extern __method__java_lang_Object__toString
+extern __constructor__java_lang_Object__Object
+extern __method__java_lang_Object__getClass
 extern __ref_SIT_java_lang_Class
 extern __ref_SIT_java_lang_Boolean
+extern __ref_SIT_foo_bar
 extern __ref_SIT_java_util_Arrays
 extern __method__java_lang_Object__equals$java_lang_Object$
+extern __ref_SIT_java_lang_Short
 extern __ref_SIT_java_io_PrintStream
+extern __ref_SIT_Main
+extern __ref_SIT_java_lang_Character
 extern __method__java_lang_Object__clone
 extern __ref_SIT_java_lang_Object
 extern __method__java_lang_Object__hashCode
+extern __ref_SIT_java_lang_String
 extern __ref_SIT_java_lang_Byte
+extern __ref_SIT_Hello
 extern __ref_SIT_Static
 extern __ref_SIT_java_lang_System
 extern __ref_SIT_java_io_OutputStream
@@ -388,19 +387,53 @@ global @@@@main
 		push ebp
 		mov ebp, esp
 
-				;; Div
-		;; RHS code...
-		mov eax, 0
-		cmp eax,0
-		
-		je __exception
-		push eax
+				;expression code...
+		;; logical_and
+		;; compare_gt
 		;; LHS code...
+		mov eax, 1
+		push eax
+		;; RHS code...
+		mov eax, 2
+		pop ebx
+		cmp ebx, eax
+		jg .gt1
+		mov eax, 0
+		jmp .end_gt1
+		.gt1:
+			mov eax, 1
+		.end_gt1:
+
+		cmp eax, 0
+		je .end_and0
+		;; compare_lt
+		;; LHS code...
+		mov eax, 2
+		push eax
+		;; RHS code...
 		mov eax, 3
 		pop ebx
-		mov edx, 0
-		idiv ebx
+		cmp ebx, eax
+		jl .lt2
+		mov eax, 0
+		jmp .end_lt2
+		.lt2:
+			mov eax, 1
+		.end_lt2:
 
+		.end_and0:
+
+		cmp eax, 0
+		je .else0
+		;thenClause ...
+			mov eax, 1
+			jmp _method_return___STATIC_method__A__test$int$int$
+
+		jmp .endif0
+
+		.else0:
+		.endif0:
+		mov eax, 2
 		jmp _method_return___STATIC_method__A__test$int$int$
 
 		_method_return___STATIC_method__A__test$int$int$:
@@ -417,7 +450,7 @@ global @@@@main
 		push eax
 					mov eax, __constructor__java_lang_Object__Object
 		call eax
-		sub esp,4
+		sub esp, 4
 ;; Field init, push object to stack
 		mov eax, [ebp + 8]
 		push eax
