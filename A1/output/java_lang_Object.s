@@ -24,7 +24,16 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		
+				;; LHS code...
+		push eax
+		;; RHS code...
+		pop ebx
+		cmp eax,ebx
+		je .eq
+		mov eax, 0
+		.eq:
+			mov eax, 1
+
 		jmp _method_return___method__java_lang_Object__equals$java_lang_Object$
 
 		_method_return___method__java_lang_Object__equals$java_lang_Object$:

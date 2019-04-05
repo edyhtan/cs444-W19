@@ -27,6 +27,15 @@ section .text
 		mov ebp, esp
 
 				;expression code...
+		;; LHS code...
+		push eax
+		;; RHS code...
+		pop ebx
+		cmp eax,ebx
+		je .eq
+		mov eax, 1
+		.eq:
+			mov eax, 0
 
 		cmp eax,0
 		je .else0
@@ -51,6 +60,15 @@ section .text
 			je .endfor1
 			;statement code...
 			;expression code...
+			;; LHS code...
+			push eax
+			;; RHS code...
+			pop ebx
+			cmp eax,ebx
+			je .eq
+			mov eax, 1
+			.eq:
+				mov eax, 0
 
 			cmp eax,0
 			je .else2
@@ -86,6 +104,15 @@ section .text
 		mov ebp, esp
 
 				;expression code...
+		;; LHS code...
+		push eax
+		;; RHS code...
+		pop ebx
+		cmp eax,ebx
+		je .eq
+		mov eax, 1
+		.eq:
+			mov eax, 0
 
 		cmp eax,0
 		je .else3
@@ -110,6 +137,15 @@ section .text
 			je .endfor4
 			;statement code...
 			;expression code...
+			;; LHS code...
+			push eax
+			;; RHS code...
+			pop ebx
+			cmp eax,ebx
+			je .eq
+			mov eax, 1
+			.eq:
+				mov eax, 0
 
 			cmp eax,0
 			je .else5

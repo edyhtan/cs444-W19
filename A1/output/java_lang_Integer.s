@@ -59,6 +59,16 @@ section .text
 			je .endwhile0
 			;statement code...
 			;expression code...
+			;; LHS code...
+			push eax
+			;; RHS code...
+			mov eax, 39
+			pop ebx
+			cmp eax,ebx
+			je .eq
+			mov eax, 0
+			.eq:
+				mov eax, 1
 
 			cmp eax,0
 			je .else1

@@ -145,6 +145,15 @@ section .text
 
 		mov [ebp-12], eax
 		;expression code...
+		;; LHS code...
+		push eax
+		;; RHS code...
+		pop ebx
+		cmp eax,ebx
+		je .eq
+		mov eax, 0
+		.eq:
+			mov eax, 1
 
 		cmp eax,0
 		je .else2
@@ -170,6 +179,16 @@ section .text
 		.else3:
 		.endif3:
 		;expression code...
+		;; LHS code...
+		push eax
+		;; RHS code...
+		mov eax, 0
+		pop ebx
+		cmp eax,ebx
+		je .eq
+		mov eax, 0
+		.eq:
+			mov eax, 1
 
 		cmp eax,0
 		je .else4
@@ -190,12 +209,18 @@ section .text
 				je .endwhile5
 				;statement code...
 				sub esp,4
+				;; RHS code...
 				mov eax, 10
+				cmp eax,0
+				extern __exception
+
+				je __exception
 				push eax
+				;; LHS code...
 				pop ebx
 				mov edx, 0
 				idiv ebx
-				mov eax, edx
+mov eax, edx
 
 
 				mov [ebp0], eax
@@ -309,6 +334,16 @@ section .text
 		mov ebp, esp
 
 				;expression code...
+		;; LHS code...
+		push eax
+		;; RHS code...
+		mov eax, 0
+		pop ebx
+		cmp eax,ebx
+		je .eq
+		mov eax, 0
+		.eq:
+			mov eax, 1
 
 		cmp eax,0
 		je .else9
@@ -333,6 +368,16 @@ section .text
 		mov ebp, esp
 
 				;expression code...
+		;; LHS code...
+		push eax
+		;; RHS code...
+		mov eax, 0
+		pop ebx
+		cmp eax,ebx
+		je .eq
+		mov eax, 0
+		.eq:
+			mov eax, 1
 
 		cmp eax,0
 		je .else10
@@ -357,6 +402,16 @@ section .text
 		mov ebp, esp
 
 				;expression code...
+		;; LHS code...
+		push eax
+		;; RHS code...
+		mov eax, 0
+		pop ebx
+		cmp eax,ebx
+		je .eq
+		mov eax, 0
+		.eq:
+			mov eax, 1
 
 		cmp eax,0
 		je .else11
@@ -764,6 +819,15 @@ section .text
 				.else30:
 					;elseClause ...
 					;expression code...
+					;; LHS code...
+					push eax
+					;; RHS code...
+					pop ebx
+					cmp eax,ebx
+					je .eq
+					mov eax, 1
+					.eq:
+						mov eax, 0
 
 					cmp eax,0
 					je .else31

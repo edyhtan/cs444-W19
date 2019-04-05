@@ -255,9 +255,6 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
                 }
             }
         }
-        System.out.println(methodLabel);
-        localEnv.printOffset();
-
 
         asmWriter.indent(indent + 1);
 

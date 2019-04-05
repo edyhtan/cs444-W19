@@ -3,40 +3,18 @@
   <component name="ChangeListManager">
     <list default="true" id="87a665fb-9607-4c36-97d8-4c3c12615a75" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/A1/A1.iml" afterPath="$PROJECT_DIR$/A1/A1.iml" />
+      <change beforePath="$PROJECT_DIR$/A1/output/A.s" afterPath="$PROJECT_DIR$/A1/output/A.s" />
+      <change beforePath="$PROJECT_DIR$/A1/output/java_lang_Integer.s" afterPath="$PROJECT_DIR$/A1/output/java_lang_Integer.s" />
+      <change beforePath="$PROJECT_DIR$/A1/output/java_lang_Object.s" afterPath="$PROJECT_DIR$/A1/output/java_lang_Object.s" />
+      <change beforePath="$PROJECT_DIR$/A1/output/java_lang_String.s" afterPath="$PROJECT_DIR$/A1/output/java_lang_String.s" />
+      <change beforePath="$PROJECT_DIR$/A1/output/java_util_Arrays.s" afterPath="$PROJECT_DIR$/A1/output/java_util_Arrays.s" />
       <change beforePath="$PROJECT_DIR$/A1/src/Joosc/ASTModel/ClassMember/MethodDeclr.java" afterPath="$PROJECT_DIR$/A1/src/Joosc/ASTModel/ClassMember/MethodDeclr.java" />
       <change beforePath="$PROJECT_DIR$/A1/src/Joosc/ASTModel/Expressions/ExpressionBinary.java" afterPath="$PROJECT_DIR$/A1/src/Joosc/ASTModel/Expressions/ExpressionBinary.java" />
-      <change beforePath="$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/Statement.java" afterPath="$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/Statement.java" />
       <change beforePath="$PROJECT_DIR$/A1/src/Joosc/AsmWriter/AsmWriter.java" afterPath="$PROJECT_DIR$/A1/src/Joosc/AsmWriter/AsmWriter.java" />
-      <change beforePath="$PROJECT_DIR$/A1/src/Joosc/Environment/LocalEnv.java" afterPath="$PROJECT_DIR$/A1/src/Joosc/Environment/LocalEnv.java" />
-      <change beforePath="$PROJECT_DIR$/A1/src/Joosc/Joosc.java" afterPath="$PROJECT_DIR$/A1/src/Joosc/Joosc.java" />
-      <change beforePath="$PROJECT_DIR$/A1/src/Joosc/util/SymbolTable.java" afterPath="$PROJECT_DIR$/A1/src/Joosc/Environment/SymbolTable.java" />
-      <change beforePath="$PROJECT_DIR$/A1/stdlib2.0/java/util/Arrays.java" afterPath="$PROJECT_DIR$/A1/stdlib2.0/java/util/Arrays.java" />
-      <change beforePath="$PROJECT_DIR$/A1/test/assignment_testcases/a1/J1_forWithoutExp.java" afterPath="$PROJECT_DIR$/A1/test/assignment_testcases/a1/J1_forWithoutExp.java" />
       <change beforePath="$PROJECT_DIR$/A1/test/assignment_testcases/custom/play/A.java" afterPath="$PROJECT_DIR$/A1/test/assignment_testcases/custom/play/A.java" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/ClassInterface/ClassDeclr.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/ClassInterface/ClassDeclr.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/ClassInterface/InterfaceDeclr.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/ClassInterface/InterfaceDeclr.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/ClassMember/ConstructorDeclr.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/ClassMember/ConstructorDeclr.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/ClassMember/FieldDeclr.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/ClassMember/FieldDeclr.class" />
       <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/ClassMember/MethodDeclr.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/ClassMember/MethodDeclr.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Expressions/ExpressionBinary$1.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Expressions/ExpressionBinary$1.class" />
       <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Expressions/ExpressionBinary.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Expressions/ExpressionBinary.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Expressions/Literal.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Expressions/Literal.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Program.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Program.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Statements/Block.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Statements/Block.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Statements/ExpressionStatement.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Statements/ExpressionStatement.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Statements/ForStatement.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Statements/ForStatement.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Statements/IfStatement.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Statements/IfStatement.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Statements/LocalVarDeclrStatement.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Statements/LocalVarDeclrStatement.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Statements/ReturnStatement.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Statements/ReturnStatement.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Statements/WhileStatement.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/ASTModel/Statements/WhileStatement.class" />
       <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/AsmWriter/AsmWriter.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/AsmWriter/AsmWriter.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/Environment/ClassEnv.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/Environment/ClassEnv.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/Environment/GlobalEnv$PackageNames.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/Environment/GlobalEnv$PackageNames.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/Environment/GlobalEnv.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/Environment/GlobalEnv.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/Environment/LocalEnv.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/Environment/LocalEnv.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/Environment/MethodInfo.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/Environment/MethodInfo.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/A1/Joosc/Joosc.class" afterPath="$PROJECT_DIR$/out/production/A1/Joosc/Joosc.class" />
       <change beforePath="$PROJECT_DIR$/out/test/A1/assignment_testcases/custom/play/A.java" afterPath="$PROJECT_DIR$/out/test/A1/assignment_testcases/custom/play/A.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -52,24 +30,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MethodDeclr.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MethodDeclr.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/ClassMember/MethodDeclr.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="259" column="0" lean-forward="true" selection-start-line="259" selection-start-column="0" selection-end-line="259" selection-end-column="0" />
+            <state relative-caret-position="318">
+              <caret line="257" column="0" lean-forward="false" selection-start-line="257" selection-start-column="0" selection-end-line="257" selection-end-column="0" />
               <folding>
-                <element signature="e#9040#9041#0" expanded="true" />
-                <element signature="e#9074#9075#0" expanded="true" />
+                <element signature="e#8966#8967#0" expanded="true" />
+                <element signature="e#9000#9001#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="A.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="A.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/A1/test/assignment_testcases/custom/play/A.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2040">
-              <caret line="18" column="21" lean-forward="true" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="21" />
+            <state relative-caret-position="102">
+              <caret line="6" column="9" lean-forward="false" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -78,8 +56,8 @@
       <file leaf-file-name="A.s" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/A1/output/A.s">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="466" column="18" lean-forward="false" selection-start-line="466" selection-start-column="18" selection-end-line="466" selection-end-column="18" />
+            <state relative-caret-position="14">
+              <caret line="448" column="16" lean-forward="false" selection-start-line="448" selection-start-column="16" selection-end-line="448" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -88,9 +66,100 @@
       <file leaf-file-name="AsmWriter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/A1/src/Joosc/AsmWriter/AsmWriter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="246">
-              <caret line="312" column="37" lean-forward="false" selection-start-line="312" selection-start-column="37" selection-end-line="312" selection-end-column="37" />
-              <folding />
+            <state relative-caret-position="354">
+              <caret line="386" column="8" lean-forward="false" selection-start-line="386" selection-start-column="8" selection-end-line="386" selection-end-column="8" />
+              <folding>
+                <element signature="e#1911#1912#0" expanded="true" />
+                <element signature="e#1956#1957#0" expanded="true" />
+                <element signature="e#1992#1993#0" expanded="true" />
+                <element signature="e#2038#2039#0" expanded="true" />
+                <element signature="e#2075#2076#0" expanded="true" />
+                <element signature="e#2118#2119#0" expanded="true" />
+                <element signature="e#2167#2168#0" expanded="true" />
+                <element signature="e#2222#2223#0" expanded="true" />
+                <element signature="e#2275#2276#0" expanded="true" />
+                <element signature="e#2328#2329#0" expanded="true" />
+                <element signature="e#2377#2378#0" expanded="true" />
+                <element signature="e#2417#2418#0" expanded="true" />
+                <element signature="e#2453#2454#0" expanded="true" />
+                <element signature="e#2495#2496#0" expanded="true" />
+                <element signature="e#2531#2532#0" expanded="true" />
+                <element signature="e#2573#2574#0" expanded="true" />
+                <element signature="e#2610#2611#0" expanded="true" />
+                <element signature="e#2653#2654#0" expanded="true" />
+                <element signature="e#2689#2690#0" expanded="true" />
+                <element signature="e#2731#2732#0" expanded="true" />
+                <element signature="e#2767#2768#0" expanded="true" />
+                <element signature="e#2809#2810#0" expanded="true" />
+                <element signature="e#2846#2847#0" expanded="true" />
+                <element signature="e#2889#2890#0" expanded="true" />
+                <element signature="e#2927#2928#0" expanded="true" />
+                <element signature="e#2980#2981#0" expanded="true" />
+                <element signature="e#3017#3018#0" expanded="true" />
+                <element signature="e#3058#3059#0" expanded="true" />
+                <element signature="e#3094#3095#0" expanded="true" />
+                <element signature="e#3136#3137#0" expanded="true" />
+                <element signature="e#3174#3175#0" expanded="true" />
+                <element signature="e#3216#3217#0" expanded="true" />
+                <element signature="e#3241#3242#0" expanded="true" />
+                <element signature="e#3275#3276#0" expanded="true" />
+                <element signature="e#3312#3313#0" expanded="true" />
+                <element signature="e#3354#3355#0" expanded="true" />
+                <element signature="e#3534#3535#0" expanded="true" />
+                <element signature="e#3590#3591#0" expanded="true" />
+                <element signature="e#3639#3640#0" expanded="true" />
+                <element signature="e#3679#3680#0" expanded="true" />
+                <element signature="e#3728#3729#0" expanded="true" />
+                <element signature="e#3768#3769#0" expanded="true" />
+                <element signature="e#3821#3822#0" expanded="true" />
+                <element signature="e#3874#3875#0" expanded="true" />
+                <element signature="e#3920#3921#0" expanded="true" />
+                <element signature="e#3967#3968#0" expanded="true" />
+                <element signature="e#4024#4025#0" expanded="true" />
+                <element signature="e#4067#4068#0" expanded="true" />
+                <element signature="e#4128#4129#0" expanded="true" />
+                <element signature="e#4189#4190#0" expanded="true" />
+                <element signature="e#4246#4247#0" expanded="true" />
+                <element signature="e#4294#4295#0" expanded="true" />
+                <element signature="e#4351#4352#0" expanded="true" />
+                <element signature="e#4399#4400#0" expanded="true" />
+                <element signature="e#4454#4455#0" expanded="true" />
+                <element signature="e#4497#4498#0" expanded="true" />
+                <element signature="e#4556#4557#0" expanded="true" />
+                <element signature="e#4615#4616#0" expanded="true" />
+                <element signature="e#4670#4671#0" expanded="true" />
+                <element signature="e#4716#4717#0" expanded="true" />
+                <element signature="e#4771#4772#0" expanded="true" />
+                <element signature="e#4817#4818#0" expanded="true" />
+                <element signature="e#4866#4867#0" expanded="true" />
+                <element signature="e#4921#4922#0" expanded="true" />
+                <element signature="e#4974#4975#0" expanded="true" />
+                <element signature="e#5027#5028#0" expanded="true" />
+                <element signature="e#5071#5072#0" expanded="true" />
+                <element signature="e#5127#5128#0" expanded="true" />
+                <element signature="e#5176#5177#0" expanded="true" />
+                <element signature="e#5231#5232#0" expanded="true" />
+                <element signature="e#5284#5285#0" expanded="true" />
+                <element signature="e#5337#5338#0" expanded="true" />
+                <element signature="e#5381#5382#0" expanded="true" />
+                <element signature="e#5437#5438#0" expanded="true" />
+                <element signature="e#5487#5488#0" expanded="true" />
+                <element signature="e#5543#5544#0" expanded="true" />
+                <element signature="e#5597#5598#0" expanded="true" />
+                <element signature="e#5651#5652#0" expanded="true" />
+                <element signature="e#5696#5697#0" expanded="true" />
+                <element signature="e#5753#5754#0" expanded="true" />
+                <element signature="e#5790#5791#0" expanded="true" />
+                <element signature="e#5833#5834#0" expanded="true" />
+                <element signature="e#5871#5872#0" expanded="true" />
+                <element signature="e#5907#5908#0" expanded="true" />
+                <element signature="e#5954#5955#0" expanded="true" />
+                <element signature="e#6027#6028#0" expanded="true" />
+                <element signature="e#6847#6848#0" expanded="true" />
+                <element signature="e#6921#6922#0" expanded="true" />
+                <element signature="e#7100#7101#0" expanded="true" />
+                <element signature="e#7139#7140#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -98,8 +167,8 @@
       <file leaf-file-name="ExpressionBinary.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/Expressions/ExpressionBinary.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="284">
-              <caret line="316" column="38" lean-forward="false" selection-start-line="316" selection-start-column="38" selection-end-line="316" selection-end-column="38" />
+            <state relative-caret-position="502">
+              <caret line="368" column="20" lean-forward="false" selection-start-line="368" selection-start-column="20" selection-end-line="368" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -119,7 +188,7 @@
         <entry file="file://$PROJECT_DIR$/A1/src/Joosc/Environment/SymbolTable.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="391">
-              <caret line="27" column="26" lean-forward="true" selection-start-line="27" selection-start-column="26" selection-end-line="27" selection-end-column="26" />
+              <caret line="27" column="26" lean-forward="false" selection-start-line="27" selection-start-column="26" selection-end-line="27" selection-end-column="26" />
               <folding>
                 <element signature="e#271#272#0" expanded="true" />
                 <element signature="e#307#308#0" expanded="true" />
@@ -251,18 +320,18 @@
         <option value="$PROJECT_DIR$/A1/src/Joosc/Environment/LocalEnv.java" />
         <option value="$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/ReturnStatement.java" />
         <option value="$PROJECT_DIR$/A1/src/Joosc/Joosc.java" />
-        <option value="$PROJECT_DIR$/A1/src/Joosc/AsmWriter/AsmWriter.java" />
-        <option value="$PROJECT_DIR$/A1/src/Joosc/ASTModel/Expressions/ExpressionBinary.java" />
         <option value="$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/Statement.java" />
         <option value="$PROJECT_DIR$/A1/src/Joosc/util/SymbolTable.java" />
-        <option value="$PROJECT_DIR$/A1/src/Joosc/ASTModel/ClassMember/MethodDeclr.java" />
-        <option value="$PROJECT_DIR$/A1/test/assignment_testcases/custom/play/A.java" />
         <option value="$PROJECT_DIR$/A1/src/Joosc/Environment/SymbolTable.java" />
+        <option value="$PROJECT_DIR$/A1/src/Joosc/ASTModel/ClassMember/MethodDeclr.java" />
+        <option value="$PROJECT_DIR$/A1/src/Joosc/AsmWriter/AsmWriter.java" />
+        <option value="$PROJECT_DIR$/A1/src/Joosc/ASTModel/Expressions/ExpressionBinary.java" />
+        <option value="$PROJECT_DIR$/A1/test/assignment_testcases/custom/play/A.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="240" />
+    <option name="x" value="688" />
     <option name="y" value="22" />
     <option name="width" value="1440" />
     <option name="height" value="811" />
@@ -479,7 +548,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
-    <property name="SearchEverywhereHistoryKey" value="bin&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/ASTModel/Expressions/ExpressionBinary.java&#10;Ex&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/ASTModel/Expressions/ExpressionBinary.java&#10;ClassEnv&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/Environment/ClassEnv.java&#10;J1_A_CloneOnInterface&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a5/J1_A_CloneOnInterface&#10;classEnv&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/Environment/ClassEnv.java&#10;Je_6_Equality_int.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_6_Equality_int.java&#10;Je_5_AmbiguousName_FieldVsType_Initializer.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_5_AmbiguousName_FieldVsType_Initializer.java&#10;J2_interfaces&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/J2_interfaces&#10;Method&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/ASTModel/Expressions/ExpressionMethodInvocation.java&#10;methodI&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/ASTModel/Expressions/ExpressionMethodInvocation.java&#10;J1_5_AmbiguousName_DefaultPackageNotVisible&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/J1_5_AmbiguousName_DefaultPackageNotVisible&#10;Names&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/ASTModel/Expressions/Names.java&#10;If&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/ASTModel/Statements/IfStatement.java&#10;Binary&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/ASTModel/Expressions/ExpressionBinary.java&#10;local&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/Environment/LocalEnv.java&#10;Je_2_For_LocalVarInUpdate.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_2_For_LocalVarInUpdate.java&#10;Je_6_ProtectedAccess_Method_OutsidePackage_NotBySubclass&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_6_ProtectedAccess_Method_OutsidePackage_NotBySubclass&#10;Je_6_ProtectedAccess_InstanceMethod_SubDeclare_SubVar&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_6_ProtectedAccess_InstanceMethod_SubDeclare_SubVar&#10;Je_6_ProtectedAccess_StaticMethod_Sub_DeclaredInSu&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_6_ProtectedAccess_StaticMethod_Sub_DeclaredInSub&#10;Je_6_ProtectedAccess_StaticMethod_Sub_DeclaredInSub&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_6_ProtectedAccess_StaticMethod_Sub_DeclaredInSub&#10;Class&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/Environment/ClassEnv.java&#10;Protected_&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/J1_6_ProtectedAccess_ImplicitSuper&#10;Glo&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/Environment/GlobalEnv.java&#10;Je_6_ConstructorPresent_Super_NoDefault&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_6_ConstructorPresent_Super_NoDefault&#10;Je_6_StaticThis_InvokeNonstatic_Implicit.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_6_StaticThis_InvokeNonstatic_Implicit.java&#10;MethodIN&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/ASTModel/Expressions/ExpressionMethodInvocation.java&#10;implic&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_6_StaticThis_InvokeNonstatic_Implicit.java&#10;Loca&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/Environment/LocalEnv.java&#10;Joos&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/Joosc.java&#10;Je_16_StaticThis_StaticFieldInitializer.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_16_StaticThis_StaticFieldInitializer.java&#10;Je_6_StaticThis_InvokeNonStatic.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_6_StaticThis_InvokeNonStatic.java&#10;Je_AccessToStaticFieldWithImplicitThis&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_AccessToStaticFieldWithImplicitThis&#10;J1_methodoverloading.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/J1_methodoverloading.java&#10;J1_nestedcast.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/J1_nestedcast.java&#10;J1_ambiguousInvoke&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/J1_ambiguousInvoke&#10;Je_6_StaticAccessToNontatic_Method.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_6_StaticAccessToNontatic_Method.java&#10;Je_6_StaticThis_InvokeStatic.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_6_StaticThis_InvokeStatic.java&#10;Je_16_ClosestMatch_Array.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_16_ClosestMatch_Array.java&#10;J1_implicitstringconcatenation.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/J1_implicitstringconcatenation.java&#10;J1_A_ConcatInStaticInvoke.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/J1_A_ConcatInStaticInvoke.java&#10;J1_namelinking3.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/J1_namelinking3.java&#10;Je_6_NonStaticAccessToStatic_Field.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_6_NonStaticAccessToStatic_Field.java&#10;MethodIn&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/ASTModel/Expressions/ExpressionMethodInvocation.java&#10;Je_6_NonStaticAccessToStatic_Method.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_6_NonStaticAccessToStatic_Method.java&#10;J1_sideeffects_obj3.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/J1_sideeffects_obj3.java&#10;J2_static_shared.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/J2_static_shared.java&#10;J2_ProtectedAccess3&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/J2_ProtectedAccess3&#10;J1_StaticField_AccessFromClass.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/J1_StaticField_AccessFromClass.java&#10;Joosc&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/Joosc.java&#10;J1_typecheck_return.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/J1_typecheck_return.java" />
+    <property name="SearchEverywhereHistoryKey" value="Ex&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/ASTModel/Expressions/ExpressionBinary.java&#10;bin&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/ASTModel/Expressions/ExpressionBinary.java&#10;ClassEnv&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/Environment/ClassEnv.java&#10;J1_A_CloneOnInterface&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a5/J1_A_CloneOnInterface&#10;classEnv&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/Environment/ClassEnv.java&#10;Je_6_Equality_int.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_6_Equality_int.java&#10;Je_5_AmbiguousName_FieldVsType_Initializer.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_5_AmbiguousName_FieldVsType_Initializer.java&#10;J2_interfaces&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/J2_interfaces&#10;Method&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/ASTModel/Expressions/ExpressionMethodInvocation.java&#10;methodI&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/ASTModel/Expressions/ExpressionMethodInvocation.java&#10;J1_5_AmbiguousName_DefaultPackageNotVisible&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/J1_5_AmbiguousName_DefaultPackageNotVisible&#10;Names&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/ASTModel/Expressions/Names.java&#10;If&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/ASTModel/Statements/IfStatement.java&#10;Binary&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/ASTModel/Expressions/ExpressionBinary.java&#10;local&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/Environment/LocalEnv.java&#10;Je_2_For_LocalVarInUpdate.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_2_For_LocalVarInUpdate.java&#10;Je_6_ProtectedAccess_Method_OutsidePackage_NotBySubclass&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_6_ProtectedAccess_Method_OutsidePackage_NotBySubclass&#10;Je_6_ProtectedAccess_InstanceMethod_SubDeclare_SubVar&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_6_ProtectedAccess_InstanceMethod_SubDeclare_SubVar&#10;Je_6_ProtectedAccess_StaticMethod_Sub_DeclaredInSu&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_6_ProtectedAccess_StaticMethod_Sub_DeclaredInSub&#10;Je_6_ProtectedAccess_StaticMethod_Sub_DeclaredInSub&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_6_ProtectedAccess_StaticMethod_Sub_DeclaredInSub&#10;Class&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/Environment/ClassEnv.java&#10;Protected_&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/J1_6_ProtectedAccess_ImplicitSuper&#10;Glo&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/Environment/GlobalEnv.java&#10;Je_6_ConstructorPresent_Super_NoDefault&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_6_ConstructorPresent_Super_NoDefault&#10;Je_6_StaticThis_InvokeNonstatic_Implicit.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_6_StaticThis_InvokeNonstatic_Implicit.java&#10;MethodIN&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/ASTModel/Expressions/ExpressionMethodInvocation.java&#10;implic&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_6_StaticThis_InvokeNonstatic_Implicit.java&#10;Loca&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/Environment/LocalEnv.java&#10;Joos&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/Joosc.java&#10;Je_16_StaticThis_StaticFieldInitializer.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_16_StaticThis_StaticFieldInitializer.java&#10;Je_6_StaticThis_InvokeNonStatic.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_6_StaticThis_InvokeNonStatic.java&#10;Je_AccessToStaticFieldWithImplicitThis&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_AccessToStaticFieldWithImplicitThis&#10;J1_methodoverloading.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/J1_methodoverloading.java&#10;J1_nestedcast.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/J1_nestedcast.java&#10;J1_ambiguousInvoke&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/J1_ambiguousInvoke&#10;Je_6_StaticAccessToNontatic_Method.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_6_StaticAccessToNontatic_Method.java&#10;Je_6_StaticThis_InvokeStatic.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_6_StaticThis_InvokeStatic.java&#10;Je_16_ClosestMatch_Array.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_16_ClosestMatch_Array.java&#10;J1_implicitstringconcatenation.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/J1_implicitstringconcatenation.java&#10;J1_A_ConcatInStaticInvoke.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/J1_A_ConcatInStaticInvoke.java&#10;J1_namelinking3.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/J1_namelinking3.java&#10;Je_6_NonStaticAccessToStatic_Field.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_6_NonStaticAccessToStatic_Field.java&#10;MethodIn&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/ASTModel/Expressions/ExpressionMethodInvocation.java&#10;Je_6_NonStaticAccessToStatic_Method.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/Je_6_NonStaticAccessToStatic_Method.java&#10;J1_sideeffects_obj3.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/J1_sideeffects_obj3.java&#10;J2_static_shared.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/J2_static_shared.java&#10;J2_ProtectedAccess3&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/J2_ProtectedAccess3&#10;J1_StaticField_AccessFromClass.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/J1_StaticField_AccessFromClass.java&#10;Joosc&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/Joosc.java&#10;J1_typecheck_return.java&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/test/assignment_testcases/a3/J1_typecheck_return.java" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -707,7 +776,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3282123" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3924581" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3924581" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.325419" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3114525" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1144,22 +1213,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/A1/stdlib2.0/runtime.s">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/Expressions/ExpressionBinary.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="316" column="38" lean-forward="false" selection-start-line="316" selection-start-column="38" selection-end-line="316" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/Statements/Statement.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
@@ -1176,14 +1229,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/A1/src/Joosc/AsmWriter/AsmWriter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="312" column="37" lean-forward="false" selection-start-line="312" selection-start-column="37" selection-end-line="312" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/A1/test/assignment_testcases/a5/J1_300locals.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -1195,7 +1240,7 @@
     <entry file="file://$PROJECT_DIR$/A1/src/Joosc/Environment/SymbolTable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
-          <caret line="27" column="26" lean-forward="true" selection-start-line="27" selection-start-column="26" selection-end-line="27" selection-end-column="26" />
+          <caret line="27" column="26" lean-forward="false" selection-start-line="27" selection-start-column="26" selection-end-line="27" selection-end-column="26" />
           <folding>
             <element signature="e#271#272#0" expanded="true" />
             <element signature="e#307#308#0" expanded="true" />
@@ -1207,30 +1252,145 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/A1/stdlib2.0/runtime.s">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/A1/output/A.s">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="466" column="18" lean-forward="false" selection-start-line="466" selection-start-column="18" selection-end-line="466" selection-end-column="18" />
+        <state relative-caret-position="14">
+          <caret line="448" column="16" lean-forward="false" selection-start-line="448" selection-start-column="16" selection-end-line="448" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/A1/src/Joosc/AsmWriter/AsmWriter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="354">
+          <caret line="386" column="8" lean-forward="false" selection-start-line="386" selection-start-column="8" selection-end-line="386" selection-end-column="8" />
+          <folding>
+            <element signature="e#1911#1912#0" expanded="true" />
+            <element signature="e#1956#1957#0" expanded="true" />
+            <element signature="e#1992#1993#0" expanded="true" />
+            <element signature="e#2038#2039#0" expanded="true" />
+            <element signature="e#2075#2076#0" expanded="true" />
+            <element signature="e#2118#2119#0" expanded="true" />
+            <element signature="e#2167#2168#0" expanded="true" />
+            <element signature="e#2222#2223#0" expanded="true" />
+            <element signature="e#2275#2276#0" expanded="true" />
+            <element signature="e#2328#2329#0" expanded="true" />
+            <element signature="e#2377#2378#0" expanded="true" />
+            <element signature="e#2417#2418#0" expanded="true" />
+            <element signature="e#2453#2454#0" expanded="true" />
+            <element signature="e#2495#2496#0" expanded="true" />
+            <element signature="e#2531#2532#0" expanded="true" />
+            <element signature="e#2573#2574#0" expanded="true" />
+            <element signature="e#2610#2611#0" expanded="true" />
+            <element signature="e#2653#2654#0" expanded="true" />
+            <element signature="e#2689#2690#0" expanded="true" />
+            <element signature="e#2731#2732#0" expanded="true" />
+            <element signature="e#2767#2768#0" expanded="true" />
+            <element signature="e#2809#2810#0" expanded="true" />
+            <element signature="e#2846#2847#0" expanded="true" />
+            <element signature="e#2889#2890#0" expanded="true" />
+            <element signature="e#2927#2928#0" expanded="true" />
+            <element signature="e#2980#2981#0" expanded="true" />
+            <element signature="e#3017#3018#0" expanded="true" />
+            <element signature="e#3058#3059#0" expanded="true" />
+            <element signature="e#3094#3095#0" expanded="true" />
+            <element signature="e#3136#3137#0" expanded="true" />
+            <element signature="e#3174#3175#0" expanded="true" />
+            <element signature="e#3216#3217#0" expanded="true" />
+            <element signature="e#3241#3242#0" expanded="true" />
+            <element signature="e#3275#3276#0" expanded="true" />
+            <element signature="e#3312#3313#0" expanded="true" />
+            <element signature="e#3354#3355#0" expanded="true" />
+            <element signature="e#3534#3535#0" expanded="true" />
+            <element signature="e#3590#3591#0" expanded="true" />
+            <element signature="e#3639#3640#0" expanded="true" />
+            <element signature="e#3679#3680#0" expanded="true" />
+            <element signature="e#3728#3729#0" expanded="true" />
+            <element signature="e#3768#3769#0" expanded="true" />
+            <element signature="e#3821#3822#0" expanded="true" />
+            <element signature="e#3874#3875#0" expanded="true" />
+            <element signature="e#3920#3921#0" expanded="true" />
+            <element signature="e#3967#3968#0" expanded="true" />
+            <element signature="e#4024#4025#0" expanded="true" />
+            <element signature="e#4067#4068#0" expanded="true" />
+            <element signature="e#4128#4129#0" expanded="true" />
+            <element signature="e#4189#4190#0" expanded="true" />
+            <element signature="e#4246#4247#0" expanded="true" />
+            <element signature="e#4294#4295#0" expanded="true" />
+            <element signature="e#4351#4352#0" expanded="true" />
+            <element signature="e#4399#4400#0" expanded="true" />
+            <element signature="e#4454#4455#0" expanded="true" />
+            <element signature="e#4497#4498#0" expanded="true" />
+            <element signature="e#4556#4557#0" expanded="true" />
+            <element signature="e#4615#4616#0" expanded="true" />
+            <element signature="e#4670#4671#0" expanded="true" />
+            <element signature="e#4716#4717#0" expanded="true" />
+            <element signature="e#4771#4772#0" expanded="true" />
+            <element signature="e#4817#4818#0" expanded="true" />
+            <element signature="e#4866#4867#0" expanded="true" />
+            <element signature="e#4921#4922#0" expanded="true" />
+            <element signature="e#4974#4975#0" expanded="true" />
+            <element signature="e#5027#5028#0" expanded="true" />
+            <element signature="e#5071#5072#0" expanded="true" />
+            <element signature="e#5127#5128#0" expanded="true" />
+            <element signature="e#5176#5177#0" expanded="true" />
+            <element signature="e#5231#5232#0" expanded="true" />
+            <element signature="e#5284#5285#0" expanded="true" />
+            <element signature="e#5337#5338#0" expanded="true" />
+            <element signature="e#5381#5382#0" expanded="true" />
+            <element signature="e#5437#5438#0" expanded="true" />
+            <element signature="e#5487#5488#0" expanded="true" />
+            <element signature="e#5543#5544#0" expanded="true" />
+            <element signature="e#5597#5598#0" expanded="true" />
+            <element signature="e#5651#5652#0" expanded="true" />
+            <element signature="e#5696#5697#0" expanded="true" />
+            <element signature="e#5753#5754#0" expanded="true" />
+            <element signature="e#5790#5791#0" expanded="true" />
+            <element signature="e#5833#5834#0" expanded="true" />
+            <element signature="e#5871#5872#0" expanded="true" />
+            <element signature="e#5907#5908#0" expanded="true" />
+            <element signature="e#5954#5955#0" expanded="true" />
+            <element signature="e#6027#6028#0" expanded="true" />
+            <element signature="e#6847#6848#0" expanded="true" />
+            <element signature="e#6921#6922#0" expanded="true" />
+            <element signature="e#7100#7101#0" expanded="true" />
+            <element signature="e#7139#7140#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/ClassMember/MethodDeclr.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="257" column="0" lean-forward="false" selection-start-line="257" selection-start-column="0" selection-end-line="257" selection-end-column="0" />
+          <folding>
+            <element signature="e#8966#8967#0" expanded="true" />
+            <element signature="e#9000#9001#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/Expressions/ExpressionBinary.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="502">
+          <caret line="368" column="20" lean-forward="false" selection-start-line="368" selection-start-column="20" selection-end-line="368" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/A1/test/assignment_testcases/custom/play/A.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2040">
-          <caret line="18" column="21" lean-forward="true" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="21" />
+        <state relative-caret-position="102">
+          <caret line="6" column="9" lean-forward="false" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/A1/src/Joosc/ASTModel/ClassMember/MethodDeclr.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="259" column="0" lean-forward="true" selection-start-line="259" selection-start-column="0" selection-end-line="259" selection-end-column="0" />
-          <folding>
-            <element signature="e#9040#9041#0" expanded="true" />
-            <element signature="e#9074#9075#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>

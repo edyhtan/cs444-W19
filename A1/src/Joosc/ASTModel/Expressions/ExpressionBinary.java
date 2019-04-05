@@ -265,16 +265,9 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
         LHS.addWriter(asmWriter);
         RHS.addWriter(asmWriter);
 
-
-
         switch (operator) {
             case Plus:
-                LHS.codeGen(indent);
-                asmWriter.indent(indent);
-                asmWriter.push(Register.eax);
-                RHS.codeGen(indent);
-                asmWriter.indent(indent);
-                asmWriter.pop(Register.ebx);
+                asmWriter.evalLHSthenRHS(LHS, RHS, indent);
                 asmWriter.indent(indent);
                 asmWriter.add(Register.ebx, Register.eax);
                 asmWriter.indent(indent);
@@ -286,37 +279,34 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 break;
             // arithmetic operations
             case Minus:
-                LHS.codeGen(indent);
-                asmWriter.indent(indent);
-                asmWriter.push(Register.eax);
-                RHS.codeGen(indent);
-                asmWriter.indent(indent);
-                asmWriter.pop(Register.ebx);
+                asmWriter.evalLHSthenRHS(LHS, RHS, indent);
                 asmWriter.indent(indent);
                 asmWriter.sub(Register.ebx, Register.eax);
                 asmWriter.indent(indent);
                 asmWriter.mov(Register.eax, Register.ebx);
                 break;
             case Star:
-                LHS.codeGen(indent);
-                asmWriter.indent(indent);
-                asmWriter.push(Register.eax);
-                RHS.codeGen(indent);
-                asmWriter.indent(indent);
-                asmWriter.pop(Register.ebx);
+                asmWriter.evalLHSthenRHS(LHS, RHS, indent);
                 asmWriter.indent(indent);
                 asmWriter.imul(Register.ebx, Register.eax);
                 asmWriter.indent(indent);
                 asmWriter.mov(Register.eax, Register.ebx);
                 break;
             case Slash:
+                asmWriter.indent(indent);
+                asmWriter.comment("RHS code...");
                 RHS.codeGen(indent);
                 asmWriter.indent(indent);
                 asmWriter.cmp(Register.eax, "0");
                 asmWriter.indent(indent);
-                asmWriter.je(".div0");
+                asmWriter.extern("__exception");
+                asmWriter.println("");
+                asmWriter.indent(indent);
+                asmWriter.je("__exception");
                 asmWriter.indent(indent);
                 asmWriter.push(Register.eax);
+                asmWriter.indent(indent);
+                asmWriter.comment("LHS code...");
                 LHS.codeGen(indent);
                 asmWriter.indent(indent);
                 asmWriter.pop(Register.ebx);
@@ -326,9 +316,20 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 asmWriter.idiv(Register.ebx);
                 break;
             case Percent:
+                asmWriter.indent(indent);
+                asmWriter.comment("RHS code...");
                 RHS.codeGen(indent);
                 asmWriter.indent(indent);
+                asmWriter.cmp(Register.eax, "0");
+                asmWriter.indent(indent);
+                asmWriter.extern("__exception");
+                asmWriter.println("");
+                asmWriter.indent(indent);
+                asmWriter.je("__exception");
+                asmWriter.indent(indent);
                 asmWriter.push(Register.eax);
+                asmWriter.indent(indent);
+                asmWriter.comment("LHS code...");
                 LHS.codeGen(indent);
                 asmWriter.indent(indent);
                 asmWriter.pop(Register.ebx);
@@ -336,13 +337,34 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 asmWriter.mov(Register.edx, 0);
                 asmWriter.indent(indent);
                 asmWriter.idiv(Register.ebx);
-                asmWriter.indent(indent);
                 asmWriter.mov(Register.eax, Register.edx);
                 break;
             // comparison
             case EQ:
+                asmWriter.evalLHSthenRHS(LHS, RHS, indent);
+                asmWriter.indent(indent);
+                asmWriter.cmp(Register.eax, Register.ebx);
+                asmWriter.indent(indent);
+                asmWriter.je(".eq");
+                asmWriter.indent(indent);
+                asmWriter.mov(Register.eax, "0");
+                asmWriter.indent(indent);
+                asmWriter.label(".eq");
+                asmWriter.indent(indent+1);
+                asmWriter.mov(Register.eax, "1");
+                break;
             case NE:
-
+                asmWriter.evalLHSthenRHS(LHS, RHS, indent);
+                asmWriter.indent(indent);
+                asmWriter.cmp(Register.eax, Register.ebx);
+                asmWriter.indent(indent);
+                asmWriter.je(".eq");
+                asmWriter.indent(indent);
+                asmWriter.mov(Register.eax, "1");
+                asmWriter.indent(indent);
+                asmWriter.label(".eq");
+                asmWriter.indent(indent+1);
+                asmWriter.mov(Register.eax, "0");
                 break;
             case GE:
             case GT:

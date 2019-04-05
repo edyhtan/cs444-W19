@@ -12,6 +12,7 @@ import Joosc.util.ArrayLinkedHashSet;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.Collections;
+import java.util.HashSet;
 
 
 public class AsmWriter {
@@ -21,6 +22,7 @@ public class AsmWriter {
     private static String binaryTemplate = "%s %s, %s";
     public static ArrayLinkedHashSet<String> allMethods = new ArrayLinkedHashSet<>();
     public static ArrayLinkedHashMap<JoosType, String> parentMatrix = new ArrayLinkedHashMap<>();
+    private HashSet<String> externedLabels = new HashSet<>();
 
     public AsmWriter(PrintStream out) {
         this.out = out;
@@ -61,7 +63,10 @@ public class AsmWriter {
     }
 
     public void extern(String content) {
-        out.println("extern " + content);
+        if(!externedLabels.contains(content)) {
+            out.println("extern " + content);
+            externedLabels.add(content);
+        }
     }
 
     public void align(String bytes) {
@@ -367,6 +372,19 @@ public class AsmWriter {
             out.print(";; ");
             out.println(cmt);
         }
+    }
+
+    public void evalLHSthenRHS(Expression LHS, Expression RHS, int indent) {
+        indent(indent);
+        comment("LHS code...");
+        LHS.codeGen(indent);
+        indent(indent);
+        push(Register.eax);
+        indent(indent);
+        comment("RHS code...");
+        RHS.codeGen(indent);
+        indent(indent);
+        pop(Register.ebx);
     }
 
 }
