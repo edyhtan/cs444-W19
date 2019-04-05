@@ -1,29 +1,23 @@
+add esp, 4
+add esp, 4
+
 	global __class_java_io_PrintStream
 __class_java_io_PrintStream:
 
 section .data
 
 		global __ref_SIT_java_io_PrintStream
-	__ref_SIT_java_io_PrintStream:		dd 0
+	__ref_SIT_java_io_PrintStream		dd 0
 
 		global __ref_PARENTS_java_io_PrintStream
-	__ref_PARENTS_java_io_PrintStream:		dd 00000000001000001010b
+	__ref_PARENTS_java_io_PrintStream		dd 00000000001000001010b
 
 	; Methods	
-			extern __method__java_lang_Object__getClass
-			extern __method__java_lang_Object__hashCode
-			extern __method__java_lang_Object__equals$java_lang_Object$
-			extern __method__java_lang_Object__clone
-			extern __method__java_lang_Object__toString
-			extern __method__java_io_OutputStream__flush
-			extern __STATIC_method__java_io_OutputStream__nativeWrite$int$
-			extern __method__java_io_OutputStream__write$int$
-			extern __method__java_io_OutputStream__write$char$
-		dd __method__java_lang_Object__getClass
-		dd __method__java_lang_Object__hashCode
-		dd __method__java_lang_Object__equals$java_lang_Object$
-		dd __method__java_lang_Object__clone
-		dd __method__java_lang_Object__toString
+		dd __method__java_io_OutputStream__getClass
+		dd __method__java_io_OutputStream__hashCode
+		dd __method__java_io_OutputStream__equals$java_lang_Object$
+		dd __method__java_io_OutputStream__clone
+		dd __method__java_io_OutputStream__toString
 		dd __method__java_io_OutputStream__flush
 		dd __STATIC_method__java_io_OutputStream__nativeWrite$int$
 		dd __method__java_io_OutputStream__write$int$
@@ -46,7 +40,7 @@ section .data
 
 section .text
 
-;; -----Methods-----
+-----Methods-----
 		global __method__java_io_PrintStream__print$java_lang_String$
 	__method__java_io_PrintStream__print$java_lang_String$:
 		push ebp
@@ -56,7 +50,7 @@ section .text
 		sub esp,4
 		mov eax, 0
 
-		mov [ebp+-4], eax
+		mov [ebp-4], eax
 
 		.for0:
 			;expression code...
@@ -73,8 +67,7 @@ section .text
 			jmp .for0
 
 		.endfor0:
-			add esp, 4
-
+			
 
 		_method_return___method__java_io_PrintStream__print$java_lang_String$:
 			pop ebp
@@ -221,22 +214,19 @@ section .text
 			ret
 
 ;; -----Constructors-----
-		global __constructor__java_io_PrintStream__PrintStream
-	__constructor__java_io_PrintStream__PrintStream:
+			__constructor__java_io_PrintStream__PrintStream:
 		push ebp
 		mov ebp, esp
 		mov eax, [ebp + 8]
 		push eax
-			extern __constructor__java_io_OutputStream__OutputStream
-		mov eax, __constructor__java_io_OutputStream__OutputStream
+		mov eax, __constuctor__java_io_OutputStream__OutputStream
 		call eax
 		sub esp,4
 ;; Field init, push object to stack
 		mov eax, [ebp + 8]
 		push eax
 ;; Field init end, pop object
-		add esp, 4
-;; Constructor Body
+		;; Constructor Body
 ;; Epilogue
 		mov esp, ebp
 		pop ebp

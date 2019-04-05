@@ -3,8 +3,10 @@ package Joosc.ASTModel.Expressions;
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionClassInstanceCreationNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.ClassInterface.ClassDeclr;
+import Joosc.ASTModel.ClassMember.Method;
 import Joosc.ASTModel.Type;
 import Joosc.AsmWriter.AsmWriter;
+import Joosc.AsmWriter.Register;
 import Joosc.Environment.ClassEnv;
 import Joosc.Environment.Env;
 import Joosc.Environment.FieldsVarInfo;
@@ -22,6 +24,8 @@ import java.util.stream.Collectors;
 public class ExpressionClassInstanceCreation extends Expression {
     private Type classType;
     private ArrayList<Expression> argList;
+
+    private MethodInfo matchingCtor = null;
 
     public ExpressionClassInstanceCreation(ExpressionClassInstanceCreationNode node) {
         classType = new Type(node.getClassType());
@@ -81,7 +85,6 @@ public class ExpressionClassInstanceCreation extends Expression {
             argTypeList.add(arg.getType().getQualifiedName());
         }
 
-        MethodInfo matchingCtor = null;
         ClassEnv matchingClass = joosType.getClassEnv();
 
         String callSignature = String.join(",", argTypeList);
@@ -131,7 +134,46 @@ public class ExpressionClassInstanceCreation extends Expression {
 
     @Override
     public void codeGen(int indent) {
+        int objectSize = joosType.getClassEnv().symbolTable.size();
+        asmWriter.indent(indent);
+        asmWriter.comment("Allocating size of " + objectSize);
+        asmWriter.malloc(objectSize, indent);
+        ((ClassDeclr) joosType.getClassEnv().getTypeDeclr()).buildCompilerLabel();
+        String classTag = ((ClassDeclr) joosType.getClassEnv().getTypeDeclr()).classTagName;
+        asmWriter.indent(indent + 1);
+        asmWriter.extern(classTag);
+        asmWriter.indent(indent);
+        asmWriter.mov(Register.ebx, classTag);
+        asmWriter.indent(indent);
+        asmWriter.movToAddr(Register.eax, Register.ebx);
+        asmWriter.println("");
 
+        asmWriter.indent(indent);
+        asmWriter.comment("Pushing object");
+        asmWriter.indent(indent);
+        asmWriter.push(Register.eax);
+        asmWriter.println("");
+
+        asmWriter.indent(indent);
+        asmWriter.comment("Pushing args:");
+        for(Expression arg : argList) {
+            arg.addWriter(asmWriter);
+            arg.codeGen(indent + 1);
+            asmWriter.println("");
+            asmWriter.indent(indent + 1);
+            asmWriter.println("");
+        }
+
+        String label = matchingCtor.methodLabel;
+        asmWriter.indent(indent + 1);
+        asmWriter.extern(label);
+        asmWriter.indent(indent);
+        asmWriter.call(label);
+
+        asmWriter.indent(indent);
+        asmWriter.add(Register.esp, argList.size() * 4);
+        asmWriter.indent(indent);
+        asmWriter.pop(Register.eax);
     }
 
     @Override

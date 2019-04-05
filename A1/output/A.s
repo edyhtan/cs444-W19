@@ -1,20 +1,53 @@
+idiv ebx
+add esp, 4
+extern __ref_SIT_java_lang_Number
+extern __exception
+extern __malloc
+extern __method__java_lang_Number__hashCode
+extern __method__java_lang_Number__clone
+extern __method__java_io_OutputStream__toString
+extern __ref_SIT_foo_bar
+extern __ref_SIT_java_lang_Short
+extern __ref_SIT_Main
+extern __method__java_lang_Number__toString
+extern __ref_SIT_java_lang_Character
+extern __ref_SIT_java_lang_String
+extern __ref_SIT_Hello
+extern __method__Main__hashCode
+extern __method__Main__clone
+extern __method__Main__equals$java_lang_Object$
+extern __method__java_lang_Number__equals$java_lang_Object$
+extern __ref_SIT_java_lang_Integer
+extern __method__java_lang_Object__toString
+extern __ref_SIT_java_lang_Class
+extern __ref_SIT_java_lang_Boolean
+extern __ref_SIT_java_util_Arrays
+extern __method__java_lang_Object__equals$java_lang_Object$
+extern __ref_SIT_java_io_PrintStream
+extern __method__java_lang_Object__clone
+extern __ref_SIT_java_lang_Object
+extern __method__Main__toString
+extern __method__java_lang_Object__hashCode
+extern __ref_SIT_java_lang_Byte
+extern __method__java_io_OutputStream__clone
+extern __ref_SIT_Static
+extern __method__java_io_OutputStream__hashCode
+extern __method__java_io_OutputStream__equals$java_lang_Object$
+extern __ref_SIT_java_lang_System
+extern __ref_SIT_java_io_OutputStream
+
 	global __class_A
 __class_A:
 
 section .data
 
 		global __ref_SIT_A
-	__ref_SIT_A:		dd 0
+	__ref_SIT_A		dd 0
 
 		global __ref_PARENTS_A
-	__ref_PARENTS_A:		dd 10000000001000000000b
+	__ref_PARENTS_A		dd 10000000001000000000b
 
 	; Methods	
-			extern __method__java_lang_Object__getClass
-			extern __method__java_lang_Object__hashCode
-			extern __method__java_lang_Object__equals$java_lang_Object$
-			extern __method__java_lang_Object__clone
-			extern __method__java_lang_Object__toString
 		dd __method__java_lang_Object__getClass
 		dd __method__java_lang_Object__hashCode
 		dd __method__java_lang_Object__equals$java_lang_Object$
@@ -24,15 +57,13 @@ section .data
 
 section .text
 
-;; -----Methods-----
+-----Methods-----
 	global _start
 _start:
 
 mov eax, 16
-extern __malloc
 call __malloc
 
-extern __ref_SIT_java_util_Arrays
 mov ebx, __ref_SIT_java_util_Arrays
 mov [ebx], eax
 
@@ -51,26 +82,24 @@ mov [ebx], eax
 mov eax, 16
 call __malloc
 
-extern __ref_SIT_java_io_PrintStream
 mov ebx, __ref_SIT_java_io_PrintStream
 mov [ebx], eax
 
-		mov ebx, __method__java_lang_Object__hashCode
+		mov ebx, __method__java_io_OutputStream__hashCode
 	mov [eax + 0], ebx
 
-		mov ebx, __method__java_lang_Object__equals$java_lang_Object$
+		mov ebx, __method__java_io_OutputStream__equals$java_lang_Object$
 	mov [eax + 4], ebx
 
-		mov ebx, __method__java_lang_Object__clone
+		mov ebx, __method__java_io_OutputStream__clone
 	mov [eax + 8], ebx
 
-		mov ebx, __method__java_lang_Object__toString
+		mov ebx, __method__java_io_OutputStream__toString
 	mov [eax + 12], ebx
 
 mov eax, 16
 call __malloc
 
-extern __ref_SIT_java_io_OutputStream
 mov ebx, __ref_SIT_java_io_OutputStream
 mov [ebx], eax
 
@@ -89,7 +118,6 @@ mov [ebx], eax
 mov eax, 16
 call __malloc
 
-extern __ref_SIT_java_lang_System
 mov ebx, __ref_SIT_java_lang_System
 mov [ebx], eax
 
@@ -108,26 +136,24 @@ mov [ebx], eax
 mov eax, 16
 call __malloc
 
-extern __ref_SIT_java_lang_Integer
 mov ebx, __ref_SIT_java_lang_Integer
 mov [ebx], eax
 
-		mov ebx, __method__java_lang_Object__hashCode
+		mov ebx, __method__java_lang_Number__hashCode
 	mov [eax + 0], ebx
 
-		mov ebx, __method__java_lang_Object__equals$java_lang_Object$
+		mov ebx, __method__java_lang_Number__equals$java_lang_Object$
 	mov [eax + 4], ebx
 
-		mov ebx, __method__java_lang_Object__clone
+		mov ebx, __method__java_lang_Number__clone
 	mov [eax + 8], ebx
 
-		mov ebx, __method__java_lang_Object__toString
+		mov ebx, __method__java_lang_Number__toString
 	mov [eax + 12], ebx
 
 mov eax, 16
 call __malloc
 
-extern __ref_SIT_java_lang_Byte
 mov ebx, __ref_SIT_java_lang_Byte
 mov [ebx], eax
 
@@ -146,26 +172,24 @@ mov [ebx], eax
 mov eax, 16
 call __malloc
 
-extern __ref_SIT_java_lang_Short
 mov ebx, __ref_SIT_java_lang_Short
 mov [ebx], eax
 
-		mov ebx, __method__java_lang_Object__hashCode
+		mov ebx, __method__java_lang_Number__hashCode
 	mov [eax + 0], ebx
 
-		mov ebx, __method__java_lang_Object__equals$java_lang_Object$
+		mov ebx, __method__java_lang_Number__equals$java_lang_Object$
 	mov [eax + 4], ebx
 
-		mov ebx, __method__java_lang_Object__clone
+		mov ebx, __method__java_lang_Number__clone
 	mov [eax + 8], ebx
 
-		mov ebx, __method__java_lang_Object__toString
+		mov ebx, __method__java_lang_Number__toString
 	mov [eax + 12], ebx
 
 mov eax, 16
 call __malloc
 
-extern __ref_SIT_java_lang_Class
 mov ebx, __ref_SIT_java_lang_Class
 mov [ebx], eax
 
@@ -184,7 +208,6 @@ mov [ebx], eax
 mov eax, 16
 call __malloc
 
-extern __ref_SIT_java_lang_Object
 mov ebx, __ref_SIT_java_lang_Object
 mov [ebx], eax
 
@@ -203,7 +226,6 @@ mov [ebx], eax
 mov eax, 16
 call __malloc
 
-extern __ref_SIT_java_lang_String
 mov ebx, __ref_SIT_java_lang_String
 mov [ebx], eax
 
@@ -222,7 +244,6 @@ mov [ebx], eax
 mov eax, 16
 call __malloc
 
-extern __ref_SIT_java_lang_Character
 mov ebx, __ref_SIT_java_lang_Character
 mov [ebx], eax
 
@@ -241,7 +262,6 @@ mov [ebx], eax
 mov eax, 16
 call __malloc
 
-extern __ref_SIT_java_lang_Number
 mov ebx, __ref_SIT_java_lang_Number
 mov [ebx], eax
 
@@ -260,7 +280,6 @@ mov [ebx], eax
 mov eax, 16
 call __malloc
 
-extern __ref_SIT_java_lang_Boolean
 mov ebx, __ref_SIT_java_lang_Boolean
 mov [ebx], eax
 
@@ -279,7 +298,6 @@ mov [ebx], eax
 mov eax, 16
 call __malloc
 
-extern __ref_SIT_Hello
 mov ebx, __ref_SIT_Hello
 mov [ebx], eax
 
@@ -298,7 +316,6 @@ mov [ebx], eax
 mov eax, 16
 call __malloc
 
-extern __ref_SIT_foo_bar
 mov ebx, __ref_SIT_foo_bar
 mov [ebx], eax
 
@@ -317,7 +334,6 @@ mov [ebx], eax
 mov eax, 16
 call __malloc
 
-extern __ref_SIT_Main
 mov ebx, __ref_SIT_Main
 mov [ebx], eax
 
@@ -336,20 +352,19 @@ mov [ebx], eax
 mov eax, 16
 call __malloc
 
-extern __ref_SIT_Static
 mov ebx, __ref_SIT_Static
 mov [ebx], eax
 
-		mov ebx, __method__java_lang_Object__hashCode
+		mov ebx, __method__Main__hashCode
 	mov [eax + 0], ebx
 
-		mov ebx, __method__java_lang_Object__equals$java_lang_Object$
+		mov ebx, __method__Main__equals$java_lang_Object$
 	mov [eax + 4], ebx
 
-		mov ebx, __method__java_lang_Object__clone
+		mov ebx, __method__Main__clone
 	mov [eax + 8], ebx
 
-		mov ebx, __method__java_lang_Object__toString
+		mov ebx, __method__Main__toString
 	mov [eax + 12], ebx
 
 mov eax, 16
@@ -388,16 +403,14 @@ global @@@@main
 		;; RHS code...
 		mov eax, 2
 		cmp eax,0
-		extern __exception
-
+		
 		je __exception
 		push eax
 		;; LHS code...
 		mov eax, 6
 		pop ebx
 		mov edx, 0
-		idiv ebx
-mov eax, edx
+		mov eax, edx
 
 		push eax
 		;; RHS code...
@@ -430,22 +443,19 @@ mov eax, edx
 			ret
 
 ;; -----Constructors-----
-		global __constructor__A__A
-	__constructor__A__A:
+			__constructor__A__A:
 		push ebp
 		mov ebp, esp
 		mov eax, [ebp + 8]
 		push eax
-			extern __constructor__java_lang_Object__Object
-		mov eax, __constructor__java_lang_Object__Object
+		mov eax, __constuctor__java_lang_Object__Object
 		call eax
 		sub esp,4
 ;; Field init, push object to stack
 		mov eax, [ebp + 8]
 		push eax
 ;; Field init end, pop object
-		add esp, 4
-;; Constructor Body
+		;; Constructor Body
 ;; Epilogue
 		mov esp, ebp
 		pop ebp
