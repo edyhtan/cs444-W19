@@ -3,6 +3,7 @@ package Joosc.ASTModel.Expressions;
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionMethodInvocationNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.AsmWriter.AsmWriter;
+import Joosc.AsmWriter.Register;
 import Joosc.Environment.Env;
 import Joosc.Environment.MethodInfo;
 import Joosc.Exceptions.NamingResolveException;
@@ -143,7 +144,6 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
             argTypeList.add(arg.getType().getQualifiedName());
         }
 
-        MethodInfo matchingMethod = null;
         String callSignature = String.join(",", argTypeList);
 
         matchingMethod = env.getAllMethodSignature().getOrDefault(callSignature, null);
@@ -230,9 +230,40 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
 
     @Override
     public void codeGen(int indent) {
-        if(methodParentExpression != null) methodParentExpression.addWriter(asmWriter);
+        asmWriter.indent(indent);
+        asmWriter.comment("Method Invocation:");
+        asmWriter.indent(indent);
+        asmWriter.comment("o.code");
+        // TODO:
+        if(methodParentExpression != null)  {
+            methodParentExpression.addWriter(asmWriter);
+            methodParentExpression.codeGen(indent + 1);
+            asmWriter.nullCheck(indent);
+            asmWriter.indent(indent);
+            asmWriter.push(Register.eax);
+        }
 
+        asmWriter.indent(indent);
+        asmWriter.comment("Pushing args");
+        for(Expression arg : argList) {
+            arg.addWriter(asmWriter);
+            arg.codeGen(indent + 1);
+            asmWriter.indent(indent + 1);
+            asmWriter.push(Register.eax);
+            asmWriter.println();
+        }
 
+        // TODO: non-static method, interface method
+
+        // Static method
+        String label = matchingMethod.methodLabel;
+        asmWriter.extern(label);
+        asmWriter.indent(indent);
+        asmWriter.call(label);
+        asmWriter.println();
+
+        asmWriter.indent(indent);
+        asmWriter.add(Register.esp, argList.size() * 4 + 4);
 
     }
 

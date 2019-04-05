@@ -420,4 +420,12 @@ public class AsmWriter {
         }
     }
 
+    public void nullCheck(int indent) {
+        extern("__exception");
+        indent(indent);
+        cmp(Register.eax, "0");
+        indent(indent);
+        println("jne __exception");
+    }
+
 }
