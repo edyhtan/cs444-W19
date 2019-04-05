@@ -389,33 +389,50 @@ global @@@@main
 		mov ebp, esp
 
 				;expression code...
-		;; -----gt
+		;; -----ge
 		;; LHS code...
-		;; Mod
+		;; Div
 		;; RHS code...
-		mov eax, 2
+		mov eax, 4
 		cmp eax,0
 		
 		je __exception
 		push eax
 		;; LHS code...
-		mov eax, 6
+		;; Plus
+		;; LHS code...
+		mov eax, 1
+		push eax
+		;; RHS code...
+		;; Mult
+		;; LHS code...
+		mov eax, 2
+		push eax
+		;; RHS code...
+		mov eax, 3
+		pop ebx
+		imul ebx,eax
+		mov eax, ebx
+
+		pop ebx
+		add ebx, eax
+		mov eax, ebx
+
 		pop ebx
 		mov edx, 0
 		idiv ebx
-mov eax, edx
 
 		push eax
 		;; RHS code...
-		mov eax, 2
+		mov eax, 5
 		pop ebx
 		cmp ebx,eax
-		jg .gt0
+		jge .ge0
 		mov eax, 0
-		jmp .end_gt0
-		.gt0:
+		jmp .end_ge0
+		.ge0:
 			mov eax, 1
-		.end_gt0:
+		.end_ge0:
 
 		cmp eax,0
 		je .else0

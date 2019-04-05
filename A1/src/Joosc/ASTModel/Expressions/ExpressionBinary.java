@@ -369,7 +369,7 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 offset = MethodDeclr.PER_METHOD_COUNT;
                 MethodDeclr.PER_METHOD_COUNT++;
 
-//                asmWriter.compare(LHS, RHS, indent,"jge", "ge", offset);
+                asmWriter.compare(LHS, RHS, indent,"jge", "ge", offset);
                 break;
             case GT:
                 offset = MethodDeclr.PER_METHOD_COUNT;
@@ -381,13 +381,13 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 offset = MethodDeclr.PER_METHOD_COUNT;
                 MethodDeclr.PER_METHOD_COUNT++;
 
-//                asmWriter.compare(LHS, RHS, indent, "jl", "lt", offset);
+                asmWriter.compare(LHS, RHS, indent, "jl", "lt", offset);
                 break;
             case LE:
                 offset = MethodDeclr.PER_METHOD_COUNT;
                 MethodDeclr.PER_METHOD_COUNT++;
 
-//                asmWriter.compare(LHS, RHS, indent, "jle", "le", offset);
+                asmWriter.compare(LHS, RHS, indent, "jle", "le", offset);
                 break;
             case Instanceof:
 

@@ -99,6 +99,23 @@ section .text
 
 		.for0:
 			;expression code...
+			;; -----lt
+			;; LHS code...
+			;; Local Var i
+			mov eax, ebp
+			sub eax,4
+			mov eax, [eax]
+
+			push eax
+			;; RHS code...
+			pop ebx
+			cmp ebx,eax
+			jl .lt0
+			mov eax, 0
+			jmp .end_lt0
+			.lt0:
+				mov eax, 1
+			.end_lt0:
 
 			cmp eax,0
 			je .endfor0
@@ -118,6 +135,23 @@ section .text
 
 		.for1:
 			;expression code...
+			;; -----lt
+			;; LHS code...
+			;; Local Var i
+			mov eax, ebp
+			sub eax,4
+			mov eax, [eax]
+
+			push eax
+			;; RHS code...
+			pop ebx
+			cmp ebx,eax
+			jl .lt1
+			mov eax, 0
+			jmp .end_lt1
+			.lt1:
+				mov eax, 1
+			.end_lt1:
 
 			cmp eax,0
 			je .endfor1
@@ -240,6 +274,24 @@ section .text
 		.else2:
 		.endif2:
 		;expression code...
+		;; -----lt
+		;; LHS code...
+		;; Local Var i
+		mov eax, ebp
+		add eax, 8
+		mov eax, [eax]
+
+		push eax
+		;; RHS code...
+		mov eax, 0
+		pop ebx
+		cmp ebx,eax
+		jl .lt1
+		mov eax, 0
+		jmp .end_lt1
+		.lt1:
+			mov eax, 1
+		.end_lt1:
 
 		cmp eax,0
 		je .else3
@@ -374,6 +426,28 @@ mov eax, edx
 
 		.for7:
 			;expression code...
+			;; -----lt
+			;; LHS code...
+			;; Local Var i
+			mov eax, ebp
+			add eax, 8
+			mov eax, [eax]
+
+			push eax
+			;; RHS code...
+			;; Local Var j
+			mov eax, ebp
+			sub eax,8
+			mov eax, [eax]
+
+			pop ebx
+			cmp ebx,eax
+			jl .lt4
+			mov eax, 0
+			jmp .end_lt4
+			.lt4:
+				mov eax, 1
+			.end_lt4:
 
 			cmp eax,0
 			je .endfor7
@@ -622,6 +696,24 @@ mov eax, edx
 		push eax
 
 		;expression code...
+		;; -----lt
+		;; LHS code...
+		;; Local Var i
+		mov eax, ebp
+		add eax, 12
+		mov eax, [eax]
+
+		push eax
+		;; RHS code...
+		mov eax, 0
+		pop ebx
+		cmp ebx,eax
+		jl .lt0
+		mov eax, 0
+		jmp .end_lt0
+		.lt0:
+			mov eax, 1
+		.end_lt0:
 
 		cmp eax,0
 		je .else13
@@ -661,6 +753,28 @@ mov eax, edx
 		.else14:
 		.endif14:
 		;expression code...
+		;; -----lt
+		;; LHS code...
+		;; Local Var j
+		mov eax, ebp
+		add eax, 8
+		mov eax, [eax]
+
+		push eax
+		;; RHS code...
+		;; Local Var i
+		mov eax, ebp
+		add eax, 12
+		mov eax, [eax]
+
+		pop ebx
+		cmp ebx,eax
+		jl .lt2
+		mov eax, 0
+		jmp .end_lt2
+		.lt2:
+			mov eax, 1
+		.end_lt2:
 
 		cmp eax,0
 		je .else15
@@ -679,6 +793,28 @@ mov eax, edx
 
 		.for16:
 			;expression code...
+			;; -----lt
+			;; LHS code...
+			;; Local Var k
+			mov eax, ebp
+			sub eax,4
+			mov eax, [eax]
+
+			push eax
+			;; RHS code...
+			;; Local Var j
+			mov eax, ebp
+			add eax, 8
+			mov eax, [eax]
+
+			pop ebx
+			cmp ebx,eax
+			jl .lt3
+			mov eax, 0
+			jmp .end_lt3
+			.lt3:
+				mov eax, 1
+			.end_lt3:
 
 			cmp eax,0
 			je .endfor16
@@ -828,6 +964,35 @@ mov eax, edx
 
 		.for20:
 			;expression code...
+			;; -----lt
+			;; LHS code...
+			;; Local Var i
+			mov eax, ebp
+			sub eax,8
+			mov eax, [eax]
+
+			push eax
+			;; RHS code...
+			;; Implicit This
+			mov eax, [ebp + 0]
+			;; Field chars
+			mov eax, ebp
+			add eax, 4
+			mov eax, [eax]
+
+			;; Field length
+			mov eax, ebp
+			add eax, 4
+			mov eax, [eax]
+
+			pop ebx
+			cmp ebx,eax
+			jl .lt0
+			mov eax, 0
+			jmp .end_lt0
+			.lt0:
+				mov eax, 1
+			.end_lt0:
 
 			cmp eax,0
 			je .endfor20
@@ -917,6 +1082,35 @@ mov eax, edx
 			.endif22:
 
 			;expression code...
+			;; -----ge
+			;; LHS code...
+			;; Local Var i
+			mov eax, ebp
+			sub eax,4
+			mov eax, [eax]
+
+			push eax
+			;; RHS code...
+			;; Implicit This
+			mov eax, [ebp + 0]
+			;; Field chars
+			mov eax, ebp
+			add eax, 4
+			mov eax, [eax]
+
+			;; Field length
+			mov eax, ebp
+			add eax, 4
+			mov eax, [eax]
+
+			pop ebx
+			cmp ebx,eax
+			jge .ge0
+			mov eax, 0
+			jmp .end_ge0
+			.ge0:
+				mov eax, 1
+			.end_ge0:
 
 			cmp eax,0
 			je .else23
@@ -929,6 +1123,38 @@ mov eax, edx
 			.endif23:
 
 			;expression code...
+			;; -----ge
+			;; LHS code...
+			;; Local Var i
+			mov eax, ebp
+			sub eax,4
+			mov eax, [eax]
+
+			push eax
+			;; RHS code...
+			;; Local Var other
+			mov eax, ebp
+			add eax, 8
+			mov eax, [eax]
+
+			;; Field chars
+			mov eax, ebp
+			add eax, 4
+			mov eax, [eax]
+
+			;; Field length
+			mov eax, ebp
+			add eax, 4
+			mov eax, [eax]
+
+			pop ebx
+			cmp ebx,eax
+			jge .ge1
+			mov eax, 0
+			jmp .end_ge1
+			.ge1:
+				mov eax, 1
+			.end_ge1:
 
 			cmp eax,0
 			je .else24
@@ -942,6 +1168,18 @@ mov eax, edx
 			.endif24:
 
 			;expression code...
+			;; -----lt
+			;; LHS code...
+			push eax
+			;; RHS code...
+			pop ebx
+			cmp ebx,eax
+			jl .lt2
+			mov eax, 0
+			jmp .end_lt2
+			.lt2:
+				mov eax, 1
+			.end_lt2:
 
 			cmp eax,0
 			je .else25
@@ -1008,6 +1246,33 @@ mov eax, edx
 
 		.for27:
 			;expression code...
+			;; -----lt
+			;; LHS code...
+			;; Local Var i
+			mov eax, ebp
+			sub eax,8
+			mov eax, [eax]
+
+			push eax
+			;; RHS code...
+			;; Local Var ret
+			mov eax, ebp
+			sub eax,4
+			mov eax, [eax]
+
+			;; Field length
+			mov eax, ebp
+			add eax, 4
+			mov eax, [eax]
+
+			pop ebx
+			cmp ebx,eax
+			jl .lt0
+			mov eax, 0
+			jmp .end_lt0
+			.lt0:
+				mov eax, 1
+			.end_lt0:
 
 			cmp eax,0
 			je .endfor27
@@ -1054,6 +1319,23 @@ mov eax, edx
 
 		.for28:
 			;expression code...
+			;; -----lt
+			;; LHS code...
+			;; Local Var offset
+			mov eax, ebp
+			sub eax,4
+			mov eax, [eax]
+
+			push eax
+			;; RHS code...
+			pop ebx
+			cmp ebx,eax
+			jl .lt0
+			mov eax, 0
+			jmp .end_lt0
+			.lt0:
+				mov eax, 1
+			.end_lt0:
 
 			cmp eax,0
 			je .endfor28
@@ -1068,11 +1350,58 @@ mov eax, edx
 
 			.for29:
 				;expression code...
+				;; -----lt
+				;; LHS code...
+				;; Local Var i
+				mov eax, ebp
+				sub eax,8
+				mov eax, [eax]
+
+				push eax
+				;; RHS code...
+				pop ebx
+				cmp ebx,eax
+				jl .lt1
+				mov eax, 0
+				jmp .end_lt1
+				.lt1:
+					mov eax, 1
+				.end_lt1:
 
 				cmp eax,0
 				je .endfor29
 				;statement code...
 				;expression code...
+				;; -----ge
+				;; LHS code...
+				;; Plus
+				;; LHS code...
+				;; Local Var i
+				mov eax, ebp
+				sub eax,8
+				mov eax, [eax]
+
+				push eax
+				;; RHS code...
+				;; Local Var offset
+				mov eax, ebp
+				sub eax,4
+				mov eax, [eax]
+
+				pop ebx
+				add ebx, eax
+				mov eax, ebx
+
+				push eax
+				;; RHS code...
+				pop ebx
+				cmp ebx,eax
+				jge .ge2
+				mov eax, 0
+				jmp .end_ge2
+				.ge2:
+					mov eax, 1
+				.end_ge2:
 
 				cmp eax,0
 				je .else30
@@ -1213,6 +1542,30 @@ mov eax, 0
 
 			.for33:
 				;expression code...
+				;; -----lt
+				;; LHS code...
+				push eax
+				;; RHS code...
+				;; Implicit This
+				mov eax, [ebp + 0]
+				;; Field chars
+				mov eax, ebp
+				add eax, 4
+				mov eax, [eax]
+
+				;; Field length
+				mov eax, ebp
+				add eax, 4
+				mov eax, [eax]
+
+				pop ebx
+				cmp ebx,eax
+				jl .lt4
+				mov eax, 0
+				jmp .end_lt4
+				.lt4:
+					mov eax, 1
+				.end_lt4:
 
 				cmp eax,0
 				je .endfor33

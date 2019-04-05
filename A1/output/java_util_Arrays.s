@@ -87,6 +87,33 @@ section .text
 
 		.for1:
 			;expression code...
+			;; -----lt
+			;; LHS code...
+			;; Local Var i
+			mov eax, ebp
+			sub eax,4
+			mov eax, [eax]
+
+			push eax
+			;; RHS code...
+			;; Local Var a1
+			mov eax, ebp
+			add eax, 12
+			mov eax, [eax]
+
+			;; Field length
+			mov eax, ebp
+			add eax, 4
+			mov eax, [eax]
+
+			pop ebx
+			cmp ebx,eax
+			jl .lt1
+			mov eax, 0
+			jmp .end_lt1
+			.lt1:
+				mov eax, 1
+			.end_lt1:
 
 			cmp eax,0
 			je .endfor1
@@ -191,6 +218,33 @@ section .text
 
 		.for4:
 			;expression code...
+			;; -----lt
+			;; LHS code...
+			;; Local Var i
+			mov eax, ebp
+			sub eax,4
+			mov eax, [eax]
+
+			push eax
+			;; RHS code...
+			;; Local Var a1
+			mov eax, ebp
+			add eax, 12
+			mov eax, [eax]
+
+			;; Field length
+			mov eax, ebp
+			add eax, 4
+			mov eax, [eax]
+
+			pop ebx
+			cmp ebx,eax
+			jl .lt1
+			mov eax, 0
+			jmp .end_lt1
+			.lt1:
+				mov eax, 1
+			.end_lt1:
 
 			cmp eax,0
 			je .endfor4
