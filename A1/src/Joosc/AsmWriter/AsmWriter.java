@@ -117,8 +117,12 @@ public class AsmWriter {
         out.println("pop " + reg);
     }
 
-    public void call(String label) {
-        out.println("call " + label);
+    public void call(String str) {
+        out.println("call " + str);
+    }
+
+    public void call(Register reg) {
+        out.println("call " + reg);
     }
 
     public void ret() {

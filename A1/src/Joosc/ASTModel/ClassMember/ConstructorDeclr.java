@@ -117,11 +117,40 @@ public class ConstructorDeclr implements ClassBodyDeclr, Method {
         // Ctor label
         asmWriter.indent(indent);
         asmWriter.label(info.methodLabel);
-
+        indent += 1;
         asmWriter.prologue(indent);
+
+        // Super default constructor if not object
+        if (!name.equals("Object")) {
+            // Pseudo way to get object addr
+            Integer objectOffset = formalParamList.size() * 4 + 8;
+            asmWriter.indent(indent);
+            asmWriter.mov(Register.eax, "[ ebp + " + objectOffset.toString() + " ]");
+            asmWriter.indent(indent);
+            asmWriter.push(Register.eax);
+            // Call parent constructor
+            JoosType extendType = localEnv.getCurrentClass().getClassEnv().extendName;
+            String parentConstructorLabel =
+                    "__constuctor__"
+                    + extendType.getQualifiedName().replace('.', '_')
+                    + "__"
+                    + extendType.getClassEnv().getTypeDeclr().getSimpleName();
+            asmWriter.indent(indent);
+            asmWriter.mov(Register.eax, parentConstructorLabel);
+
+            asmWriter.indent(indent);
+            asmWriter.call(Register.eax);
+
+            asmWriter.indent(indent);
+            asmWriter.sub(Register.esp, 4);
+        }
+
+        // Field initializers
+
 
         // Code for ctor body
         for(Statement stmt : bodyBlock) {
+            stmt.addWriter(asmWriter);
             stmt.codeGen(indent + 1);
         }
 
