@@ -4,10 +4,12 @@ __class_java_util_Arrays:
 section .data
 
 		global __ref_SIT_java_util_Arrays
-	__ref_SIT_java_util_Arrays:		dd 0
+	__ref_SIT_java_util_Arrays:
+		dd 0
 
 		global __ref_PARENTS_java_util_Arrays
-	__ref_PARENTS_java_util_Arrays:		dd 00000100010000000000b
+	__ref_PARENTS_java_util_Arrays:
+		dd 00000100010000000000b
 
 	; Methods	
 			extern __method__java_lang_Object__getClass
@@ -43,10 +45,10 @@ section .text
 		.else0:
 		.endif0:
 		;forInit code...
-		sub esp,4
+;; ---declare i
 		mov eax, 0
+		push eax
 
-		mov [ebp+-4], eax
 
 		.for1:
 			;expression code...
@@ -97,10 +99,10 @@ section .text
 		.else3:
 		.endif3:
 		;forInit code...
-		sub esp,4
+;; ---declare i
 		mov eax, 0
+		push eax
 
-		mov [ebp+-4], eax
 
 		.for4:
 			;expression code...

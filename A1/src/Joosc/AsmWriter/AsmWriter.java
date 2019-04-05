@@ -306,15 +306,12 @@ public class AsmWriter {
 
         // Parent Matrix
         for (ClassEnv env: GlobalEnv.instance.classEnvs) {
-            System.err.println(env.getJoosType().getTypeName());
             parentMatrix.put(env.getJoosType(), "");
         }
 
-        System.err.println(parentMatrix.size());
-
         // Compute Marrix
         for (JoosType type: parentMatrix.keySet()) {
-            for (JoosType type2: parentMatrix.keySet()) {
+            for (JoosType type2 : parentMatrix.keySet()) {
                 int bit = 0;
                 if (type.isA(type2)) {
                     bit = 1;
@@ -322,7 +319,6 @@ public class AsmWriter {
                 String ref = Integer.toString(bit) + parentMatrix.get(type);
                 parentMatrix.put(type, ref);
             }
-            System.err.println(parentMatrix.get(type) + " " + type.getTypeName());
         }
     }
 

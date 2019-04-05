@@ -4,10 +4,12 @@ __class_java_lang_String:
 section .data
 
 		global __ref_SIT_java_lang_String
-	__ref_SIT_java_lang_String:		dd 0
+	__ref_SIT_java_lang_String:
+		dd 0
 
 		global __ref_PARENTS_java_lang_String
-	__ref_PARENTS_java_lang_String:		dd 00000001010000000000b
+	__ref_PARENTS_java_lang_String:
+		dd 00000001010000000000b
 
 	; Methods	
 			extern __method__java_lang_Object__getClass
@@ -45,7 +47,19 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				jmp _method_return___method__java_lang_String__length
+				;; Implicit This
+		mov eax, [ebp + 0]
+		;; Field chars
+		mov eax, ebp
+		add eax,4
+		mov eax, [eax]
+
+		;; Field length
+		mov eax, ebp
+		add eax,4
+		mov eax, [eax]
+
+		jmp _method_return___method__java_lang_String__length
 
 		_method_return___method__java_lang_String__length:
 			pop ebp
@@ -67,13 +81,13 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				sub esp,4
+		;; ---declare i
 		mov eax, 0
+		push eax
 
-		mov [ebp+-4], eax
-		sub esp,4
+;; ---declare newchars
+		push eax
 
-		mov [ebp+-8], eax
 		;forInit code...
 
 		.for0:
@@ -115,9 +129,9 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				sub esp,4
+		;; ---declare newchars
+		push eax
 
-		mov [ebp+-4], eax
 		jmp _method_return___STATIC_method__java_lang_String__valueOf$char$
 
 		_method_return___STATIC_method__java_lang_String__valueOf$char$:
@@ -129,17 +143,17 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				sub esp,4
+		;; ---declare ret
+		push eax
 
-		mov [ebp+-4], eax
-		sub esp,4
+;; ---declare j
 		mov eax, 0
+		push eax
 
-		mov [ebp+-8], eax
-		sub esp,4
+;; ---declare wasneg
 		mov eax, 0
+		push eax
 
-		mov [ebp+-12], eax
 		;expression code...
 		cmp eax,0
 		je .else2
@@ -177,9 +191,9 @@ section .text
 				cmp eax,0
 				je .endwhile5
 				;statement code...
-				sub esp,4
+;; ---declare d
+				push eax
 
-				mov [ebp+0], eax
 
 
 
@@ -196,6 +210,11 @@ section .text
 
 		.endif4:
 		;expression code...
+		;; Local Var wasneg
+		mov eax, ebp
+		sub eax,12
+		mov eax, [eax]
+
 		cmp eax,0
 		je .else6
 		;thenClause ...
@@ -206,9 +225,9 @@ section .text
 
 		.else6:
 		.endif6:
-		sub esp,4
+;; ---declare ret2
+		push eax
 
-		mov [ebp+-16], eax
 		;forInit code...
 
 		.for7:
@@ -258,6 +277,11 @@ section .text
 		mov ebp, esp
 
 				;expression code...
+		;; Local Var b
+		mov eax, ebp
+		add eax,8
+		mov eax, [eax]
+
 		cmp eax,0
 		je .else8
 		;thenClause ...
@@ -313,6 +337,11 @@ section .text
 
 		.else10:
 			;elseClause ...
+			;; Local Var o
+			mov eax, ebp
+			add eax,8
+			mov eax, [eax]
+
 			jmp _method_return___STATIC_method__java_lang_String__valueOf$java_lang_String$
 
 		.endif10:
@@ -359,10 +388,10 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				sub esp,4
+		;; ---declare k
 		mov eax, 0
+		push eax
 
-		mov [ebp+-4], eax
 		;expression code...
 		cmp eax,0
 		je .else13
@@ -393,9 +422,9 @@ section .text
 
 		.else15:
 		.endif15:
-		sub esp,4
+;; ---declare ret
+		push eax
 
-		mov [ebp+-8], eax
 		;forInit code...
 
 		.for16:
@@ -422,14 +451,14 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				sub esp,4
+		;; ---declare i
 		mov eax, 0
+		push eax
 
-		mov [ebp+-4], eax
-		sub esp,4
+;; ---declare j
 		mov eax, 0
+		push eax
 
-		mov [ebp+-8], eax
 		;forInit code...
 
 		.for17:
@@ -483,15 +512,15 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				sub esp,4
+		;; ---declare h
 		mov eax, 0
+		push eax
 
-		mov [ebp+-4], eax
 		;forInit code...
-		sub esp,4
+;; ---declare i
 		mov eax, 0
+		push eax
 
-		mov [ebp+-8], eax
 
 		.for20:
 			;expression code...
@@ -507,6 +536,11 @@ section .text
 
 		.endfor20:
 			add esp,4
+
+		;; Local Var h
+		mov eax, ebp
+		sub eax,4
+		mov eax, [eax]
 
 		jmp _method_return___method__java_lang_String__hashCode
 
@@ -541,16 +575,21 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				sub esp,4
+		;; ---declare i
 		mov eax, 0
+		push eax
 
-		mov [ebp+-4], eax
-		sub esp,4
+;; ---declare b
 		mov eax, 1
+		push eax
 
-		mov [ebp+-8], eax
 		.while21:
 			;expression code...
+			;; Local Var b
+			mov eax, ebp
+			sub eax,8
+			mov eax, [eax]
+
 			cmp eax,0
 			je .endwhile21
 			;statement code...
@@ -629,14 +668,14 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				sub esp,4
+		;; ---declare ret
+		push eax
 
-		mov [ebp+-4], eax
 		;forInit code...
-		sub esp,4
+;; ---declare i
 		mov eax, 0
+		push eax
 
-		mov [ebp+-8], eax
 
 		.for27:
 			;expression code...
@@ -653,6 +692,11 @@ section .text
 		.endfor27:
 			add esp,4
 
+		;; Local Var ret
+		mov eax, ebp
+		sub eax,4
+		mov eax, [eax]
+
 		jmp _method_return___method__java_lang_String__toCharArray
 
 		_method_return___method__java_lang_String__toCharArray:
@@ -664,14 +708,14 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				sub esp,4
+		;; ---declare offset
 		mov eax, 0
+		push eax
 
-		mov [ebp+-4], eax
-		sub esp,4
+;; ---declare i
 		mov eax, 0
+		push eax
 
-		mov [ebp+-8], eax
 		;forInit code...
 
 		.for28:
@@ -679,10 +723,10 @@ section .text
 			cmp eax,0
 			je .endfor28
 			;statement code...
-			sub esp,4
+;; ---declare found
 			mov eax, 1
+			push eax
 
-			mov [ebp+-12], eax
 
 			;forInit code...
 
@@ -722,9 +766,19 @@ section .text
 
 
 			;expression code...
+			;; Local Var found
+			mov eax, ebp
+			sub eax,12
+			mov eax, [eax]
+
 			cmp eax,0
 			je .else32
 			;thenClause ...
+				;; Local Var offset
+				mov eax, ebp
+				sub eax,4
+				mov eax, [eax]
+
 				jmp _method_return___method__java_lang_String__indexOf$java_lang_String$
 
 			jmp .endif32
@@ -796,10 +850,10 @@ mov eax, 0
 		add esp,4
 ;; Constructor Body
 			;forInit code...
-			sub esp,4
+;; ---declare i
 			mov eax, 0
+			push eax
 
-			mov [ebp+0], eax
 
 			.for33:
 				;expression code...

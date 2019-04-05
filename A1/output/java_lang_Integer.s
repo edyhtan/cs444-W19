@@ -4,10 +4,12 @@ __class_java_lang_Integer:
 section .data
 
 		global __ref_SIT_java_lang_Integer
-	__ref_SIT_java_lang_Integer:		dd 0
+	__ref_SIT_java_lang_Integer:
+		dd 0
 
 		global __ref_PARENTS_java_lang_Integer
-	__ref_PARENTS_java_lang_Integer:		dd 00000000011100000000b
+	__ref_PARENTS_java_lang_Integer:
+		dd 00000000011100000000b
 
 	; Methods	
 			extern __method__java_lang_Object__getClass
@@ -35,7 +37,14 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				jmp _method_return___method__java_lang_Integer__intValue
+				;; Implicit This
+		mov eax, [ebp + 0]
+		;; Field value
+		mov eax, ebp
+		add eax,4
+		mov eax, [eax]
+
+		jmp _method_return___method__java_lang_Integer__intValue
 
 		_method_return___method__java_lang_Integer__intValue:
 			pop ebp
@@ -46,18 +55,18 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				sub esp,4
+		;; ---declare ret
 		mov eax, 0
+		push eax
 
-		mov [ebp+-4], eax
-		sub esp,4
+;; ---declare neg
 		mov eax, 0
+		push eax
 
-		mov [ebp+-8], eax
-		sub esp,4
+;; ---declare i
 		mov eax, 0
+		push eax
 
-		mov [ebp+-12], eax
 		.while0:
 			;expression code...
 			cmp eax,0
@@ -82,6 +91,11 @@ section .text
 		.endwhile0:
 
 		;expression code...
+		;; Local Var neg
+		mov eax, ebp
+		sub eax,8
+		mov eax, [eax]
+
 		cmp eax,0
 		je .else2
 		;thenClause ...
@@ -90,6 +104,11 @@ section .text
 
 		.else2:
 		.endif2:
+		;; Local Var ret
+		mov eax, ebp
+		sub eax,4
+		mov eax, [eax]
+
 		jmp _method_return___STATIC_method__java_lang_Integer__parseInt$java_lang_String$
 
 		_method_return___STATIC_method__java_lang_Integer__parseInt$java_lang_String$:

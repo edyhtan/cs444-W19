@@ -4,10 +4,12 @@ __class_A:
 section .data
 
 		global __ref_SIT_A
-	__ref_SIT_A:		dd 0
+	__ref_SIT_A:
+		dd 0
 
 		global __ref_PARENTS_A
-	__ref_PARENTS_A:		dd 00001000010000000000b
+	__ref_PARENTS_A:
+		dd 00001000010000000000b
 
 	; Methods	
 			extern __method__java_lang_Object__getClass
@@ -472,24 +474,33 @@ global @@@@main
 		push ebp
 		mov ebp, esp
 
-				;expression code...
+		;; ---declare a
+		mov eax, 0
+		push eax
+
+;; ---declare b
+		mov eax, 3
+		push eax
+
+		;expression code...
 		mov eax, 1
 		cmp eax,0
 		je .else0
 		;thenClause ...
-			mov eax, 111
+			;; Local Var b
+			mov eax, ebp
+			sub eax,8
+			mov eax, [eax]
+
 			jmp _method_return___STATIC_method__A__test
 
 
 		jmp .endif0
 
 		.else0:
-			;elseClause ...
-			mov eax, 0
-			jmp _method_return___STATIC_method__A__test
-
-
 		.endif0:
+		mov eax, 0
+		jmp _method_return___STATIC_method__A__test
 
 		_method_return___STATIC_method__A__test:
 			pop ebp

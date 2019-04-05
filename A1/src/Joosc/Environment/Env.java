@@ -40,5 +40,7 @@ public interface Env {
     ArrayList<String> getPackageDeclr();
 
     void assignOffset(String name, int offset);
+
+    ClassEnv getClassEnv();
 }
 

@@ -246,6 +246,10 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
             localEnv.assignOffset(param.getValue(), (size - i) * 4);
         }
 
+        if (getModifiers().contains(Symbol.Static)) {
+            localEnv.setThis((size+1)*4);
+        }
+
         for (Statement statement : bodyBlock) {
             statement.addWriter(asmWriter);
 

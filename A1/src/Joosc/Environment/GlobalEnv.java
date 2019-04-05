@@ -273,4 +273,9 @@ public class GlobalEnv implements Env {
     public HashMap<String, MethodInfo> getDeclaredMethodSignature() {
         return null;
     }
+
+    @Override
+    public ClassEnv getClassEnv() {
+        return null;
+    }
 }

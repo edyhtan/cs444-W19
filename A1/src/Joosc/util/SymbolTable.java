@@ -24,6 +24,17 @@ public class SymbolTable {
         return this.lastOffset+1;
     }
 
+    public FieldsVarInfo getOffSet(String name) {
+        if (table.containsKey(name)) {
+            return table.get(name);
+        } else {
+            if (parent == null) {
+                return null;
+            }
+            return parent.getOffSet(name);
+        }
+    }
+
     public void incLastOffset() {
         this.lastOffset++;
     }

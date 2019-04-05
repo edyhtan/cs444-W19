@@ -4,10 +4,12 @@ __class_Static:
 section .data
 
 		global __ref_SIT_Static
-	__ref_SIT_Static:		dd 0
+	__ref_SIT_Static:
+		dd 0
 
 		global __ref_PARENTS_Static
-	__ref_PARENTS_Static:		dd 11000000010000000000b
+	__ref_PARENTS_Static:
+		dd 11000000010000000000b
 
 	; Methods	
 			extern __method__java_lang_Object__getClass
