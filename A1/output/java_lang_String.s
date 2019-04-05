@@ -1,3 +1,11 @@
+extern __method__java_lang_Object__clone
+extern __malloc
+extern __method__java_lang_Object__toString
+extern __constructor__java_lang_Object__Object
+extern __method__java_lang_Object__hashCode
+extern __method__java_lang_Object__getClass
+extern __method__java_lang_Object__equals$java_lang_Object$
+
 	global __class_java_lang_String
 __class_java_lang_String:
 
@@ -10,12 +18,7 @@ section .data
 	__ref_PARENTS_java_lang_String:		dd 00000001010000000000b
 
 	; Methods	
-			extern __method__java_lang_Object__getClass
-			extern __method__java_lang_Object__hashCode
-			extern __method__java_lang_Object__equals$java_lang_Object$
-			extern __method__java_lang_Object__clone
-			extern __method__java_lang_Object__toString
-		dd __method__java_lang_Object__getClass
+																	dd __method__java_lang_Object__getClass
 		dd __method__java_lang_Object__hashCode
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
@@ -106,10 +109,8 @@ section .text
 
 		;; Allocating size of 1
 		mov eax, 1
-		extern __malloc
-		call __malloc
-			extern __class_java_lang_String
-		mov [eax], __class_java_lang_String
+				call __malloc
+					mov [eax], __class_java_lang_String
 
 		;; Pushing object
 		push eax
@@ -117,8 +118,7 @@ section .text
 		;; Pushing args:
 
 			
-			extern __constructor__java_lang_String__String$char@$
-		call __constructor__java_lang_String__String$char@$
+					call __constructor__java_lang_String__String$char@$
 		add esp,4
 		pop eax
 		jmp _method_return___method__java_lang_String__concat$java_lang_String$
@@ -137,10 +137,8 @@ section .text
 		mov [ebp+-4], eax
 		;; Allocating size of 1
 		mov eax, 1
-		extern __malloc
-		call __malloc
-			extern __class_java_lang_String
-		mov [eax], __class_java_lang_String
+				call __malloc
+					mov [eax], __class_java_lang_String
 
 		;; Pushing object
 		push eax
@@ -148,8 +146,7 @@ section .text
 		;; Pushing args:
 
 			
-			extern __constructor__java_lang_String__String$char@$
-		call __constructor__java_lang_String__String$char@$
+					call __constructor__java_lang_String__String$char@$
 		add esp,4
 		pop eax
 		jmp _method_return___STATIC_method__java_lang_String__valueOf$char$
@@ -260,10 +257,8 @@ section .text
 
 		;; Allocating size of 1
 		mov eax, 1
-		extern __malloc
-		call __malloc
-			extern __class_java_lang_String
-		mov [eax], __class_java_lang_String
+				call __malloc
+					mov [eax], __class_java_lang_String
 
 		;; Pushing object
 		push eax
@@ -271,8 +266,7 @@ section .text
 		;; Pushing args:
 
 			
-			extern __constructor__java_lang_String__String$char@$
-		call __constructor__java_lang_String__String$char@$
+					call __constructor__java_lang_String__String$char@$
 		add esp,4
 		pop eax
 		jmp _method_return___STATIC_method__java_lang_String__valueOf$int$
@@ -464,10 +458,8 @@ section .text
 
 		;; Allocating size of 1
 		mov eax, 1
-		extern __malloc
-		call __malloc
-			extern __class_java_lang_String
-		mov [eax], __class_java_lang_String
+				call __malloc
+					mov [eax], __class_java_lang_String
 
 		;; Pushing object
 		push eax
@@ -475,8 +467,7 @@ section .text
 		;; Pushing args:
 
 			
-			extern __constructor__java_lang_String__String$char@$
-		call __constructor__java_lang_String__String$char@$
+					call __constructor__java_lang_String__String$char@$
 		add esp,4
 		pop eax
 		jmp _method_return___method__java_lang_String__substring$int$int$
@@ -823,8 +814,7 @@ section .text
 		mov ebp, esp
 		mov eax, [ebp + 8]
 		push eax
-			extern __constructor__java_lang_Object__Object
-		mov eax, __constructor__java_lang_Object__Object
+					mov eax, __constructor__java_lang_Object__Object
 		call eax
 		sub esp,4
 ;; Field init, push object to stack
@@ -848,8 +838,7 @@ mov eax, 0
 		mov ebp, esp
 		mov eax, [ebp + 12]
 		push eax
-			extern __constructor__java_lang_Object__Object
-		mov eax, __constructor__java_lang_Object__Object
+					mov eax, __constructor__java_lang_Object__Object
 		call eax
 		sub esp,4
 ;; Field init, push object to stack
@@ -893,8 +882,7 @@ mov eax, 0
 		mov ebp, esp
 		mov eax, [ebp + 12]
 		push eax
-			extern __constructor__java_lang_Object__Object
-		mov eax, __constructor__java_lang_Object__Object
+					mov eax, __constructor__java_lang_Object__Object
 		call eax
 		sub esp,4
 ;; Field init, push object to stack

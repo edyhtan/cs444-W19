@@ -1,3 +1,13 @@
+extern __method__java_lang_Object__clone
+extern __malloc
+extern __method__java_lang_Object__toString
+extern __constructor__java_lang_Object__Object
+extern __constructor__java_io_PrintStream__PrintStream
+extern __method__java_lang_Object__hashCode
+extern __method__java_lang_Object__getClass
+extern __method__java_lang_Object__equals$java_lang_Object$
+extern __class_java_io_PrintStream
+
 	global __class_java_lang_System
 __class_java_lang_System:
 
@@ -10,12 +20,7 @@ section .data
 	__ref_PARENTS_java_lang_System:		dd 00000010010000000000b
 
 	; Methods	
-			extern __method__java_lang_Object__getClass
-			extern __method__java_lang_Object__hashCode
-			extern __method__java_lang_Object__equals$java_lang_Object$
-			extern __method__java_lang_Object__clone
-			extern __method__java_lang_Object__toString
-		dd __method__java_lang_Object__getClass
+																	dd __method__java_lang_Object__getClass
 		dd __method__java_lang_Object__hashCode
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
@@ -45,8 +50,7 @@ section .text
 		mov ebp, esp
 		mov eax, [ebp + 8]
 		push eax
-			extern __constructor__java_lang_Object__Object
-		mov eax, __constructor__java_lang_Object__Object
+					mov eax, __constructor__java_lang_Object__Object
 		call eax
 		sub esp,4
 ;; Field init, push object to stack
@@ -55,17 +59,14 @@ section .text
 ;; Field init:: out
 				;; Allocating size of 0
 				mov eax, 0
-				extern __malloc
-				call __malloc
-					extern __class_java_io_PrintStream
-				mov [eax], __class_java_io_PrintStream
+								call __malloc
+									mov [eax], __class_java_io_PrintStream
 
 				;; Pushing object
 				push eax
 
 				;; Pushing args:
-					extern __constructor__java_io_PrintStream__PrintStream
-				call __constructor__java_io_PrintStream__PrintStream
+									call __constructor__java_io_PrintStream__PrintStream
 				add esp,0
 				pop eax
 		mov ebx, [esp]

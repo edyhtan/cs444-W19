@@ -1,3 +1,11 @@
+extern __method__java_lang_Object__clone
+extern __malloc
+extern __method__java_lang_Object__toString
+extern __constructor__java_lang_Object__Object
+extern __method__java_lang_Object__hashCode
+extern __method__java_lang_Object__getClass
+extern __method__java_lang_Object__equals$java_lang_Object$
+
 	global __class_Hello
 __class_Hello:
 
@@ -10,12 +18,7 @@ section .data
 	__ref_PARENTS_Hello:		dd 00100000010000000000b
 
 	; Methods	
-			extern __method__java_lang_Object__getClass
-			extern __method__java_lang_Object__hashCode
-			extern __method__java_lang_Object__equals$java_lang_Object$
-			extern __method__java_lang_Object__clone
-			extern __method__java_lang_Object__toString
-		dd __method__java_lang_Object__getClass
+																	dd __method__java_lang_Object__getClass
 		dd __method__java_lang_Object__hashCode
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
@@ -69,8 +72,7 @@ section .text
 		mov ebp, esp
 		mov eax, [ebp + 8]
 		push eax
-			extern __constructor__java_lang_Object__Object
-		mov eax, __constructor__java_lang_Object__Object
+					mov eax, __constructor__java_lang_Object__Object
 		call eax
 		sub esp,4
 ;; Field init, push object to stack
@@ -91,17 +93,14 @@ section .text
 ;; Constructor Body
 			;; Allocating size of 1
 			mov eax, 1
-			extern __malloc
-			call __malloc
-				extern __class_Hello
-			mov [eax], __class_Hello
+						call __malloc
+							mov [eax], __class_Hello
 
 			;; Pushing object
 			push eax
 
 			;; Pushing args:
-				extern __constructor__Hello__Hello
-			call __constructor__Hello__Hello
+							call __constructor__Hello__Hello
 			add esp,0
 			pop eax
 ;; Epilogue

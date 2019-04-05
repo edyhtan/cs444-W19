@@ -4,8 +4,11 @@ import Joosc.ASTModel.Expressions.Expression;
 
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Collections;
+import java.util.HashSet;
+
 import Joosc.ASTModel.ClassInterface.ClassDeclr;
 import Joosc.ASTModel.ClassInterface.InterfaceDeclr;
 import Joosc.Environment.ClassEnv;
@@ -24,6 +27,9 @@ public class AsmWriter {
     private static String binaryTemplate = "%s %s, %s";
     public static ArrayLinkedHashSet<String> allMethods = new ArrayLinkedHashSet<>();
     public static ArrayLinkedHashMap<JoosType, String> parentMatrix = new ArrayLinkedHashMap<>();
+    public HashSet<String> definedLabels = new HashSet<>();
+    public HashSet<String> externedLabels = new HashSet<>();
+    public ArrayList<String> buffer = new ArrayList<>();
 
     public AsmWriter(PrintStream out) {
         this.out = out;
@@ -34,41 +40,59 @@ public class AsmWriter {
     }
 
     public void close() {
+        for(String label : definedLabels) {
+            if (externedLabels.contains(label)) {
+                externedLabels.remove(label);
+            }
+        }
+        for(String label : externedLabels) {
+            out.println("extern " + label);
+        }
+        out.println();
+
+        for(String seg : buffer) {
+            out.print(seg);
+        }
         if ((out != System.out) && (out != System.err)) {
             out.close();
         }
     }
 
     public void label(String label) {
-        out.println(label + ":");
+        definedLabels.add(label);
+        println(label + ":");
     }
 
     public void print(String content) {
-        out.print(content);
+        buffer.add(content);
     }
 
     public void println(String content) {
-        out.println(content);
+        buffer.add(content + "\n");
+    }
+
+    public void println() {
+        buffer.add("\n");
     }
 
     public void dd(String content) {
-        out.println("dd " + content);
+        println("dd " + content);
     }
 
     public void db(String content) {
-        out.println("db " + content);
+        println("db " + content);
     }
 
     public void global(String content) {
-        out.println("global " + content);
+        println("global " + content);
     }
 
     public void extern(String content) {
-        out.println("extern " + content);
+        externedLabels.add(content);
     }
 
     public void align(String bytes) {
-        out.println("align " + bytes);
+        println("align " + bytes);
     }
 
     public void align(int bytes) {
@@ -76,11 +100,11 @@ public class AsmWriter {
     }
 
     public void jmp(String label) {
-        out.println("jmp " + label);
+        println("jmp " + label);
     }
 
     public void cmp(String str1, String str2) {
-        out.println("cmp " + str1 + "," + str2);
+        println("cmp " + str1 + "," + str2);
     }
 
     public void cmp(Register reg1, Register reg2) {
@@ -92,51 +116,51 @@ public class AsmWriter {
     }
 
     public void je(String label) {
-        out.println("je " + label);
+        println("je " + label);
     }
 
     public void jg(String label) {
-        out.println("jg " + label);
+        println("jg " + label);
     }
 
     public void jae(String label) {
-        out.println("jae " + label);
+        println("jae " + label);
     }
 
     public void jb(String label) {
-        out.println("jb " + label);
+        println("jb " + label);
     }
 
     public void ja(String label) {
-        out.println("ja " + label);
+        println("ja " + label);
     }
 
     public void jbe(String label) {
-        out.println("jbe " + label);
+        println("jbe " + label);
     }
 
     public void push(Register reg) {
-        out.println("push " + reg.toString());
+        println("push " + reg.toString());
     }
 
     public void pop(Register reg) {
-        out.println("pop " + reg);
+        println("pop " + reg);
     }
 
     public void call(String str) {
-        out.println("call " + str);
+        println("call " + str);
     }
 
     public void call(Register reg) {
-        out.println("call " + reg);
+        println("call " + reg);
     }
 
     public void ret() {
-        out.println("ret");
+        println("ret");
     }
 
     public void _int(String addr) {
-        out.println("int " + addr);
+        println("int " + addr);
     }
 
     public void exit(String retCode) {
@@ -146,7 +170,7 @@ public class AsmWriter {
     }
 
     public void mov(String str1, String str2) {
-        out.println("mov " + str1 + ", " + str2);
+        println("mov " + str1 + ", " + str2);
     }
 
     public void mov(Register reg, String str) {
@@ -198,7 +222,7 @@ public class AsmWriter {
     }
 
     public void add(String str1, String str2) {
-        out.println("add " + str1 + "," + str2);
+        println("add " + str1 + "," + str2);
     }
 
     public void add(Register reg1, Register reg2) {
@@ -210,7 +234,7 @@ public class AsmWriter {
     }
 
     public void sub(String str1, String str2) {
-        out.println("sub " + str1 + "," + str2);
+        println("sub " + str1 + "," + str2);
     }
 
     public void sub(Register reg1, Register reg2) {
@@ -222,7 +246,7 @@ public class AsmWriter {
     }
 
     public void imal(String str1, String str2) {
-        out.println("imal " + str1 + "," + str2);
+        println("imal " + str1 + "," + str2);
     }
 
     public void imal(Register reg1, Register reg2) {
@@ -234,7 +258,7 @@ public class AsmWriter {
     }
 
     public void idiv(String str1, String str2) {
-        out.println("idiv " + str1 + "," + str2);
+        println("idiv " + str1 + "," + str2);
     }
 
     public void idiv(Register reg1, Register reg2) {
@@ -246,7 +270,7 @@ public class AsmWriter {
     }
 
     public void getBit(Register reg, int i) {
-        out.println(String.format(binaryTemplate, "shr", reg, i));
+        println(String.format(binaryTemplate, "shr", reg, i));
     }
 
     public void iffalse(Expression expression, String label, int indent) {
@@ -283,7 +307,7 @@ public class AsmWriter {
     }
 
     public void indent(int num) {
-        out.print(String.join("", Collections.nCopies(num, "\t")));
+        print(String.join("", Collections.nCopies(num, "\t")));
     }
 
     public void malloc(int size, int indent) {
@@ -342,8 +366,8 @@ public class AsmWriter {
     }
 
     public void outputInit(JoosType currentType) {
-        out.println("\t" + "global _start");
-        out.println("_start:");
+        println("\t" + "global _start");
+        println("_start:");
 
         // Create SIT
         for (ClassEnv classEnv: GlobalEnv.instance.classEnvs) {
@@ -352,10 +376,10 @@ public class AsmWriter {
                 ClassDeclr classDeclr = (ClassDeclr) classEnv.getTypeDeclr();
                 classDeclr.buildCompilerLabel();
 
-                out.println();
+                println();
                 malloc(allMethods.size() * 4, 0);
 
-                out.println();
+                println();
                 if (!classEnv.getJoosType().equals(currentType)) {
                     extern(classDeclr.classSIT);
                 }
@@ -365,34 +389,34 @@ public class AsmWriter {
                 for (String methodName: allMethods) {
                     if (classEnv.methodCallTable.containsKey(methodName)) {
                         String callRef = classEnv.methodCallTable.get(methodName).callReference;
-                        out.println();
-                        out.print("\t");
+                        println();
+                        print("\t");
                         extern(callRef);
-                        out.print("\t");
+                        print("\t");
                         mov(Register.ebx, callRef);
-                        out.print("\t");
+                        print("\t");
                         movToAddr("eax + " + allMethods.indexOf(methodName) * 4, Register.ebx);
                     }
                 }
             }
         }
 
-        out.println("");
+        println("");
 
         call("@@@@main");
         mov(Register.ebx, Register.eax);
         mov(Register.eax, 1);
-        out.println("int 0x80");
+        println("int 0x80");
 
-        out.println("");
+        println("");
     }
 
     public void comment(String cmt) {
         if (COMMENT_FLAG) {
-            out.print(";; ");
-            out.println(cmt);
+            print(";; ");
+            println(cmt);
         } else {
-            out.println();
+            println();
         }
     }
 

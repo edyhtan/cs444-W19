@@ -1,3 +1,10 @@
+extern __method__java_lang_Object__clone
+extern __method__java_lang_Object__toString
+extern __constructor__java_lang_Object__Object
+extern __method__java_lang_Object__hashCode
+extern __method__java_lang_Object__getClass
+extern __method__java_lang_Object__equals$java_lang_Object$
+
 	global __class_java_io_OutputStream
 __class_java_io_OutputStream:
 
@@ -10,12 +17,7 @@ section .data
 	__ref_PARENTS_java_io_OutputStream:		dd 00000000010000000001b
 
 	; Methods	
-			extern __method__java_lang_Object__getClass
-			extern __method__java_lang_Object__hashCode
-			extern __method__java_lang_Object__equals$java_lang_Object$
-			extern __method__java_lang_Object__clone
-			extern __method__java_lang_Object__toString
-		dd __method__java_lang_Object__getClass
+																	dd __method__java_lang_Object__getClass
 		dd __method__java_lang_Object__hashCode
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
@@ -75,8 +77,7 @@ section .text
 		mov ebp, esp
 		mov eax, [ebp + 8]
 		push eax
-			extern __constructor__java_lang_Object__Object
-		mov eax, __constructor__java_lang_Object__Object
+					mov eax, __constructor__java_lang_Object__Object
 		call eax
 		sub esp,4
 ;; Field init, push object to stack
