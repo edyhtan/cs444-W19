@@ -391,7 +391,7 @@ global @@@@main
 		;; RHS code...
 		mov eax, 1
 		pop ebx
-		add ebx,eax
+		add ebx, eax
 		mov eax, ebx
 
 		push eax
@@ -401,8 +401,10 @@ global @@@@main
 		cmp eax,ebx
 		jne .ne0
 		mov eax, 0
+		jmp .end_ne0
 		.ne0:
 			mov eax, 1
+		.end_ne0:
 
 		cmp eax,0
 		je .else0
@@ -437,7 +439,7 @@ global @@@@main
 		mov eax, [ebp + 8]
 		push eax
 ;; Field init end, pop object
-		add esp,4
+		add esp, 4
 ;; Constructor Body
 ;; Epilogue
 		mov esp, ebp

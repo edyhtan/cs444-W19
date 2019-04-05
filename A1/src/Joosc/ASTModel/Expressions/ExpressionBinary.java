@@ -370,9 +370,13 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 asmWriter.indent(indent);
                 asmWriter.mov(Register.eax, "0");
                 asmWriter.indent(indent);
+                asmWriter.jmp(".end_ne"+offset);
+                asmWriter.indent(indent);
                 asmWriter.label(".ne"+offset);
                 asmWriter.indent(indent+1);
                 asmWriter.mov(Register.eax, "1");
+                asmWriter.indent(indent);
+                asmWriter.label(".end_ne"+offset);
                 break;
             case GE:
             case GT:

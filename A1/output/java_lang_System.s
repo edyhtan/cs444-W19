@@ -54,10 +54,10 @@ section .text
 		push eax
 ;; Field init:: out
 		mov ebx, [esp]
-		add ebx,0
+		add ebx, 0
 		mov [ebx], eax
 ;; Field init end, pop object
-		add esp,4
+		add esp, 4
 ;; Constructor Body
 ;; Epilogue
 		mov esp, ebp

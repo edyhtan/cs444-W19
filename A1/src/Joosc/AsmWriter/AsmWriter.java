@@ -204,7 +204,7 @@ public class AsmWriter {
     }
 
     public void add(String str1, String str2) {
-        out.println("add " + str1 + "," + str2);
+        out.println("add " + str1 + ", " + str2);
     }
 
     public void add(Register reg1, Register reg2) {

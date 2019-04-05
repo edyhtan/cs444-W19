@@ -73,7 +73,7 @@ section .text
 			jmp .for0
 
 		.endfor0:
-			add esp,4
+			add esp, 4
 
 
 		_method_return___method__java_io_PrintStream__print$java_lang_String$:
@@ -235,7 +235,7 @@ section .text
 		mov eax, [ebp + 8]
 		push eax
 ;; Field init end, pop object
-		add esp,4
+		add esp, 4
 ;; Constructor Body
 ;; Epilogue
 		mov esp, ebp

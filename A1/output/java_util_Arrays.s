@@ -39,8 +39,10 @@ section .text
 		cmp eax,ebx
 		jne .ne0
 		mov eax, 0
+		jmp .end_ne0
 		.ne0:
 			mov eax, 1
+		.end_ne0:
 
 		cmp eax,0
 		je .else0
@@ -72,8 +74,10 @@ section .text
 			cmp eax,ebx
 			jne .ne1
 			mov eax, 0
+			jmp .end_ne1
 			.ne1:
 				mov eax, 1
+			.end_ne1:
 
 			cmp eax,0
 			je .else2
@@ -94,7 +98,7 @@ section .text
 			jmp .for1
 
 		.endfor1:
-			add esp,4
+			add esp, 4
 
 		mov eax, 1
 		jmp _method_return___STATIC_method__java_util_Arrays__equals$boolean@$boolean@$
@@ -116,8 +120,10 @@ section .text
 		cmp eax,ebx
 		jne .ne0
 		mov eax, 0
+		jmp .end_ne0
 		.ne0:
 			mov eax, 1
+		.end_ne0:
 
 		cmp eax,0
 		je .else3
@@ -149,8 +155,10 @@ section .text
 			cmp eax,ebx
 			jne .ne1
 			mov eax, 0
+			jmp .end_ne1
 			.ne1:
 				mov eax, 1
+			.end_ne1:
 
 			cmp eax,0
 			je .else5
@@ -170,7 +178,7 @@ section .text
 			jmp .for4
 
 		.endfor4:
-			add esp,4
+			add esp, 4
 
 		mov eax, 1
 		jmp _method_return___STATIC_method__java_util_Arrays__equals$char@$char@$
@@ -194,7 +202,7 @@ section .text
 		mov eax, [ebp + 8]
 		push eax
 ;; Field init end, pop object
-		add esp,4
+		add esp, 4
 ;; Constructor Body
 ;; Epilogue
 		mov esp, ebp

@@ -236,13 +236,13 @@ mov eax, edx
 
 
 
-				add esp,4
+				add esp, 4
 
 				jmp .while5
 
 			.endwhile5:
 
-				add esp,4
+				add esp, 4
 
 
 
@@ -614,7 +614,7 @@ mov eax, edx
 			jmp .for20
 
 		.endfor20:
-			add esp,4
+			add esp, 4
 
 		jmp _method_return___method__java_lang_String__hashCode
 
@@ -768,7 +768,7 @@ mov eax, edx
 			jmp .for27
 
 		.endfor27:
-			add esp,4
+			add esp, 4
 
 		jmp _method_return___method__java_lang_String__toCharArray
 
@@ -831,8 +831,10 @@ mov eax, edx
 					cmp eax,ebx
 					jne .ne0
 					mov eax, 0
+					jmp .end_ne0
 					.ne0:
 						mov eax, 1
+					.end_ne0:
 
 					cmp eax,0
 					je .else31
@@ -867,7 +869,7 @@ mov eax, edx
 			.else32:
 			.endif32:
 
-			add esp,4
+			add esp, 4
 
 
 
@@ -901,10 +903,10 @@ mov eax, edx
 ;; Field init:: chars
 mov eax, 0
 		mov ebx, [esp]
-		add ebx,4
+		add ebx, 4
 		mov [ebx], eax
 ;; Field init end, pop object
-		add esp,4
+		add esp, 4
 ;; Constructor Body
 
 ;; Epilogue
@@ -926,10 +928,10 @@ mov eax, 0
 ;; Field init:: chars
 mov eax, 0
 		mov ebx, [esp]
-		add ebx,4
+		add ebx, 4
 		mov [ebx], eax
 ;; Field init end, pop object
-		add esp,4
+		add esp, 4
 ;; Constructor Body
 
 			;forInit code...
@@ -953,7 +955,7 @@ mov eax, 0
 				jmp .for33
 
 			.endfor33:
-				add esp,4
+				add esp, 4
 
 ;; Epilogue
 		mov esp, ebp
@@ -974,10 +976,10 @@ mov eax, 0
 ;; Field init:: chars
 mov eax, 0
 		mov ebx, [esp]
-		add ebx,4
+		add ebx, 4
 		mov [ebx], eax
 ;; Field init end, pop object
-		add esp,4
+		add esp, 4
 ;; Constructor Body
 
 ;; Epilogue

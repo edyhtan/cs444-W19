@@ -52,10 +52,10 @@ section .text
 ;; Field init:: value
 mov eax, 0
 		mov ebx, [esp]
-		add ebx,4
+		add ebx, 4
 		mov [ebx], eax
 ;; Field init end, pop object
-		add esp,4
+		add esp, 4
 ;; Constructor Body
 
 ;; Epilogue
@@ -77,10 +77,10 @@ mov eax, 0
 ;; Field init:: value
 mov eax, 0
 		mov ebx, [esp]
-		add ebx,4
+		add ebx, 4
 		mov [ebx], eax
 ;; Field init end, pop object
-		add esp,4
+		add esp, 4
 ;; Constructor Body
 ;; Epilogue
 		mov esp, ebp

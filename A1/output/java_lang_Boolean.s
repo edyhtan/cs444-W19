@@ -55,14 +55,14 @@ section .text
 ;; Field init:: value
 mov eax, 0
 		mov ebx, [esp]
-		add ebx,4
+		add ebx, 4
 		mov [ebx], eax
 ;; Field init:: MAX_VALUE
 		mov ebx, [esp]
-		add ebx,0
+		add ebx, 0
 		mov [ebx], eax
 ;; Field init end, pop object
-		add esp,4
+		add esp, 4
 ;; Constructor Body
 
 ;; Epilogue
@@ -84,14 +84,14 @@ mov eax, 0
 ;; Field init:: value
 mov eax, 0
 		mov ebx, [esp]
-		add ebx,4
+		add ebx, 4
 		mov [ebx], eax
 ;; Field init:: MAX_VALUE
 		mov ebx, [esp]
-		add ebx,0
+		add ebx, 0
 		mov [ebx], eax
 ;; Field init end, pop object
-		add esp,4
+		add esp, 4
 ;; Constructor Body
 ;; Epilogue
 		mov esp, ebp
