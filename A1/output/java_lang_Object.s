@@ -29,9 +29,9 @@ section .text
 		;; RHS code...
 		pop ebx
 		cmp eax,ebx
-		je .eq
+		je .eq0
 		mov eax, 0
-		.eq:
+		.eq0:
 			mov eax, 1
 
 		jmp _method_return___method__java_lang_Object__equals$java_lang_Object$

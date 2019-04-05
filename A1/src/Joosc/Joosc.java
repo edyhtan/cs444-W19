@@ -72,7 +72,7 @@ public class Joosc {
 
             AsmWriter.initTable();
             for (Program ast : asts) {
-                Program.globalCount = 0;
+                Program.PER_PROGRAM_COUNT = 0;
                 ast.staticAnalysis();
                 ast.codeGen(0);
             }

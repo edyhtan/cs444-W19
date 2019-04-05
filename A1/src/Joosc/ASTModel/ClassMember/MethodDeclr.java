@@ -209,6 +209,7 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
     //Code Gen
     AsmWriter asmWriter;
     String methodLabel;
+    public static int PER_METHOD_COUNT = 0;
 
     public void setMethodLabel(String methodLabel) {
         this.methodLabel = methodLabel;
@@ -220,6 +221,7 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
 
     @Override
     public void codeGen(int indent) {
+        MethodDeclr.PER_METHOD_COUNT = 0;
         if (name.equals("test") && modifiers.contains(Symbol.Static)) {
             asmWriter.outputInit(localEnv.getJoosType());
             asmWriter.println("");

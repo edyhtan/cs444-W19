@@ -5,6 +5,7 @@ public class A {
         if( 1 == 2) {
             return 111;
         }
+        boolean bool = (3 != 4);
         return 123;
     }
 }

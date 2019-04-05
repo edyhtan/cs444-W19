@@ -391,9 +391,9 @@ global @@@@main
 		mov eax, 2
 		pop ebx
 		cmp eax,ebx
-		je .eq
+		je .eq0
 		mov eax, 0
-		.eq:
+		.eq0:
 			mov eax, 1
 
 		cmp eax,0
@@ -407,6 +407,21 @@ global @@@@main
 
 		.else0:
 		.endif0:
+		sub esp,4
+		;; LHS code...
+		mov eax, 3
+		push eax
+		;; RHS code...
+		mov eax, 4
+		pop ebx
+		cmp eax,ebx
+		jne .ne0
+		mov eax, 0
+		.ne0:
+			mov eax, 1
+
+
+		mov [ebp+-4], eax
 		mov eax, 123
 		jmp _method_return___STATIC_method__A__test$int$int$
 

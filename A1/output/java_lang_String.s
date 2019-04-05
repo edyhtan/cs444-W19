@@ -155,9 +155,9 @@ section .text
 		;; RHS code...
 		pop ebx
 		cmp eax,ebx
-		je .eq
+		je .eq0
 		mov eax, 0
-		.eq:
+		.eq0:
 			mov eax, 1
 
 		cmp eax,0
@@ -190,9 +190,9 @@ section .text
 		mov eax, 0
 		pop ebx
 		cmp eax,ebx
-		je .eq
+		je .eq1
 		mov eax, 0
-		.eq:
+		.eq1:
 			mov eax, 1
 
 		cmp eax,0
@@ -345,9 +345,9 @@ mov eax, edx
 		mov eax, 0
 		pop ebx
 		cmp eax,ebx
-		je .eq
+		je .eq0
 		mov eax, 0
-		.eq:
+		.eq0:
 			mov eax, 1
 
 		cmp eax,0
@@ -379,9 +379,9 @@ mov eax, edx
 		mov eax, 0
 		pop ebx
 		cmp eax,ebx
-		je .eq
+		je .eq0
 		mov eax, 0
-		.eq:
+		.eq0:
 			mov eax, 1
 
 		cmp eax,0
@@ -413,9 +413,9 @@ mov eax, edx
 		mov eax, 0
 		pop ebx
 		cmp eax,ebx
-		je .eq
+		je .eq0
 		mov eax, 0
-		.eq:
+		.eq0:
 			mov eax, 1
 
 		cmp eax,0
@@ -829,10 +829,10 @@ mov eax, edx
 					;; RHS code...
 					pop ebx
 					cmp eax,ebx
-					je .eq
-					mov eax, 1
-					.eq:
-						mov eax, 0
+					jne .ne0
+					mov eax, 0
+					.ne0:
+						mov eax, 1
 
 					cmp eax,0
 					je .else31

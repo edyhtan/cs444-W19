@@ -71,9 +71,9 @@ section .text
 			mov eax, 39
 			pop ebx
 			cmp eax,ebx
-			je .eq
+			je .eq0
 			mov eax, 0
-			.eq:
+			.eq0:
 				mov eax, 1
 
 			cmp eax,0

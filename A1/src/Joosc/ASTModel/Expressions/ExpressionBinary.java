@@ -2,6 +2,7 @@ package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionBinaryNode;
 import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.ASTModel.ClassMember.MethodDeclr;
 import Joosc.AsmWriter.AsmWriter;
 import Joosc.AsmWriter.Register;
 import Joosc.Environment.Env;
@@ -259,6 +260,7 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
 
     //Code Gen
     AsmWriter asmWriter;
+    int offset;
 
     @Override
     public void codeGen(int indent) {
@@ -341,15 +343,18 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 break;
             // comparison
             case EQ:
+                offset = MethodDeclr.PER_METHOD_COUNT;
+                MethodDeclr.PER_METHOD_COUNT++;
+
                 asmWriter.evalLHSthenRHS(LHS, RHS, indent);
                 asmWriter.indent(indent);
                 asmWriter.cmp(Register.eax, Register.ebx);
                 asmWriter.indent(indent);
-                asmWriter.je(".eq");
+                asmWriter.je(".eq"+offset);
                 asmWriter.indent(indent);
                 asmWriter.mov(Register.eax, "0");
                 asmWriter.indent(indent);
-                asmWriter.label(".eq");
+                asmWriter.label(".eq"+offset);
                 asmWriter.indent(indent+1);
                 asmWriter.mov(Register.eax, "1");
                 break;
@@ -358,13 +363,13 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 asmWriter.indent(indent);
                 asmWriter.cmp(Register.eax, Register.ebx);
                 asmWriter.indent(indent);
-                asmWriter.je(".eq");
+                asmWriter.jne(".ne"+offset);
                 asmWriter.indent(indent);
-                asmWriter.mov(Register.eax, "1");
-                asmWriter.indent(indent);
-                asmWriter.label(".eq");
-                asmWriter.indent(indent+1);
                 asmWriter.mov(Register.eax, "0");
+                asmWriter.indent(indent);
+                asmWriter.label(".ne"+offset);
+                asmWriter.indent(indent+1);
+                asmWriter.mov(Register.eax, "1");
                 break;
             case GE:
             case GT:

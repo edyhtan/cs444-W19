@@ -97,6 +97,10 @@ public class AsmWriter {
         out.println("je " + label);
     }
 
+    public void jne(String label) {
+        out.println("jne " + label);
+    }
+
     public void jg(String label) {
         out.println("jg " + label);
     }
