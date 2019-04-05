@@ -70,8 +70,8 @@ section .text
 
 		sub esp,8
 		mov eax, 0
-		mov [ebp-4], eax
-		mov [ebp-8], eax
+		mov [ebp+-4], eax
+		mov [ebp+-8], eax
 		jmp _method_return___method__java_lang_String__concat$java_lang_String$
 
 		_method_return___method__java_lang_String__concat$java_lang_String$:
@@ -84,7 +84,7 @@ section .text
 		mov ebp, esp
 
 		sub esp,4
-		mov [ebp-4], eax
+		mov [ebp+-4], eax
 		jmp _method_return___STATIC_method__java_lang_String__valueOf$char$
 
 		_method_return___STATIC_method__java_lang_String__valueOf$char$:
@@ -97,11 +97,11 @@ section .text
 		mov ebp, esp
 
 		sub esp,16
-		mov [ebp-4], eax
+		mov [ebp+-4], eax
 		mov eax, 0
-		mov [ebp-8], eax
+		mov [ebp+-8], eax
 		mov eax, 0
-		mov [ebp-12], eax
+		mov [ebp+-12], eax
 		;expression code...
 		cmp eax,0
 		je .else2
@@ -136,7 +136,7 @@ section .text
 				je .endwhile5
 
 				;statement code...
-					mov [ebp0], eax
+					mov [ebp+0], eax
 										add esp,4
 
 
@@ -157,7 +157,7 @@ section .text
 
 		.else6:
 		.endif6:
-		mov [ebp-16], eax
+		mov [ebp+-16], eax
 		jmp _method_return___STATIC_method__java_lang_String__valueOf$int$
 
 		_method_return___STATIC_method__java_lang_String__valueOf$int$:
@@ -301,7 +301,7 @@ section .text
 
 		sub esp,8
 		mov eax, 0
-		mov [ebp-4], eax
+		mov [ebp+-4], eax
 		;expression code...
 		cmp eax,0
 		je .else13
@@ -332,7 +332,7 @@ section .text
 
 		.else15:
 		.endif15:
-		mov [ebp-8], eax
+		mov [ebp+-8], eax
 		jmp _method_return___method__java_lang_String__substring$int$int$
 
 		_method_return___method__java_lang_String__substring$int$int$:
@@ -346,9 +346,9 @@ section .text
 
 		sub esp,8
 		mov eax, 0
-		mov [ebp-4], eax
+		mov [ebp+-4], eax
 		mov eax, 0
-		mov [ebp-8], eax
+		mov [ebp+-8], eax
 		;expression code...
 		cmp eax,0
 		je .else19
@@ -374,7 +374,7 @@ section .text
 
 		sub esp,4
 		mov eax, 0
-		mov [ebp-4], eax
+		mov [ebp+-4], eax
 		add esp,4
 		jmp _method_return___method__java_lang_String__hashCode
 
@@ -413,9 +413,9 @@ section .text
 
 		sub esp,8
 		mov eax, 0
-		mov [ebp-4], eax
+		mov [ebp+-4], eax
 		mov eax, 1
-		mov [ebp-8], eax
+		mov [ebp+-8], eax
 		.while21:
 			;expression code...
 			cmp eax,0
@@ -493,7 +493,7 @@ section .text
 		mov ebp, esp
 
 		sub esp,4
-		mov [ebp-4], eax
+		mov [ebp+-4], eax
 		add esp,4
 		jmp _method_return___method__java_lang_String__toCharArray
 
@@ -508,9 +508,9 @@ section .text
 
 		sub esp,8
 		mov eax, 0
-		mov [ebp-4], eax
+		mov [ebp+-4], eax
 		mov eax, 0
-		mov [ebp-8], eax
+		mov [ebp+-8], eax
 		jmp _method_return___method__java_lang_String__indexOf$java_lang_String$
 
 		_method_return___method__java_lang_String__indexOf$java_lang_String$:

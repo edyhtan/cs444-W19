@@ -48,11 +48,11 @@ section .text
 
 		sub esp,12
 		mov eax, 0
-		mov [ebp-4], eax
+		mov [ebp+-4], eax
 		mov eax, 0
-		mov [ebp-8], eax
+		mov [ebp+-8], eax
 		mov eax, 0
-		mov [ebp-12], eax
+		mov [ebp+-12], eax
 		.while0:
 			;expression code...
 			cmp eax,0
