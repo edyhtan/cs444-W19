@@ -25,7 +25,7 @@ section .data
 
 section .text
 
------Methods-----
+;; -----Methods-----
 		global __STATIC_method__java_util_Arrays__equals$boolean@$boolean@$
 	__STATIC_method__java_util_Arrays__equals$boolean@$boolean@$:
 		push ebp

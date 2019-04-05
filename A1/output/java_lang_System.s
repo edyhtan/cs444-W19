@@ -27,7 +27,7 @@ section .data
 
 section .text
 
------Methods-----
+;; -----Methods-----
 		global __STATIC_method__java_lang_System__gc
 	__STATIC_method__java_lang_System__gc:
 		push ebp

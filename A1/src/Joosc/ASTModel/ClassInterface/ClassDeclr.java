@@ -203,7 +203,7 @@ public class ClassDeclr implements TypeDeclr {
         asmWriter.println("section .text");
         asmWriter.println("");
 
-        asmWriter.println("-----Methods-----");
+        asmWriter.comment("-----Methods-----");
         for (MethodDeclr method : methods) {
             method.addWriter(asmWriter);
             String methodLabel = env.methodCallTable.get(method.getMethodSignature()).methodLabel;

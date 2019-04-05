@@ -24,7 +24,7 @@ section .data
 
 section .text
 
------Methods-----
+;; -----Methods-----
 	global _start
 _start:
 

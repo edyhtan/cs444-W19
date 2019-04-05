@@ -23,7 +23,7 @@ section .data
 
 section .text
 
------Methods-----
+;; -----Methods-----
 ;; -----Constructors-----
 		extern __constructor__foo_bar__bar
 	__constructor__foo_bar__bar:

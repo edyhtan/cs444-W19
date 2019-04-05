@@ -23,7 +23,7 @@ section .data
 
 section .text
 
------Methods-----
+;; -----Methods-----
 ;; -----Constructors-----
 		extern __constructor__java_lang_Class__Class
 	__constructor__java_lang_Class__Class:

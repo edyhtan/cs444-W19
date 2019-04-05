@@ -18,7 +18,7 @@ section .data
 
 section .text
 
------Methods-----
+;; -----Methods-----
 		global __method__java_lang_Object__equals$java_lang_Object$
 	__method__java_lang_Object__equals$java_lang_Object$:
 		push ebp

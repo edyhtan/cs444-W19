@@ -26,7 +26,7 @@ section .data
 
 section .text
 
------Methods-----
+;; -----Methods-----
 		global __method__java_lang_Byte__toString
 	__method__java_lang_Byte__toString:
 		push ebp

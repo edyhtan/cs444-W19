@@ -24,7 +24,7 @@ section .data
 
 section .text
 
------Methods-----
+;; -----Methods-----
 		global __method__Main__test
 	__method__Main__test:
 		push ebp

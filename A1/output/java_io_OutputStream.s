@@ -27,7 +27,7 @@ section .data
 
 section .text
 
------Methods-----
+;; -----Methods-----
 		global __method__java_io_OutputStream__write$char$
 	__method__java_io_OutputStream__write$char$:
 		push ebp

@@ -24,7 +24,7 @@ section .data
 
 section .text
 
------Methods-----
+;; -----Methods-----
 		global __method__java_lang_Number__intValue
 	__method__java_lang_Number__intValue:
 		push ebp

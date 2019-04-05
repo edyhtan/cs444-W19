@@ -26,7 +26,7 @@ section .data
 
 section .text
 
------Methods-----
+;; -----Methods-----
 		global __method__Hello__whatYouSee
 	__method__Hello__whatYouSee:
 		push ebp

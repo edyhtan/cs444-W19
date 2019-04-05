@@ -46,7 +46,7 @@ section .data
 
 section .text
 
------Methods-----
+;; -----Methods-----
 		global __method__java_io_PrintStream__print$java_lang_String$
 	__method__java_io_PrintStream__print$java_lang_String$:
 		push ebp

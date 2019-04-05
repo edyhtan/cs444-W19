@@ -39,7 +39,7 @@ section .data
 
 section .text
 
------Methods-----
+;; -----Methods-----
 		global __method__java_lang_String__length
 	__method__java_lang_String__length:
 		push ebp

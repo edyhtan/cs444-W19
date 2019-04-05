@@ -26,7 +26,7 @@ section .data
 
 section .text
 
------Methods-----
+;; -----Methods-----
 		global __method__Static__foo2
 	__method__Static__foo2:
 		push ebp
