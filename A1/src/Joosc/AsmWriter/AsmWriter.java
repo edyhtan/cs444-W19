@@ -355,7 +355,7 @@ public class AsmWriter {
 
                 for (String methodName: allMethods) {
                     if (classEnv.methodCallTable.containsKey(methodName)) {
-                        String callRef = classEnv.methodCallTable.get(methodName).methodLabel;
+                        String callRef = classEnv.methodCallTable.get(methodName).callReference;
                         out.println();
                         out.print("\t");
                         extern(callRef);

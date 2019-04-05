@@ -35,20 +35,20 @@ extern __ref_SIT_java_io_OutputStream
 mov ebx, __ref_SIT_java_io_OutputStream
 mov [ebx], eax
 
-	extern __method__java_io_OutputStream__hashCode
-	mov ebx, __method__java_io_OutputStream__hashCode
+	extern __method__java_lang_Object__hashCode
+	mov ebx, __method__java_lang_Object__hashCode
 	mov [eax + 0], ebx
 
-	extern __method__java_io_OutputStream__equals$java_lang_Object$
-	mov ebx, __method__java_io_OutputStream__equals$java_lang_Object$
+	extern __method__java_lang_Object__equals$java_lang_Object$
+	mov ebx, __method__java_lang_Object__equals$java_lang_Object$
 	mov [eax + 4], ebx
 
-	extern __method__java_io_OutputStream__clone
-	mov ebx, __method__java_io_OutputStream__clone
+	extern __method__java_lang_Object__clone
+	mov ebx, __method__java_lang_Object__clone
 	mov [eax + 8], ebx
 
-	extern __method__java_io_OutputStream__toString
-	mov ebx, __method__java_io_OutputStream__toString
+	extern __method__java_lang_Object__toString
+	mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
 mov eax, 16
@@ -59,20 +59,20 @@ extern __ref_SIT_java_io_PrintStream
 mov ebx, __ref_SIT_java_io_PrintStream
 mov [ebx], eax
 
-	extern __method__java_io_PrintStream__hashCode
-	mov ebx, __method__java_io_PrintStream__hashCode
+	extern __method__java_lang_Object__hashCode
+	mov ebx, __method__java_lang_Object__hashCode
 	mov [eax + 0], ebx
 
-	extern __method__java_io_PrintStream__equals$java_lang_Object$
-	mov ebx, __method__java_io_PrintStream__equals$java_lang_Object$
+	extern __method__java_lang_Object__equals$java_lang_Object$
+	mov ebx, __method__java_lang_Object__equals$java_lang_Object$
 	mov [eax + 4], ebx
 
-	extern __method__java_io_PrintStream__clone
-	mov ebx, __method__java_io_PrintStream__clone
+	extern __method__java_lang_Object__clone
+	mov ebx, __method__java_lang_Object__clone
 	mov [eax + 8], ebx
 
-	extern __method__java_io_PrintStream__toString
-	mov ebx, __method__java_io_PrintStream__toString
+	extern __method__java_lang_Object__toString
+	mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
 mov eax, 16
@@ -83,20 +83,20 @@ extern __ref_SIT_java_lang_Boolean
 mov ebx, __ref_SIT_java_lang_Boolean
 mov [ebx], eax
 
-	extern __method__java_lang_Boolean__hashCode
-	mov ebx, __method__java_lang_Boolean__hashCode
+	extern __method__java_lang_Object__hashCode
+	mov ebx, __method__java_lang_Object__hashCode
 	mov [eax + 0], ebx
 
-	extern __method__java_lang_Boolean__equals$java_lang_Object$
-	mov ebx, __method__java_lang_Boolean__equals$java_lang_Object$
+	extern __method__java_lang_Object__equals$java_lang_Object$
+	mov ebx, __method__java_lang_Object__equals$java_lang_Object$
 	mov [eax + 4], ebx
 
-	extern __method__java_lang_Boolean__clone
-	mov ebx, __method__java_lang_Boolean__clone
+	extern __method__java_lang_Object__clone
+	mov ebx, __method__java_lang_Object__clone
 	mov [eax + 8], ebx
 
-	extern __method__java_lang_Boolean__toString
-	mov ebx, __method__java_lang_Boolean__toString
+	extern __method__java_lang_Object__toString
+	mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
 mov eax, 16
@@ -107,20 +107,20 @@ extern __ref_SIT_java_lang_Byte
 mov ebx, __ref_SIT_java_lang_Byte
 mov [ebx], eax
 
-	extern __method__java_lang_Byte__hashCode
-	mov ebx, __method__java_lang_Byte__hashCode
+	extern __method__java_lang_Object__hashCode
+	mov ebx, __method__java_lang_Object__hashCode
 	mov [eax + 0], ebx
 
-	extern __method__java_lang_Byte__equals$java_lang_Object$
-	mov ebx, __method__java_lang_Byte__equals$java_lang_Object$
+	extern __method__java_lang_Object__equals$java_lang_Object$
+	mov ebx, __method__java_lang_Object__equals$java_lang_Object$
 	mov [eax + 4], ebx
 
-	extern __method__java_lang_Byte__clone
-	mov ebx, __method__java_lang_Byte__clone
+	extern __method__java_lang_Object__clone
+	mov ebx, __method__java_lang_Object__clone
 	mov [eax + 8], ebx
 
-	extern __method__java_lang_Byte__toString
-	mov ebx, __method__java_lang_Byte__toString
+	extern __method__java_lang_Object__toString
+	mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
 mov eax, 16
@@ -131,20 +131,20 @@ extern __ref_SIT_java_lang_Character
 mov ebx, __ref_SIT_java_lang_Character
 mov [ebx], eax
 
-	extern __method__java_lang_Character__hashCode
-	mov ebx, __method__java_lang_Character__hashCode
+	extern __method__java_lang_Object__hashCode
+	mov ebx, __method__java_lang_Object__hashCode
 	mov [eax + 0], ebx
 
-	extern __method__java_lang_Character__equals$java_lang_Object$
-	mov ebx, __method__java_lang_Character__equals$java_lang_Object$
+	extern __method__java_lang_Object__equals$java_lang_Object$
+	mov ebx, __method__java_lang_Object__equals$java_lang_Object$
 	mov [eax + 4], ebx
 
-	extern __method__java_lang_Character__clone
-	mov ebx, __method__java_lang_Character__clone
+	extern __method__java_lang_Object__clone
+	mov ebx, __method__java_lang_Object__clone
 	mov [eax + 8], ebx
 
-	extern __method__java_lang_Character__toString
-	mov ebx, __method__java_lang_Character__toString
+	extern __method__java_lang_Object__toString
+	mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
 mov eax, 16
@@ -155,20 +155,20 @@ extern __ref_SIT_java_lang_Class
 mov ebx, __ref_SIT_java_lang_Class
 mov [ebx], eax
 
-	extern __method__java_lang_Class__hashCode
-	mov ebx, __method__java_lang_Class__hashCode
+	extern __method__java_lang_Object__hashCode
+	mov ebx, __method__java_lang_Object__hashCode
 	mov [eax + 0], ebx
 
-	extern __method__java_lang_Class__equals$java_lang_Object$
-	mov ebx, __method__java_lang_Class__equals$java_lang_Object$
+	extern __method__java_lang_Object__equals$java_lang_Object$
+	mov ebx, __method__java_lang_Object__equals$java_lang_Object$
 	mov [eax + 4], ebx
 
-	extern __method__java_lang_Class__clone
-	mov ebx, __method__java_lang_Class__clone
+	extern __method__java_lang_Object__clone
+	mov ebx, __method__java_lang_Object__clone
 	mov [eax + 8], ebx
 
-	extern __method__java_lang_Class__toString
-	mov ebx, __method__java_lang_Class__toString
+	extern __method__java_lang_Object__toString
+	mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
 mov eax, 16
@@ -179,20 +179,20 @@ extern __ref_SIT_java_lang_Integer
 mov ebx, __ref_SIT_java_lang_Integer
 mov [ebx], eax
 
-	extern __method__java_lang_Integer__hashCode
-	mov ebx, __method__java_lang_Integer__hashCode
+	extern __method__java_lang_Object__hashCode
+	mov ebx, __method__java_lang_Object__hashCode
 	mov [eax + 0], ebx
 
-	extern __method__java_lang_Integer__equals$java_lang_Object$
-	mov ebx, __method__java_lang_Integer__equals$java_lang_Object$
+	extern __method__java_lang_Object__equals$java_lang_Object$
+	mov ebx, __method__java_lang_Object__equals$java_lang_Object$
 	mov [eax + 4], ebx
 
-	extern __method__java_lang_Integer__clone
-	mov ebx, __method__java_lang_Integer__clone
+	extern __method__java_lang_Object__clone
+	mov ebx, __method__java_lang_Object__clone
 	mov [eax + 8], ebx
 
-	extern __method__java_lang_Integer__toString
-	mov ebx, __method__java_lang_Integer__toString
+	extern __method__java_lang_Object__toString
+	mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
 mov eax, 16
@@ -203,20 +203,20 @@ extern __ref_SIT_java_lang_Number
 mov ebx, __ref_SIT_java_lang_Number
 mov [ebx], eax
 
-	extern __method__java_lang_Number__hashCode
-	mov ebx, __method__java_lang_Number__hashCode
+	extern __method__java_lang_Object__hashCode
+	mov ebx, __method__java_lang_Object__hashCode
 	mov [eax + 0], ebx
 
-	extern __method__java_lang_Number__equals$java_lang_Object$
-	mov ebx, __method__java_lang_Number__equals$java_lang_Object$
+	extern __method__java_lang_Object__equals$java_lang_Object$
+	mov ebx, __method__java_lang_Object__equals$java_lang_Object$
 	mov [eax + 4], ebx
 
-	extern __method__java_lang_Number__clone
-	mov ebx, __method__java_lang_Number__clone
+	extern __method__java_lang_Object__clone
+	mov ebx, __method__java_lang_Object__clone
 	mov [eax + 8], ebx
 
-	extern __method__java_lang_Number__toString
-	mov ebx, __method__java_lang_Number__toString
+	extern __method__java_lang_Object__toString
+	mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
 mov eax, 16
@@ -251,20 +251,20 @@ extern __ref_SIT_java_lang_Short
 mov ebx, __ref_SIT_java_lang_Short
 mov [ebx], eax
 
-	extern __method__java_lang_Short__hashCode
-	mov ebx, __method__java_lang_Short__hashCode
+	extern __method__java_lang_Object__hashCode
+	mov ebx, __method__java_lang_Object__hashCode
 	mov [eax + 0], ebx
 
-	extern __method__java_lang_Short__equals$java_lang_Object$
-	mov ebx, __method__java_lang_Short__equals$java_lang_Object$
+	extern __method__java_lang_Object__equals$java_lang_Object$
+	mov ebx, __method__java_lang_Object__equals$java_lang_Object$
 	mov [eax + 4], ebx
 
-	extern __method__java_lang_Short__clone
-	mov ebx, __method__java_lang_Short__clone
+	extern __method__java_lang_Object__clone
+	mov ebx, __method__java_lang_Object__clone
 	mov [eax + 8], ebx
 
-	extern __method__java_lang_Short__toString
-	mov ebx, __method__java_lang_Short__toString
+	extern __method__java_lang_Object__toString
+	mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
 mov eax, 16
@@ -275,20 +275,20 @@ extern __ref_SIT_java_lang_String
 mov ebx, __ref_SIT_java_lang_String
 mov [ebx], eax
 
-	extern __method__java_lang_String__hashCode
-	mov ebx, __method__java_lang_String__hashCode
+	extern __method__java_lang_Object__hashCode
+	mov ebx, __method__java_lang_Object__hashCode
 	mov [eax + 0], ebx
 
-	extern __method__java_lang_String__equals$java_lang_Object$
-	mov ebx, __method__java_lang_String__equals$java_lang_Object$
+	extern __method__java_lang_Object__equals$java_lang_Object$
+	mov ebx, __method__java_lang_Object__equals$java_lang_Object$
 	mov [eax + 4], ebx
 
-	extern __method__java_lang_String__clone
-	mov ebx, __method__java_lang_String__clone
+	extern __method__java_lang_Object__clone
+	mov ebx, __method__java_lang_Object__clone
 	mov [eax + 8], ebx
 
-	extern __method__java_lang_String__toString
-	mov ebx, __method__java_lang_String__toString
+	extern __method__java_lang_Object__toString
+	mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
 mov eax, 16
@@ -299,20 +299,20 @@ extern __ref_SIT_java_lang_System
 mov ebx, __ref_SIT_java_lang_System
 mov [ebx], eax
 
-	extern __method__java_lang_System__hashCode
-	mov ebx, __method__java_lang_System__hashCode
+	extern __method__java_lang_Object__hashCode
+	mov ebx, __method__java_lang_Object__hashCode
 	mov [eax + 0], ebx
 
-	extern __method__java_lang_System__equals$java_lang_Object$
-	mov ebx, __method__java_lang_System__equals$java_lang_Object$
+	extern __method__java_lang_Object__equals$java_lang_Object$
+	mov ebx, __method__java_lang_Object__equals$java_lang_Object$
 	mov [eax + 4], ebx
 
-	extern __method__java_lang_System__clone
-	mov ebx, __method__java_lang_System__clone
+	extern __method__java_lang_Object__clone
+	mov ebx, __method__java_lang_Object__clone
 	mov [eax + 8], ebx
 
-	extern __method__java_lang_System__toString
-	mov ebx, __method__java_lang_System__toString
+	extern __method__java_lang_Object__toString
+	mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
 mov eax, 16
@@ -323,20 +323,20 @@ extern __ref_SIT_java_util_Arrays
 mov ebx, __ref_SIT_java_util_Arrays
 mov [ebx], eax
 
-	extern __method__java_util_Arrays__hashCode
-	mov ebx, __method__java_util_Arrays__hashCode
+	extern __method__java_lang_Object__hashCode
+	mov ebx, __method__java_lang_Object__hashCode
 	mov [eax + 0], ebx
 
-	extern __method__java_util_Arrays__equals$java_lang_Object$
-	mov ebx, __method__java_util_Arrays__equals$java_lang_Object$
+	extern __method__java_lang_Object__equals$java_lang_Object$
+	mov ebx, __method__java_lang_Object__equals$java_lang_Object$
 	mov [eax + 4], ebx
 
-	extern __method__java_util_Arrays__clone
-	mov ebx, __method__java_util_Arrays__clone
+	extern __method__java_lang_Object__clone
+	mov ebx, __method__java_lang_Object__clone
 	mov [eax + 8], ebx
 
-	extern __method__java_util_Arrays__toString
-	mov ebx, __method__java_util_Arrays__toString
+	extern __method__java_lang_Object__toString
+	mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
 mov eax, 16
@@ -346,20 +346,20 @@ call __malloc
 mov ebx, __ref_SIT_A
 mov [ebx], eax
 
-	extern __method__A__hashCode
-	mov ebx, __method__A__hashCode
+	extern __method__java_lang_Object__hashCode
+	mov ebx, __method__java_lang_Object__hashCode
 	mov [eax + 0], ebx
 
-	extern __method__A__equals$java_lang_Object$
-	mov ebx, __method__A__equals$java_lang_Object$
+	extern __method__java_lang_Object__equals$java_lang_Object$
+	mov ebx, __method__java_lang_Object__equals$java_lang_Object$
 	mov [eax + 4], ebx
 
-	extern __method__A__clone
-	mov ebx, __method__A__clone
+	extern __method__java_lang_Object__clone
+	mov ebx, __method__java_lang_Object__clone
 	mov [eax + 8], ebx
 
-	extern __method__A__toString
-	mov ebx, __method__A__toString
+	extern __method__java_lang_Object__toString
+	mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
 mov eax, 16
@@ -370,20 +370,20 @@ extern __ref_SIT_foo_bar
 mov ebx, __ref_SIT_foo_bar
 mov [ebx], eax
 
-	extern __method__foo_bar__hashCode
-	mov ebx, __method__foo_bar__hashCode
+	extern __method__java_lang_Object__hashCode
+	mov ebx, __method__java_lang_Object__hashCode
 	mov [eax + 0], ebx
 
-	extern __method__foo_bar__equals$java_lang_Object$
-	mov ebx, __method__foo_bar__equals$java_lang_Object$
+	extern __method__java_lang_Object__equals$java_lang_Object$
+	mov ebx, __method__java_lang_Object__equals$java_lang_Object$
 	mov [eax + 4], ebx
 
-	extern __method__foo_bar__clone
-	mov ebx, __method__foo_bar__clone
+	extern __method__java_lang_Object__clone
+	mov ebx, __method__java_lang_Object__clone
 	mov [eax + 8], ebx
 
-	extern __method__foo_bar__toString
-	mov ebx, __method__foo_bar__toString
+	extern __method__java_lang_Object__toString
+	mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
 mov eax, 16
@@ -394,20 +394,20 @@ extern __ref_SIT_Hello
 mov ebx, __ref_SIT_Hello
 mov [ebx], eax
 
-	extern __method__Hello__hashCode
-	mov ebx, __method__Hello__hashCode
+	extern __method__java_lang_Object__hashCode
+	mov ebx, __method__java_lang_Object__hashCode
 	mov [eax + 0], ebx
 
-	extern __method__Hello__equals$java_lang_Object$
-	mov ebx, __method__Hello__equals$java_lang_Object$
+	extern __method__java_lang_Object__equals$java_lang_Object$
+	mov ebx, __method__java_lang_Object__equals$java_lang_Object$
 	mov [eax + 4], ebx
 
-	extern __method__Hello__clone
-	mov ebx, __method__Hello__clone
+	extern __method__java_lang_Object__clone
+	mov ebx, __method__java_lang_Object__clone
 	mov [eax + 8], ebx
 
-	extern __method__Hello__toString
-	mov ebx, __method__Hello__toString
+	extern __method__java_lang_Object__toString
+	mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
 mov eax, 16
@@ -418,20 +418,20 @@ extern __ref_SIT_Main
 mov ebx, __ref_SIT_Main
 mov [ebx], eax
 
-	extern __method__Main__hashCode
-	mov ebx, __method__Main__hashCode
+	extern __method__java_lang_Object__hashCode
+	mov ebx, __method__java_lang_Object__hashCode
 	mov [eax + 0], ebx
 
-	extern __method__Main__equals$java_lang_Object$
-	mov ebx, __method__Main__equals$java_lang_Object$
+	extern __method__java_lang_Object__equals$java_lang_Object$
+	mov ebx, __method__java_lang_Object__equals$java_lang_Object$
 	mov [eax + 4], ebx
 
-	extern __method__Main__clone
-	mov ebx, __method__Main__clone
+	extern __method__java_lang_Object__clone
+	mov ebx, __method__java_lang_Object__clone
 	mov [eax + 8], ebx
 
-	extern __method__Main__toString
-	mov ebx, __method__Main__toString
+	extern __method__java_lang_Object__toString
+	mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
 mov eax, 16
@@ -442,20 +442,20 @@ extern __ref_SIT_Static
 mov ebx, __ref_SIT_Static
 mov [ebx], eax
 
-	extern __method__Static__hashCode
-	mov ebx, __method__Static__hashCode
+	extern __method__java_lang_Object__hashCode
+	mov ebx, __method__java_lang_Object__hashCode
 	mov [eax + 0], ebx
 
-	extern __method__Static__equals$java_lang_Object$
-	mov ebx, __method__Static__equals$java_lang_Object$
+	extern __method__java_lang_Object__equals$java_lang_Object$
+	mov ebx, __method__java_lang_Object__equals$java_lang_Object$
 	mov [eax + 4], ebx
 
-	extern __method__Static__clone
-	mov ebx, __method__Static__clone
+	extern __method__java_lang_Object__clone
+	mov ebx, __method__java_lang_Object__clone
 	mov [eax + 8], ebx
 
-	extern __method__Static__toString
-	mov ebx, __method__Static__toString
+	extern __method__java_lang_Object__toString
+	mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
 call @@@@main
