@@ -3,7 +3,7 @@ package Joosc.ASTModel.Expressions;
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionBinaryNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.AsmWriter.AsmWriter;
-import Joosc.Environment.ClassEnv;
+import Joosc.AsmWriter.Register;
 import Joosc.Environment.Env;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
@@ -12,7 +12,6 @@ import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 
 public class ExpressionBinary extends Expression implements ConstantExpression {
@@ -263,7 +262,107 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
 
     @Override
     public void codeGen(int indent) {
+        LHS.addWriter(asmWriter);
+        RHS.addWriter(asmWriter);
 
+
+
+        switch (operator) {
+            case Plus:
+                LHS.codeGen(indent);
+                asmWriter.indent(indent);
+                asmWriter.push(Register.eax);
+                RHS.codeGen(indent);
+                asmWriter.indent(indent);
+                asmWriter.pop(Register.ebx);
+                asmWriter.indent(indent);
+                asmWriter.add(Register.ebx, Register.eax);
+                asmWriter.indent(indent);
+                asmWriter.mov(Register.eax, Register.ebx);
+                break;
+            // assignability
+            case Equal:
+
+                break;
+            // arithmetic operations
+            case Minus:
+                LHS.codeGen(indent);
+                asmWriter.indent(indent);
+                asmWriter.push(Register.eax);
+                RHS.codeGen(indent);
+                asmWriter.indent(indent);
+                asmWriter.pop(Register.ebx);
+                asmWriter.indent(indent);
+                asmWriter.sub(Register.ebx, Register.eax);
+                asmWriter.indent(indent);
+                asmWriter.mov(Register.eax, Register.ebx);
+                break;
+            case Star:
+                LHS.codeGen(indent);
+                asmWriter.indent(indent);
+                asmWriter.push(Register.eax);
+                RHS.codeGen(indent);
+                asmWriter.indent(indent);
+                asmWriter.pop(Register.ebx);
+                asmWriter.indent(indent);
+                asmWriter.imul(Register.ebx, Register.eax);
+                asmWriter.indent(indent);
+                asmWriter.mov(Register.eax, Register.ebx);
+                break;
+            case Slash:
+                RHS.codeGen(indent);
+                asmWriter.indent(indent);
+                asmWriter.cmp(Register.eax, "0");
+                asmWriter.indent(indent);
+                asmWriter.je(".div0");
+                asmWriter.indent(indent);
+                asmWriter.push(Register.eax);
+                LHS.codeGen(indent);
+                asmWriter.indent(indent);
+                asmWriter.pop(Register.ebx);
+                asmWriter.indent(indent);
+                asmWriter.mov(Register.edx, 0);
+                asmWriter.indent(indent);
+                asmWriter.idiv(Register.ebx);
+                break;
+            case Percent:
+                RHS.codeGen(indent);
+                asmWriter.indent(indent);
+                asmWriter.push(Register.eax);
+                LHS.codeGen(indent);
+                asmWriter.indent(indent);
+                asmWriter.pop(Register.ebx);
+                asmWriter.indent(indent);
+                asmWriter.mov(Register.edx, 0);
+                asmWriter.indent(indent);
+                asmWriter.idiv(Register.ebx);
+                asmWriter.indent(indent);
+                asmWriter.mov(Register.eax, Register.edx);
+                break;
+            // comparison
+            case EQ:
+            case NE:
+
+                break;
+            case GE:
+            case GT:
+            case LT:
+            case LE:
+
+                break;
+            case Instanceof:
+
+                break;
+            // logical operations
+            case And:
+            case Or:
+            case Cap:
+            case Bar:
+            case Amp:
+
+                break;
+        }
+        asmWriter.println("");
     }
 
     @Override

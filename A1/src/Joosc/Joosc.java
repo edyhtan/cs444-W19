@@ -3,10 +3,8 @@ package Joosc;
 import Joosc.ASTBuilding.JoosAST;
 import Joosc.ASTModel.Program;
 import Joosc.AsmWriter.AsmWriter;
-import Joosc.AsmWriter.Register;
 import Joosc.Environment.GlobalEnv;
 import Joosc.Exceptions.*;
-
 import Joosc.Parser.JoosParse;
 import Joosc.Parser.LRGrammar.ParseTree;
 import Joosc.Scanner.JoosScan;
@@ -80,7 +78,7 @@ public class Joosc {
             }
 
             AsmWriter asm = new AsmWriter(System.out);
-            asm.outputInit();
+            //asm.outputInit();
 
         } catch (UnreachableStatementException e) {
             System.err.printf("ERROR: Static analysis error: %s\n", e.getLocalizedMessage());

@@ -9,6 +9,7 @@ import Joosc.AsmWriter.AsmWriter;
 import Joosc.AsmWriter.Register;
 import Joosc.Environment.LocalEnv;
 import Joosc.Environment.MethodInfo;
+import Joosc.Environment.SymbolTable;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.Exceptions.UninitializedVariableException;
@@ -246,14 +247,17 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
         for (Statement statement : bodyBlock) {
             statement.addWriter(asmWriter);
 
-            Statement.assignOffset(statement, localEnv);
+            SymbolTable.assignOffset(statement, localEnv);
 
             if (statement instanceof ForStatement) {
                 if(((ForStatement)statement).getBlock().size() == 1 && ((ForStatement)statement).getBlock().get(0) instanceof Block) {
-                    Statement.assignOffset(((ForStatement) statement).getStatement(), (LocalEnv)((HasScope)((ForStatement) statement).getStatement().getBlock().get(0)).getEnv());
+                    SymbolTable.assignOffset(((ForStatement) statement).getStatement(), (LocalEnv)((HasScope)((ForStatement) statement).getStatement().getBlock().get(0)).getEnv());
                 }
             }
         }
+        System.out.println(methodLabel);
+        localEnv.printOffset();
+
 
         asmWriter.indent(indent + 1);
 

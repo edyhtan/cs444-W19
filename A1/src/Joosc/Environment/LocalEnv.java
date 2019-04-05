@@ -12,7 +12,6 @@ import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
 import Joosc.util.Pair;
-import Joosc.util.SymbolTable;
 
 import java.util.ArrayList;
 import java.util.HashMap;

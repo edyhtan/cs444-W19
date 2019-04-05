@@ -1,20 +1,17 @@
 package Joosc.AsmWriter;
 
-import Joosc.ASTModel.Expressions.Expression;
-
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
-import java.util.BitSet;
-import java.util.Collections;
 import Joosc.ASTModel.ClassInterface.ClassDeclr;
 import Joosc.ASTModel.ClassInterface.InterfaceDeclr;
+import Joosc.ASTModel.Expressions.Expression;
 import Joosc.Environment.ClassEnv;
 import Joosc.Environment.GlobalEnv;
-import Joosc.Environment.MethodInfo;
-import Joosc.Scanner.JoosScan;
 import Joosc.TypeSystem.JoosType;
 import Joosc.util.ArrayLinkedHashMap;
 import Joosc.util.ArrayLinkedHashSet;
+
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+import java.util.Collections;
 
 
 public class AsmWriter {
@@ -221,28 +218,24 @@ public class AsmWriter {
         sub(reg.toString(), Integer.toString(i));
     }
 
-    public void imal(String str1, String str2) {
-        out.println("imal " + str1 + "," + str2);
+    public void imul(String str1, String str2) {
+        out.println("imul " + str1 + "," + str2);
     }
 
-    public void imal(Register reg1, Register reg2) {
-        imal(reg1.toString(), reg2.toString());
+    public void imul(Register reg1, Register reg2) {
+        imul(reg1.toString(), reg2.toString());
     }
 
-    public void imal(Register reg, int i) {
-        imal(reg.toString(), Integer.toString(i));
+    public void imul(Register reg, int i) {
+        imul(reg.toString(), Integer.toString(i));
     }
 
-    public void idiv(String str1, String str2) {
-        out.println("idiv " + str1 + "," + str2);
+    public void idiv(String str1) {
+        out.println("idiv " + str1);
     }
 
-    public void idiv(Register reg1, Register reg2) {
-        idiv(reg1.toString(), reg2.toString());
-    }
-
-    public void idiv(Register reg, int i) {
-        idiv(reg.toString(), Integer.toString(i));
+    public void idiv(Register reg) {
+        idiv(reg.toString());
     }
 
     public void getBit(Register reg, int i) {
@@ -306,11 +299,8 @@ public class AsmWriter {
 
         // Parent Matrix
         for (ClassEnv env: GlobalEnv.instance.classEnvs) {
-            System.err.println(env.getJoosType().getTypeName());
             parentMatrix.put(env.getJoosType(), "");
         }
-
-        System.err.println(parentMatrix.size());
 
         // Compute Marrix
         for (JoosType type: parentMatrix.keySet()) {
@@ -322,7 +312,7 @@ public class AsmWriter {
                 String ref = Integer.toString(bit) + parentMatrix.get(type);
                 parentMatrix.put(type, ref);
             }
-            System.err.println(parentMatrix.get(type) + " " + type.getTypeName());
+            //System.err.println(parentMatrix.get(type) + " " + type.getTypeName());
         }
     }
 
