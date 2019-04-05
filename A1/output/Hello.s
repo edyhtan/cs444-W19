@@ -36,6 +36,7 @@ section .text
 
 		
 		_method_return___method__Hello__whatYouSee:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -47,6 +48,7 @@ section .text
 				jmp _method_return___method__Hello__like$Hello$
 
 		_method_return___method__Hello__like$Hello$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -58,6 +60,7 @@ section .text
 				jmp _method_return___method__Hello__k
 
 		_method_return___method__Hello__k:
+			mov esp, ebp
 			pop ebp
 			ret
 

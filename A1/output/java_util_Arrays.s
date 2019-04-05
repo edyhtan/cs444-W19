@@ -79,6 +79,7 @@ section .text
 		jmp _method_return___STATIC_method__java_util_Arrays__equals$boolean@$boolean@$
 
 		_method_return___STATIC_method__java_util_Arrays__equals$boolean@$boolean@$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -133,6 +134,7 @@ section .text
 		jmp _method_return___STATIC_method__java_util_Arrays__equals$char@$char@$
 
 		_method_return___STATIC_method__java_util_Arrays__equals$char@$char@$:
+			mov esp, ebp
 			pop ebp
 			ret
 

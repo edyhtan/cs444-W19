@@ -47,6 +47,7 @@ section .text
 		jmp _method_return___method__java_lang_Integer__intValue
 
 		_method_return___method__java_lang_Integer__intValue:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -112,6 +113,7 @@ section .text
 		jmp _method_return___STATIC_method__java_lang_Integer__parseInt$java_lang_String$
 
 		_method_return___STATIC_method__java_lang_Integer__parseInt$java_lang_String$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -123,6 +125,7 @@ section .text
 				jmp _method_return___method__java_lang_Integer__toString
 
 		_method_return___method__java_lang_Integer__toString:
+			mov esp, ebp
 			pop ebp
 			ret
 

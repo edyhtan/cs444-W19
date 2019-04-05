@@ -37,6 +37,7 @@ section .text
 				jmp _method_return___method__java_lang_Byte__toString
 
 		_method_return___method__java_lang_Byte__toString:
+			mov esp, ebp
 			pop ebp
 			ret
 

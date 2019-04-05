@@ -38,6 +38,7 @@ section .text
 		jmp _method_return___method__Static__foo2
 
 		_method_return___method__Static__foo2:
+			mov esp, ebp
 			pop ebp
 			ret
 

@@ -37,6 +37,7 @@ section .text
 
 		
 		_method_return___method__java_io_OutputStream__write$char$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -47,6 +48,7 @@ section .text
 
 		
 		_method_return___method__java_io_OutputStream__write$int$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -57,6 +59,7 @@ section .text
 
 		
 		_method_return___STATIC_method__java_io_OutputStream__nativeWrite$int$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -67,6 +70,7 @@ section .text
 
 		
 		_method_return___method__java_io_OutputStream__flush:
+			mov esp, ebp
 			pop ebp
 			ret
 

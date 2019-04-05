@@ -77,6 +77,7 @@ section .text
 
 
 		_method_return___method__java_io_PrintStream__print$java_lang_String$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -87,6 +88,7 @@ section .text
 
 		
 		_method_return___method__java_io_PrintStream__println:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -97,6 +99,7 @@ section .text
 
 		
 		_method_return___method__java_io_PrintStream__println$java_lang_String$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -107,6 +110,7 @@ section .text
 
 		
 		_method_return___method__java_io_PrintStream__println$java_lang_Object$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -117,6 +121,7 @@ section .text
 
 		
 		_method_return___method__java_io_PrintStream__println$boolean$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -127,6 +132,7 @@ section .text
 
 		
 		_method_return___method__java_io_PrintStream__println$byte$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -137,6 +143,7 @@ section .text
 
 		
 		_method_return___method__java_io_PrintStream__println$char$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -147,6 +154,7 @@ section .text
 
 		
 		_method_return___method__java_io_PrintStream__println$short$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -157,6 +165,7 @@ section .text
 
 		
 		_method_return___method__java_io_PrintStream__println$int$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -167,6 +176,7 @@ section .text
 
 		
 		_method_return___method__java_io_PrintStream__print$java_lang_Object$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -177,6 +187,7 @@ section .text
 
 		
 		_method_return___method__java_io_PrintStream__print$boolean$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -187,6 +198,7 @@ section .text
 
 		
 		_method_return___method__java_io_PrintStream__print$byte$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -197,6 +209,7 @@ section .text
 
 		
 		_method_return___method__java_io_PrintStream__print$char$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -207,6 +220,7 @@ section .text
 
 		
 		_method_return___method__java_io_PrintStream__print$short$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -217,6 +231,7 @@ section .text
 
 		
 		_method_return___method__java_io_PrintStream__print$int$:
+			mov esp, ebp
 			pop ebp
 			ret
 

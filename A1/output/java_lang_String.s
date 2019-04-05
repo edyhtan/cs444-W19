@@ -62,6 +62,7 @@ section .text
 		jmp _method_return___method__java_lang_String__length
 
 		_method_return___method__java_lang_String__length:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -73,6 +74,7 @@ section .text
 				jmp _method_return___method__java_lang_String__charAt$int$
 
 		_method_return___method__java_lang_String__charAt$int$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -121,6 +123,7 @@ section .text
 		jmp _method_return___method__java_lang_String__concat$java_lang_String$
 
 		_method_return___method__java_lang_String__concat$java_lang_String$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -135,6 +138,7 @@ section .text
 		jmp _method_return___STATIC_method__java_lang_String__valueOf$char$
 
 		_method_return___STATIC_method__java_lang_String__valueOf$char$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -246,6 +250,7 @@ section .text
 		jmp _method_return___STATIC_method__java_lang_String__valueOf$int$
 
 		_method_return___STATIC_method__java_lang_String__valueOf$int$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -257,6 +262,7 @@ section .text
 				jmp _method_return___STATIC_method__java_lang_String__valueOf$short$
 
 		_method_return___STATIC_method__java_lang_String__valueOf$short$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -268,6 +274,7 @@ section .text
 				jmp _method_return___STATIC_method__java_lang_String__valueOf$byte$
 
 		_method_return___STATIC_method__java_lang_String__valueOf$byte$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -296,6 +303,7 @@ section .text
 		.endif8:
 
 		_method_return___STATIC_method__java_lang_String__valueOf$boolean$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -319,6 +327,7 @@ section .text
 		.endif9:
 
 		_method_return___STATIC_method__java_lang_String__valueOf$java_lang_Object$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -347,6 +356,7 @@ section .text
 		.endif10:
 
 		_method_return___STATIC_method__java_lang_String__valueOf$java_lang_String$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -380,6 +390,7 @@ section .text
 		jmp _method_return___method__java_lang_String__equals$java_lang_Object$
 
 		_method_return___method__java_lang_String__equals$java_lang_Object$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -443,6 +454,7 @@ section .text
 		jmp _method_return___method__java_lang_String__substring$int$int$
 
 		_method_return___method__java_lang_String__substring$int$int$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -504,6 +516,7 @@ section .text
 		.endif19:
 
 		_method_return___method__java_lang_String__trim:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -545,6 +558,7 @@ section .text
 		jmp _method_return___method__java_lang_String__hashCode
 
 		_method_return___method__java_lang_String__hashCode:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -556,6 +570,7 @@ section .text
 				jmp _method_return___method__java_lang_String__toString
 
 		_method_return___method__java_lang_String__toString:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -567,6 +582,7 @@ section .text
 				jmp _method_return___method__java_lang_String__compareTo$java_lang_Object$
 
 		_method_return___method__java_lang_String__compareTo$java_lang_Object$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -660,6 +676,7 @@ section .text
 		jmp _method_return___method__java_lang_String__compareTo$java_lang_String$
 
 		_method_return___method__java_lang_String__compareTo$java_lang_String$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -700,6 +717,7 @@ section .text
 		jmp _method_return___method__java_lang_String__toCharArray
 
 		_method_return___method__java_lang_String__toCharArray:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -799,6 +817,7 @@ section .text
 		jmp _method_return___method__java_lang_String__indexOf$java_lang_String$
 
 		_method_return___method__java_lang_String__indexOf$java_lang_String$:
+			mov esp, ebp
 			pop ebp
 			ret
 

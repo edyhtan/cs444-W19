@@ -272,6 +272,8 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
         asmWriter.indent(indent+1);
         asmWriter.label("_method_return_" + methodLabel);
         asmWriter.indent(indent + 2);
+        asmWriter.mov(Register.esp, Register.ebp);
+        asmWriter.indent(indent + 2);
         asmWriter.pop(Register.ebp);
         asmWriter.indent(indent + 2);
         asmWriter.ret();

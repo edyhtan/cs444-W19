@@ -36,6 +36,7 @@ section .text
 				jmp _method_return___method__java_lang_Short__intValue
 
 		_method_return___method__java_lang_Short__intValue:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -47,6 +48,7 @@ section .text
 				jmp _method_return___method__java_lang_Short__toString
 
 		_method_return___method__java_lang_Short__toString:
+			mov esp, ebp
 			pop ebp
 			ret
 

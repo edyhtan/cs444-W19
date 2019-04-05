@@ -37,6 +37,7 @@ section .text
 
 		
 		_method_return___STATIC_method__java_lang_System__gc:
+			mov esp, ebp
 			pop ebp
 			ret
 

@@ -34,6 +34,7 @@ section .text
 
 		
 		_method_return___method__Main__test:
+			mov esp, ebp
 			pop ebp
 			ret
 

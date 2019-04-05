@@ -503,6 +503,7 @@ global @@@@main
 		jmp _method_return___STATIC_method__A__test
 
 		_method_return___STATIC_method__A__test:
+			mov esp, ebp
 			pop ebp
 			ret
 

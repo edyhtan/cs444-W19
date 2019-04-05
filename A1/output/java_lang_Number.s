@@ -34,6 +34,7 @@ section .text
 
 		
 		_method_return___method__java_lang_Number__intValue:
+			mov esp, ebp
 			pop ebp
 			ret
 

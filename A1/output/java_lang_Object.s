@@ -29,6 +29,7 @@ section .text
 				jmp _method_return___method__java_lang_Object__equals$java_lang_Object$
 
 		_method_return___method__java_lang_Object__equals$java_lang_Object$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -40,6 +41,7 @@ section .text
 						jmp _method_return___method__java_lang_Object__toString
 
 		_method_return___method__java_lang_Object__toString:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -52,6 +54,7 @@ section .text
 		jmp _method_return___method__java_lang_Object__hashCode
 
 		_method_return___method__java_lang_Object__hashCode:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -63,6 +66,7 @@ section .text
 				jmp _method_return___method__java_lang_Object__clone
 
 		_method_return___method__java_lang_Object__clone:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -75,6 +79,7 @@ section .text
 		jmp _method_return___method__java_lang_Object__getClass
 
 		_method_return___method__java_lang_Object__getClass:
+			mov esp, ebp
 			pop ebp
 			ret
 
