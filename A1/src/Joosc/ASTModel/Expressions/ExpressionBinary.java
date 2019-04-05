@@ -394,6 +394,7 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 break;
             // logical operations
             case And:
+
             case Or:
             case Cap:
             case Bar:

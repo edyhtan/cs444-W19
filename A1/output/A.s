@@ -388,90 +388,15 @@ global @@@@main
 		push ebp
 		mov ebp, esp
 
-				;expression code...
-		;; -----gt
-		;; LHS code...
-		;; Div
+				;; Div
 		;; RHS code...
-		mov eax, 4
-		cmp eax,0
-		
-		je __exception
-		push eax
-		;; LHS code...
-		;; Plus
-		;; LHS code...
-		mov eax, 1
-		push eax
-		;; RHS code...
-		;; Mult
-		;; LHS code...
-		mov eax, 2
-		push eax
-		;; RHS code...
-		mov eax, 3
-		pop ebx
-		imul ebx,eax
-		mov eax, ebx
-
-		pop ebx
-		add ebx, eax
-		mov eax, ebx
-
-		pop ebx
-		mov edx, 0
-		idiv ebx
-
-		push eax
-		;; RHS code...
-		mov eax, 5
-		pop ebx
-		cmp ebx,eax
-		jg .gt0
 		mov eax, 0
-		jmp .end_gt0
-		.gt0:
-			mov eax, 1
-		.end_gt0:
-
-		cmp eax,0
-		je .else0
-		;thenClause ...
-			mov eax, 111
-			jmp _method_return___STATIC_method__A__test$int$int$
-
-
-		jmp .endif0
-
-		.else0:
-		.endif0:
-		;; Div
-		;; RHS code...
-		mov eax, 4
 		cmp eax,0
 		
 		je __exception
 		push eax
 		;; LHS code...
-		;; Plus
-		;; LHS code...
-		mov eax, 1
-		push eax
-		;; RHS code...
-		;; Mult
-		;; LHS code...
-		mov eax, 2
-		push eax
-		;; RHS code...
 		mov eax, 3
-		pop ebx
-		imul ebx,eax
-		mov eax, ebx
-
-		pop ebx
-		add ebx, eax
-		mov eax, ebx
-
 		pop ebx
 		mov edx, 0
 		idiv ebx
