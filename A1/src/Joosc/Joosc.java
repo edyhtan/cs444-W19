@@ -75,7 +75,6 @@ public class Joosc {
                 Program.PER_PROGRAM_COUNT = 0;
                 ast.staticAnalysis();
                 ast.codeGen(0);
-                System.out.println(ast.getTypeDeclr().getClassEnv().getJoosType().getTypeName());
             }
 
             AsmWriter asm = new AsmWriter(System.out);

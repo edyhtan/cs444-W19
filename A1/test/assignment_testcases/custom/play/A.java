@@ -5,7 +5,7 @@ public class A {
         if( (1+2*3) / 4 <= 5) {
             return 111;
         }
-        return 123;
+        return ((1+2*3) / 4);
     }
 
 }

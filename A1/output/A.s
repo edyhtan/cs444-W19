@@ -445,7 +445,37 @@ global @@@@main
 
 		.else0:
 		.endif0:
-		mov eax, 123
+		;; Div
+		;; RHS code...
+		mov eax, 4
+		cmp eax,0
+		
+		je __exception
+		push eax
+		;; LHS code...
+		;; Plus
+		;; LHS code...
+		mov eax, 1
+		push eax
+		;; RHS code...
+		;; Mult
+		;; LHS code...
+		mov eax, 2
+		push eax
+		;; RHS code...
+		mov eax, 3
+		pop ebx
+		imul ebx,eax
+		mov eax, ebx
+
+		pop ebx
+		add ebx, eax
+		mov eax, ebx
+
+		pop ebx
+		mov edx, 0
+		idiv ebx
+
 		jmp _method_return___STATIC_method__A__test$int$int$
 
 		_method_return___STATIC_method__A__test$int$int$:
