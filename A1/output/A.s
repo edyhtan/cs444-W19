@@ -1,24 +1,25 @@
 extern __ref_SIT_java_lang_Number
+extern __exception
 extern __malloc
-extern __ref_SIT_java_lang_Integer
-extern __method__java_lang_Object__toString
 extern __constructor__java_lang_Object__Object
 extern __method__java_lang_Object__getClass
-extern __ref_SIT_java_lang_Class
-extern __ref_SIT_java_lang_Boolean
 extern __ref_SIT_foo_bar
-extern __ref_SIT_java_util_Arrays
-extern __method__java_lang_Object__equals$java_lang_Object$
 extern __ref_SIT_java_lang_Short
-extern __ref_SIT_java_io_PrintStream
 extern __ref_SIT_Main
 extern __ref_SIT_java_lang_Character
+extern __ref_SIT_java_lang_String
+extern __ref_SIT_Hello
+extern __ref_SIT_java_lang_Integer
+extern __method__java_lang_Object__toString
+extern __ref_SIT_java_lang_Class
+extern __ref_SIT_java_lang_Boolean
+extern __ref_SIT_java_util_Arrays
+extern __method__java_lang_Object__equals$java_lang_Object$
+extern __ref_SIT_java_io_PrintStream
 extern __method__java_lang_Object__clone
 extern __ref_SIT_java_lang_Object
 extern __method__java_lang_Object__hashCode
-extern __ref_SIT_java_lang_String
 extern __ref_SIT_java_lang_Byte
-extern __ref_SIT_Hello
 extern __ref_SIT_Static
 extern __ref_SIT_java_lang_System
 extern __ref_SIT_java_io_OutputStream
@@ -388,7 +389,7 @@ global @@@@main
 		mov ebp, esp
 
 				;expression code...
-		;; logical_or
+		;; logical_and
 		;; compare_eq
 		;; LHS code...
 		mov eax, 5
@@ -404,33 +405,36 @@ global @@@@main
 			mov eax, 1
 		.end_eq1:
 
-		cmp eax, 1
-		je .end_or0
-		;; compare_ne
+		cmp eax, 0
+		je .end_and0
+		;; compare_eq
 		;; LHS code...
-		;; Minus
-		;; LHS code...
-		mov eax, 10
-		push eax
+		;; Div
 		;; RHS code...
+		mov eax, 0
+		cmp eax, 0
+		
+		je __exception
+		push eax
+		;; LHS code...
 		mov eax, 3
 		pop ebx
-		sub ebx, eax
-		mov eax, ebx
+		mov edx, 0
+		idiv ebx
 
 		push eax
 		;; RHS code...
-		mov eax, 6
+		mov eax, 0
 		pop ebx
 		cmp ebx, eax
-		jne .ne2
+		je .eq2
 		mov eax, 0
-		jmp .end_ne2
-		.ne2:
+		jmp .end_eq2
+		.eq2:
 			mov eax, 1
-		.end_ne2:
+		.end_eq2:
 
-		.end_or0:
+		.end_and0:
 
 		cmp eax, 0
 		je .else0
