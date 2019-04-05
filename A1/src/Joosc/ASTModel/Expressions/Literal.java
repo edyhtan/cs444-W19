@@ -87,7 +87,30 @@ public class Literal extends ExpressionContent implements ConstantExpression {
     @Override
     public void codeGen(int indent) {
         asmWriter.indent(indent);
-        asmWriter.mov(Register.eax, literal);
+        String movLit = null;
+        if (kind.equals(Symbol.IntLiteral.getSymbolString())) {
+            movLit = literal;
+        }
+        if (kind.equals(Symbol.BooleanLiteral.getSymbolString())) {
+            if (literal.equals("true")) {
+                movLit = "1";
+            } else {
+                movLit = "0";
+            }
+        }
+        if (kind.equals(Symbol.CharLiteral.getSymbolString())) {
+            movLit = Integer.toString((int)literal.charAt(0));
+        }
+        if (kind.equals(Symbol.Null.getSymbolString())) {
+            movLit = "0";
+        }
+
+        if (kind.equals(Symbol.StringLiteral.getSymbolString())) {
+            // TODO
+        }
+
+        if (movLit != null)
+            asmWriter.mov(Register.eax, movLit);
     }
 
     @Override

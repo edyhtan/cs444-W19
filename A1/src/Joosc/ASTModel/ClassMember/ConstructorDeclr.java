@@ -2,6 +2,7 @@ package Joosc.ASTModel.ClassMember;
 
 import Joosc.ASTBuilding.ASTStructures.ConstructorDeclrNode;
 import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.ASTModel.ClassInterface.ClassDeclr;
 import Joosc.ASTModel.Statements.Statement;
 import Joosc.ASTModel.Type;
 import Joosc.AsmWriter.AsmWriter;
@@ -115,21 +116,24 @@ public class ConstructorDeclr implements ClassBodyDeclr, Method {
     @Override
     public void codeGen(int indent) {
         // Ctor label
+        asmWriter.indent(2);
+        asmWriter.extern(info.methodLabel);
         asmWriter.indent(indent);
         asmWriter.label(info.methodLabel);
         indent += 1;
         asmWriter.prologue(indent);
+        ClassDeclr curClass = (ClassDeclr) localEnv.getCurrentClass();
+        JoosType extendType = curClass.getClassEnv().extendName;
+        // Pseudo way to get object addr
+        Integer objectOffset = formalParamList.size() * 4 + 8;
 
         // Super default constructor if not object
         if (!name.equals("Object")) {
-            // Pseudo way to get object addr
-            Integer objectOffset = formalParamList.size() * 4 + 8;
             asmWriter.indent(indent);
-            asmWriter.mov(Register.eax, "[ ebp + " + objectOffset.toString() + " ]");
+            asmWriter.movFromAddr(Register.eax, "ebp + " + objectOffset.toString());
             asmWriter.indent(indent);
             asmWriter.push(Register.eax);
             // Call parent constructor
-            JoosType extendType = localEnv.getCurrentClass().getClassEnv().extendName;
             String parentConstructorLabel =
                     "__constuctor__"
                     + extendType.getQualifiedName().replace('.', '_')
@@ -146,15 +150,38 @@ public class ConstructorDeclr implements ClassBodyDeclr, Method {
         }
 
         // Field initializers
-
+        // Get object addr and push it to stack
+        asmWriter.comment("Field init, push object to stack");
+        asmWriter.indent(indent);
+        asmWriter.movFromAddr(Register.eax, "ebp + " + objectOffset.toString());
+        asmWriter.indent(indent);
+        asmWriter.push(Register.eax);
+        for(FieldDeclr fieldDeclr : curClass.getFields()) {
+            fieldDeclr.addWriter(asmWriter);
+            asmWriter.comment("Field init:: " + fieldDeclr.getName());
+            fieldDeclr.codeGen(indent + 1);
+            Integer offset = curClass.getClassEnv().getFieldInfo(fieldDeclr.getName()).getOffset();
+            asmWriter.indent(indent);
+            asmWriter.movFromAddr(Register.ebx, Register.esp);
+            asmWriter.indent(indent);
+            asmWriter.add(Register.ebx, offset);
+            asmWriter.indent(indent);
+            asmWriter.movToAddr(Register.ebx, Register.eax);
+        }
+        // Pop object addr from stack
+        asmWriter.comment("Field init end, pop object");
+        asmWriter.indent(indent);
+        asmWriter.add(Register.esp, 4);
 
         // Code for ctor body
+        asmWriter.comment("Constructor Body");
         for(Statement stmt : bodyBlock) {
             stmt.addWriter(asmWriter);
             stmt.codeGen(indent + 1);
         }
 
         // Epilogue
+        asmWriter.comment("Epilogue");
         asmWriter.epilogue(indent);
 
     }

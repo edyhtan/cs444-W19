@@ -8,6 +8,7 @@ import Joosc.ASTModel.Statements.HasExpression;
 import Joosc.ASTModel.Statements.Statement;
 import Joosc.ASTModel.Type;
 import Joosc.AsmWriter.AsmWriter;
+import Joosc.AsmWriter.Register;
 import Joosc.Environment.Env;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
@@ -136,7 +137,12 @@ public class FieldDeclr extends Scope implements ClassMemberDeclr, HasExpression
 
     @Override
     public void codeGen(int indent) {
-
+        if (initExpression != null) {
+            initExpression.addWriter(asmWriter);
+            initExpression.codeGen(indent + 1);
+        } else {
+            asmWriter.mov(Register.eax, 0);
+        }
     }
 
     @Override

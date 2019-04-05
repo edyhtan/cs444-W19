@@ -3,6 +3,7 @@ package Joosc;
 import Joosc.ASTBuilding.JoosAST;
 import Joosc.ASTModel.Program;
 import Joosc.AsmWriter.AsmWriter;
+import Joosc.AsmWriter.Register;
 import Joosc.Environment.GlobalEnv;
 import Joosc.Exceptions.*;
 
@@ -20,7 +21,6 @@ import java.util.stream.Collectors;
 public class Joosc {
     public static boolean IDE_FLAG = true;
     public static boolean RUN_SUITE_FLAG = false;
-    public static final boolean PRINT_AST = false;
 
     private static String getFileName(String path) {
         String[] temp = path.split("/");
@@ -72,13 +72,15 @@ public class Joosc {
             GlobalEnv globalEnvironment = new GlobalEnv(asts);
             globalEnvironment.semanticAnalysis();
 
+            AsmWriter.initTable();
             for (Program ast : asts) {
                 Program.globalCount = 0;
                 ast.staticAnalysis();
                 ast.codeGen(0);
             }
 
-            new AsmWriter(System.out).outputInit();
+            AsmWriter asm = new AsmWriter(System.out);
+            asm.outputInit();
 
         } catch (UnreachableStatementException e) {
             System.err.printf("ERROR: Static analysis error: %s\n", e.getLocalizedMessage());

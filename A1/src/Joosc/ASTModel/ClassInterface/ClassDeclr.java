@@ -155,7 +155,7 @@ public class ClassDeclr implements TypeDeclr {
         asmWriter.println("\t" + "global " + classTagName);
         asmWriter.label(classTagName);
 
-
+        asmWriter.println("");
         asmWriter.println("section .data");
         asmWriter.println("");
 
@@ -166,7 +166,7 @@ public class ClassDeclr implements TypeDeclr {
 
         // Class Parent Matrix
         asmWriter.println("\t\t" + "global " + classParentMatrix);
-        asmWriter.println("\t" + classParentMatrix + "\t\t" + "dd 0");
+        asmWriter.println("\t" + classParentMatrix + "\t\t" + "dd " + AsmWriter.parentMatrix.get(env.getJoosType()) + "b");
         asmWriter.println("");
 
         asmWriter.print("\t");
@@ -175,7 +175,6 @@ public class ClassDeclr implements TypeDeclr {
             asmWriter.print("\t\t");
             asmWriter.dd(info.external ? info.callReference : info.methodLabel);
         }
-
 
         // Fields
         for (FieldDeclr field : fields) {
@@ -192,10 +191,11 @@ public class ClassDeclr implements TypeDeclr {
         }
 
         // method gen
+        asmWriter.println("");
         asmWriter.println("section .text");
         asmWriter.println("");
 
-        asmWriter.println(";; ==========Methods==========");
+        asmWriter.println("-----Methods-----");
         for (MethodDeclr method : methods) {
             method.addWriter(asmWriter);
             String methodLabel = env.methodCallTable.get(method.getMethodSignature()).methodLabel;
@@ -203,12 +203,11 @@ public class ClassDeclr implements TypeDeclr {
             method.codeGen(indent + 1);
         }
 
-        asmWriter.println(";; ==========Constructors==========");
+        asmWriter.comment("-----Constructors-----");
         for (ConstructorDeclr constructorDeclr : constructor) {
             constructorDeclr.addWriter(asmWriter);
             constructorDeclr.codeGen(indent + 1);
         }
-
 
         // end
         asmWriter.close();
