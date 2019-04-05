@@ -286,9 +286,12 @@ public class AsmWriter {
         out.print(String.join("", Collections.nCopies(num, "\t")));
     }
 
-    public void malloc(int size) {
+    public void malloc(int size, int indent) {
+        indent(indent);
         mov(Register.eax, size);
+        indent(indent);
         extern("__malloc");
+        indent(indent);
         call("__malloc");
     }
 
@@ -350,7 +353,7 @@ public class AsmWriter {
                 classDeclr.buildCompilerLabel();
 
                 out.println();
-                malloc(allMethods.size() * 4);
+                malloc(allMethods.size() * 4, 0);
 
                 out.println();
                 if (!classEnv.getJoosType().equals(currentType)) {
@@ -388,6 +391,8 @@ public class AsmWriter {
         if (COMMENT_FLAG) {
             out.print(";; ");
             out.println(cmt);
+        } else {
+            out.println();
         }
     }
 

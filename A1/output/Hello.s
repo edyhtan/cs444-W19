@@ -23,6 +23,9 @@ section .data
 		dd __method__Hello__like$Hello$
 		dd __method__Hello__k
 		dd __method__Hello__whatYouSee
+		global __field_Hello_staticInt
+	__field_Hello_staticInt		dd 0
+
 
 section .text
 
@@ -78,9 +81,29 @@ section .text
 		mov ebx, [esp]
 		add ebx,4
 		mov [ebx], eax
+;; Field init:: staticInt
+				mov eax, 0
+		mov ebx, [esp]
+		add ebx,0
+		mov [ebx], eax
 ;; Field init end, pop object
 		add esp,4
 ;; Constructor Body
+			;; Allocating size of 1
+			mov eax, 1
+			extern __malloc
+			call __malloc
+				extern __class_Hello
+			mov [eax], __class_Hello
+
+			;; Pushing object
+			push eax
+
+			;; Pushing args:
+				extern __constructor__Hello__Hello
+			call __constructor__Hello__Hello
+			add esp,0
+			pop eax
 ;; Epilogue
 		mov esp, ebp
 		pop ebp

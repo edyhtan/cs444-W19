@@ -484,12 +484,9 @@ global @@@@main
 		jmp .endif0
 
 		.else0:
-			;elseClause ...
-			mov eax, 0
-			jmp _method_return___STATIC_method__A__test
-
-
 		.endif0:
+		mov eax, 0
+		jmp _method_return___STATIC_method__A__test
 
 		_method_return___STATIC_method__A__test:
 			pop ebp

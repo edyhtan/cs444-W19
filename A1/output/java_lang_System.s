@@ -53,6 +53,21 @@ section .text
 		mov eax, [ebp + 8]
 		push eax
 ;; Field init:: out
+				;; Allocating size of 0
+				mov eax, 0
+				extern __malloc
+				call __malloc
+					extern __class_java_io_PrintStream
+				mov [eax], __class_java_io_PrintStream
+
+				;; Pushing object
+				push eax
+
+				;; Pushing args:
+					extern __constructor__java_io_PrintStream__PrintStream
+				call __constructor__java_io_PrintStream__PrintStream
+				add esp,0
+				pop eax
 		mov ebx, [esp]
 		add ebx,0
 		mov [ebx], eax

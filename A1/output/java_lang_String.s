@@ -104,6 +104,23 @@ section .text
 
 		.endfor1:
 
+		;; Allocating size of 1
+		mov eax, 1
+		extern __malloc
+		call __malloc
+			extern __class_java_lang_String
+		mov [eax], __class_java_lang_String
+
+		;; Pushing object
+		push eax
+
+		;; Pushing args:
+
+			
+			extern __constructor__java_lang_String__String$char@$
+		call __constructor__java_lang_String__String$char@$
+		add esp,4
+		pop eax
 		jmp _method_return___method__java_lang_String__concat$java_lang_String$
 
 		_method_return___method__java_lang_String__concat$java_lang_String$:
@@ -118,6 +135,23 @@ section .text
 				sub esp,4
 
 		mov [ebp+-4], eax
+		;; Allocating size of 1
+		mov eax, 1
+		extern __malloc
+		call __malloc
+			extern __class_java_lang_String
+		mov [eax], __class_java_lang_String
+
+		;; Pushing object
+		push eax
+
+		;; Pushing args:
+
+			
+			extern __constructor__java_lang_String__String$char@$
+		call __constructor__java_lang_String__String$char@$
+		add esp,4
+		pop eax
 		jmp _method_return___STATIC_method__java_lang_String__valueOf$char$
 
 		_method_return___STATIC_method__java_lang_String__valueOf$char$:
@@ -224,6 +258,23 @@ section .text
 
 		.endfor7:
 
+		;; Allocating size of 1
+		mov eax, 1
+		extern __malloc
+		call __malloc
+			extern __class_java_lang_String
+		mov [eax], __class_java_lang_String
+
+		;; Pushing object
+		push eax
+
+		;; Pushing args:
+
+			
+			extern __constructor__java_lang_String__String$char@$
+		call __constructor__java_lang_String__String$char@$
+		add esp,4
+		pop eax
 		jmp _method_return___STATIC_method__java_lang_String__valueOf$int$
 
 		_method_return___STATIC_method__java_lang_String__valueOf$int$:
@@ -411,6 +462,23 @@ section .text
 
 		.endfor16:
 
+		;; Allocating size of 1
+		mov eax, 1
+		extern __malloc
+		call __malloc
+			extern __class_java_lang_String
+		mov [eax], __class_java_lang_String
+
+		;; Pushing object
+		push eax
+
+		;; Pushing args:
+
+			
+			extern __constructor__java_lang_String__String$char@$
+		call __constructor__java_lang_String__String$char@$
+		add esp,4
+		pop eax
 		jmp _method_return___method__java_lang_String__substring$int$int$
 
 		_method_return___method__java_lang_String__substring$int$int$:

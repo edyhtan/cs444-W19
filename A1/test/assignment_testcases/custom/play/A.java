@@ -5,5 +5,6 @@ public class A {
         if (true) {
             return 111;
         }
+        return 0;
     }
 }

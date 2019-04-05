@@ -2,7 +2,10 @@ public class Hello {
 
     public Hello k = null;
 
+    public static int staticInt = 0;
+
     public Hello() {
+        new Hello();
     }
 
     public void whatYouSee() {
