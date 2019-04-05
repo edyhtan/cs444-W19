@@ -1,4 +1,7 @@
 public class Hello {
+
+    public Hello k = null;
+
     public Hello() {
     }
 
@@ -6,7 +9,10 @@ public class Hello {
     }
 
     public boolean like(Hello who) {
-        who.whatYouSee();
         return who.like(this);
+    }
+
+    public Hello k() {
+        return this;
     }
 }
