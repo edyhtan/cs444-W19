@@ -4,8 +4,6 @@ public class A {
     public static int test() {
         if (true) {
             return 111;
-        } else {
-            return 0;
         }
     }
 }
