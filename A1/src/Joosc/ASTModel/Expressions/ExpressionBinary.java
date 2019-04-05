@@ -359,6 +359,9 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 asmWriter.mov(Register.eax, "1");
                 break;
             case NE:
+                offset = MethodDeclr.PER_METHOD_COUNT;
+                MethodDeclr.PER_METHOD_COUNT++;
+
                 asmWriter.evalLHSthenRHS(LHS, RHS, indent);
                 asmWriter.indent(indent);
                 asmWriter.cmp(Register.eax, Register.ebx);

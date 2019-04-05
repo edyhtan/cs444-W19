@@ -415,9 +415,9 @@ global @@@@main
 		mov eax, 4
 		pop ebx
 		cmp eax,ebx
-		jne .ne0
+		jne .ne1
 		mov eax, 0
-		.ne0:
+		.ne1:
 			mov eax, 1
 
 

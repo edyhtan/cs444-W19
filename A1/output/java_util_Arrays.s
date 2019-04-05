@@ -70,9 +70,9 @@ section .text
 			;; RHS code...
 			pop ebx
 			cmp eax,ebx
-			jne .ne0
+			jne .ne1
 			mov eax, 0
-			.ne0:
+			.ne1:
 				mov eax, 1
 
 			cmp eax,0
@@ -147,9 +147,9 @@ section .text
 			;; RHS code...
 			pop ebx
 			cmp eax,ebx
-			jne .ne0
+			jne .ne1
 			mov eax, 0
-			.ne0:
+			.ne1:
 				mov eax, 1
 
 			cmp eax,0
