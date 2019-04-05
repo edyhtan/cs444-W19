@@ -136,8 +136,8 @@ public class FieldDeclr extends Scope implements ClassMemberDeclr, HasExpression
 
     @Override
     public void codeGen(int indent) {
-        initExpression.addWriter(asmWriter);
         if (initExpression != null) {
+            initExpression.addWriter(asmWriter);
             initExpression.codeGen(indent + 1);
         } else {
             asmWriter.mov(Register.eax, 0);

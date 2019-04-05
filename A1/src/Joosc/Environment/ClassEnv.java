@@ -44,7 +44,7 @@ public class ClassEnv implements Env {
     private boolean fullSuperSetComplete = false;
 
     ArrayList<LocalEnv> localEnvs = new ArrayList<>();
-    JoosType extendName;
+    public JoosType extendName;
     static ArrayList<String> javaLangObjectName = new ArrayList<>(Arrays.asList("java", "lang", "Object"));
 
     // variable contain
@@ -715,6 +715,8 @@ public class ClassEnv implements Env {
     public void assignOffset(String name, int offset) {
         if (fields.containsKey(name)) {
             fields.get(name).setOffset(offset);
+        } else {
+            System.out.println("ASSIGN FAIL");
         }
     }
 
@@ -730,6 +732,7 @@ public class ClassEnv implements Env {
     /**
      *  We combine field name with class name because duplicate fields simultaneously exist
      * */
+    public static int symbolTableIndex;
     public void buildSymbolTable() {
 
         if (symbolTable != null) {
@@ -743,8 +746,12 @@ public class ClassEnv implements Env {
         extendName.getClassEnv().buildSymbolTable();
         extendName.getClassEnv().symbolTable.forEach(symbolTable::put);
 
+        symbolTableIndex = symbolTable.size();
         fields.forEach( (key, value) -> {
-            this.symbolTable.put(joosType.getQualifiedName() + "::" + key, value);
+            if (!value.getModifiers().contains(Symbol.Static)) {
+                this.symbolTable.put(joosType.getQualifiedName() + "::" + key, value);
+                value.offset = 4 + 4 * symbolTableIndex++;
+            }
         });
 
     }

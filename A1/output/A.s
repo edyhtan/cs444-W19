@@ -24,6 +24,7 @@ section .data
 
 section .text
 
+-----Methods-----
 	global _start
 _start:
 
@@ -471,11 +472,30 @@ global @@@@main
 		push ebp
 		mov ebp, esp
 
-		sub esp,0
-		mov eax, 123
+				mov eax, 123
 		jmp _method_return___STATIC_method__A__test
 
 		_method_return___STATIC_method__A__test:
 			pop ebp
 			ret
 
+;; -----Constructors-----
+		extern __constructor__A__A
+	__constructor__A__A:
+		push ebp
+		mov ebp, esp
+		mov eax, [ebp + 8]
+		push eax
+		mov eax, __constuctor__java_lang_Object__Object
+		call eax
+		sub esp,4
+;; Field init, push object to stack
+		mov eax, [ebp + 8]
+		push eax
+;; Field init end, pop object
+		add esp,4
+;; Constructor Body
+;; Epilogue
+		mov esp, ebp
+		pop ebp
+		ret

@@ -18,13 +18,13 @@ section .data
 
 section .text
 
+-----Methods-----
 		global __method__java_lang_Object__equals$java_lang_Object$
 	__method__java_lang_Object__equals$java_lang_Object$:
 		push ebp
 		mov ebp, esp
 
-		sub esp,0
-		jmp _method_return___method__java_lang_Object__equals$java_lang_Object$
+				jmp _method_return___method__java_lang_Object__equals$java_lang_Object$
 
 		_method_return___method__java_lang_Object__equals$java_lang_Object$:
 			pop ebp
@@ -35,8 +35,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		sub esp,0
-				jmp _method_return___method__java_lang_Object__toString
+						jmp _method_return___method__java_lang_Object__toString
 
 		_method_return___method__java_lang_Object__toString:
 			pop ebp
@@ -47,8 +46,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		sub esp,0
-		mov eax, 42
+				mov eax, 42
 		jmp _method_return___method__java_lang_Object__hashCode
 
 		_method_return___method__java_lang_Object__hashCode:
@@ -60,8 +58,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		sub esp,0
-		jmp _method_return___method__java_lang_Object__clone
+				jmp _method_return___method__java_lang_Object__clone
 
 		_method_return___method__java_lang_Object__clone:
 			pop ebp
@@ -72,11 +69,25 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		sub esp,0
-		mov eax, 0
+				mov eax, 0
 		jmp _method_return___method__java_lang_Object__getClass
 
 		_method_return___method__java_lang_Object__getClass:
 			pop ebp
 			ret
 
+;; -----Constructors-----
+		extern __constructor__java_lang_Object__Object
+	__constructor__java_lang_Object__Object:
+		push ebp
+		mov ebp, esp
+;; Field init, push object to stack
+		mov eax, [ebp + 8]
+		push eax
+;; Field init end, pop object
+		add esp,4
+;; Constructor Body
+;; Epilogue
+		mov esp, ebp
+		pop ebp
+		ret

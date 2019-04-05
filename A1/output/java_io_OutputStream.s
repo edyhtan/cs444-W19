@@ -27,13 +27,13 @@ section .data
 
 section .text
 
+-----Methods-----
 		global __method__java_io_OutputStream__write$char$
 	__method__java_io_OutputStream__write$char$:
 		push ebp
 		mov ebp, esp
 
-		sub esp,0
-
+		
 		_method_return___method__java_io_OutputStream__write$char$:
 			pop ebp
 			ret
@@ -43,8 +43,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		sub esp,0
-
+		
 		_method_return___method__java_io_OutputStream__write$int$:
 			pop ebp
 			ret
@@ -54,8 +53,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		sub esp,0
-
+		
 		_method_return___STATIC_method__java_io_OutputStream__nativeWrite$int$:
 			pop ebp
 			ret
@@ -65,9 +63,28 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		sub esp,0
-
+		
 		_method_return___method__java_io_OutputStream__flush:
 			pop ebp
 			ret
 
+;; -----Constructors-----
+		extern __constructor__java_io_OutputStream__OutputStream
+	__constructor__java_io_OutputStream__OutputStream:
+		push ebp
+		mov ebp, esp
+		mov eax, [ebp + 8]
+		push eax
+		mov eax, __constuctor__java_lang_Object__Object
+		call eax
+		sub esp,4
+;; Field init, push object to stack
+		mov eax, [ebp + 8]
+		push eax
+;; Field init end, pop object
+		add esp,4
+;; Constructor Body
+;; Epilogue
+		mov esp, ebp
+		pop ebp
+		ret

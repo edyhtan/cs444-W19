@@ -39,13 +39,13 @@ section .data
 
 section .text
 
+-----Methods-----
 		global __method__java_lang_String__length
 	__method__java_lang_String__length:
 		push ebp
 		mov ebp, esp
 
-		sub esp,0
-		jmp _method_return___method__java_lang_String__length
+				jmp _method_return___method__java_lang_String__length
 
 		_method_return___method__java_lang_String__length:
 			pop ebp
@@ -56,8 +56,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		sub esp,0
-		jmp _method_return___method__java_lang_String__charAt$int$
+				jmp _method_return___method__java_lang_String__charAt$int$
 
 		_method_return___method__java_lang_String__charAt$int$:
 			pop ebp
@@ -68,10 +67,43 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		sub esp,8
+				sub esp,4
 		mov eax, 0
+
 		mov [ebp+-4], eax
+		sub esp,4
+
 		mov [ebp+-8], eax
+		;forInit code...
+
+		.for0:
+			;expression code...
+			cmp eax,0
+			je .endfor0
+			;statement code...
+
+
+			;forUpdate code...
+
+			jmp .for0
+
+		.endfor0:
+
+		;forInit code...
+
+		.for1:
+			;expression code...
+			cmp eax,0
+			je .endfor1
+			;statement code...
+
+
+			;forUpdate code...
+
+			jmp .for1
+
+		.endfor1:
+
 		jmp _method_return___method__java_lang_String__concat$java_lang_String$
 
 		_method_return___method__java_lang_String__concat$java_lang_String$:
@@ -83,7 +115,8 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		sub esp,4
+				sub esp,4
+
 		mov [ebp+-4], eax
 		jmp _method_return___STATIC_method__java_lang_String__valueOf$char$
 
@@ -96,11 +129,16 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		sub esp,16
+				sub esp,4
+
 		mov [ebp+-4], eax
+		sub esp,4
 		mov eax, 0
+
 		mov [ebp+-8], eax
+		sub esp,4
 		mov eax, 0
+
 		mov [ebp+-12], eax
 		;expression code...
 		cmp eax,0
@@ -116,7 +154,9 @@ section .text
 		cmp eax,0
 		je .else3
 		;thenClause ...
-			
+
+
+
 		jmp .endif3
 
 		.else3:
@@ -125,7 +165,9 @@ section .text
 		cmp eax,0
 		je .else4
 		;thenClause ...
-			
+
+
+
 		jmp .endif4
 
 		.else4:
@@ -134,30 +176,54 @@ section .text
 				;expression code...
 				cmp eax,0
 				je .endwhile5
-
 				;statement code...
-					mov [ebp+0], eax
-										add esp,4
+				sub esp,4
 
+				mov [ebp+0], eax
+
+
+
+
+				add esp,4
 
 				jmp .while5
 
 			.endwhile5:
 
-			add esp,4
+				add esp,4
 
-			
+
+
 		.endif4:
 		;expression code...
 		cmp eax,0
 		je .else6
 		;thenClause ...
-			
+
+
+
 		jmp .endif6
 
 		.else6:
 		.endif6:
+		sub esp,4
+
 		mov [ebp+-16], eax
+		;forInit code...
+
+		.for7:
+			;expression code...
+			cmp eax,0
+			je .endfor7
+			;statement code...
+
+
+			;forUpdate code...
+
+			jmp .for7
+
+		.endfor7:
+
 		jmp _method_return___STATIC_method__java_lang_String__valueOf$int$
 
 		_method_return___STATIC_method__java_lang_String__valueOf$int$:
@@ -169,8 +235,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		sub esp,0
-		jmp _method_return___STATIC_method__java_lang_String__valueOf$short$
+				jmp _method_return___STATIC_method__java_lang_String__valueOf$short$
 
 		_method_return___STATIC_method__java_lang_String__valueOf$short$:
 			pop ebp
@@ -181,8 +246,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		sub esp,0
-		jmp _method_return___STATIC_method__java_lang_String__valueOf$byte$
+				jmp _method_return___STATIC_method__java_lang_String__valueOf$byte$
 
 		_method_return___STATIC_method__java_lang_String__valueOf$byte$:
 			pop ebp
@@ -193,8 +257,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		sub esp,0
-		;expression code...
+				;expression code...
 		cmp eax,0
 		je .else8
 		;thenClause ...
@@ -217,8 +280,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		sub esp,0
-		;expression code...
+				;expression code...
 		cmp eax,0
 		je .else9
 		;thenClause ...
@@ -241,8 +303,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		sub esp,0
-		;expression code...
+				;expression code...
 		cmp eax,0
 		je .else10
 		;thenClause ...
@@ -265,8 +326,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		sub esp,0
-		;expression code...
+				;expression code...
 		cmp eax,0
 		je .else11
 		;thenClause ...
@@ -299,8 +359,9 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		sub esp,8
+				sub esp,4
 		mov eax, 0
+
 		mov [ebp+-4], eax
 		;expression code...
 		cmp eax,0
@@ -332,7 +393,24 @@ section .text
 
 		.else15:
 		.endif15:
+		sub esp,4
+
 		mov [ebp+-8], eax
+		;forInit code...
+
+		.for16:
+			;expression code...
+			cmp eax,0
+			je .endfor16
+			;statement code...
+
+
+			;forUpdate code...
+
+			jmp .for16
+
+		.endfor16:
+
 		jmp _method_return___method__java_lang_String__substring$int$int$
 
 		_method_return___method__java_lang_String__substring$int$int$:
@@ -344,11 +422,44 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		sub esp,8
+				sub esp,4
 		mov eax, 0
+
 		mov [ebp+-4], eax
+		sub esp,4
 		mov eax, 0
+
 		mov [ebp+-8], eax
+		;forInit code...
+
+		.for17:
+			;expression code...
+			cmp eax,0
+			je .endfor17
+			;statement code...
+
+
+			;forUpdate code...
+
+			jmp .for17
+
+		.endfor17:
+
+		;forInit code...
+
+		.for18:
+			;expression code...
+			cmp eax,0
+			je .endfor18
+			;statement code...
+
+
+			;forUpdate code...
+
+			jmp .for18
+
+		.endfor18:
+
 		;expression code...
 		cmp eax,0
 		je .else19
@@ -372,10 +483,31 @@ section .text
 		push ebp
 		mov ebp, esp
 
+				sub esp,4
+		mov eax, 0
+
+		mov [ebp+-4], eax
+		;forInit code...
 		sub esp,4
 		mov eax, 0
-		mov [ebp+-4], eax
-		add esp,4
+
+		mov [ebp+-8], eax
+
+		.for20:
+			;expression code...
+			cmp eax,0
+			je .endfor20
+			;statement code...
+
+
+
+			;forUpdate code...
+
+			jmp .for20
+
+		.endfor20:
+			add esp,4
+
 		jmp _method_return___method__java_lang_String__hashCode
 
 		_method_return___method__java_lang_String__hashCode:
@@ -387,8 +519,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		sub esp,0
-		jmp _method_return___method__java_lang_String__toString
+				jmp _method_return___method__java_lang_String__toString
 
 		_method_return___method__java_lang_String__toString:
 			pop ebp
@@ -399,8 +530,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		sub esp,0
-		jmp _method_return___method__java_lang_String__compareTo$java_lang_Object$
+				jmp _method_return___method__java_lang_String__compareTo$java_lang_Object$
 
 		_method_return___method__java_lang_String__compareTo$java_lang_Object$:
 			pop ebp
@@ -411,71 +541,78 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		sub esp,8
+				sub esp,4
 		mov eax, 0
+
 		mov [ebp+-4], eax
+		sub esp,4
 		mov eax, 1
+
 		mov [ebp+-8], eax
 		.while21:
 			;expression code...
 			cmp eax,0
 			je .endwhile21
-
 			;statement code...
-				;expression code...
-				cmp eax,0
-				je .else22
-				;thenClause ...
-					mov eax, 0
-					jmp _method_return___method__java_lang_String__compareTo$java_lang_String$
+			;expression code...
+			cmp eax,0
+			je .else22
+			;thenClause ...
+				mov eax, 0
+				jmp _method_return___method__java_lang_String__compareTo$java_lang_String$
 
-				jmp .endif22
+			jmp .endif22
 
-				.else22:
-				.endif22:
-				;expression code...
-				cmp eax,0
-				je .else23
-				;thenClause ...
-					jmp _method_return___method__java_lang_String__compareTo$java_lang_String$
+			.else22:
+			.endif22:
 
-				jmp .endif23
+			;expression code...
+			cmp eax,0
+			je .else23
+			;thenClause ...
+				jmp _method_return___method__java_lang_String__compareTo$java_lang_String$
 
-				.else23:
-				.endif23:
-				;expression code...
-				cmp eax,0
-				je .else24
-				;thenClause ...
-					mov eax, 1
-					jmp _method_return___method__java_lang_String__compareTo$java_lang_String$
+			jmp .endif23
 
-				jmp .endif24
+			.else23:
+			.endif23:
 
-				.else24:
-				.endif24:
-				;expression code...
-				cmp eax,0
-				je .else25
-				;thenClause ...
-					jmp _method_return___method__java_lang_String__compareTo$java_lang_String$
+			;expression code...
+			cmp eax,0
+			je .else24
+			;thenClause ...
+				mov eax, 1
+				jmp _method_return___method__java_lang_String__compareTo$java_lang_String$
 
-				jmp .endif25
+			jmp .endif24
 
-				.else25:
-				.endif25:
-				;expression code...
-				cmp eax,0
-				je .else26
-				;thenClause ...
-					mov eax, 1
-					jmp _method_return___method__java_lang_String__compareTo$java_lang_String$
+			.else24:
+			.endif24:
 
-				jmp .endif26
+			;expression code...
+			cmp eax,0
+			je .else25
+			;thenClause ...
+				jmp _method_return___method__java_lang_String__compareTo$java_lang_String$
 
-				.else26:
-				.endif26:
-				
+			jmp .endif25
+
+			.else25:
+			.endif25:
+
+			;expression code...
+			cmp eax,0
+			je .else26
+			;thenClause ...
+				mov eax, 1
+				jmp _method_return___method__java_lang_String__compareTo$java_lang_String$
+
+			jmp .endif26
+
+			.else26:
+			.endif26:
+
+
 			jmp .while21
 
 		.endwhile21:
@@ -492,9 +629,30 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		sub esp,4
+				sub esp,4
+
 		mov [ebp+-4], eax
-		add esp,4
+		;forInit code...
+		sub esp,4
+		mov eax, 0
+
+		mov [ebp+-8], eax
+
+		.for27:
+			;expression code...
+			cmp eax,0
+			je .endfor27
+			;statement code...
+
+
+
+			;forUpdate code...
+
+			jmp .for27
+
+		.endfor27:
+			add esp,4
+
 		jmp _method_return___method__java_lang_String__toCharArray
 
 		_method_return___method__java_lang_String__toCharArray:
@@ -506,14 +664,180 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		sub esp,8
+				sub esp,4
 		mov eax, 0
+
 		mov [ebp+-4], eax
+		sub esp,4
 		mov eax, 0
+
 		mov [ebp+-8], eax
+		;forInit code...
+
+		.for28:
+			;expression code...
+			cmp eax,0
+			je .endfor28
+			;statement code...
+			sub esp,4
+			mov eax, 1
+
+			mov [ebp+-12], eax
+
+			;forInit code...
+
+			.for29:
+				;expression code...
+				cmp eax,0
+				je .endfor29
+				;statement code...
+				;expression code...
+				cmp eax,0
+				je .else30
+				;thenClause ...
+
+				jmp .endif30
+
+				.else30:
+					;elseClause ...
+					;expression code...
+					cmp eax,0
+					je .else31
+					;thenClause ...
+
+					jmp .endif31
+
+					.else31:
+					.endif31:
+
+				.endif30:
+
+
+
+				;forUpdate code...
+
+				jmp .for29
+
+			.endfor29:
+
+
+			;expression code...
+			cmp eax,0
+			je .else32
+			;thenClause ...
+				jmp _method_return___method__java_lang_String__indexOf$java_lang_String$
+
+			jmp .endif32
+
+			.else32:
+			.endif32:
+
+			add esp,4
+
+
+
+			;forUpdate code...
+
+			jmp .for28
+
+		.endfor28:
+
 		jmp _method_return___method__java_lang_String__indexOf$java_lang_String$
 
 		_method_return___method__java_lang_String__indexOf$java_lang_String$:
 			pop ebp
 			ret
 
+;; -----Constructors-----
+		extern __constructor__java_lang_String__String
+	__constructor__java_lang_String__String:
+		push ebp
+		mov ebp, esp
+		mov eax, [ebp + 8]
+		push eax
+		mov eax, __constuctor__java_lang_Object__Object
+		call eax
+		sub esp,4
+;; Field init, push object to stack
+		mov eax, [ebp + 8]
+		push eax
+;; Field init:: chars
+mov eax, 0
+		mov ebx, [esp]
+		add ebx,4
+		mov [ebx], eax
+;; Field init end, pop object
+		add esp,4
+;; Constructor Body
+;; Epilogue
+		mov esp, ebp
+		pop ebp
+		ret
+		extern __constructor__java_lang_String__String$char@$
+	__constructor__java_lang_String__String$char@$:
+		push ebp
+		mov ebp, esp
+		mov eax, [ebp + 12]
+		push eax
+		mov eax, __constuctor__java_lang_Object__Object
+		call eax
+		sub esp,4
+;; Field init, push object to stack
+		mov eax, [ebp + 12]
+		push eax
+;; Field init:: chars
+mov eax, 0
+		mov ebx, [esp]
+		add ebx,4
+		mov [ebx], eax
+;; Field init end, pop object
+		add esp,4
+;; Constructor Body
+			;forInit code...
+			sub esp,4
+			mov eax, 0
+
+			mov [ebp+0], eax
+
+			.for33:
+				;expression code...
+				cmp eax,0
+				je .endfor33
+				;statement code...
+
+
+				;forUpdate code...
+
+				jmp .for33
+
+			.endfor33:
+				add esp,4
+
+;; Epilogue
+		mov esp, ebp
+		pop ebp
+		ret
+		extern __constructor__java_lang_String__String$java_lang_String$
+	__constructor__java_lang_String__String$java_lang_String$:
+		push ebp
+		mov ebp, esp
+		mov eax, [ebp + 12]
+		push eax
+		mov eax, __constuctor__java_lang_Object__Object
+		call eax
+		sub esp,4
+;; Field init, push object to stack
+		mov eax, [ebp + 12]
+		push eax
+;; Field init:: chars
+mov eax, 0
+		mov ebx, [esp]
+		add ebx,4
+		mov [ebx], eax
+;; Field init end, pop object
+		add esp,4
+;; Constructor Body
+;; Epilogue
+		mov esp, ebp
+		pop ebp
+		ret

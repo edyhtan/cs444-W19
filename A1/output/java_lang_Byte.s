@@ -26,15 +26,72 @@ section .data
 
 section .text
 
+-----Methods-----
 		global __method__java_lang_Byte__toString
 	__method__java_lang_Byte__toString:
 		push ebp
 		mov ebp, esp
 
-		sub esp,0
-		jmp _method_return___method__java_lang_Byte__toString
+				jmp _method_return___method__java_lang_Byte__toString
 
 		_method_return___method__java_lang_Byte__toString:
 			pop ebp
 			ret
 
+;; -----Constructors-----
+		extern __constructor__java_lang_Byte__Byte$byte$
+	__constructor__java_lang_Byte__Byte$byte$:
+		push ebp
+		mov ebp, esp
+		mov eax, [ebp + 12]
+		push eax
+		mov eax, __constuctor__java_lang_Object__Object
+		call eax
+		sub esp,4
+;; Field init, push object to stack
+		mov eax, [ebp + 12]
+		push eax
+;; Field init:: value
+mov eax, 0
+		mov ebx, [esp]
+		add ebx,4
+		mov [ebx], eax
+;; Field init:: MAX_VALUE
+		mov ebx, [esp]
+		add ebx,0
+		mov [ebx], eax
+;; Field init end, pop object
+		add esp,4
+;; Constructor Body
+;; Epilogue
+		mov esp, ebp
+		pop ebp
+		ret
+		extern __constructor__java_lang_Byte__Byte
+	__constructor__java_lang_Byte__Byte:
+		push ebp
+		mov ebp, esp
+		mov eax, [ebp + 8]
+		push eax
+		mov eax, __constuctor__java_lang_Object__Object
+		call eax
+		sub esp,4
+;; Field init, push object to stack
+		mov eax, [ebp + 8]
+		push eax
+;; Field init:: value
+mov eax, 0
+		mov ebx, [esp]
+		add ebx,4
+		mov [ebx], eax
+;; Field init:: MAX_VALUE
+		mov ebx, [esp]
+		add ebx,0
+		mov [ebx], eax
+;; Field init end, pop object
+		add esp,4
+;; Constructor Body
+;; Epilogue
+		mov esp, ebp
+		pop ebp
+		ret

@@ -24,14 +24,34 @@ section .data
 
 section .text
 
+-----Methods-----
 		global __method__Main__test
 	__method__Main__test:
 		push ebp
 		mov ebp, esp
 
-		sub esp,0
-
+		
 		_method_return___method__Main__test:
 			pop ebp
 			ret
 
+;; -----Constructors-----
+		extern __constructor__Main__Main
+	__constructor__Main__Main:
+		push ebp
+		mov ebp, esp
+		mov eax, [ebp + 8]
+		push eax
+		mov eax, __constuctor__java_lang_Object__Object
+		call eax
+		sub esp,4
+;; Field init, push object to stack
+		mov eax, [ebp + 8]
+		push eax
+;; Field init end, pop object
+		add esp,4
+;; Constructor Body
+;; Epilogue
+		mov esp, ebp
+		pop ebp
+		ret

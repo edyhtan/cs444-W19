@@ -29,13 +29,13 @@ section .data
 
 section .text
 
+-----Methods-----
 		global __method__java_lang_Integer__intValue
 	__method__java_lang_Integer__intValue:
 		push ebp
 		mov ebp, esp
 
-		sub esp,0
-		jmp _method_return___method__java_lang_Integer__intValue
+				jmp _method_return___method__java_lang_Integer__intValue
 
 		_method_return___method__java_lang_Integer__intValue:
 			pop ebp
@@ -46,31 +46,37 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		sub esp,12
+				sub esp,4
 		mov eax, 0
+
 		mov [ebp+-4], eax
+		sub esp,4
 		mov eax, 0
+
 		mov [ebp+-8], eax
+		sub esp,4
 		mov eax, 0
+
 		mov [ebp+-12], eax
 		.while0:
 			;expression code...
 			cmp eax,0
 			je .endwhile0
-
 			;statement code...
-				;expression code...
-				cmp eax,0
-				je .else1
-				;thenClause ...
+			;expression code...
+			cmp eax,0
+			je .else1
+			;thenClause ...
 
-				jmp .endif1
+			jmp .endif1
 
-				.else1:
-					;elseClause ...
-					
-				.endif1:
-				
+			.else1:
+				;elseClause ...
+
+
+			.endif1:
+
+
 			jmp .while0
 
 		.endwhile0:
@@ -95,10 +101,97 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		sub esp,0
-		jmp _method_return___method__java_lang_Integer__toString
+				jmp _method_return___method__java_lang_Integer__toString
 
 		_method_return___method__java_lang_Integer__toString:
 			pop ebp
 			ret
 
+;; -----Constructors-----
+		extern __constructor__java_lang_Integer__Integer$int$
+	__constructor__java_lang_Integer__Integer$int$:
+		push ebp
+		mov ebp, esp
+		mov eax, [ebp + 12]
+		push eax
+		mov eax, __constuctor__java_lang_Number__Number
+		call eax
+		sub esp,4
+;; Field init, push object to stack
+		mov eax, [ebp + 12]
+		push eax
+;; Field init:: value
+mov eax, 0
+		mov ebx, [esp]
+		add ebx,4
+		mov [ebx], eax
+;; Field init:: MAX_VALUE
+				mov eax, 2147483647
+		mov ebx, [esp]
+		add ebx,0
+		mov [ebx], eax
+;; Field init end, pop object
+		add esp,4
+;; Constructor Body
+;; Epilogue
+		mov esp, ebp
+		pop ebp
+		ret
+		extern __constructor__java_lang_Integer__Integer$java_lang_String$
+	__constructor__java_lang_Integer__Integer$java_lang_String$:
+		push ebp
+		mov ebp, esp
+		mov eax, [ebp + 12]
+		push eax
+		mov eax, __constuctor__java_lang_Number__Number
+		call eax
+		sub esp,4
+;; Field init, push object to stack
+		mov eax, [ebp + 12]
+		push eax
+;; Field init:: value
+mov eax, 0
+		mov ebx, [esp]
+		add ebx,4
+		mov [ebx], eax
+;; Field init:: MAX_VALUE
+				mov eax, 2147483647
+		mov ebx, [esp]
+		add ebx,0
+		mov [ebx], eax
+;; Field init end, pop object
+		add esp,4
+;; Constructor Body
+;; Epilogue
+		mov esp, ebp
+		pop ebp
+		ret
+		extern __constructor__java_lang_Integer__Integer
+	__constructor__java_lang_Integer__Integer:
+		push ebp
+		mov ebp, esp
+		mov eax, [ebp + 8]
+		push eax
+		mov eax, __constuctor__java_lang_Number__Number
+		call eax
+		sub esp,4
+;; Field init, push object to stack
+		mov eax, [ebp + 8]
+		push eax
+;; Field init:: value
+mov eax, 0
+		mov ebx, [esp]
+		add ebx,4
+		mov [ebx], eax
+;; Field init:: MAX_VALUE
+				mov eax, 2147483647
+		mov ebx, [esp]
+		add ebx,0
+		mov [ebx], eax
+;; Field init end, pop object
+		add esp,4
+;; Constructor Body
+;; Epilogue
+		mov esp, ebp
+		pop ebp
+		ret

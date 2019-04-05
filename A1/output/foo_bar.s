@@ -23,3 +23,24 @@ section .data
 
 section .text
 
+-----Methods-----
+;; -----Constructors-----
+		extern __constructor__foo_bar__bar
+	__constructor__foo_bar__bar:
+		push ebp
+		mov ebp, esp
+		mov eax, [ebp + 8]
+		push eax
+		mov eax, __constuctor__java_lang_Object__Object
+		call eax
+		sub esp,4
+;; Field init, push object to stack
+		mov eax, [ebp + 8]
+		push eax
+;; Field init end, pop object
+		add esp,4
+;; Constructor Body
+;; Epilogue
+		mov esp, ebp
+		pop ebp
+		ret

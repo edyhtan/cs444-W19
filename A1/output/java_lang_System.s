@@ -27,14 +27,38 @@ section .data
 
 section .text
 
+-----Methods-----
 		global __STATIC_method__java_lang_System__gc
 	__STATIC_method__java_lang_System__gc:
 		push ebp
 		mov ebp, esp
 
-		sub esp,0
-
+		
 		_method_return___STATIC_method__java_lang_System__gc:
 			pop ebp
 			ret
 
+;; -----Constructors-----
+		extern __constructor__java_lang_System__System
+	__constructor__java_lang_System__System:
+		push ebp
+		mov ebp, esp
+		mov eax, [ebp + 8]
+		push eax
+		mov eax, __constuctor__java_lang_Object__Object
+		call eax
+		sub esp,4
+;; Field init, push object to stack
+		mov eax, [ebp + 8]
+		push eax
+;; Field init:: out
+		mov ebx, [esp]
+		add ebx,0
+		mov [ebx], eax
+;; Field init end, pop object
+		add esp,4
+;; Constructor Body
+;; Epilogue
+		mov esp, ebp
+		pop ebp
+		ret

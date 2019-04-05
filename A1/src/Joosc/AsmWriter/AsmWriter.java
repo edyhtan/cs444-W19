@@ -18,6 +18,8 @@ import Joosc.util.ArrayLinkedHashSet;
 
 
 public class AsmWriter {
+    public static final boolean COMMENT_FLAG = true;
+
     PrintStream out;
     private static String binaryTemplate = "%s %s, %s";
     public static ArrayLinkedHashSet<String> allMethods = new ArrayLinkedHashSet<>();
@@ -121,8 +123,12 @@ public class AsmWriter {
         out.println("pop " + reg);
     }
 
-    public void call(String label) {
-        out.println("call " + label);
+    public void call(String str) {
+        out.println("call " + str);
+    }
+
+    public void call(Register reg) {
+        out.println("call " + reg);
     }
 
     public void ret() {
@@ -377,4 +383,12 @@ public class AsmWriter {
 
         out.println("");
     }
+
+    public void comment(String cmt) {
+        if (COMMENT_FLAG) {
+            out.print(";; ");
+            out.println(cmt);
+        }
+    }
+
 }

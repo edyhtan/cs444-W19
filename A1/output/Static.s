@@ -26,16 +26,41 @@ section .data
 
 section .text
 
+-----Methods-----
 		global __method__Static__foo2
 	__method__Static__foo2:
 		push ebp
 		mov ebp, esp
 
-		sub esp,0
-		mov eax, 0
+				mov eax, 0
 		jmp _method_return___method__Static__foo2
 
 		_method_return___method__Static__foo2:
 			pop ebp
 			ret
 
+;; -----Constructors-----
+		extern __constructor__Static__Static
+	__constructor__Static__Static:
+		push ebp
+		mov ebp, esp
+		mov eax, [ebp + 8]
+		push eax
+		mov eax, __constuctor__Main__Main
+		call eax
+		sub esp,4
+;; Field init, push object to stack
+		mov eax, [ebp + 8]
+		push eax
+;; Field init:: static__
+				mov eax, 0
+		mov ebx, [esp]
+		add ebx,4
+		mov [ebx], eax
+;; Field init end, pop object
+		add esp,4
+;; Constructor Body
+;; Epilogue
+		mov esp, ebp
+		pop ebp
+		ret
