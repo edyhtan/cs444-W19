@@ -10,6 +10,15 @@ section .data
 	__ref_PARENTS_java_io_PrintStream		dd 00000000010000000011b
 
 	; Methods	
+			extern __method__java_io_OutputStream__getClass
+			extern __method__java_io_OutputStream__hashCode
+			extern __method__java_io_OutputStream__equals$java_lang_Object$
+			extern __method__java_io_OutputStream__clone
+			extern __method__java_io_OutputStream__toString
+			extern __method__java_io_OutputStream__flush
+			extern __STATIC_method__java_io_OutputStream__nativeWrite$int$
+			extern __method__java_io_OutputStream__write$int$
+			extern __method__java_io_OutputStream__write$char$
 		dd __method__java_io_OutputStream__getClass
 		dd __method__java_io_OutputStream__hashCode
 		dd __method__java_io_OutputStream__equals$java_lang_Object$

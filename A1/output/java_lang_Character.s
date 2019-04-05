@@ -10,6 +10,11 @@ section .data
 	__ref_PARENTS_java_lang_Character		dd 00000000010000100000b
 
 	; Methods	
+			extern __method__java_lang_Object__getClass
+			extern __method__java_lang_Object__hashCode
+			extern __method__java_lang_Object__equals$java_lang_Object$
+			extern __method__java_lang_Object__clone
+			extern __method__java_lang_Object__toString
 		dd __method__java_lang_Object__getClass
 		dd __method__java_lang_Object__hashCode
 		dd __method__java_lang_Object__equals$java_lang_Object$

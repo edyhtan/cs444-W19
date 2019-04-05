@@ -10,6 +10,12 @@ section .data
 	__ref_PARENTS_java_lang_Integer		dd 00000000011100000000b
 
 	; Methods	
+			extern __method__java_lang_Number__getClass
+			extern __method__java_lang_Number__hashCode
+			extern __method__java_lang_Number__equals$java_lang_Object$
+			extern __method__java_lang_Number__clone
+			extern __method__java_lang_Number__toString
+			extern __method__java_lang_Number__intValue
 		dd __method__java_lang_Number__getClass
 		dd __method__java_lang_Number__hashCode
 		dd __method__java_lang_Number__equals$java_lang_Object$

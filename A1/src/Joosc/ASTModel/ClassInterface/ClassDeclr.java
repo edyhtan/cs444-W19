@@ -171,6 +171,14 @@ public class ClassDeclr implements TypeDeclr {
 
         asmWriter.print("\t");
         asmWriter.println("; Methods\t");
+
+        for (MethodInfo info:env.methodCallTable.values()) {
+            if (info.external) {
+                asmWriter.print("\t\t\t");
+                asmWriter.extern(info.callReference);
+            }
+        }
+
         for (MethodInfo info:env.methodCallTable.values()) {
             asmWriter.print("\t\t");
             asmWriter.dd(info.external ? info.callReference : info.methodLabel);
