@@ -314,8 +314,6 @@ public class Names extends ExpressionContent implements HasAddress {
             int offset = info.getOffset();
 
             asmWriter.indent(indent);
-            asmWriter.mov(Register.eax, Register.ebp);
-            asmWriter.indent(indent);
             if (offset > 0) {
                 asmWriter.add(Register.eax, offset);
             } else {

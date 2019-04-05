@@ -134,7 +134,7 @@ public class ExpressionClassInstanceCreation extends Expression {
 
     @Override
     public void codeGen(int indent) {
-        int objectSize = joosType.getClassEnv().symbolTable.size();
+        int objectSize = joosType.getClassEnv().symbolTable.size() * 4 + 4;
         asmWriter.indent(indent);
         asmWriter.comment("Allocating size of " + objectSize);
         asmWriter.malloc(objectSize, indent);
@@ -174,6 +174,7 @@ public class ExpressionClassInstanceCreation extends Expression {
         asmWriter.add(Register.esp, argList.size() * 4);
         asmWriter.indent(indent);
         asmWriter.pop(Register.eax);
+        asmWriter.println();
     }
 
     @Override

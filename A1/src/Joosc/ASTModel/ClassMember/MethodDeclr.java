@@ -235,6 +235,7 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
             asmWriter.indent(indent + 1);
             asmWriter.extern("NATIVEjava.io.OutputStream.nativeWrite");
             asmWriter.jmp("NATIVEjava.io.OutputStream.nativeWrite");
+            asmWriter.println();
             return;
         }
 
@@ -268,8 +269,6 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
                 }
             }
         }
-
-        asmWriter.indent(indent + 1);
 
         for (Statement statement : bodyBlock) {
             statement.codeGen(indent + 1);
