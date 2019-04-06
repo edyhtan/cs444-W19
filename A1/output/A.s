@@ -467,7 +467,7 @@ global @@@@main
 
 		.else0:
 			;elseClause ...
-			mov eax, 2
+			mov eax, 555
 			jmp _method_return___STATIC_method__A__test$int$int$
 
 		.endif0:
