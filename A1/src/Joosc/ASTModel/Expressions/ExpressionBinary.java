@@ -363,9 +363,6 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                     // do nothing :)
                 }
 
-                if(lhsType.isPrimitive() && rhsType.isPrimitive()) {
-
-                }
                 int column = AsmWriter.parentMatrix.indexOf(rhsType);
                 int testbit = calcTestBit(column);
 

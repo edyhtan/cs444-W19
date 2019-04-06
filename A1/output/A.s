@@ -403,7 +403,6 @@ global @@@@main
 		pop eax
 		push eax
 
-		;expression code...
 		;; Instanceof
 				;; Local Var someA
 		mov eax, ebp
@@ -412,24 +411,13 @@ global @@@@main
 
 		mov eax, [eax]
 		mov eax, [ebx+8]
-		test  eax, 524288
+		test  eax, 512
 		jnz .instance_true0
 		jmp .end_instance0
 		.instance_true0:
 			mov eax, 1
 		.end_instance0:
 
-		cmp eax, 0
-		je .else0
-		;thenClause ...
-			mov eax, 1
-			jmp _method_return___STATIC_method__A__test$int$int$
-
-		jmp .endif0
-
-		.else0:
-		.endif0:
-		mov eax, 2
 		jmp _method_return___STATIC_method__A__test$int$int$
 
 		_method_return___STATIC_method__A__test$int$int$:
