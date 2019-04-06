@@ -365,6 +365,7 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
 
                 int column = AsmWriter.parentMatrix.indexOf(rhsType);
                 int testbit = calcTestBit(column);
+                System.out.println(column);
 
                 asmWriter.indent(indent);
                 asmWriter.comment("Instanceof");
@@ -375,7 +376,7 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 asmWriter.movFromAddr(Register.eax, Register.eax);
                 asmWriter.indent(indent);
                 // parent matrix
-                String addr = String.join("+", Register.ebx.toString(), "8");
+                String addr = String.join("+", Register.eax.toString(), "8");
                 asmWriter.movFromAddr(Register.eax, addr);
                 asmWriter.indent(indent);
                 asmWriter.test(Register.eax, testbit);
