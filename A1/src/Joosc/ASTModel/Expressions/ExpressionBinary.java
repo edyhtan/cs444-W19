@@ -385,6 +385,8 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 asmWriter.indent(indent);
                 asmWriter.jnz(".instance_true"+offset);
                 asmWriter.indent(indent);
+                asmWriter.mov(Register.eax, "0");
+                asmWriter.indent(indent);
                 asmWriter.jmp(".end_instance"+offset);
                 asmWriter.indent(indent);
                 asmWriter.label(".instance_true"+offset);
