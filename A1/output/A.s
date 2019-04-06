@@ -449,7 +449,7 @@ global @@@@main
 
 		mov eax, [eax]
 		mov eax, [eax+8]
-		test eax, 512
+		test eax, 262144
 		jnz .instance_true0
 		mov eax, 0
 		jmp .end_instance0
