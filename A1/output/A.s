@@ -457,22 +457,6 @@ global @@@@main
 		pop eax
 		push eax
 
-		;; ---declare ms
-		;; Allocating size of 2
-		mov eax, 2
-				call __malloc
-					mov ebx, __class_Static
-		mov [eax], ebx
-
-		;; Pushing object
-		push eax
-
-		;; Pushing args:
-					call __constructor__Static__Static
-		add esp, 0
-		pop eax
-		push eax
-
 		;expression code...
 		;; Instanceof
 				;; Local Var s

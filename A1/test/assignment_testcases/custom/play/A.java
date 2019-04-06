@@ -6,7 +6,7 @@ public class A {
         Hello hello = new Hello();
         Static s = new Static();
         Main m = new Main();
-        Main ms = new Static();
+//        Main ms = new Static();
 //        Static sm = new Main();
 
         if(s instanceof Main) {
