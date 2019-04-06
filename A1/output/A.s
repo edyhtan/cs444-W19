@@ -501,6 +501,7 @@ global @@@@main
 
 			.endif1:
 
+
 		.endif0:
 
 		_method_return___STATIC_method__A__test$int$int$:

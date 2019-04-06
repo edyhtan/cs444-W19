@@ -11,10 +11,12 @@ public class A {
 
         if(m instanceof Static) {
             return 111;
-        } else if(m instanceof Main) {
-            return 6;
         } else {
-            return 33;
+            if(m instanceof Main) {
+                return 6;
+            } else {
+                return 33;
+            }
         }
     }
 
