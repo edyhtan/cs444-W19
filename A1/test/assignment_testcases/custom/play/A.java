@@ -11,7 +11,7 @@ public class A {
 
         if(m instanceof Static) {
             return 111;
-        } else return 888;
+        } else return 2;
     }
 
 }
