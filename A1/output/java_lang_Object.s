@@ -27,7 +27,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;; compare_eq
+				;; ompare_eq
 		;; LHS code...
 		push eax
 		;; RHS code...

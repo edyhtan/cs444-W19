@@ -73,7 +73,7 @@ section .text
 		.while0:
 			;expression code...
 			;; logical_and
-			;; compare_lt
+			;; ompare_lt
 			;; LHS code...
 			;; Local Var i
 			mov eax, ebp
@@ -94,7 +94,7 @@ section .text
 			cmp eax, 0
 			je .end_and0
 			;; logical_or
-			;; compare_eq
+			;; ompare_eq
 			;; LHS code...
 			push eax
 			;; RHS code...
@@ -111,7 +111,7 @@ section .text
 			cmp eax, 1
 			je .end_or2
 			;; logical_and
-			;; compare_ge
+			;; ompare_ge
 			;; LHS code...
 			push eax
 			;; RHS code...
@@ -127,7 +127,7 @@ section .text
 
 			cmp eax, 0
 			je .end_and4
-			;; compare_le
+			;; ompare_le
 			;; LHS code...
 			push eax
 			;; RHS code...
@@ -151,7 +151,7 @@ section .text
 			je .endwhile0
 			;; while statement code...
 			;expression code...
-			;; compare_eq
+			;; ompare_eq
 			;; LHS code...
 			push eax
 			;; RHS code...

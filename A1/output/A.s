@@ -1,5 +1,4 @@
 extern __ref_SIT_java_lang_Number
-extern __exception
 extern __malloc
 extern __constructor__java_lang_Object__Object
 extern __method__java_lang_Object__getClass
@@ -388,46 +387,37 @@ global @@@@main
 		push ebp
 		mov ebp, esp
 
-				;expression code...
-		;; eager_or
-		;; LHS code...
+				;; ---declare someA
+		;; Allocating size of 0
 		mov eax, 0
-		push eax
-		;; RHS code...
-		;; compare_eq
-		;; LHS code...
-		;; Div
-		;; RHS code...
-		mov eax, 0
-		cmp eax, 0
-		
-		je __exception
-		push eax
-		;; LHS code...
-		mov eax, 3
-		pop ebx
-		mov edx, 0
-		idiv ebx
+				call __malloc
+					mov ebx, __class_A
+		mov [eax], ebx
 
+		;; Pushing object
 		push eax
-		;; RHS code...
-		mov eax, 0
-		pop ebx
-		cmp ebx, eax
-		je .eq1
-		mov eax, 0
-		jmp .end_eq1
-		.eq1:
-			mov eax, 1
-		.end_eq1:
 
-		pop ebx
-		cmp ebx, 1
-		je .is_true0
-		jmp .end_eager_or0
-		.is_true0:
+		;; Pushing args:
+					call __constructor__A__A
+		add esp, 0
+		pop eax
+		push eax
+
+		;expression code...
+		;; Instanceof
+				;; Local Var someA
+		mov eax, ebp
+		sub eax, 4
+		mov eax, [eax]
+
+		mov eax, [eax]
+		mov eax, [ebx+8]
+		test  eax, 524288
+		jnz .instance_true0
+		jmp .end_instance0
+		.instance_true0:
 			mov eax, 1
-		.end_eager_or0:
+		.end_instance0:
 
 		cmp eax, 0
 		je .else0

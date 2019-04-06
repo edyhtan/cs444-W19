@@ -36,7 +36,7 @@ section .text
 		mov ebp, esp
 
 				;expression code...
-		;; compare_ne
+		;; ompare_ne
 		;; LHS code...
 		;; Local Var a1
 		mov eax, ebp
@@ -87,7 +87,7 @@ section .text
 
 		.for1:
 			;expression code...
-			;; compare_lt
+			;; ompare_lt
 			;; LHS code...
 			;; Local Var i
 			mov eax, ebp
@@ -119,7 +119,7 @@ section .text
 			je .endfor1
 			;statement code...
 			;expression code...
-			;; compare_ne
+			;; ompare_ne
 			;; LHS code...
 			push eax
 			;; RHS code...
@@ -167,7 +167,7 @@ section .text
 		mov ebp, esp
 
 				;expression code...
-		;; compare_ne
+		;; ompare_ne
 		;; LHS code...
 		;; Local Var a1
 		mov eax, ebp
@@ -218,7 +218,7 @@ section .text
 
 		.for4:
 			;expression code...
-			;; compare_lt
+			;; ompare_lt
 			;; LHS code...
 			;; Local Var i
 			mov eax, ebp
@@ -250,7 +250,7 @@ section .text
 			je .endfor4
 			;statement code...
 			;expression code...
-			;; compare_ne
+			;; ompare_ne
 			;; LHS code...
 			push eax
 			;; RHS code...

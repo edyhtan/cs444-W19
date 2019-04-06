@@ -99,7 +99,7 @@ section .text
 
 		.for0:
 			;expression code...
-			;; compare_lt
+			;; ompare_lt
 			;; LHS code...
 			;; Local Var i
 			mov eax, ebp
@@ -135,7 +135,7 @@ section .text
 
 		.for1:
 			;expression code...
-			;; compare_lt
+			;; ompare_lt
 			;; LHS code...
 			;; Local Var i
 			mov eax, ebp
@@ -246,7 +246,7 @@ section .text
 		push eax
 
 		;expression code...
-		;; compare_eq
+		;; ompare_eq
 		;; LHS code...
 		;; Local Var i
 		mov eax, ebp
@@ -274,7 +274,7 @@ section .text
 		.else2:
 		.endif2:
 		;expression code...
-		;; compare_lt
+		;; ompare_lt
 		;; LHS code...
 		;; Local Var i
 		mov eax, ebp
@@ -306,7 +306,7 @@ section .text
 		.else3:
 		.endif3:
 		;expression code...
-		;; compare_eq
+		;; ompare_eq
 		;; LHS code...
 		;; Local Var i
 		mov eax, ebp
@@ -339,7 +339,7 @@ section .text
 			;elseClause ...
 			.while5:
 				;expression code...
-				;; compare_gt
+				;; ompare_gt
 				;; LHS code...
 				;; Local Var i
 				mov eax, ebp
@@ -366,7 +366,6 @@ section .text
 				;; RHS code...
 				mov eax, 10
 				cmp eax, 0
-				
 				je __exception
 				push eax
 				;; LHS code...
@@ -427,7 +426,7 @@ mov eax, edx
 
 		.for7:
 			;expression code...
-			;; compare_lt
+			;; ompare_lt
 			;; LHS code...
 			;; Local Var i
 			mov eax, ebp
@@ -549,7 +548,7 @@ mov eax, edx
 		mov ebp, esp
 
 				;expression code...
-		;; compare_eq
+		;; ompare_eq
 		;; LHS code...
 		;; Local Var o
 		mov eax, ebp
@@ -592,7 +591,7 @@ mov eax, edx
 		mov ebp, esp
 
 				;expression code...
-		;; compare_eq
+		;; ompare_eq
 		;; LHS code...
 		;; Local Var o
 		mov eax, ebp
@@ -640,7 +639,7 @@ mov eax, edx
 		mov ebp, esp
 
 				;expression code...
-		;; compare_eq
+		;; ompare_eq
 		;; LHS code...
 		;; Local Var o
 		mov eax, ebp
@@ -697,7 +696,7 @@ mov eax, edx
 		push eax
 
 		;expression code...
-		;; compare_lt
+		;; ompare_lt
 		;; LHS code...
 		;; Local Var i
 		mov eax, ebp
@@ -726,7 +725,7 @@ mov eax, edx
 		.else13:
 		.endif13:
 		;expression code...
-		;; compare_gt
+		;; ompare_gt
 		;; LHS code...
 		;; Local Var j
 		mov eax, ebp
@@ -754,7 +753,7 @@ mov eax, edx
 		.else14:
 		.endif14:
 		;expression code...
-		;; compare_lt
+		;; ompare_lt
 		;; LHS code...
 		;; Local Var j
 		mov eax, ebp
@@ -794,7 +793,7 @@ mov eax, edx
 
 		.for16:
 			;expression code...
-			;; compare_lt
+			;; ompare_lt
 			;; LHS code...
 			;; Local Var k
 			mov eax, ebp
@@ -876,7 +875,7 @@ mov eax, edx
 		.for17:
 			;expression code...
 			;; logical_and
-			;; compare_lt
+			;; ompare_lt
 			;; LHS code...
 			;; Local Var i
 			mov eax, ebp
@@ -896,7 +895,7 @@ mov eax, edx
 
 			cmp eax, 0
 			je .end_and0
-			;; compare_le
+			;; ompare_le
 			;; LHS code...
 			push eax
 			;; RHS code...
@@ -930,7 +929,7 @@ mov eax, edx
 		.for18:
 			;expression code...
 			;; logical_and
-			;; compare_ge
+			;; ompare_ge
 			;; LHS code...
 			;; Local Var j
 			mov eax, ebp
@@ -951,7 +950,7 @@ mov eax, edx
 
 			cmp eax, 0
 			je .end_and3
-			;; compare_le
+			;; ompare_le
 			;; LHS code...
 			push eax
 			;; RHS code...
@@ -980,7 +979,7 @@ mov eax, edx
 		.endfor18:
 
 		;expression code...
-		;; compare_gt
+		;; ompare_gt
 		;; LHS code...
 		;; Local Var i
 		mov eax, ebp
@@ -1038,7 +1037,7 @@ mov eax, edx
 
 		.for20:
 			;expression code...
-			;; compare_lt
+			;; ompare_lt
 			;; LHS code...
 			;; Local Var i
 			mov eax, ebp
@@ -1144,7 +1143,7 @@ mov eax, edx
 			;; while statement code...
 			;expression code...
 			;; logical_and
-			;; compare_ge
+			;; ompare_ge
 			;; LHS code...
 			;; Local Var i
 			mov eax, ebp
@@ -1176,7 +1175,7 @@ mov eax, edx
 
 			cmp eax, 0
 			je .end_and0
-			;; compare_ge
+			;; ompare_ge
 			;; LHS code...
 			;; Local Var i
 			mov eax, ebp
@@ -1223,7 +1222,7 @@ mov eax, edx
 			.endif22:
 
 			;expression code...
-			;; compare_ge
+			;; ompare_ge
 			;; LHS code...
 			;; Local Var i
 			mov eax, ebp
@@ -1264,7 +1263,7 @@ mov eax, edx
 			.endif23:
 
 			;expression code...
-			;; compare_ge
+			;; ompare_ge
 			;; LHS code...
 			;; Local Var i
 			mov eax, ebp
@@ -1309,7 +1308,7 @@ mov eax, edx
 			.endif24:
 
 			;expression code...
-			;; compare_lt
+			;; ompare_lt
 			;; LHS code...
 			push eax
 			;; RHS code...
@@ -1333,7 +1332,7 @@ mov eax, edx
 			.endif25:
 
 			;expression code...
-			;; compare_gt
+			;; ompare_gt
 			;; LHS code...
 			push eax
 			;; RHS code...
@@ -1387,7 +1386,7 @@ mov eax, edx
 
 		.for27:
 			;expression code...
-			;; compare_lt
+			;; ompare_lt
 			;; LHS code...
 			;; Local Var i
 			mov eax, ebp
@@ -1460,7 +1459,7 @@ mov eax, edx
 
 		.for28:
 			;expression code...
-			;; compare_lt
+			;; ompare_lt
 			;; LHS code...
 			;; Local Var offset
 			mov eax, ebp
@@ -1491,7 +1490,7 @@ mov eax, edx
 
 			.for29:
 				;expression code...
-				;; compare_lt
+				;; ompare_lt
 				;; LHS code...
 				;; Local Var i
 				mov eax, ebp
@@ -1513,7 +1512,7 @@ mov eax, edx
 				je .endfor29
 				;statement code...
 				;expression code...
-				;; compare_ge
+				;; ompare_ge
 				;; LHS code...
 				;; Plus
 				;; LHS code...
@@ -1554,7 +1553,7 @@ mov eax, edx
 				.else30:
 					;elseClause ...
 					;expression code...
-					;; compare_ne
+					;; ompare_ne
 					;; LHS code...
 					push eax
 					;; RHS code...
@@ -1683,7 +1682,7 @@ mov eax, 0
 
 			.for33:
 				;expression code...
-				;; compare_lt
+				;; ompare_lt
 				;; LHS code...
 				push eax
 				;; RHS code...

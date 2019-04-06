@@ -2,7 +2,8 @@ public class A {
 
     public A() {}
     public static int test(int a, int b) {
-        if(false | 3/0==0) return 1;
+        A someA = new A();
+        if(someA instanceof A) return 1;
         return 2;
     }
 

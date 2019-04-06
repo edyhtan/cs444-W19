@@ -64,7 +64,7 @@ section .text
 
 		.for0:
 			;expression code...
-			;; compare_lt
+			;; ompare_lt
 			;; LHS code...
 			;; Local Var i
 			mov eax, ebp
