@@ -439,6 +439,7 @@ global @@@@main
 		pop eax
 		push eax
 
+		;; if statement0
 		;expression code...
 		;; Instanceof
 				;; Local Var m
@@ -448,7 +449,7 @@ global @@@@main
 
 		mov eax, [eax]
 		mov eax, [eax+8]
-		test  eax, 262144
+		test eax, 131072
 		jnz .instance_true0
 		mov eax, 0
 		jmp .end_instance0
@@ -467,6 +468,7 @@ global @@@@main
 
 		.else0:
 			;elseClause ...
+			;; if statement1
 			;expression code...
 			;; Instanceof
 						;; Local Var m
@@ -476,7 +478,7 @@ global @@@@main
 
 			mov eax, [eax]
 			mov eax, [eax+8]
-			test  eax, 131072
+			test eax, 131072
 			jnz .instance_true1
 			mov eax, 0
 			jmp .end_instance1

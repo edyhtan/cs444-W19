@@ -9,7 +9,7 @@ public class A {
 //        Main ms = new Static();
 //        Static sm = new Main();
 
-        if(m instanceof Static) {
+        if(m instanceof Main) {
             return 111;
         } else {
             if(m instanceof Main) {

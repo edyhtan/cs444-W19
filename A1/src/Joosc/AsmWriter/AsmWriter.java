@@ -284,11 +284,11 @@ public class AsmWriter {
     }
 
     public void getBit(Register reg, int i) {
-        println(String.format(binaryTemplate, "shr ", reg, i));
+        println(String.format(binaryTemplate, "shr", reg, i));
     }
 
     public void test(Register reg, int i) {
-        println(String.format(binaryTemplate, "test ", reg, i));
+        println(String.format(binaryTemplate, "test", reg, i));
     }
 
     public void iffalse(Expression expression, String label, int indent) {

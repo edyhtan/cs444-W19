@@ -122,6 +122,8 @@ public class IfStatement extends HasScope implements Statement, HasExpression {
         expression.addWriter(asmWriter);
         thenClause.addWriter(asmWriter);
 
+        asmWriter.indent(indent);
+        asmWriter.comment("if statement" + offset);
         asmWriter.iffalse(expression, ".else" + offset, indent);
 
         asmWriter.indent(indent);

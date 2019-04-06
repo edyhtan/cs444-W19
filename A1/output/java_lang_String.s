@@ -245,6 +245,7 @@ section .text
 		mov eax, 0
 		push eax
 
+		;; if statement2
 		;expression code...
 		;; ompare_eq
 		;; LHS code...
@@ -273,6 +274,7 @@ section .text
 
 		.else2:
 		.endif2:
+		;; if statement3
 		;expression code...
 		;; ompare_lt
 		;; LHS code...
@@ -305,6 +307,7 @@ section .text
 
 		.else3:
 		.endif3:
+		;; if statement4
 		;expression code...
 		;; ompare_eq
 		;; LHS code...
@@ -400,6 +403,7 @@ mov eax, edx
 
 
 		.endif4:
+		;; if statement6
 		;expression code...
 		;; Local Var wasneg
 		mov eax, ebp
@@ -518,7 +522,8 @@ mov eax, edx
 		push ebp
 		mov ebp, esp
 
-				;expression code...
+				;; if statement8
+		;expression code...
 		;; Local Var b
 		mov eax, ebp
 		add eax, 8
@@ -547,7 +552,8 @@ mov eax, edx
 		push ebp
 		mov ebp, esp
 
-				;expression code...
+				;; if statement9
+		;expression code...
 		;; ompare_eq
 		;; LHS code...
 		;; Local Var o
@@ -590,7 +596,8 @@ mov eax, edx
 		push ebp
 		mov ebp, esp
 
-				;expression code...
+				;; if statement10
+		;expression code...
 		;; ompare_eq
 		;; LHS code...
 		;; Local Var o
@@ -638,7 +645,8 @@ mov eax, edx
 		push ebp
 		mov ebp, esp
 
-				;expression code...
+				;; if statement11
+		;expression code...
 		;; ompare_eq
 		;; LHS code...
 		;; Local Var o
@@ -668,6 +676,7 @@ mov eax, edx
 
 		.else11:
 		.endif11:
+		;; if statement12
 		;expression code...
 		cmp eax, 0
 		je .else12
@@ -695,6 +704,7 @@ mov eax, edx
 		mov eax, 0
 		push eax
 
+		;; if statement13
 		;expression code...
 		;; ompare_lt
 		;; LHS code...
@@ -724,6 +734,7 @@ mov eax, edx
 
 		.else13:
 		.endif13:
+		;; if statement14
 		;expression code...
 		;; ompare_gt
 		;; LHS code...
@@ -752,6 +763,7 @@ mov eax, edx
 
 		.else14:
 		.endif14:
+		;; if statement15
 		;expression code...
 		;; ompare_lt
 		;; LHS code...
@@ -978,6 +990,7 @@ mov eax, edx
 
 		.endfor18:
 
+		;; if statement19
 		;expression code...
 		;; ompare_gt
 		;; LHS code...
@@ -1141,6 +1154,7 @@ mov eax, edx
 			cmp eax, 0
 			je .endwhile21
 			;; while statement code...
+			;; if statement22
 			;expression code...
 			;; logical_and
 			;; ompare_ge
@@ -1221,6 +1235,7 @@ mov eax, edx
 			.else22:
 			.endif22:
 
+			;; if statement23
 			;expression code...
 			;; ompare_ge
 			;; LHS code...
@@ -1262,6 +1277,7 @@ mov eax, edx
 			.else23:
 			.endif23:
 
+			;; if statement24
 			;expression code...
 			;; ompare_ge
 			;; LHS code...
@@ -1307,6 +1323,7 @@ mov eax, edx
 			.else24:
 			.endif24:
 
+			;; if statement25
 			;expression code...
 			;; ompare_lt
 			;; LHS code...
@@ -1331,6 +1348,7 @@ mov eax, edx
 			.else25:
 			.endif25:
 
+			;; if statement26
 			;expression code...
 			;; ompare_gt
 			;; LHS code...
@@ -1511,6 +1529,7 @@ mov eax, edx
 				cmp eax, 0
 				je .endfor29
 				;statement code...
+				;; if statement30
 				;expression code...
 				;; ompare_ge
 				;; LHS code...
@@ -1552,6 +1571,7 @@ mov eax, edx
 
 				.else30:
 					;elseClause ...
+					;; if statement31
 					;expression code...
 					;; ompare_ne
 					;; LHS code...
@@ -1588,6 +1608,7 @@ mov eax, edx
 			.endfor29:
 
 
+			;; if statement32
 			;expression code...
 			;; Local Var found
 			mov eax, ebp

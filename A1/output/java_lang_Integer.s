@@ -150,6 +150,7 @@ section .text
 			cmp eax, 0
 			je .endwhile0
 			;; while statement code...
+			;; if statement1
 			;expression code...
 			;; ompare_eq
 			;; LHS code...
@@ -185,6 +186,7 @@ section .text
 
 		.endwhile0:
 
+		;; if statement2
 		;expression code...
 		;; Local Var neg
 		mov eax, ebp
