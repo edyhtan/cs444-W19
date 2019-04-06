@@ -449,7 +449,7 @@ global @@@@main
 
 		mov eax, [eax]
 		mov eax, [eax+8]
-		test eax, 131072
+		test eax, 512
 		jnz .instance_true0
 		mov eax, 0
 		jmp .end_instance0
@@ -467,44 +467,9 @@ global @@@@main
 		jmp .endif0
 
 		.else0:
-			;elseClause ...
-			;; if statement1
-			;expression code...
-			;; Instanceof
-						;; Local Var m
-			mov eax, ebp
-			sub eax, 12
-			mov eax, [eax]
-
-			mov eax, [eax]
-			mov eax, [eax+8]
-			test eax, 131072
-			jnz .instance_true1
-			mov eax, 0
-			jmp .end_instance1
-			.instance_true1:
-				mov eax, 1
-			.end_instance1:
-
-			cmp eax, 0
-			je .else1
-			;thenClause ...
-				mov eax, 6
-				jmp _method_return___STATIC_method__A__test$int$int$
-
-
-			jmp .endif1
-
-			.else1:
-				;elseClause ...
-				mov eax, 33
-				jmp _method_return___STATIC_method__A__test$int$int$
-
-
-			.endif1:
-
-
 		.endif0:
+		mov eax, 2
+		jmp _method_return___STATIC_method__A__test$int$int$
 
 		_method_return___STATIC_method__A__test$int$int$:
 			mov esp, ebp

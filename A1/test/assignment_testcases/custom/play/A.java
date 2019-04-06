@@ -9,15 +9,10 @@ public class A {
 //        Main ms = new Static();
 //        Static sm = new Main();
 
-        if(m instanceof Main) {
+        if(m instanceof Object) {
             return 111;
-        } else {
-            if(m instanceof Main) {
-                return 6;
-            } else {
-                return 33;
-            }
         }
+        return 2;
     }
 
 }
