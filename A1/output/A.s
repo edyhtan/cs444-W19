@@ -3,12 +3,17 @@ extern __malloc
 extern __constructor__java_lang_Object__Object
 extern __method__java_lang_Object__getClass
 extern __ref_SIT_foo_bar
+extern __constructor__Hello__Hello
 extern __ref_SIT_java_lang_Short
+extern __class_Main
 extern __ref_SIT_Main
 extern __ref_SIT_java_lang_Character
 extern __ref_SIT_java_lang_String
 extern __ref_SIT_Hello
+extern __constructor__Static__Static
+extern __constructor__Main__Main
 extern __ref_SIT_java_lang_Integer
+extern __class_Static
 extern __method__java_lang_Object__toString
 extern __ref_SIT_java_lang_Class
 extern __ref_SIT_java_lang_Boolean
@@ -19,6 +24,7 @@ extern __method__java_lang_Object__clone
 extern __ref_SIT_java_lang_Object
 extern __method__java_lang_Object__hashCode
 extern __ref_SIT_java_lang_Byte
+extern __class_Hello
 extern __ref_SIT_Static
 extern __ref_SIT_java_lang_System
 extern __ref_SIT_java_io_OutputStream
@@ -403,16 +409,80 @@ global @@@@main
 		pop eax
 		push eax
 
+		;; ---declare hello
+		;; Allocating size of 1
+		mov eax, 1
+				call __malloc
+					mov ebx, __class_Hello
+		mov [eax], ebx
+
+		;; Pushing object
+		push eax
+
+		;; Pushing args:
+					call __constructor__Hello__Hello
+		add esp, 0
+		pop eax
+		push eax
+
+		;; ---declare s
+		;; Allocating size of 2
+		mov eax, 2
+				call __malloc
+					mov ebx, __class_Static
+		mov [eax], ebx
+
+		;; Pushing object
+		push eax
+
+		;; Pushing args:
+					call __constructor__Static__Static
+		add esp, 0
+		pop eax
+		push eax
+
+		;; ---declare m
+		;; Allocating size of 1
+		mov eax, 1
+				call __malloc
+					mov ebx, __class_Main
+		mov [eax], ebx
+
+		;; Pushing object
+		push eax
+
+		;; Pushing args:
+					call __constructor__Main__Main
+		add esp, 0
+		pop eax
+		push eax
+
+		;; ---declare ms
+		;; Allocating size of 2
+		mov eax, 2
+				call __malloc
+					mov ebx, __class_Static
+		mov [eax], ebx
+
+		;; Pushing object
+		push eax
+
+		;; Pushing args:
+					call __constructor__Static__Static
+		add esp, 0
+		pop eax
+		push eax
+
 		;expression code...
 		;; Instanceof
-				;; Local Var someA
+				;; Local Var s
 		mov eax, ebp
-		sub eax, 4
+		sub eax, 12
 		mov eax, [eax]
 
 		mov eax, [eax]
 		mov eax, [eax+8]
-		test  eax, 512
+		test  eax, 131072
 		jnz .instance_true0
 		jmp .end_instance0
 		.instance_true0:
