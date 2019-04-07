@@ -244,7 +244,7 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
             if(statement instanceof Block) {
                 SymbolTable.assignOffset(statement, (LocalEnv) ((Block) statement).getEnv());
             }
-                SymbolTable.assignOffset(statement, localEnv);
+            SymbolTable.assignOffset(statement, localEnv);
 
 
             if (statement instanceof ForStatement) {

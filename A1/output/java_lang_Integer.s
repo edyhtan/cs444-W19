@@ -19,7 +19,7 @@ __class_java_lang_Integer:
 
 		global __ref_PARENTS_java_lang_Integer
 	__ref_PARENTS_java_lang_Integer:
-		dd 0000011100000000b
+		dd 000000000011100000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -32,7 +32,8 @@ __class_java_lang_Integer:
 
 ;; Static fields
 		global __field_java_lang_Integer_MAX_VALUE
-	__field_java_lang_Integer_MAX_VALUE		dd 0
+__field_java_lang_Integer_MAX_VALUE:
+		dd 0
 
 
 section .text

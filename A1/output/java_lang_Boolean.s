@@ -17,7 +17,7 @@ __class_java_lang_Boolean:
 
 		global __ref_PARENTS_java_lang_Boolean
 	__ref_PARENTS_java_lang_Boolean:
-		dd 0000010000001000b
+		dd 000000000010000001000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -28,7 +28,8 @@ __class_java_lang_Boolean:
 
 ;; Static fields
 		global __field_java_lang_Boolean_MAX_VALUE
-	__field_java_lang_Boolean_MAX_VALUE		dd 0
+__field_java_lang_Boolean_MAX_VALUE:
+		dd 0
 
 
 section .text

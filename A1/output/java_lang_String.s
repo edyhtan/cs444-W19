@@ -19,7 +19,7 @@ __class_java_lang_String:
 
 		global __ref_PARENTS_java_lang_String
 	__ref_PARENTS_java_lang_String:
-		dd 0001010000000000b
+		dd 000000001010000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -63,7 +63,7 @@ section .text
 		cmp eax, 0
 		je __exception
 		;; Field length
-		add eax, 4
+		add eax, 8
 		mov eax, [eax]
 
 		jmp _method_return___method__java_lang_String__length
@@ -1778,7 +1778,7 @@ mov eax, edx
 			cmp eax, 0
 			je __exception
 			;; Field length
-			add eax, 4
+			add eax, 8
 			mov eax, [eax]
 
 			pop ebx
@@ -1975,7 +1975,7 @@ mov eax, edx
 			cmp eax, 0
 			je __exception
 			;; Field length
-			add eax, 4
+			add eax, 8
 			mov eax, [eax]
 
 			pop ebx
@@ -2012,7 +2012,7 @@ mov eax, edx
 			cmp eax, 0
 			je __exception
 			;; Field length
-			add eax, 4
+			add eax, 8
 			mov eax, [eax]
 
 			pop ebx
@@ -2057,7 +2057,7 @@ mov eax, edx
 			cmp eax, 0
 			je __exception
 			;; Field length
-			add eax, 4
+			add eax, 8
 			mov eax, [eax]
 
 			pop ebx
@@ -2109,7 +2109,7 @@ mov eax, edx
 			cmp eax, 0
 			je __exception
 			;; Field length
-			add eax, 4
+			add eax, 8
 			mov eax, [eax]
 
 			pop ebx
@@ -2260,7 +2260,7 @@ mov eax, edx
 			cmp eax, 0
 			je __exception
 			;; Field length
-			add eax, 4
+			add eax, 8
 			mov eax, [eax]
 
 			pop ebx
@@ -2753,7 +2753,7 @@ mov eax, 0
 				cmp eax, 0
 				je __exception
 				;; Field length
-				add eax, 4
+				add eax, 8
 				mov eax, [eax]
 
 				pop ebx

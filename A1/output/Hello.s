@@ -8,15 +8,15 @@ extern __method__java_lang_Object__equals$java_lang_Object$
 
 section .data
 
-	global __class_java_lang_Number
-__class_java_lang_Number:
-		global __ref_SIT_java_lang_Number
-	__ref_SIT_java_lang_Number:
+	global __class_Hello
+__class_Hello:
+		global __ref_SIT_Hello
+	__ref_SIT_Hello:
 		dd 0
 
-		global __ref_PARENTS_java_lang_Number
-	__ref_PARENTS_java_lang_Number:
-		dd 000000000011000000000b
+		global __ref_PARENTS_Hello
+	__ref_PARENTS_Hello:
+		dd 001100000010000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -24,27 +24,15 @@ __class_java_lang_Number:
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
 		dd __method__java_lang_Object__toString
-		dd __method__java_lang_Number__intValue
 
 ;; Static fields
 
 section .text
 
 ;; -----Methods-----
-		global __method__java_lang_Number__intValue
-	__method__java_lang_Number__intValue:
-		push ebp
-		mov ebp, esp
-
-
-		_method_return___method__java_lang_Number__intValue:
-			mov esp, ebp
-			pop ebp
-			ret
-
 ;; -----Constructors-----
-		global __constructor__java_lang_Number__Number
-	__constructor__java_lang_Number__Number:
+		global __constructor__Hello__Hello
+	__constructor__Hello__Hello:
 		push ebp
 		mov ebp, esp
 		mov eax, [ebp + 8]
@@ -54,6 +42,25 @@ section .text
 		sub esp, 4
 ;; Field init, push object to stack
 		mov eax, [ebp + 8]
+		push eax
+;; Field init end, pop object
+		add esp, 4
+;; Constructor Body
+;; Epilogue
+		mov esp, ebp
+		pop ebp
+		ret
+		global __constructor__Hello__Hello$int$
+	__constructor__Hello__Hello$int$:
+		push ebp
+		mov ebp, esp
+		mov eax, [ebp + 12]
+		push eax
+					mov eax, __constructor__java_lang_Object__Object
+		call eax
+		sub esp, 4
+;; Field init, push object to stack
+		mov eax, [ebp + 12]
 		push eax
 ;; Field init end, pop object
 		add esp, 4

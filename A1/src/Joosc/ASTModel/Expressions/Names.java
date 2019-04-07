@@ -353,6 +353,8 @@ public class Names extends ExpressionContent implements HasAddress, LeftValue {
                         break;
 
                     System.err.println(prefix);
+
+                    System.err.println(prefix);
                     prefix.add(name.get(0));
                     name.remove(0);
 

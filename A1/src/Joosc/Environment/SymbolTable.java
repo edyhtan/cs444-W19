@@ -58,6 +58,8 @@ public class SymbolTable {
                 }
             }
         }
+
+
     }
 
     public FieldsVarInfo getOffSet(String name) {

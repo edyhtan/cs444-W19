@@ -17,7 +17,7 @@ __class_java_lang_Byte:
 
 		global __ref_PARENTS_java_lang_Byte
 	__ref_PARENTS_java_lang_Byte:
-		dd 0000010000010000b
+		dd 000000000010000010000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -28,7 +28,8 @@ __class_java_lang_Byte:
 
 ;; Static fields
 		global __field_java_lang_Byte_MAX_VALUE
-	__field_java_lang_Byte_MAX_VALUE		dd 0
+__field_java_lang_Byte_MAX_VALUE:
+		dd 0
 
 
 section .text
