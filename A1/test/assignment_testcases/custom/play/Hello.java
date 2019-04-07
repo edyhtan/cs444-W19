@@ -1,25 +1,25 @@
 public class Hello implements Interface {
-
-    public Hello k = null;
-
-    public static int staticInt = 0;
-
+//
+//    public Hello k = null;
+//
+//    public static int staticInt = 0;
+//
     public Hello() {
-        new Hello();
+//        new Hello();
     }
-
+//
     public Hello(int a) {
 
     }
+//
+//    public void whatYouSee() {
+//    }
+//
+//    public boolean like(Hello who) {
+//        return who.like(this);
+//    }
 
-    public void whatYouSee() {
-    }
-
-    public boolean like(Hello who) {
-        return who.like(this);
-    }
-
-    public Hello k() {
-        return this;
-    }
+//    public Hello k() {
+//        return this;
+//    }
 }

@@ -37,8 +37,8 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;; Allocating size of 1
-		mov eax, 1
+				;; Allocating size of 0
+		mov eax, 0
 				call __malloc
 					mov ebx, __class_Hello
 		mov [eax], ebx
