@@ -300,7 +300,6 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
             asmWriter.add(Register.esp, argList.size() * 4);
         } else if (methodEnv.getClassEnv().getTypeDeclr() instanceof InterfaceDeclr) {
         // method of interface type, call from SIT
-            int SIToffset = 0;
             asmWriter.indent(indent);
             asmWriter.comment("interface method:");
             asmWriter.indent(indent);

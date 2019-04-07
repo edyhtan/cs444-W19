@@ -66,11 +66,6 @@ section .text
 		mov ebx, [esp]
 		add ebx, 4
 		mov [ebx], eax
-;; Field init:: staticInt
-				mov eax, 0
-		mov ebx, [esp]
-		add ebx, 0
-		mov [ebx], eax
 ;; Field init end, pop object
 		add esp, 4
 ;; Constructor Body
@@ -94,11 +89,6 @@ section .text
 				mov eax, 0
 		mov ebx, [esp]
 		add ebx, 4
-		mov [ebx], eax
-;; Field init:: staticInt
-				mov eax, 0
-		mov ebx, [esp]
-		add ebx, 0
 		mov [ebx], eax
 ;; Field init end, pop object
 		add esp, 4
