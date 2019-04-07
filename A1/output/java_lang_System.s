@@ -31,7 +31,8 @@ __class_java_lang_System:
 
 ;; Static fields
 		global __field_java_lang_System_out
-	__field_java_lang_System_out		dd 0
+__field_java_lang_System_out:
+		dd 0
 
 
 section .text

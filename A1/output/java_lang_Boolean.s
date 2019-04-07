@@ -28,7 +28,8 @@ __class_java_lang_Boolean:
 
 ;; Static fields
 		global __field_java_lang_Boolean_MAX_VALUE
-	__field_java_lang_Boolean_MAX_VALUE		dd 0
+__field_java_lang_Boolean_MAX_VALUE:
+		dd 0
 
 
 section .text

@@ -32,7 +32,8 @@ __class_java_lang_Integer:
 
 ;; Static fields
 		global __field_java_lang_Integer_MAX_VALUE
-	__field_java_lang_Integer_MAX_VALUE		dd 0
+__field_java_lang_Integer_MAX_VALUE:
+		dd 0
 
 
 section .text
