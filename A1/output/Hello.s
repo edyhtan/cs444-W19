@@ -12,7 +12,7 @@ section .data
 
 		global __ref_PARENTS_Hello
 	__ref_PARENTS_Hello:
-		dd 00001000001000000000b
+		dd 00100000010000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -48,19 +48,15 @@ section .text
 		push ebp
 		mov ebp, esp
 
-<<<<<<< HEAD
-		;; Method Invocation:
+				;; Method Invocation:
 		;; o.code
 		;; Pushing args
 			push eax
 
 		call __method__Hello__like$Hello$
 
-		add esp,8
+		add esp, 8
 		jmp _method_return___method__Hello__like$Hello$
-=======
-				jmp _method_return___method__Hello__like$Hello$
->>>>>>> origin/A5-code-gen
 
 		_method_return___method__Hello__like$Hello$:
 			mov esp, ebp
@@ -105,8 +101,8 @@ section .text
 ;; Field init end, pop object
 		add esp, 4
 ;; Constructor Body
-			;; Allocating size of 1
-			mov eax, 1
+			;; Allocating size of 8
+			mov eax, 8
 						call __malloc
 							mov ebx, __class_Hello
 			mov [eax], ebx
@@ -115,14 +111,10 @@ section .text
 			push eax
 
 			;; Pushing args:
-<<<<<<< HEAD
 			call __constructor__Hello__Hello
-			add esp,0
-=======
-							call __constructor__Hello__Hello
 			add esp, 0
->>>>>>> origin/A5-code-gen
 			pop eax
+
 ;; Epilogue
 		mov esp, ebp
 		pop ebp

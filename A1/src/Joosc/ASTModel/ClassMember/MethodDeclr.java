@@ -222,33 +222,10 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
     @Override
     public void codeGen(int indent) {
         MethodDeclr.PER_METHOD_COUNT = 0;
-        if (name.equals("test") && modifiers.contains(Symbol.Static)) {
-            asmWriter.outputInit(localEnv.getJoosType());
-            asmWriter.println("");
-            asmWriter.global("@@@@main");
-            asmWriter.label("@@@@main");
-        }
 
-        asmWriter.indent(indent + 1);
-        asmWriter.global(methodLabel);
-        asmWriter.indent(indent);
-        asmWriter.label(methodLabel);
-
-        if (modifiers.contains(Symbol.Native)) {
-            asmWriter.indent(indent + 1);
-            asmWriter.extern("NATIVEjava.io.OutputStream.nativeWrite");
-            asmWriter.jmp("NATIVEjava.io.OutputStream.nativeWrite");
-            asmWriter.println();
-            return;
-        }
-
-        asmWriter.indent(indent + 1);
-        asmWriter.push(Register.ebp);
-        asmWriter.indent(indent + 1);
-        asmWriter.mov(Register.ebp, Register.esp);
-        asmWriter.println("");
-
-
+        /**
+         *  calculate and assign offset
+         */
         // TODO: distinguish static && non-static
         // extra one for eip
         int size = formalParamList.size() + 1;
@@ -272,6 +249,33 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
                 }
             }
         }
+
+        if (name.equals("test") && modifiers.contains(Symbol.Static)) {
+            asmWriter.outputInit(localEnv.getJoosType());
+            asmWriter.println("");
+            asmWriter.global("@@@@main");
+            asmWriter.label("@@@@main");
+        }
+
+        asmWriter.indent(indent + 1);
+        asmWriter.global(methodLabel);
+        asmWriter.indent(indent);
+        asmWriter.label(methodLabel);
+
+        if (modifiers.contains(Symbol.Native)) {
+            asmWriter.indent(indent + 1);
+            asmWriter.extern("NATIVEjava.io.OutputStream.nativeWrite");
+            asmWriter.jmp("NATIVEjava.io.OutputStream.nativeWrite");
+            return;
+        }
+
+        asmWriter.indent(indent + 1);
+        asmWriter.push(Register.ebp);
+        asmWriter.indent(indent + 1);
+        asmWriter.mov(Register.ebp, Register.esp);
+        asmWriter.println("");
+
+        asmWriter.indent(indent + 1);
 
         for (Statement statement : bodyBlock) {
             statement.codeGen(indent + 1);

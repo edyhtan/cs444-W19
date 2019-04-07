@@ -58,7 +58,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;forInit code...
+				;forInit code...
 		;; ---declare i
 		mov eax, 0
 
@@ -138,7 +138,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation:
+				;; Method Invocation:
 		;; o.code
 		;; Pushing args
 						push eax
@@ -157,7 +157,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation:
+				;; Method Invocation:
 		;; o.code
 		;; Pushing args
 			;; Local Var s
@@ -190,7 +190,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation:
+				;; Method Invocation:
 		;; o.code
 		;; Pushing args
 			;; Method Invocation:
@@ -222,7 +222,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation:
+				;; Method Invocation:
 		;; o.code
 		;; Pushing args
 			;; Method Invocation:
@@ -254,7 +254,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation:
+				;; Method Invocation:
 		;; o.code
 		;; Pushing args
 			;; Method Invocation:
@@ -286,7 +286,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation:
+				;; Method Invocation:
 		;; o.code
 		;; Pushing args
 			;; Method Invocation:
@@ -318,7 +318,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation:
+				;; Method Invocation:
 		;; o.code
 		;; Pushing args
 			;; Method Invocation:
@@ -350,7 +350,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation:
+				;; Method Invocation:
 		;; o.code
 		;; Pushing args
 			;; Method Invocation:
@@ -382,7 +382,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation:
+				;; Method Invocation:
 		;; o.code
 		;; Pushing args
 			;; Method Invocation:
@@ -414,7 +414,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation:
+				;; Method Invocation:
 		;; o.code
 		;; Pushing args
 			;; Method Invocation:
@@ -446,7 +446,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation:
+				;; Method Invocation:
 		;; o.code
 		;; Pushing args
 			;; Method Invocation:
@@ -478,7 +478,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation:
+				;; Method Invocation:
 		;; o.code
 		;; Pushing args
 			;; Method Invocation:
@@ -510,7 +510,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation:
+				;; Method Invocation:
 		;; o.code
 		;; Pushing args
 			;; Method Invocation:
@@ -542,7 +542,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation:
+				;; Method Invocation:
 		;; o.code
 		;; Pushing args
 			;; Method Invocation:

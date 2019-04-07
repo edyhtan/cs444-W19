@@ -35,7 +35,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation:
+				;; Method Invocation:
 		;; o.code
 		;; Pushing args
 			push eax
@@ -54,7 +54,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation:
+				;; Method Invocation:
 		;; o.code
 		;; Pushing args
 			;; Local Var b
@@ -76,13 +76,12 @@ section .text
 		global __STATIC_method__java_io_OutputStream__nativeWrite$int$
 	__STATIC_method__java_io_OutputStream__nativeWrite$int$:
 		jmp NATIVEjava.io.OutputStream.nativeWrite
-
 		global __method__java_io_OutputStream__flush
 	__method__java_io_OutputStream__flush:
 		push ebp
 		mov ebp, esp
 
-
+		
 		_method_return___method__java_io_OutputStream__flush:
 			mov esp, ebp
 			pop ebp

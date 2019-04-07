@@ -1,3 +1,4 @@
+extern __exception
 extern __constructor__java_lang_Object__Object
 
 	global __class_java_util_Arrays
@@ -11,7 +12,7 @@ section .data
 
 		global __ref_PARENTS_java_util_Arrays
 	__ref_PARENTS_java_util_Arrays:
-		dd 00000000001000000001b
+		dd 00000100010000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -41,8 +42,9 @@ section .text
 		add eax, 12
 		mov eax, [eax]
 
+		cmp eax, 0
+		je __exception
 		;; Field length
-		mov eax, ebp
 		add eax, 4
 		mov eax, [eax]
 
@@ -53,8 +55,9 @@ section .text
 		add eax, 8
 		mov eax, [eax]
 
+		cmp eax, 0
+		je __exception
 		;; Field length
-		mov eax, ebp
 		add eax, 4
 		mov eax, [eax]
 
@@ -80,7 +83,9 @@ section .text
 		;forInit code...
 		;; ---declare i
 		mov eax, 0
+
 		push eax
+		;; ---end of declare i
 
 
 		.for1:
@@ -99,8 +104,9 @@ section .text
 			add eax, 12
 			mov eax, [eax]
 
+			cmp eax, 0
+			je __exception
 			;; Field length
-			mov eax, ebp
 			add eax, 4
 			mov eax, [eax]
 
@@ -174,8 +180,9 @@ section .text
 		add eax, 12
 		mov eax, [eax]
 
+		cmp eax, 0
+		je __exception
 		;; Field length
-		mov eax, ebp
 		add eax, 4
 		mov eax, [eax]
 
@@ -186,8 +193,9 @@ section .text
 		add eax, 8
 		mov eax, [eax]
 
+		cmp eax, 0
+		je __exception
 		;; Field length
-		mov eax, ebp
 		add eax, 4
 		mov eax, [eax]
 
@@ -213,7 +221,9 @@ section .text
 		;forInit code...
 		;; ---declare i
 		mov eax, 0
+
 		push eax
+		;; ---end of declare i
 
 
 		.for4:
@@ -232,8 +242,9 @@ section .text
 			add eax, 12
 			mov eax, [eax]
 
+			cmp eax, 0
+			je __exception
 			;; Field length
-			mov eax, ebp
 			add eax, 4
 			mov eax, [eax]
 

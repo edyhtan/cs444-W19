@@ -3,12 +3,16 @@ package Joosc.ASTModel.ClassMember;
 import Joosc.ASTBuilding.ASTStructures.ConstructorDeclrNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.ClassInterface.ClassDeclr;
+import Joosc.ASTModel.Statements.Block;
+import Joosc.ASTModel.Statements.ForStatement;
+import Joosc.ASTModel.Statements.HasScope;
 import Joosc.ASTModel.Statements.Statement;
 import Joosc.ASTModel.Type;
 import Joosc.AsmWriter.AsmWriter;
 import Joosc.AsmWriter.Register;
 import Joosc.Environment.LocalEnv;
 import Joosc.Environment.MethodInfo;
+import Joosc.Environment.SymbolTable;
 import Joosc.Exceptions.UninitializedVariableException;
 import Joosc.Exceptions.UnreachableStatementException;
 
@@ -115,6 +119,32 @@ public class ConstructorDeclr implements ClassBodyDeclr, Method {
 
     @Override
     public void codeGen(int indent) {
+        /**
+         *  calculate and assign offset
+         */
+        // extra one for eip
+        int size = formalParamList.size() + 1;
+        for (int i = 0; i < formalParamList.size(); ++i) {
+            Pair<Type, String> param = formalParamList.get(i);
+            localEnv.assignOffset(param.getValue(), (size - i) * 4);
+        }
+
+        if (getModifiers().contains(Symbol.Static)) {
+            localEnv.setThis((size+1)*4);
+        }
+
+        for (Statement statement : bodyBlock) {
+            statement.addWriter(asmWriter);
+
+            SymbolTable.assignOffset(statement, localEnv);
+
+            if (statement instanceof ForStatement) {
+                if(((ForStatement)statement).getBlock().size() == 1 && ((ForStatement)statement).getBlock().get(0) instanceof Block) {
+                    SymbolTable.assignOffset(((ForStatement) statement).getStatement(), (LocalEnv)((HasScope)((ForStatement) statement).getStatement().getBlock().get(0)).getEnv());
+                }
+            }
+        }
+
         // Ctor label
         asmWriter.indent(2);
         asmWriter.global(info.methodLabel);
@@ -126,6 +156,8 @@ public class ConstructorDeclr implements ClassBodyDeclr, Method {
         JoosType extendType = curClass.getClassEnv().extendName;
         // Pseudo way to get object addr
         Integer objectOffset = formalParamList.size() * 4 + 8;
+
+
 
         // Super default constructor if not object
         if (!name.equals("Object")) {

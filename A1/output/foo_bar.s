@@ -11,7 +11,7 @@ section .data
 
 		global __ref_PARENTS_foo_bar
 	__ref_PARENTS_foo_bar:
-		dd 00010000001000000000b
+		dd 00010000010000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass

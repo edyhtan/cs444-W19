@@ -38,7 +38,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Implicit This
+				;; Implicit This
 		mov eax, [ebp + 0]
 		;; Field value
 		add eax, 4
@@ -56,7 +56,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ---declare ret
+				;; ---declare ret
 		mov eax, 0
 
 		push eax
@@ -281,7 +281,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation:
+				;; Method Invocation:
 		;; o.code
 		;; Pushing args
 			;; Implicit This

@@ -34,7 +34,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation:
+				;; Method Invocation:
 		;; o.code
 		;; Pushing args
 			;; Implicit This

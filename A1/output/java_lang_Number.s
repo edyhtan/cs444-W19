@@ -31,7 +31,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-
+		
 		_method_return___method__java_lang_Number__intValue:
 			mov esp, ebp
 			pop ebp
