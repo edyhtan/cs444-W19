@@ -7,6 +7,7 @@ import Joosc.Environment.Env;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.Exceptions.UnreachableStatementException;
+import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
@@ -89,7 +90,6 @@ public class Literal extends ExpressionContent implements ConstantExpression {
 
     @Override
     public void codeGen(int indent) {
-        asmWriter.indent(indent);
         String movLit = null;
         if (kind.equals(Symbol.IntLiteral.getSymbolString())) {
             movLit = literal;
@@ -109,10 +109,46 @@ public class Literal extends ExpressionContent implements ConstantExpression {
         }
 
         if (kind.equals(Symbol.StringLiteral.getSymbolString())) {
-            // TODO
+            asmWriter.indent(indent);
+            asmWriter.mov(Register.eax, 8);
+            asmWriter.extern("__malloc");
+            asmWriter.indent(indent);
+            asmWriter.call("__malloc");
+            asmWriter.indent(indent);
+            asmWriter.extern("__class_java_lang_String");
+            asmWriter.mov(Register.ebx, "__class_java_lang_String");
+            asmWriter.indent(indent);
+            asmWriter.movToAddr(Register.eax, Register.ebx);
+            asmWriter.indent(indent);
+            asmWriter.push(Register.eax);
+            asmWriter.println();
+
+            asmWriter.indent(indent);
+            asmWriter.mov(Register.eax, literal.length() + 1);
+            asmWriter.indent(indent);
+            asmWriter.mov(Register.ebx, 0);
+            asmWriter.indent(indent);
+            asmWriter.extern("__new_array");
+            asmWriter.call("__new_array");
+            int index = 0;
+            char[] carr = literal.substring(1, literal.length()-1).toCharArray();
+            for(char c : carr) {
+                asmWriter.indent(indent + 1);
+                asmWriter.movToAddr("eax + " + (index++ * 4 + 8), Integer.toString((int)c));
+            }
+            asmWriter.indent(indent + 1);
+            asmWriter.movToAddr("eax + " + ((index * 4) + 8), "0");
+            asmWriter.push(Register.eax);
+
+            asmWriter.indent(indent);
+            asmWriter.extern("__constructor__java_lang_String__String$char@$");
+            asmWriter.call("__constructor__java_lang_String__String$char@$");
+            asmWriter.indent(indent);
+            asmWriter.add(Register.esp, 8);
         }
 
         if (movLit != null)
+            asmWriter.indent(indent);
             asmWriter.mov(Register.eax, movLit);
     }
 

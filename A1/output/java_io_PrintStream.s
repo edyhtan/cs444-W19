@@ -1,9 +1,12 @@
 extern __exception
+extern __malloc
 extern __STATIC_method__java_lang_String__valueOf$boolean$
 extern __STATIC_method__java_lang_String__valueOf$char$
 extern __method__java_lang_Object__getClass
 extern __STATIC_method__java_lang_String__valueOf$short$
+extern __constructor__java_lang_String__String$char@$
 extern __constructor__java_io_OutputStream__OutputStream
+extern __new_array
 extern __method__java_io_OutputStream__flush
 extern __method__java_lang_Object__toString
 extern __method__java_io_OutputStream__write$int$
@@ -13,6 +16,7 @@ extern __STATIC_method__java_lang_String__valueOf$java_lang_Object$
 extern __method__java_lang_Object__clone
 extern __STATIC_method__java_lang_String__valueOf$byte$
 extern __STATIC_method__java_io_OutputStream__nativeWrite$int$
+extern __class_java_lang_String
 extern __method__java_lang_Object__hashCode
 extern __STATIC_method__java_lang_String__valueOf$int$
 
@@ -236,7 +240,21 @@ section .text
 		push eax
 
 		;; Pushing args
-						push eax
+			mov eax, 8
+			call __malloc
+			mov ebx, __class_java_lang_String
+			mov [eax], ebx
+			push eax
+
+			mov eax, 3
+			mov ebx, 0
+			call __new_array
+				mov [eax + 8], 0
+push eax
+			call __constructor__java_lang_String__String$char@$
+			add esp, 8
+mov eax, null
+			push eax
 
 		;; class method:
 		;; addr of o

@@ -1,3 +1,7 @@
+extern __malloc
+extern __class_java_lang_String
+extern __new_array
+extern __constructor__java_lang_String__String$char@$
 
 
 section .data
@@ -60,7 +64,39 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				jmp _method_return___method__java_lang_Object__toString
+		mov eax, 8
+		call __malloc
+		mov ebx, __class_java_lang_String
+		mov [eax], ebx
+		push eax
+
+		mov eax, 21
+		mov ebx, 0
+		call __new_array
+			mov [eax + 8], 83
+			mov [eax + 12], 111
+			mov [eax + 16], 109
+			mov [eax + 20], 101
+			mov [eax + 24], 32
+			mov [eax + 28], 114
+			mov [eax + 32], 97
+			mov [eax + 36], 110
+			mov [eax + 40], 100
+			mov [eax + 44], 111
+			mov [eax + 48], 109
+			mov [eax + 52], 32
+			mov [eax + 56], 111
+			mov [eax + 60], 98
+			mov [eax + 64], 106
+			mov [eax + 68], 101
+			mov [eax + 72], 99
+			mov [eax + 76], 116
+			mov [eax + 80], 0
+push eax
+		call __constructor__java_lang_String__String$char@$
+		add esp, 8
+mov eax, null
+		jmp _method_return___method__java_lang_Object__toString
 
 		_method_return___method__java_lang_Object__toString:
 			mov esp, ebp

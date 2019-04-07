@@ -745,7 +745,32 @@ section .text
 		cmp eax, 0
 		je .else2
 		;thenClause ...
-						jmp _method_return___STATIC_method__java_lang_String__valueOf$int$
+			mov eax, 8
+			call __malloc
+			mov ebx, __class_java_lang_String
+			mov [eax], ebx
+			push eax
+
+			mov eax, 14
+			mov ebx, 0
+			call __new_array
+				mov [eax + 8], 45
+				mov [eax + 12], 50
+				mov [eax + 16], 49
+				mov [eax + 20], 52
+				mov [eax + 24], 55
+				mov [eax + 28], 52
+				mov [eax + 32], 56
+				mov [eax + 36], 51
+				mov [eax + 40], 54
+				mov [eax + 44], 52
+				mov [eax + 48], 56
+				mov [eax + 52], 0
+push eax
+			call __constructor__java_lang_String__String$char@$
+			add esp, 8
+mov eax, null
+			jmp _method_return___STATIC_method__java_lang_String__valueOf$int$
 
 		jmp .endif2
 
@@ -1427,13 +1452,50 @@ mov eax, edx
 		cmp eax, 0
 		je .else8
 		;thenClause ...
-						jmp _method_return___STATIC_method__java_lang_String__valueOf$boolean$
+			mov eax, 8
+			call __malloc
+			mov ebx, __class_java_lang_String
+			mov [eax], ebx
+			push eax
+
+			mov eax, 7
+			mov ebx, 0
+			call __new_array
+				mov [eax + 8], 116
+				mov [eax + 12], 114
+				mov [eax + 16], 117
+				mov [eax + 20], 101
+				mov [eax + 24], 0
+push eax
+			call __constructor__java_lang_String__String$char@$
+			add esp, 8
+mov eax, null
+			jmp _method_return___STATIC_method__java_lang_String__valueOf$boolean$
 
 		jmp .endif8
 
 		.else8:
 			;elseClause ...
-						jmp _method_return___STATIC_method__java_lang_String__valueOf$boolean$
+			mov eax, 8
+			call __malloc
+			mov ebx, __class_java_lang_String
+			mov [eax], ebx
+			push eax
+
+			mov eax, 8
+			mov ebx, 0
+			call __new_array
+				mov [eax + 8], 102
+				mov [eax + 12], 97
+				mov [eax + 16], 108
+				mov [eax + 20], 115
+				mov [eax + 24], 101
+				mov [eax + 28], 0
+push eax
+			call __constructor__java_lang_String__String$char@$
+			add esp, 8
+mov eax, null
+			jmp _method_return___STATIC_method__java_lang_String__valueOf$boolean$
 
 		.endif8:
 
@@ -1471,7 +1533,25 @@ mov eax, edx
 		cmp eax, 0
 		je .else9
 		;thenClause ...
-						jmp _method_return___STATIC_method__java_lang_String__valueOf$java_lang_Object$
+			mov eax, 8
+			call __malloc
+			mov ebx, __class_java_lang_String
+			mov [eax], ebx
+			push eax
+
+			mov eax, 7
+			mov ebx, 0
+			call __new_array
+				mov [eax + 8], 110
+				mov [eax + 12], 117
+				mov [eax + 16], 108
+				mov [eax + 20], 108
+				mov [eax + 24], 0
+push eax
+			call __constructor__java_lang_String__String$char@$
+			add esp, 8
+mov eax, null
+			jmp _method_return___STATIC_method__java_lang_String__valueOf$java_lang_Object$
 
 		jmp .endif9
 
@@ -1543,7 +1623,25 @@ mov eax, edx
 		cmp eax, 0
 		je .else10
 		;thenClause ...
-						jmp _method_return___STATIC_method__java_lang_String__valueOf$java_lang_String$
+			mov eax, 8
+			call __malloc
+			mov ebx, __class_java_lang_String
+			mov [eax], ebx
+			push eax
+
+			mov eax, 7
+			mov ebx, 0
+			call __new_array
+				mov [eax + 8], 110
+				mov [eax + 12], 117
+				mov [eax + 16], 108
+				mov [eax + 20], 108
+				mov [eax + 24], 0
+push eax
+			call __constructor__java_lang_String__String$char@$
+			add esp, 8
+mov eax, null
+			jmp _method_return___STATIC_method__java_lang_String__valueOf$java_lang_String$
 
 		jmp .endif10
 
@@ -1707,7 +1805,21 @@ mov eax, edx
 		cmp eax, 0
 		je .else13
 		;thenClause ...
-						jmp _method_return___method__java_lang_String__substring$int$int$
+			mov eax, 8
+			call __malloc
+			mov ebx, __class_java_lang_String
+			mov [eax], ebx
+			push eax
+
+			mov eax, 3
+			mov ebx, 0
+			call __new_array
+				mov [eax + 8], 0
+push eax
+			call __constructor__java_lang_String__String$char@$
+			add esp, 8
+mov eax, null
+			jmp _method_return___method__java_lang_String__substring$int$int$
 
 		jmp .endif13
 
@@ -1759,7 +1871,21 @@ mov eax, edx
 		cmp eax, 0
 		je .else14
 		;thenClause ...
-						jmp _method_return___method__java_lang_String__substring$int$int$
+			mov eax, 8
+			call __malloc
+			mov ebx, __class_java_lang_String
+			mov [eax], ebx
+			push eax
+
+			mov eax, 3
+			mov ebx, 0
+			call __new_array
+				mov [eax + 8], 0
+push eax
+			call __constructor__java_lang_String__String$char@$
+			add esp, 8
+mov eax, null
+			jmp _method_return___method__java_lang_String__substring$int$int$
 
 		jmp .endif14
 
@@ -1793,7 +1919,21 @@ mov eax, edx
 		cmp eax, 0
 		je .else15
 		;thenClause ...
-						jmp _method_return___method__java_lang_String__substring$int$int$
+			mov eax, 8
+			call __malloc
+			mov ebx, __class_java_lang_String
+			mov [eax], ebx
+			push eax
+
+			mov eax, 3
+			mov ebx, 0
+			call __new_array
+				mov [eax + 8], 0
+push eax
+			call __constructor__java_lang_String__String$char@$
+			add esp, 8
+mov eax, null
+			jmp _method_return___method__java_lang_String__substring$int$int$
 
 		jmp .endif15
 
@@ -2340,7 +2480,21 @@ mov eax, edx
 		cmp eax, 0
 		je .else19
 		;thenClause ...
-						jmp _method_return___method__java_lang_String__trim
+			mov eax, 8
+			call __malloc
+			mov ebx, __class_java_lang_String
+			mov [eax], ebx
+			push eax
+
+			mov eax, 3
+			mov ebx, 0
+			call __new_array
+				mov [eax + 8], 0
+push eax
+			call __constructor__java_lang_String__String$char@$
+			add esp, 8
+mov eax, null
+			jmp _method_return___method__java_lang_String__trim
 
 		jmp .endif19
 
