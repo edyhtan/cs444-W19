@@ -1,17 +1,14 @@
 extern __ref_SIT_java_lang_Number
-extern __exception
 extern __malloc
 extern __constructor__java_lang_Object__Object
 extern __method__java_lang_Object__getClass
 extern __ref_SIT_foo_bar
 extern __constructor__Hello__Hello
 extern __ref_SIT_java_lang_Short
-extern __class_Main
 extern __ref_SIT_Main
 extern __ref_SIT_java_lang_Character
 extern __ref_SIT_java_lang_String
 extern __ref_SIT_Hello
-extern __constructor__Main__Main
 extern __ref_SIT_java_lang_Integer
 extern __method__java_lang_Object__toString
 extern __ref_SIT_java_lang_Class
@@ -392,38 +389,7 @@ global @@@@main
 		push ebp
 		mov ebp, esp
 
-				;; ---declare m
-		;; Allocating size of 1
-		mov eax, 1
-				call __malloc
-					mov ebx, __class_Main
-		mov [eax], ebx
-
-		;; Pushing object
-		push eax
-
-		;; Pushing args:
-					call __constructor__Main__Main
-		add esp, 0
-		pop eax
-		push eax
-
-		;; ---declare s
-		;; casting
-				;; Local Var m
-		mov eax, ebp
-		sub eax, 4
-		mov eax, [eax]
-
-		mov eax, [eax]
-		mov eax, [eax+4]
-		shr eax, 19
-		and eax, 0x1
-		cmp eax, 0
-		je __exception
-		push eax
-
-		;; ---declare h
+				;; ---declare h
 		;; Allocating size of 1
 		mov eax, 1
 				call __malloc
@@ -444,7 +410,7 @@ global @@@@main
 		;; Instanceof
 				;; Local Var h
 		mov eax, ebp
-		sub eax, 12
+		sub eax, 4
 		mov eax, [eax]
 
 		mov eax, [eax]
