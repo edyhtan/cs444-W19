@@ -61,7 +61,7 @@ section .text
 _start:
 
 mov eax, 16
-call __malloc
+call __mallocl
 
 mov ebx, __ref_SIT_java_io_OutputStream
 mov [ebx], eax
