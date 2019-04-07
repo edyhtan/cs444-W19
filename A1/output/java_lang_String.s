@@ -806,7 +806,8 @@ section .text
 				mov [eax + 44], ecx
 				mov ecx, 56
 				mov [eax + 48], ecx
-				mov [eax + 52], 0
+				mov ecx, 0
+				mov [eax + 52], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8
@@ -1534,7 +1535,8 @@ mov eax, edx
 				mov [eax + 16], ecx
 				mov ecx, 101
 				mov [eax + 20], ecx
-				mov [eax + 24], 0
+				mov ecx, 0
+				mov [eax + 24], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8
@@ -1563,7 +1565,8 @@ mov eax, edx
 				mov [eax + 20], ecx
 				mov ecx, 101
 				mov [eax + 24], ecx
-				mov [eax + 28], 0
+				mov ecx, 0
+				mov [eax + 28], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8
@@ -1622,7 +1625,8 @@ mov eax, edx
 				mov [eax + 16], ecx
 				mov ecx, 108
 				mov [eax + 20], ecx
-				mov [eax + 24], 0
+				mov ecx, 0
+				mov [eax + 24], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8
@@ -1715,7 +1719,8 @@ mov eax, edx
 				mov [eax + 16], ecx
 				mov ecx, 108
 				mov [eax + 20], ecx
-				mov [eax + 24], 0
+				mov ecx, 0
+				mov [eax + 24], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8
@@ -1892,7 +1897,8 @@ mov eax, edx
 			mov eax, 3
 			mov ebx, 0
 			call __new_array
-				mov [eax + 8], 0
+				mov ecx, 0
+				mov [eax + 8], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8
@@ -1957,7 +1963,8 @@ mov eax, edx
 			mov eax, 3
 			mov ebx, 0
 			call __new_array
-				mov [eax + 8], 0
+				mov ecx, 0
+				mov [eax + 8], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8
@@ -2004,7 +2011,8 @@ mov eax, edx
 			mov eax, 3
 			mov ebx, 0
 			call __new_array
-				mov [eax + 8], 0
+				mov ecx, 0
+				mov [eax + 8], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8
@@ -2569,7 +2577,8 @@ mov eax, edx
 			mov eax, 3
 			mov ebx, 0
 			call __new_array
-				mov [eax + 8], 0
+				mov ecx, 0
+				mov [eax + 8], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8

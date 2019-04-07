@@ -482,7 +482,8 @@ global @@@@main
 			mov [eax + 12], ecx
 			mov ecx, 51
 			mov [eax + 16], ecx
-			mov [eax + 20], 0
+			mov ecx, 0
+			mov [eax + 20], ecx
 		push eax
 		call __constructor__java_lang_String__String$char@$
 		add esp, 8
@@ -522,7 +523,8 @@ global @@@@main
 				mov [eax + 12], ecx
 				mov ecx, 51
 				mov [eax + 16], ecx
-				mov [eax + 20], 0
+				mov ecx, 0
+				mov [eax + 20], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8

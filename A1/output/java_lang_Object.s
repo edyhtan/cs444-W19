@@ -109,7 +109,8 @@ section .text
 			mov [eax + 72], ecx
 			mov ecx, 116
 			mov [eax + 76], ecx
-			mov [eax + 80], 0
+			mov ecx, 0
+			mov [eax + 80], ecx
 		push eax
 		call __constructor__java_lang_String__String$char@$
 		add esp, 8

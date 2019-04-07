@@ -139,7 +139,9 @@ public class Literal extends ExpressionContent implements ConstantExpression {
                 asmWriter.movToAddr("eax + " + (index++ * 4 + 8), Register.ecx);
             }
             asmWriter.indent(indent + 1);
-            asmWriter.movToAddr("eax + " + ((index * 4) + 8), "0");
+            asmWriter.mov(Register.ecx, 0);
+            asmWriter.indent(indent + 1);
+            asmWriter.movToAddr("eax + " + ((index * 4) + 8), Register.ecx);
             asmWriter.indent(indent);
             asmWriter.push(Register.eax);
 
