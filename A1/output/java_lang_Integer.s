@@ -1,11 +1,10 @@
 extern __method__java_lang_Object__clone
+extern __exception
 extern __method__java_lang_Number__intValue
 extern __method__java_lang_Object__toString
 extern __constructor__java_lang_Number__Number
 extern __method__java_lang_Object__hashCode
-extern __method__java_lang_String__charAt$int$
 extern __method__java_lang_Object__getClass
-extern __method__java_lang_String__length
 extern __method__java_lang_Object__equals$java_lang_Object$
 extern __STATIC_method__java_lang_String__valueOf$int$
 
@@ -20,7 +19,7 @@ __class_java_lang_Integer:
 
 		global __ref_PARENTS_java_lang_Integer
 	__ref_PARENTS_java_lang_Integer:
-		dd 000000001001000100000b
+		dd 0000011100000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -44,7 +43,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;; Implicit This
+		;; Implicit This
 		mov eax, [ebp + 0]
 		;; Field value
 		add eax, 4
@@ -62,7 +61,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;; ---declare ret
+		;; ---declare ret
 		mov eax, 0
 
 		push eax
@@ -92,12 +91,32 @@ section .text
 
 			push eax
 			;; RHS code...
-			;; Method Invocation:
-			;; o.code
-			;; Pushing args
-			call __method__java_lang_String__length
+			;; Method Invocation: o.m(...)
+			;; Names(ArgList)
+				;; Local Var s
+				mov eax, ebp
+				add eax, 8
+				mov eax, [eax]
 
+			cmp eax, 0
+			je __exception
+			;; non-static, pushing reference
+			push eax
+
+			;; Pushing args
+			;; class method:
+			;; addr of o
+			mov eax, [esp + 0]
+			;; vtable
+			mov eax, [eax]
+			;; addr of m body
+			mov eax, [eax + 48]
+
+			call eax
+
+			;; pop arguments
 			add esp, 4
+
 			pop ebx
 			cmp ebx, eax
 			jl .lt1
@@ -112,8 +131,18 @@ section .text
 			;; logical_or
 			;; ompare_eq
 			;; LHS code...
-			;; Method Invocation:
-			;; o.code
+			;; Method Invocation: o.m(...)
+			;; Names(ArgList)
+				;; Local Var s
+				mov eax, ebp
+				add eax, 8
+				mov eax, [eax]
+
+			cmp eax, 0
+			je __exception
+			;; non-static, pushing reference
+			push eax
+
 			;; Pushing args
 				;; Local Var i
 				mov eax, ebp
@@ -122,9 +151,19 @@ section .text
 
 				push eax
 
-			call __method__java_lang_String__charAt$int$
+			;; class method:
+			;; addr of o
+			mov eax, [esp + 4]
+			;; vtable
+			mov eax, [eax]
+			;; addr of m body
+			mov eax, [eax + 40]
 
+			call eax
+
+			;; pop arguments
 			add esp, 8
+
 			push eax
 			;; RHS code...
 			mov eax, 45
@@ -142,8 +181,18 @@ section .text
 			;; logical_and
 			;; ompare_ge
 			;; LHS code...
-			;; Method Invocation:
-			;; o.code
+			;; Method Invocation: o.m(...)
+			;; Names(ArgList)
+				;; Local Var s
+				mov eax, ebp
+				add eax, 8
+				mov eax, [eax]
+
+			cmp eax, 0
+			je __exception
+			;; non-static, pushing reference
+			push eax
+
 			;; Pushing args
 				;; Local Var i
 				mov eax, ebp
@@ -152,9 +201,19 @@ section .text
 
 				push eax
 
-			call __method__java_lang_String__charAt$int$
+			;; class method:
+			;; addr of o
+			mov eax, [esp + 4]
+			;; vtable
+			mov eax, [eax]
+			;; addr of m body
+			mov eax, [eax + 40]
 
+			call eax
+
+			;; pop arguments
 			add esp, 8
+
 			push eax
 			;; RHS code...
 			mov eax, 48
@@ -171,8 +230,18 @@ section .text
 			je .end_and4
 			;; ompare_le
 			;; LHS code...
-			;; Method Invocation:
-			;; o.code
+			;; Method Invocation: o.m(...)
+			;; Names(ArgList)
+				;; Local Var s
+				mov eax, ebp
+				add eax, 8
+				mov eax, [eax]
+
+			cmp eax, 0
+			je __exception
+			;; non-static, pushing reference
+			push eax
+
 			;; Pushing args
 				;; Local Var i
 				mov eax, ebp
@@ -181,9 +250,19 @@ section .text
 
 				push eax
 
-			call __method__java_lang_String__charAt$int$
+			;; class method:
+			;; addr of o
+			mov eax, [esp + 4]
+			;; vtable
+			mov eax, [eax]
+			;; addr of m body
+			mov eax, [eax + 40]
 
+			call eax
+
+			;; pop arguments
 			add esp, 8
+
 			push eax
 			;; RHS code...
 			mov eax, 57
@@ -209,8 +288,18 @@ section .text
 			;expression code...
 			;; ompare_eq
 			;; LHS code...
-			;; Method Invocation:
-			;; o.code
+			;; Method Invocation: o.m(...)
+			;; Names(ArgList)
+				;; Local Var s
+				mov eax, ebp
+				add eax, 8
+				mov eax, [eax]
+
+			cmp eax, 0
+			je __exception
+			;; non-static, pushing reference
+			push eax
+
 			;; Pushing args
 				;; Local Var i
 				mov eax, ebp
@@ -219,9 +308,19 @@ section .text
 
 				push eax
 
-			call __method__java_lang_String__charAt$int$
+			;; class method:
+			;; addr of o
+			mov eax, [esp + 4]
+			;; vtable
+			mov eax, [eax]
+			;; addr of m body
+			mov eax, [eax + 40]
 
+			call eax
+
+			;; pop arguments
 			add esp, 8
+
 			push eax
 			;; RHS code...
 			mov eax, 45
@@ -284,8 +383,18 @@ section .text
 
 					push eax
 					;; RHS code...
-					;; Method Invocation:
-					;; o.code
+					;; Method Invocation: o.m(...)
+					;; Names(ArgList)
+						;; Local Var s
+						mov eax, ebp
+						add eax, 8
+						mov eax, [eax]
+
+					cmp eax, 0
+					je __exception
+					;; non-static, pushing reference
+					push eax
+
 					;; Pushing args
 						;; Local Var i
 						mov eax, ebp
@@ -294,9 +403,19 @@ section .text
 
 						push eax
 
-					call __method__java_lang_String__charAt$int$
+					;; class method:
+					;; addr of o
+					mov eax, [esp + 4]
+					;; vtable
+					mov eax, [eax]
+					;; addr of m body
+					mov eax, [eax + 40]
 
+					call eax
+
+					;; pop arguments
 					add esp, 8
+
 					pop ebx
 					add ebx, eax
 					mov eax, ebx
@@ -391,8 +510,11 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;; Method Invocation:
-		;; o.code
+		;; Method Invocation: o.m(...)
+		;; Names(ArgList)
+
+		;; static method, dont push this
+
 		;; Pushing args
 			;; Implicit This
 			mov eax, [ebp + 0]
@@ -402,9 +524,11 @@ section .text
 
 			push eax
 
+		;; static method:
 		call __STATIC_method__java_lang_String__valueOf$int$
 
-		add esp, 8
+		add esp, 4
+
 		jmp _method_return___method__java_lang_Integer__toString
 
 		_method_return___method__java_lang_Integer__toString:
@@ -487,8 +611,11 @@ mov eax, 0
 				add eax, 4
 
 			push eax
-				;; Method Invocation:
-				;; o.code
+				;; Method Invocation: o.m(...)
+				;; Names(ArgList)
+
+				;; static method, dont push this
+
 				;; Pushing args
 					;; Local Var s
 					mov eax, ebp
@@ -497,9 +624,11 @@ mov eax, 0
 
 					push eax
 
+				;; static method:
 				call __STATIC_method__java_lang_Integer__parseInt$java_lang_String$
 
-				add esp, 8
+				add esp, 4
+
 			pop ebx
 			mov [ebx], eax
 

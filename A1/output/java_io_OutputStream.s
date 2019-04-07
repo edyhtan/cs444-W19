@@ -1,4 +1,5 @@
 extern __method__java_lang_Object__clone
+extern __exception
 extern __method__java_lang_Object__toString
 extern __constructor__java_lang_Object__Object
 extern __method__java_lang_Object__hashCode
@@ -17,7 +18,7 @@ __class_java_io_OutputStream:
 
 		global __ref_PARENTS_java_io_OutputStream
 	__ref_PARENTS_java_io_OutputStream:
-		dd 000000000001000001000b
+		dd 0000010000000001b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -40,15 +41,30 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;; Method Invocation:
-		;; o.code
+		;; Method Invocation: o.m(...)
+		;; Names(ArgList)
+		cmp eax, 0
+		je __exception
+		;; non-static, pushing reference
+		push eax
+
 		;; Pushing args
 			;; casting
 			push eax
 
-		call __method__java_io_OutputStream__write$int$
+		;; class method:
+		;; addr of o
+		mov eax, [esp + 4]
+		;; vtable
+		mov eax, [eax]
+		;; addr of m body
+		mov eax, [eax + 36]
 
+		call eax
+
+		;; pop arguments
 		add esp, 8
+
 
 		_method_return___method__java_io_OutputStream__write$char$:
 			mov esp, ebp
@@ -60,8 +76,11 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;; Method Invocation:
-		;; o.code
+		;; Method Invocation: o.m(...)
+		;; Names(ArgList)
+
+		;; static method, dont push this
+
 		;; Pushing args
 			;; Local Var b
 			mov eax, ebp
@@ -70,9 +89,11 @@ section .text
 
 			push eax
 
-		call __STATIC_method__java_io_OutputStream__nativeWrite$int$
+		;; static method:
+		call NATIVEjava.io.OutputStream.nativeWrite
 
-		add esp, 8
+		add esp, 4
+
 
 		_method_return___method__java_io_OutputStream__write$int$:
 			mov esp, ebp
@@ -87,7 +108,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		
+
 		_method_return___method__java_io_OutputStream__flush:
 			mov esp, ebp
 			pop ebp

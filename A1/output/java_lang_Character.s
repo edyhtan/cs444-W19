@@ -17,7 +17,7 @@ __class_java_lang_Character:
 
 		global __ref_PARENTS_java_lang_Character
 	__ref_PARENTS_java_lang_Character:
-		dd 000000000101000000000b
+		dd 0000010000100000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -36,8 +36,11 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;; Method Invocation:
-		;; o.code
+		;; Method Invocation: o.m(...)
+		;; Names(ArgList)
+
+		;; static method, dont push this
+
 		;; Pushing args
 			;; Implicit This
 			mov eax, [ebp + 0]
@@ -47,9 +50,11 @@ section .text
 
 			push eax
 
+		;; static method:
 		call __STATIC_method__java_lang_String__valueOf$char$
 
-		add esp, 8
+		add esp, 4
+
 		jmp _method_return___method__java_lang_Character__toString
 
 		_method_return___method__java_lang_Character__toString:

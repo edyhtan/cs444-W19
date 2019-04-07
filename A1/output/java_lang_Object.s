@@ -10,7 +10,7 @@ __class_java_lang_Object:
 
 		global __ref_PARENTS_java_lang_Object
 	__ref_PARENTS_java_lang_Object:
-		dd 000000000001000000000b
+		dd 0000010000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -29,7 +29,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;; ompare_eq
+		;; ompare_eq
 		;; LHS code...
 		mov eax, [ebp + 0]
 		push eax
@@ -60,7 +60,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-						jmp _method_return___method__java_lang_Object__toString
+				jmp _method_return___method__java_lang_Object__toString
 
 		_method_return___method__java_lang_Object__toString:
 			mov esp, ebp
@@ -72,7 +72,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				mov eax, 42
+		mov eax, 42
 		jmp _method_return___method__java_lang_Object__hashCode
 
 		_method_return___method__java_lang_Object__hashCode:
@@ -85,7 +85,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				mov eax, [ebp + 0]
+		mov eax, [ebp + 0]
 		jmp _method_return___method__java_lang_Object__clone
 
 		_method_return___method__java_lang_Object__clone:
@@ -98,7 +98,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				mov eax, 0
+		mov eax, 0
 		jmp _method_return___method__java_lang_Object__getClass
 
 		_method_return___method__java_lang_Object__getClass:

@@ -18,7 +18,7 @@ __class_java_lang_Short:
 
 		global __ref_PARENTS_java_lang_Short
 	__ref_PARENTS_java_lang_Short:
-		dd 000000001001010000000b
+		dd 0000111000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -38,7 +38,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;; casting
+		;; casting
 		jmp _method_return___method__java_lang_Short__intValue
 
 		_method_return___method__java_lang_Short__intValue:
@@ -51,8 +51,11 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;; Method Invocation:
-		;; o.code
+		;; Method Invocation: o.m(...)
+		;; Names(ArgList)
+
+		;; static method, dont push this
+
 		;; Pushing args
 			;; Implicit This
 			mov eax, [ebp + 0]
@@ -62,9 +65,11 @@ section .text
 
 			push eax
 
+		;; static method:
 		call __STATIC_method__java_lang_String__valueOf$short$
 
-		add esp, 8
+		add esp, 4
+
 		jmp _method_return___method__java_lang_Short__toString
 
 		_method_return___method__java_lang_Short__toString:

@@ -17,7 +17,7 @@ __class_java_util_Arrays:
 
 		global __ref_PARENTS_java_util_Arrays
 	__ref_PARENTS_java_util_Arrays:
-		dd 000000000001000000001b
+		dd 0100010000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -38,7 +38,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;; if statement0
+		;; if statement0
 		;expression code...
 		;; ompare_ne
 		;; LHS code...
@@ -197,7 +197,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				;; if statement3
+		;; if statement3
 		;expression code...
 		;; ompare_ne
 		;; LHS code...
