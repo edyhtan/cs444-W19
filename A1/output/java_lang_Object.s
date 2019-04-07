@@ -10,7 +10,7 @@ __class_java_lang_Object:
 
 		global __ref_PARENTS_java_lang_Object
 	__ref_PARENTS_java_lang_Object:
-		dd 00000000010000000000b
+		dd 000000000001000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -31,6 +31,7 @@ section .text
 
 				;; ompare_eq
 		;; LHS code...
+		mov eax, [ebp + 0]
 		push eax
 		;; RHS code...
 		;; Local Var other
@@ -84,7 +85,8 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				jmp _method_return___method__java_lang_Object__clone
+				mov eax, [ebp + 0]
+		jmp _method_return___method__java_lang_Object__clone
 
 		_method_return___method__java_lang_Object__clone:
 			mov esp, ebp

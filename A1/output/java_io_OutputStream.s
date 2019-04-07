@@ -17,7 +17,7 @@ __class_java_io_OutputStream:
 
 		global __ref_PARENTS_java_io_OutputStream
 	__ref_PARENTS_java_io_OutputStream:
-		dd 00000000010000000001b
+		dd 000000000001000001000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -43,6 +43,7 @@ section .text
 				;; Method Invocation:
 		;; o.code
 		;; Pushing args
+			;; casting
 			push eax
 
 		call __method__java_io_OutputStream__write$int$

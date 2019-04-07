@@ -144,8 +144,7 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
             case Cap:
             case Bar:
             case Amp:
-                // TODO: JLS 15.22 15.23 says both side must be boolean. We should use && here.
-                if (lhsType.equals("boolean") || rhsType.equals("boolean")) {
+                if (lhsType.equals("boolean") && rhsType.equals("boolean")) {
                     joosType = JoosType.getJoosType("boolean");
                 } else {
                     throw new TypeCheckException(String.format("Logical operation type incompatible: %s, %s",
@@ -168,7 +167,6 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
             ConstantLiteral RHS = ((ConstantExpression) this.RHS).evaluateConstant();
             switch (operator) {
                 case Plus:
-                    // TODO: Questionable type, looks like byte + byte is int? ↑
                     if (LHS.type.isString() || RHS.type.isString()) {
                         constantLiteral = new ConstantLiteral(LHS.literal + RHS.literal,
                                 JoosType.getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "String"))));
@@ -267,6 +265,8 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
     public void codeGen(int indent) {
         LHS.addWriter(asmWriter);
         RHS.addWriter(asmWriter);
+        LHS.addEnv(getEnv());
+        RHS.addEnv(getEnv());
 
         switch (operator) {
             case Plus:
@@ -279,8 +279,19 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 asmWriter.mov(Register.eax, Register.ebx);
                 // TODO: string concatenation
                 break;
-            // assignability
             case Equal:
+                asmWriter.indent(indent);
+                ((LeftValue)LHS).getCodeAddr(indent+1);
+
+                asmWriter.indent(indent);
+                asmWriter.push(Register.eax);
+                RHS.codeGen(indent + 1);
+                asmWriter.indent(indent);
+                asmWriter.pop(Register.ebx);
+                asmWriter.indent(indent);
+                asmWriter.movToAddr(Register.ebx, Register.eax);
+
+                //TODO: array assignment
 
                 break;
             // arithmetic operations
@@ -324,7 +335,6 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
 
                 asmWriter.compare(LHS, RHS, indent, "jne", "ne", offset);
                 break;
-            // TODO: check if LHS && RHS is char / octal - use unsigned
             case GE:
                 offset = MethodDeclr.PER_METHOD_COUNT;
                 MethodDeclr.PER_METHOD_COUNT++;
@@ -380,7 +390,6 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 asmWriter.shr(Register.eax, column);
                 asmWriter.indent(indent);
                 asmWriter.and(Register.eax,"0x1");
-                asmWriter.indent(indent);
                 break;
             // logical operations
             case And:
@@ -462,10 +471,5 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
     @Override
     public void addWriter(AsmWriter writer) {
         asmWriter = writer;
-    }
-
-    private int calcTestBit(int i) {
-        if(i == 0) return 1;
-        return 2* calcTestBit(i-1);
     }
 }

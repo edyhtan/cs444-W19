@@ -355,8 +355,10 @@ public class AsmWriter {
 
     public static void initTable() {
         // Create List of All Interface call header
-        allMethods = new ArrayLinkedHashSet<>();
+
         parentMatrix = new ArrayLinkedHashMap<>();
+        allMethods = new ArrayLinkedHashSet<>();
+
         for (ClassEnv classEnv : GlobalEnv.instance.classEnvs) {
             if (classEnv.getTypeDeclr() instanceof InterfaceDeclr) {
                 allMethods.addAll(classEnv.getAllMethodSignature().keySet());
@@ -366,7 +368,6 @@ public class AsmWriter {
         // Parent Matrix
         for (ClassEnv env : GlobalEnv.instance.classEnvs) {
             parentMatrix.put(env.getJoosType(), "");
-            System.out.println(env.getJoosType().getTypeName());
         }
 
         // Compute Matrix
@@ -379,7 +380,6 @@ public class AsmWriter {
                 String ref = Integer.toString(bit) + parentMatrix.get(type);
                 parentMatrix.put(type, ref);
             }
-            System.out.println(parentMatrix.get(type) + " " + type.getTypeName());
         }
     }
 

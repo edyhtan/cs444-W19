@@ -94,7 +94,7 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
     @Override
     public void definiteAssignmentAnalysis(HashMap initializedFields) throws UninitializedVariableException {
         HashMap localInitializedFields = (HashMap) initializedFields.clone();
-        // TODO
+
     }
 
     public void validateStaticAccess() throws TypeCheckException {
@@ -139,7 +139,7 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
     }
 
     public void buildCanonicalName(ArrayList<String> className) {
-        //TODO
+
     }
 
     public boolean isAbstract() {
@@ -241,7 +241,11 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
         for (Statement statement : bodyBlock) {
             statement.addWriter(asmWriter);
 
-            SymbolTable.assignOffset(statement, localEnv);
+            if(statement instanceof Block) {
+                SymbolTable.assignOffset(statement, (LocalEnv) ((Block) statement).getEnv());
+            }
+                SymbolTable.assignOffset(statement, localEnv);
+
 
             if (statement instanceof ForStatement) {
                 if(((ForStatement)statement).getBlock().size() == 1 && ((ForStatement)statement).getBlock().get(0) instanceof Block) {

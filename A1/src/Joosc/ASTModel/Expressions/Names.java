@@ -1,7 +1,6 @@
 package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.Constants.Symbol;
-import Joosc.ASTModel.ClassMember.FieldDeclr;
 import Joosc.AsmWriter.AsmWriter;
 import Joosc.AsmWriter.Register;
 import Joosc.Environment.*;
@@ -10,14 +9,12 @@ import Joosc.Exceptions.TypeCheckException;
 import Joosc.Exceptions.UnreachableStatementException;
 import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
-import Joosc.util.ArrayLinkedHashMap;
 import Joosc.util.Tri;
 
-import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class Names extends ExpressionContent implements HasAddress {
+public class Names extends ExpressionContent implements HasAddress, LeftValue {
     ArrayList<String> name;
     FieldsVarInfo info;
     boolean staticPrefix = false;
@@ -355,6 +352,7 @@ public class Names extends ExpressionContent implements HasAddress {
                     if (fullTypeEnv != null)
                         break;
 
+                    System.err.println(prefix);
                     prefix.add(name.get(0));
                     name.remove(0);
 

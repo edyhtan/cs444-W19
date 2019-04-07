@@ -16,7 +16,7 @@ __class_java_lang_Number:
 
 		global __ref_PARENTS_java_lang_Number
 	__ref_PARENTS_java_lang_Number:
-		dd 00000000011000000000b
+		dd 000000001001000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass

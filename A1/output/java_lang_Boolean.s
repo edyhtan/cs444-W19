@@ -17,7 +17,7 @@ __class_java_lang_Boolean:
 
 		global __ref_PARENTS_java_lang_Boolean
 	__ref_PARENTS_java_lang_Boolean:
-		dd 00000000010000001000b
+		dd 000000100001000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -79,12 +79,26 @@ mov eax, 0
 		add ebx, 4
 		mov [ebx], eax
 ;; Field init:: MAX_VALUE
+				;; casting
 		mov ebx, [esp]
 		add ebx, 0
 		mov [ebx], eax
 ;; Field init end, pop object
 		add esp, 4
 ;; Constructor Body
+							;; Implicit This
+				mov eax, [ebp + 12]
+				;; Field value
+				add eax, 4
+
+			push eax
+				;; Local Var i
+				mov eax, ebp
+				add eax, 8
+				mov eax, [eax]
+
+			pop ebx
+			mov [ebx], eax
 
 ;; Epilogue
 		mov esp, ebp
@@ -108,6 +122,7 @@ mov eax, 0
 		add ebx, 4
 		mov [ebx], eax
 ;; Field init:: MAX_VALUE
+				;; casting
 		mov ebx, [esp]
 		add ebx, 0
 		mov [ebx], eax
