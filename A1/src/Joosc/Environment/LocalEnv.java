@@ -31,8 +31,11 @@ public class LocalEnv implements Env {
         currentClass = parent.getCurrentClass();
         currentMethod = (ast instanceof ClassBodyDeclr) ? (ClassBodyDeclr) ast : parent.getCurrentMethod();
         ArrayList<Statement> statements;
-        if(parent instanceof LocalEnv) symbolTable = new SymbolTable(((LocalEnv) parent).getSymbolTable());
-        else symbolTable = new SymbolTable(null);
+
+        if(parent instanceof LocalEnv)
+            symbolTable = new SymbolTable(((LocalEnv) parent).getSymbolTable());
+        else
+            symbolTable = new SymbolTable(null);
 
         if (ast instanceof Scope) {
             ((Scope) ast).addEnv(this);
@@ -52,7 +55,7 @@ public class LocalEnv implements Env {
         if (ast instanceof ForStatement) {
             Block statement = ((ForStatement) ast).getStatement();
             statement.addEnv(new LocalEnv(statement, this));
-        } else {
+        }else {
             for (Statement statement : statements) {
                 if (hasSubEnvironment(statement)) {
                     subEnvs.add(new LocalEnv(statement, this));
@@ -77,11 +80,14 @@ public class LocalEnv implements Env {
             // parameter
             ArrayList<Pair<Type, String>> param = ((ClassBodyDeclr) ast).getFormalParamList();
             if (param != null) {
+                int i = 8;
                 for (Pair<Type, String> pair : param) {
                     if (symbolTable.getTable().containsKey(pair.getValue())) {
                         throw new NamingResolveException("Duplicated Local Parameter Name: " + pair.getValue());
                     } else {
                         symbolTable.getTable().put(pair.getValue(), typeResolve(pair.getValue(), pair.getKey(), new ArrayList<>()));
+                        symbolTable.getTable().get(pair.getValue()).setOffset(i);
+                        i += 4;
                     }
                 }
             }
@@ -289,18 +295,8 @@ public class LocalEnv implements Env {
     }
 
     public void printOffset() {
-        if(symbolTable.getParent() != null) {
-            symbolTable.getParent().getTable().forEach((x, y) -> System.out.println(x + " " + y.getOffset()));
-        }
-        symbolTable.getTable().forEach((x, y) -> System.out.println(x + " " + y.getOffset()));
-    }
-
-    public int getLastOffset() {
-        return symbolTable.getLastOffset();
-    }
-
-    public void incLastOffset() {
-        symbolTable.incLastOffset();
+        symbolTable.getTable().forEach((x,y)-> System.err.println("\t" + x + ": " + y.getOffset()));
+        subEnvs.forEach(x -> x.printOffset());
     }
 
     public Env getParent() {

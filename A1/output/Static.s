@@ -76,7 +76,7 @@ section .text
 			push eax
 				;; Local Var y
 				mov eax, ebp
-				sub eax, 8
+				sub eax, 4
 				mov eax, [eax]
 
 			pop ebx

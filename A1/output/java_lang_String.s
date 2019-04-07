@@ -19,7 +19,7 @@ __class_java_lang_String:
 
 		global __ref_PARENTS_java_lang_String
 	__ref_PARENTS_java_lang_String:
-		dd 000000001010000000000b
+		dd 00000001010000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -616,7 +616,7 @@ mov eax, edx
 					;; LHS code...
 					;; Local Var d
 					mov eax, ebp
-					sub eax, 16
+					sub eax, 20
 					mov eax, [eax]
 
 					push eax

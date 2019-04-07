@@ -46,13 +46,9 @@ public class IfStatement extends HasScope implements Statement, HasExpression {
 
     @Override
     public ArrayList<Statement> getBlock() {
-        if (thenClause instanceof Block) {
-            return ((Block) thenClause).getBlock();
-        } else {
             ArrayList<Statement> statements = new ArrayList<>();
             statements.add(thenClause);
             return statements;
-        }
     }
 
     @Override
@@ -118,6 +114,7 @@ public class IfStatement extends HasScope implements Statement, HasExpression {
     public void codeGen(int indent) {
         this.offset = Program.PER_PROGRAM_COUNT;
         Program.PER_PROGRAM_COUNT++;
+        ((LocalEnv)getEnv()).getSymbolTable().assignOffset();
 
         expression.addWriter(asmWriter);
         thenClause.addWriter(asmWriter);

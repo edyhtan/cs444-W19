@@ -5,6 +5,8 @@ extern __constructor__java_lang_Object__Object
 extern __method__java_lang_Object__getClass
 extern __ref_SIT_java_lang_Short
 extern __ref_SIT_java_lang_Character
+extern __class_ArrayTemplate
+extern __constructor__java_io_PrintStream__PrintStream
 extern __ref_SIT_java_lang_String
 extern __ref_SIT_java_lang_Integer
 extern __method__java_lang_Object__toString
@@ -13,7 +15,9 @@ extern __ref_SIT_java_lang_Class
 extern __ref_SIT_java_util_Arrays
 extern __method__java_lang_Object__equals$java_lang_Object$
 extern __ref_SIT_java_io_PrintStream
+extern __class_java_io_PrintStream
 extern __method__java_lang_Object__clone
+extern __ref_SIT_ArrayTemplate
 extern __field_java_lang_Boolean_MAX_VALUE
 extern __ref_SIT_java_lang_Object
 extern __method__java_lang_Object__hashCode
@@ -306,24 +310,59 @@ mov [ebx], eax
 
 		mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
+mov ebx, __ref_SIT_ArrayTemplate
+mov [ebx], eax
+
+		mov ebx, __method__java_lang_Object__hashCode
+	mov [eax + 0], ebx
+
+		mov ebx, __method__java_lang_Object__equals$java_lang_Object$
+	mov [eax + 4], ebx
+
+		mov ebx, __method__java_lang_Object__clone
+	mov [eax + 8], ebx
+
+		mov ebx, __method__java_lang_Object__toString
+	mov [eax + 12], ebx
 
 ;; Static Field: __field_java_lang_Boolean_MAX_VALUE
-mov eax, 3
+	;; casting
+	;; primitive run-time casting to [byte]
+		mov eax, 127
+	and eax, 0xff
 mov ebx, __field_java_lang_Boolean_MAX_VALUE
 mov [ebx], eax
 
 ;; Static Field: __field_java_lang_Byte_MAX_VALUE
-mov eax, 3
+	;; casting
+	;; primitive run-time casting to [byte]
+		mov eax, 127
+	and eax, 0xff
 mov ebx, __field_java_lang_Byte_MAX_VALUE
 mov [ebx], eax
 
 ;; Static Field: __field_java_lang_Integer_MAX_VALUE
-mov eax, 3
+	mov eax, 2147483647
 mov ebx, __field_java_lang_Integer_MAX_VALUE
 mov [ebx], eax
 
 ;; Static Field: __field_java_lang_System_out
-mov eax, 3
+	;; ---new [java, io, PrintStream] ()
+	;; Allocating size of 4
+	mov eax, 4
+		call __malloc
+			mov ebx, __class_java_io_PrintStream
+	mov [eax], ebx
+
+	;; Pushing object
+	push eax
+
+	;; Pushing args:
+	call __constructor__java_io_PrintStream__PrintStream
+	add esp, 0
+	pop eax
+
+	;; ---end of new [java, io, PrintStream] ()
 mov ebx, __field_java_lang_System_out
 mov [ebx], eax
 
@@ -383,14 +422,14 @@ global @@@@main
 					;; casting
 										mov eax, 0
 					cmp eax, 0
-					je .cast_end
+					je .cast_end2
 					mov eax, [eax]
 					mov eax, [eax+4]
 					shr eax, 15
 					and eax, 0x1
 					cmp eax, 0
 					je __exception
-					.cast_end:
+					.cast_end2:
 					push eax
 
 				call __constructor__J1_sideeffects_obj3__J1_sideeffects_obj3$int$J1_sideeffects_obj3$
@@ -656,14 +695,14 @@ global @@@@main
 				;; casting
 								mov eax, 0
 				cmp eax, 0
-				je .cast_end
+				je .cast_end0
 				mov eax, [eax]
 				mov eax, [eax+4]
 				shr eax, 15
 				and eax, 0x1
 				cmp eax, 0
 				je __exception
-				.cast_end:
+				.cast_end0:
 				push eax
 
 			call __constructor__J1_sideeffects_obj3__J1_sideeffects_obj3$int$J1_sideeffects_obj3$

@@ -7,6 +7,7 @@ import Joosc.ASTModel.Program;
 import Joosc.AsmWriter.AsmWriter;
 import Joosc.AsmWriter.Register;
 import Joosc.Environment.Env;
+import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.Exceptions.UnreachableStatementException;
@@ -139,6 +140,8 @@ public class ForStatement extends HasScope implements Statement, HasExpression {
     public void codeGen(int indent) {
         this.offset = Program.PER_PROGRAM_COUNT;
         Program.PER_PROGRAM_COUNT++;
+
+        ((LocalEnv)getEnv()).getSymbolTable().assignOffset();
 
         if (forInit != null) forInit.addWriter(asmWriter);
         if (forUpdate != null) forUpdate.addWriter(asmWriter);

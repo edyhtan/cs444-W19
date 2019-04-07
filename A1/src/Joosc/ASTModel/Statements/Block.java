@@ -84,6 +84,7 @@ public class Block extends HasScope implements Statement {
 
     @Override
     public void codeGen(int indent) {
+        ((LocalEnv)getEnv()).getSymbolTable().assignOffset();
         for (Statement statement : statements) {
             statement.addWriter(asmWriter);
             statement.codeGen(indent);

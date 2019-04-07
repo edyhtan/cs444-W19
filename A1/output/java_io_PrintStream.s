@@ -27,7 +27,7 @@ __class_java_io_PrintStream:
 
 		global __ref_PARENTS_java_io_PrintStream
 	__ref_PARENTS_java_io_PrintStream:
-		dd 000000000010000000011b
+		dd 00000000010000000011b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass

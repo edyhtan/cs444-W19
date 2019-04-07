@@ -17,7 +17,7 @@ __class_java_util_Arrays:
 
 		global __ref_PARENTS_java_util_Arrays
 	__ref_PARENTS_java_util_Arrays:
-		dd 000000100010000000000b
+		dd 00000100010000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
