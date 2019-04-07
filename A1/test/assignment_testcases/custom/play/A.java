@@ -1,35 +1,41 @@
 public class A {
 
-    public A() {}
+    public A() {
+    }
 
     public static int test() {
+//        byte b0 = (byte)-128;
+//        byte b1 = (byte)127;
+//
+//        short s0 = (short)-32768;
+//        short s1 = (short)32767;
+//
+//        char c0 = (char)0;
+//        char c1 = (char)65535;
+//
+//
+//        int i0 = (int)-2147483648;
+//        int i1 = (int)2147483647;
+//
+//        return 0;
+
         int i = 0;
-        int j = 1;
-        int q = 2;
 
-        if(i == 0) {
-            return 2;
-        } else {
-            int d = 0;
-            while(i < 10) {
-                int xx = 3;
-                while(j<10) {
-                    int yy_j = 4;
-                    while(q < 3) {
-                        int zz_q = 5;
-                    }
-                }
-
-                for(int m = 0; m < 5; m = m+1) {
-                    int yy_m = 4;
-                    for(int n = 0; n < 4; n= n+1) {
-                        int zz_n =6;
-                    }
-                    int yy_2 = 0;
+        while (i < 123) {
+            int j = 0;
+            for (; i < 123; i = i + 2) {
+                while (i < 10) {
+                    i = i + 3;
+                    j = j + 3;
                 }
             }
         }
 
-        return 0;
+        if (i > 123) {
+            return 123;
+        }
+        return i;
     }
+
+
 }

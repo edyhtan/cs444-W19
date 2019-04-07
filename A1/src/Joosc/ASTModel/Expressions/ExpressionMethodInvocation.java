@@ -6,7 +6,6 @@ import Joosc.ASTModel.ClassInterface.InterfaceDeclr;
 import Joosc.AsmWriter.AsmWriter;
 import Joosc.AsmWriter.Register;
 import Joosc.Environment.Env;
-import Joosc.Environment.LocalEnv;
 import Joosc.Environment.MethodInfo;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;

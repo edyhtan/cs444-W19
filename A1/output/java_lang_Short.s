@@ -39,7 +39,14 @@ section .text
 		mov ebp, esp
 
 		;; casting
-		jmp _method_return___method__java_lang_Short__intValue
+		;; primitive run-time casting to [int]
+				;; Implicit This
+		mov eax, [ebp + 8]
+		;; Field value
+		add eax, 4
+		mov eax, [eax]
+
+				jmp _method_return___method__java_lang_Short__intValue
 
 		_method_return___method__java_lang_Short__intValue:
 			mov esp, ebp

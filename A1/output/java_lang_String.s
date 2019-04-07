@@ -611,6 +611,22 @@ mov eax, edx
 
 								push eax
 					;; casting
+					;; primitive run-time casting to [char]
+										;; Plus
+					;; LHS code...
+					;; Local Var d
+					mov eax, ebp
+					sub eax, 16
+					mov eax, [eax]
+
+					push eax
+					;; RHS code...
+					mov eax, 48
+					pop ebx
+					add ebx, eax
+					mov eax, ebx
+
+					and eax, 0xfff
 				pop ebx
 				mov [ebx], eax
 
@@ -727,12 +743,12 @@ mov eax, edx
 
 			pop ebx
 			cmp ebx, eax
-			jl .lt4
+			jl .lt5
 			mov eax, 0
-			jmp .end_lt4
-			.lt4:
+			jmp .end_lt5
+			.lt5:
 				mov eax, 1
-			.end_lt4:
+			.end_lt5:
 
 			cmp eax, 0
 			je .endfor7
@@ -813,7 +829,13 @@ mov eax, edx
 
 		;; Pushing args
 			;; casting
-			push eax
+			;; primitive run-time casting to [int]
+						;; Local Var i
+			mov eax, ebp
+			add eax, 8
+			mov eax, [eax]
+
+						push eax
 
 		;; static method:
 		call __STATIC_method__java_lang_String__valueOf$int$
@@ -840,7 +862,13 @@ mov eax, edx
 
 		;; Pushing args
 			;; casting
-			push eax
+			;; primitive run-time casting to [int]
+						;; Local Var i
+			mov eax, ebp
+			add eax, 8
+			mov eax, [eax]
+
+						push eax
 
 		;; static method:
 		call __STATIC_method__java_lang_String__valueOf$int$
@@ -1090,14 +1118,14 @@ mov eax, edx
 			mov eax, [eax]
 
 			cmp eax, 0
-			je .cast_end
+			je .cast_end2
 			mov eax, [eax]
 			mov eax, [eax+4]
 			shr eax, 10
 			and eax, 0x1
 			cmp eax, 0
 			je __exception
-			.cast_end:
+			.cast_end2:
 			mov eax, [eax+4]
 			push eax
 
@@ -1924,14 +1952,14 @@ mov eax, edx
 			mov eax, [eax]
 
 			cmp eax, 0
-			je .cast_end
+			je .cast_end0
 			mov eax, [eax]
 			mov eax, [eax+4]
 			shr eax, 10
 			and eax, 0x1
 			cmp eax, 0
 			je __exception
-			.cast_end:
+			.cast_end0:
 			push eax
 
 		;; class method:

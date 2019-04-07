@@ -26,6 +26,10 @@ public interface ConstantExpression {
             return Integer.parseInt(literal);
         }
 
+        public long toLong() {
+            return Long.parseLong(literal);
+        }
+
         public boolean toBoolean() {
             return literal.equals("true");
         }

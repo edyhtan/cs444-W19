@@ -419,58 +419,38 @@ global @@@@main
 		push eax
 		;; ---end of declare i
 
-		;; ---declare j
-		mov eax, 1
+		.while0:
+			;expression code...
+			;; ompare_lt
+			;; LHS code...
+			;; Local Var i
+			mov eax, ebp
+			sub eax, 4
+			mov eax, [eax]
 
-		push eax
-		;; ---end of declare j
+			push eax
+			;; RHS code...
+			mov eax, 123
+			pop ebx
+			cmp ebx, eax
+			jl .lt0
+			mov eax, 0
+			jmp .end_lt0
+			.lt0:
+				mov eax, 1
+			.end_lt0:
 
-		;; ---declare q
-		mov eax, 2
-
-		push eax
-		;; ---end of declare q
-
-		;; if statement0
-		;expression code...
-		;; ompare_eq
-		;; LHS code...
-		;; Local Var i
-		mov eax, ebp
-		sub eax, 4
-		mov eax, [eax]
-
-		push eax
-		;; RHS code...
-		mov eax, 0
-		pop ebx
-		cmp ebx, eax
-		je .eq0
-		mov eax, 0
-		jmp .end_eq0
-		.eq0:
-			mov eax, 1
-		.end_eq0:
-
-		cmp eax, 0
-		je .else0
-		;thenClause ...
-			mov eax, 2
-			jmp _method_return___STATIC_method__A__test
-
-
-		jmp .endif0
-
-		.else0:
-			;elseClause ...
-			;; ---declare d
+			cmp eax, 0
+			je .endwhile0
+			;; while statement code...
+			;; ---declare j
 			mov eax, 0
 
 			push eax
-			;; ---end of declare d
+			;; ---end of declare j
 
 
-			.while1:
+			.for1:
 				;expression code...
 				;; ompare_lt
 				;; LHS code...
@@ -481,7 +461,7 @@ global @@@@main
 
 				push eax
 				;; RHS code...
-				mov eax, 10
+				mov eax, 123
 				pop ebx
 				cmp ebx, eax
 				jl .lt1
@@ -492,22 +472,15 @@ global @@@@main
 				.end_lt1:
 
 				cmp eax, 0
-				je .endwhile1
-				;; while statement code...
-				;; ---declare xx
-				mov eax, 3
-
-				push eax
-				;; ---end of declare xx
-
-
+				je .endfor1
+				;statement code...
 				.while2:
 					;expression code...
 					;; ompare_lt
 					;; LHS code...
-					;; Local Var j
+					;; Local Var i
 					mov eax, ebp
-					sub eax, 8
+					sub eax, 4
 					mov eax, [eax]
 
 					push eax
@@ -525,201 +498,21 @@ global @@@@main
 					cmp eax, 0
 					je .endwhile2
 					;; while statement code...
-					;; ---declare yy_j
-					mov eax, 4
+											;; Local Var i
+						mov eax, ebp
+						sub eax, 4
 
 					push eax
-					;; ---end of declare yy_j
-
-
-					.while3:
-						;expression code...
-						;; ompare_lt
+						;; Plus
 						;; LHS code...
-						;; Local Var q
+						;; Local Var i
 						mov eax, ebp
-						sub eax, 12
+						sub eax, 4
 						mov eax, [eax]
 
 						push eax
 						;; RHS code...
 						mov eax, 3
-						pop ebx
-						cmp ebx, eax
-						jl .lt3
-						mov eax, 0
-						jmp .end_lt3
-						.lt3:
-							mov eax, 1
-						.end_lt3:
-
-						cmp eax, 0
-						je .endwhile3
-						;; while statement code...
-						;; ---declare zz_q
-						mov eax, 5
-
-						push eax
-						;; ---end of declare zz_q
-
-
-						add esp, 4
-
-						jmp .while3
-
-					.endwhile3:
-
-						add esp, 4
-
-
-					add esp, 4
-
-					jmp .while2
-
-				.endwhile2:
-
-					add esp, 4
-
-
-				;forInit code...
-				;; ---declare m
-				mov eax, 0
-
-				push eax
-				;; ---end of declare m
-
-
-				.for4:
-					;expression code...
-					;; ompare_lt
-					;; LHS code...
-					;; Local Var m
-					mov eax, ebp
-					sub eax, 24
-					mov eax, [eax]
-
-					push eax
-					;; RHS code...
-					mov eax, 5
-					pop ebx
-					cmp ebx, eax
-					jl .lt4
-					mov eax, 0
-					jmp .end_lt4
-					.lt4:
-						mov eax, 1
-					.end_lt4:
-
-					cmp eax, 0
-					je .endfor4
-					;statement code...
-					;; ---declare yy_m
-					mov eax, 4
-
-					push eax
-					;; ---end of declare yy_m
-
-
-					;forInit code...
-					;; ---declare n
-					mov eax, 0
-
-					push eax
-					;; ---end of declare n
-
-
-					.for5:
-						;expression code...
-						;; ompare_lt
-						;; LHS code...
-						;; Local Var n
-						mov eax, ebp
-						sub eax, 32
-						mov eax, [eax]
-
-						push eax
-						;; RHS code...
-						mov eax, 4
-						pop ebx
-						cmp ebx, eax
-						jl .lt5
-						mov eax, 0
-						jmp .end_lt5
-						.lt5:
-							mov eax, 1
-						.end_lt5:
-
-						cmp eax, 0
-						je .endfor5
-						;statement code...
-						;; ---declare zz_n
-						mov eax, 6
-
-						push eax
-						;; ---end of declare zz_n
-
-
-						add esp, 4
-
-
-
-						;forUpdate code...
-													;; Local Var n
-							mov eax, ebp
-							sub eax, 32
-
-						push eax
-							;; Plus
-							;; LHS code...
-							;; Local Var n
-							mov eax, ebp
-							sub eax, 32
-							mov eax, [eax]
-
-							push eax
-							;; RHS code...
-							mov eax, 1
-							pop ebx
-							add ebx, eax
-							mov eax, ebx
-
-						pop ebx
-						mov [ebx], eax
-
-
-						jmp .for5
-
-					.endfor5:
-						add esp, 4
-
-
-					;; ---declare yy_2
-					mov eax, 0
-
-					push eax
-					;; ---end of declare yy_2
-
-
-					add esp, 8
-
-
-
-					;forUpdate code...
-											;; Local Var m
-						mov eax, ebp
-						sub eax, 24
-
-					push eax
-						;; Plus
-						;; LHS code...
-						;; Local Var m
-						mov eax, ebp
-						sub eax, 24
-						mov eax, [eax]
-
-						push eax
-						;; RHS code...
-						mov eax, 1
 						pop ebx
 						add ebx, eax
 						mov eax, ebx
@@ -728,29 +521,110 @@ global @@@@main
 					mov [ebx], eax
 
 
-					jmp .for4
+											;; Local Var j
+						mov eax, ebp
+						sub eax, 12
 
-				.endfor4:
-					add esp, 4
+					push eax
+						;; Plus
+						;; LHS code...
+						;; Local Var j
+						mov eax, ebp
+						sub eax, 12
+						mov eax, [eax]
+
+						push eax
+						;; RHS code...
+						mov eax, 3
+						pop ebx
+						add ebx, eax
+						mov eax, ebx
+
+					pop ebx
+					mov [ebx], eax
 
 
-				add esp, 4
+					jmp .while2
 
-				jmp .while1
+				.endwhile2:
 
-			.endwhile1:
 
-				add esp, 4
+
+
+				;forUpdate code...
+									;; Local Var i
+					mov eax, ebp
+					sub eax, 4
+
+				push eax
+					;; Plus
+					;; LHS code...
+					;; Local Var i
+					mov eax, ebp
+					sub eax, 4
+					mov eax, [eax]
+
+					push eax
+					;; RHS code...
+					mov eax, 2
+					pop ebx
+					add ebx, eax
+					mov eax, ebx
+
+				pop ebx
+				mov [ebx], eax
+
+
+				jmp .for1
+
+			.endfor1:
 
 
 			add esp, 4
 
+			jmp .while0
+
+		.endwhile0:
+
 			add esp, 4
 
-		.endif0:
-			add esp, 4
+		;; if statement3
+		;expression code...
+		;; ompare_gt
+		;; LHS code...
+		;; Local Var i
+		mov eax, ebp
+		sub eax, 4
+		mov eax, [eax]
 
+		push eax
+		;; RHS code...
+		mov eax, 123
+		pop ebx
+		cmp ebx, eax
+		jg .gt3
 		mov eax, 0
+		jmp .end_gt3
+		.gt3:
+			mov eax, 1
+		.end_gt3:
+
+		cmp eax, 0
+		je .else3
+		;thenClause ...
+			mov eax, 123
+			jmp _method_return___STATIC_method__A__test
+
+
+		jmp .endif3
+
+		.else3:
+		.endif3:
+		;; Local Var i
+		mov eax, ebp
+		sub eax, 4
+		mov eax, [eax]
+
 		jmp _method_return___STATIC_method__A__test
 
 		_method_return___STATIC_method__A__test:

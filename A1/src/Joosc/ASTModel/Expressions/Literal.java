@@ -17,6 +17,9 @@ public class Literal extends ExpressionContent implements ConstantExpression {
     public String literal;
     public String kind;
 
+    // Literal representation of value and type of constant expression
+    private ConstantLiteral constantLiteral = null;
+
     public Literal(String literal, String kind) {
         this.kind = kind;
         this.literal = literal;

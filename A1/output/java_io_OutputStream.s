@@ -50,7 +50,13 @@ section .text
 
 		;; Pushing args
 			;; casting
-			push eax
+			;; primitive run-time casting to [int]
+						;; Local Var c
+			mov eax, ebp
+			add eax, 8
+			mov eax, [eax]
+
+						push eax
 
 		;; class method:
 		;; addr of o
