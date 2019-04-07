@@ -416,10 +416,10 @@ global @@@@main
 		;; Minus
 		;; LHS code...
 		;; constant primitive casting to [char]
-		mov eax, 7616
+		mov eax, 65413
 		push eax
 		;; RHS code...
-		mov eax, 7493
+		mov eax, 65290
 		pop ebx
 		sub ebx, eax
 		mov eax, ebx

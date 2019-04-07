@@ -5,7 +5,7 @@ public class A {
 
     public static int test() {
 
-        return (char) -123456 - 7493;
+        return (char)-123 - 65290;
 
     }
 
