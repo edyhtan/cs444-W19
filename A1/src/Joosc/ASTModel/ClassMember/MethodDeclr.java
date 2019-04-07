@@ -222,6 +222,34 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
     @Override
     public void codeGen(int indent) {
         MethodDeclr.PER_METHOD_COUNT = 0;
+
+        /**
+         *  calculate and assign offset
+         */
+        // TODO: distinguish static && non-static
+        // extra one for eip
+        int size = formalParamList.size() + 1;
+        for (int i = 0; i < formalParamList.size(); ++i) {
+            Pair<Type, String> param = formalParamList.get(i);
+            localEnv.assignOffset(param.getValue(), (size - i) * 4);
+        }
+
+        if (getModifiers().contains(Symbol.Static)) {
+            localEnv.setThis((size+1)*4);
+        }
+
+        for (Statement statement : bodyBlock) {
+            statement.addWriter(asmWriter);
+
+            SymbolTable.assignOffset(statement, localEnv);
+
+            if (statement instanceof ForStatement) {
+                if(((ForStatement)statement).getBlock().size() == 1 && ((ForStatement)statement).getBlock().get(0) instanceof Block) {
+                    SymbolTable.assignOffset(((ForStatement) statement).getStatement(), (LocalEnv)((HasScope)((ForStatement) statement).getStatement().getBlock().get(0)).getEnv());
+                }
+            }
+        }
+
         if (name.equals("test") && modifiers.contains(Symbol.Static)) {
             asmWriter.outputInit(localEnv.getJoosType());
             asmWriter.println("");
@@ -246,31 +274,6 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
         asmWriter.indent(indent + 1);
         asmWriter.mov(Register.ebp, Register.esp);
         asmWriter.println("");
-
-
-        // TODO: distinguish static && non-static
-        // extra one for eip
-        int size = formalParamList.size() + 1;
-        for (int i = 0; i < formalParamList.size(); ++i) {
-            Pair<Type, String> param = formalParamList.get(i);
-            localEnv.assignOffset(param.getValue(), (size - i) * 4);
-        }
-
-        if (getModifiers().contains(Symbol.Static)) {
-            localEnv.setThis((size+1)*4);
-        }
-
-        for (Statement statement : bodyBlock) {
-            statement.addWriter(asmWriter);
-
-            SymbolTable.assignOffset(statement, localEnv);
-
-            if (statement instanceof ForStatement) {
-                if(((ForStatement)statement).getBlock().size() == 1 && ((ForStatement)statement).getBlock().get(0) instanceof Block) {
-                    SymbolTable.assignOffset(((ForStatement) statement).getStatement(), (LocalEnv)((HasScope)((ForStatement) statement).getStatement().getBlock().get(0)).getEnv());
-                }
-            }
-        }
 
         asmWriter.indent(indent + 1);
 

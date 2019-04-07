@@ -11,7 +11,6 @@ import Joosc.Exceptions.TypeCheckException;
 import Joosc.Exceptions.UnreachableStatementException;
 import Joosc.TypeSystem.JoosType;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -368,9 +367,6 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 String row = AsmWriter.parentMatrix.get(lhsType);
                 int res = Integer.parseInt(row, 2);
                 int testbit = calcTestBit(column);
-                System.out.println(row);
-                System.out.println(BigInteger.valueOf(res).testBit(column) + " " + row.charAt(row.length()-column+1));
-                System.out.println(row.length()-column+" " +testbit + " " + Math.pow(2, column) );
 
                 asmWriter.indent(indent);
                 asmWriter.comment("Instanceof");
@@ -379,7 +375,6 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 asmWriter.indent(indent);
                 // mov to class tag
                 asmWriter.movFromAddr(Register.eax, Register.eax);
-//                asmWriter.mov(Register.eax, ((ClassDeclr)lhsType.getClassEnv().getTypeDeclr()).getClassTagName());
                 asmWriter.indent(indent);
                 // parent matrix
                 String addr = String.join("+", Register.eax.toString(), "8");
