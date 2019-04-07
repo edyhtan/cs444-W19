@@ -62,12 +62,12 @@ public class ConstructorDeclr implements ClassBodyDeclr, Method {
 
     @Override
     public void definiteAssignmentAnalysis(HashMap initializedFields) throws UninitializedVariableException {
-        //TODO
+
     }
 
     @Override
     public void buildCanonicalName(ArrayList<String> className) {
-        // TODO
+
     }
 
     @Override
@@ -193,6 +193,7 @@ public class ConstructorDeclr implements ClassBodyDeclr, Method {
         for(FieldDeclr fieldDeclr : curClass.getFields()) {
             fieldDeclr.addWriter(asmWriter);
             asmWriter.comment("Field init:: " + fieldDeclr.getName());
+            fieldDeclr.addEnv(localEnv);
             fieldDeclr.codeGen(indent + 1);
             Integer offset = curClass.getClassEnv().getFieldInfo(fieldDeclr.getName()).getOffset();
             asmWriter.indent(indent);

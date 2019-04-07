@@ -94,7 +94,7 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
     @Override
     public void definiteAssignmentAnalysis(HashMap initializedFields) throws UninitializedVariableException {
         HashMap localInitializedFields = (HashMap) initializedFields.clone();
-        // TODO
+
     }
 
     public void validateStaticAccess() throws TypeCheckException {

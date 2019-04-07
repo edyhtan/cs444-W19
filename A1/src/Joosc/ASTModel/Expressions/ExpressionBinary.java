@@ -144,8 +144,7 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
             case Cap:
             case Bar:
             case Amp:
-                // TODO: JLS 15.22 15.23 says both side must be boolean. We should use && here.
-                if (lhsType.equals("boolean") || rhsType.equals("boolean")) {
+                if (lhsType.equals("boolean") && rhsType.equals("boolean")) {
                     joosType = JoosType.getJoosType("boolean");
                 } else {
                     throw new TypeCheckException(String.format("Logical operation type incompatible: %s, %s",
@@ -168,7 +167,6 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
             ConstantLiteral RHS = ((ConstantExpression) this.RHS).evaluateConstant();
             switch (operator) {
                 case Plus:
-                    // TODO: Questionable type, looks like byte + byte is int? ↑
                     if (LHS.type.isString() || RHS.type.isString()) {
                         constantLiteral = new ConstantLiteral(LHS.literal + RHS.literal,
                                 JoosType.getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "String"))));
@@ -267,6 +265,8 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
     public void codeGen(int indent) {
         LHS.addWriter(asmWriter);
         RHS.addWriter(asmWriter);
+        LHS.addEnv(getEnv());
+        RHS.addEnv(getEnv());
 
         switch (operator) {
             case Plus:

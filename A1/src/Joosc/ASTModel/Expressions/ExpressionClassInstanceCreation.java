@@ -158,6 +158,7 @@ public class ExpressionClassInstanceCreation extends Expression {
         asmWriter.comment("Pushing args:");
         for(Expression arg : argList) {
             arg.addWriter(asmWriter);
+            arg.addEnv(getEnv());
             arg.codeGen(indent + 1);
             asmWriter.indent(indent + 1);
             asmWriter.push(Register.eax);

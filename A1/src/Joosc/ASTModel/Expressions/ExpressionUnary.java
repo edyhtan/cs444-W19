@@ -131,7 +131,7 @@ public class ExpressionUnary extends Expression implements ConstantExpression {
 
     @Override
     public void codeGen(int indent) {
-
+        targetNode.addEnv(getEnv());
     }
 
     @Override

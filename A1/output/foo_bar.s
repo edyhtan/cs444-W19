@@ -4,19 +4,20 @@ extern __constructor__java_lang_Object__Object
 extern __method__java_lang_Object__hashCode
 extern __method__java_lang_Object__getClass
 extern __method__java_lang_Object__equals$java_lang_Object$
+extern __STATIC_method__Main_Bar__method
 
 
 section .data
 
-	global __class_foo_bar
-__class_foo_bar:
-		global __ref_SIT_foo_bar
-	__ref_SIT_foo_bar:
+	global __class_foo_Bar
+__class_foo_Bar:
+		global __ref_SIT_foo_Bar
+	__ref_SIT_foo_Bar:
 		dd 0
 
-		global __ref_PARENTS_foo_bar
-	__ref_PARENTS_foo_bar:
-		dd 00010000010000000000b
+		global __ref_PARENTS_foo_Bar
+	__ref_PARENTS_foo_Bar:
+		dd 0010000010000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -24,15 +25,34 @@ __class_foo_bar:
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
 		dd __method__java_lang_Object__toString
+		dd __STATIC_method__foo_Bar__method
 
 ;; Static fields
 
 section .text
 
 ;; -----Methods-----
+		global __STATIC_method__foo_Bar__method
+	__STATIC_method__foo_Bar__method:
+		push ebp
+		mov ebp, esp
+
+				;; Method Invocation:
+		;; o.code
+		;; Pushing args
+		call __STATIC_method__Main_Bar__method
+
+		add esp, 4
+		jmp _method_return___STATIC_method__foo_Bar__method
+
+		_method_return___STATIC_method__foo_Bar__method:
+			mov esp, ebp
+			pop ebp
+			ret
+
 ;; -----Constructors-----
-		global __constructor__foo_bar__bar
-	__constructor__foo_bar__bar:
+		global __constructor__foo_Bar__Bar
+	__constructor__foo_Bar__Bar:
 		push ebp
 		mov ebp, esp
 		mov eax, [ebp + 8]

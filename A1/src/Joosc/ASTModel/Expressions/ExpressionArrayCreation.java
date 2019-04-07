@@ -78,7 +78,7 @@ public class ExpressionArrayCreation extends ExpressionPrimary {
 
     @Override
     public void codeGen(int indent) {
-
+        sizeExpression.addEnv(getEnv());
     }
 
     @Override

@@ -351,6 +351,7 @@ public class Names extends ExpressionContent implements HasAddress {
                     if (fullTypeEnv != null)
                         break;
 
+                    System.err.println(prefix);
                     prefix.add(name.get(0));
                     name.remove(0);
 

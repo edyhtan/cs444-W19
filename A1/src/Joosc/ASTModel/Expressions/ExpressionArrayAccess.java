@@ -124,7 +124,10 @@ public class ExpressionArrayAccess extends ExpressionPrimary {
 
     @Override
     public void codeGen(int indent) {
-
+        if (referenceExpression != null) {
+            referenceExpression.addEnv(getEnv());
+        }
+        indexExpression.addEnv(getEnv());
     }
 
     @Override

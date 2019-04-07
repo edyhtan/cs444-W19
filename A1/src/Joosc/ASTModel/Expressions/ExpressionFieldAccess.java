@@ -104,7 +104,7 @@ public class ExpressionFieldAccess extends Expression {
 
     @Override
     public void codeGen(int indent) {
-
+        fieldParentExpression.addEnv(getEnv());
     }
 
     @Override

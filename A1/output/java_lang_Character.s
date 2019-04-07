@@ -17,7 +17,7 @@ __class_java_lang_Character:
 
 		global __ref_PARENTS_java_lang_Character
 	__ref_PARENTS_java_lang_Character:
-		dd 00000000010000100000b
+		dd 0000010000100000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
