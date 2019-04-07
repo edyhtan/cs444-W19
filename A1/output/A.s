@@ -457,15 +457,10 @@ global @@@@main
 		mov eax, [eax]
 
 		mov eax, [eax]
-		mov eax, [eax+8]
-		test eax, 524288
-		jnz .instance_true0
-		mov eax, 0
-		jmp .end_instance0
-		.instance_true0:
-			mov eax, 1
-		.end_instance0:
-
+		mov eax, [eax+4]
+		shr eax, 19
+		and eax, 0x1
+		
 		cmp eax, 0
 		je .else0
 		;thenClause ...
