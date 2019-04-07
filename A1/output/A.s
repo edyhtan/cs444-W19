@@ -441,6 +441,7 @@ global @@@@main
 		;; ---end of declare x
 
 		;; ---declare y
+
 		mov eax, __field_java_lang_Integer_MAX_VALUE
 		mov eax, [eax]
 
@@ -464,11 +465,7 @@ global @@@@main
 		cmp eax, 0
 		je .else0
 		;thenClause ...
-			;; Local Var y
-			mov eax, ebp
-			sub eax, 8
-			mov eax, [eax]
-
+			mov eax, 123
 			jmp _method_return___STATIC_method__A__test
 
 
