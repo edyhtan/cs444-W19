@@ -109,6 +109,7 @@ public class ExpressionArrayCreation extends ExpressionPrimary {
             asmWriter.indent(indent);
             asmWriter.comment("Class Tag");
             String classTag = joosType.getClassEnv().getTypeDeclr().getClassTagName();
+            asmWriter.extern(classTag);
             asmWriter.indent(indent);
             asmWriter.mov(Register.ebx, classTag);
         }
