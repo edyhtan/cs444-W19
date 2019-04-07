@@ -16,7 +16,7 @@ __class_Hello:
 
 		global __ref_PARENTS_Hello
 	__ref_PARENTS_Hello:
-		dd 000011000001000000000b
+		dd 001100000010000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -24,12 +24,30 @@ __class_Hello:
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
 		dd __method__java_lang_Object__toString
+		dd __method__Hello__happyHours
 
 ;; Static fields
+		global __field_Hello_staticInt
+__field_Hello_staticInt:
+		dd 0
+
 
 section .text
 
 ;; -----Methods-----
+		global __method__Hello__happyHours
+	__method__Hello__happyHours:
+		push ebp
+		mov ebp, esp
+
+		mov eax, 3
+		jmp _method_return___method__Hello__happyHours
+
+		_method_return___method__Hello__happyHours:
+			mov esp, ebp
+			pop ebp
+			ret
+
 ;; -----Constructors-----
 		global __constructor__Hello__Hello
 	__constructor__Hello__Hello:
@@ -43,6 +61,11 @@ section .text
 ;; Field init, push object to stack
 		mov eax, [ebp + 8]
 		push eax
+;; Field init:: k
+				mov eax, 0
+		mov ebx, [esp]
+		add ebx, 4
+		mov [ebx], eax
 ;; Field init end, pop object
 		add esp, 4
 ;; Constructor Body
@@ -62,6 +85,11 @@ section .text
 ;; Field init, push object to stack
 		mov eax, [ebp + 12]
 		push eax
+;; Field init:: k
+				mov eax, 0
+		mov ebx, [esp]
+		add ebx, 4
+		mov [ebx], eax
 ;; Field init end, pop object
 		add esp, 4
 ;; Constructor Body

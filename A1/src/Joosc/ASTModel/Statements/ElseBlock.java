@@ -2,6 +2,7 @@ package Joosc.ASTModel.Statements;
 
 import Joosc.AsmWriter.AsmWriter;
 import Joosc.AsmWriter.Register;
+import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.UnreachableStatementException;
 
 import java.util.ArrayList;
@@ -17,13 +18,9 @@ public class ElseBlock extends HasScope implements Statement {
 
     @Override
     public ArrayList<Statement> getBlock() {
-        if (statement instanceof Block) {
-            return ((Block) statement).getBlock();
-        } else {
-            ArrayList<Statement> statements = new ArrayList<>();
-            statements.add(statement);
-            return statements;
-        }
+        ArrayList<Statement> statements = new ArrayList<>();
+        statements.add(statement);
+        return statements;
     }
 
     @Override
@@ -63,6 +60,7 @@ public class ElseBlock extends HasScope implements Statement {
 
     @Override
     public void codeGen(int indent) {
+        ((LocalEnv)getEnv()).getSymbolTable().assignOffset();
         statement.addWriter(asmWriter);
         statement.codeGen(indent);
 

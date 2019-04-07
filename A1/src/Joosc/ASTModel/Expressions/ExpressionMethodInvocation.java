@@ -300,11 +300,22 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
             asmWriter.add(Register.esp, argList.size() * 4);
         } else if (methodEnv.getClassEnv().getTypeDeclr() instanceof InterfaceDeclr) {
         // method of interface type, call from SIT
-            // TODO: do this
-            int SIToffset = 0;
             asmWriter.indent(indent);
             asmWriter.comment("interface method:");
-            //...
+            asmWriter.indent(indent);
+
+            asmWriter.indent(indent);
+            asmWriter.comment("addr of o");
+            asmWriter.indent(indent);
+            asmWriter.movFromAddr(Register.eax, "esp + " + argList.size() * 4);
+            asmWriter.callSITFunction(Register.eax, matchingMethod.getSignatureStr(), indent);
+
+            asmWriter.indent(indent);
+            asmWriter.call(Register.eax);
+            asmWriter.indent(indent);
+            asmWriter.comment("pop arguments");
+            asmWriter.indent(indent);
+            asmWriter.add(Register.esp, argList.size() * 4 + 4);
         } else {
             asmWriter.indent(indent);
             asmWriter.comment("class method:");

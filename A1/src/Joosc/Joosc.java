@@ -9,6 +9,7 @@ import Joosc.Parser.JoosParse;
 import Joosc.Parser.LRGrammar.ParseTree;
 import Joosc.Scanner.JoosScan;
 import Joosc.Token.Token;
+import Joosc.TypeSystem.ArrayType;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -70,6 +71,7 @@ public class Joosc {
             globalEnvironment.semanticAnalysis();
 
             AsmWriter.initTable();
+            ArrayType.createArrayCaller();
             for (Program ast : asts) {
                 Program.PER_PROGRAM_COUNT = 0;
                 ast.staticAnalysis();

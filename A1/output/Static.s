@@ -16,7 +16,7 @@ __class_Static:
 
 		global __ref_PARENTS_Static
 	__ref_PARENTS_Static:
-		dd 011000000001000000000b
+		dd 110000000010000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -24,12 +24,81 @@ __class_Static:
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
 		dd __method__java_lang_Object__toString
+		dd __method__Static__m
 
 ;; Static fields
 
 section .text
 
 ;; -----Methods-----
+		global __method__Static__m
+	__method__Static__m:
+		push ebp
+		mov ebp, esp
+
+		.while0:
+			;expression code...
+			;; ompare_gt
+			;; LHS code...
+			;; Implicit This
+			mov eax, [ebp + 8]
+			;; Field a
+			add eax, 12
+			mov eax, [eax]
+
+			push eax
+			;; RHS code...
+			mov eax, 0
+			pop ebx
+			cmp ebx, eax
+			jg .gt0
+			mov eax, 0
+			jmp .end_gt0
+			.gt0:
+				mov eax, 1
+			.end_gt0:
+
+			cmp eax, 0
+			je .endwhile0
+			;; while statement code...
+			;; ---declare y
+			mov eax, 0
+
+			push eax
+			;; ---end of declare y
+
+
+							;; Implicit This
+				mov eax, [ebp + 8]
+				;; Field a
+				add eax, 12
+
+			push eax
+				;; Local Var y
+				mov eax, ebp
+				sub eax, 4
+				mov eax, [eax]
+
+			pop ebx
+			mov [ebx], eax
+
+
+			add esp, 4
+
+			jmp .while0
+
+		.endwhile0:
+
+			add esp, 4
+
+		mov eax, 0
+		jmp _method_return___method__Static__m
+
+		_method_return___method__Static__m:
+			mov esp, ebp
+			pop ebp
+			ret
+
 ;; -----Constructors-----
 		global __constructor__Static__Static
 	__constructor__Static__Static:

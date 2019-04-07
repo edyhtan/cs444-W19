@@ -45,7 +45,7 @@ public class ClassEnv implements Env {
 
     ArrayList<LocalEnv> localEnvs = new ArrayList<>();
     public JoosType extendName;
-    static ArrayList<String> javaLangObjectName = new ArrayList<>(Arrays.asList("java", "lang", "Object"));
+    public static ArrayList<String> javaLangObjectName = new ArrayList<>(Arrays.asList("java", "lang", "Object"));
 
     // variable contain
     private boolean variableContainComplete = false;
@@ -746,7 +746,11 @@ public class ClassEnv implements Env {
             return;
         }
         extendName.getClassEnv().buildSymbolTable();
-        extendName.getClassEnv().symbolTable.forEach(symbolTable::put);
+        extendName.getClassEnv().symbolTable.forEach((k, v) -> {
+            symbolTable.put(k, v);
+            symbolTable.put(joosType.getQualifiedName() + "::" + v.getFieldName(), v);
+        });
+
 
         symbolTableIndex = symbolTable.size();
         fields.forEach( (key, value) -> {

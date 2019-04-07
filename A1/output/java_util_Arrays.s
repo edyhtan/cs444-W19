@@ -17,7 +17,7 @@ __class_java_util_Arrays:
 
 		global __ref_PARENTS_java_util_Arrays
 	__ref_PARENTS_java_util_Arrays:
-		dd 000000000001000000001b
+		dd 00000100010000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -50,7 +50,7 @@ section .text
 		cmp eax, 0
 		je __exception
 		;; Field length
-		add eax, 4
+		add eax, 8
 		mov eax, [eax]
 
 		push eax
@@ -63,7 +63,7 @@ section .text
 		cmp eax, 0
 		je __exception
 		;; Field length
-		add eax, 4
+		add eax, 8
 		mov eax, [eax]
 
 		pop ebx
@@ -112,7 +112,7 @@ section .text
 			cmp eax, 0
 			je __exception
 			;; Field length
-			add eax, 4
+			add eax, 8
 			mov eax, [eax]
 
 			pop ebx
@@ -211,7 +211,7 @@ section .text
 		cmp eax, 0
 		je __exception
 		;; Field length
-		add eax, 4
+		add eax, 8
 		mov eax, [eax]
 
 		push eax
@@ -224,7 +224,7 @@ section .text
 		cmp eax, 0
 		je __exception
 		;; Field length
-		add eax, 4
+		add eax, 8
 		mov eax, [eax]
 
 		pop ebx
@@ -273,7 +273,7 @@ section .text
 			cmp eax, 0
 			je __exception
 			;; Field length
-			add eax, 4
+			add eax, 8
 			mov eax, [eax]
 
 			pop ebx

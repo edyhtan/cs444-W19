@@ -8,5 +8,5 @@ __class_Interface:
 	__ref_SIT_Interface:		dd 0
 
 		global __ref_PARENTS_Interface
-	__ref_PARENTS_Interface:		dd 000001000001000000000b
+	__ref_PARENTS_Interface:		dd 001000000010000000000b
 

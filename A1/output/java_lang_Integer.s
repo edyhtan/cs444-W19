@@ -19,7 +19,7 @@ __class_java_lang_Integer:
 
 		global __ref_PARENTS_java_lang_Integer
 	__ref_PARENTS_java_lang_Integer:
-		dd 000000001001000100000b
+		dd 00000000011100000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -569,11 +569,6 @@ mov eax, 0
 		mov ebx, [esp]
 		add ebx, 4
 		mov [ebx], eax
-;; Field init:: MAX_VALUE
-				mov eax, 2147483647
-		mov ebx, [esp]
-		add ebx, 0
-		mov [ebx], eax
 ;; Field init end, pop object
 		add esp, 4
 ;; Constructor Body
@@ -613,11 +608,6 @@ mov eax, 0
 mov eax, 0
 		mov ebx, [esp]
 		add ebx, 4
-		mov [ebx], eax
-;; Field init:: MAX_VALUE
-				mov eax, 2147483647
-		mov ebx, [esp]
-		add ebx, 0
 		mov [ebx], eax
 ;; Field init end, pop object
 		add esp, 4
@@ -672,11 +662,6 @@ mov eax, 0
 mov eax, 0
 		mov ebx, [esp]
 		add ebx, 4
-		mov [ebx], eax
-;; Field init:: MAX_VALUE
-				mov eax, 2147483647
-		mov ebx, [esp]
-		add ebx, 0
 		mov [ebx], eax
 ;; Field init end, pop object
 		add esp, 4
