@@ -1,24 +1,26 @@
 extern __ref_SIT_java_lang_Number
 extern __malloc
-extern __ref_SIT_java_lang_Integer
-extern __method__java_lang_Object__toString
 extern __constructor__java_lang_Object__Object
 extern __method__java_lang_Object__getClass
-extern __ref_SIT_java_lang_Class
-extern __ref_SIT_java_lang_Boolean
 extern __ref_SIT_foo_bar
-extern __ref_SIT_java_util_Arrays
-extern __method__java_lang_Object__equals$java_lang_Object$
 extern __ref_SIT_java_lang_Short
-extern __ref_SIT_java_io_PrintStream
+extern __class_Main
 extern __ref_SIT_Main
 extern __ref_SIT_java_lang_Character
+extern __ref_SIT_java_lang_String
+extern __ref_SIT_Hello
+extern __constructor__Main__Main
+extern __ref_SIT_java_lang_Integer
+extern __method__java_lang_Object__toString
+extern __ref_SIT_java_lang_Class
+extern __ref_SIT_java_lang_Boolean
+extern __ref_SIT_java_util_Arrays
+extern __method__java_lang_Object__equals$java_lang_Object$
+extern __ref_SIT_java_io_PrintStream
 extern __method__java_lang_Object__clone
 extern __ref_SIT_java_lang_Object
 extern __method__java_lang_Object__hashCode
-extern __ref_SIT_java_lang_String
 extern __ref_SIT_java_lang_Byte
-extern __ref_SIT_Hello
 extern __ref_SIT_Static
 extern __ref_SIT_java_lang_System
 extern __ref_SIT_java_io_OutputStream
@@ -387,19 +389,38 @@ global @@@@main
 		push ebp
 		mov ebp, esp
 
-				;; ---declare a
-		mov eax, 0
+				;; ---declare m
+		;; Allocating size of 1
+		mov eax, 1
+				call __malloc
+					mov ebx, __class_Main
+		mov [eax], ebx
+
+		;; Pushing object
 		push eax
 
-		;; Unary boolean negation
-		;; Local Var a
+		;; Pushing args:
+					call __constructor__Main__Main
+		add esp, 0
+		pop eax
+		push eax
+
+		;; ---declare s
+		;; casting
+				;; Local Var m
 		mov eax, ebp
 		sub eax, 4
 		mov eax, [eax]
 
-		mov ebx, 1
-		sub ebx, eax
-		mov eax, ebx
+		mov eax, [eax]
+		mov eax, [eax+4]
+		shr eax, 18
+		and eax, 0x1
+		cmp eax, 0
+		je __exception
+		push eax
+
+		mov eax, 1
 		jmp _method_return___STATIC_method__A__test
 
 		_method_return___STATIC_method__A__test:
