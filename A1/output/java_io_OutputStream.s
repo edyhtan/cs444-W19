@@ -43,6 +43,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		;; Null Check:
 		cmp eax, 0
 		je __exception
 		;; non-static, pushing reference

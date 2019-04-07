@@ -99,6 +99,7 @@ section .text
 				add eax, 8
 				mov eax, [eax]
 
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; non-static, pushing reference
@@ -140,6 +141,7 @@ section .text
 				add eax, 8
 				mov eax, [eax]
 
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; non-static, pushing reference
@@ -191,6 +193,7 @@ section .text
 				add eax, 8
 				mov eax, [eax]
 
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; non-static, pushing reference
@@ -241,6 +244,7 @@ section .text
 				add eax, 8
 				mov eax, [eax]
 
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; non-static, pushing reference
@@ -300,6 +304,7 @@ section .text
 				add eax, 8
 				mov eax, [eax]
 
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; non-static, pushing reference
@@ -396,6 +401,7 @@ section .text
 						add eax, 8
 						mov eax, [eax]
 
+					;; Null Check:
 					cmp eax, 0
 					je __exception
 					;; non-static, pushing reference
