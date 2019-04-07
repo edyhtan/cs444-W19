@@ -7,6 +7,7 @@ extern __ref_SIT_foo_bar
 extern __ref_SIT_java_lang_Short
 extern __ref_SIT_Main
 extern __ref_SIT_java_lang_Character
+extern __constructor__java_lang_String__String$char@$
 extern __class_ArrayTemplate
 extern __constructor__java_io_PrintStream__PrintStream
 extern __ref_SIT_java_lang_String
@@ -26,6 +27,7 @@ extern __field_java_lang_Boolean_MAX_VALUE
 extern __field_Hello_staticInt
 extern __ref_SIT_java_lang_Object
 extern __method__Hello__happyHours
+extern __class_java_lang_String
 extern __method__java_lang_Object__hashCode
 extern __ref_SIT_java_lang_Byte
 extern __ref_SIT_Static
@@ -464,96 +466,109 @@ global @@@@main
 		push ebp
 		mov ebp, esp
 
-		;; ---declare x
-		;; ---Array Creation: [int]
+		;; ---declare str
+		mov eax, 8
+		call __malloc
+		mov ebx, __class_java_lang_String
+		mov [eax], ebx
+		push eax
 
-			;; Size Expression:
-				mov eax, 3
-
-			;; Class Tag
-			mov ebx, __class_ArrayTemplate
-
-			mov edx, __new_array
-			call edx
-		;; --- End Array Creation
+		mov eax, 6
+		mov ebx, 0
+		call __new_array
+			mov ecx, 49
+			mov [eax + 8], ecx
+			mov ecx, 50
+			mov [eax + 12], ecx
+			mov ecx, 51
+			mov [eax + 16], ecx
+			mov ecx, 0
+			mov [eax + 20], ecx
+		push eax
+		call __constructor__java_lang_String__String$char@$
+		add esp, 8
 
 		push eax
-		;; ---end of declare x
+		;; ---end of declare str
 
-					;; ---Array Access get Addr:
+		;; if statement0
+		;expression code...
+		;; ---Method Invocation: 
+		;; Names(ArgList)
+			;; Local Var str
+			mov eax, ebp
+			sub eax, 4
+			mov eax, [eax]
 
-				;; Get array instance:
-					;; Local Var x
-					mov eax, ebp
-					sub eax, 4
-					mov eax, [eax]
-
-				;; Null Check:
-				cmp eax, 0
-				je __exception
-				;; Push array instance addr
-				push eax
-
-				;; Get array index
-					mov eax, 0
-
-				;; Pop arr instance addr to ebx:
-				pop ebx
-
-				;; Bound check
-				mov ecx, [ebx + 8]
-				cmp eax, ecx
-				jge __exception
-				cmp ecx, 0
-				jl __exception
-
-				;; Access array
-				add eax, 3
-				shl eax, 2
-				add eax, ebx
-
-			;; ---End Array Access get Addr
+		;; Null Check:
+		cmp eax, 0
+		je __exception
+		;; non-static, pushing reference
 		push eax
-			mov eax, 1
-		pop ebx
-		mov [ebx], eax
 
-		;; ---Array Access get Addr:
-
-			;; Get array instance:
-				;; Local Var x
-				mov eax, ebp
-				sub eax, 4
-				mov eax, [eax]
-
-			;; Null Check:
-			cmp eax, 0
-			je __exception
-			;; Push array instance addr
+		;; Pushing args
+			;; casting
+						mov eax, 8
+			call __malloc
+			mov ebx, __class_java_lang_String
+			mov [eax], ebx
 			push eax
 
-			;; Get array index
-				mov eax, 0
+			mov eax, 6
+			mov ebx, 0
+			call __new_array
+				mov ecx, 49
+				mov [eax + 8], ecx
+				mov ecx, 50
+				mov [eax + 12], ecx
+				mov ecx, 51
+				mov [eax + 16], ecx
+				mov ecx, 0
+				mov [eax + 20], ecx
+			push eax
+			call __constructor__java_lang_String__String$char@$
+			add esp, 8
+			cmp eax, 0
+			je .cast_end2
+			mov eax, [eax]
+			mov eax, [eax+4]
+			shr eax, 10
+			and eax, 0x1
+			cmp eax, 0
+			je __exception
+			.cast_end2:
+			push eax
 
-			;; Pop arr instance addr to ebx:
-			pop ebx
-
-			;; Bound check
-			mov ecx, [ebx + 8]
-			cmp eax, ecx
-			jge __exception
-			cmp ecx, 0
-			jl __exception
-
-			;; Access array
-			add eax, 3
-			shl eax, 2
-			add eax, ebx
-
-		;; ---End Array Access get Addr
-		;; Dereference array addr to value
+		;; class method:
+		;; addr of o
+		mov eax, [esp + 4]
+		;; vtable
 		mov eax, [eax]
-		jmp _method_return___STATIC_method__A__test
+		;; addr of m body
+		mov eax, [eax + 0]
+
+		call eax
+
+		;; pop arguments
+		add esp, 8
+
+		;; ---End of method invocation
+		cmp eax, 0
+		je .else0
+		;thenClause ...
+			mov eax, 233
+			jmp _method_return___STATIC_method__A__test
+
+
+		jmp .endif0
+
+		.else0:
+			;elseClause ...
+			mov eax, 111
+			jmp _method_return___STATIC_method__A__test
+
+
+		.endif0:
 
 		_method_return___STATIC_method__A__test:
 			mov esp, ebp
