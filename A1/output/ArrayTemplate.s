@@ -16,7 +16,7 @@ __class_ArrayTemplate:
 
 		global __ref_PARENTS_ArrayTemplate
 	__ref_PARENTS_ArrayTemplate:
-		dd 00000000010000000000b
+		dd 000000000010000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
