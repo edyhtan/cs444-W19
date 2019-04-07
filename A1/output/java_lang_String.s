@@ -766,10 +766,9 @@ section .text
 				mov [eax + 44], 52
 				mov [eax + 48], 56
 				mov [eax + 52], 0
-push eax
+			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8
-mov eax, null
 			jmp _method_return___STATIC_method__java_lang_String__valueOf$int$
 
 		jmp .endif2
@@ -1466,10 +1465,9 @@ mov eax, edx
 				mov [eax + 16], 117
 				mov [eax + 20], 101
 				mov [eax + 24], 0
-push eax
+			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8
-mov eax, null
 			jmp _method_return___STATIC_method__java_lang_String__valueOf$boolean$
 
 		jmp .endif8
@@ -1491,10 +1489,9 @@ mov eax, null
 				mov [eax + 20], 115
 				mov [eax + 24], 101
 				mov [eax + 28], 0
-push eax
+			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8
-mov eax, null
 			jmp _method_return___STATIC_method__java_lang_String__valueOf$boolean$
 
 		.endif8:
@@ -1547,10 +1544,9 @@ mov eax, null
 				mov [eax + 16], 108
 				mov [eax + 20], 108
 				mov [eax + 24], 0
-push eax
+			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8
-mov eax, null
 			jmp _method_return___STATIC_method__java_lang_String__valueOf$java_lang_Object$
 
 		jmp .endif9
@@ -1637,10 +1633,9 @@ mov eax, null
 				mov [eax + 16], 108
 				mov [eax + 20], 108
 				mov [eax + 24], 0
-push eax
+			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8
-mov eax, null
 			jmp _method_return___STATIC_method__java_lang_String__valueOf$java_lang_String$
 
 		jmp .endif10
@@ -1815,10 +1810,9 @@ mov eax, null
 			mov ebx, 0
 			call __new_array
 				mov [eax + 8], 0
-push eax
+			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8
-mov eax, null
 			jmp _method_return___method__java_lang_String__substring$int$int$
 
 		jmp .endif13
@@ -1881,10 +1875,9 @@ mov eax, null
 			mov ebx, 0
 			call __new_array
 				mov [eax + 8], 0
-push eax
+			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8
-mov eax, null
 			jmp _method_return___method__java_lang_String__substring$int$int$
 
 		jmp .endif14
@@ -1929,10 +1922,9 @@ mov eax, null
 			mov ebx, 0
 			call __new_array
 				mov [eax + 8], 0
-push eax
+			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8
-mov eax, null
 			jmp _method_return___method__java_lang_String__substring$int$int$
 
 		jmp .endif15
@@ -2490,10 +2482,9 @@ mov eax, null
 			mov ebx, 0
 			call __new_array
 				mov [eax + 8], 0
-push eax
+			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8
-mov eax, null
 			jmp _method_return___method__java_lang_String__trim
 
 		jmp .endif19

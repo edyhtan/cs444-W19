@@ -480,10 +480,9 @@ global @@@@main
 			mov [eax + 12], 50
 			mov [eax + 16], 51
 			mov [eax + 20], 0
-push eax
+		push eax
 		call __constructor__java_lang_String__String$char@$
 		add esp, 8
-mov eax, null
 
 		push eax
 		;; ---end of declare s
@@ -518,10 +517,9 @@ mov eax, null
 				mov [eax + 12], 50
 				mov [eax + 16], 51
 				mov [eax + 20], 0
-push eax
+			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8
-mov eax, null
 			cmp eax, 0
 			je .cast_end2
 			mov eax, [eax]

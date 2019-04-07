@@ -250,10 +250,9 @@ section .text
 			mov ebx, 0
 			call __new_array
 				mov [eax + 8], 0
-push eax
+			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8
-mov eax, null
 			push eax
 
 		;; class method:

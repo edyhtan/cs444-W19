@@ -92,10 +92,9 @@ section .text
 			mov [eax + 72], 99
 			mov [eax + 76], 116
 			mov [eax + 80], 0
-push eax
+		push eax
 		call __constructor__java_lang_String__String$char@$
 		add esp, 8
-mov eax, null
 		jmp _method_return___method__java_lang_Object__toString
 
 		_method_return___method__java_lang_Object__toString:
