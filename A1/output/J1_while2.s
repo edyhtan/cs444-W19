@@ -5,15 +5,19 @@ extern __constructor__java_lang_Object__Object
 extern __method__java_lang_Object__getClass
 extern __ref_SIT_java_lang_Short
 extern __ref_SIT_java_lang_Character
+extern __class_ArrayTemplate
+extern __constructor__java_io_PrintStream__PrintStream
 extern __ref_SIT_java_lang_String
 extern __ref_SIT_java_lang_Integer
 extern __method__java_lang_Object__toString
-extern __ref_SIT_java_lang_Class
 extern __ref_SIT_java_lang_Boolean
+extern __ref_SIT_java_lang_Class
 extern __ref_SIT_java_util_Arrays
 extern __method__java_lang_Object__equals$java_lang_Object$
 extern __ref_SIT_java_io_PrintStream
+extern __class_java_io_PrintStream
 extern __method__java_lang_Object__clone
+extern __ref_SIT_ArrayTemplate
 extern __field_java_lang_Boolean_MAX_VALUE
 extern __ref_SIT_java_lang_Object
 extern __method__java_lang_Object__hashCode
@@ -35,7 +39,7 @@ __class_J1_while2:
 
 		global __ref_PARENTS_J1_while2
 	__ref_PARENTS_J1_while2:
-		dd 1000001000000000b
+		dd 1000010000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -93,14 +97,14 @@ section .text
 
 							;; Local Var y
 				mov eax, ebp
-				sub eax, 4
+				sub eax, 8
 
 			push eax
 				;; Minus
 				;; LHS code...
 				;; Local Var y
 				mov eax, ebp
-				sub eax, 4
+				sub eax, 8
 				mov eax, [eax]
 
 				push eax
@@ -121,7 +125,7 @@ section .text
 			push eax
 				;; Local Var y
 				mov eax, ebp
-				sub eax, 4
+				sub eax, 8
 				mov eax, [eax]
 
 			pop ebx
@@ -154,7 +158,7 @@ _start:
 mov eax, 16
 call __malloc
 
-mov ebx, __ref_SIT_java_util_Arrays
+mov ebx, __ref_SIT_java_io_OutputStream
 mov [ebx], eax
 
 		mov ebx, __method__java_lang_Object__hashCode
@@ -190,43 +194,7 @@ mov [ebx], eax
 mov eax, 16
 call __malloc
 
-mov ebx, __ref_SIT_java_io_OutputStream
-mov [ebx], eax
-
-		mov ebx, __method__java_lang_Object__hashCode
-	mov [eax + 0], ebx
-
-		mov ebx, __method__java_lang_Object__equals$java_lang_Object$
-	mov [eax + 4], ebx
-
-		mov ebx, __method__java_lang_Object__clone
-	mov [eax + 8], ebx
-
-		mov ebx, __method__java_lang_Object__toString
-	mov [eax + 12], ebx
-
-mov eax, 16
-call __malloc
-
-mov ebx, __ref_SIT_java_lang_System
-mov [ebx], eax
-
-		mov ebx, __method__java_lang_Object__hashCode
-	mov [eax + 0], ebx
-
-		mov ebx, __method__java_lang_Object__equals$java_lang_Object$
-	mov [eax + 4], ebx
-
-		mov ebx, __method__java_lang_Object__clone
-	mov [eax + 8], ebx
-
-		mov ebx, __method__java_lang_Object__toString
-	mov [eax + 12], ebx
-
-mov eax, 16
-call __malloc
-
-mov ebx, __ref_SIT_java_lang_Integer
+mov ebx, __ref_SIT_java_lang_Boolean
 mov [ebx], eax
 
 		mov ebx, __method__java_lang_Object__hashCode
@@ -262,7 +230,7 @@ mov [ebx], eax
 mov eax, 16
 call __malloc
 
-mov ebx, __ref_SIT_java_lang_Short
+mov ebx, __ref_SIT_java_lang_Character
 mov [ebx], eax
 
 		mov ebx, __method__java_lang_Object__hashCode
@@ -298,43 +266,7 @@ mov [ebx], eax
 mov eax, 16
 call __malloc
 
-mov ebx, __ref_SIT_java_lang_Object
-mov [ebx], eax
-
-		mov ebx, __method__java_lang_Object__hashCode
-	mov [eax + 0], ebx
-
-		mov ebx, __method__java_lang_Object__equals$java_lang_Object$
-	mov [eax + 4], ebx
-
-		mov ebx, __method__java_lang_Object__clone
-	mov [eax + 8], ebx
-
-		mov ebx, __method__java_lang_Object__toString
-	mov [eax + 12], ebx
-
-mov eax, 16
-call __malloc
-
-mov ebx, __ref_SIT_java_lang_String
-mov [ebx], eax
-
-		mov ebx, __method__java_lang_Object__hashCode
-	mov [eax + 0], ebx
-
-		mov ebx, __method__java_lang_Object__equals$java_lang_Object$
-	mov [eax + 4], ebx
-
-		mov ebx, __method__java_lang_Object__clone
-	mov [eax + 8], ebx
-
-		mov ebx, __method__java_lang_Object__toString
-	mov [eax + 12], ebx
-
-mov eax, 16
-call __malloc
-
-mov ebx, __ref_SIT_java_lang_Character
+mov ebx, __ref_SIT_java_lang_Integer
 mov [ebx], eax
 
 		mov ebx, __method__java_lang_Object__hashCode
@@ -370,7 +302,79 @@ mov [ebx], eax
 mov eax, 16
 call __malloc
 
-mov ebx, __ref_SIT_java_lang_Boolean
+mov ebx, __ref_SIT_java_lang_Object
+mov [ebx], eax
+
+		mov ebx, __method__java_lang_Object__hashCode
+	mov [eax + 0], ebx
+
+		mov ebx, __method__java_lang_Object__equals$java_lang_Object$
+	mov [eax + 4], ebx
+
+		mov ebx, __method__java_lang_Object__clone
+	mov [eax + 8], ebx
+
+		mov ebx, __method__java_lang_Object__toString
+	mov [eax + 12], ebx
+
+mov eax, 16
+call __malloc
+
+mov ebx, __ref_SIT_java_lang_Short
+mov [ebx], eax
+
+		mov ebx, __method__java_lang_Object__hashCode
+	mov [eax + 0], ebx
+
+		mov ebx, __method__java_lang_Object__equals$java_lang_Object$
+	mov [eax + 4], ebx
+
+		mov ebx, __method__java_lang_Object__clone
+	mov [eax + 8], ebx
+
+		mov ebx, __method__java_lang_Object__toString
+	mov [eax + 12], ebx
+
+mov eax, 16
+call __malloc
+
+mov ebx, __ref_SIT_java_lang_String
+mov [ebx], eax
+
+		mov ebx, __method__java_lang_Object__hashCode
+	mov [eax + 0], ebx
+
+		mov ebx, __method__java_lang_Object__equals$java_lang_Object$
+	mov [eax + 4], ebx
+
+		mov ebx, __method__java_lang_Object__clone
+	mov [eax + 8], ebx
+
+		mov ebx, __method__java_lang_Object__toString
+	mov [eax + 12], ebx
+
+mov eax, 16
+call __malloc
+
+mov ebx, __ref_SIT_java_lang_System
+mov [ebx], eax
+
+		mov ebx, __method__java_lang_Object__hashCode
+	mov [eax + 0], ebx
+
+		mov ebx, __method__java_lang_Object__equals$java_lang_Object$
+	mov [eax + 4], ebx
+
+		mov ebx, __method__java_lang_Object__clone
+	mov [eax + 8], ebx
+
+		mov ebx, __method__java_lang_Object__toString
+	mov [eax + 12], ebx
+
+mov eax, 16
+call __malloc
+
+mov ebx, __ref_SIT_java_util_Arrays
 mov [ebx], eax
 
 		mov ebx, __method__java_lang_Object__hashCode
@@ -402,25 +406,60 @@ mov [ebx], eax
 
 		mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
-
-;; Static Field: __field_java_lang_System_out
-mov eax, 3
-mov ebx, __field_java_lang_System_out
+mov ebx, __ref_SIT_ArrayTemplate
 mov [ebx], eax
 
-;; Static Field: __field_java_lang_Integer_MAX_VALUE
-mov eax, 3
-mov ebx, __field_java_lang_Integer_MAX_VALUE
+		mov ebx, __method__java_lang_Object__hashCode
+	mov [eax + 0], ebx
+
+		mov ebx, __method__java_lang_Object__equals$java_lang_Object$
+	mov [eax + 4], ebx
+
+		mov ebx, __method__java_lang_Object__clone
+	mov [eax + 8], ebx
+
+		mov ebx, __method__java_lang_Object__toString
+	mov [eax + 12], ebx
+
+;; Static Field: __field_java_lang_Boolean_MAX_VALUE
+	;; casting
+	;; primitive run-time casting to [byte]
+		mov eax, 127
+	and eax, 0xff
+mov ebx, __field_java_lang_Boolean_MAX_VALUE
 mov [ebx], eax
 
 ;; Static Field: __field_java_lang_Byte_MAX_VALUE
-mov eax, 3
+	;; casting
+	;; primitive run-time casting to [byte]
+		mov eax, 127
+	and eax, 0xff
 mov ebx, __field_java_lang_Byte_MAX_VALUE
 mov [ebx], eax
 
-;; Static Field: __field_java_lang_Boolean_MAX_VALUE
-mov eax, 3
-mov ebx, __field_java_lang_Boolean_MAX_VALUE
+;; Static Field: __field_java_lang_Integer_MAX_VALUE
+	mov eax, 2147483647
+mov ebx, __field_java_lang_Integer_MAX_VALUE
+mov [ebx], eax
+
+;; Static Field: __field_java_lang_System_out
+	;; ---new [java, io, PrintStream] ()
+	;; Allocating size of 4
+	mov eax, 4
+		call __malloc
+			mov ebx, __class_java_io_PrintStream
+	mov [eax], ebx
+
+	;; Pushing object
+	push eax
+
+	;; Pushing args:
+	call __constructor__java_io_PrintStream__PrintStream
+	add esp, 0
+	pop eax
+
+	;; ---end of new [java, io, PrintStream] ()
+mov ebx, __field_java_lang_System_out
 mov [ebx], eax
 
 call @@@@main
@@ -438,8 +477,9 @@ global @@@@main
 
 		;; Plus
 		;; LHS code...
-		;; Method Invocation: o.m(...)
+		;; ---Method Invocation: 
 		;; Primary.id(ArgList)
+			;; ---new [J1_while2] ()
 			;; Allocating size of 4
 			mov eax, 4
 						call __malloc
@@ -454,6 +494,7 @@ global @@@@main
 			add esp, 0
 			pop eax
 
+			;; ---end of new [J1_while2] ()
 		cmp eax, 0
 		je __exception
 		push eax
@@ -475,6 +516,7 @@ global @@@@main
 		;; pop arguments
 		add esp, 8
 
+		;; ---End of method invocation
 		push eax
 		;; RHS code...
 		mov eax, 123
