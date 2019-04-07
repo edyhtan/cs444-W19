@@ -4,8 +4,8 @@ public class A {
     }
 
     public static int test() {
-
-        return 1;
+        Interface h = new Hello();
+        return h.happyHours();
     }
 
 

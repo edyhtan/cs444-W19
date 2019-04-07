@@ -1,8 +1,10 @@
 extern __ref_SIT_java_lang_Number
+extern __exception
 extern __malloc
 extern __constructor__java_lang_Object__Object
 extern __method__java_lang_Object__getClass
 extern __ref_SIT_foo_bar
+extern __constructor__Hello__Hello
 extern __ref_SIT_java_lang_Short
 extern __ref_SIT_Main
 extern __ref_SIT_java_lang_Character
@@ -21,9 +23,12 @@ extern __class_java_io_PrintStream
 extern __method__java_lang_Object__clone
 extern __ref_SIT_ArrayTemplate
 extern __field_java_lang_Boolean_MAX_VALUE
+extern __field_Hello_staticInt
 extern __ref_SIT_java_lang_Object
+extern __method__Hello__happyHours
 extern __method__java_lang_Object__hashCode
 extern __ref_SIT_java_lang_Byte
+extern __class_Hello
 extern __ref_SIT_Static
 extern __field_java_lang_System_out
 extern __field_java_lang_Byte_MAX_VALUE
@@ -60,7 +65,7 @@ section .text
 	global _start
 _start:
 
-mov eax, 16
+mov eax, 20
 call __malloc
 
 mov ebx, __ref_SIT_java_io_OutputStream
@@ -78,7 +83,7 @@ mov [ebx], eax
 		mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
-mov eax, 16
+mov eax, 20
 call __malloc
 
 mov ebx, __ref_SIT_java_io_PrintStream
@@ -96,7 +101,7 @@ mov [ebx], eax
 		mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
-mov eax, 16
+mov eax, 20
 call __malloc
 
 mov ebx, __ref_SIT_java_lang_Boolean
@@ -114,7 +119,7 @@ mov [ebx], eax
 		mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
-mov eax, 16
+mov eax, 20
 call __malloc
 
 mov ebx, __ref_SIT_java_lang_Byte
@@ -132,7 +137,7 @@ mov [ebx], eax
 		mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
-mov eax, 16
+mov eax, 20
 call __malloc
 
 mov ebx, __ref_SIT_java_lang_Character
@@ -150,7 +155,7 @@ mov [ebx], eax
 		mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
-mov eax, 16
+mov eax, 20
 call __malloc
 
 mov ebx, __ref_SIT_java_lang_Class
@@ -168,7 +173,7 @@ mov [ebx], eax
 		mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
-mov eax, 16
+mov eax, 20
 call __malloc
 
 mov ebx, __ref_SIT_java_lang_Integer
@@ -186,7 +191,7 @@ mov [ebx], eax
 		mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
-mov eax, 16
+mov eax, 20
 call __malloc
 
 mov ebx, __ref_SIT_java_lang_Number
@@ -204,7 +209,7 @@ mov [ebx], eax
 		mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
-mov eax, 16
+mov eax, 20
 call __malloc
 
 mov ebx, __ref_SIT_java_lang_Object
@@ -222,7 +227,7 @@ mov [ebx], eax
 		mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
-mov eax, 16
+mov eax, 20
 call __malloc
 
 mov ebx, __ref_SIT_java_lang_Short
@@ -240,7 +245,7 @@ mov [ebx], eax
 		mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
-mov eax, 16
+mov eax, 20
 call __malloc
 
 mov ebx, __ref_SIT_java_lang_String
@@ -258,7 +263,7 @@ mov [ebx], eax
 		mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
-mov eax, 16
+mov eax, 20
 call __malloc
 
 mov ebx, __ref_SIT_java_lang_System
@@ -276,7 +281,7 @@ mov [ebx], eax
 		mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
-mov eax, 16
+mov eax, 20
 call __malloc
 
 mov ebx, __ref_SIT_java_util_Arrays
@@ -294,7 +299,7 @@ mov [ebx], eax
 		mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
-mov eax, 16
+mov eax, 20
 call __malloc
 
 mov ebx, __ref_SIT_A
@@ -312,7 +317,7 @@ mov [ebx], eax
 		mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
-mov eax, 16
+mov eax, 20
 call __malloc
 
 mov ebx, __ref_SIT_foo_bar
@@ -330,7 +335,7 @@ mov [ebx], eax
 		mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
-mov eax, 16
+mov eax, 20
 call __malloc
 
 mov ebx, __ref_SIT_Hello
@@ -345,10 +350,13 @@ mov [ebx], eax
 		mov ebx, __method__java_lang_Object__clone
 	mov [eax + 8], ebx
 
+		mov ebx, __method__Hello__happyHours
+	mov [eax + 16], ebx
+
 		mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
-mov eax, 16
+mov eax, 20
 call __malloc
 
 mov ebx, __ref_SIT_Main
@@ -366,7 +374,7 @@ mov [ebx], eax
 		mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
-mov eax, 16
+mov eax, 20
 call __malloc
 
 mov ebx, __ref_SIT_Static
@@ -439,6 +447,11 @@ mov [ebx], eax
 mov ebx, __field_java_lang_System_out
 mov [ebx], eax
 
+;; Static Field: __field_Hello_staticInt
+	mov eax, 0
+mov ebx, __field_Hello_staticInt
+mov [ebx], eax
+
 call @@@@main
 mov ebx, eax
 mov eax, 1
@@ -452,7 +465,51 @@ global @@@@main
 		push ebp
 		mov ebp, esp
 
-		mov eax, 1
+		;; ---declare h
+		;; ---new [Hello] ()
+		;; Allocating size of 8
+		mov eax, 8
+				call __malloc
+					mov ebx, __class_Hello
+		mov [eax], ebx
+
+		;; Pushing object
+		push eax
+
+		;; Pushing args:
+		call __constructor__Hello__Hello
+		add esp, 0
+		pop eax
+
+		;; ---end of new [Hello] ()
+
+		push eax
+		;; ---end of declare h
+
+		;; ---Method Invocation: 
+		;; Names(ArgList)
+			;; Local Var h
+			mov eax, ebp
+			sub eax, 4
+			mov eax, [eax]
+
+		cmp eax, 0
+		je __exception
+		;; non-static, pushing reference
+		push eax
+
+		;; Pushing args
+		;; interface method:
+				;; addr of o
+		mov eax, [esp + 0]
+		mov eax, [eax]
+		mov eax, [eax]
+		mov eax, [eax+16]
+		call eax
+		;; pop arguments
+		add esp, 4
+
+		;; ---End of method invocation
 		jmp _method_return___STATIC_method__A__test
 
 		_method_return___STATIC_method__A__test:
