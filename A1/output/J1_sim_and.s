@@ -586,7 +586,7 @@ mov eax, edx
 		;; LHS code...
 		;; ---Method Invocation: 
 		;; Names(ArgList)
-		mov eax, ebp+16
+		mov eax, [ebp+16]
 		;; Null Check:
 		cmp eax, 0
 		je __exception
