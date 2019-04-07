@@ -16,7 +16,7 @@ __class_Static:
 
 		global __ref_PARENTS_Static
 	__ref_PARENTS_Static:
-		dd 11000000010000000000b
+		dd 110000000010000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass

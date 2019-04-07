@@ -17,7 +17,7 @@ __class_java_lang_Byte:
 
 		global __ref_PARENTS_java_lang_Byte
 	__ref_PARENTS_java_lang_Byte:
-		dd 00000000010000010000b
+		dd 000000000010000010000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -79,6 +79,7 @@ mov eax, 0
 		add ebx, 4
 		mov [ebx], eax
 ;; Field init:: MAX_VALUE
+				;; casting
 		mov ebx, [esp]
 		add ebx, 0
 		mov [ebx], eax
@@ -121,6 +122,7 @@ mov eax, 0
 		add ebx, 4
 		mov [ebx], eax
 ;; Field init:: MAX_VALUE
+				;; casting
 		mov ebx, [esp]
 		add ebx, 0
 		mov [ebx], eax

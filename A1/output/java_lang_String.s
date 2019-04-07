@@ -19,7 +19,7 @@ __class_java_lang_String:
 
 		global __ref_PARENTS_java_lang_String
 	__ref_PARENTS_java_lang_String:
-		dd 00000001010000000000b
+		dd 000000001010000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -357,6 +357,11 @@ section .text
 
 		push eax
 		;; RHS code...
+		;; Unary number negation
+		mov eax, 2147483648
+		mov ebx, 0
+		sub ebx, eax
+		mov eax, ebx
 		pop ebx
 		cmp ebx, eax
 		je .eq0
@@ -414,6 +419,15 @@ section .text
 				add eax, 8
 
 			push eax
+				;; Unary number negation
+				;; Local Var i
+				mov eax, ebp
+				add eax, 8
+				mov eax, [eax]
+
+				mov ebx, 0
+				sub ebx, eax
+				mov eax, ebx
 			pop ebx
 			mov [ebx], eax
 
@@ -448,7 +462,7 @@ section .text
 		je .else4
 		;thenClause ...
 						push eax
-				mov eax, 39
+				mov eax, 48
 			pop ebx
 			mov [ebx], eax
 
@@ -555,6 +569,7 @@ mov eax, edx
 
 
 								push eax
+					;; casting
 				pop ebx
 				mov [ebx], eax
 
@@ -604,7 +619,7 @@ mov eax, edx
 		je .else6
 		;thenClause ...
 						push eax
-				mov eax, 39
+				mov eax, 45
 			pop ebx
 			mov [ebx], eax
 
@@ -751,6 +766,7 @@ mov eax, edx
 				;; Method Invocation:
 		;; o.code
 		;; Pushing args
+			;; casting
 			push eax
 
 		call __STATIC_method__java_lang_String__valueOf$int$
@@ -771,6 +787,7 @@ mov eax, edx
 				;; Method Invocation:
 		;; o.code
 		;; Pushing args
+			;; casting
 			push eax
 
 		call __STATIC_method__java_lang_String__valueOf$int$
@@ -950,6 +967,21 @@ mov eax, edx
 		.endif11:
 		;; if statement12
 		;expression code...
+		;; Unary boolean negation
+		;; Instanceof
+				;; Local Var o
+		mov eax, ebp
+		add eax, 8
+		mov eax, [eax]
+
+		mov eax, [eax]
+		mov eax, [eax+4]
+		shr eax, 12
+		and eax, 0x1
+
+		mov ebx, 1
+		sub ebx, eax
+		mov eax, ebx
 		cmp eax, 0
 		je .else12
 		;thenClause ...
@@ -972,6 +1004,18 @@ mov eax, edx
 			push eax
 
 			;; field access
+			;; casting
+						;; Local Var o
+			mov eax, ebp
+			add eax, 8
+			mov eax, [eax]
+
+			mov eax, [eax]
+			mov eax, [eax+4]
+			shr eax, 12
+			and eax, 0x1
+			cmp eax, 0
+			je __exception
 			mov eax, [eax+4]
 			push eax
 
@@ -1292,7 +1336,7 @@ mov eax, edx
 			add esp, 8
 			push eax
 			;; RHS code...
-			mov eax, 39
+			mov eax, 32
 			pop ebx
 			cmp ebx, eax
 			jle .le2
@@ -1403,7 +1447,7 @@ mov eax, edx
 			add esp, 8
 			push eax
 			;; RHS code...
-			mov eax, 39
+			mov eax, 32
 			pop ebx
 			cmp ebx, eax
 			jle .le5
@@ -1669,6 +1713,18 @@ mov eax, edx
 				;; Method Invocation:
 		;; o.code
 		;; Pushing args
+			;; casting
+						;; Local Var other
+			mov eax, ebp
+			add eax, 8
+			mov eax, [eax]
+
+			mov eax, [eax]
+			mov eax, [eax+4]
+			shr eax, 12
+			and eax, 0x1
+			cmp eax, 0
+			je __exception
 			push eax
 
 		call __method__java_lang_String__compareTo$java_lang_String$
@@ -1826,6 +1882,11 @@ mov eax, edx
 			cmp eax, 0
 			je .else23
 			;thenClause ...
+				;; Unary number negation
+				mov eax, 1
+				mov ebx, 0
+				sub ebx, eax
+				mov eax, ebx
 				jmp _method_return___method__java_lang_String__compareTo$java_lang_String$
 
 			jmp .endif23
@@ -1899,6 +1960,11 @@ mov eax, edx
 			cmp eax, 0
 			je .else25
 			;thenClause ...
+				;; Unary number negation
+				mov eax, 1
+				mov ebx, 0
+				sub ebx, eax
+				mov eax, ebx
 				jmp _method_return___method__java_lang_String__compareTo$java_lang_String$
 
 			jmp .endif25
@@ -2347,6 +2413,11 @@ mov eax, edx
 
 		.endfor28:
 
+		;; Unary number negation
+		mov eax, 1
+		mov ebx, 0
+		sub ebx, eax
+		mov eax, ebx
 		jmp _method_return___method__java_lang_String__indexOf$java_lang_String$
 
 		_method_return___method__java_lang_String__indexOf$java_lang_String$:

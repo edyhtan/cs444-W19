@@ -99,7 +99,7 @@ public class Literal extends ExpressionContent implements ConstantExpression {
             }
         }
         if (kind.equals(Symbol.CharLiteral.getSymbolString())) {
-            movLit = Integer.toString((int)literal.charAt(0));
+            movLit = Integer.toString((int)literal.charAt(1));
         }
         if (kind.equals(Symbol.Null.getSymbolString())) {
             movLit = "0";

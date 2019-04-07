@@ -19,7 +19,6 @@ extern __method__java_lang_Object__equals$java_lang_Object$
 extern __ref_SIT_java_io_PrintStream
 extern __method__java_lang_Object__clone
 extern __field_java_lang_Boolean_MAX_VALUE
-extern __field_Hello_staticInt
 extern __ref_SIT_java_lang_Object
 extern __constructor__Static__Static$int$
 extern __method__java_lang_Object__hashCode
@@ -42,7 +41,7 @@ __class_A:
 
 		global __ref_PARENTS_A
 	__ref_PARENTS_A:
-		dd 00001000010000000000b
+		dd 000001000010000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -404,11 +403,6 @@ mov eax, 3
 mov ebx, __field_java_lang_System_out
 mov [ebx], eax
 
-;; Static Field: __field_Hello_staticInt
-mov eax, 3
-mov ebx, __field_Hello_staticInt
-mov [ebx], eax
-
 call @@@@main
 mov ebx, eax
 mov eax, 1
@@ -463,9 +457,9 @@ global @@@@main
 
 		mov eax, [eax]
 		mov eax, [eax+4]
-		shr eax, 19
+		shr eax, 20
 		and eax, 0x1
-		
+
 		cmp eax, 0
 		je .else0
 		;thenClause ...

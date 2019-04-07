@@ -16,7 +16,7 @@ __class_Main:
 
 		global __ref_PARENTS_Main
 	__ref_PARENTS_Main:
-		dd 01000000010000000000b
+		dd 010000000010000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass

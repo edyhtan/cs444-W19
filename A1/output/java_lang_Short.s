@@ -18,7 +18,7 @@ __class_java_lang_Short:
 
 		global __ref_PARENTS_java_lang_Short
 	__ref_PARENTS_java_lang_Short:
-		dd 00000000111000000000b
+		dd 000000000111000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -38,7 +38,8 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				jmp _method_return___method__java_lang_Short__intValue
+				;; casting
+		jmp _method_return___method__java_lang_Short__intValue
 
 		_method_return___method__java_lang_Short__intValue:
 			mov esp, ebp

@@ -20,7 +20,7 @@ __class_java_lang_Integer:
 
 		global __ref_PARENTS_java_lang_Integer
 	__ref_PARENTS_java_lang_Integer:
-		dd 00000000011100000000b
+		dd 000000000011100000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -127,7 +127,7 @@ section .text
 			add esp, 8
 			push eax
 			;; RHS code...
-			mov eax, 39
+			mov eax, 45
 			pop ebx
 			cmp ebx, eax
 			je .eq3
@@ -157,7 +157,7 @@ section .text
 			add esp, 8
 			push eax
 			;; RHS code...
-			mov eax, 39
+			mov eax, 48
 			pop ebx
 			cmp ebx, eax
 			jge .ge5
@@ -186,7 +186,7 @@ section .text
 			add esp, 8
 			push eax
 			;; RHS code...
-			mov eax, 39
+			mov eax, 57
 			pop ebx
 			cmp ebx, eax
 			jle .le6
@@ -224,7 +224,7 @@ section .text
 			add esp, 8
 			push eax
 			;; RHS code...
-			mov eax, 39
+			mov eax, 45
 			pop ebx
 			cmp ebx, eax
 			je .eq7
@@ -242,6 +242,15 @@ section .text
 					sub eax, 8
 
 				push eax
+					;; Unary boolean negation
+					;; Local Var neg
+					mov eax, ebp
+					sub eax, 8
+					mov eax, [eax]
+
+					mov ebx, 1
+					sub ebx, eax
+					mov eax, ebx
 				pop ebx
 				mov [ebx], eax
 
@@ -294,7 +303,7 @@ section .text
 
 					push eax
 					;; RHS code...
-					mov eax, 39
+					mov eax, 48
 					pop ebx
 					sub ebx, eax
 					mov eax, ebx
@@ -348,6 +357,15 @@ section .text
 				sub eax, 4
 
 			push eax
+				;; Unary number negation
+				;; Local Var ret
+				mov eax, ebp
+				sub eax, 4
+				mov eax, [eax]
+
+				mov ebx, 0
+				sub ebx, eax
+				mov eax, ebx
 			pop ebx
 			mov [ebx], eax
 

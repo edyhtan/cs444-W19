@@ -9,8 +9,6 @@ public class A {
         if (x instanceof Static) {
             return x.a;
         }
-
         return 0;
     }
-
 }

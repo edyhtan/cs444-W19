@@ -105,13 +105,13 @@ public class InterfaceDeclr implements TypeDeclr {
             // Do Nothing
         }
 
-        // Class Tag
-        asmWriter.println("\t" + "global " + classTagName);
-        asmWriter.label(classTagName);
-
         asmWriter.println("");
         asmWriter.println("section .data");
         asmWriter.println("");
+
+        // Class Tag
+        asmWriter.println("\t" + "global " + classTagName);
+        asmWriter.label(classTagName);
 
         // Class SIT
         asmWriter.println("\t\t" + "global " + classSIT);
