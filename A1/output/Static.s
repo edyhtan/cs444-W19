@@ -55,3 +55,41 @@ section .text
 		mov esp, ebp
 		pop ebp
 		ret
+		global __constructor__Static__Static$int$
+	__constructor__Static__Static$int$:
+		push ebp
+		mov ebp, esp
+		mov eax, [ebp + 12]
+		push eax
+					mov eax, __constructor__Main__Main
+		call eax
+		sub esp, 4
+;; Field init, push object to stack
+		mov eax, [ebp + 12]
+		push eax
+;; Field init:: a
+				mov eax, 4
+		mov ebx, [esp]
+		add ebx, 12
+		mov [ebx], eax
+;; Field init end, pop object
+		add esp, 4
+;; Constructor Body
+							;; Implicit This
+				mov eax, [ebp + 12]
+				;; Field a
+				add eax, 12
+
+			push eax
+				;; Local Var x
+				mov eax, ebp
+				add eax, 8
+				mov eax, [eax]
+
+			pop ebx
+			mov [ebx], eax
+
+;; Epilogue
+		mov esp, ebp
+		pop ebp
+		ret

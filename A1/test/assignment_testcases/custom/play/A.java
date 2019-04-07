@@ -7,7 +7,7 @@ public class A {
         int y = Integer.MAX_VALUE;
 
         if (x instanceof Static) {
-            return 123;
+            return x.a;
         }
 
         return 0;

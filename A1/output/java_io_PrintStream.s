@@ -28,7 +28,7 @@ __class_java_io_PrintStream:
 
 		global __ref_PARENTS_java_io_PrintStream
 	__ref_PARENTS_java_io_PrintStream:
-		dd 0000010000000011b
+		dd 00000000010000000011b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -128,6 +128,27 @@ section .text
 
 
 			;forUpdate code...
+							;; Local Var i
+				mov eax, ebp
+				sub eax, 4
+
+			push eax
+				;; Plus
+				;; LHS code...
+				;; Local Var i
+				mov eax, ebp
+				sub eax, 4
+				mov eax, [eax]
+
+				push eax
+				;; RHS code...
+				mov eax, 1
+				pop ebx
+				add ebx, eax
+				mov eax, ebx
+
+			pop ebx
+			mov [ebx], eax
 
 
 			jmp .for0

@@ -17,7 +17,7 @@ __class_java_lang_Byte:
 
 		global __ref_PARENTS_java_lang_Byte
 	__ref_PARENTS_java_lang_Byte:
-		dd 0000010000010000b
+		dd 00000000010000010000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -85,6 +85,19 @@ mov eax, 0
 ;; Field init end, pop object
 		add esp, 4
 ;; Constructor Body
+							;; Implicit This
+				mov eax, [ebp + 12]
+				;; Field value
+				add eax, 4
+
+			push eax
+				;; Local Var i
+				mov eax, ebp
+				add eax, 8
+				mov eax, [eax]
+
+			pop ebx
+			mov [ebx], eax
 
 ;; Epilogue
 		mov esp, ebp

@@ -139,7 +139,7 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
     }
 
     public void buildCanonicalName(ArrayList<String> className) {
-        //TODO
+
     }
 
     public boolean isAbstract() {

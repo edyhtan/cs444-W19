@@ -157,6 +157,8 @@ public class ConstructorDeclr implements ClassBodyDeclr, Method {
         // Pseudo way to get object addr
         Integer objectOffset = formalParamList.size() * 4 + 8;
 
+        localEnv.setThis(objectOffset);
+
 
 
         // Super default constructor if not object

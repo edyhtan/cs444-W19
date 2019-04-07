@@ -279,8 +279,19 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 asmWriter.mov(Register.eax, Register.ebx);
                 // TODO: string concatenation
                 break;
-            // assignability
             case Equal:
+                asmWriter.indent(indent);
+                if (LHS instanceof Names)
+                    ((Names)LHS).getCodeAddr(indent+1);
+                else  // Array Access Expression
+                    LHS.codeGen(indent + 1);
+                asmWriter.indent(indent);
+                asmWriter.push(Register.eax);
+                RHS.codeGen(indent + 1);
+                asmWriter.indent(indent);
+                asmWriter.pop(Register.ebx);
+                asmWriter.indent(indent);
+                asmWriter.movToAddr(Register.ebx, Register.eax);
 
                 break;
             // arithmetic operations
@@ -324,7 +335,6 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
 
                 asmWriter.compare(LHS, RHS, indent, "jne", "ne", offset);
                 break;
-            // TODO: check if LHS && RHS is char / octal - use unsigned
             case GE:
                 offset = MethodDeclr.PER_METHOD_COUNT;
                 MethodDeclr.PER_METHOD_COUNT++;
@@ -462,10 +472,5 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
     @Override
     public void addWriter(AsmWriter writer) {
         asmWriter = writer;
-    }
-
-    private int calcTestBit(int i) {
-        if(i == 0) return 1;
-        return 2* calcTestBit(i-1);
     }
 }

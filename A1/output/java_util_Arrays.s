@@ -17,7 +17,7 @@ __class_java_util_Arrays:
 
 		global __ref_PARENTS_java_util_Arrays
 	__ref_PARENTS_java_util_Arrays:
-		dd 0100010000000000b
+		dd 00000100010000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -156,6 +156,27 @@ section .text
 
 
 			;forUpdate code...
+							;; Local Var i
+				mov eax, ebp
+				sub eax, 4
+
+			push eax
+				;; Plus
+				;; LHS code...
+				;; Local Var i
+				mov eax, ebp
+				sub eax, 4
+				mov eax, [eax]
+
+				push eax
+				;; RHS code...
+				mov eax, 1
+				pop ebx
+				add ebx, eax
+				mov eax, ebx
+
+			pop ebx
+			mov [ebx], eax
 
 
 			jmp .for1
@@ -293,6 +314,27 @@ section .text
 
 
 			;forUpdate code...
+							;; Local Var i
+				mov eax, ebp
+				sub eax, 4
+
+			push eax
+				;; Plus
+				;; LHS code...
+				;; Local Var i
+				mov eax, ebp
+				sub eax, 4
+				mov eax, [eax]
+
+				push eax
+				;; RHS code...
+				mov eax, 1
+				pop ebx
+				add ebx, eax
+				mov eax, ebx
+
+			pop ebx
+			mov [ebx], eax
 
 
 			jmp .for4
