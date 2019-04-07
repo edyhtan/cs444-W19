@@ -196,7 +196,7 @@ public class ClassDeclr implements TypeDeclr {
             field.addWriter(asmWriter);
             if (field.getModifiers().contains(Symbol.Static)) {
                 asmWriter.println("\t\t" + "global " + field.getStaticFieldLabel());
-                asmWriter.print("\t" + field.getStaticFieldLabel());
+                asmWriter.label(field.getStaticFieldLabel());
                 asmWriter.println("\t\t" + "dd 0");
                 asmWriter.println("");
             }
