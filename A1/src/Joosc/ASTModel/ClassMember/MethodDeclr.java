@@ -234,7 +234,7 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
             localEnv.assignOffset(param.getValue(), (size - i) * 4);
         }
 
-        if (getModifiers().contains(Symbol.Static)) {
+        if (!getModifiers().contains(Symbol.Static)) {
             localEnv.setThis((size+1)*4);
         }
 
@@ -243,15 +243,30 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
 
             if(statement instanceof Block) {
                 SymbolTable.assignOffset(statement, (LocalEnv) ((Block) statement).getEnv());
+            } else {
+                SymbolTable.assignOffset(statement, localEnv);
             }
-            SymbolTable.assignOffset(statement, localEnv);
-
 
             if (statement instanceof ForStatement) {
                 if(((ForStatement)statement).getBlock().size() == 1 && ((ForStatement)statement).getBlock().get(0) instanceof Block) {
                     SymbolTable.assignOffset(((ForStatement) statement).getStatement(), (LocalEnv)((HasScope)((ForStatement) statement).getStatement().getBlock().get(0)).getEnv());
                 }
             }
+            if(statement instanceof IfStatement) {
+                if(((IfStatement) statement).getElseClause() != null ) {
+                    for (Statement blkStatement : ((IfStatement) statement).getElseClause().getBlock()) {
+                        SymbolTable.assignOffset(blkStatement, (LocalEnv) ((IfStatement) statement).getElseClause().getEnv());
+                    }
+                }
+
+            }
+
+            if(statement instanceof WhileStatement) {
+                for (Statement blkStatement : ((HasScope) statement).getBlock()) {
+                    SymbolTable.assignOffset(blkStatement, (LocalEnv) ((HasScope) statement).getEnv());
+                }
+            }
+
         }
 
         if (name.equals("test") && modifiers.contains(Symbol.Static)) {

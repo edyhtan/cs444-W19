@@ -1,15 +1,11 @@
 extern __ref_SIT_java_lang_Number
+extern __exception
 extern __malloc
 extern __constructor__java_lang_Object__Object
 extern __method__java_lang_Object__getClass
-extern __ref_SIT_foo_bar
 extern __ref_SIT_java_lang_Short
-extern __ref_SIT_Main
 extern __ref_SIT_java_lang_Character
-extern __class_ArrayTemplate
-extern __constructor__java_io_PrintStream__PrintStream
 extern __ref_SIT_java_lang_String
-extern __ref_SIT_Hello
 extern __ref_SIT_java_lang_Integer
 extern __method__java_lang_Object__toString
 extern __ref_SIT_java_lang_Boolean
@@ -17,13 +13,11 @@ extern __ref_SIT_java_lang_Class
 extern __ref_SIT_java_util_Arrays
 extern __method__java_lang_Object__equals$java_lang_Object$
 extern __ref_SIT_java_io_PrintStream
-extern __class_java_io_PrintStream
 extern __method__java_lang_Object__clone
 extern __field_java_lang_Boolean_MAX_VALUE
 extern __ref_SIT_java_lang_Object
 extern __method__java_lang_Object__hashCode
 extern __ref_SIT_java_lang_Byte
-extern __ref_SIT_Static
 extern __field_java_lang_System_out
 extern __field_java_lang_Byte_MAX_VALUE
 extern __ref_SIT_java_lang_System
@@ -33,15 +27,15 @@ extern __ref_SIT_java_io_OutputStream
 
 section .data
 
-	global __class_A
-__class_A:
-		global __ref_SIT_A
-	__ref_SIT_A:
+	global __class_J1_sideeffects_obj3
+__class_J1_sideeffects_obj3:
+		global __ref_SIT_J1_sideeffects_obj3
+	__ref_SIT_J1_sideeffects_obj3:
 		dd 0
 
-		global __ref_PARENTS_A
-	__ref_PARENTS_A:
-		dd 000001000010000000000b
+		global __ref_PARENTS_J1_sideeffects_obj3
+	__ref_PARENTS_J1_sideeffects_obj3:
+		dd 1000010000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -49,7 +43,9 @@ __class_A:
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
 		dd __method__java_lang_Object__toString
-		dd __STATIC_method__A__test
+		dd __method__J1_sideeffects_obj3__bar
+		dd __STATIC_method__J1_sideeffects_obj3__test
+		dd __method__J1_sideeffects_obj3__foo
 
 ;; Static fields
 
@@ -296,93 +292,7 @@ mov [ebx], eax
 mov eax, 16
 call __malloc
 
-mov ebx, __ref_SIT_A
-mov [ebx], eax
-
-		mov ebx, __method__java_lang_Object__hashCode
-	mov [eax + 0], ebx
-
-		mov ebx, __method__java_lang_Object__equals$java_lang_Object$
-	mov [eax + 4], ebx
-
-		mov ebx, __method__java_lang_Object__clone
-	mov [eax + 8], ebx
-
-		mov ebx, __method__java_lang_Object__toString
-	mov [eax + 12], ebx
-
-mov eax, 16
-call __malloc
-
-mov ebx, __ref_SIT_foo_bar
-mov [ebx], eax
-
-		mov ebx, __method__java_lang_Object__hashCode
-	mov [eax + 0], ebx
-
-		mov ebx, __method__java_lang_Object__equals$java_lang_Object$
-	mov [eax + 4], ebx
-
-		mov ebx, __method__java_lang_Object__clone
-	mov [eax + 8], ebx
-
-		mov ebx, __method__java_lang_Object__toString
-	mov [eax + 12], ebx
-
-mov eax, 16
-call __malloc
-
-mov ebx, __ref_SIT_Hello
-mov [ebx], eax
-
-		mov ebx, __method__java_lang_Object__hashCode
-	mov [eax + 0], ebx
-
-		mov ebx, __method__java_lang_Object__equals$java_lang_Object$
-	mov [eax + 4], ebx
-
-		mov ebx, __method__java_lang_Object__clone
-	mov [eax + 8], ebx
-
-		mov ebx, __method__java_lang_Object__toString
-	mov [eax + 12], ebx
-
-mov eax, 16
-call __malloc
-
-mov ebx, __ref_SIT_Main
-mov [ebx], eax
-
-		mov ebx, __method__java_lang_Object__hashCode
-	mov [eax + 0], ebx
-
-		mov ebx, __method__java_lang_Object__equals$java_lang_Object$
-	mov [eax + 4], ebx
-
-		mov ebx, __method__java_lang_Object__clone
-	mov [eax + 8], ebx
-
-		mov ebx, __method__java_lang_Object__toString
-	mov [eax + 12], ebx
-
-mov eax, 16
-call __malloc
-
-mov ebx, __ref_SIT_Static
-mov [ebx], eax
-
-		mov ebx, __method__java_lang_Object__hashCode
-	mov [eax + 0], ebx
-
-		mov ebx, __method__java_lang_Object__equals$java_lang_Object$
-	mov [eax + 4], ebx
-
-		mov ebx, __method__java_lang_Object__clone
-	mov [eax + 8], ebx
-
-		mov ebx, __method__java_lang_Object__toString
-	mov [eax + 12], ebx
-mov ebx, __ref_SIT_ArrayTemplate
+mov ebx, __ref_SIT_J1_sideeffects_obj3
 mov [ebx], eax
 
 		mov ebx, __method__java_lang_Object__hashCode
@@ -398,43 +308,22 @@ mov [ebx], eax
 	mov [eax + 12], ebx
 
 ;; Static Field: __field_java_lang_Boolean_MAX_VALUE
-	;; casting
-	;; primitive run-time casting to [byte]
-		mov eax, 127
-	and eax, 0xff
+mov eax, 3
 mov ebx, __field_java_lang_Boolean_MAX_VALUE
 mov [ebx], eax
 
 ;; Static Field: __field_java_lang_Byte_MAX_VALUE
-	;; casting
-	;; primitive run-time casting to [byte]
-		mov eax, 127
-	and eax, 0xff
+mov eax, 3
 mov ebx, __field_java_lang_Byte_MAX_VALUE
 mov [ebx], eax
 
 ;; Static Field: __field_java_lang_Integer_MAX_VALUE
-	mov eax, 2147483647
+mov eax, 3
 mov ebx, __field_java_lang_Integer_MAX_VALUE
 mov [ebx], eax
 
 ;; Static Field: __field_java_lang_System_out
-	;; ---new [java, io, PrintStream] ()
-	;; Allocating size of 4
-	mov eax, 4
-		call __malloc
-			mov ebx, __class_java_io_PrintStream
-	mov [eax], ebx
-
-	;; Pushing object
-	push eax
-
-	;; Pushing args:
-	call __constructor__java_io_PrintStream__PrintStream
-	add esp, 0
-	pop eax
-
-	;; ---end of new [java, io, PrintStream] ()
+mov eax, 3
 mov ebx, __field_java_lang_System_out
 mov [ebx], eax
 
@@ -446,340 +335,443 @@ int 0x80
 
 global @@@@main
 @@@@main:
-		global __STATIC_method__A__test
-	__STATIC_method__A__test:
+		global __STATIC_method__J1_sideeffects_obj3__test
+	__STATIC_method__J1_sideeffects_obj3__test:
 		push ebp
 		mov ebp, esp
 
-		;; ---declare i
+		;; ---declare tmp
 		mov eax, 0
 
 		push eax
-		;; ---end of declare i
+		;; ---end of declare tmp
 
-		.while0:
-			;expression code...
-			;; ompare_lt
-			;; LHS code...
-			;; Local Var i
-			mov eax, ebp
-			sub eax, 4
-			mov eax, [eax]
+		;; ---declare obj
+		;; ---new [J1_sideeffects_obj3] ()
+		;; Allocating size of 12
+		mov eax, 12
+				call __malloc
+					mov ebx, __class_J1_sideeffects_obj3
+		mov [eax], ebx
 
+		;; Pushing object
+		push eax
+
+		;; Pushing args:
+			mov eax, 1
 			push eax
-			;; RHS code...
-			mov eax, 123
-			pop ebx
-			cmp ebx, eax
-			jl .lt2
-			mov eax, 0
-			jmp .end_lt2
-			.lt2:
-				mov eax, 1
-			.end_lt2:
 
-			cmp eax, 0
-			je .endwhile0
-			;; while statement code...
-			;; ---declare j
-			mov eax, 0
-
-			push eax
-			;; ---end of declare j
-
-
-			.for1:
-				;expression code...
-				;; ompare_lt
-				;; LHS code...
-				;; Local Var i
+							;; Local Var tmp
 				mov eax, ebp
 				sub eax, 4
-				mov eax, [eax]
 
+			push eax
+				;; ---new [J1_sideeffects_obj3] ()
+				;; Allocating size of 12
+				mov eax, 12
+								call __malloc
+									mov ebx, __class_J1_sideeffects_obj3
+				mov [eax], ebx
+
+				;; Pushing object
 				push eax
-				;; RHS code...
-				mov eax, 123
-				pop ebx
-				cmp ebx, eax
-				jl .lt3
-				mov eax, 0
-				jmp .end_lt3
-				.lt3:
-					mov eax, 1
-				.end_lt3:
 
-				cmp eax, 0
-				je .endfor1
-				;statement code...
-
-
-				;forUpdate code...
-									;; Local Var i
-					mov eax, ebp
-					sub eax, 4
-
-				push eax
-					;; Plus
-					;; LHS code...
-					;; Local Var i
-					mov eax, ebp
-					sub eax, 4
-					mov eax, [eax]
-
-					push eax
-					;; RHS code...
+				;; Pushing args:
 					mov eax, 2
-					pop ebx
-					add ebx, eax
-					mov eax, ebx
-
-				pop ebx
-				mov [ebx], eax
-
-
-				jmp .for1
-
-			.endfor1:
-
-
-			add esp, 4
-
-			jmp .while0
-
-		.endwhile0:
-
-			add esp, 4
-
-		.while2:
-			;expression code...
-			;; ompare_lt
-			;; LHS code...
-			;; Local Var i
-			mov eax, ebp
-			sub eax, 4
-			mov eax, [eax]
-
-			push eax
-			;; RHS code...
-			mov eax, 123
-			pop ebx
-			cmp ebx, eax
-			jl .lt4
-			mov eax, 0
-			jmp .end_lt4
-			.lt4:
-				mov eax, 1
-			.end_lt4:
-
-			cmp eax, 0
-			je .endwhile2
-			;; while statement code...
-			;; ---declare j
-			mov eax, 0
-
-			push eax
-			;; ---end of declare j
-
-
-			.for3:
-				;expression code...
-				;; ompare_lt
-				;; LHS code...
-				;; Local Var i
-				mov eax, ebp
-				sub eax, 4
-				mov eax, [eax]
-
-				push eax
-				;; RHS code...
-				mov eax, 123
-				pop ebx
-				cmp ebx, eax
-				jl .lt5
-				mov eax, 0
-				jmp .end_lt5
-				.lt5:
-					mov eax, 1
-				.end_lt5:
-
-				cmp eax, 0
-				je .endfor3
-				;statement code...
-				.while4:
-					;expression code...
-					;; ompare_lt
-					;; LHS code...
-					;; Local Var i
-					mov eax, ebp
-					sub eax, 4
-					mov eax, [eax]
-
 					push eax
-					;; RHS code...
-					mov eax, 10
-					pop ebx
-					cmp ebx, eax
-					jl .lt6
-					mov eax, 0
-					jmp .end_lt6
-					.lt6:
-						mov eax, 1
-					.end_lt6:
 
+					;; casting
+										mov eax, 0
 					cmp eax, 0
-					je .endwhile4
-					;; while statement code...
-											;; Local Var i
-						mov eax, ebp
-						sub eax, 4
-
-					push eax
-						;; Plus
-						;; LHS code...
-						;; Local Var i
-						mov eax, ebp
-						sub eax, 4
-						mov eax, [eax]
-
-						push eax
-						;; RHS code...
-						mov eax, 3
-						pop ebx
-						add ebx, eax
-						mov eax, ebx
-
-					pop ebx
-					mov [ebx], eax
-
-
-											;; Local Var j
-						mov eax, ebp
-						sub eax, 12
-
-					push eax
-						;; Plus
-						;; LHS code...
-						;; Local Var j
-						mov eax, ebp
-						sub eax, 12
-						mov eax, [eax]
-
-						push eax
-						;; RHS code...
-						mov eax, 3
-						pop ebx
-						add ebx, eax
-						mov eax, ebx
-
-					pop ebx
-					mov [ebx], eax
-
-
-					jmp .while4
-
-				.endwhile4:
-
-
-
-
-				;forUpdate code...
-									;; Local Var i
-					mov eax, ebp
-					sub eax, 4
-
-				push eax
-					;; Plus
-					;; LHS code...
-					;; Local Var i
-					mov eax, ebp
-					sub eax, 4
+					je .cast_end
 					mov eax, [eax]
-
+					mov eax, [eax+4]
+					shr eax, 15
+					and eax, 0x1
+					cmp eax, 0
+					je __exception
+					.cast_end:
 					push eax
-					;; RHS code...
-					mov eax, 2
-					pop ebx
-					add ebx, eax
-					mov eax, ebx
 
-				pop ebx
-				mov [ebx], eax
+				call __constructor__J1_sideeffects_obj3__J1_sideeffects_obj3$int$J1_sideeffects_obj3$
+				add esp, 8
+				pop eax
 
+				;; ---end of new [J1_sideeffects_obj3] ()
+			pop ebx
+			mov [ebx], eax
 
-				jmp .for3
+			push eax
 
-			.endfor3:
+		call __constructor__J1_sideeffects_obj3__J1_sideeffects_obj3$int$J1_sideeffects_obj3$
+		add esp, 8
+		pop eax
 
+		;; ---end of new [J1_sideeffects_obj3] ()
 
+		push eax
+		;; ---end of declare obj
+
+					;; field access
+			;; ---Method Invocation: 
+			;; Names(ArgList)
+				;; Local Var obj
+				mov eax, ebp
+				sub eax, 8
+				mov eax, [eax]
+
+			cmp eax, 0
+			je __exception
+			;; non-static, pushing reference
+			push eax
+
+			;; Pushing args
+			;; class method:
+			;; addr of o
+			mov eax, [esp + 0]
+			;; vtable
+			mov eax, [eax]
+			;; addr of m body
+			mov eax, [eax + 36]
+
+			call eax
+
+			;; pop arguments
 			add esp, 4
 
-			jmp .while2
+			;; ---End of method invocation
+			add eax, 4
+		push eax
+			;; ---Method Invocation: 
+			;; Names(ArgList)
+				;; Local Var obj
+				mov eax, ebp
+				sub eax, 8
+				mov eax, [eax]
 
-		.endwhile2:
+			cmp eax, 0
+			je __exception
+			;; non-static, pushing reference
+			push eax
 
+			;; Pushing args
+			;; class method:
+			;; addr of o
+			mov eax, [esp + 0]
+			;; vtable
+			mov eax, [eax]
+			;; addr of m body
+			mov eax, [eax + 28]
+
+			call eax
+
+			;; pop arguments
 			add esp, 4
 
-		;; if statement5
-		;expression code...
-		;; ompare_gt
+			;; ---End of method invocation
+		pop ebx
+		mov [ebx], eax
+
+		;; Plus
 		;; LHS code...
-		;; Local Var i
+		;; Plus
+		;; LHS code...
+		;; Mult
+		;; LHS code...
+		mov eax, 4
+		push eax
+		;; RHS code...
+		;; Local Var tmp
 		mov eax, ebp
 		sub eax, 4
+		mov eax, [eax]
+
+		cmp eax, 0
+		je __exception
+		;; Field a
+		add eax, 4
+		mov eax, [eax]
+
+		pop ebx
+		imul ebx, eax
+		mov eax, ebx
+
+		push eax
+		;; RHS code...
+		;; Mult
+		;; LHS code...
+		mov eax, 5
+		push eax
+		;; RHS code...
+		;; Local Var obj
+		mov eax, ebp
+		sub eax, 8
+		mov eax, [eax]
+
+		cmp eax, 0
+		je __exception
+		;; Field a
+		add eax, 4
+		mov eax, [eax]
+
+		pop ebx
+		imul ebx, eax
+		mov eax, ebx
+
+		pop ebx
+		add ebx, eax
+		mov eax, ebx
+
+		push eax
+		;; RHS code...
+		;; Local Var obj
+		mov eax, ebp
+		sub eax, 8
+		mov eax, [eax]
+
+		cmp eax, 0
+		je __exception
+		;; Field subject
+		add eax, 8
+		mov eax, [eax]
+
+		cmp eax, 0
+		je __exception
+		;; Field a
+		add eax, 4
+		mov eax, [eax]
+
+		pop ebx
+		add ebx, eax
+		mov eax, ebx
+
+		jmp _method_return___STATIC_method__J1_sideeffects_obj3__test
+
+		_method_return___STATIC_method__J1_sideeffects_obj3__test:
+			mov esp, ebp
+			pop ebp
+			ret
+
+		global __method__J1_sideeffects_obj3__foo
+	__method__J1_sideeffects_obj3__foo:
+		push ebp
+		mov ebp, esp
+
+					;; Implicit This
+			mov eax, [ebp + 8]
+			;; Field a
+			add eax, 4
+
+		push eax
+			;; Plus
+			;; LHS code...
+			;; Implicit This
+			mov eax, [ebp + 8]
+			;; Field a
+			add eax, 4
+			mov eax, [eax]
+
+			push eax
+			;; RHS code...
+			mov eax, 2
+			pop ebx
+			add ebx, eax
+			mov eax, ebx
+
+		pop ebx
+		mov [ebx], eax
+
+		;; Implicit This
+		mov eax, [ebp + 8]
+		;; Field subject
+		add eax, 8
+		mov eax, [eax]
+
+		jmp _method_return___method__J1_sideeffects_obj3__foo
+
+		_method_return___method__J1_sideeffects_obj3__foo:
+			mov esp, ebp
+			pop ebp
+			ret
+
+		global __method__J1_sideeffects_obj3__bar
+	__method__J1_sideeffects_obj3__bar:
+		push ebp
+		mov ebp, esp
+
+					;; Implicit This
+			mov eax, [ebp + 8]
+			;; Field subject
+			add eax, 8
+
+		push eax
+			;; ---new [J1_sideeffects_obj3] ()
+			;; Allocating size of 12
+			mov eax, 12
+						call __malloc
+							mov ebx, __class_J1_sideeffects_obj3
+			mov [eax], ebx
+
+			;; Pushing object
+			push eax
+
+			;; Pushing args:
+				;; Plus
+				;; LHS code...
+				;; Implicit This
+				mov eax, [ebp + 8]
+				;; Field a
+				add eax, 4
+				mov eax, [eax]
+
+				push eax
+				;; RHS code...
+				;; Mult
+				;; LHS code...
+				mov eax, 10
+				push eax
+				;; RHS code...
+				;; Implicit This
+				mov eax, [ebp + 8]
+				;; Field subject
+				add eax, 8
+				mov eax, [eax]
+
+				cmp eax, 0
+				je __exception
+				;; Field a
+				add eax, 4
+				mov eax, [eax]
+
+				pop ebx
+				imul ebx, eax
+				mov eax, ebx
+
+				pop ebx
+				add ebx, eax
+				mov eax, ebx
+
+				push eax
+
+				;; casting
+								mov eax, 0
+				cmp eax, 0
+				je .cast_end
+				mov eax, [eax]
+				mov eax, [eax+4]
+				shr eax, 15
+				and eax, 0x1
+				cmp eax, 0
+				je __exception
+				.cast_end:
+				push eax
+
+			call __constructor__J1_sideeffects_obj3__J1_sideeffects_obj3$int$J1_sideeffects_obj3$
+			add esp, 8
+			pop eax
+
+			;; ---end of new [J1_sideeffects_obj3] ()
+		pop ebx
+		mov [ebx], eax
+
+					;; Implicit This
+			mov eax, [ebp + 8]
+			;; Field a
+			add eax, 4
+
+		push eax
+			;; Plus
+			;; LHS code...
+			;; Implicit This
+			mov eax, [ebp + 8]
+			;; Field a
+			add eax, 4
+			mov eax, [eax]
+
+			push eax
+			;; RHS code...
+			mov eax, 5
+			pop ebx
+			add ebx, eax
+			mov eax, ebx
+
+		pop ebx
+		mov [ebx], eax
+
+		;; Plus
+		;; LHS code...
+		;; Implicit This
+		mov eax, [ebp + 8]
+		;; Field a
+		add eax, 4
 		mov eax, [eax]
 
 		push eax
 		;; RHS code...
-		mov eax, 123
+		mov eax, 7
 		pop ebx
-		cmp ebx, eax
-		jg .gt7
-		mov eax, 0
-		jmp .end_gt7
-		.gt7:
-			mov eax, 1
-		.end_gt7:
+		add ebx, eax
+		mov eax, ebx
 
-		cmp eax, 0
-		je .else5
-		;thenClause ...
-			mov eax, 123
-			jmp _method_return___STATIC_method__A__test
+		jmp _method_return___method__J1_sideeffects_obj3__bar
 
-
-		jmp .endif5
-
-		.else5:
-		.endif5:
-		;; Local Var i
-		mov eax, ebp
-		sub eax, 4
-		mov eax, [eax]
-
-		jmp _method_return___STATIC_method__A__test
-
-		_method_return___STATIC_method__A__test:
+		_method_return___method__J1_sideeffects_obj3__bar:
 			mov esp, ebp
 			pop ebp
 			ret
 
 ;; -----Constructors-----
-		global __constructor__A__A
-	__constructor__A__A:
+		global __constructor__J1_sideeffects_obj3__J1_sideeffects_obj3$int$J1_sideeffects_obj3$
+	__constructor__J1_sideeffects_obj3__J1_sideeffects_obj3$int$J1_sideeffects_obj3$:
 		push ebp
 		mov ebp, esp
-		mov eax, [ebp + 8]
+		mov eax, [ebp + 16]
 		push eax
 					mov eax, __constructor__java_lang_Object__Object
 		call eax
 		sub esp, 4
 ;; Field init, push object to stack
-		mov eax, [ebp + 8]
+		mov eax, [ebp + 16]
 		push eax
+;; Field init:: subject
+				mov eax, 0
+		mov ebx, [esp]
+		add ebx, 8
+		mov [ebx], eax
+;; Field init:: a
+				mov eax, 0
+		mov ebx, [esp]
+		add ebx, 4
+		mov [ebx], eax
 ;; Field init end, pop object
 		add esp, 4
 ;; Constructor Body
+							;; field access
+				mov eax, [ebp + 16]
+				add eax, 4
+			push eax
+				;; Local Var a
+				mov eax, ebp
+				add eax, 12
+				mov eax, [eax]
+
+			pop ebx
+			mov [ebx], eax
+
+							;; Implicit This
+				mov eax, [ebp + 16]
+				;; Field subject
+				add eax, 8
+
+			push eax
+				;; Local Var s
+				mov eax, ebp
+				add eax, 8
+				mov eax, [eax]
+
+			pop ebx
+			mov [ebx], eax
+
 ;; Epilogue
 		mov esp, ebp
 		pop ebp

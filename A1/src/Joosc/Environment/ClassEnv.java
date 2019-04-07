@@ -45,7 +45,7 @@ public class ClassEnv implements Env {
 
     ArrayList<LocalEnv> localEnvs = new ArrayList<>();
     public JoosType extendName;
-    static ArrayList<String> javaLangObjectName = new ArrayList<>(Arrays.asList("java", "lang", "Object"));
+    public static ArrayList<String> javaLangObjectName = new ArrayList<>(Arrays.asList("java", "lang", "Object"));
 
     // variable contain
     private boolean variableContainComplete = false;

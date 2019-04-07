@@ -175,7 +175,10 @@ public class ClassDeclr implements TypeDeclr {
         asmWriter.print("\t");
         asmWriter.label(classParentMatrix);
         asmWriter.print("\t\t");
-        asmWriter.dd(AsmWriter.parentMatrix.get(env.getJoosType()) + "b");
+        if (AsmWriter.parentMatrix.get(env.getJoosType()) != null)
+            asmWriter.dd(AsmWriter.parentMatrix.get(env.getJoosType()) + "b");
+        else
+            asmWriter.dd(AsmWriter.arrayMatrix + "b");
         asmWriter.println("");
 
         asmWriter.print("\t");
@@ -222,11 +225,16 @@ public class ClassDeclr implements TypeDeclr {
         }
 
         // end
-        asmWriter.close();
+        if (!name.equals("ArrayTemplate"))
+            asmWriter.close();
     }
 
     @Override
     public void addWriter(AsmWriter writer) {
         asmWriter = writer;
+    }
+
+    public AsmWriter getWriter() {
+        return asmWriter;
     }
 }

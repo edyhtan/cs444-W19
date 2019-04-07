@@ -63,6 +63,7 @@ section .text
 		mov eax, [ebp + 8]
 		push eax
 ;; Field init:: out
+				;; ---new [java, io, PrintStream] ()
 				;; Allocating size of 4
 				mov eax, 4
 								call __malloc
@@ -77,6 +78,7 @@ section .text
 				add esp, 0
 				pop eax
 
+				;; ---end of new [java, io, PrintStream] ()
 		mov ebx, [esp]
 		add ebx, 0
 		mov [ebx], eax

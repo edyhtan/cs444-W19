@@ -16,6 +16,7 @@ import Joosc.ASTModel.ClassInterface.ClassDeclr;
 import Joosc.ASTModel.ClassInterface.InterfaceDeclr;
 import Joosc.Environment.ClassEnv;
 import Joosc.Environment.GlobalEnv;
+import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 import Joosc.util.ArrayLinkedHashMap;
 import Joosc.util.ArrayLinkedHashSet;
@@ -27,6 +28,7 @@ public class AsmWriter {
     private static String binaryTemplate = "%s %s, %s";
     public static ArrayLinkedHashSet<String> allMethods = new ArrayLinkedHashSet<>();
     public static ArrayLinkedHashMap<JoosType, String> parentMatrix = new ArrayLinkedHashMap<>();
+    public static String arrayMatrix;
 
     public HashSet<String> definedLabels = new HashSet<>();
     public HashSet<String> externedLabels = new HashSet<>();
@@ -358,6 +360,7 @@ public class AsmWriter {
 
         parentMatrix = new ArrayLinkedHashMap<>();
         allMethods = new ArrayLinkedHashSet<>();
+        arrayMatrix = "";
 
         for (ClassEnv classEnv : GlobalEnv.instance.classEnvs) {
             if (classEnv.getTypeDeclr() instanceof InterfaceDeclr) {
@@ -380,6 +383,12 @@ public class AsmWriter {
                 String ref = Integer.toString(bit) + parentMatrix.get(type);
                 parentMatrix.put(type, ref);
             }
+        }
+
+        // Array
+        for (JoosType type : parentMatrix.keySet()) {
+            int bit = type.equals(JoosType.getJoosType(ClassEnv.javaLangObjectName)) ? 1 : 0;
+            arrayMatrix = Integer.toString(bit) + arrayMatrix;
         }
     }
 
@@ -431,6 +440,26 @@ public class AsmWriter {
             }
         }
 
+        ClassDeclr array = (ClassDeclr)ArrayType.program.getTypeDeclr();
+
+        extern(array.classTagName);
+        mov(Register.ebx, array.classSIT);
+        movToAddr(Register.ebx, Register.eax);
+        for (String methodName : allMethods) {
+            if (array.getClassEnv().methodCallTable.containsKey(methodName)) {
+                String callRef = array.getClassEnv().methodCallTable.get(methodName).callReference;
+                println();
+                print("\t");
+                extern(callRef);
+                print("\t");
+                mov(Register.ebx, callRef);
+                print("\t");
+                movToAddr("eax + " + allMethods.indexOf(methodName) * 4, Register.ebx);
+            }
+        }
+
+
+
         // Initialize Static Fields
         for (ClassEnv classEnv: GlobalEnv.instance.classEnvs) {
             if (classEnv.getTypeDeclr() instanceof ClassDeclr) {
@@ -440,8 +469,7 @@ public class AsmWriter {
                         comment("Static Field: " + field.getStaticFieldLabel());
                         extern(field.getStaticFieldLabel());
                         field.addWriter(this);
-                        //field.codeGen(0);
-                        mov(Register.eax, 3);
+                        field.codeGen(0);
                         mov(Register.ebx, field.getStaticFieldLabel());
                         movToAddr(Register.ebx, Register.eax);
                     }

@@ -1,7 +1,10 @@
 package Joosc.TypeSystem;
 
 import Joosc.ASTBuilding.JoosAST;
+import Joosc.ASTModel.ClassInterface.ClassDeclr;
 import Joosc.ASTModel.Program;
+import Joosc.AsmWriter.AsmWriter;
+import Joosc.AsmWriter.Register;
 import Joosc.Environment.ClassEnv;
 import Joosc.Environment.GlobalEnv;
 import Joosc.Exceptions.ASTException;
@@ -19,6 +22,7 @@ import java.util.HashMap;
 public class ArrayType extends JoosType{
     JoosType joosType;
     public static ClassEnv illusionaryEnv;
+    public static Program program;
 
     public ArrayType(ClassEnv classEnv) {
         super(classEnv);
@@ -89,8 +93,8 @@ public class ArrayType extends JoosType{
             scan.scan();
             JoosParse parse = new JoosParse();
             parse.parse(scan.getOutput());
-            Program p = new Program(new JoosAST(parse.getTree()).getRoot());
-            illusionaryEnv = new ClassEnv(p, GlobalEnv.instance);
+            program = new Program(new JoosAST(parse.getTree()).getRoot());
+            illusionaryEnv = new ClassEnv(program, GlobalEnv.instance);
             illusionaryEnv.semanticAnalysis();
             illusionaryEnv.variableContain();
             illusionaryEnv.joosType = new JoosType(illusionaryEnv);
@@ -100,5 +104,38 @@ public class ArrayType extends JoosType{
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void createArrayCaller() {
+        program.codeGen(0);
+        AsmWriter writer = ((ClassDeclr)program.getTypeDeclr()).getWriter();
+
+        writer.println();
+        writer.comment("eax: size of the array");
+        writer.comment("ebx: 0 for number, -1 for boolean, or classTAG");
+        writer.global("__new_array");
+        writer.label("__new_array");
+        writer.extern("__malloc");
+        writer.indent(1);
+        writer.push(Register.eax);
+        writer.indent(1);
+        writer.push(Register.ebx);
+        writer.indent(1);
+        writer.add(Register.eax, 3);
+        writer.indent(1);
+        writer.imul(Register.eax, 4);
+        writer.indent(1);
+        writer.call("__malloc");
+        writer.indent(1);
+        writer.pop(Register.ebx);
+        writer.indent(1);
+        writer.movToAddr(Register.eax+ "+4", Register.ebx);
+        writer.indent(1);
+        writer.pop(Register.ebx);
+        writer.indent(1);
+        writer.movToAddr(Register.eax+ "+8", Register.ebx);
+        writer.indent(1);
+        writer.ret();
+        writer.close();
     }
 }

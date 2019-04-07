@@ -40,14 +40,14 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation: o.m(...)
+		;; ---Method Invocation: 
 		;; Names(ArgList)
 
 		;; static method, dont push this
 
 		;; Pushing args
 			;; Implicit This
-			mov eax, [ebp + 0]
+			mov eax, [ebp + 8]
 			;; Field value
 			add eax, 4
 			mov eax, [eax]
@@ -59,6 +59,7 @@ section .text
 
 		add esp, 4
 
+		;; ---End of method invocation
 		jmp _method_return___method__java_lang_Byte__toString
 
 		_method_return___method__java_lang_Byte__toString:
@@ -86,6 +87,9 @@ mov eax, 0
 		mov [ebx], eax
 ;; Field init:: MAX_VALUE
 				;; casting
+				;; primitive run-time casting to [byte]
+								mov eax, 127
+				and eax, 0xff
 		mov ebx, [esp]
 		add ebx, 0
 		mov [ebx], eax
@@ -129,6 +133,9 @@ mov eax, 0
 		mov [ebx], eax
 ;; Field init:: MAX_VALUE
 				;; casting
+				;; primitive run-time casting to [byte]
+								mov eax, 127
+				and eax, 0xff
 		mov ebx, [esp]
 		add ebx, 0
 		mov [ebx], eax
