@@ -588,38 +588,6 @@ global @@@@main
 
 			add esp, 4
 
-		;; if statement3
-		;expression code...
-		;; ompare_gt
-		;; LHS code...
-		;; Local Var i
-		mov eax, ebp
-		sub eax, 4
-		mov eax, [eax]
-
-		push eax
-		;; RHS code...
-		mov eax, 123
-		pop ebx
-		cmp ebx, eax
-		jg .gt3
-		mov eax, 0
-		jmp .end_gt3
-		.gt3:
-			mov eax, 1
-		.end_gt3:
-
-		cmp eax, 0
-		je .else3
-		;thenClause ...
-			mov eax, 123
-			jmp _method_return___STATIC_method__A__test
-
-
-		jmp .endif3
-
-		.else3:
-		.endif3:
 		;; Local Var i
 		mov eax, ebp
 		sub eax, 4

@@ -31,9 +31,9 @@ public class A {
             }
         }
 
-        if (i > 123) {
-            return 123;
-        }
+//        if (i > 123) {
+//            return 123;
+//        }
         return i;
     }
 
