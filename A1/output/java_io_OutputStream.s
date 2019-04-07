@@ -20,7 +20,7 @@ __class_java_io_OutputStream:
 		dd 000000000001000001000b
 
 	; Methods	
-																	dd __method__java_lang_Object__getClass
+		dd __method__java_lang_Object__getClass
 		dd __method__java_lang_Object__hashCode
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
@@ -30,6 +30,8 @@ __class_java_io_OutputStream:
 		dd __method__java_io_OutputStream__write$int$
 		dd __method__java_io_OutputStream__write$char$
 
+;; Static fields
+
 section .text
 
 ;; -----Methods-----
@@ -38,7 +40,16 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		
+				;; Method Invocation:
+		;; o.code
+		;; Pushing args
+			;; casting
+			push eax
+
+		call __method__java_io_OutputStream__write$int$
+
+		add esp, 8
+
 		_method_return___method__java_io_OutputStream__write$char$:
 			mov esp, ebp
 			pop ebp
@@ -49,7 +60,20 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		
+				;; Method Invocation:
+		;; o.code
+		;; Pushing args
+			;; Local Var b
+			mov eax, ebp
+			add eax, 8
+			mov eax, [eax]
+
+			push eax
+
+		call __STATIC_method__java_io_OutputStream__nativeWrite$int$
+
+		add esp, 8
+
 		_method_return___method__java_io_OutputStream__write$int$:
 			mov esp, ebp
 			pop ebp

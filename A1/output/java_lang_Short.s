@@ -5,6 +5,7 @@ extern __constructor__java_lang_Number__Number
 extern __method__java_lang_Object__hashCode
 extern __method__java_lang_Object__getClass
 extern __method__java_lang_Object__equals$java_lang_Object$
+extern __STATIC_method__java_lang_String__valueOf$short$
 
 
 section .data
@@ -20,12 +21,14 @@ __class_java_lang_Short:
 		dd 000000001001010000000b
 
 	; Methods	
-																				dd __method__java_lang_Object__getClass
+		dd __method__java_lang_Object__getClass
 		dd __method__java_lang_Object__hashCode
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
 		dd __method__java_lang_Object__toString
 		dd __method__java_lang_Number__intValue
+
+;; Static fields
 
 section .text
 
@@ -48,7 +51,21 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				jmp _method_return___method__java_lang_Short__toString
+				;; Method Invocation:
+		;; o.code
+		;; Pushing args
+			;; Implicit This
+			mov eax, [ebp + 0]
+			;; Field value
+			add eax, 4
+			mov eax, [eax]
+
+			push eax
+
+		call __STATIC_method__java_lang_String__valueOf$short$
+
+		add esp, 8
+		jmp _method_return___method__java_lang_Short__toString
 
 		_method_return___method__java_lang_Short__toString:
 			mov esp, ebp
@@ -76,6 +93,19 @@ mov eax, 0
 ;; Field init end, pop object
 		add esp, 4
 ;; Constructor Body
+							;; Implicit This
+				mov eax, [ebp + 12]
+				;; Field value
+				add eax, 4
+
+			push eax
+				;; Local Var i
+				mov eax, ebp
+				add eax, 8
+				mov eax, [eax]
+
+			pop ebx
+			mov [ebx], eax
 
 ;; Epilogue
 		mov esp, ebp

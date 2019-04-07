@@ -1,6 +1,7 @@
 package Joosc.Environment;
 
 import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.ASTModel.ClassMember.FieldDeclr;
 
 import java.util.ArrayList;
 
@@ -9,6 +10,8 @@ public class FieldsVarInfo {
     TypeInfo typeInfo;
     ArrayList<Symbol> modifiers;
     int offset;
+
+    public FieldDeclr fieldsDeclr;
 
     public FieldsVarInfo(String name, TypeInfo typeInfo, ArrayList<Symbol> modifiers) {
         this.name = name;
@@ -46,5 +49,9 @@ public class FieldsVarInfo {
 
     public void setOffset(int offset) {
         this.offset = offset;
+    }
+
+    public void setFieldsDeclr(FieldDeclr fieldsDeclr) {
+        this.fieldsDeclr = fieldsDeclr;
     }
 }

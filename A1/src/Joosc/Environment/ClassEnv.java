@@ -143,6 +143,8 @@ public class ClassEnv implements Env {
             for (FieldDeclr fieldDeclr : fieldDeclrs) {
                 String fieldName = fieldDeclr.getName();
                 FieldsVarInfo fieldsVarInfo = typeResolve(fieldName, fieldDeclr.getType(), fieldDeclr.getModifiers());
+                fieldDeclr.buildStaticField(typeDeclr.getCanonicalName());
+                fieldsVarInfo.setFieldsDeclr(fieldDeclr);
                 if (!fields.containsKey(fieldName)) {
                     fields.put(fieldName, fieldsVarInfo);
                     if (fieldDeclr.getInitExpression() != null) {

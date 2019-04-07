@@ -1,7 +1,9 @@
 package Joosc.ASTModel.Expressions;
 
 import Joosc.AsmWriter.AsmWriter;
+import Joosc.AsmWriter.Register;
 import Joosc.Environment.Env;
+import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.Exceptions.UnreachableStatementException;
@@ -40,7 +42,8 @@ public class This extends ExpressionContent {
 
     @Override
     public void codeGen(int indent) {
-
+        asmWriter.indent(indent);
+        asmWriter.movFromAddr(Register.eax, Register.ebp + " + " + ((LocalEnv)getEnv()).getThis());
     }
 
     @Override

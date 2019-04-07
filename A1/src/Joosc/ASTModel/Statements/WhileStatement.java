@@ -59,8 +59,7 @@ public class WhileStatement extends HasScope implements Statement, HasExpression
     public int getNumLocalVars() {
         return this.numLocalVars;
     }
-
-    // TODO: check type is boolean
+    
     @Override
     public void checkExpression(Env env) throws NamingResolveException {
         expression.addEnv(env);

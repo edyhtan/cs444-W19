@@ -1,26 +1,30 @@
 extern __ref_SIT_java_lang_Number
 extern __malloc
-extern __ref_SIT_java_lang_Integer
-extern __method__java_lang_Object__toString
 extern __constructor__java_lang_Object__Object
 extern __method__java_lang_Object__getClass
-extern __ref_SIT_java_lang_Class
-extern __ref_SIT_java_lang_Boolean
 extern __ref_SIT_foo_bar
-extern __ref_SIT_java_util_Arrays
-extern __method__java_lang_Object__equals$java_lang_Object$
 extern __ref_SIT_java_lang_Short
-extern __ref_SIT_java_io_PrintStream
 extern __ref_SIT_Main
 extern __ref_SIT_java_lang_Character
+extern __ref_SIT_java_lang_String
+extern __ref_SIT_Hello
+extern __ref_SIT_java_lang_Integer
+extern __method__java_lang_Object__toString
+extern __ref_SIT_java_lang_Class
+extern __ref_SIT_java_lang_Boolean
+extern __ref_SIT_java_util_Arrays
+extern __method__java_lang_Object__equals$java_lang_Object$
+extern __ref_SIT_java_io_PrintStream
 extern __method__java_lang_Object__clone
+extern __field_java_lang_Boolean_MAX_VALUE
 extern __ref_SIT_java_lang_Object
 extern __method__java_lang_Object__hashCode
-extern __ref_SIT_java_lang_String
 extern __ref_SIT_java_lang_Byte
-extern __ref_SIT_Hello
 extern __ref_SIT_Static
+extern __field_java_lang_System_out
+extern __field_java_lang_Byte_MAX_VALUE
 extern __ref_SIT_java_lang_System
+extern __field_java_lang_Integer_MAX_VALUE
 extern __ref_SIT_java_io_OutputStream
 
 
@@ -37,63 +41,18 @@ __class_A:
 		dd 100000000001000000000b
 
 	; Methods	
-																	dd __method__java_lang_Object__getClass
+		dd __method__java_lang_Object__getClass
 		dd __method__java_lang_Object__hashCode
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
 		dd __method__java_lang_Object__toString
 		dd __STATIC_method__A__test
-		dd __method__A__m$int$
+
+;; Static fields
 
 section .text
 
 ;; -----Methods-----
-		global __method__A__m$int$
-	__method__A__m$int$:
-		push ebp
-		mov ebp, esp
-
-				.while0:
-			;expression code...
-			;; ompare_gt
-			;; LHS code...
-			;; Local Var x
-			mov eax, ebp
-			add eax, 8
-			mov eax, [eax]
-
-			push eax
-			;; RHS code...
-			mov eax, 0
-			pop ebx
-			cmp ebx, eax
-			jg .gt0
-			mov eax, 0
-			jmp .end_gt0
-			.gt0:
-				mov eax, 1
-			.end_gt0:
-
-			cmp eax, 0
-			je .endwhile0
-			;; while statement code...
-
-			jmp .while0
-
-		.endwhile0:
-
-		;; Local Var x
-		mov eax, ebp
-		add eax, 8
-		mov eax, [eax]
-
-		jmp _method_return___method__A__m$int$
-
-		_method_return___method__A__m$int$:
-			mov esp, ebp
-			pop ebp
-			ret
-
 	global _start
 _start:
 
@@ -421,6 +380,26 @@ mov [ebx], eax
 		mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
+;; Static Field: __field_java_lang_System_out
+mov eax, 3
+mov ebx, __field_java_lang_System_out
+mov [ebx], eax
+
+;; Static Field: __field_java_lang_Integer_MAX_VALUE
+mov eax, 3
+mov ebx, __field_java_lang_Integer_MAX_VALUE
+mov [ebx], eax
+
+;; Static Field: __field_java_lang_Byte_MAX_VALUE
+mov eax, 3
+mov ebx, __field_java_lang_Byte_MAX_VALUE
+mov [ebx], eax
+
+;; Static Field: __field_java_lang_Boolean_MAX_VALUE
+mov eax, 3
+mov ebx, __field_java_lang_Boolean_MAX_VALUE
+mov [ebx], eax
+
 call @@@@main
 mov ebx, eax
 mov eax, 1
@@ -434,15 +413,7 @@ global @@@@main
 		push ebp
 		mov ebp, esp
 
-				;; Plus
-		;; LHS code...
-		push eax
-		;; RHS code...
-		mov eax, 123
-		pop ebx
-		add ebx, eax
-		mov eax, ebx
-
+				mov eax, 0
 		jmp _method_return___STATIC_method__A__test
 
 		_method_return___STATIC_method__A__test:

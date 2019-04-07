@@ -102,7 +102,9 @@ public class LocalEnv implements Env {
                         forinitLocal.addInfo(info);
                     }
                 }
-                if (((ForStatement) ast).getExpression() != null) ((ForStatement) ast).getExpression().addEnv(this);
+                if (((ForStatement) ast).getExpression() != null)
+                    ((ForStatement) ast).getExpression().addEnv(this);
+
                 if (((ForStatement) ast).getForUpdate() != null)
                     ((HasExpression) ((ForStatement) ast).getForUpdate()).checkExpression(this);
             }

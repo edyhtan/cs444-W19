@@ -182,26 +182,21 @@ public class ClassDeclr implements TypeDeclr {
         asmWriter.println("; Methods\t");
 
         for (MethodInfo info:env.methodCallTable.values()) {
-            if (info.external) {
-                asmWriter.print("\t\t\t");
-                asmWriter.extern(info.callReference);
-            }
-        }
-
-        for (MethodInfo info:env.methodCallTable.values()) {
             asmWriter.print("\t\t");
+            asmWriter.extern(info.external ? info.callReference : info.methodLabel);
             asmWriter.dd(info.external ? info.callReference : info.methodLabel);
         }
 
-        // Fields
+        asmWriter.println();
+        asmWriter.indent(indent);
+        asmWriter.comment("Static fields");
+
+        // Static Fields
         for (FieldDeclr field : fields) {
             field.addWriter(asmWriter);
             if (field.getModifiers().contains(Symbol.Static)) {
-                String staticLabel = "__field_" + String.join("_", canonicalID) + "_" + field.getName();
-                field.setStaticFieldLabel(staticLabel);
-
-                asmWriter.println("\t\t" + "global " + staticLabel);
-                asmWriter.print("\t" + staticLabel);
+                asmWriter.println("\t\t" + "global " + field.getStaticFieldLabel());
+                asmWriter.print("\t" + field.getStaticFieldLabel());
                 asmWriter.println("\t\t" + "dd 0");
                 asmWriter.println("");
             }

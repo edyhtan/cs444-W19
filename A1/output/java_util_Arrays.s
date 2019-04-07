@@ -1,4 +1,5 @@
 extern __method__java_lang_Object__clone
+extern __exception
 extern __method__java_lang_Object__toString
 extern __constructor__java_lang_Object__Object
 extern __method__java_lang_Object__hashCode
@@ -19,13 +20,15 @@ __class_java_util_Arrays:
 		dd 000000000001000000001b
 
 	; Methods	
-																	dd __method__java_lang_Object__getClass
+		dd __method__java_lang_Object__getClass
 		dd __method__java_lang_Object__hashCode
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
 		dd __method__java_lang_Object__toString
 		dd __STATIC_method__java_util_Arrays__equals$char@$char@$
 		dd __STATIC_method__java_util_Arrays__equals$boolean@$boolean@$
+
+;; Static fields
 
 section .text
 
@@ -44,8 +47,9 @@ section .text
 		add eax, 12
 		mov eax, [eax]
 
+		cmp eax, 0
+		je __exception
 		;; Field length
-		mov eax, ebp
 		add eax, 4
 		mov eax, [eax]
 
@@ -56,8 +60,9 @@ section .text
 		add eax, 8
 		mov eax, [eax]
 
+		cmp eax, 0
+		je __exception
 		;; Field length
-		mov eax, ebp
 		add eax, 4
 		mov eax, [eax]
 
@@ -83,7 +88,9 @@ section .text
 		;forInit code...
 		;; ---declare i
 		mov eax, 0
+
 		push eax
+		;; ---end of declare i
 
 
 		.for1:
@@ -102,8 +109,9 @@ section .text
 			add eax, 12
 			mov eax, [eax]
 
+			cmp eax, 0
+			je __exception
 			;; Field length
-			mov eax, ebp
 			add eax, 4
 			mov eax, [eax]
 
@@ -148,6 +156,27 @@ section .text
 
 
 			;forUpdate code...
+							;; Local Var i
+				mov eax, ebp
+				sub eax, 4
+
+			push eax
+				;; Plus
+				;; LHS code...
+				;; Local Var i
+				mov eax, ebp
+				sub eax, 4
+				mov eax, [eax]
+
+				push eax
+				;; RHS code...
+				mov eax, 1
+				pop ebx
+				add ebx, eax
+				mov eax, ebx
+
+			pop ebx
+			mov [ebx], eax
 
 
 			jmp .for1
@@ -177,8 +206,9 @@ section .text
 		add eax, 12
 		mov eax, [eax]
 
+		cmp eax, 0
+		je __exception
 		;; Field length
-		mov eax, ebp
 		add eax, 4
 		mov eax, [eax]
 
@@ -189,8 +219,9 @@ section .text
 		add eax, 8
 		mov eax, [eax]
 
+		cmp eax, 0
+		je __exception
 		;; Field length
-		mov eax, ebp
 		add eax, 4
 		mov eax, [eax]
 
@@ -216,7 +247,9 @@ section .text
 		;forInit code...
 		;; ---declare i
 		mov eax, 0
+
 		push eax
+		;; ---end of declare i
 
 
 		.for4:
@@ -235,8 +268,9 @@ section .text
 			add eax, 12
 			mov eax, [eax]
 
+			cmp eax, 0
+			je __exception
 			;; Field length
-			mov eax, ebp
 			add eax, 4
 			mov eax, [eax]
 
@@ -280,6 +314,27 @@ section .text
 
 
 			;forUpdate code...
+							;; Local Var i
+				mov eax, ebp
+				sub eax, 4
+
+			push eax
+				;; Plus
+				;; LHS code...
+				;; Local Var i
+				mov eax, ebp
+				sub eax, 4
+				mov eax, [eax]
+
+				push eax
+				;; RHS code...
+				mov eax, 1
+				pop ebx
+				add ebx, eax
+				mov eax, ebx
+
+			pop ebx
+			mov [ebx], eax
 
 
 			jmp .for4

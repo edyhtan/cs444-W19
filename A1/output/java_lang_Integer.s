@@ -3,8 +3,11 @@ extern __method__java_lang_Number__intValue
 extern __method__java_lang_Object__toString
 extern __constructor__java_lang_Number__Number
 extern __method__java_lang_Object__hashCode
+extern __method__java_lang_String__charAt$int$
 extern __method__java_lang_Object__getClass
+extern __method__java_lang_String__length
 extern __method__java_lang_Object__equals$java_lang_Object$
+extern __STATIC_method__java_lang_String__valueOf$int$
 
 
 section .data
@@ -20,13 +23,15 @@ __class_java_lang_Integer:
 		dd 000000001001000100000b
 
 	; Methods	
-																				dd __method__java_lang_Object__getClass
+		dd __method__java_lang_Object__getClass
 		dd __method__java_lang_Object__hashCode
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
 		dd __method__java_lang_Object__toString
 		dd __method__java_lang_Number__intValue
 		dd __STATIC_method__java_lang_Integer__parseInt$java_lang_String$
+
+;; Static fields
 		global __field_java_lang_Integer_MAX_VALUE
 	__field_java_lang_Integer_MAX_VALUE		dd 0
 
@@ -42,7 +47,6 @@ section .text
 				;; Implicit This
 		mov eax, [ebp + 0]
 		;; Field value
-		mov eax, ebp
 		add eax, 4
 		mov eax, [eax]
 
@@ -60,15 +64,21 @@ section .text
 
 				;; ---declare ret
 		mov eax, 0
+
 		push eax
+		;; ---end of declare ret
 
 		;; ---declare neg
 		mov eax, 0
+
 		push eax
+		;; ---end of declare neg
 
 		;; ---declare i
 		mov eax, 0
+
 		push eax
+		;; ---end of declare i
 
 		.while0:
 			;expression code...
@@ -82,6 +92,12 @@ section .text
 
 			push eax
 			;; RHS code...
+			;; Method Invocation:
+			;; o.code
+			;; Pushing args
+			call __method__java_lang_String__length
+
+			add esp, 4
 			pop ebx
 			cmp ebx, eax
 			jl .lt1
@@ -96,6 +112,19 @@ section .text
 			;; logical_or
 			;; ompare_eq
 			;; LHS code...
+			;; Method Invocation:
+			;; o.code
+			;; Pushing args
+				;; Local Var i
+				mov eax, ebp
+				sub eax, 12
+				mov eax, [eax]
+
+				push eax
+
+			call __method__java_lang_String__charAt$int$
+
+			add esp, 8
 			push eax
 			;; RHS code...
 			mov eax, 45
@@ -113,6 +142,19 @@ section .text
 			;; logical_and
 			;; ompare_ge
 			;; LHS code...
+			;; Method Invocation:
+			;; o.code
+			;; Pushing args
+				;; Local Var i
+				mov eax, ebp
+				sub eax, 12
+				mov eax, [eax]
+
+				push eax
+
+			call __method__java_lang_String__charAt$int$
+
+			add esp, 8
 			push eax
 			;; RHS code...
 			mov eax, 48
@@ -129,6 +171,19 @@ section .text
 			je .end_and4
 			;; ompare_le
 			;; LHS code...
+			;; Method Invocation:
+			;; o.code
+			;; Pushing args
+				;; Local Var i
+				mov eax, ebp
+				sub eax, 12
+				mov eax, [eax]
+
+				push eax
+
+			call __method__java_lang_String__charAt$int$
+
+			add esp, 8
 			push eax
 			;; RHS code...
 			mov eax, 57
@@ -154,6 +209,19 @@ section .text
 			;expression code...
 			;; ompare_eq
 			;; LHS code...
+			;; Method Invocation:
+			;; o.code
+			;; Pushing args
+				;; Local Var i
+				mov eax, ebp
+				sub eax, 12
+				mov eax, [eax]
+
+				push eax
+
+			call __method__java_lang_String__charAt$int$
+
+			add esp, 8
 			push eax
 			;; RHS code...
 			mov eax, 45
@@ -169,17 +237,105 @@ section .text
 			cmp eax, 0
 			je .else1
 			;thenClause ...
+									;; Local Var neg
+					mov eax, ebp
+					sub eax, 8
+
+				push eax
+					;; Unary boolean negation
+					;; Local Var neg
+					mov eax, ebp
+					sub eax, 8
+					mov eax, [eax]
+
+					mov ebx, 1
+					sub ebx, eax
+					mov eax, ebx
+				pop ebx
+				mov [ebx], eax
 
 
 			jmp .endif1
 
 			.else1:
 				;elseClause ...
+									;; Local Var ret
+					mov eax, ebp
+					sub eax, 4
+
+				push eax
+					;; Minus
+					;; LHS code...
+					;; Plus
+					;; LHS code...
+					;; Mult
+					;; LHS code...
+					;; Local Var ret
+					mov eax, ebp
+					sub eax, 4
+					mov eax, [eax]
+
+					push eax
+					;; RHS code...
+					mov eax, 10
+					pop ebx
+					imul ebx, eax
+					mov eax, ebx
+
+					push eax
+					;; RHS code...
+					;; Method Invocation:
+					;; o.code
+					;; Pushing args
+						;; Local Var i
+						mov eax, ebp
+						sub eax, 12
+						mov eax, [eax]
+
+						push eax
+
+					call __method__java_lang_String__charAt$int$
+
+					add esp, 8
+					pop ebx
+					add ebx, eax
+					mov eax, ebx
+
+					push eax
+					;; RHS code...
+					mov eax, 48
+					pop ebx
+					sub ebx, eax
+					mov eax, ebx
+
+				pop ebx
+				mov [ebx], eax
 
 
 
 			.endif1:
 
+							;; Local Var i
+				mov eax, ebp
+				sub eax, 12
+
+			push eax
+				;; Plus
+				;; LHS code...
+				;; Local Var i
+				mov eax, ebp
+				sub eax, 12
+				mov eax, [eax]
+
+				push eax
+				;; RHS code...
+				mov eax, 1
+				pop ebx
+				add ebx, eax
+				mov eax, ebx
+
+			pop ebx
+			mov [ebx], eax
 
 
 			jmp .while0
@@ -196,6 +352,22 @@ section .text
 		cmp eax, 0
 		je .else2
 		;thenClause ...
+							;; Local Var ret
+				mov eax, ebp
+				sub eax, 4
+
+			push eax
+				;; Unary number negation
+				;; Local Var ret
+				mov eax, ebp
+				sub eax, 4
+				mov eax, [eax]
+
+				mov ebx, 0
+				sub ebx, eax
+				mov eax, ebx
+			pop ebx
+			mov [ebx], eax
 
 
 		jmp .endif2
@@ -219,7 +391,21 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				jmp _method_return___method__java_lang_Integer__toString
+				;; Method Invocation:
+		;; o.code
+		;; Pushing args
+			;; Implicit This
+			mov eax, [ebp + 0]
+			;; Field value
+			add eax, 4
+			mov eax, [eax]
+
+			push eax
+
+		call __STATIC_method__java_lang_String__valueOf$int$
+
+		add esp, 8
+		jmp _method_return___method__java_lang_Integer__toString
 
 		_method_return___method__java_lang_Integer__toString:
 			mov esp, ebp
@@ -252,6 +438,19 @@ mov eax, 0
 ;; Field init end, pop object
 		add esp, 4
 ;; Constructor Body
+							;; Implicit This
+				mov eax, [ebp + 12]
+				;; Field value
+				add eax, 4
+
+			push eax
+				;; Local Var i
+				mov eax, ebp
+				add eax, 8
+				mov eax, [eax]
+
+			pop ebx
+			mov [ebx], eax
 
 ;; Epilogue
 		mov esp, ebp
@@ -282,6 +481,27 @@ mov eax, 0
 ;; Field init end, pop object
 		add esp, 4
 ;; Constructor Body
+							;; Implicit This
+				mov eax, [ebp + 12]
+				;; Field value
+				add eax, 4
+
+			push eax
+				;; Method Invocation:
+				;; o.code
+				;; Pushing args
+					;; Local Var s
+					mov eax, ebp
+					add eax, 8
+					mov eax, [eax]
+
+					push eax
+
+				call __STATIC_method__java_lang_Integer__parseInt$java_lang_String$
+
+				add esp, 8
+			pop ebx
+			mov [ebx], eax
 
 ;; Epilogue
 		mov esp, ebp
@@ -312,6 +532,15 @@ mov eax, 0
 ;; Field init end, pop object
 		add esp, 4
 ;; Constructor Body
+							;; Implicit This
+				mov eax, [ebp + 8]
+				;; Field value
+				add eax, 4
+
+			push eax
+				mov eax, 0
+			pop ebx
+			mov [ebx], eax
 
 ;; Epilogue
 		mov esp, ebp

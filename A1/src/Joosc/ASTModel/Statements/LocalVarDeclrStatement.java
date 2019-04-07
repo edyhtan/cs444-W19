@@ -104,8 +104,11 @@ public class LocalVarDeclrStatement implements Statement, HasExpression {
         asmWriter.comment("---declare " + id);
         initExpression.addWriter(asmWriter);
         initExpression.codeGen(indent);
+        asmWriter.println();
         asmWriter.indent(indent);
         asmWriter.push(Register.eax);
+        asmWriter.indent(indent);
+        asmWriter.comment("---end of declare " + id);
         asmWriter.println("");
     }
 

@@ -1,20 +1,24 @@
 package Joosc.AsmWriter;
 
+import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.ASTModel.ClassMember.FieldDeclr;
+import Joosc.ASTModel.Expressions.Expression;
+
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.Collections;
+import java.util.HashSet;
+
 import Joosc.ASTModel.ClassInterface.ClassDeclr;
 import Joosc.ASTModel.ClassInterface.InterfaceDeclr;
-import Joosc.ASTModel.Expressions.Expression;
 import Joosc.Environment.ClassEnv;
 import Joosc.Environment.GlobalEnv;
 import Joosc.TypeSystem.JoosType;
 import Joosc.util.ArrayLinkedHashMap;
 import Joosc.util.ArrayLinkedHashSet;
-
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-
 
 public class AsmWriter {
     public static final boolean COMMENT_FLAG = true;
@@ -351,6 +355,9 @@ public class AsmWriter {
 
     public static void initTable() {
         // Create List of All Interface call header
+        parentMatrix = new ArrayLinkedHashMap<>();
+        allMethods = new ArrayLinkedHashSet<>();
+
         for (ClassEnv classEnv : GlobalEnv.instance.classEnvs) {
             if (classEnv.getTypeDeclr() instanceof InterfaceDeclr) {
                 allMethods.addAll(classEnv.getAllMethodSignature().keySet());
@@ -360,7 +367,6 @@ public class AsmWriter {
         // Parent Matrix
         for (ClassEnv env : GlobalEnv.instance.classEnvs) {
             parentMatrix.put(env.getJoosType(), "");
-            System.out.println(env.getJoosType().getTypeName());
         }
 
         // Compute Matrix
@@ -373,7 +379,6 @@ public class AsmWriter {
                 String ref = Integer.toString(bit) + parentMatrix.get(type);
                 parentMatrix.put(type, ref);
             }
-            System.out.println(parentMatrix.get(type) + " " + type.getTypeName());
         }
     }
 
@@ -425,6 +430,24 @@ public class AsmWriter {
             }
         }
 
+        // Initialize Static Fields
+        for (ClassEnv classEnv: GlobalEnv.instance.classEnvs) {
+            if (classEnv.getTypeDeclr() instanceof ClassDeclr) {
+                for (FieldDeclr field: ((ClassDeclr)classEnv.getTypeDeclr()).getFields()){
+                    if (field.getModifiers().contains(Symbol.Static)) {
+                        println();
+                        comment("Static Field: " + field.getStaticFieldLabel());
+                        extern(field.getStaticFieldLabel());
+                        field.addWriter(this);
+                        //field.codeGen(0);
+                        mov(Register.eax, 3);
+                        mov(Register.ebx, field.getStaticFieldLabel());
+                        movToAddr(Register.ebx, Register.eax);
+                    }
+                }
+            }
+        }
+
         println("");
 
         call("@@@@main");
@@ -442,6 +465,14 @@ public class AsmWriter {
         } else {
             println();
         }
+    }
+
+    public void nullCheck(int indent) {
+        extern("__exception");
+        indent(indent);
+        cmp(Register.eax, "0");
+        indent(indent);
+        println("je __exception");
     }
 
     public void evalLHSthenRHS(Expression LHS, Expression RHS, int indent) {
@@ -515,6 +546,5 @@ public class AsmWriter {
         indent(indent);
         idiv(Register.ebx);
     }
-
 
 }
