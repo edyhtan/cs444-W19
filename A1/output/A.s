@@ -1,26 +1,33 @@
 extern __ref_SIT_java_lang_Number
 extern __malloc
-extern __ref_SIT_java_lang_Integer
-extern __method__java_lang_Object__toString
 extern __constructor__java_lang_Object__Object
 extern __method__java_lang_Object__getClass
-extern __ref_SIT_java_lang_Boolean
-extern __ref_SIT_java_lang_Class
 extern __ref_SIT_foo_bar
-extern __ref_SIT_java_util_Arrays
-extern __method__java_lang_Object__equals$java_lang_Object$
 extern __ref_SIT_java_lang_Short
-extern __ref_SIT_java_io_PrintStream
 extern __ref_SIT_Main
 extern __ref_SIT_java_lang_Character
+extern __ref_SIT_java_lang_String
+extern __ref_SIT_Hello
+extern __constructor__Static__Static
+extern __ref_SIT_java_lang_Integer
+extern __class_Static
+extern __method__java_lang_Object__toString
+extern __ref_SIT_java_lang_Boolean
+extern __ref_SIT_java_lang_Class
+extern __ref_SIT_java_util_Arrays
+extern __method__java_lang_Object__equals$java_lang_Object$
+extern __ref_SIT_java_io_PrintStream
 extern __method__java_lang_Object__clone
+extern __field_java_lang_Boolean_MAX_VALUE
+extern __field_Hello_staticInt
 extern __ref_SIT_java_lang_Object
 extern __method__java_lang_Object__hashCode
-extern __ref_SIT_java_lang_String
 extern __ref_SIT_java_lang_Byte
-extern __ref_SIT_Hello
 extern __ref_SIT_Static
+extern __field_java_lang_System_out
+extern __field_java_lang_Byte_MAX_VALUE
 extern __ref_SIT_java_lang_System
+extern __field_java_lang_Integer_MAX_VALUE
 extern __ref_SIT_java_io_OutputStream
 
 	global __class_A
@@ -29,18 +36,22 @@ __class_A:
 section .data
 
 		global __ref_SIT_A
-	__ref_SIT_A:		dd 0
+	__ref_SIT_A:
+		dd 0
 
 		global __ref_PARENTS_A
-	__ref_PARENTS_A:		dd 00001000010000000000b
+	__ref_PARENTS_A:
+		dd 00001000010000000000b
 
 	; Methods	
-																	dd __method__java_lang_Object__getClass
+		dd __method__java_lang_Object__getClass
 		dd __method__java_lang_Object__hashCode
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
 		dd __method__java_lang_Object__toString
 		dd __STATIC_method__A__test
+
+;; Static fields
 
 section .text
 
@@ -372,6 +383,31 @@ mov [ebx], eax
 		mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
+;; Static Field: __field_java_lang_Boolean_MAX_VALUE
+mov eax, 3
+mov ebx, __field_java_lang_Boolean_MAX_VALUE
+mov [ebx], eax
+
+;; Static Field: __field_java_lang_Byte_MAX_VALUE
+mov eax, 3
+mov ebx, __field_java_lang_Byte_MAX_VALUE
+mov [ebx], eax
+
+;; Static Field: __field_java_lang_Integer_MAX_VALUE
+mov eax, 3
+mov ebx, __field_java_lang_Integer_MAX_VALUE
+mov [ebx], eax
+
+;; Static Field: __field_java_lang_System_out
+mov eax, 3
+mov ebx, __field_java_lang_System_out
+mov [ebx], eax
+
+;; Static Field: __field_Hello_staticInt
+mov eax, 3
+mov ebx, __field_Hello_staticInt
+mov [ebx], eax
+
 call @@@@main
 mov ebx, eax
 mov eax, 1
@@ -385,12 +421,59 @@ global @@@@main
 		push ebp
 		mov ebp, esp
 
-				;expression code...
-		mov eax, 1
-		cmp eax,0
+				;; ---declare x
+		;; Allocating size of 16
+		mov eax, 16
+				call __malloc
+					mov ebx, __class_Static
+		mov [eax], ebx
+
+		;; Pushing object
+		push eax
+
+		;; Pushing args:
+		call __constructor__Static__Static
+		add esp, 0
+		pop eax
+
+
+		push eax
+		;; ---end of declare x
+
+		;; ---declare y
+		mov eax, __field_java_lang_Integer_MAX_VALUE
+		mov eax, [eax]
+
+
+		push eax
+		;; ---end of declare y
+
+		;; if statement0
+		;expression code...
+		;; Instanceof
+				;; Local Var x
+		mov eax, ebp
+		sub eax, 4
+		mov eax, [eax]
+
+		mov eax, [eax]
+		mov eax, [eax+8]
+		test eax, 524288
+		jnz .instance_true0
+		mov eax, 0
+		jmp .end_instance0
+		.instance_true0:
+			mov eax, 1
+		.end_instance0:
+
+		cmp eax, 0
 		je .else0
 		;thenClause ...
-			mov eax, 111
+			;; Local Var y
+			mov eax, ebp
+			sub eax, 8
+			mov eax, [eax]
+
 			jmp _method_return___STATIC_method__A__test
 
 
@@ -402,6 +485,7 @@ global @@@@main
 		jmp _method_return___STATIC_method__A__test
 
 		_method_return___STATIC_method__A__test:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -414,12 +498,12 @@ global @@@@main
 		push eax
 					mov eax, __constructor__java_lang_Object__Object
 		call eax
-		sub esp,4
+		sub esp, 4
 ;; Field init, push object to stack
 		mov eax, [ebp + 8]
 		push eax
 ;; Field init end, pop object
-		add esp,4
+		add esp, 4
 ;; Constructor Body
 ;; Epilogue
 		mov esp, ebp

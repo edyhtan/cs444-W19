@@ -22,7 +22,7 @@ public class ClassEnv implements Env {
     HashMap<String, FieldsVarInfo> fields = new HashMap<>();
     HashMap<String, FieldsVarInfo> initializedFields = new HashMap<>();
     ArrayList<String> packageDeclr;
-    JoosType joosType;
+    public JoosType joosType;
     boolean isDefaultPkg;
 
     HashMap<String, JoosType> resolvedTypes = new HashMap<>();
@@ -143,6 +143,8 @@ public class ClassEnv implements Env {
             for (FieldDeclr fieldDeclr : fieldDeclrs) {
                 String fieldName = fieldDeclr.getName();
                 FieldsVarInfo fieldsVarInfo = typeResolve(fieldName, fieldDeclr.getType(), fieldDeclr.getModifiers());
+                fieldDeclr.buildStaticField(typeDeclr.getCanonicalName());
+                fieldsVarInfo.setFieldsDeclr(fieldDeclr);
                 if (!fields.containsKey(fieldName)) {
                     fields.put(fieldName, fieldsVarInfo);
                     if (fieldDeclr.getInitExpression() != null) {
@@ -814,5 +816,10 @@ public class ClassEnv implements Env {
                     + k.replace(',', '$').replace("[]", "@").replace('.', '_')
                     + (k.split(",").length > 1 ? "$" : "");
         });
+    }
+
+    @Override
+    public ClassEnv getClassEnv() {
+        return this;
     }
 }

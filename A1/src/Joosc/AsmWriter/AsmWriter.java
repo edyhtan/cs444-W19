@@ -1,9 +1,12 @@
 package Joosc.AsmWriter;
 
+import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.ASTModel.ClassMember.FieldDeclr;
 import Joosc.ASTModel.Expressions.Expression;
 
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Collections;
@@ -13,12 +16,9 @@ import Joosc.ASTModel.ClassInterface.ClassDeclr;
 import Joosc.ASTModel.ClassInterface.InterfaceDeclr;
 import Joosc.Environment.ClassEnv;
 import Joosc.Environment.GlobalEnv;
-import Joosc.Environment.MethodInfo;
-import Joosc.Scanner.JoosScan;
 import Joosc.TypeSystem.JoosType;
 import Joosc.util.ArrayLinkedHashMap;
 import Joosc.util.ArrayLinkedHashSet;
-
 
 public class AsmWriter {
     public static final boolean COMMENT_FLAG = true;
@@ -27,6 +27,7 @@ public class AsmWriter {
     private static String binaryTemplate = "%s %s, %s";
     public static ArrayLinkedHashSet<String> allMethods = new ArrayLinkedHashSet<>();
     public static ArrayLinkedHashMap<JoosType, String> parentMatrix = new ArrayLinkedHashMap<>();
+
     public HashSet<String> definedLabels = new HashSet<>();
     public HashSet<String> externedLabels = new HashSet<>();
     public ArrayList<String> buffer = new ArrayList<>();
@@ -40,17 +41,17 @@ public class AsmWriter {
     }
 
     public void close() {
-        for(String label : definedLabels) {
+        for (String label : definedLabels) {
             if (externedLabels.contains(label)) {
                 externedLabels.remove(label);
             }
         }
-        for(String label : externedLabels) {
+        for (String label : externedLabels) {
             out.println("extern " + label);
         }
         out.println();
 
-        for(String seg : buffer) {
+        for (String seg : buffer) {
             out.print(seg);
         }
         if ((out != System.out) && (out != System.err)) {
@@ -104,7 +105,7 @@ public class AsmWriter {
     }
 
     public void cmp(String str1, String str2) {
-        println("cmp " + str1 + "," + str2);
+        println("cmp " + str1 + ", " + str2);
     }
 
     public void cmp(Register reg1, Register reg2) {
@@ -119,8 +120,24 @@ public class AsmWriter {
         println("je " + label);
     }
 
+    public void jne(String label) {
+        println("jne " + label);
+    }
+
     public void jg(String label) {
         println("jg " + label);
+    }
+
+    public void jl(String label) {
+        println("jl " + label);
+    }
+
+    public void jle(String label) {
+        println("jle " + label);
+    }
+
+    public void jnz(String label) {
+        println("jnz " + label);
     }
 
     public void jae(String label) {
@@ -133,6 +150,10 @@ public class AsmWriter {
 
     public void ja(String label) {
         println("ja " + label);
+    }
+
+    public void jge(String label) {
+        println("jge " + label);
     }
 
     public void jbe(String label) {
@@ -222,7 +243,7 @@ public class AsmWriter {
     }
 
     public void add(String str1, String str2) {
-        println("add " + str1 + "," + str2);
+        println("add " + str1 + ", " + str2);
     }
 
     public void add(Register reg1, Register reg2) {
@@ -234,7 +255,7 @@ public class AsmWriter {
     }
 
     public void sub(String str1, String str2) {
-        println("sub " + str1 + "," + str2);
+        println("sub " + str1 + ", " + str2);
     }
 
     public void sub(Register reg1, Register reg2) {
@@ -245,32 +266,33 @@ public class AsmWriter {
         sub(reg.toString(), Integer.toString(i));
     }
 
-    public void imal(String str1, String str2) {
-        println("imal " + str1 + "," + str2);
+
+    public void imul(String str1, String str2) {
+        println("imul " + str1 + ", " + str2);
     }
 
-    public void imal(Register reg1, Register reg2) {
-        imal(reg1.toString(), reg2.toString());
+    public void imul(Register reg1, Register reg2) {
+        imul(reg1.toString(), reg2.toString());
     }
 
-    public void imal(Register reg, int i) {
-        imal(reg.toString(), Integer.toString(i));
+    public void imul(Register reg, int i) {
+        imul(reg.toString(), Integer.toString(i));
     }
 
-    public void idiv(String str1, String str2) {
-        println("idiv " + str1 + "," + str2);
+    public void idiv(String str1) {
+        println("idiv " + str1);
     }
 
-    public void idiv(Register reg1, Register reg2) {
-        idiv(reg1.toString(), reg2.toString());
-    }
-
-    public void idiv(Register reg, int i) {
-        idiv(reg.toString(), Integer.toString(i));
+    public void idiv(Register reg) {
+        idiv(reg.toString());
     }
 
     public void getBit(Register reg, int i) {
         println(String.format(binaryTemplate, "shr", reg, i));
+    }
+
+    public void test(Register reg, int i) {
+        println(String.format(binaryTemplate, "test", reg, i));
     }
 
     public void iffalse(Expression expression, String label, int indent) {
@@ -286,7 +308,7 @@ public class AsmWriter {
 
     /**
      * Followed by push caller-save regs(esp, ebp) on stack
-     * */
+     */
     public void prologue(int indent) {
         indent(indent);
         push(Register.ebp);
@@ -296,7 +318,7 @@ public class AsmWriter {
 
     /**
      * After popping caller-save regs, ret
-     * */
+     */
     public void epilogue(int indent) {
         indent(indent);
         mov(Register.esp, Register.ebp);
@@ -334,16 +356,14 @@ public class AsmWriter {
         }
 
         // Parent Matrix
-        for (ClassEnv env: GlobalEnv.instance.classEnvs) {
-            System.err.println(env.getJoosType().getTypeName());
+        for (ClassEnv env : GlobalEnv.instance.classEnvs) {
             parentMatrix.put(env.getJoosType(), "");
+            System.out.println(env.getJoosType().getTypeName());
         }
 
-        System.err.println(parentMatrix.size());
-
-        // Compute Marrix
-        for (JoosType type: parentMatrix.keySet()) {
-            for (JoosType type2: parentMatrix.keySet()) {
+        // Compute Matrix
+        for (JoosType type : parentMatrix.keySet()) {
+            for (JoosType type2 : parentMatrix.keySet()) {
                 int bit = 0;
                 if (type.isA(type2)) {
                     bit = 1;
@@ -351,7 +371,7 @@ public class AsmWriter {
                 String ref = Integer.toString(bit) + parentMatrix.get(type);
                 parentMatrix.put(type, ref);
             }
-            System.err.println(parentMatrix.get(type) + " " + type.getTypeName());
+            System.out.println(parentMatrix.get(type) + " " + type.getTypeName());
         }
     }
 
@@ -363,7 +383,7 @@ public class AsmWriter {
         indent(indent);
         movFromAddr(reg, reg);
         indent(indent);
-        movFromAddr(reg, reg + "+"  + Integer.toString(offset*4));
+        movFromAddr(reg, reg + "+" + Integer.toString(offset * 4));
         // call eax
     }
 
@@ -372,7 +392,7 @@ public class AsmWriter {
         println("_start:");
 
         // Create SIT
-        for (ClassEnv classEnv: GlobalEnv.instance.classEnvs) {
+        for (ClassEnv classEnv : GlobalEnv.instance.classEnvs) {
 
             if (classEnv.getTypeDeclr() instanceof ClassDeclr) {
                 ClassDeclr classDeclr = (ClassDeclr) classEnv.getTypeDeclr();
@@ -388,7 +408,7 @@ public class AsmWriter {
                 mov(Register.ebx, classDeclr.classSIT);
                 movToAddr(Register.ebx, Register.eax);
 
-                for (String methodName: allMethods) {
+                for (String methodName : allMethods) {
                     if (classEnv.methodCallTable.containsKey(methodName)) {
                         String callRef = classEnv.methodCallTable.get(methodName).callReference;
                         println();
@@ -398,6 +418,24 @@ public class AsmWriter {
                         mov(Register.ebx, callRef);
                         print("\t");
                         movToAddr("eax + " + allMethods.indexOf(methodName) * 4, Register.ebx);
+                    }
+                }
+            }
+        }
+
+        // Initialize Static Fields
+        for (ClassEnv classEnv: GlobalEnv.instance.classEnvs) {
+            if (classEnv.getTypeDeclr() instanceof ClassDeclr) {
+                for (FieldDeclr field: ((ClassDeclr)classEnv.getTypeDeclr()).getFields()){
+                    if (field.getModifiers().contains(Symbol.Static)) {
+                        println();
+                        comment("Static Field: " + field.getStaticFieldLabel());
+                        extern(field.getStaticFieldLabel());
+                        field.addWriter(this);
+                        //field.codeGen(0);
+                        mov(Register.eax, 3);
+                        mov(Register.ebx, field.getStaticFieldLabel());
+                        movToAddr(Register.ebx, Register.eax);
                     }
                 }
             }
@@ -427,7 +465,79 @@ public class AsmWriter {
         indent(indent);
         cmp(Register.eax, "0");
         indent(indent);
-        println("jne __exception");
+        println("je __exception");
+    }
+
+    public void evalLHSthenRHS(Expression LHS, Expression RHS, int indent) {
+        indent(indent);
+        comment("LHS code...");
+        LHS.codeGen(indent);
+        indent(indent);
+        push(Register.eax);
+        indent(indent);
+        comment("RHS code...");
+        RHS.codeGen(indent);
+        indent(indent);
+        pop(Register.ebx);
+    }
+
+    public void compare(Expression LHS, Expression RHS, int indent, String operation, String label, int offset) {
+        String jumpTo = "." + label + offset;
+        String endLabel = ".end_" + label + offset;
+        indent(indent);
+        comment("ompare_" + label);
+        evalLHSthenRHS(LHS, RHS, indent);
+        indent(indent);
+        cmp(Register.ebx, Register.eax);
+        indent(indent);
+        if (operation.equals("je")) {
+            je(jumpTo);
+        } else if (operation.equals("jne")) {
+            jne(jumpTo);
+        } else if (operation.equals("jge")) {
+            jge(jumpTo);
+        } else if (operation.equals("jg")) {
+            jg(jumpTo);
+        } else if (operation.equals("jl")) {
+            jl(jumpTo);
+        } else if (operation.equals("jle")) {
+            jle(jumpTo);
+        }
+        indent(indent);
+        mov(Register.eax, "0");
+        indent(indent);
+        jmp(endLabel);
+        indent(indent);
+        label(jumpTo);
+        indent(indent + 1);
+        mov(Register.eax, "1");
+        indent(indent);
+        label(endLabel);
+    }
+
+    public void division(Expression LHS, Expression RHS, int indent) {
+        indent(indent);
+        comment("Div");
+        indent(indent);
+        comment("RHS code...");
+        RHS.codeGen(indent);
+        // check division by zero
+        indent(indent);
+        cmp(Register.eax, "0");
+        extern("__exception");
+        indent(indent);
+        je("__exception");
+        indent(indent);
+        push(Register.eax);
+        indent(indent);
+        comment("LHS code...");
+        LHS.codeGen(indent);
+        indent(indent);
+        pop(Register.ebx);
+        indent(indent);
+        mov(Register.edx, 0);
+        indent(indent);
+        idiv(Register.ebx);
     }
 
 }

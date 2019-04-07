@@ -1,22 +1,23 @@
 package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.ASTModel.ClassMember.FieldDeclr;
 import Joosc.AsmWriter.AsmWriter;
-import Joosc.Environment.ClassEnv;
-import Joosc.Environment.Env;
-import Joosc.Environment.FieldsVarInfo;
-import Joosc.Environment.GlobalEnv;
+import Joosc.AsmWriter.Register;
+import Joosc.Environment.*;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.Exceptions.UnreachableStatementException;
 import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
+import Joosc.util.ArrayLinkedHashMap;
 import Joosc.util.Tri;
 
+import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class Names extends ExpressionContent {
+public class Names extends ExpressionContent implements HasAddress {
     ArrayList<String> name;
     FieldsVarInfo info;
     boolean staticPrefix = false;
@@ -273,7 +274,106 @@ public class Names extends ExpressionContent {
 
     @Override
     public void codeGen(int indent) {
+        codeGenName(new ArrayList<>(name), getEnv(),false, false, indent);
+    }
 
+    private void codeGenName(ArrayList<String> name, Env env, boolean hasPrefix, boolean isAddress, int indent) {
+        String curname = name.get(0);
+        name.remove(0);
+        JoosType type = env.getJoosType();
+        FieldsVarInfo localVar = (env instanceof LocalEnv) ? ((LocalEnv) env).getSymbolTable().getOffSet(curname) : null;
+        int localVarPtr = (localVar != null) ? localVar.getOffset() : 0;
+
+        // Used for next instance call
+        Env nextEnv = null;
+
+        if (!hasPrefix && localVarPtr != 0) {
+            asmWriter.indent(indent);
+            asmWriter.comment("Local Var " + curname);
+            asmWriter.indent(indent);
+            asmWriter.mov(Register.eax, Register.ebp);
+            asmWriter.indent(indent);
+            if (localVarPtr > 0) {
+                asmWriter.add(Register.eax, localVarPtr);
+            } else {
+                asmWriter.sub(Register.eax, Math.abs(localVarPtr));
+            }
+            nextEnv = localVar.getTypeInfo().getJoosType().getClassEnv();
+        } else if (env.getClassEnv().symbolTable.containsKey(type.getQualifiedName()+"::"+curname)) {
+            if (!hasPrefix) {
+                int implicitReference = ((LocalEnv) env).getThis();
+                asmWriter.indent(indent);
+                asmWriter.comment("Implicit This");
+                asmWriter.indent(indent);
+                asmWriter.movFromAddr(Register.eax, "ebp + " + implicitReference);
+            } else {
+                asmWriter.nullCheck(indent);
+            }
+
+            asmWriter.indent(indent);
+            asmWriter.comment("Field " + curname);
+
+            FieldsVarInfo info = env.getClassEnv().symbolTable.get(type.getQualifiedName()+"::"+curname);
+            int offset = info.getOffset();
+
+            asmWriter.indent(indent);
+            if (offset > 0) {
+                asmWriter.add(Register.eax, offset);
+            } else {
+                asmWriter.sub(Register.eax, Math.abs(offset));
+            }
+
+            nextEnv = info.getTypeInfo().getJoosType().getClassEnv();
+        } else {
+            // Possible Static Prefix
+            JoosType resolvedType = env.findResolvedType(curname);
+            if (resolvedType != null) {
+                nextEnv = resolvedType.getClassEnv();
+            } else {
+                ArrayList<String> prefix = new ArrayList<>();
+                prefix.add(curname);
+                ClassEnv fullTypeEnv = null;
+                do {
+                    fullTypeEnv = GlobalEnv.instance.getClassEnv(prefix, getEnv().getCurrentClass().getClassEnv().getPackageDeclr() == null);
+
+                    if (fullTypeEnv != null)
+                        break;
+
+                    prefix.add(name.get(0));
+                    name.remove(0);
+
+                } while (name.size() >= 0);
+
+                nextEnv = fullTypeEnv;
+            }
+            curname = name.get(0);
+            name.remove(0);
+
+            FieldsVarInfo info = nextEnv.getStaticFieldInfo(curname);
+
+            String labelName = info.fieldsDeclr.getStaticFieldLabel();
+
+            asmWriter.indent(indent);
+            asmWriter.mov(Register.eax, labelName);
+
+            nextEnv = info.getTypeInfo().getJoosType().getClassEnv();
+        }
+
+        if ( !isAddress || name.size() > 0 ) {
+            asmWriter.indent(indent);
+            asmWriter.movFromAddr(Register.eax, Register.eax);
+        }
+
+        asmWriter.println("");
+
+        if (name.size() != 0) {
+            codeGenName(name, nextEnv, true, isAddress, indent);
+        }
+    }
+
+    @Override
+    public void getCodeAddr(int indent) {
+        codeGenName(new ArrayList<>(name), getEnv(), false, true, indent);
     }
 
     @Override

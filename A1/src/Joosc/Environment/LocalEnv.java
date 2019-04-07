@@ -12,7 +12,6 @@ import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
 import Joosc.util.Pair;
-import Joosc.util.SymbolTable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +23,6 @@ public class LocalEnv implements Env {
     Env parent;
     TypeDeclr currentClass;
     ClassBodyDeclr currentMethod;
-    // TODO: how to pass __this to children
     int __this;
 
     public LocalEnv(AST ast, Env parent) {
@@ -104,7 +102,9 @@ public class LocalEnv implements Env {
                         forinitLocal.addInfo(info);
                     }
                 }
-                if (((ForStatement) ast).getExpression() != null) ((ForStatement) ast).getExpression().addEnv(this);
+                if (((ForStatement) ast).getExpression() != null)
+                    ((ForStatement) ast).getExpression().addEnv(this);
+
                 if (((ForStatement) ast).getForUpdate() != null)
                     ((HasExpression) ((ForStatement) ast).getForUpdate()).checkExpression(this);
             }
@@ -305,5 +305,19 @@ public class LocalEnv implements Env {
 
     public Env getParent() {
         return parent;
+    }
+
+    @Override
+    public ClassEnv getClassEnv() {
+        return parent.getClassEnv();
+    }
+
+    public void setThis(int offset) {
+        __this = offset;
+        subEnvs.forEach(x->x.setThis(offset));
+    }
+
+    public int getThis() {
+        return __this;
     }
 }

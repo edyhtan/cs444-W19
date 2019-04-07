@@ -9,6 +9,7 @@ import Joosc.AsmWriter.AsmWriter;
 import Joosc.AsmWriter.Register;
 import Joosc.Environment.LocalEnv;
 import Joosc.Environment.MethodInfo;
+import Joosc.Environment.SymbolTable;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.Exceptions.UninitializedVariableException;
@@ -208,6 +209,7 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
     //Code Gen
     AsmWriter asmWriter;
     String methodLabel;
+    public static int PER_METHOD_COUNT = 0;
 
     public void setMethodLabel(String methodLabel) {
         this.methodLabel = methodLabel;
@@ -219,6 +221,35 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
 
     @Override
     public void codeGen(int indent) {
+        MethodDeclr.PER_METHOD_COUNT = 0;
+
+        /**
+         *  calculate and assign offset
+         */
+        // TODO: distinguish static && non-static
+        // extra one for eip
+        int size = formalParamList.size() + 1;
+        for (int i = 0; i < formalParamList.size(); ++i) {
+            Pair<Type, String> param = formalParamList.get(i);
+            localEnv.assignOffset(param.getValue(), (size - i) * 4);
+        }
+
+        if (getModifiers().contains(Symbol.Static)) {
+            localEnv.setThis((size+1)*4);
+        }
+
+        for (Statement statement : bodyBlock) {
+            statement.addWriter(asmWriter);
+
+            SymbolTable.assignOffset(statement, localEnv);
+
+            if (statement instanceof ForStatement) {
+                if(((ForStatement)statement).getBlock().size() == 1 && ((ForStatement)statement).getBlock().get(0) instanceof Block) {
+                    SymbolTable.assignOffset(((ForStatement) statement).getStatement(), (LocalEnv)((HasScope)((ForStatement) statement).getStatement().getBlock().get(0)).getEnv());
+                }
+            }
+        }
+
         if (name.equals("test") && modifiers.contains(Symbol.Static)) {
             asmWriter.outputInit(localEnv.getJoosType());
             asmWriter.println("");
@@ -231,32 +262,18 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
         asmWriter.indent(indent);
         asmWriter.label(methodLabel);
 
+        if (modifiers.contains(Symbol.Native)) {
+            asmWriter.indent(indent + 1);
+            asmWriter.extern("NATIVEjava.io.OutputStream.nativeWrite");
+            asmWriter.jmp("NATIVEjava.io.OutputStream.nativeWrite");
+            return;
+        }
+
         asmWriter.indent(indent + 1);
         asmWriter.push(Register.ebp);
         asmWriter.indent(indent + 1);
         asmWriter.mov(Register.ebp, Register.esp);
         asmWriter.println("");
-
-
-        // TODO: distinguish static && non-static
-        // extra one for eip
-        int size = formalParamList.size() + 1;
-        for (int i = 0; i < formalParamList.size(); ++i) {
-            Pair<Type, String> param = formalParamList.get(i);
-            localEnv.assignOffset(param.getValue(), (size - i) * 4);
-        }
-
-        for (Statement statement : bodyBlock) {
-            statement.addWriter(asmWriter);
-
-            Statement.assignOffset(statement, localEnv);
-
-            if (statement instanceof ForStatement) {
-                if(((ForStatement)statement).getBlock().size() == 1 && ((ForStatement)statement).getBlock().get(0) instanceof Block) {
-                    Statement.assignOffset(((ForStatement) statement).getStatement(), (LocalEnv)((HasScope)((ForStatement) statement).getStatement().getBlock().get(0)).getEnv());
-                }
-            }
-        }
 
         asmWriter.indent(indent + 1);
 
@@ -267,6 +284,8 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
         asmWriter.println("");
         asmWriter.indent(indent+1);
         asmWriter.label("_method_return_" + methodLabel);
+        asmWriter.indent(indent + 2);
+        asmWriter.mov(Register.esp, Register.ebp);
         asmWriter.indent(indent + 2);
         asmWriter.pop(Register.ebp);
         asmWriter.indent(indent + 2);

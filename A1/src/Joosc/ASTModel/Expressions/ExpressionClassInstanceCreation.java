@@ -173,6 +173,7 @@ public class ExpressionClassInstanceCreation extends Expression {
         asmWriter.add(Register.esp, argList.size() * 4);
         asmWriter.indent(indent);
         asmWriter.pop(Register.eax);
+        asmWriter.println();
     }
 
     @Override

@@ -1,10 +1,17 @@
 public class A {
 
     public A() {}
+
+
     public static int test() {
-        if (true) {
-            return 111;
+        Static x = new Static();
+        int y = Integer.MAX_VALUE;
+
+        if (x instanceof Static) {
+            return y;
         }
+
         return 0;
     }
+
 }

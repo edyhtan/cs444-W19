@@ -1,6 +1,4 @@
-public class Static extends Main{
+public class Static extends Main {
+    public int a = 4;
     public Static() { }
-
-    public int static__ = 0;
-    public int foo2(){return 0;}
 }

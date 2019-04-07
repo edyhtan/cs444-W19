@@ -5,10 +5,12 @@ __class_java_lang_Object:
 section .data
 
 		global __ref_SIT_java_lang_Object
-	__ref_SIT_java_lang_Object:		dd 0
+	__ref_SIT_java_lang_Object:
+		dd 0
 
 		global __ref_PARENTS_java_lang_Object
-	__ref_PARENTS_java_lang_Object:		dd 00000000010000000000b
+	__ref_PARENTS_java_lang_Object:
+		dd 00000000010000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -16,6 +18,8 @@ section .data
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
 		dd __method__java_lang_Object__toString
+
+;; Static fields
 
 section .text
 
@@ -25,9 +29,28 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				jmp _method_return___method__java_lang_Object__equals$java_lang_Object$
+				;; ompare_eq
+		;; LHS code...
+		push eax
+		;; RHS code...
+		;; Local Var other
+		mov eax, ebp
+		add eax, 8
+		mov eax, [eax]
+
+		pop ebx
+		cmp ebx, eax
+		je .eq0
+		mov eax, 0
+		jmp .end_eq0
+		.eq0:
+			mov eax, 1
+		.end_eq0:
+
+		jmp _method_return___method__java_lang_Object__equals$java_lang_Object$
 
 		_method_return___method__java_lang_Object__equals$java_lang_Object$:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -39,6 +62,7 @@ section .text
 						jmp _method_return___method__java_lang_Object__toString
 
 		_method_return___method__java_lang_Object__toString:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -51,6 +75,7 @@ section .text
 		jmp _method_return___method__java_lang_Object__hashCode
 
 		_method_return___method__java_lang_Object__hashCode:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -62,6 +87,7 @@ section .text
 				jmp _method_return___method__java_lang_Object__clone
 
 		_method_return___method__java_lang_Object__clone:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -74,6 +100,7 @@ section .text
 		jmp _method_return___method__java_lang_Object__getClass
 
 		_method_return___method__java_lang_Object__getClass:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -86,7 +113,7 @@ section .text
 		mov eax, [ebp + 8]
 		push eax
 ;; Field init end, pop object
-		add esp,4
+		add esp, 4
 ;; Constructor Body
 ;; Epilogue
 		mov esp, ebp

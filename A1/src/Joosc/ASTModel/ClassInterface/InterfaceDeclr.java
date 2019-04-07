@@ -122,6 +122,8 @@ public class InterfaceDeclr implements TypeDeclr {
         asmWriter.println("\t\t" + "global " + classParentMatrix);
         asmWriter.println("\t" + classParentMatrix + ":\t\t" + "dd " + AsmWriter.parentMatrix.get(env.getJoosType()) + "b");
         asmWriter.println("");
+
+        asmWriter.close();
     }
 
     @Override

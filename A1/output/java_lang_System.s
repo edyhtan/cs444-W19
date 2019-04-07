@@ -14,18 +14,22 @@ __class_java_lang_System:
 section .data
 
 		global __ref_SIT_java_lang_System
-	__ref_SIT_java_lang_System:		dd 0
+	__ref_SIT_java_lang_System:
+		dd 0
 
 		global __ref_PARENTS_java_lang_System
-	__ref_PARENTS_java_lang_System:		dd 00000010010000000000b
+	__ref_PARENTS_java_lang_System:
+		dd 00000010010000000000b
 
 	; Methods	
-																	dd __method__java_lang_Object__getClass
+		dd __method__java_lang_Object__getClass
 		dd __method__java_lang_Object__hashCode
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
 		dd __method__java_lang_Object__toString
 		dd __STATIC_method__java_lang_System__gc
+
+;; Static fields
 		global __field_java_lang_System_out
 	__field_java_lang_System_out		dd 0
 
@@ -40,6 +44,7 @@ section .text
 
 		
 		_method_return___STATIC_method__java_lang_System__gc:
+			mov esp, ebp
 			pop ebp
 			ret
 
@@ -52,13 +57,13 @@ section .text
 		push eax
 					mov eax, __constructor__java_lang_Object__Object
 		call eax
-		sub esp,4
+		sub esp, 4
 ;; Field init, push object to stack
 		mov eax, [ebp + 8]
 		push eax
 ;; Field init:: out
-				;; Allocating size of 0
-				mov eax, 0
+				;; Allocating size of 4
+				mov eax, 4
 								call __malloc
 									mov ebx, __class_java_io_PrintStream
 				mov [eax], ebx
@@ -67,14 +72,15 @@ section .text
 				push eax
 
 				;; Pushing args:
-									call __constructor__java_io_PrintStream__PrintStream
-				add esp,0
+				call __constructor__java_io_PrintStream__PrintStream
+				add esp, 0
 				pop eax
+
 		mov ebx, [esp]
-		add ebx,0
+		add ebx, 0
 		mov [ebx], eax
 ;; Field init end, pop object
-		add esp,4
+		add esp, 4
 ;; Constructor Body
 ;; Epilogue
 		mov esp, ebp
