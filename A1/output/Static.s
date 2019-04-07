@@ -75,6 +75,7 @@ section .text
 ;; Field init end, pop object
 		add esp, 4
 ;; Constructor Body
+			;; Assignment
 							;; Implicit This
 				mov eax, [ebp + 12]
 				;; Field a
@@ -88,7 +89,9 @@ section .text
 
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
+			;; Assignment
 							;; field access
 				mov eax, [ebp + 12]
 				add eax, 12
@@ -96,6 +99,7 @@ section .text
 				mov eax, 70
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 ;; Epilogue
 		mov esp, ebp

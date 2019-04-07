@@ -29,7 +29,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ompare_eq
+		;; Compare_eq
 		;; LHS code...
 		mov eax, [ebp + 12]
 		push eax

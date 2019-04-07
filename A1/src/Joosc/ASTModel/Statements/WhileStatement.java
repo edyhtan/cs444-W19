@@ -7,6 +7,7 @@ import Joosc.ASTModel.Program;
 import Joosc.AsmWriter.AsmWriter;
 import Joosc.AsmWriter.Register;
 import Joosc.Environment.Env;
+import Joosc.Environment.LocalEnv;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.Exceptions.UnreachableStatementException;
@@ -122,6 +123,7 @@ public class WhileStatement extends HasScope implements Statement, HasExpression
         this.offset = Program.PER_PROGRAM_COUNT;
         Program.PER_PROGRAM_COUNT++;
 
+        ((LocalEnv) getEnv()).printOffset();
         expression.addWriter(asmWriter);
         statement.addWriter(asmWriter);
 
@@ -141,14 +143,14 @@ public class WhileStatement extends HasScope implements Statement, HasExpression
 
         asmWriter.indent(indent);
         asmWriter.label(".endwhile" + offset);
-        asmWriter.println("");
+//        asmWriter.println("");
 
-        if (numLocalVars > 0) {
-            asmWriter.indent(indent + 1);
-            // pop all local vars
-            asmWriter.add(Register.esp, (numLocalVars * 4));
-            asmWriter.println("");
-        }
+//        if (numLocalVars > 0) {
+//            asmWriter.indent(indent + 1);
+//            // pop all local vars
+//            asmWriter.add(Register.esp, (numLocalVars * 4));
+//            asmWriter.println("");
+//        }
     }
 
     @Override

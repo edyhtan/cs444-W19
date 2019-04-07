@@ -102,6 +102,7 @@ section .text
 		;; ---end of declare newchars
 
 		;forInit code...
+		;; Assignment
 					;; Local Var i
 			mov eax, ebp
 			sub eax, 4
@@ -110,11 +111,12 @@ section .text
 			mov eax, 0
 		pop ebx
 		mov [ebx], eax
+		;; ------end assign
 
 
 		.for0:
 			;expression code...
-			;; ompare_lt
+			;; Compare_lt
 			;; LHS code...
 			;; Local Var i
 			mov eax, ebp
@@ -157,13 +159,16 @@ section .text
 			cmp eax, 0
 			je .endfor0
 			;statement code...
+			;; Assignment
 						push eax
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 
 
 			;forUpdate code...
+			;; Assignment
 							;; Local Var i
 				mov eax, ebp
 				sub eax, 4
@@ -185,6 +190,7 @@ section .text
 
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 
 			jmp .for0
@@ -192,6 +198,7 @@ section .text
 		.endfor0:
 
 		;forInit code...
+		;; Assignment
 					;; Local Var i
 			mov eax, ebp
 			sub eax, 4
@@ -200,11 +207,12 @@ section .text
 			mov eax, 0
 		pop ebx
 		mov [ebx], eax
+		;; ------end assign
 
 
 		.for1:
 			;expression code...
-			;; ompare_lt
+			;; Compare_lt
 			;; LHS code...
 			;; Local Var i
 			mov eax, ebp
@@ -252,13 +260,16 @@ section .text
 			cmp eax, 0
 			je .endfor1
 			;statement code...
+			;; Assignment
 						push eax
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 
 
 			;forUpdate code...
+			;; Assignment
 							;; Local Var i
 				mov eax, ebp
 				sub eax, 4
@@ -280,6 +291,7 @@ section .text
 
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 
 			jmp .for1
@@ -326,6 +338,7 @@ section .text
 		push eax
 		;; ---end of declare newchars
 
+		;; Assignment
 				push eax
 			;; Local Var c
 			mov eax, ebp
@@ -334,6 +347,7 @@ section .text
 
 		pop ebx
 		mov [ebx], eax
+		;; ------end assign
 
 		;; ---new [java, lang, String] ()
 		;; Allocating size of 8
@@ -389,7 +403,7 @@ section .text
 
 		;; if statement2
 		;expression code...
-		;; ompare_eq
+		;; Compare_eq
 		;; LHS code...
 		;; Local Var i
 		mov eax, ebp
@@ -423,7 +437,7 @@ section .text
 		.endif2:
 		;; if statement3
 		;expression code...
-		;; ompare_lt
+		;; Compare_lt
 		;; LHS code...
 		;; Local Var i
 		mov eax, ebp
@@ -445,6 +459,7 @@ section .text
 		cmp eax, 0
 		je .else3
 		;thenClause ...
+			;; Assignment
 							;; Local Var wasneg
 				mov eax, ebp
 				sub eax, 12
@@ -453,8 +468,10 @@ section .text
 				mov eax, 1
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 
+			;; Assignment
 							;; Local Var i
 				mov eax, ebp
 				add eax, 8
@@ -471,6 +488,7 @@ section .text
 				mov eax, ebx
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 
 
@@ -480,7 +498,7 @@ section .text
 		.endif3:
 		;; if statement4
 		;expression code...
-		;; ompare_eq
+		;; Compare_eq
 		;; LHS code...
 		;; Local Var i
 		mov eax, ebp
@@ -502,12 +520,15 @@ section .text
 		cmp eax, 0
 		je .else4
 		;thenClause ...
+			;; Assignment
 						push eax
 				mov eax, 48
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 
+			;; Assignment
 							;; Local Var j
 				mov eax, ebp
 				sub eax, 8
@@ -529,6 +550,7 @@ section .text
 
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 
 
@@ -538,7 +560,7 @@ section .text
 			;elseClause ...
 			.while5:
 				;expression code...
-				;; ompare_gt
+				;; Compare_gt
 				;; LHS code...
 				;; Local Var i
 				mov eax, ebp
@@ -584,6 +606,7 @@ section .text
 				;; ---end of declare d
 
 
+				;; Assignment
 									;; Local Var i
 					mov eax, ebp
 					add eax, 8
@@ -607,8 +630,10 @@ section .text
 
 				pop ebx
 				mov [ebx], eax
+				;; ------end assign
 
 
+				;; Assignment
 								push eax
 					;; primitive run-time casting to [char]
 										;; Plus
@@ -628,8 +653,10 @@ section .text
 					and eax, 0xffff
 				pop ebx
 				mov [ebx], eax
+				;; ------end assign
 
 
+				;; Assignment
 									;; Local Var j
 					mov eax, ebp
 					sub eax, 8
@@ -651,6 +678,7 @@ section .text
 
 				pop ebx
 				mov [ebx], eax
+				;; ------end assign
 
 
 				add esp, 4
@@ -658,9 +686,6 @@ section .text
 				jmp .while5
 
 			.endwhile5:
-
-				add esp, 4
-
 
 
 		.endif4:
@@ -674,12 +699,15 @@ section .text
 		cmp eax, 0
 		je .else6
 		;thenClause ...
+			;; Assignment
 						push eax
 				mov eax, 45
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 
+			;; Assignment
 							;; Local Var j
 				mov eax, ebp
 				sub eax, 8
@@ -701,6 +729,7 @@ section .text
 
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 
 
@@ -714,6 +743,7 @@ section .text
 		;; ---end of declare ret2
 
 		;forInit code...
+		;; Assignment
 					;; Local Var i
 			mov eax, ebp
 			add eax, 8
@@ -722,11 +752,12 @@ section .text
 			mov eax, 0
 		pop ebx
 		mov [ebx], eax
+		;; ------end assign
 
 
 		.for7:
 			;expression code...
-			;; ompare_lt
+			;; Compare_lt
 			;; LHS code...
 			;; Local Var i
 			mov eax, ebp
@@ -752,13 +783,16 @@ section .text
 			cmp eax, 0
 			je .endfor7
 			;statement code...
+			;; Assignment
 						push eax
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 
 
 			;forUpdate code...
+			;; Assignment
 							;; Local Var i
 				mov eax, ebp
 				add eax, 8
@@ -780,6 +814,7 @@ section .text
 
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 
 			jmp .for7
@@ -917,7 +952,7 @@ section .text
 
 		;; if statement9
 		;expression code...
-		;; ompare_eq
+		;; Compare_eq
 		;; LHS code...
 		;; Local Var o
 		mov eax, ebp
@@ -988,7 +1023,7 @@ section .text
 
 		;; if statement10
 		;expression code...
-		;; ompare_eq
+		;; Compare_eq
 		;; LHS code...
 		;; Local Var o
 		mov eax, ebp
@@ -1037,7 +1072,7 @@ section .text
 
 		;; if statement11
 		;expression code...
-		;; ompare_eq
+		;; Compare_eq
 		;; LHS code...
 		;; Local Var o
 		mov eax, ebp
@@ -1152,7 +1187,7 @@ section .text
 
 		;; if statement13
 		;expression code...
-		;; ompare_lt
+		;; Compare_lt
 		;; LHS code...
 		;; Local Var i
 		mov eax, ebp
@@ -1182,7 +1217,7 @@ section .text
 		.endif13:
 		;; if statement14
 		;expression code...
-		;; ompare_gt
+		;; Compare_gt
 		;; LHS code...
 		;; Local Var j
 		mov eax, ebp
@@ -1233,7 +1268,7 @@ section .text
 		.endif14:
 		;; if statement15
 		;expression code...
-		;; ompare_lt
+		;; Compare_lt
 		;; LHS code...
 		;; Local Var j
 		mov eax, ebp
@@ -1271,6 +1306,7 @@ section .text
 		;; ---end of declare ret
 
 		;forInit code...
+		;; Assignment
 					;; Local Var k
 			mov eax, ebp
 			sub eax, 4
@@ -1283,11 +1319,12 @@ section .text
 
 		pop ebx
 		mov [ebx], eax
+		;; ------end assign
 
 
 		.for16:
 			;expression code...
-			;; ompare_lt
+			;; Compare_lt
 			;; LHS code...
 			;; Local Var k
 			mov eax, ebp
@@ -1313,6 +1350,7 @@ section .text
 			cmp eax, 0
 			je .endfor16
 			;statement code...
+			;; Assignment
 						push eax
 				;; ---Method Invocation: 
 				;; Names(ArgList)
@@ -1345,10 +1383,12 @@ section .text
 				;; ---End of method invocation
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 
 
 			;forUpdate code...
+			;; Assignment
 							;; Local Var k
 				mov eax, ebp
 				sub eax, 4
@@ -1370,6 +1410,7 @@ section .text
 
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 
 			jmp .for16
@@ -1424,6 +1465,7 @@ section .text
 		;; ---end of declare j
 
 		;forInit code...
+		;; Assignment
 					;; Local Var i
 			mov eax, ebp
 			sub eax, 4
@@ -1432,12 +1474,13 @@ section .text
 			mov eax, 0
 		pop ebx
 		mov [ebx], eax
+		;; ------end assign
 
 
 		.for17:
 			;expression code...
 			;; logical_and
-			;; ompare_lt
+			;; Compare_lt
 			;; LHS code...
 			;; Local Var i
 			mov eax, ebp
@@ -1479,7 +1522,7 @@ section .text
 
 			cmp eax, 0
 			je .end_and0
-			;; ompare_le
+			;; Compare_le
 			;; LHS code...
 			;; ---Method Invocation: 
 			;; Names(ArgList)
@@ -1530,6 +1573,7 @@ section .text
 
 
 			;forUpdate code...
+			;; Assignment
 							;; Local Var i
 				mov eax, ebp
 				sub eax, 4
@@ -1551,6 +1595,7 @@ section .text
 
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 
 			jmp .for17
@@ -1558,6 +1603,7 @@ section .text
 		.endfor17:
 
 		;forInit code...
+		;; Assignment
 					;; Local Var j
 			mov eax, ebp
 			sub eax, 8
@@ -1596,12 +1642,13 @@ section .text
 
 		pop ebx
 		mov [ebx], eax
+		;; ------end assign
 
 
 		.for18:
 			;expression code...
 			;; logical_and
-			;; ompare_ge
+			;; Compare_ge
 			;; LHS code...
 			;; Local Var j
 			mov eax, ebp
@@ -1622,7 +1669,7 @@ section .text
 
 			cmp eax, 0
 			je .end_and3
-			;; ompare_le
+			;; Compare_le
 			;; LHS code...
 			;; ---Method Invocation: 
 			;; Names(ArgList)
@@ -1673,6 +1720,7 @@ section .text
 
 
 			;forUpdate code...
+			;; Assignment
 							;; Local Var j
 				mov eax, ebp
 				sub eax, 8
@@ -1694,6 +1742,7 @@ section .text
 
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 
 			jmp .for18
@@ -1702,7 +1751,7 @@ section .text
 
 		;; if statement19
 		;expression code...
-		;; ompare_gt
+		;; Compare_gt
 		;; LHS code...
 		;; Local Var i
 		mov eax, ebp
@@ -1809,7 +1858,7 @@ section .text
 
 		.for20:
 			;expression code...
-			;; ompare_lt
+			;; Compare_lt
 			;; LHS code...
 			;; Local Var i
 			mov eax, ebp
@@ -1842,6 +1891,7 @@ section .text
 			cmp eax, 0
 			je .endfor20
 			;statement code...
+			;; Assignment
 							;; Local Var h
 				mov eax, ebp
 				sub eax, 4
@@ -1871,11 +1921,13 @@ section .text
 
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 
 
 
 			;forUpdate code...
+			;; Assignment
 							;; Local Var i
 				mov eax, ebp
 				sub eax, 8
@@ -1897,6 +1949,7 @@ section .text
 
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 
 			jmp .for20
@@ -2010,7 +2063,7 @@ section .text
 			;; if statement22
 			;expression code...
 			;; logical_and
-			;; ompare_ge
+			;; Compare_ge
 			;; LHS code...
 			;; Local Var i
 			mov eax, ebp
@@ -2042,7 +2095,7 @@ section .text
 
 			cmp eax, 0
 			je .end_and0
-			;; ompare_ge
+			;; Compare_ge
 			;; LHS code...
 			;; Local Var i
 			mov eax, ebp
@@ -2092,7 +2145,7 @@ section .text
 
 			;; if statement23
 			;expression code...
-			;; ompare_ge
+			;; Compare_ge
 			;; LHS code...
 			;; Local Var i
 			mov eax, ebp
@@ -2139,7 +2192,7 @@ section .text
 
 			;; if statement24
 			;expression code...
-			;; ompare_ge
+			;; Compare_ge
 			;; LHS code...
 			;; Local Var i
 			mov eax, ebp
@@ -2187,7 +2240,7 @@ section .text
 
 			;; if statement25
 			;expression code...
-			;; ompare_lt
+			;; Compare_lt
 			;; LHS code...
 			push eax
 			;; RHS code...
@@ -2217,7 +2270,7 @@ section .text
 
 			;; if statement26
 			;expression code...
-			;; ompare_gt
+			;; Compare_gt
 			;; LHS code...
 			push eax
 			;; RHS code...
@@ -2241,6 +2294,7 @@ section .text
 			.else26:
 			.endif26:
 
+			;; Assignment
 							;; Local Var i
 				mov eax, ebp
 				sub eax, 4
@@ -2262,12 +2316,12 @@ section .text
 
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 
 			jmp .while21
 
 		.endwhile21:
-
 		mov eax, 0
 		jmp _method_return___method__java_lang_String__compareTo$java_lang_String$
 
@@ -2296,7 +2350,7 @@ section .text
 
 		.for27:
 			;expression code...
-			;; ompare_lt
+			;; Compare_lt
 			;; LHS code...
 			;; Local Var i
 			mov eax, ebp
@@ -2328,14 +2382,17 @@ section .text
 			cmp eax, 0
 			je .endfor27
 			;statement code...
+			;; Assignment
 						push eax
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 
 
 
 			;forUpdate code...
+			;; Assignment
 							;; Local Var i
 				mov eax, ebp
 				sub eax, 8
@@ -2357,6 +2414,7 @@ section .text
 
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 
 			jmp .for27
@@ -2394,6 +2452,7 @@ section .text
 		;; ---end of declare i
 
 		;forInit code...
+		;; Assignment
 					;; Local Var offset
 			mov eax, ebp
 			sub eax, 4
@@ -2402,11 +2461,12 @@ section .text
 			mov eax, 0
 		pop ebx
 		mov [ebx], eax
+		;; ------end assign
 
 
 		.for28:
 			;expression code...
-			;; ompare_lt
+			;; Compare_lt
 			;; LHS code...
 			;; Local Var offset
 			mov eax, ebp
@@ -2457,6 +2517,7 @@ section .text
 
 
 			;forInit code...
+			;; Assignment
 							;; Local Var i
 				mov eax, ebp
 				sub eax, 8
@@ -2465,11 +2526,12 @@ section .text
 				mov eax, 0
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 
 			.for29:
 				;expression code...
-				;; ompare_lt
+				;; Compare_lt
 				;; LHS code...
 				;; Local Var i
 				mov eax, ebp
@@ -2519,7 +2581,7 @@ section .text
 				;statement code...
 				;; if statement30
 				;expression code...
-				;; ompare_ge
+				;; Compare_ge
 				;; LHS code...
 				;; Plus
 				;; LHS code...
@@ -2575,6 +2637,7 @@ section .text
 				cmp eax, 0
 				je .else30
 				;thenClause ...
+					;; Assignment
 											;; Local Var found
 						mov eax, ebp
 						sub eax, 12
@@ -2583,6 +2646,7 @@ section .text
 						mov eax, 0
 					pop ebx
 					mov [ebx], eax
+					;; ------end assign
 
 
 				jmp .endif30
@@ -2591,7 +2655,7 @@ section .text
 					;elseClause ...
 					;; if statement31
 					;expression code...
-					;; ompare_ne
+					;; Compare_ne
 					;; LHS code...
 					push eax
 					;; RHS code...
@@ -2607,6 +2671,7 @@ section .text
 					cmp eax, 0
 					je .else31
 					;thenClause ...
+						;; Assignment
 													;; Local Var found
 							mov eax, ebp
 							sub eax, 12
@@ -2615,6 +2680,7 @@ section .text
 							mov eax, 0
 						pop ebx
 						mov [ebx], eax
+						;; ------end assign
 
 
 					jmp .endif31
@@ -2627,6 +2693,7 @@ section .text
 
 
 				;forUpdate code...
+				;; Assignment
 									;; Local Var i
 					mov eax, ebp
 					sub eax, 8
@@ -2648,6 +2715,7 @@ section .text
 
 				pop ebx
 				mov [ebx], eax
+				;; ------end assign
 
 
 				jmp .for29
@@ -2682,6 +2750,7 @@ section .text
 
 
 			;forUpdate code...
+			;; Assignment
 							;; Local Var offset
 				mov eax, ebp
 				sub eax, 4
@@ -2703,6 +2772,7 @@ section .text
 
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 
 			jmp .for28
@@ -2742,6 +2812,7 @@ mov eax, 0
 ;; Field init end, pop object
 		add esp, 4
 ;; Constructor Body
+			;; Assignment
 							;; Implicit This
 				mov eax, [ebp + 8]
 				;; Field chars
@@ -2750,6 +2821,7 @@ mov eax, 0
 			push eax
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 ;; Epilogue
 		mov esp, ebp
@@ -2775,12 +2847,14 @@ mov eax, 0
 ;; Field init end, pop object
 		add esp, 4
 ;; Constructor Body
+			;; Assignment
 							;; field access
 				mov eax, [ebp + 12]
 				add eax, 4
 			push eax
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 			;forInit code...
 			;; ---declare i
@@ -2792,7 +2866,7 @@ mov eax, 0
 
 			.for33:
 				;expression code...
-				;; ompare_lt
+				;; Compare_lt
 				;; LHS code...
 				;; Local Var i
 				mov eax, ebp
@@ -2824,13 +2898,16 @@ mov eax, 0
 				cmp eax, 0
 				je .endfor33
 				;statement code...
+				;; Assignment
 								push eax
 				pop ebx
 				mov [ebx], eax
+				;; ------end assign
 
 
 
 				;forUpdate code...
+				;; Assignment
 									;; Local Var i
 					mov eax, ebp
 					sub eax, 4
@@ -2852,6 +2929,7 @@ mov eax, 0
 
 				pop ebx
 				mov [ebx], eax
+				;; ------end assign
 
 
 				jmp .for33
@@ -2883,6 +2961,7 @@ mov eax, 0
 ;; Field init end, pop object
 		add esp, 4
 ;; Constructor Body
+			;; Assignment
 							;; field access
 				mov eax, [ebp + 12]
 				add eax, 4
@@ -2900,6 +2979,7 @@ mov eax, 0
 
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 ;; Epilogue
 		mov esp, ebp

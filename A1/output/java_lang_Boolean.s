@@ -94,6 +94,7 @@ mov eax, 0
 ;; Field init end, pop object
 		add esp, 4
 ;; Constructor Body
+			;; Assignment
 							;; Implicit This
 				mov eax, [ebp + 12]
 				;; Field value
@@ -107,6 +108,7 @@ mov eax, 0
 
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 ;; Epilogue
 		mov esp, ebp

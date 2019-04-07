@@ -440,7 +440,7 @@ global @@@@main
 
 		.while0:
 			;expression code...
-			;; ompare_gt
+			;; Compare_gt
 			;; LHS code...
 			;; Local Var x
 			mov eax, ebp
@@ -473,6 +473,7 @@ global @@@@main
 			;; ---end of declare y
 
 
+			;; Assignment
 							;; Local Var y
 				mov eax, ebp
 				sub eax, 12
@@ -494,8 +495,14 @@ global @@@@main
 
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
+
+            mov ebx, [ebx]
+            mov eax, 1
+            int 0x80
 
 
+			;; Assignment
 							;; Local Var x
 				mov eax, ebp
 				sub eax, 4
@@ -508,6 +515,7 @@ global @@@@main
 
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 
 			add esp, 4
@@ -515,9 +523,6 @@ global @@@@main
 			jmp .while0
 
 		.endwhile0:
-
-			add esp, 4
-
 		;; Local Var x
 		mov eax, ebp
 		sub eax, 4

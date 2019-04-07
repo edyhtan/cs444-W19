@@ -492,7 +492,7 @@ public class AsmWriter {
         String jumpTo = "." + label + offset;
         String endLabel = ".end_" + label + offset;
         indent(indent);
-        comment("ompare_" + label);
+        comment("Compare_" + label);
         evalLHSthenRHS(LHS, RHS, indent);
         indent(indent);
         cmp(Register.ebx, Register.eax);

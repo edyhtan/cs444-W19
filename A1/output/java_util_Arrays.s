@@ -40,7 +40,7 @@ section .text
 
 		;; if statement0
 		;expression code...
-		;; ompare_ne
+		;; Compare_ne
 		;; LHS code...
 		;; Local Var a1
 		mov eax, ebp
@@ -95,7 +95,7 @@ section .text
 
 		.for1:
 			;expression code...
-			;; ompare_lt
+			;; Compare_lt
 			;; LHS code...
 			;; Local Var i
 			mov eax, ebp
@@ -129,7 +129,7 @@ section .text
 			;statement code...
 			;; if statement2
 			;expression code...
-			;; ompare_ne
+			;; Compare_ne
 			;; LHS code...
 			push eax
 			;; RHS code...
@@ -156,6 +156,7 @@ section .text
 
 
 			;forUpdate code...
+			;; Assignment
 							;; Local Var i
 				mov eax, ebp
 				sub eax, 4
@@ -177,6 +178,7 @@ section .text
 
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 
 			jmp .for1
@@ -199,7 +201,7 @@ section .text
 
 		;; if statement3
 		;expression code...
-		;; ompare_ne
+		;; Compare_ne
 		;; LHS code...
 		;; Local Var a1
 		mov eax, ebp
@@ -254,7 +256,7 @@ section .text
 
 		.for4:
 			;expression code...
-			;; ompare_lt
+			;; Compare_lt
 			;; LHS code...
 			;; Local Var i
 			mov eax, ebp
@@ -288,7 +290,7 @@ section .text
 			;statement code...
 			;; if statement5
 			;expression code...
-			;; ompare_ne
+			;; Compare_ne
 			;; LHS code...
 			push eax
 			;; RHS code...
@@ -314,6 +316,7 @@ section .text
 
 
 			;forUpdate code...
+			;; Assignment
 							;; Local Var i
 				mov eax, ebp
 				sub eax, 4
@@ -335,6 +338,7 @@ section .text
 
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 
 			jmp .for4

@@ -75,7 +75,7 @@ section .text
 
 		.for0:
 			;expression code...
-			;; ompare_lt
+			;; Compare_lt
 			;; LHS code...
 			;; Local Var i
 			mov eax, ebp
@@ -185,6 +185,7 @@ section .text
 
 
 			;forUpdate code...
+			;; Assignment
 							;; Local Var i
 				mov eax, ebp
 				sub eax, 4
@@ -206,6 +207,7 @@ section .text
 
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 
 			jmp .for0

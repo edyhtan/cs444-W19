@@ -83,7 +83,7 @@ section .text
 		.while0:
 			;expression code...
 			;; logical_and
-			;; ompare_lt
+			;; Compare_lt
 			;; LHS code...
 			;; Local Var i
 			mov eax, ebp
@@ -131,7 +131,7 @@ section .text
 			cmp eax, 0
 			je .end_and0
 			;; logical_or
-			;; ompare_eq
+			;; Compare_eq
 			;; LHS code...
 			;; ---Method Invocation: 
 			;; Names(ArgList)
@@ -182,7 +182,7 @@ section .text
 			cmp eax, 1
 			je .end_or2
 			;; logical_and
-			;; ompare_ge
+			;; Compare_ge
 			;; LHS code...
 			;; ---Method Invocation: 
 			;; Names(ArgList)
@@ -232,7 +232,7 @@ section .text
 
 			cmp eax, 0
 			je .end_and4
-			;; ompare_le
+			;; Compare_le
 			;; LHS code...
 			;; ---Method Invocation: 
 			;; Names(ArgList)
@@ -291,7 +291,7 @@ section .text
 			;; while statement code...
 			;; if statement1
 			;expression code...
-			;; ompare_eq
+			;; Compare_eq
 			;; LHS code...
 			;; ---Method Invocation: 
 			;; Names(ArgList)
@@ -342,6 +342,7 @@ section .text
 			cmp eax, 0
 			je .else1
 			;thenClause ...
+				;; Assignment
 									;; Local Var neg
 					mov eax, ebp
 					sub eax, 8
@@ -358,12 +359,14 @@ section .text
 					mov eax, ebx
 				pop ebx
 				mov [ebx], eax
+				;; ------end assign
 
 
 			jmp .endif1
 
 			.else1:
 				;elseClause ...
+				;; Assignment
 									;; Local Var ret
 					mov eax, ebp
 					sub eax, 4
@@ -436,11 +439,13 @@ section .text
 
 				pop ebx
 				mov [ebx], eax
+				;; ------end assign
 
 
 
 			.endif1:
 
+			;; Assignment
 							;; Local Var i
 				mov eax, ebp
 				sub eax, 12
@@ -462,12 +467,12 @@ section .text
 
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 
 			jmp .while0
 
 		.endwhile0:
-
 		;; if statement2
 		;expression code...
 		;; Local Var neg
@@ -478,6 +483,7 @@ section .text
 		cmp eax, 0
 		je .else2
 		;thenClause ...
+			;; Assignment
 							;; Local Var ret
 				mov eax, ebp
 				sub eax, 4
@@ -494,6 +500,7 @@ section .text
 				mov eax, ebx
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 
 		jmp .endif2
@@ -570,6 +577,7 @@ mov eax, 0
 ;; Field init end, pop object
 		add esp, 4
 ;; Constructor Body
+			;; Assignment
 							;; Implicit This
 				mov eax, [ebp + 12]
 				;; Field value
@@ -583,6 +591,7 @@ mov eax, 0
 
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 ;; Epilogue
 		mov esp, ebp
@@ -613,6 +622,7 @@ mov eax, 0
 ;; Field init end, pop object
 		add esp, 4
 ;; Constructor Body
+			;; Assignment
 							;; Implicit This
 				mov eax, [ebp + 12]
 				;; Field value
@@ -640,6 +650,7 @@ mov eax, 0
 				;; ---End of method invocation
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 ;; Epilogue
 		mov esp, ebp
@@ -670,6 +681,7 @@ mov eax, 0
 ;; Field init end, pop object
 		add esp, 4
 ;; Constructor Body
+			;; Assignment
 							;; Implicit This
 				mov eax, [ebp + 8]
 				;; Field value
@@ -679,6 +691,7 @@ mov eax, 0
 				mov eax, 0
 			pop ebx
 			mov [ebx], eax
+			;; ------end assign
 
 ;; Epilogue
 		mov esp, ebp
