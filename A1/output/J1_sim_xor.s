@@ -1039,7 +1039,7 @@ mov eax, edx
 		.else3:
 		.endif3:
 		;; Local Var result
-		mov eax, ebp
+		mov eax, ebpquit
 		sub eax, 8
 		mov eax, [eax]
 
