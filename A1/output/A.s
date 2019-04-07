@@ -1,4 +1,5 @@
 extern __ref_SIT_java_lang_Number
+extern __exception
 extern __malloc
 extern __constructor__java_lang_Object__Object
 extern __method__java_lang_Object__getClass
@@ -49,16 +50,9 @@ __class_A:
 		dd __method__java_lang_Object__clone
 		dd __method__java_lang_Object__toString
 		dd __STATIC_method__A__test
+		dd __method__A__sim_and$int$int$
 
 ;; Static fields
-		global __field_A_b
-__field_A_b:
-		dd 0
-
-		global __field_A_a
-__field_A_a:
-		dd 0
-
 
 section .text
 
@@ -427,19 +421,6 @@ mov [ebx], eax
 mov ebx, __field_java_lang_Boolean_MAX_VALUE
 mov [ebx], eax
 
-;; Static Field: __field_A_b
-
-	mov eax, __field_A_a
-	mov eax, [eax]
-
-mov ebx, __field_A_b
-mov [ebx], eax
-
-;; Static Field: __field_A_a
-	mov eax, 22
-mov ebx, __field_A_a
-mov [ebx], eax
-
 call @@@@main
 mov ebx, eax
 mov eax, 1
@@ -453,34 +434,325 @@ global @@@@main
 		push ebp
 		mov ebp, esp
 
-		;; Plus
-		;; LHS code...
-		;; Plus
-		;; LHS code...
+		;; ---Method Invocation: 
+		;; Primary.id(ArgList)
+			;; ---new [A] ()
+			;; Allocating size of 4
+			mov eax, 4
+						call __malloc
+							mov ebx, __class_A
+			mov [eax], ebx
 
-		mov eax, __field_A_a
-		mov eax, [eax]
+			;; Pushing object
+			push eax
 
+			;; Pushing args:
+			call __constructor__A__A
+			add esp, 0
+			pop eax
+
+			;; ---end of new [A] ()
+		cmp eax, 0
+		je __exception
 		push eax
-		;; RHS code...
 
-		mov eax, __field_A_b
+		;; Pushing args
+			;; Minus
+			;; LHS code...
+			mov eax, 65535
+			push eax
+			;; RHS code...
+			mov eax, 128
+			pop ebx
+			sub ebx, eax
+			mov eax, ebx
+
+			push eax
+
+			;; Minus
+			;; LHS code...
+			mov eax, 255
+			push eax
+			;; RHS code...
+			mov eax, 4
+			pop ebx
+			sub ebx, eax
+			mov eax, ebx
+
+			push eax
+
+		;; class method:
+		;; addr of o
+		mov eax, [esp + 8]
+		;; vtable
 		mov eax, [eax]
+		;; addr of m body
+		mov eax, [eax + 32]
 
-		pop ebx
-		add ebx, eax
-		mov eax, ebx
+		call eax
 
-		push eax
-		;; RHS code...
-		mov eax, 101
-		pop ebx
-		add ebx, eax
-		mov eax, ebx
+		;; pop arguments
+		add esp, 12
 
+		;; ---End of method invocation
 		jmp _method_return___STATIC_method__A__test
 
 		_method_return___STATIC_method__A__test:
+			mov esp, ebp
+			pop ebp
+			ret
+
+		global __method__A__sim_and$int$int$
+	__method__A__sim_and$int$int$:
+		push ebp
+		mov ebp, esp
+
+		;; if statement0
+		;expression code...
+		;; logical_or
+		;; ompare_eq
+		;; LHS code...
+		;; Local Var x
+		mov eax, ebp
+		add eax, 12
+		mov eax, [eax]
+
+		push eax
+		;; RHS code...
+		mov eax, 0
+		pop ebx
+		cmp ebx, eax
+		je .eq1
+		mov eax, 0
+		jmp .end_eq1
+		.eq1:
+			mov eax, 1
+		.end_eq1:
+
+		cmp eax, 1
+		je .end_or0
+		;; ompare_eq
+		;; LHS code...
+		;; Local Var y
+		mov eax, ebp
+		add eax, 8
+		mov eax, [eax]
+
+		push eax
+		;; RHS code...
+		mov eax, 0
+		pop ebx
+		cmp ebx, eax
+		je .eq2
+		mov eax, 0
+		jmp .end_eq2
+		.eq2:
+			mov eax, 1
+		.end_eq2:
+
+		.end_or0:
+
+		cmp eax, 0
+		je .else0
+		;thenClause ...
+			mov eax, 0
+			jmp _method_return___method__A__sim_and$int$int$
+
+		jmp .endif0
+
+		.else0:
+		.endif0:
+		;; ---declare bit0
+		;; logical_and
+		;; ompare_ne
+		;; LHS code...
+		;; Div
+		;; RHS code...
+		mov eax, 2
+		cmp eax, 0
+		je __exception
+		push eax
+		;; LHS code...
+		;; Local Var x
+		mov eax, ebp
+		add eax, 12
+		mov eax, [eax]
+
+		pop ebx
+		mov edx, 0
+		idiv ebx
+		;; Mod
+mov eax, edx
+
+		push eax
+		;; RHS code...
+		mov eax, 0
+		pop ebx
+		cmp ebx, eax
+		jne .ne4
+		mov eax, 0
+		jmp .end_ne4
+		.ne4:
+			mov eax, 1
+		.end_ne4:
+
+		cmp eax, 0
+		je .end_and3
+		;; ompare_ne
+		;; LHS code...
+		;; Div
+		;; RHS code...
+		mov eax, 2
+		cmp eax, 0
+		je __exception
+		push eax
+		;; LHS code...
+		;; Local Var y
+		mov eax, ebp
+		add eax, 8
+		mov eax, [eax]
+
+		pop ebx
+		mov edx, 0
+		idiv ebx
+		;; Mod
+mov eax, edx
+
+		push eax
+		;; RHS code...
+		mov eax, 0
+		pop ebx
+		cmp ebx, eax
+		jne .ne5
+		mov eax, 0
+		jmp .end_ne5
+		.ne5:
+			mov eax, 1
+		.end_ne5:
+
+		.end_and3:
+
+
+		push eax
+		;; ---end of declare bit0
+
+		;; ---declare result
+		;; Mult
+		;; LHS code...
+		;; ---Method Invocation: 
+		;; Names(ArgList)
+		cmp eax, 0
+		je __exception
+		;; non-static, pushing reference
+		push eax
+
+		;; Pushing args
+			;; Div
+			;; RHS code...
+			mov eax, 2
+			cmp eax, 0
+			je __exception
+			push eax
+			;; LHS code...
+			;; Local Var x
+			mov eax, ebp
+			add eax, 12
+			mov eax, [eax]
+
+			pop ebx
+			mov edx, 0
+			idiv ebx
+
+			push eax
+
+			;; Div
+			;; RHS code...
+			mov eax, 2
+			cmp eax, 0
+			je __exception
+			push eax
+			;; LHS code...
+			;; Local Var y
+			mov eax, ebp
+			add eax, 8
+			mov eax, [eax]
+
+			pop ebx
+			mov edx, 0
+			idiv ebx
+
+			push eax
+
+		;; class method:
+		;; addr of o
+		mov eax, [esp + 8]
+		;; vtable
+		mov eax, [eax]
+		;; addr of m body
+		mov eax, [eax + 32]
+
+		call eax
+
+		;; pop arguments
+		add esp, 12
+
+		;; ---End of method invocation
+		push eax
+		;; RHS code...
+		mov eax, 2
+		pop ebx
+		imul ebx, eax
+		mov eax, ebx
+
+
+		push eax
+		;; ---end of declare result
+
+		;; if statement1
+		;expression code...
+		;; Local Var bit0
+		mov eax, ebp
+		sub eax, 4
+		mov eax, [eax]
+
+		cmp eax, 0
+		je .else1
+		;thenClause ...
+							;; Local Var result
+				mov eax, ebp
+				sub eax, 8
+
+			push eax
+				;; Plus
+				;; LHS code...
+				;; Local Var result
+				mov eax, ebp
+				sub eax, 8
+				mov eax, [eax]
+
+				push eax
+				;; RHS code...
+				mov eax, 1
+				pop ebx
+				add ebx, eax
+				mov eax, ebx
+
+			pop ebx
+			mov [ebx], eax
+
+
+		jmp .endif1
+
+		.else1:
+		.endif1:
+		;; Local Var result
+		mov eax, ebp
+		sub eax, 8
+		mov eax, [eax]
+
+		jmp _method_return___method__A__sim_and$int$int$
+
+		_method_return___method__A__sim_and$int$int$:
 			mov esp, ebp
 			pop ebp
 			ret
@@ -498,19 +770,6 @@ global @@@@main
 ;; Field init, push object to stack
 		mov eax, [ebp + 8]
 		push eax
-;; Field init:: b
-
-				mov eax, __field_A_a
-				mov eax, [eax]
-
-		mov ebx, [esp]
-		add ebx, 0
-		mov [ebx], eax
-;; Field init:: a
-				mov eax, 22
-		mov ebx, [esp]
-		add ebx, 0
-		mov [ebx], eax
 ;; Field init end, pop object
 		add esp, 4
 ;; Constructor Body
