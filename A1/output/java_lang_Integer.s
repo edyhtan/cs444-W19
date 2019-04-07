@@ -1,11 +1,4 @@
-extern __method__java_lang_Object__clone
-extern __exception
-extern __method__java_lang_Number__intValue
-extern __method__java_lang_Object__toString
 extern __constructor__java_lang_Number__Number
-extern __method__java_lang_Object__hashCode
-extern __method__java_lang_Object__getClass
-extern __method__java_lang_Object__equals$java_lang_Object$
 extern __STATIC_method__java_lang_String__valueOf$int$
 
 	global __class_java_lang_Integer
@@ -22,13 +15,15 @@ section .data
 		dd 00000000011100000000b
 
 	; Methods	
-																				dd __method__java_lang_Object__getClass
+		dd __method__java_lang_Object__getClass
 		dd __method__java_lang_Object__hashCode
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
 		dd __method__java_lang_Object__toString
 		dd __method__java_lang_Number__intValue
 		dd __STATIC_method__java_lang_Integer__parseInt$java_lang_String$
+
+;; Static fields
 		global __field_java_lang_Integer_MAX_VALUE
 	__field_java_lang_Integer_MAX_VALUE		dd 0
 
@@ -45,11 +40,6 @@ section .text
 		mov eax, [ebp + 0]
 		;; Field value
 		add eax,4
-		push eax
-		mov eax, [eax]
-		cmp eax,0
-		je __exception
-		pop eax
 		mov eax, [eax]
 
 		jmp _method_return___method__java_lang_Integer__intValue
@@ -109,11 +99,6 @@ section .text
 		;; Local Var neg
 		mov eax, ebp
 		sub eax,8
-		push eax
-		mov eax, [eax]
-		cmp eax,0
-		je __exception
-		pop eax
 		mov eax, [eax]
 
 		cmp eax,0
@@ -127,11 +112,6 @@ section .text
 		;; Local Var ret
 		mov eax, ebp
 		sub eax,4
-		push eax
-		mov eax, [eax]
-		cmp eax,0
-		je __exception
-		pop eax
 		mov eax, [eax]
 
 		jmp _method_return___STATIC_method__java_lang_Integer__parseInt$java_lang_String$
@@ -153,11 +133,6 @@ section .text
 			mov eax, [ebp + 0]
 			;; Field value
 			add eax,4
-			push eax
-			mov eax, [eax]
-			cmp eax,0
-			je __exception
-			pop eax
 			mov eax, [eax]
 
 			push eax

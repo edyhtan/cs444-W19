@@ -1,21 +1,12 @@
-extern __exception
-extern __STATIC_method__java_lang_String__valueOf$boolean$
-extern __method__java_lang_Object__toString
-extern __STATIC_method__java_lang_String__valueOf$char$
-extern __method__java_io_OutputStream__write$int$
-extern __method__java_io_OutputStream__write$char$
-extern __method__java_lang_Object__getClass
-extern __method__java_lang_Object__equals$java_lang_Object$
-extern __STATIC_method__java_lang_String__valueOf$short$
-extern __STATIC_method__java_lang_String__valueOf$java_lang_Object$
-extern __method__java_lang_Object__clone
 extern __STATIC_method__java_lang_String__valueOf$byte$
-extern __STATIC_method__java_io_OutputStream__nativeWrite$int$
+extern __STATIC_method__java_lang_String__valueOf$boolean$
 extern __constructor__java_io_OutputStream__OutputStream
-extern __method__java_lang_Object__hashCode
+extern __STATIC_method__java_lang_String__valueOf$char$
 extern __method__java_lang_String__charAt$int$
-extern __method__java_io_OutputStream__flush
+extern __method__java_io_OutputStream__write$char$
+extern __STATIC_method__java_lang_String__valueOf$short$
 extern __STATIC_method__java_lang_String__valueOf$int$
+extern __STATIC_method__java_lang_String__valueOf$java_lang_Object$
 
 	global __class_java_io_PrintStream
 __class_java_io_PrintStream:
@@ -31,7 +22,7 @@ section .data
 		dd 00000000010000000011b
 
 	; Methods	
-																													dd __method__java_lang_Object__getClass
+		dd __method__java_lang_Object__getClass
 		dd __method__java_lang_Object__hashCode
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
@@ -55,6 +46,8 @@ section .data
 		dd __method__java_io_PrintStream__print$byte$
 		dd __method__java_io_PrintStream__print$java_lang_Object$
 		dd __method__java_io_PrintStream__print$short$
+
+;; Static fields
 
 section .text
 
@@ -86,11 +79,6 @@ section .text
 					;; Local Var i
 					mov eax, ebp
 					sub eax,4
-					push eax
-					mov eax, [eax]
-					cmp eax,0
-					je __exception
-					pop eax
 					mov eax, [eax]
 
 					push eax
@@ -149,11 +137,6 @@ section .text
 			;; Local Var s
 			mov eax, ebp
 			add eax,8
-			push eax
-			mov eax, [eax]
-			cmp eax,0
-			je __exception
-			pop eax
 			mov eax, [eax]
 
 			push eax
@@ -190,11 +173,6 @@ section .text
 				;; Local Var b
 				mov eax, ebp
 				add eax,8
-				push eax
-				mov eax, [eax]
-				cmp eax,0
-				je __exception
-				pop eax
 				mov eax, [eax]
 
 				push eax
@@ -227,11 +205,6 @@ section .text
 				;; Local Var b
 				mov eax, ebp
 				add eax,8
-				push eax
-				mov eax, [eax]
-				cmp eax,0
-				je __exception
-				pop eax
 				mov eax, [eax]
 
 				push eax
@@ -264,11 +237,6 @@ section .text
 				;; Local Var b
 				mov eax, ebp
 				add eax,8
-				push eax
-				mov eax, [eax]
-				cmp eax,0
-				je __exception
-				pop eax
 				mov eax, [eax]
 
 				push eax
@@ -301,11 +269,6 @@ section .text
 				;; Local Var b
 				mov eax, ebp
 				add eax,8
-				push eax
-				mov eax, [eax]
-				cmp eax,0
-				je __exception
-				pop eax
 				mov eax, [eax]
 
 				push eax
@@ -338,11 +301,6 @@ section .text
 				;; Local Var b
 				mov eax, ebp
 				add eax,8
-				push eax
-				mov eax, [eax]
-				cmp eax,0
-				je __exception
-				pop eax
 				mov eax, [eax]
 
 				push eax
@@ -375,11 +333,6 @@ section .text
 				;; Local Var b
 				mov eax, ebp
 				add eax,8
-				push eax
-				mov eax, [eax]
-				cmp eax,0
-				je __exception
-				pop eax
 				mov eax, [eax]
 
 				push eax
@@ -412,11 +365,6 @@ section .text
 				;; Local Var b
 				mov eax, ebp
 				add eax,8
-				push eax
-				mov eax, [eax]
-				cmp eax,0
-				je __exception
-				pop eax
 				mov eax, [eax]
 
 				push eax
@@ -449,11 +397,6 @@ section .text
 				;; Local Var b
 				mov eax, ebp
 				add eax,8
-				push eax
-				mov eax, [eax]
-				cmp eax,0
-				je __exception
-				pop eax
 				mov eax, [eax]
 
 				push eax
@@ -486,11 +429,6 @@ section .text
 				;; Local Var b
 				mov eax, ebp
 				add eax,8
-				push eax
-				mov eax, [eax]
-				cmp eax,0
-				je __exception
-				pop eax
 				mov eax, [eax]
 
 				push eax
@@ -523,11 +461,6 @@ section .text
 				;; Local Var b
 				mov eax, ebp
 				add eax,8
-				push eax
-				mov eax, [eax]
-				cmp eax,0
-				je __exception
-				pop eax
 				mov eax, [eax]
 
 				push eax
@@ -560,11 +493,6 @@ section .text
 				;; Local Var b
 				mov eax, ebp
 				add eax,8
-				push eax
-				mov eax, [eax]
-				cmp eax,0
-				je __exception
-				pop eax
 				mov eax, [eax]
 
 				push eax
@@ -597,11 +525,6 @@ section .text
 				;; Local Var b
 				mov eax, ebp
 				add eax,8
-				push eax
-				mov eax, [eax]
-				cmp eax,0
-				je __exception
-				pop eax
 				mov eax, [eax]
 
 				push eax

@@ -1,11 +1,5 @@
-extern __method__java_lang_Object__clone
-extern __exception
 extern __STATIC_method__java_lang_String__valueOf$boolean$
-extern __method__java_lang_Object__toString
 extern __constructor__java_lang_Object__Object
-extern __method__java_lang_Object__hashCode
-extern __method__java_lang_Object__getClass
-extern __method__java_lang_Object__equals$java_lang_Object$
 
 	global __class_java_lang_Boolean
 __class_java_lang_Boolean:
@@ -21,11 +15,13 @@ section .data
 		dd 00000000010000001000b
 
 	; Methods	
-																	dd __method__java_lang_Object__getClass
+		dd __method__java_lang_Object__getClass
 		dd __method__java_lang_Object__hashCode
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
 		dd __method__java_lang_Object__toString
+
+;; Static fields
 		global __field_java_lang_Boolean_MAX_VALUE
 	__field_java_lang_Boolean_MAX_VALUE		dd 0
 
@@ -45,11 +41,6 @@ section .text
 			mov eax, [ebp + 0]
 			;; Field value
 			add eax,4
-			push eax
-			mov eax, [eax]
-			cmp eax,0
-			je __exception
-			pop eax
 			mov eax, [eax]
 
 			push eax

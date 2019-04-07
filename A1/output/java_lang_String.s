@@ -2,11 +2,7 @@ extern __exception
 extern __malloc
 extern __method__java_lang_Object__toString
 extern __constructor__java_lang_Object__Object
-extern __method__java_lang_Object__getClass
-extern __method__java_lang_Object__equals$java_lang_Object$
 extern __STATIC_method__java_util_Arrays__equals$char@$char@$
-extern __method__java_lang_Object__clone
-extern __method__java_lang_Object__hashCode
 
 	global __class_java_lang_String
 __class_java_lang_String:
@@ -22,7 +18,7 @@ section .data
 		dd 00000001010000000000b
 
 	; Methods	
-																	dd __method__java_lang_Object__getClass
+		dd __method__java_lang_Object__getClass
 		dd __method__java_lang_Object__hashCode
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
@@ -44,6 +40,8 @@ section .data
 		dd __STATIC_method__java_lang_String__valueOf$boolean$
 		dd __method__java_lang_String__compareTo$java_lang_Object$
 
+;; Static fields
+
 section .text
 
 ;; -----Methods-----
@@ -56,20 +54,12 @@ section .text
 		mov eax, [ebp + 0]
 		;; Field chars
 		add eax,4
-		push eax
-		mov eax, [eax]
-		cmp eax,0
-		je __exception
-		pop eax
 		mov eax, [eax]
 
-		;; Field length
-		add eax,4
-		push eax
-		mov eax, [eax]
 		cmp eax,0
 		je __exception
-		pop eax
+		;; Field length
+		add eax,4
 		mov eax, [eax]
 
 		jmp _method_return___method__java_lang_String__length
@@ -150,11 +140,6 @@ section .text
 			;; Local Var newchars
 			mov eax, ebp
 			sub eax,8
-			push eax
-			mov eax, [eax]
-			cmp eax,0
-			je __exception
-			pop eax
 			mov eax, [eax]
 
 			push eax
@@ -193,11 +178,6 @@ section .text
 			;; Local Var newchars
 			mov eax, ebp
 			sub eax,4
-			push eax
-			mov eax, [eax]
-			cmp eax,0
-			je __exception
-			pop eax
 			mov eax, [eax]
 
 			push eax
@@ -296,11 +276,6 @@ section .text
 		;; Local Var wasneg
 		mov eax, ebp
 		sub eax,12
-		push eax
-		mov eax, [eax]
-		cmp eax,0
-		je __exception
-		pop eax
 		mov eax, [eax]
 
 		cmp eax,0
@@ -346,11 +321,6 @@ section .text
 			;; Local Var ret2
 			mov eax, ebp
 			sub eax,16
-			push eax
-			mov eax, [eax]
-			cmp eax,0
-			je __exception
-			pop eax
 			mov eax, [eax]
 
 			push eax
@@ -415,11 +385,6 @@ section .text
 		;; Local Var b
 		mov eax, ebp
 		add eax,8
-		push eax
-		mov eax, [eax]
-		cmp eax,0
-		je __exception
-		pop eax
 		mov eax, [eax]
 
 		cmp eax,0
@@ -488,11 +453,6 @@ section .text
 			;; Local Var o
 			mov eax, ebp
 			add eax,8
-			push eax
-			mov eax, [eax]
-			cmp eax,0
-			je __exception
-			pop eax
 			mov eax, [eax]
 
 			jmp _method_return___STATIC_method__java_lang_String__valueOf$java_lang_String$
@@ -538,11 +498,6 @@ section .text
 			mov eax, [ebp + 0]
 			;; Field chars
 			add eax,4
-			push eax
-			mov eax, [eax]
-			cmp eax,0
-			je __exception
-			pop eax
 			mov eax, [eax]
 
 			push eax
@@ -633,11 +588,6 @@ section .text
 			;; Local Var ret
 			mov eax, ebp
 			sub eax,8
-			push eax
-			mov eax, [eax]
-			cmp eax,0
-			je __exception
-			pop eax
 			mov eax, [eax]
 
 			push eax
@@ -716,11 +666,6 @@ section .text
 				;; Local Var i
 				mov eax, ebp
 				sub eax,4
-				push eax
-				mov eax, [eax]
-				cmp eax,0
-				je __exception
-				pop eax
 				mov eax, [eax]
 
 				push eax
@@ -776,11 +721,6 @@ section .text
 		;; Local Var h
 		mov eax, ebp
 		sub eax,4
-		push eax
-		mov eax, [eax]
-		cmp eax,0
-		je __exception
-		pop eax
 		mov eax, [eax]
 
 		jmp _method_return___method__java_lang_String__hashCode
@@ -844,11 +784,6 @@ section .text
 			;; Local Var b
 			mov eax, ebp
 			sub eax,8
-			push eax
-			mov eax, [eax]
-			cmp eax,0
-			je __exception
-			pop eax
 			mov eax, [eax]
 
 			cmp eax,0
@@ -961,11 +896,6 @@ section .text
 		;; Local Var ret
 		mov eax, ebp
 		sub eax,4
-		push eax
-		mov eax, [eax]
-		cmp eax,0
-		je __exception
-		pop eax
 		mov eax, [eax]
 
 		jmp _method_return___method__java_lang_String__toCharArray
@@ -1047,11 +977,6 @@ section .text
 			;; Local Var found
 			mov eax, ebp
 			sub eax,12
-			push eax
-			mov eax, [eax]
-			cmp eax,0
-			je __exception
-			pop eax
 			mov eax, [eax]
 
 			cmp eax,0
@@ -1060,11 +985,6 @@ section .text
 				;; Local Var offset
 				mov eax, ebp
 				sub eax,4
-				push eax
-				mov eax, [eax]
-				cmp eax,0
-				je __exception
-				pop eax
 				mov eax, [eax]
 
 				jmp _method_return___method__java_lang_String__indexOf$java_lang_String$

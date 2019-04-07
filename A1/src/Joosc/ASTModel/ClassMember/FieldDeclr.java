@@ -10,6 +10,7 @@ import Joosc.ASTModel.Type;
 import Joosc.AsmWriter.AsmWriter;
 import Joosc.AsmWriter.Register;
 import Joosc.Environment.Env;
+import Joosc.Environment.FieldsVarInfo;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
@@ -93,7 +94,6 @@ public class FieldDeclr extends Scope implements ClassMemberDeclr, HasExpression
             }
             JoosType initType = initExpression.getType();
 
-
             if (!joosType.assignable(initType)) {
                 throw new TypeCheckException("Unmatched type in field declaration: " + String.join(".", joosType.getTypeName()) + " " +
                         String.join(".", initType.getTypeName()));
@@ -149,7 +149,11 @@ public class FieldDeclr extends Scope implements ClassMemberDeclr, HasExpression
         asmWriter = writer;
     }
 
-    public void setStaticFieldLabel(String label) {
-        staticFieldLabel = label;
+    public String getStaticFieldLabel() {
+        return staticFieldLabel;
+    }
+
+    public void buildStaticField(ArrayList<String> className) {
+        staticFieldLabel = "__field_" + String.join("_", className) + "_" + getName();
     }
 }

@@ -1,10 +1,5 @@
-extern __method__java_lang_Object__clone
 extern __malloc
-extern __method__java_lang_Object__toString
 extern __constructor__java_lang_Object__Object
-extern __method__java_lang_Object__hashCode
-extern __method__java_lang_Object__getClass
-extern __method__java_lang_Object__equals$java_lang_Object$
 
 	global __class_Hello
 __class_Hello:
@@ -20,7 +15,7 @@ section .data
 		dd 00100000010000000000b
 
 	; Methods	
-																	dd __method__java_lang_Object__getClass
+		dd __method__java_lang_Object__getClass
 		dd __method__java_lang_Object__hashCode
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
@@ -28,6 +23,8 @@ section .data
 		dd __method__Hello__like$Hello$
 		dd __method__Hello__k
 		dd __method__Hello__whatYouSee
+
+;; Static fields
 		global __field_Hello_staticInt
 	__field_Hello_staticInt		dd 0
 

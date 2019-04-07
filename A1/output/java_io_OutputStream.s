@@ -1,10 +1,4 @@
-extern __method__java_lang_Object__clone
-extern __exception
-extern __method__java_lang_Object__toString
 extern __constructor__java_lang_Object__Object
-extern __method__java_lang_Object__hashCode
-extern __method__java_lang_Object__getClass
-extern __method__java_lang_Object__equals$java_lang_Object$
 extern NATIVEjava.io.OutputStream.nativeWrite
 
 	global __class_java_io_OutputStream
@@ -21,7 +15,7 @@ section .data
 		dd 00000000010000000001b
 
 	; Methods	
-																	dd __method__java_lang_Object__getClass
+		dd __method__java_lang_Object__getClass
 		dd __method__java_lang_Object__hashCode
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
@@ -30,6 +24,8 @@ section .data
 		dd __STATIC_method__java_io_OutputStream__nativeWrite$int$
 		dd __method__java_io_OutputStream__write$int$
 		dd __method__java_io_OutputStream__write$char$
+
+;; Static fields
 
 section .text
 
@@ -64,11 +60,6 @@ section .text
 			;; Local Var b
 			mov eax, ebp
 			add eax,8
-			push eax
-			mov eax, [eax]
-			cmp eax,0
-			je __exception
-			pop eax
 			mov eax, [eax]
 
 			push eax

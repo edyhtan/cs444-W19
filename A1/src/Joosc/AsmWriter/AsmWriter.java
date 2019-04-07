@@ -1,9 +1,12 @@
 package Joosc.AsmWriter;
 
+import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.ASTModel.ClassMember.FieldDeclr;
 import Joosc.ASTModel.Expressions.Expression;
 
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Collections;
@@ -397,6 +400,23 @@ public class AsmWriter {
             }
         }
 
+        // Initialize Static Fields
+        for (ClassEnv classEnv: GlobalEnv.instance.classEnvs) {
+            if (classEnv.getTypeDeclr() instanceof ClassDeclr) {
+                for (FieldDeclr field: ((ClassDeclr)classEnv.getTypeDeclr()).getFields()){
+                    if (field.getModifiers().contains(Symbol.Static)) {
+                        println();
+                        comment("Static Field: " + field.getStaticFieldLabel());
+                        field.addWriter(this);
+                        //field.codeGen(0);
+                        mov(Register.eax, 3);
+                        mov(Register.ebx, field.getStaticFieldLabel());
+                        movToAddr(Register.ebx, Register.eax);
+                    }
+                }
+            }
+        }
+
         println("");
 
         call("@@@@main");
@@ -419,15 +439,9 @@ public class AsmWriter {
     public void nullCheck(int indent) {
         extern("__exception");
         indent(indent);
-        push(Register.eax);
-        indent(indent);
-        movFromAddr(Register.eax, Register.eax);
-        indent(indent);
         cmp(Register.eax, "0");
         indent(indent);
         println("je __exception");
-        indent(indent);
-        pop(Register.eax);
     }
 
 }

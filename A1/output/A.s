@@ -1,8 +1,6 @@
 extern __ref_SIT_java_lang_Number
-extern __exception
 extern __malloc
 extern __constructor__java_lang_Object__Object
-extern __method__java_lang_Object__getClass
 extern __ref_SIT_foo_bar
 extern __ref_SIT_java_lang_Short
 extern __ref_SIT_Main
@@ -40,12 +38,14 @@ section .data
 		dd 00001000010000000000b
 
 	; Methods	
-																	dd __method__java_lang_Object__getClass
+		dd __method__java_lang_Object__getClass
 		dd __method__java_lang_Object__hashCode
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
 		dd __method__java_lang_Object__toString
 		dd __STATIC_method__A__test
+
+;; Static fields
 
 section .text
 
@@ -377,6 +377,31 @@ mov [ebx], eax
 		mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
 
+;; Static Field: __field_java_lang_Boolean_MAX_VALUE
+mov eax, 3
+mov ebx, __field_java_lang_Boolean_MAX_VALUE
+mov [ebx], eax
+
+;; Static Field: __field_java_lang_Byte_MAX_VALUE
+mov eax, 3
+mov ebx, __field_java_lang_Byte_MAX_VALUE
+mov [ebx], eax
+
+;; Static Field: __field_java_lang_Integer_MAX_VALUE
+mov eax, 3
+mov ebx, __field_java_lang_Integer_MAX_VALUE
+mov [ebx], eax
+
+;; Static Field: __field_java_lang_System_out
+mov eax, 3
+mov ebx, __field_java_lang_System_out
+mov [ebx], eax
+
+;; Static Field: __field_Hello_staticInt
+mov eax, 3
+mov ebx, __field_Hello_staticInt
+mov [ebx], eax
+
 call @@@@main
 mov ebx, eax
 mov eax, 1
@@ -410,7 +435,9 @@ global @@@@main
 		;; ---end of declare x
 
 		;; ---declare y
-		mov eax, 0
+		mov eax, __field_java_lang_Integer_MAX_VALUE
+		mov eax, [eax]
+
 
 		push eax
 		;; ---end of declare y
@@ -423,20 +450,6 @@ global @@@@main
 			;; Local Var y
 			mov eax, ebp
 			sub eax,8
-			push eax
-			mov eax, [eax]
-			cmp eax,0
-			je __exception
-			pop eax
-			mov eax, [eax]
-
-			;; Field a
-			add eax,4
-			push eax
-			mov eax, [eax]
-			cmp eax,0
-			je __exception
-			pop eax
 			mov eax, [eax]
 
 			jmp _method_return___STATIC_method__A__test

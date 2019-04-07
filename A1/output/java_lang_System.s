@@ -1,11 +1,6 @@
-extern __method__java_lang_Object__clone
 extern __malloc
-extern __method__java_lang_Object__toString
 extern __constructor__java_lang_Object__Object
 extern __constructor__java_io_PrintStream__PrintStream
-extern __method__java_lang_Object__hashCode
-extern __method__java_lang_Object__getClass
-extern __method__java_lang_Object__equals$java_lang_Object$
 extern __class_java_io_PrintStream
 
 	global __class_java_lang_System
@@ -22,12 +17,14 @@ section .data
 		dd 00000010010000000000b
 
 	; Methods	
-																	dd __method__java_lang_Object__getClass
+		dd __method__java_lang_Object__getClass
 		dd __method__java_lang_Object__hashCode
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
 		dd __method__java_lang_Object__toString
 		dd __STATIC_method__java_lang_System__gc
+
+;; Static fields
 		global __field_java_lang_System_out
 	__field_java_lang_System_out		dd 0
 

@@ -19,6 +19,8 @@ section .data
 		dd __method__java_lang_Object__clone
 		dd __method__java_lang_Object__toString
 
+;; Static fields
+
 section .text
 
 ;; -----Methods-----

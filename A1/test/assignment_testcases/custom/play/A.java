@@ -3,11 +3,12 @@ public class A {
     public A() {}
     public static int test() {
         Static x = new Static();
-        Main y = null;
+        int y = Integer.MAX_VALUE;
 
-        if (true) {
-            return y.a;
+        if (y instanceof String) {
+            return y;
         }
+
         return 0;
     }
 }

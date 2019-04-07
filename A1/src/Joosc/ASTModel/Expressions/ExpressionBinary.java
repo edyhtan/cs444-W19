@@ -89,7 +89,7 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                             lhsType.getTypeName(), rhsType.getTypeName()));
                 }
                 break;
-            // arithmetic operations
+            // arithmetic operation
             case Minus:
             case Star:
             case Slash:

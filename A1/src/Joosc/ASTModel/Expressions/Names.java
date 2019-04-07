@@ -1,6 +1,7 @@
 package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.ASTModel.ClassMember.FieldDeclr;
 import Joosc.AsmWriter.AsmWriter;
 import Joosc.AsmWriter.Register;
 import Joosc.Environment.*;
@@ -9,6 +10,7 @@ import Joosc.Exceptions.TypeCheckException;
 import Joosc.Exceptions.UnreachableStatementException;
 import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
+import Joosc.util.ArrayLinkedHashMap;
 import Joosc.util.Tri;
 
 import java.util.ArrayList;
@@ -271,10 +273,10 @@ public class Names extends ExpressionContent implements HasAddress {
 
     @Override
     public void codeGen(int indent) {
-        codeGenName(new ArrayList<>(name), getEnv(), false, false, false, indent);
+        codeGenName(new ArrayList<>(name), getEnv(),false, false, indent);
     }
 
-    private void codeGenName(ArrayList<String> name, Env env, boolean isStatic, boolean hasPrefix, boolean isAddress, int indent) {
+    private void codeGenName(ArrayList<String> name, Env env, boolean hasPrefix, boolean isAddress, int indent) {
         String curname = name.get(0);
         name.remove(0);
         JoosType type = env.getJoosType();
@@ -284,9 +286,7 @@ public class Names extends ExpressionContent implements HasAddress {
         // Used for next instance call
         Env nextEnv = null;
 
-        if (isStatic) {
-            return;
-        } else if (!hasPrefix && localVarPtr != 0) {
+        if (!hasPrefix && localVarPtr != 0) {
             asmWriter.indent(indent);
             asmWriter.comment("Local Var " + curname);
             asmWriter.indent(indent);
@@ -305,6 +305,8 @@ public class Names extends ExpressionContent implements HasAddress {
                 asmWriter.comment("Implicit This");
                 asmWriter.indent(indent);
                 asmWriter.movFromAddr(Register.eax, "ebp + " + implicitReference);
+            } else {
+                asmWriter.nullCheck(indent);
             }
 
             asmWriter.indent(indent);
@@ -322,11 +324,41 @@ public class Names extends ExpressionContent implements HasAddress {
 
             nextEnv = info.getTypeInfo().getJoosType().getClassEnv();
         } else {
-            return;
+            // Possible Static Prefix
+            JoosType resolvedType = env.findResolvedType(curname);
+            if (resolvedType != null) {
+                nextEnv = resolvedType.getClassEnv();
+            } else {
+                ArrayList<String> prefix = new ArrayList<>();
+                prefix.add(curname);
+                ClassEnv fullTypeEnv = null;
+                do {
+                    fullTypeEnv = GlobalEnv.instance.getClassEnv(prefix, getEnv().getCurrentClass().getClassEnv().getPackageDeclr() == null);
+
+                    if (fullTypeEnv != null)
+                        break;
+
+                    prefix.add(name.get(0));
+                    name.remove(0);
+
+                } while (name.size() >= 0);
+
+                nextEnv = fullTypeEnv;
+            }
+            curname = name.get(0);
+            name.remove(0);
+
+            FieldsVarInfo info = nextEnv.getStaticFieldInfo(curname);
+
+            String labelName = info.fieldsDeclr.getStaticFieldLabel();
+
+            asmWriter.indent(indent);
+            asmWriter.mov(Register.eax, labelName);
+
+            nextEnv = info.getTypeInfo().getJoosType().getClassEnv();
         }
 
         if ( !isAddress || name.size() > 0 ) {
-            asmWriter.nullCheck(indent);
             asmWriter.indent(indent);
             asmWriter.movFromAddr(Register.eax, Register.eax);
         }
@@ -334,13 +366,13 @@ public class Names extends ExpressionContent implements HasAddress {
         asmWriter.println("");
 
         if (name.size() != 0) {
-            codeGenName(name, nextEnv, isStatic, true, isAddress, indent);
+            codeGenName(name, nextEnv, true, isAddress, indent);
         }
     }
 
     @Override
     public void getCodeAddr(int indent) {
-        codeGenName(new ArrayList<>(name), getEnv(), false, false, true, indent);
+        codeGenName(new ArrayList<>(name), getEnv(), false, true, indent);
     }
 
     @Override
