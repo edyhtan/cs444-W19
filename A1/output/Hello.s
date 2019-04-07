@@ -12,7 +12,7 @@ section .data
 
 		global __ref_PARENTS_Hello
 	__ref_PARENTS_Hello:
-		dd 00100000010000000000b
+		dd 00001000001000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -37,7 +37,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-
+		
 		_method_return___method__Hello__whatYouSee:
 			mov esp, ebp
 			pop ebp
@@ -48,6 +48,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
+<<<<<<< HEAD
 		;; Method Invocation:
 		;; o.code
 		;; Pushing args
@@ -57,6 +58,9 @@ section .text
 
 		add esp,8
 		jmp _method_return___method__Hello__like$Hello$
+=======
+				jmp _method_return___method__Hello__like$Hello$
+>>>>>>> origin/A5-code-gen
 
 		_method_return___method__Hello__like$Hello$:
 			mov esp, ebp
@@ -68,7 +72,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		jmp _method_return___method__Hello__k
+				jmp _method_return___method__Hello__k
 
 		_method_return___method__Hello__k:
 			mov esp, ebp
@@ -84,25 +88,25 @@ section .text
 		push eax
 					mov eax, __constructor__java_lang_Object__Object
 		call eax
-		sub esp,4
+		sub esp, 4
 ;; Field init, push object to stack
 		mov eax, [ebp + 8]
 		push eax
 ;; Field init:: k
 				mov eax, 0
 		mov ebx, [esp]
-		add ebx,4
+		add ebx, 4
 		mov [ebx], eax
 ;; Field init:: staticInt
 				mov eax, 0
 		mov ebx, [esp]
-		add ebx,0
+		add ebx, 0
 		mov [ebx], eax
 ;; Field init end, pop object
-		add esp,4
+		add esp, 4
 ;; Constructor Body
-			;; Allocating size of 8
-			mov eax, 8
+			;; Allocating size of 1
+			mov eax, 1
 						call __malloc
 							mov ebx, __class_Hello
 			mov [eax], ebx
@@ -111,10 +115,14 @@ section .text
 			push eax
 
 			;; Pushing args:
+<<<<<<< HEAD
 			call __constructor__Hello__Hello
 			add esp,0
+=======
+							call __constructor__Hello__Hello
+			add esp, 0
+>>>>>>> origin/A5-code-gen
 			pop eax
-
 ;; Epilogue
 		mov esp, ebp
 		pop ebp
@@ -127,22 +135,22 @@ section .text
 		push eax
 					mov eax, __constructor__java_lang_Object__Object
 		call eax
-		sub esp,4
+		sub esp, 4
 ;; Field init, push object to stack
 		mov eax, [ebp + 12]
 		push eax
 ;; Field init:: k
 				mov eax, 0
 		mov ebx, [esp]
-		add ebx,4
+		add ebx, 4
 		mov [ebx], eax
 ;; Field init:: staticInt
 				mov eax, 0
 		mov ebx, [esp]
-		add ebx,0
+		add ebx, 0
 		mov [ebx], eax
 ;; Field init end, pop object
-		add esp,4
+		add esp, 4
 ;; Constructor Body
 ;; Epilogue
 		mov esp, ebp

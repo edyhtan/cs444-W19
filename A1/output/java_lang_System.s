@@ -14,7 +14,7 @@ section .data
 
 		global __ref_PARENTS_java_lang_System
 	__ref_PARENTS_java_lang_System:
-		dd 00000010010000000000b
+		dd 00000000001000010000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -37,7 +37,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-
+		
 		_method_return___STATIC_method__java_lang_System__gc:
 			mov esp, ebp
 			pop ebp
@@ -52,13 +52,13 @@ section .text
 		push eax
 					mov eax, __constructor__java_lang_Object__Object
 		call eax
-		sub esp,4
+		sub esp, 4
 ;; Field init, push object to stack
 		mov eax, [ebp + 8]
 		push eax
 ;; Field init:: out
-				;; Allocating size of 4
-				mov eax, 4
+				;; Allocating size of 0
+				mov eax, 0
 								call __malloc
 									mov ebx, __class_java_io_PrintStream
 				mov [eax], ebx
@@ -67,15 +67,19 @@ section .text
 				push eax
 
 				;; Pushing args:
+<<<<<<< HEAD
 				call __constructor__java_io_PrintStream__PrintStream
 				add esp,0
+=======
+									call __constructor__java_io_PrintStream__PrintStream
+				add esp, 0
+>>>>>>> origin/A5-code-gen
 				pop eax
-
 		mov ebx, [esp]
-		add ebx,0
+		add ebx, 0
 		mov [ebx], eax
 ;; Field init end, pop object
-		add esp,4
+		add esp, 4
 ;; Constructor Body
 ;; Epilogue
 		mov esp, ebp

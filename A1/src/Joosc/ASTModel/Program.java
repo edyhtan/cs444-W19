@@ -73,7 +73,7 @@ public class Program implements AST {
 
     //Code Gen
     AsmWriter asmWriter;
-    public static int globalCount = 0; // for control flow labels, reset to zero per Program
+    public static int PER_PROGRAM_COUNT = 0; // for control flow labels, reset to zero per Program
 
     @Override
     public void codeGen(int indent) {

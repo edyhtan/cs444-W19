@@ -9,6 +9,7 @@ import Joosc.AsmWriter.AsmWriter;
 import Joosc.AsmWriter.Register;
 import Joosc.Environment.LocalEnv;
 import Joosc.Environment.MethodInfo;
+import Joosc.Environment.SymbolTable;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.Exceptions.UninitializedVariableException;
@@ -208,6 +209,7 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
     //Code Gen
     AsmWriter asmWriter;
     String methodLabel;
+    public static int PER_METHOD_COUNT = 0;
 
     public void setMethodLabel(String methodLabel) {
         this.methodLabel = methodLabel;
@@ -219,6 +221,7 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
 
     @Override
     public void codeGen(int indent) {
+        MethodDeclr.PER_METHOD_COUNT = 0;
         if (name.equals("test") && modifiers.contains(Symbol.Static)) {
             asmWriter.outputInit(localEnv.getJoosType());
             asmWriter.println("");
@@ -261,11 +264,11 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
         for (Statement statement : bodyBlock) {
             statement.addWriter(asmWriter);
 
-            Statement.assignOffset(statement, localEnv);
+            SymbolTable.assignOffset(statement, localEnv);
 
             if (statement instanceof ForStatement) {
                 if(((ForStatement)statement).getBlock().size() == 1 && ((ForStatement)statement).getBlock().get(0) instanceof Block) {
-                    Statement.assignOffset(((ForStatement) statement).getStatement(), (LocalEnv)((HasScope)((ForStatement) statement).getStatement().getBlock().get(0)).getEnv());
+                    SymbolTable.assignOffset(((ForStatement) statement).getStatement(), (LocalEnv)((HasScope)((ForStatement) statement).getStatement().getBlock().get(0)).getEnv());
                 }
             }
         }

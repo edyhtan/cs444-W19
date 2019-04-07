@@ -29,6 +29,24 @@ section .text
 		push ebp
 		mov ebp, esp
 
+		;; ompare_eq
+		;; LHS code...
+		push eax
+		;; RHS code...
+		;; Local Var other
+		mov eax, ebp
+		add eax, 8
+		mov eax, [eax]
+
+		pop ebx
+		cmp ebx, eax
+		je .eq0
+		mov eax, 0
+		jmp .end_eq0
+		.eq0:
+			mov eax, 1
+		.end_eq0:
+
 		jmp _method_return___method__java_lang_Object__equals$java_lang_Object$
 
 		_method_return___method__java_lang_Object__equals$java_lang_Object$:
@@ -95,7 +113,7 @@ section .text
 		mov eax, [ebp + 8]
 		push eax
 ;; Field init end, pop object
-		add esp,4
+		add esp, 4
 ;; Constructor Body
 ;; Epilogue
 		mov esp, ebp

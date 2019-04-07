@@ -11,7 +11,7 @@ section .data
 
 		global __ref_PARENTS_java_util_Arrays
 	__ref_PARENTS_java_util_Arrays:
-		dd 00000100010000000000b
+		dd 00000000001000000001b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -32,8 +32,42 @@ section .text
 		push ebp
 		mov ebp, esp
 
+				;; if statement0
 		;expression code...
-		cmp eax,0
+		;; ompare_ne
+		;; LHS code...
+		;; Local Var a1
+		mov eax, ebp
+		add eax, 12
+		mov eax, [eax]
+
+		;; Field length
+		mov eax, ebp
+		add eax, 4
+		mov eax, [eax]
+
+		push eax
+		;; RHS code...
+		;; Local Var a2
+		mov eax, ebp
+		add eax, 8
+		mov eax, [eax]
+
+		;; Field length
+		mov eax, ebp
+		add eax, 4
+		mov eax, [eax]
+
+		pop ebx
+		cmp ebx, eax
+		jne .ne0
+		mov eax, 0
+		jmp .end_ne0
+		.ne0:
+			mov eax, 1
+		.end_ne0:
+
+		cmp eax, 0
 		je .else0
 		;thenClause ...
 			mov eax, 0
@@ -46,18 +80,58 @@ section .text
 		;forInit code...
 		;; ---declare i
 		mov eax, 0
-
 		push eax
-		;; ---end of declare i
 
 
 		.for1:
 			;expression code...
-			cmp eax,0
+			;; ompare_lt
+			;; LHS code...
+			;; Local Var i
+			mov eax, ebp
+			sub eax, 4
+			mov eax, [eax]
+
+			push eax
+			;; RHS code...
+			;; Local Var a1
+			mov eax, ebp
+			add eax, 12
+			mov eax, [eax]
+
+			;; Field length
+			mov eax, ebp
+			add eax, 4
+			mov eax, [eax]
+
+			pop ebx
+			cmp ebx, eax
+			jl .lt1
+			mov eax, 0
+			jmp .end_lt1
+			.lt1:
+				mov eax, 1
+			.end_lt1:
+
+			cmp eax, 0
 			je .endfor1
 			;statement code...
+			;; if statement2
 			;expression code...
-			cmp eax,0
+			;; ompare_ne
+			;; LHS code...
+			push eax
+			;; RHS code...
+			pop ebx
+			cmp ebx, eax
+			jne .ne2
+			mov eax, 0
+			jmp .end_ne2
+			.ne2:
+				mov eax, 1
+			.end_ne2:
+
+			cmp eax, 0
 			je .else2
 			;thenClause ...
 				mov eax, 0
@@ -69,12 +143,14 @@ section .text
 			.endif2:
 
 
+
 			;forUpdate code...
+
 
 			jmp .for1
 
 		.endfor1:
-			add esp,4
+			add esp, 4
 
 		mov eax, 1
 		jmp _method_return___STATIC_method__java_util_Arrays__equals$boolean@$boolean@$
@@ -89,8 +165,42 @@ section .text
 		push ebp
 		mov ebp, esp
 
+				;; if statement3
 		;expression code...
-		cmp eax,0
+		;; ompare_ne
+		;; LHS code...
+		;; Local Var a1
+		mov eax, ebp
+		add eax, 12
+		mov eax, [eax]
+
+		;; Field length
+		mov eax, ebp
+		add eax, 4
+		mov eax, [eax]
+
+		push eax
+		;; RHS code...
+		;; Local Var a2
+		mov eax, ebp
+		add eax, 8
+		mov eax, [eax]
+
+		;; Field length
+		mov eax, ebp
+		add eax, 4
+		mov eax, [eax]
+
+		pop ebx
+		cmp ebx, eax
+		jne .ne0
+		mov eax, 0
+		jmp .end_ne0
+		.ne0:
+			mov eax, 1
+		.end_ne0:
+
+		cmp eax, 0
 		je .else3
 		;thenClause ...
 			mov eax, 0
@@ -103,18 +213,58 @@ section .text
 		;forInit code...
 		;; ---declare i
 		mov eax, 0
-
 		push eax
-		;; ---end of declare i
 
 
 		.for4:
 			;expression code...
-			cmp eax,0
+			;; ompare_lt
+			;; LHS code...
+			;; Local Var i
+			mov eax, ebp
+			sub eax, 4
+			mov eax, [eax]
+
+			push eax
+			;; RHS code...
+			;; Local Var a1
+			mov eax, ebp
+			add eax, 12
+			mov eax, [eax]
+
+			;; Field length
+			mov eax, ebp
+			add eax, 4
+			mov eax, [eax]
+
+			pop ebx
+			cmp ebx, eax
+			jl .lt1
+			mov eax, 0
+			jmp .end_lt1
+			.lt1:
+				mov eax, 1
+			.end_lt1:
+
+			cmp eax, 0
 			je .endfor4
 			;statement code...
+			;; if statement5
 			;expression code...
-			cmp eax,0
+			;; ompare_ne
+			;; LHS code...
+			push eax
+			;; RHS code...
+			pop ebx
+			cmp ebx, eax
+			jne .ne2
+			mov eax, 0
+			jmp .end_ne2
+			.ne2:
+				mov eax, 1
+			.end_ne2:
+
+			cmp eax, 0
 			je .else5
 			;thenClause ...
 				mov eax, 0
@@ -128,10 +278,11 @@ section .text
 
 			;forUpdate code...
 
+
 			jmp .for4
 
 		.endfor4:
-			add esp,4
+			add esp, 4
 
 		mov eax, 1
 		jmp _method_return___STATIC_method__java_util_Arrays__equals$char@$char@$
@@ -150,12 +301,12 @@ section .text
 		push eax
 					mov eax, __constructor__java_lang_Object__Object
 		call eax
-		sub esp,4
+		sub esp, 4
 ;; Field init, push object to stack
 		mov eax, [ebp + 8]
 		push eax
 ;; Field init end, pop object
-		add esp,4
+		add esp, 4
 ;; Constructor Body
 ;; Epilogue
 		mov esp, ebp

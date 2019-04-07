@@ -50,14 +50,14 @@ section .text
 			;; Implicit This
 			mov eax, [ebp + 0]
 			;; Field value
-			add eax,4
+			add eax, 4
 			mov eax, [eax]
 
 			push eax
 
 		call __STATIC_method__java_lang_String__valueOf$short$
 
-		add esp,8
+		add esp, 8
 		jmp _method_return___method__java_lang_Short__toString
 
 		_method_return___method__java_lang_Short__toString:
@@ -74,18 +74,19 @@ section .text
 		push eax
 					mov eax, __constructor__java_lang_Number__Number
 		call eax
-		sub esp,4
+		sub esp, 4
 ;; Field init, push object to stack
 		mov eax, [ebp + 12]
 		push eax
 ;; Field init:: value
 mov eax, 0
 		mov ebx, [esp]
-		add ebx,4
+		add ebx, 4
 		mov [ebx], eax
 ;; Field init end, pop object
-		add esp,4
+		add esp, 4
 ;; Constructor Body
+
 ;; Epilogue
 		mov esp, ebp
 		pop ebp
@@ -98,17 +99,17 @@ mov eax, 0
 		push eax
 					mov eax, __constructor__java_lang_Number__Number
 		call eax
-		sub esp,4
+		sub esp, 4
 ;; Field init, push object to stack
 		mov eax, [ebp + 8]
 		push eax
 ;; Field init:: value
 mov eax, 0
 		mov ebx, [esp]
-		add ebx,4
+		add ebx, 4
 		mov [ebx], eax
 ;; Field init end, pop object
-		add esp,4
+		add esp, 4
 ;; Constructor Body
 ;; Epilogue
 		mov esp, ebp

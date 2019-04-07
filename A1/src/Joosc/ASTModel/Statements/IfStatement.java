@@ -116,13 +116,14 @@ public class IfStatement extends HasScope implements Statement, HasExpression {
 
     @Override
     public void codeGen(int indent) {
-        this.offset = Program.globalCount;
-        Program.globalCount++;
+        this.offset = Program.PER_PROGRAM_COUNT;
+        Program.PER_PROGRAM_COUNT++;
 
         expression.addWriter(asmWriter);
         thenClause.addWriter(asmWriter);
-        if (elseClause != null) elseClause.addWriter(asmWriter);
 
+        asmWriter.indent(indent);
+        asmWriter.comment("if statement" + offset);
         asmWriter.iffalse(expression, ".else" + offset, indent);
 
         asmWriter.indent(indent);
@@ -138,6 +139,7 @@ public class IfStatement extends HasScope implements Statement, HasExpression {
         asmWriter.label(".else" + offset);
 
         if (elseClause != null) {
+            elseClause.addWriter(asmWriter);
             asmWriter.indent(indent + 1);
             asmWriter.println(";elseClause ...");
             elseClause.codeGen(indent + 1);

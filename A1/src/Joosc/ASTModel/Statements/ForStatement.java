@@ -137,8 +137,8 @@ public class ForStatement extends HasScope implements Statement, HasExpression {
 
     @Override
     public void codeGen(int indent) {
-        this.offset = Program.globalCount;
-        Program.globalCount++;
+        this.offset = Program.PER_PROGRAM_COUNT;
+        Program.PER_PROGRAM_COUNT++;
 
         if (forInit != null) forInit.addWriter(asmWriter);
         if (forUpdate != null) forUpdate.addWriter(asmWriter);

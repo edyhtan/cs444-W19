@@ -11,7 +11,7 @@ section .data
 
 		global __ref_PARENTS_foo_bar
 	__ref_PARENTS_foo_bar:
-		dd 00010000010000000000b
+		dd 00010000001000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -34,12 +34,12 @@ section .text
 		push eax
 					mov eax, __constructor__java_lang_Object__Object
 		call eax
-		sub esp,4
+		sub esp, 4
 ;; Field init, push object to stack
 		mov eax, [ebp + 8]
 		push eax
 ;; Field init end, pop object
-		add esp,4
+		add esp, 4
 ;; Constructor Body
 ;; Epilogue
 		mov esp, ebp

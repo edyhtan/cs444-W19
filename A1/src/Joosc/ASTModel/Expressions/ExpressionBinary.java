@@ -2,17 +2,18 @@ package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionBinaryNode;
 import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.ASTModel.ClassMember.MethodDeclr;
 import Joosc.AsmWriter.AsmWriter;
-import Joosc.Environment.ClassEnv;
+import Joosc.AsmWriter.Register;
 import Joosc.Environment.Env;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.Exceptions.UnreachableStatementException;
 import Joosc.TypeSystem.JoosType;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 
 public class ExpressionBinary extends Expression implements ConstantExpression {
@@ -170,7 +171,8 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 case Plus:
                     // TODO: Questionable type, looks like byte + byte is int? ↑
                     if (LHS.type.isString() || RHS.type.isString()) {
-                        constantLiteral = new ConstantLiteral(LHS.literal + RHS.literal, JoosType.getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "String"))));
+                        constantLiteral = new ConstantLiteral(LHS.literal + RHS.literal,
+                                JoosType.getJoosType(new ArrayList<>(Arrays.asList("java", "lang", "String"))));
                     } else {
                         constantLiteral = new ConstantLiteral(LHS.toInt() + RHS.toInt(), JoosType.getJoosType("int"));
                     }
@@ -260,14 +262,227 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
 
     //Code Gen
     AsmWriter asmWriter;
+    int offset;
 
     @Override
     public void codeGen(int indent) {
+        LHS.addWriter(asmWriter);
+        RHS.addWriter(asmWriter);
 
+        switch (operator) {
+            case Plus:
+                asmWriter.indent(indent);
+                asmWriter.comment("Plus");
+                asmWriter.evalLHSthenRHS(LHS, RHS, indent);
+                asmWriter.indent(indent);
+                asmWriter.add(Register.ebx, Register.eax);
+                asmWriter.indent(indent);
+                asmWriter.mov(Register.eax, Register.ebx);
+                // TODO: string concatenation
+                break;
+            // assignability
+            case Equal:
+
+                break;
+            // arithmetic operations
+            case Minus:
+                asmWriter.indent(indent);
+                asmWriter.comment("Minus");
+                asmWriter.evalLHSthenRHS(LHS, RHS, indent);
+                asmWriter.indent(indent);
+                asmWriter.sub(Register.ebx, Register.eax);
+                asmWriter.indent(indent);
+                asmWriter.mov(Register.eax, Register.ebx);
+                break;
+            case Star:
+                asmWriter.indent(indent);
+                asmWriter.comment("Mult");
+                asmWriter.evalLHSthenRHS(LHS, RHS, indent);
+                asmWriter.indent(indent);
+                asmWriter.imul(Register.ebx, Register.eax);
+                asmWriter.indent(indent);
+                asmWriter.mov(Register.eax, Register.ebx);
+                break;
+            case Slash:
+                asmWriter.division(LHS, RHS, indent);
+                break;
+            case Percent:
+                asmWriter.division(LHS, RHS, indent);
+                asmWriter.indent(indent);
+                asmWriter.comment("Mod");
+                asmWriter.mov(Register.eax, Register.edx);
+                break;
+            // comparison
+            case EQ:
+                offset = MethodDeclr.PER_METHOD_COUNT;
+                MethodDeclr.PER_METHOD_COUNT++;
+
+                asmWriter.compare(LHS, RHS, indent, "je", "eq", offset);
+                break;
+            case NE:
+                offset = MethodDeclr.PER_METHOD_COUNT;
+                MethodDeclr.PER_METHOD_COUNT++;
+
+                asmWriter.compare(LHS, RHS, indent, "jne", "ne", offset);
+                break;
+            // TODO: check if LHS && RHS is char / octal - use unsigned
+            case GE:
+                offset = MethodDeclr.PER_METHOD_COUNT;
+                MethodDeclr.PER_METHOD_COUNT++;
+
+                asmWriter.compare(LHS, RHS, indent, "jge", "ge", offset);
+                break;
+            case GT:
+                offset = MethodDeclr.PER_METHOD_COUNT;
+                MethodDeclr.PER_METHOD_COUNT++;
+
+                asmWriter.compare(LHS, RHS, indent, "jg", "gt", offset);
+                break;
+            case LT:
+                offset = MethodDeclr.PER_METHOD_COUNT;
+                MethodDeclr.PER_METHOD_COUNT++;
+
+                asmWriter.compare(LHS, RHS, indent, "jl", "lt", offset);
+                break;
+            case LE:
+                offset = MethodDeclr.PER_METHOD_COUNT;
+                MethodDeclr.PER_METHOD_COUNT++;
+
+                asmWriter.compare(LHS, RHS, indent, "jle", "le", offset);
+                break;
+            case Instanceof:
+                offset = MethodDeclr.PER_METHOD_COUNT;
+                MethodDeclr.PER_METHOD_COUNT++;
+
+                JoosType lhsType = null;
+                JoosType rhsType = null;
+
+                try {
+                    lhsType = LHS.getType();
+                    rhsType = RHS.getType();
+                } catch (TypeCheckException e) {
+                    // do nothing :)
+                }
+
+                int column = AsmWriter.parentMatrix.indexOf(rhsType);
+                String row = AsmWriter.parentMatrix.get(lhsType);
+                int res = Integer.parseInt(row, 2);
+                int testbit = calcTestBit(column);
+                System.out.println(row);
+                System.out.println(BigInteger.valueOf(res).testBit(column) + " " + row.charAt(row.length()-column+1));
+                System.out.println(row.length()-column+" " +testbit + " " + Math.pow(2, column) );
+
+                asmWriter.indent(indent);
+                asmWriter.comment("Instanceof");
+                asmWriter.indent(indent);
+                LHS.codeGen(indent);
+                asmWriter.indent(indent);
+                // mov to class tag
+                asmWriter.movFromAddr(Register.eax, Register.eax);
+//                asmWriter.mov(Register.eax, ((ClassDeclr)lhsType.getClassEnv().getTypeDeclr()).getClassTagName());
+                asmWriter.indent(indent);
+                // parent matrix
+                String addr = String.join("+", Register.eax.toString(), "8");
+                asmWriter.movFromAddr(Register.eax, addr);
+                asmWriter.indent(indent);
+                asmWriter.test(Register.eax, testbit);
+                asmWriter.indent(indent);
+                asmWriter.jnz(".instance_true"+offset);
+                asmWriter.indent(indent);
+                asmWriter.mov(Register.eax, "0");
+                asmWriter.indent(indent);
+                asmWriter.jmp(".end_instance"+offset);
+                asmWriter.indent(indent);
+                asmWriter.label(".instance_true"+offset);
+                asmWriter.indent(indent+1);
+                asmWriter.mov(Register.eax, "1");
+                asmWriter.indent(indent);
+                asmWriter.label(".end_instance"+offset);
+                break;
+            // logical operations
+            case And:
+                offset = MethodDeclr.PER_METHOD_COUNT;
+                MethodDeclr.PER_METHOD_COUNT++;
+
+                asmWriter.indent(indent);
+                asmWriter.comment("logical_and");
+                LHS.codeGen(indent);
+                asmWriter.indent(indent);
+                asmWriter.cmp(Register.eax, "0");
+                asmWriter.indent(indent);
+                asmWriter.je(".end_and" + offset);
+                RHS.codeGen(indent);
+                asmWriter.indent(indent);
+                asmWriter.label(".end_and" + offset);
+                break;
+            case Or:
+                offset = MethodDeclr.PER_METHOD_COUNT;
+                MethodDeclr.PER_METHOD_COUNT++;
+
+                asmWriter.indent(indent);
+                asmWriter.comment("logical_or");
+                LHS.codeGen(indent);
+                asmWriter.indent(indent);
+                asmWriter.cmp(Register.eax, "1");
+                asmWriter.indent(indent);
+                asmWriter.je(".end_or" + offset);
+                RHS.codeGen(indent);
+                asmWriter.indent(indent);
+                asmWriter.label(".end_or" + offset);
+                break;
+            case Cap:
+                break;
+            case Bar:
+                offset = MethodDeclr.PER_METHOD_COUNT;
+                MethodDeclr.PER_METHOD_COUNT++;
+
+                asmWriter.indent(indent);
+                asmWriter.comment("eager_or");
+                asmWriter.evalLHSthenRHS(LHS, RHS, indent);
+                asmWriter.indent(indent);
+                asmWriter.cmp(Register.ebx, "1");
+                asmWriter.indent(indent);
+                asmWriter.je(".is_true" + offset);
+                asmWriter.indent(indent);
+                asmWriter.jmp(".end_eager_or" + offset);
+                asmWriter.indent(indent);
+                asmWriter.label(".is_true" + offset);
+                asmWriter.indent(indent + 1);
+                asmWriter.mov(Register.eax, "1");
+                asmWriter.indent(indent);
+                asmWriter.label(".end_eager_or" + offset);
+                break;
+            case Amp:
+                offset = MethodDeclr.PER_METHOD_COUNT;
+                MethodDeclr.PER_METHOD_COUNT++;
+
+                asmWriter.indent(indent);
+                asmWriter.comment("eager_and");
+                asmWriter.evalLHSthenRHS(LHS, RHS, indent);
+                asmWriter.indent(indent);
+                asmWriter.cmp(Register.ebx, "0");
+                asmWriter.indent(indent);
+                asmWriter.je(".is_false" + offset);
+                asmWriter.indent(indent);
+                asmWriter.jmp(".end_eager_and" + offset);
+                asmWriter.indent(indent);
+                asmWriter.label(".is_false" + offset);
+                asmWriter.indent(indent + 1);
+                asmWriter.mov(Register.eax, "0");
+                asmWriter.indent(indent);
+                asmWriter.label(".end_eager_and" + offset);
+                break;
+        }
+        asmWriter.println("");
     }
 
     @Override
     public void addWriter(AsmWriter writer) {
         asmWriter = writer;
+    }
+
+    private int calcTestBit(int i) {
+        if(i == 0) return 1;
+        return 2* calcTestBit(i-1);
     }
 }

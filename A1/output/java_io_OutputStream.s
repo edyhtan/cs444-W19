@@ -42,7 +42,7 @@ section .text
 
 		call __method__java_io_OutputStream__write$int$
 
-		add esp,8
+		add esp, 8
 
 		_method_return___method__java_io_OutputStream__write$char$:
 			mov esp, ebp
@@ -59,14 +59,14 @@ section .text
 		;; Pushing args
 			;; Local Var b
 			mov eax, ebp
-			add eax,8
+			add eax, 8
 			mov eax, [eax]
 
 			push eax
 
 		call __STATIC_method__java_io_OutputStream__nativeWrite$int$
 
-		add esp,8
+		add esp, 8
 
 		_method_return___method__java_io_OutputStream__write$int$:
 			mov esp, ebp
@@ -97,12 +97,12 @@ section .text
 		push eax
 					mov eax, __constructor__java_lang_Object__Object
 		call eax
-		sub esp,4
+		sub esp, 4
 ;; Field init, push object to stack
 		mov eax, [ebp + 8]
 		push eax
 ;; Field init end, pop object
-		add esp,4
+		add esp, 4
 ;; Constructor Body
 ;; Epilogue
 		mov esp, ebp

@@ -12,7 +12,6 @@ import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.TypeSystem.JoosType;
 import Joosc.util.Pair;
-import Joosc.util.SymbolTable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -103,7 +102,9 @@ public class LocalEnv implements Env {
                         forinitLocal.addInfo(info);
                     }
                 }
-                if (((ForStatement) ast).getExpression() != null) ((ForStatement) ast).getExpression().addEnv(this);
+                if (((ForStatement) ast).getExpression() != null)
+                    ((ForStatement) ast).getExpression().addEnv(this);
+
                 if (((ForStatement) ast).getForUpdate() != null)
                     ((HasExpression) ((ForStatement) ast).getForUpdate()).checkExpression(this);
             }
