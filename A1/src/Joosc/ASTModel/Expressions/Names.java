@@ -353,6 +353,7 @@ public class Names extends ExpressionContent implements HasAddress {
 
             String labelName = info.fieldsDeclr.getStaticFieldLabel();
 
+            asmWriter.extern(labelName);
             asmWriter.indent(indent);
             asmWriter.mov(Register.eax, labelName);
 

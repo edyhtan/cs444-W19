@@ -21,7 +21,7 @@ extern __method__java_lang_Object__clone
 extern __field_java_lang_Boolean_MAX_VALUE
 extern __field_Hello_staticInt
 extern __ref_SIT_java_lang_Object
-extern __method__java_lang_Object__hashCode
+extern __method__java_lang_Object__hiashCode
 extern __ref_SIT_java_lang_Byte
 extern __ref_SIT_Static
 extern __field_java_lang_System_out
