@@ -347,6 +347,7 @@ global @@@@main
 		;; ---end of declare tmp
 
 		;; ---declare obj
+		;; ---new [J1_sideeffects_obj3] ()
 		;; Allocating size of 12
 		mov eax, 12
 				call __malloc
@@ -365,6 +366,7 @@ global @@@@main
 				sub eax, 4
 
 			push eax
+				;; ---new [J1_sideeffects_obj3] ()
 				;; Allocating size of 12
 				mov eax, 12
 								call __malloc
@@ -392,6 +394,7 @@ global @@@@main
 				add esp, 8
 				pop eax
 
+				;; ---end of new [J1_sideeffects_obj3] ()
 			pop ebx
 			mov [ebx], eax
 
@@ -401,12 +404,13 @@ global @@@@main
 		add esp, 8
 		pop eax
 
+		;; ---end of new [J1_sideeffects_obj3] ()
 
 		push eax
 		;; ---end of declare obj
 
 					;; field access
-			;; Method Invocation: o.m(...)
+			;; ---Method Invocation: 
 			;; Names(ArgList)
 				;; Local Var obj
 				mov eax, ebp
@@ -432,9 +436,10 @@ global @@@@main
 			;; pop arguments
 			add esp, 4
 
+			;; ---End of method invocation
 			add eax, 4
 		push eax
-			;; Method Invocation: o.m(...)
+			;; ---Method Invocation: 
 			;; Names(ArgList)
 				;; Local Var obj
 				mov eax, ebp
@@ -460,6 +465,7 @@ global @@@@main
 			;; pop arguments
 			add esp, 4
 
+			;; ---End of method invocation
 		pop ebx
 		mov [ebx], eax
 
@@ -596,6 +602,7 @@ global @@@@main
 			add eax, 8
 
 		push eax
+			;; ---new [J1_sideeffects_obj3] ()
 			;; Allocating size of 12
 			mov eax, 12
 						call __malloc
@@ -657,6 +664,7 @@ global @@@@main
 			add esp, 8
 			pop eax
 
+			;; ---end of new [J1_sideeffects_obj3] ()
 		pop ebx
 		mov [ebx], eax
 

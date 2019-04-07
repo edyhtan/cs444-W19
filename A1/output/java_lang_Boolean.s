@@ -40,7 +40,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation: o.m(...)
+		;; ---Method Invocation: 
 		;; Names(ArgList)
 
 		;; static method, dont push this
@@ -59,6 +59,7 @@ section .text
 
 		add esp, 4
 
+		;; ---End of method invocation
 		jmp _method_return___method__java_lang_Boolean__toString
 
 		_method_return___method__java_lang_Boolean__toString:

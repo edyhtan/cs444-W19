@@ -123,7 +123,7 @@ section .text
 
 			push eax
 			;; RHS code...
-			;; Method Invocation: o.m(...)
+			;; ---Method Invocation: 
 			;; Names(ArgList)
 			cmp eax, 0
 			je __exception
@@ -144,6 +144,7 @@ section .text
 			;; pop arguments
 			add esp, 4
 
+			;; ---End of method invocation
 			pop ebx
 			cmp ebx, eax
 			jl .lt0
@@ -212,7 +213,7 @@ section .text
 
 			push eax
 			;; RHS code...
-			;; Method Invocation: o.m(...)
+			;; ---Method Invocation: 
 			;; Names(ArgList)
 				;; Local Var s2
 				mov eax, ebp
@@ -238,6 +239,7 @@ section .text
 			;; pop arguments
 			add esp, 4
 
+			;; ---End of method invocation
 			pop ebx
 			cmp ebx, eax
 			jl .lt1
@@ -284,6 +286,7 @@ section .text
 
 		.endfor1:
 
+		;; ---new [java, lang, String] ()
 		;; Allocating size of 8
 		mov eax, 8
 				call __malloc
@@ -305,6 +308,7 @@ section .text
 		add esp, 4
 		pop eax
 
+		;; ---end of new [java, lang, String] ()
 		jmp _method_return___method__java_lang_String__concat$java_lang_String$
 
 		_method_return___method__java_lang_String__concat$java_lang_String$:
@@ -331,6 +335,7 @@ section .text
 		pop ebx
 		mov [ebx], eax
 
+		;; ---new [java, lang, String] ()
 		;; Allocating size of 8
 		mov eax, 8
 				call __malloc
@@ -352,6 +357,7 @@ section .text
 		add esp, 4
 		pop eax
 
+		;; ---end of new [java, lang, String] ()
 		jmp _method_return___STATIC_method__java_lang_String__valueOf$char$
 
 		_method_return___STATIC_method__java_lang_String__valueOf$char$:
@@ -765,6 +771,7 @@ mov eax, edx
 
 		.endfor7:
 
+		;; ---new [java, lang, String] ()
 		;; Allocating size of 8
 		mov eax, 8
 				call __malloc
@@ -786,6 +793,7 @@ mov eax, edx
 		add esp, 4
 		pop eax
 
+		;; ---end of new [java, lang, String] ()
 		jmp _method_return___STATIC_method__java_lang_String__valueOf$int$
 
 		_method_return___STATIC_method__java_lang_String__valueOf$int$:
@@ -798,7 +806,7 @@ mov eax, edx
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation: o.m(...)
+		;; ---Method Invocation: 
 		;; Names(ArgList)
 
 		;; static method, dont push this
@@ -812,6 +820,7 @@ mov eax, edx
 
 		add esp, 4
 
+		;; ---End of method invocation
 		jmp _method_return___STATIC_method__java_lang_String__valueOf$short$
 
 		_method_return___STATIC_method__java_lang_String__valueOf$short$:
@@ -824,7 +833,7 @@ mov eax, edx
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation: o.m(...)
+		;; ---Method Invocation: 
 		;; Names(ArgList)
 
 		;; static method, dont push this
@@ -838,6 +847,7 @@ mov eax, edx
 
 		add esp, 4
 
+		;; ---End of method invocation
 		jmp _method_return___STATIC_method__java_lang_String__valueOf$byte$
 
 		_method_return___STATIC_method__java_lang_String__valueOf$byte$:
@@ -910,7 +920,7 @@ mov eax, edx
 
 		.else9:
 			;elseClause ...
-			;; Method Invocation: o.m(...)
+			;; ---Method Invocation: 
 			;; Names(ArgList)
 				;; Local Var o
 				mov eax, ebp
@@ -936,6 +946,7 @@ mov eax, edx
 			;; pop arguments
 			add esp, 4
 
+			;; ---End of method invocation
 			jmp _method_return___STATIC_method__java_lang_String__valueOf$java_lang_Object$
 
 		.endif9:
@@ -1057,7 +1068,7 @@ mov eax, edx
 
 		.else12:
 		.endif12:
-		;; Method Invocation: o.m(...)
+		;; ---Method Invocation: 
 		;; Names(ArgList)
 
 		;; static method, dont push this
@@ -1092,6 +1103,7 @@ mov eax, edx
 
 		add esp, 8
 
+		;; ---End of method invocation
 		jmp _method_return___method__java_lang_String__equals$java_lang_Object$
 
 		_method_return___method__java_lang_String__equals$java_lang_Object$:
@@ -1151,7 +1163,7 @@ mov eax, edx
 
 		push eax
 		;; RHS code...
-		;; Method Invocation: o.m(...)
+		;; ---Method Invocation: 
 		;; Names(ArgList)
 		cmp eax, 0
 		je __exception
@@ -1172,6 +1184,7 @@ mov eax, edx
 		;; pop arguments
 		add esp, 4
 
+		;; ---End of method invocation
 		pop ebx
 		cmp ebx, eax
 		jg .gt1
@@ -1273,7 +1286,7 @@ mov eax, edx
 			je .endfor16
 			;statement code...
 						push eax
-				;; Method Invocation: o.m(...)
+				;; ---Method Invocation: 
 				;; Names(ArgList)
 				cmp eax, 0
 				je __exception
@@ -1301,6 +1314,7 @@ mov eax, edx
 				;; pop arguments
 				add esp, 8
 
+				;; ---End of method invocation
 			pop ebx
 			mov [ebx], eax
 
@@ -1334,6 +1348,7 @@ mov eax, edx
 
 		.endfor16:
 
+		;; ---new [java, lang, String] ()
 		;; Allocating size of 8
 		mov eax, 8
 				call __malloc
@@ -1355,6 +1370,7 @@ mov eax, edx
 		add esp, 4
 		pop eax
 
+		;; ---end of new [java, lang, String] ()
 		jmp _method_return___method__java_lang_String__substring$int$int$
 
 		_method_return___method__java_lang_String__substring$int$int$:
@@ -1402,7 +1418,7 @@ mov eax, edx
 
 			push eax
 			;; RHS code...
-			;; Method Invocation: o.m(...)
+			;; ---Method Invocation: 
 			;; Names(ArgList)
 			cmp eax, 0
 			je __exception
@@ -1423,6 +1439,7 @@ mov eax, edx
 			;; pop arguments
 			add esp, 4
 
+			;; ---End of method invocation
 			pop ebx
 			cmp ebx, eax
 			jl .lt1
@@ -1436,7 +1453,7 @@ mov eax, edx
 			je .end_and0
 			;; ompare_le
 			;; LHS code...
-			;; Method Invocation: o.m(...)
+			;; ---Method Invocation: 
 			;; Names(ArgList)
 			cmp eax, 0
 			je __exception
@@ -1464,6 +1481,7 @@ mov eax, edx
 			;; pop arguments
 			add esp, 8
 
+			;; ---End of method invocation
 			push eax
 			;; RHS code...
 			mov eax, 32
@@ -1519,7 +1537,7 @@ mov eax, edx
 		push eax
 			;; Minus
 			;; LHS code...
-			;; Method Invocation: o.m(...)
+			;; ---Method Invocation: 
 			;; Names(ArgList)
 			cmp eax, 0
 			je __exception
@@ -1540,6 +1558,7 @@ mov eax, edx
 			;; pop arguments
 			add esp, 4
 
+			;; ---End of method invocation
 			push eax
 			;; RHS code...
 			mov eax, 1
@@ -1577,7 +1596,7 @@ mov eax, edx
 			je .end_and3
 			;; ompare_le
 			;; LHS code...
-			;; Method Invocation: o.m(...)
+			;; ---Method Invocation: 
 			;; Names(ArgList)
 			cmp eax, 0
 			je __exception
@@ -1605,6 +1624,7 @@ mov eax, edx
 			;; pop arguments
 			add esp, 8
 
+			;; ---End of method invocation
 			push eax
 			;; RHS code...
 			mov eax, 32
@@ -1686,7 +1706,7 @@ mov eax, edx
 
 		.else19:
 			;elseClause ...
-			;; Method Invocation: o.m(...)
+			;; ---Method Invocation: 
 			;; Names(ArgList)
 			cmp eax, 0
 			je __exception
@@ -1730,6 +1750,7 @@ mov eax, edx
 			;; pop arguments
 			add esp, 12
 
+			;; ---End of method invocation
 			jmp _method_return___method__java_lang_String__trim
 
 		.endif19:
@@ -1885,7 +1906,7 @@ mov eax, edx
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation: o.m(...)
+		;; ---Method Invocation: 
 		;; Names(ArgList)
 		cmp eax, 0
 		je __exception
@@ -1920,6 +1941,7 @@ mov eax, edx
 		;; pop arguments
 		add esp, 8
 
+		;; ---End of method invocation
 		jmp _method_return___method__java_lang_String__compareTo$java_lang_Object$
 
 		_method_return___method__java_lang_String__compareTo$java_lang_Object$:
@@ -2362,7 +2384,7 @@ mov eax, edx
 
 			push eax
 			;; RHS code...
-			;; Method Invocation: o.m(...)
+			;; ---Method Invocation: 
 			;; Names(ArgList)
 			cmp eax, 0
 			je __exception
@@ -2383,6 +2405,7 @@ mov eax, edx
 			;; pop arguments
 			add esp, 4
 
+			;; ---End of method invocation
 			pop ebx
 			cmp ebx, eax
 			jl .lt0
@@ -2424,7 +2447,7 @@ mov eax, edx
 
 				push eax
 				;; RHS code...
-				;; Method Invocation: o.m(...)
+				;; ---Method Invocation: 
 				;; Names(ArgList)
 					;; Local Var needle
 					mov eax, ebp
@@ -2450,6 +2473,7 @@ mov eax, edx
 				;; pop arguments
 				add esp, 4
 
+				;; ---End of method invocation
 				pop ebx
 				cmp ebx, eax
 				jl .lt1
@@ -2486,7 +2510,7 @@ mov eax, edx
 
 				push eax
 				;; RHS code...
-				;; Method Invocation: o.m(...)
+				;; ---Method Invocation: 
 				;; Names(ArgList)
 				cmp eax, 0
 				je __exception
@@ -2507,6 +2531,7 @@ mov eax, edx
 				;; pop arguments
 				add esp, 4
 
+				;; ---End of method invocation
 				pop ebx
 				cmp ebx, eax
 				jge .ge2

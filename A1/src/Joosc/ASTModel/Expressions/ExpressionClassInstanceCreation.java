@@ -134,6 +134,8 @@ public class ExpressionClassInstanceCreation extends Expression {
 
     @Override
     public void codeGen(int indent) {
+        asmWriter.indent(indent);
+        asmWriter.comment("---new " + joosType.getTypeName() + " ()");
         int objectSize = joosType.getClassEnv().symbolTable.size() * 4 + 4;
         asmWriter.indent(indent);
         asmWriter.comment("Allocating size of " + objectSize);
@@ -175,6 +177,8 @@ public class ExpressionClassInstanceCreation extends Expression {
         asmWriter.indent(indent);
         asmWriter.pop(Register.eax);
         asmWriter.println();
+        asmWriter.indent(indent);
+        asmWriter.comment("---end of new " + joosType.getTypeName() + " ()");
     }
 
     @Override
