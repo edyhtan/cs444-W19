@@ -91,7 +91,6 @@ section .text
 
 							;; field access
 				mov eax, [ebp + 12]
-				mov eax, [eax]
 				add eax, 12
 			push eax
 				mov eax, 70

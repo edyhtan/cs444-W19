@@ -972,7 +972,6 @@ mov eax, edx
 			push eax
 
 			;; field access
-			mov eax, [eax]
 			mov eax, [eax+4]
 			push eax
 
@@ -2411,7 +2410,6 @@ mov eax, 0
 ;; Constructor Body
 							;; field access
 				mov eax, [ebp + 12]
-				mov eax, [eax]
 				add eax, 4
 			push eax
 			pop ebx
@@ -2520,7 +2518,6 @@ mov eax, 0
 ;; Constructor Body
 							;; field access
 				mov eax, [ebp + 12]
-				mov eax, [eax]
 				add eax, 4
 			push eax
 				;; Local Var other

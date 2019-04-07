@@ -117,8 +117,6 @@ public class ExpressionFieldAccess extends Expression implements LeftValue {
         fieldParentExpression.addWriter(asmWriter);
         fieldParentExpression.codeGen(indent);
         asmWriter.indent(indent);
-        asmWriter.movFromAddr(Register.eax, Register.eax);
-        asmWriter.indent(indent);
         asmWriter.movFromAddr(Register.eax, Register.eax + "+" + offset);
 
     }
@@ -132,8 +130,6 @@ public class ExpressionFieldAccess extends Expression implements LeftValue {
         asmWriter.comment("field access");
         fieldParentExpression.addWriter(asmWriter);
         fieldParentExpression.codeGen(indent);
-        asmWriter.indent(indent);
-        asmWriter.movFromAddr(Register.eax, Register.eax);
         asmWriter.indent(indent);
         asmWriter.add(Register.eax, offset);
     }
