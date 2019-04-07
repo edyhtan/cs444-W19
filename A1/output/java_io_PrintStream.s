@@ -100,7 +100,7 @@ section .text
 			;; Pushing args
 			;; class method: length
 			;; addr of o
-			mov eax, [esp + 12]
+			mov eax, [esp + 0]
 			;; vtable
 			mov eax, [eax]
 			;; addr of m body
@@ -156,7 +156,7 @@ section .text
 
 				;; class method: charAt
 				;; addr of o
-				mov eax, [esp + 0]
+				mov eax, [esp + 4]
 				;; vtable
 				mov eax, [eax]
 				;; addr of m body
@@ -172,7 +172,7 @@ section .text
 
 			;; class method: write
 			;; addr of o
-			mov eax, [esp + 0]
+			mov eax, [esp + 4]
 			;; vtable
 			mov eax, [eax]
 			;; addr of m body
@@ -240,7 +240,7 @@ section .text
 
 		;; class method: println
 		;; addr of o
-		mov eax, [esp + 8]
+		mov eax, [esp + 4]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
@@ -281,7 +281,7 @@ section .text
 
 		;; class method: print
 		;; addr of o
-		mov eax, [esp + 12]
+		mov eax, [esp + 4]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
@@ -307,7 +307,7 @@ section .text
 
 		;; class method: write
 		;; addr of o
-		mov eax, [esp + 12]
+		mov eax, [esp + 4]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
@@ -362,7 +362,7 @@ section .text
 
 		;; class method: println
 		;; addr of o
-		mov eax, [esp + 12]
+		mov eax, [esp + 4]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
@@ -417,7 +417,7 @@ section .text
 
 		;; class method: println
 		;; addr of o
-		mov eax, [esp + 12]
+		mov eax, [esp + 4]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
@@ -472,7 +472,7 @@ section .text
 
 		;; class method: println
 		;; addr of o
-		mov eax, [esp + 12]
+		mov eax, [esp + 4]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
@@ -527,7 +527,7 @@ section .text
 
 		;; class method: println
 		;; addr of o
-		mov eax, [esp + 12]
+		mov eax, [esp + 4]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
@@ -582,7 +582,7 @@ section .text
 
 		;; class method: println
 		;; addr of o
-		mov eax, [esp + 12]
+		mov eax, [esp + 4]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
@@ -637,7 +637,7 @@ section .text
 
 		;; class method: println
 		;; addr of o
-		mov eax, [esp + 12]
+		mov eax, [esp + 4]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
@@ -692,7 +692,7 @@ section .text
 
 		;; class method: print
 		;; addr of o
-		mov eax, [esp + 12]
+		mov eax, [esp + 4]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
@@ -747,7 +747,7 @@ section .text
 
 		;; class method: print
 		;; addr of o
-		mov eax, [esp + 12]
+		mov eax, [esp + 4]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
@@ -802,7 +802,7 @@ section .text
 
 		;; class method: print
 		;; addr of o
-		mov eax, [esp + 12]
+		mov eax, [esp + 4]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
@@ -857,7 +857,7 @@ section .text
 
 		;; class method: print
 		;; addr of o
-		mov eax, [esp + 12]
+		mov eax, [esp + 4]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
@@ -912,7 +912,7 @@ section .text
 
 		;; class method: print
 		;; addr of o
-		mov eax, [esp + 12]
+		mov eax, [esp + 4]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
@@ -967,7 +967,7 @@ section .text
 
 		;; class method: print
 		;; addr of o
-		mov eax, [esp + 12]
+		mov eax, [esp + 4]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body

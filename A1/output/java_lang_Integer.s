@@ -157,7 +157,7 @@ section .text
 
 			;; class method: charAt
 			;; addr of o
-			mov eax, [esp + 0]
+			mov eax, [esp + 4]
 			;; vtable
 			mov eax, [eax]
 			;; addr of m body
@@ -209,7 +209,7 @@ section .text
 
 			;; class method: charAt
 			;; addr of o
-			mov eax, [esp + 0]
+			mov eax, [esp + 4]
 			;; vtable
 			mov eax, [eax]
 			;; addr of m body
@@ -260,7 +260,7 @@ section .text
 
 			;; class method: charAt
 			;; addr of o
-			mov eax, [esp + 0]
+			mov eax, [esp + 4]
 			;; vtable
 			mov eax, [eax]
 			;; addr of m body
@@ -320,7 +320,7 @@ section .text
 
 			;; class method: charAt
 			;; addr of o
-			mov eax, [esp + 0]
+			mov eax, [esp + 4]
 			;; vtable
 			mov eax, [eax]
 			;; addr of m body
@@ -417,7 +417,7 @@ section .text
 
 					;; class method: charAt
 					;; addr of o
-					mov eax, [esp + 0]
+					mov eax, [esp + 4]
 					;; vtable
 					mov eax, [eax]
 					;; addr of m body
