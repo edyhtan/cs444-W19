@@ -2,6 +2,7 @@ extern __exception
 extern __malloc
 extern __constructor__java_lang_Object__Object
 extern __method__java_lang_Object__getClass
+extern __class_ArrayTemplate
 extern __new_array
 extern __method__java_lang_Object__toString
 extern __method__java_lang_Object__equals$java_lang_Object$
