@@ -1,8 +1,12 @@
 extern __exception
 extern __malloc
-extern __method__java_lang_Object__toString
 extern __constructor__java_lang_Object__Object
+extern __method__java_lang_Object__getClass
+extern __method__java_lang_Object__toString
+extern __method__java_lang_Object__equals$java_lang_Object$
 extern __STATIC_method__java_util_Arrays__equals$char@$char@$
+extern __method__java_lang_Object__clone
+extern __method__java_lang_Object__hashCode
 
 	global __class_java_lang_String
 __class_java_lang_String:

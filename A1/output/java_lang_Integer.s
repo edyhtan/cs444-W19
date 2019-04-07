@@ -1,6 +1,12 @@
+extern __method__java_lang_Object__clone
+extern __method__java_lang_Number__intValue
+extern __method__java_lang_Object__toString
 extern __constructor__java_lang_Number__Number
+extern __method__java_lang_Object__hashCode
 extern __method__java_lang_String__charAt$int$
+extern __method__java_lang_Object__getClass
 extern __method__java_lang_String__length
+extern __method__java_lang_Object__equals$java_lang_Object$
 extern __STATIC_method__java_lang_String__valueOf$int$
 
 	global __class_java_lang_Integer

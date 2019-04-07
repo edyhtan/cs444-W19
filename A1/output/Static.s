@@ -1,3 +1,8 @@
+extern __method__java_lang_Object__clone
+extern __method__java_lang_Object__toString
+extern __method__java_lang_Object__hashCode
+extern __method__java_lang_Object__getClass
+extern __method__java_lang_Object__equals$java_lang_Object$
 extern __constructor__Main__Main
 
 	global __class_Static

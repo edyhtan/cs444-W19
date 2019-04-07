@@ -428,6 +428,7 @@ public class AsmWriter {
                     if (field.getModifiers().contains(Symbol.Static)) {
                         println();
                         comment("Static Field: " + field.getStaticFieldLabel());
+                        extern(field.getStaticFieldLabel());
                         field.addWriter(this);
                         //field.codeGen(0);
                         mov(Register.eax, 3);

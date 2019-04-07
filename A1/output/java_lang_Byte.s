@@ -1,5 +1,10 @@
+extern __method__java_lang_Object__clone
 extern __STATIC_method__java_lang_String__valueOf$byte$
+extern __method__java_lang_Object__toString
 extern __constructor__java_lang_Object__Object
+extern __method__java_lang_Object__hashCode
+extern __method__java_lang_Object__getClass
+extern __method__java_lang_Object__equals$java_lang_Object$
 
 	global __class_java_lang_Byte
 __class_java_lang_Byte:

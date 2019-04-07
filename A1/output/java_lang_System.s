@@ -1,6 +1,11 @@
+extern __method__java_lang_Object__clone
 extern __malloc
+extern __method__java_lang_Object__toString
 extern __constructor__java_lang_Object__Object
 extern __constructor__java_io_PrintStream__PrintStream
+extern __method__java_lang_Object__hashCode
+extern __method__java_lang_Object__getClass
+extern __method__java_lang_Object__equals$java_lang_Object$
 extern __class_java_io_PrintStream
 
 	global __class_java_lang_System
