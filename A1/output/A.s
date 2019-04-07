@@ -1,24 +1,24 @@
 extern __ref_SIT_java_lang_Number
 extern __malloc
-extern __ref_SIT_java_lang_Integer
-extern __method__java_lang_Object__toString
 extern __constructor__java_lang_Object__Object
 extern __method__java_lang_Object__getClass
-extern __ref_SIT_java_lang_Class
-extern __ref_SIT_java_lang_Boolean
 extern __ref_SIT_foo_bar
-extern __ref_SIT_java_util_Arrays
-extern __method__java_lang_Object__equals$java_lang_Object$
 extern __ref_SIT_java_lang_Short
-extern __ref_SIT_java_io_PrintStream
 extern __ref_SIT_Main
 extern __ref_SIT_java_lang_Character
+extern __ref_SIT_java_lang_String
+extern __ref_SIT_Hello
+extern __ref_SIT_java_lang_Integer
+extern __method__java_lang_Object__toString
+extern __ref_SIT_java_lang_Class
+extern __ref_SIT_java_lang_Boolean
+extern __ref_SIT_java_util_Arrays
+extern __method__java_lang_Object__equals$java_lang_Object$
+extern __ref_SIT_java_io_PrintStream
 extern __method__java_lang_Object__clone
 extern __ref_SIT_java_lang_Object
 extern __method__java_lang_Object__hashCode
-extern __ref_SIT_java_lang_String
 extern __ref_SIT_java_lang_Byte
-extern __ref_SIT_Hello
 extern __ref_SIT_Static
 extern __ref_SIT_java_lang_System
 extern __ref_SIT_java_io_OutputStream
@@ -388,25 +388,50 @@ global @@@@main
 		mov ebp, esp
 
 				;; ---declare x
+		;; Plus
+		;; LHS code...
 		;; Unary number negation
-		;; Unary number negation
-		;; Unary number negation
-		;; Unary number negation
-		mov eax, 123
-		mov ebx, 0
-		sub ebx, eax
-		mov eax, ebx
-		mov ebx, 0
-		sub ebx, eax
-		mov eax, ebx
-		mov ebx, 0
-		sub ebx, eax
-		mov eax, ebx
+		mov eax, 200000
 		mov ebx, 0
 		sub ebx, eax
 		mov eax, ebx
 		push eax
+		;; RHS code...
+		mov eax, 123
+		pop ebx
+		add ebx, eax
+		mov eax, ebx
 
+		push eax
+
+		;; Allocating size of 0
+		mov eax, 0
+				call __malloc
+					mov ebx, __class_A
+		mov [eax], ebx
+
+		;; Pushing object
+		push eax
+
+		;; Pushing args:
+					call __constructor__A__A
+		add esp, 0
+		pop eax
+
+
+		;; Allocating size of 0
+		mov eax, 0
+				call __malloc
+					mov ebx, __class_A
+		mov [eax], ebx
+
+		;; Pushing object
+		push eax
+
+		;; Pushing args:
+					call __constructor__A__A
+		add esp, 0
+		pop eax
 		;; Local Var x
 		mov eax, ebp
 		sub eax, 4
