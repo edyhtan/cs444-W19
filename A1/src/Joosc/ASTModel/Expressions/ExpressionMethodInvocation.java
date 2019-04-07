@@ -2,9 +2,11 @@ package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionMethodInvocationNode;
 import Joosc.ASTBuilding.Constants.Symbol;
+import Joosc.ASTModel.ClassInterface.InterfaceDeclr;
 import Joosc.AsmWriter.AsmWriter;
 import Joosc.AsmWriter.Register;
 import Joosc.Environment.Env;
+import Joosc.Environment.LocalEnv;
 import Joosc.Environment.MethodInfo;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
@@ -231,39 +233,106 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
     @Override
     public void codeGen(int indent) {
         asmWriter.indent(indent);
-        asmWriter.comment("Method Invocation: o.m(args)");
-        asmWriter.indent(indent);
-        asmWriter.comment("o.code");
-        // TODO:
-        if(methodParentExpression != null)  {
+        asmWriter.comment("Method Invocation: o.m(...)");
+
+        Env methodEnv;
+
+        // This enigma
+        if (methodName != null) {
+            asmWriter.indent(indent);
+            asmWriter.comment("Names(ArgList)");
+            if (methodName.size() > 1) {
+                Names tempName = new Names(new ArrayList<>(methodName.subList(0, methodName.size() - 1)));
+                tempName.addWriter(asmWriter);
+                tempName.addEnv(getEnv());
+                methodEnv = tempName.codeGenWithEnv(indent + 1);
+            } else {
+                methodEnv = getEnv();
+            }
+
+            // Push this if the method is not static
+            if (!matchingMethod.getModifiers().contains(Symbol.Static)) {
+                asmWriter.nullCheck(indent);
+                asmWriter.indent(indent);
+                asmWriter.comment("non-static, pushing reference");
+                asmWriter.indent(indent);
+                asmWriter.push(Register.eax);
+            } else {
+                asmWriter.indent(indent);
+                asmWriter.comment("static method, dont push this");
+            }
+        } else {
+            asmWriter.indent(indent);
+            asmWriter.comment("Primary.id(ArgList)");
             methodParentExpression.addWriter(asmWriter);
+            methodParentExpression.addEnv(getEnv());
             methodParentExpression.codeGen(indent + 1);
             asmWriter.nullCheck(indent);
             asmWriter.indent(indent);
             asmWriter.push(Register.eax);
+            methodEnv = methodParentExpression.getEnv();
         }
+        asmWriter.println();
 
         asmWriter.indent(indent);
         asmWriter.comment("Pushing args");
         for(Expression arg : argList) {
             arg.addWriter(asmWriter);
+            arg.addEnv(getEnv());
             arg.codeGen(indent + 1);
             asmWriter.indent(indent + 1);
             asmWriter.push(Register.eax);
             asmWriter.println();
         }
 
-        // TODO: non-static method, interface method
-
         // Static method
-        String label = matchingMethod.methodLabel;
-        asmWriter.extern(label);
-        asmWriter.indent(indent);
-        asmWriter.call(label);
+        if (matchingMethod.getModifiers().contains(Symbol.Static)) {
+            String label = matchingMethod.methodLabel;
+            if (matchingMethod.getModifiers().contains(Symbol.Native)) {
+                label = "NATIVEjava.io.OutputStream.nativeWrite";
+            }
+            asmWriter.extern(label);
+            asmWriter.indent(indent);
+            asmWriter.comment("static method:");
+            asmWriter.indent(indent);
+            asmWriter.call(label);
+            asmWriter.println();
+            asmWriter.indent(indent);
+            asmWriter.add(Register.esp, argList.size() * 4);
+        } else if (methodEnv.getClassEnv().getTypeDeclr() instanceof InterfaceDeclr) {
+        // method of interface type, call from SIT
+            // TODO: do this
+            int SIToffset = 0;
+            asmWriter.indent(indent);
+            asmWriter.comment("interface method:");
+            //...
+        } else {
+            asmWriter.indent(indent);
+            asmWriter.comment("class method:");
+            int methodOffset = matchingMethod.methodOffset;
+            asmWriter.indent(indent);
+            asmWriter.comment("addr of o");
+            asmWriter.indent(indent);
+            asmWriter.movFromAddr(Register.eax, "esp + " + argList.size() * 4);
+            asmWriter.indent(indent);
+            asmWriter.comment("vtable");
+            asmWriter.indent(indent);
+            asmWriter.movFromAddr(Register.eax, Register.eax);
+            asmWriter.indent(indent);
+            asmWriter.comment("addr of m body");
+            asmWriter.indent(indent);
+            asmWriter.movFromAddr(Register.eax, "eax + " + methodOffset);
+            asmWriter.println();
+            asmWriter.indent(indent);
+            asmWriter.call(Register.eax);
+            asmWriter.println();
+            asmWriter.indent(indent);
+            asmWriter.comment("pop arguments");
+            asmWriter.indent(indent);
+            asmWriter.add(Register.esp, argList.size() * 4 + 4);
+        }
         asmWriter.println();
 
-        asmWriter.indent(indent);
-        asmWriter.add(Register.esp, argList.size() * 4 + 4);
 
     }
 

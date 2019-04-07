@@ -275,8 +275,6 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
         asmWriter.mov(Register.ebp, Register.esp);
         asmWriter.println("");
 
-        asmWriter.indent(indent + 1);
-
         for (Statement statement : bodyBlock) {
             statement.codeGen(indent + 1);
         }

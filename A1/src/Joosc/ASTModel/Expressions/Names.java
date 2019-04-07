@@ -277,6 +277,10 @@ public class Names extends ExpressionContent implements HasAddress {
         codeGenName(new ArrayList<>(name), getEnv(),false, false, false, indent);
     }
 
+    public Env codeGenWithEnv(int indent) {
+        return codeGenName(new ArrayList<>(name), getEnv(),false, false, false, indent);
+    }
+
     private Env codeGenName(ArrayList<String> name, Env env, boolean hasPrefix, boolean isAddress, boolean isStatic,  int indent) {
         String curname = name.get(0);
         name.remove(0);
