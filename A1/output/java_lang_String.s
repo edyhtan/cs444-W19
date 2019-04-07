@@ -19,7 +19,7 @@ __class_java_lang_String:
 
 		global __ref_PARENTS_java_lang_String
 	__ref_PARENTS_java_lang_String:
-		dd 0001010000000000b
+		dd 000000000011000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -1041,7 +1041,7 @@ mov eax, edx
 
 		mov eax, [eax]
 		mov eax, [eax+4]
-		shr eax, 12
+		shr eax, 10
 		and eax, 0x1
 
 		mov ebx, 1
@@ -1080,7 +1080,7 @@ mov eax, edx
 
 			mov eax, [eax]
 			mov eax, [eax+4]
-			shr eax, 12
+			shr eax, 10
 			and eax, 0x1
 			cmp eax, 0
 			je __exception
@@ -1901,7 +1901,7 @@ mov eax, edx
 
 			mov eax, [eax]
 			mov eax, [eax+4]
-			shr eax, 12
+			shr eax, 10
 			and eax, 0x1
 			cmp eax, 0
 			je __exception

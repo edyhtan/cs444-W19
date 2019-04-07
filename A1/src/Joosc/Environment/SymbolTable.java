@@ -33,6 +33,7 @@ public class SymbolTable {
     }
 
     public static void assignOffset(Statement statement, LocalEnv localEnv) {
+
         if (statement instanceof LocalVarDeclrStatement) {
             localEnv.assignOffset(((LocalVarDeclrStatement) statement).getId(), -4 * localEnv.getLastOffset());
             localEnv.incLastOffset();
@@ -42,6 +43,9 @@ public class SymbolTable {
                 if (blkStatement instanceof LocalVarDeclrStatement) {
                     localEnv.assignOffset(((LocalVarDeclrStatement) blkStatement).getId(), -4 * localEnv.getLastOffset());
                     localEnv.incLastOffset();
+                }
+                if (blkStatement instanceof WhileStatement) {
+                    SymbolTable.assignOffset(((WhileStatement) blkStatement).getStatement(), (LocalEnv) ((WhileStatement) blkStatement).getEnv());
                 }
             }
         }
@@ -56,6 +60,12 @@ public class SymbolTable {
                     SymbolTable.assignOffset(blkStatement,
                             (LocalEnv) ((HasScope) ((ForStatement) statement).getStatement().getBlock().get(0)).getEnv());
                 }
+            }
+        }
+
+        if(statement instanceof WhileStatement) {
+            for (Statement blkStatement : ((HasScope) statement).getBlock()) {
+                SymbolTable.assignOffset(blkStatement, (LocalEnv) ((HasScope) statement).getEnv());
             }
         }
     }
