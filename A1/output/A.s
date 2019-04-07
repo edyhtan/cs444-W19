@@ -480,40 +480,18 @@ global @@@@main
 		push eax
 		;; ---end of declare x
 
-					;; ---Array Access get Addr:
+		;; Local Var x
+		mov eax, ebp
+		sub eax, 4
+		mov eax, [eax]
 
-				;; Get array instance:
-					;; Local Var x
-					mov eax, ebp
-					sub eax, 4
-					mov eax, [eax]
+		;; Null Check:
+		cmp eax, 0
+		je __exception
+		;; Field length
+		add eax, 8
+		mov eax, [eax]
 
-				;; Null Check:
-				cmp eax, 0
-				je __exception
-				;; Push array instance addr
-				push eax
-
-				;; Get array index
-					mov eax, 2
-
-				;; Pop arr instance addr to ebx:
-				pop ebx
-
-				;; Bound check
-				mov ecx, [ebx + 8]
-				cmp eax, ecx
-				jge __exception
-				cmp ecx, 0
-				jl __exception
-
-			;; ---End Array Access get Addr
-		push eax
-			mov eax, 3
-		pop ebx
-		mov [ebx], eax
-
-		mov eax, 0
 		jmp _method_return___STATIC_method__A__test
 
 		_method_return___STATIC_method__A__test:
