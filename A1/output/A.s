@@ -1,10 +1,8 @@
 extern __ref_SIT_java_lang_Number
-extern __exception
 extern __malloc
 extern __constructor__java_lang_Object__Object
 extern __method__java_lang_Object__getClass
 extern __ref_SIT_foo_bar
-extern __constructor__Hello__Hello
 extern __ref_SIT_java_lang_Short
 extern __ref_SIT_Main
 extern __ref_SIT_java_lang_Character
@@ -28,7 +26,6 @@ extern __ref_SIT_java_lang_Object
 extern __method__Hello__happyHours
 extern __method__java_lang_Object__hashCode
 extern __ref_SIT_java_lang_Byte
-extern __class_Hello
 extern __ref_SIT_Static
 extern __field_java_lang_System_out
 extern __field_java_lang_Byte_MAX_VALUE
@@ -465,51 +462,83 @@ global @@@@main
 		push ebp
 		mov ebp, esp
 
-		;; ---declare h
-		;; ---new [Hello] ()
-		;; Allocating size of 8
-		mov eax, 8
-				call __malloc
-					mov ebx, __class_Hello
-		mov [eax], ebx
-
-		;; Pushing object
-		push eax
-
-		;; Pushing args:
-		call __constructor__Hello__Hello
-		add esp, 0
-		pop eax
-
-		;; ---end of new [Hello] ()
+		;; ---declare x
+		mov eax, 17
 
 		push eax
-		;; ---end of declare h
+		;; ---end of declare x
 
-		;; ---Method Invocation: 
-		;; Names(ArgList)
-			;; Local Var h
+		.while0:
+			;expression code...
+			;; ompare_gt
+			;; LHS code...
+			;; Local Var x
 			mov eax, ebp
 			sub eax, 4
 			mov eax, [eax]
 
-		cmp eax, 0
-		je __exception
-		;; non-static, pushing reference
-		push eax
+			push eax
+			;; RHS code...
+			mov eax, 0
+			pop ebx
+			cmp ebx, eax
+			jg .gt2
+			mov eax, 0
+			jmp .end_gt2
+			.gt2:
+				mov eax, 1
+			.end_gt2:
 
-		;; Pushing args
-		;; interface method:
-				;; addr of o
-		mov eax, [esp + 0]
-		mov eax, [eax]
-		mov eax, [eax]
-		mov eax, [eax+16]
-		call eax
-		;; pop arguments
-		add esp, 4
+			cmp eax, 0
+			je .endwhile0
+			;; while statement code...
+			;; ---declare y
+			;; Local Var x
+			mov eax, ebp
+			sub eax, 4
+			mov eax, [eax]
 
-		;; ---End of method invocation
+
+			push eax
+			;; ---end of declare y
+
+
+							;; Local Var y
+				mov eax, ebp
+				sub eax, 12
+
+			push eax
+				;; Minus
+				;; LHS code...
+				;; Local Var y
+				mov eax, ebp
+				sub eax, 12
+				mov eax, [eax]
+
+				push eax
+				;; RHS code...
+				mov eax, 1
+				pop ebx
+				sub ebx, eax
+				mov eax, ebx
+
+			pop ebx
+			mov [ebx], eax
+
+
+			add esp, 4
+
+			jmp .while0
+
+		.endwhile0:
+
+			add esp, 4
+
+		;; Local Var x
+		mov eax, ebp
+		sub eax, 4
+		mov eax, [eax]
+
 		jmp _method_return___STATIC_method__A__test
 
 		_method_return___STATIC_method__A__test:

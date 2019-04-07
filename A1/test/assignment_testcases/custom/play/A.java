@@ -4,8 +4,12 @@ public class A {
     }
 
     public static int test() {
-        Interface h = new Hello();
-        return h.happyHours();
+        int x = 17;
+        while (x>0) {
+            int y = x;
+            y=y-1;
+            };
+        return x;
     }
 
 
