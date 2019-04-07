@@ -9,11 +9,11 @@ extern __method__java_lang_String__length
 extern __method__java_lang_Object__equals$java_lang_Object$
 extern __STATIC_method__java_lang_String__valueOf$int$
 
-	global __class_java_lang_Integer
-__class_java_lang_Integer:
 
 section .data
 
+	global __class_java_lang_Integer
+__class_java_lang_Integer:
 		global __ref_SIT_java_lang_Integer
 	__ref_SIT_java_lang_Integer:
 		dd 0

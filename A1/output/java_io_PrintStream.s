@@ -17,11 +17,11 @@ extern __STATIC_method__java_io_OutputStream__nativeWrite$int$
 extern __method__java_lang_Object__hashCode
 extern __STATIC_method__java_lang_String__valueOf$int$
 
-	global __class_java_io_PrintStream
-__class_java_io_PrintStream:
 
 section .data
 
+	global __class_java_io_PrintStream
+__class_java_io_PrintStream:
 		global __ref_SIT_java_io_PrintStream
 	__ref_SIT_java_io_PrintStream:
 		dd 0

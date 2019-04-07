@@ -5,11 +5,11 @@ extern __method__java_lang_Object__getClass
 extern __method__java_lang_Object__equals$java_lang_Object$
 extern __constructor__Main__Main
 
-	global __class_Static
-__class_Static:
 
 section .data
 
+	global __class_Static
+__class_Static:
 		global __ref_SIT_Static
 	__ref_SIT_Static:
 		dd 0

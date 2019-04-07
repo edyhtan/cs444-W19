@@ -6,11 +6,11 @@ extern __method__java_lang_Object__hashCode
 extern __method__java_lang_Object__getClass
 extern __method__java_lang_Object__equals$java_lang_Object$
 
-	global __class_java_util_Arrays
-__class_java_util_Arrays:
 
 section .data
 
+	global __class_java_util_Arrays
+__class_java_util_Arrays:
 		global __ref_SIT_java_util_Arrays
 	__ref_SIT_java_util_Arrays:
 		dd 0

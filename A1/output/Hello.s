@@ -6,11 +6,11 @@ extern __method__java_lang_Object__hashCode
 extern __method__java_lang_Object__getClass
 extern __method__java_lang_Object__equals$java_lang_Object$
 
-	global __class_Hello
-__class_Hello:
 
 section .data
 
+	global __class_Hello
+__class_Hello:
 		global __ref_SIT_Hello
 	__ref_SIT_Hello:
 		dd 0

@@ -155,12 +155,13 @@ public class ClassDeclr implements TypeDeclr {
         buildCompilerLabel();
 
         // Class Tag
-        asmWriter.println("\t" + "global " + classTagName);
-        asmWriter.label(classTagName);
 
         asmWriter.println("");
         asmWriter.println("section .data");
         asmWriter.println("");
+
+        asmWriter.println("\t" + "global " + classTagName);
+        asmWriter.label(classTagName);
 
         // Class SIT
         asmWriter.println("\t\t" + "global " + classSIT);

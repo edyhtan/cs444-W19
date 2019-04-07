@@ -21,7 +21,7 @@ extern __method__java_lang_Object__clone
 extern __field_java_lang_Boolean_MAX_VALUE
 extern __field_Hello_staticInt
 extern __ref_SIT_java_lang_Object
-extern __method__java_lang_Object__hiashCode
+extern __method__java_lang_Object__hashCode
 extern __ref_SIT_java_lang_Byte
 extern __ref_SIT_Static
 extern __field_java_lang_System_out
@@ -30,11 +30,11 @@ extern __ref_SIT_java_lang_System
 extern __field_java_lang_Integer_MAX_VALUE
 extern __ref_SIT_java_io_OutputStream
 
-	global __class_A
-__class_A:
 
 section .data
 
+	global __class_A
+__class_A:
 		global __ref_SIT_A
 	__ref_SIT_A:
 		dd 0
