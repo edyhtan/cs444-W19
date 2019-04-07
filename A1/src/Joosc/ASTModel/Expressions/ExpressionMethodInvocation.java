@@ -231,7 +231,7 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
     @Override
     public void codeGen(int indent) {
         asmWriter.indent(indent);
-        asmWriter.comment("Method Invocation:");
+        asmWriter.comment("Method Invocation: o.m(args)");
         asmWriter.indent(indent);
         asmWriter.comment("o.code");
         // TODO:

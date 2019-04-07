@@ -68,7 +68,6 @@ public class Joosc {
 
             ArrayList<Program> asts = astList.stream().map(x -> new Program(x.getRoot()))
                     .collect(Collectors.toCollection(ArrayList::new));
-
             GlobalEnv globalEnvironment = new GlobalEnv(asts);
             globalEnvironment.semanticAnalysis();
 
@@ -78,9 +77,6 @@ public class Joosc {
                 ast.staticAnalysis();
                 ast.codeGen(0);
             }
-
-            AsmWriter asm = new AsmWriter(System.out);
-            asm.outputInit(null);
 
         } catch (UnreachableStatementException e) {
             System.err.printf("ERROR: Static analysis error: %s\n", e.getLocalizedMessage());

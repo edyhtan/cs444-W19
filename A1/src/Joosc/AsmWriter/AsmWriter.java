@@ -325,6 +325,8 @@ public class AsmWriter {
 
     public static void initTable() {
         // Create List of All Interface call header
+        allMethods = new ArrayLinkedHashSet<>();
+        parentMatrix = new ArrayLinkedHashMap<>();
         for (ClassEnv classEnv : GlobalEnv.instance.classEnvs) {
             if (classEnv.getTypeDeclr() instanceof InterfaceDeclr) {
                 allMethods.addAll(classEnv.getAllMethodSignature().keySet());
