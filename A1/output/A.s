@@ -9,7 +9,6 @@ extern __ref_SIT_Main
 extern __ref_SIT_java_lang_Character
 extern __ref_SIT_java_lang_String
 extern __ref_SIT_Hello
-extern __constructor__Static__Static
 extern __ref_SIT_java_lang_Integer
 extern __class_Static
 extern __method__java_lang_Object__toString
@@ -22,6 +21,7 @@ extern __method__java_lang_Object__clone
 extern __field_java_lang_Boolean_MAX_VALUE
 extern __field_Hello_staticInt
 extern __ref_SIT_java_lang_Object
+extern __constructor__Static__Static$int$
 extern __method__java_lang_Object__hashCode
 extern __ref_SIT_java_lang_Byte
 extern __ref_SIT_Static
@@ -61,7 +61,7 @@ section .text
 _start:
 
 mov eax, 16
-call __mallocl
+call __malloc
 
 mov ebx, __ref_SIT_java_io_OutputStream
 mov [ebx], eax
@@ -433,8 +433,11 @@ global @@@@main
 		push eax
 
 		;; Pushing args:
-		call __constructor__Static__Static
-		add esp, 0
+			mov eax, 6
+			push eax
+
+		call __constructor__Static__Static$int$
+		add esp, 4
 		pop eax
 
 
