@@ -320,6 +320,7 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 asmWriter.division(LHS, RHS, indent);
                 asmWriter.indent(indent);
                 asmWriter.comment("Mod");
+                asmWriter.indent(indent);
                 asmWriter.mov(Register.eax, Register.edx);
                 break;
             // comparison

@@ -577,7 +577,7 @@ section .text
 				mov edx, 0
 				idiv ebx
 				;; Mod
-mov eax, edx
+				mov eax, edx
 
 
 				push eax
