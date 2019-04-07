@@ -486,7 +486,8 @@ global @@@@main
 			mov [eax + 24], ecx
 		push eax
 		call __constructor__java_lang_String__String$char@$
-		add esp, 8
+		add esp, 4
+		pop eax
 
 		push eax
 		;; ---end of declare str
@@ -527,7 +528,8 @@ global @@@@main
 				mov [eax + 24], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
-			add esp, 8
+			add esp, 4
+			pop eax
 			cmp eax, 0
 			je .cast_end2
 			mov eax, [eax]

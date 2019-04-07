@@ -253,7 +253,8 @@ section .text
 				mov [eax + 12], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
-			add esp, 8
+			add esp, 4
+			pop eax
 			push eax
 
 		;; class method:

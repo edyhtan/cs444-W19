@@ -113,7 +113,8 @@ section .text
 			mov [eax + 84], ecx
 		push eax
 		call __constructor__java_lang_String__String$char@$
-		add esp, 8
+		add esp, 4
+		pop eax
 		jmp _method_return___method__java_lang_Object__toString
 
 		_method_return___method__java_lang_Object__toString:
