@@ -443,6 +443,7 @@ public class AsmWriter {
         ClassDeclr array = (ClassDeclr)ArrayType.program.getTypeDeclr();
 
         extern(array.classTagName);
+        extern(array.classSIT);
         mov(Register.ebx, array.classSIT);
         movToAddr(Register.ebx, Register.eax);
         for (String methodName : allMethods) {
@@ -457,8 +458,6 @@ public class AsmWriter {
                 movToAddr("eax + " + allMethods.indexOf(methodName) * 4, Register.ebx);
             }
         }
-
-
 
         // Initialize Static Fields
         for (ClassEnv classEnv: GlobalEnv.instance.classEnvs) {
