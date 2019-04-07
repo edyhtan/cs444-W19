@@ -387,9 +387,17 @@ global @@@@main
 		push ebp
 		mov ebp, esp
 
-				;; Unary number negation
-		mov eax, 123
-		mov ebx, 0
+				;; ---declare a
+		mov eax, 0
+		push eax
+
+		;; Unary boolean negation
+		;; Local Var a
+		mov eax, ebp
+		sub eax, 4
+		mov eax, [eax]
+
+		mov ebx, 1
 		sub ebx, eax
 		mov eax, ebx
 		jmp _method_return___STATIC_method__A__test
