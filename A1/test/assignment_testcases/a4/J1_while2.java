@@ -10,7 +10,7 @@ public class J1_while2 {
 	return x;
     }
     public static int test() {
-	return new J1_while2().m(17);
+	return new J1_while2().m(17)+123;
     }
 }
 
