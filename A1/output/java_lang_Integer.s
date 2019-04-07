@@ -98,7 +98,7 @@ section .text
 			;; LHS code...
 			push eax
 			;; RHS code...
-			mov eax, 39
+			mov eax, 45
 			pop ebx
 			cmp ebx, eax
 			je .eq3
@@ -115,7 +115,7 @@ section .text
 			;; LHS code...
 			push eax
 			;; RHS code...
-			mov eax, 39
+			mov eax, 48
 			pop ebx
 			cmp ebx, eax
 			jge .ge5
@@ -131,7 +131,7 @@ section .text
 			;; LHS code...
 			push eax
 			;; RHS code...
-			mov eax, 39
+			mov eax, 57
 			pop ebx
 			cmp ebx, eax
 			jle .le6
@@ -156,7 +156,7 @@ section .text
 			;; LHS code...
 			push eax
 			;; RHS code...
-			mov eax, 39
+			mov eax, 45
 			pop ebx
 			cmp ebx, eax
 			je .eq7

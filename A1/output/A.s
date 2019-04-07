@@ -1,26 +1,24 @@
 extern __ref_SIT_java_lang_Number
 extern __malloc
-extern __constructor__java_lang_Object__Object
-extern __method__java_lang_Object__getClass
-extern __ref_SIT_foo_bar
-extern __constructor__Hello__Hello
-extern __ref_SIT_java_lang_Short
-extern __ref_SIT_Main
-extern __ref_SIT_java_lang_Character
-extern __ref_SIT_java_lang_String
-extern __ref_SIT_Hello
 extern __ref_SIT_java_lang_Integer
 extern __method__java_lang_Object__toString
+extern __constructor__java_lang_Object__Object
+extern __method__java_lang_Object__getClass
 extern __ref_SIT_java_lang_Class
 extern __ref_SIT_java_lang_Boolean
+extern __ref_SIT_foo_bar
 extern __ref_SIT_java_util_Arrays
 extern __method__java_lang_Object__equals$java_lang_Object$
+extern __ref_SIT_java_lang_Short
 extern __ref_SIT_java_io_PrintStream
+extern __ref_SIT_Main
+extern __ref_SIT_java_lang_Character
 extern __method__java_lang_Object__clone
 extern __ref_SIT_java_lang_Object
 extern __method__java_lang_Object__hashCode
+extern __ref_SIT_java_lang_String
 extern __ref_SIT_java_lang_Byte
-extern __class_Hello
+extern __ref_SIT_Hello
 extern __ref_SIT_Static
 extern __ref_SIT_java_lang_System
 extern __ref_SIT_java_io_OutputStream
@@ -389,47 +387,15 @@ global @@@@main
 		push ebp
 		mov ebp, esp
 
-				;; ---declare h
-		;; Allocating size of 0
-		mov eax, 0
-				call __malloc
-					mov ebx, __class_Hello
-		mov [eax], ebx
-
-		;; Pushing object
-		push eax
-
-		;; Pushing args:
-					call __constructor__Hello__Hello
-		add esp, 0
-		pop eax
-		push eax
-
-		;; if statement0
-		;expression code...
-		;; Instanceof
-				;; Local Var h
-		mov eax, ebp
-		sub eax, 4
-		mov eax, [eax]
-
-		mov eax, [eax]
-		mov eax, [eax+4]
-		shr eax, 15
-		and eax, 0x1
-
-		cmp eax, 0
-		je .else0
-		;thenClause ...
-			mov eax, 6
-			jmp _method_return___STATIC_method__A__test
-
-
-		jmp .endif0
-
-		.else0:
-		.endif0:
-		mov eax, 1
+				;; Unary number negation
+		;; Unary number negation
+		mov eax, 123
+		mov ebx, 0
+		sub ebx, eax
+		mov eax, ebx
+		mov ebx, 0
+		sub ebx, eax
+		mov eax, ebx
 		jmp _method_return___STATIC_method__A__test
 
 		_method_return___STATIC_method__A__test:

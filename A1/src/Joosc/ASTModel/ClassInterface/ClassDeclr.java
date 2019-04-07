@@ -154,7 +154,6 @@ public class ClassDeclr implements TypeDeclr {
 
         buildCompilerLabel();
 
-
         asmWriter.println("");
         asmWriter.println("section .data");
         asmWriter.println("");

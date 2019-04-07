@@ -931,7 +931,7 @@ mov eax, edx
 			;; LHS code...
 			push eax
 			;; RHS code...
-			mov eax, 39
+			mov eax, 32
 			pop ebx
 			cmp ebx, eax
 			jle .le2
@@ -986,7 +986,7 @@ mov eax, edx
 			;; LHS code...
 			push eax
 			;; RHS code...
-			mov eax, 39
+			mov eax, 32
 			pop ebx
 			cmp ebx, eax
 			jle .le5
