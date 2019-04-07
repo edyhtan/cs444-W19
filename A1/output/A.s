@@ -1,4 +1,5 @@
 extern __ref_SIT_java_lang_Number
+extern __exception
 extern __malloc
 extern __constructor__java_lang_Object__Object
 extern __method__java_lang_Object__getClass
@@ -9,6 +10,7 @@ extern __ref_SIT_java_lang_Character
 extern __class_ArrayTemplate
 extern __constructor__java_io_PrintStream__PrintStream
 extern __ref_SIT_java_lang_String
+extern __new_array
 extern __ref_SIT_Hello
 extern __ref_SIT_java_lang_Integer
 extern __method__java_lang_Object__toString
@@ -463,148 +465,84 @@ global @@@@main
 		mov ebp, esp
 
 		;; ---declare x
-		mov eax, 17
+		;; ---Array Creation: [int]
+
+			;; Size Expression:
+				mov eax, 3
+
+			;; Class Tag
+			mov ebx, __class_ArrayTemplate
+
+			mov edx, __new_array
+			call edx
+		;; --- End Array Creation
 
 		push eax
 		;; ---end of declare x
 
-		;; ---declare y
-		mov eax, 0
+					;; ---Array Access get Addr:
 
-		push eax
-		;; ---end of declare y
+				;; Get array instance:
+					;; Local Var x
+					mov eax, ebp
+					sub eax, 4
+					mov eax, [eax]
 
-		.while0:
-			;expression code...
-			;; ompare_eq
-			;; LHS code...
-			;; Local Var x
-			mov eax, ebp
-			sub eax, 4
-			mov eax, [eax]
-
-			push eax
-			;; RHS code...
-			mov eax, 0
-			pop ebx
-			cmp ebx, eax
-			je .eq2
-			mov eax, 0
-			jmp .end_eq2
-			.eq2:
-				mov eax, 1
-			.end_eq2:
-
-			cmp eax, 0
-			je .endwhile0
-			;; while statement code...
-			;; ---declare a
-			mov eax, 3
-
-			push eax
-			;; ---end of declare a
-
-
-			;; ---declare aa
-			mov eax, 4
-
-			push eax
-			;; ---end of declare aa
-
-
-			add esp, 8
-
-			jmp .while0
-
-		.endwhile0:
-
-			add esp, 8
-
-		;; if statement1
-		;expression code...
-		mov eax, 1
-		cmp eax, 0
-		je .else1
-		;thenClause ...
-			;forInit code...
-			;; ---declare i
-			mov eax, 2
-
-			push eax
-			;; ---end of declare i
-
-
-			.for2:
-				;expression code...
-				;; ompare_lt
-				;; LHS code...
-				;; Local Var i
-				mov eax, ebp
-				sub eax, 12
-				mov eax, [eax]
-
-				push eax
-				;; RHS code...
-				mov eax, 3
-				pop ebx
-				cmp ebx, eax
-				jl .lt3
-				mov eax, 0
-				jmp .end_lt3
-				.lt3:
-					mov eax, 1
-				.end_lt3:
-
+				;; Null Check:
 				cmp eax, 0
-				je .endfor2
-				;statement code...
-				;; ---declare k
-				mov eax, 0
-
+				je __exception
+				;; Push array instance addr
 				push eax
-				;; ---end of declare k
 
+				;; Get array index
+					mov eax, 2
 
-				;; Local Var k
+				;; Pop arr instance addr to ebx:
+				pop ebx
+
+				;; Bound check
+				mov ecx, [ebx + 8]
+				cmp eax, ecx
+				jge __exception
+				cmp ecx, 0
+				jl __exception
+
+			;; ---End Array Access get Addr
+		push eax
+			mov eax, 3
+		pop ebx
+		mov [ebx], eax
+
+		;; ---Array Access get Addr:
+
+			;; Get array instance:
+				;; Local Var x
 				mov eax, ebp
-				sub eax, 16
+				sub eax, 4
 				mov eax, [eax]
 
-				jmp _method_return___STATIC_method__A__test
+			;; Null Check:
+			cmp eax, 0
+			je __exception
+			;; Push array instance addr
+			push eax
 
-				add esp, 4
+			;; Get array index
+				mov eax, 2
 
+			;; Pop arr instance addr to ebx:
+			pop ebx
 
+			;; Bound check
+			mov ecx, [ebx + 8]
+			cmp eax, ecx
+			jge __exception
+			cmp ecx, 0
+			jl __exception
 
-				jmp .for2
-
-			.endfor2:
-				add esp, 4
-
-
-
-		jmp .endif1
-
-		.else1:
-		.endif1:
-		;; Plus
-		;; LHS code...
-		;; Local Var x
-		mov eax, ebp
-		sub eax, 4
+		;; ---End Array Access get Addr
+		;; Dereference array addr to value
 		mov eax, [eax]
-
-		push eax
-		;; RHS code...
-		;; Local Var y
-		mov eax, ebp
-		sub eax, 8
-		mov eax, [eax]
-
-		pop ebx
-		add ebx, eax
-		mov eax, ebx
-
 		jmp _method_return___STATIC_method__A__test
 
 		_method_return___STATIC_method__A__test:
