@@ -25,11 +25,11 @@ extern __ref_SIT_Static
 extern __ref_SIT_java_lang_System
 extern __ref_SIT_java_io_OutputStream
 
-	global __class_A
-__class_A:
 
 section .data
 
+	global __class_A
+__class_A:
 		global __ref_SIT_A
 	__ref_SIT_A:
 		dd 0

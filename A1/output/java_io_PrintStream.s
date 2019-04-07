@@ -9,11 +9,11 @@ extern __method__java_lang_Object__getClass
 extern __method__java_io_OutputStream__flush
 extern __method__java_lang_Object__equals$java_lang_Object$
 
-	global __class_java_io_PrintStream
-__class_java_io_PrintStream:
 
 section .data
 
+	global __class_java_io_PrintStream
+__class_java_io_PrintStream:
 		global __ref_SIT_java_io_PrintStream
 	__ref_SIT_java_io_PrintStream:
 		dd 0

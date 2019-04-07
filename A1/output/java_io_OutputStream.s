@@ -6,11 +6,11 @@ extern __method__java_lang_Object__getClass
 extern __method__java_lang_Object__equals$java_lang_Object$
 extern NATIVEjava.io.OutputStream.nativeWrite
 
-	global __class_java_io_OutputStream
-__class_java_io_OutputStream:
 
 section .data
 
+	global __class_java_io_OutputStream
+__class_java_io_OutputStream:
 		global __ref_SIT_java_io_OutputStream
 	__ref_SIT_java_io_OutputStream:
 		dd 0

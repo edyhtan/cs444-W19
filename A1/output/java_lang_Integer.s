@@ -6,11 +6,11 @@ extern __method__java_lang_Object__hashCode
 extern __method__java_lang_Object__getClass
 extern __method__java_lang_Object__equals$java_lang_Object$
 
-	global __class_java_lang_Integer
-__class_java_lang_Integer:
 
 section .data
 
+	global __class_java_lang_Integer
+__class_java_lang_Integer:
 		global __ref_SIT_java_lang_Integer
 	__ref_SIT_java_lang_Integer:
 		dd 0

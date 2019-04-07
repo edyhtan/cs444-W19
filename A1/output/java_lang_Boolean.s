@@ -5,11 +5,11 @@ extern __method__java_lang_Object__hashCode
 extern __method__java_lang_Object__getClass
 extern __method__java_lang_Object__equals$java_lang_Object$
 
-	global __class_java_lang_Boolean
-__class_java_lang_Boolean:
 
 section .data
 
+	global __class_java_lang_Boolean
+__class_java_lang_Boolean:
 		global __ref_SIT_java_lang_Boolean
 	__ref_SIT_java_lang_Boolean:
 		dd 0

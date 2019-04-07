@@ -5,11 +5,11 @@ extern __method__java_lang_Object__hashCode
 extern __method__java_lang_Object__getClass
 extern __method__java_lang_Object__equals$java_lang_Object$
 
-	global __class_java_lang_Byte
-__class_java_lang_Byte:
 
 section .data
 
+	global __class_java_lang_Byte
+__class_java_lang_Byte:
 		global __ref_SIT_java_lang_Byte
 	__ref_SIT_java_lang_Byte:
 		dd 0
