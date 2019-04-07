@@ -134,7 +134,9 @@ public class Literal extends ExpressionContent implements ConstantExpression {
             char[] carr = literal.substring(1, literal.length()-1).toCharArray();
             for(char c : carr) {
                 asmWriter.indent(indent + 1);
-                asmWriter.movToAddr("eax + " + (index++ * 4 + 8), Integer.toString((int)c));
+                asmWriter.mov(Register.ecx, (int)c);
+                asmWriter.indent(indent + 1);
+                asmWriter.movToAddr("eax + " + (index++ * 4 + 8), Register.ecx);
             }
             asmWriter.indent(indent + 1);
             asmWriter.movToAddr("eax + " + ((index * 4) + 8), "0");

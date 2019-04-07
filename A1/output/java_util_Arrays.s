@@ -165,6 +165,11 @@ section .text
 				cmp ecx, 0
 				jl __exception
 
+				;; Access array
+				add eax, 2
+				shl eax, 2
+				add eax, ebx
+
 			;; ---End Array Access get Addr
 			;; Dereference array addr to value
 			mov eax, [eax]
@@ -200,6 +205,11 @@ section .text
 				jge __exception
 				cmp ecx, 0
 				jl __exception
+
+				;; Access array
+				add eax, 2
+				shl eax, 2
+				add eax, ebx
 
 			;; ---End Array Access get Addr
 			;; Dereference array addr to value
@@ -395,6 +405,11 @@ section .text
 				cmp ecx, 0
 				jl __exception
 
+				;; Access array
+				add eax, 2
+				shl eax, 2
+				add eax, ebx
+
 			;; ---End Array Access get Addr
 			;; Dereference array addr to value
 			mov eax, [eax]
@@ -430,6 +445,11 @@ section .text
 				jge __exception
 				cmp ecx, 0
 				jl __exception
+
+				;; Access array
+				add eax, 2
+				shl eax, 2
+				add eax, ebx
 
 			;; ---End Array Access get Addr
 			;; Dereference array addr to value

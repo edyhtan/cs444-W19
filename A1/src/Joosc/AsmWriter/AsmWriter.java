@@ -301,6 +301,10 @@ public class AsmWriter {
         println(String.format(binaryTemplate, "shr", reg, i));
     }
 
+    public void shl(Register reg, int i) {
+        println(String.format(binaryTemplate, "shl", reg, i));
+    }
+
     public void and(Register reg, String i) {
         println(String.format(binaryTemplate, "and", reg, i));
     }
