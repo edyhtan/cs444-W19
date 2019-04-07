@@ -164,6 +164,7 @@ public class ExpressionUnary extends Expression implements ConstantExpression {
             }
 
         } else { // unaryExpression
+            // TODO: check negation of a number!!!
             if (unaryOperator.equals(Symbol.Minus)) {
                 asmWriter.indent(indent);
                 asmWriter.comment("Unary number negation");

@@ -1,13 +1,12 @@
 public class A {
 
     public A() {}
-    public static int test() {
-        int x = -200000+123;
-        new A();
-        x = x+100000;
-        x = 100000+x;
-        new A();
+    public int m(int x) {
+        while (x>0) x=x-1;
         return x;
+    }
+    public static int test() {
+        return new A().m(17)+123;
     }
 
 }
