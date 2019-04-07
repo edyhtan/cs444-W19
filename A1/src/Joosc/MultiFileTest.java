@@ -35,7 +35,6 @@ public class MultiFileTest {
                 try (Stream<Path> paths = Files.walk(Paths.get(path))) {
                     ArrayList<String> allArgs = new ArrayList<>(custom_flag ? emptylib: baseArgs);
                     allArgs.addAll(Arrays.asList(paths.filter(Files::isRegularFile).map(Path::toString).toArray(String[]::new)));
-                    //(new ArrayList<String>(allArgs)).forEach(x->System.err.println(x));
                     allArgs.add("-full");
                     ret = Joosc.run(allArgs.toArray(new String[allArgs.size()]));
                 } catch (Exception e) {

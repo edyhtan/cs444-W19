@@ -43,7 +43,7 @@ section .text
 			;; Implicit This
 			mov eax, [ebp + 8]
 			;; Field a
-			add eax, 12
+			add eax, 20
 			mov eax, [eax]
 
 			push eax
@@ -71,12 +71,12 @@ section .text
 							;; Implicit This
 				mov eax, [ebp + 8]
 				;; Field a
-				add eax, 12
+				add eax, 20
 
 			push eax
 				;; Local Var y
 				mov eax, ebp
-				sub eax, 8
+				sub eax, 4
 				mov eax, [eax]
 
 			pop ebx
@@ -115,7 +115,7 @@ section .text
 ;; Field init:: a
 				mov eax, 4
 		mov ebx, [esp]
-		add ebx, 12
+		add ebx, 20
 		mov [ebx], eax
 ;; Field init end, pop object
 		add esp, 4
@@ -139,7 +139,7 @@ section .text
 ;; Field init:: a
 				mov eax, 4
 		mov ebx, [esp]
-		add ebx, 12
+		add ebx, 20
 		mov [ebx], eax
 ;; Field init end, pop object
 		add esp, 4
@@ -147,7 +147,7 @@ section .text
 							;; Implicit This
 				mov eax, [ebp + 12]
 				;; Field a
-				add eax, 12
+				add eax, 20
 
 			push eax
 				;; Local Var x
@@ -160,7 +160,7 @@ section .text
 
 							;; field access
 				mov eax, [ebp + 12]
-				add eax, 12
+				add eax, 20
 			push eax
 				mov eax, 70
 			pop ebx

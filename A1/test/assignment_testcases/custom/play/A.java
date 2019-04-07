@@ -4,13 +4,8 @@ public class A {
     }
 
     public static int test() {
-        int x = 17;
-        while (x>0) {
-            int y = x;
-            y=y-1;
-            };
-        return x;
+        int[] x = new int [3];
+        x[0] = 1;
+        return x[0];
     }
-
-
 }

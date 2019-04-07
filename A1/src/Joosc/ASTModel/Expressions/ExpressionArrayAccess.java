@@ -179,7 +179,7 @@ public class ExpressionArrayAccess extends ExpressionPrimary implements LeftValu
 
         asmWriter.startParagraph(indent, "Access array");
         asmWriter.indent(indent);
-        asmWriter.add(Register.eax, 2);
+        asmWriter.add(Register.eax, 3);
         asmWriter.indent(indent);
         asmWriter.shl(Register.eax, 2);
         asmWriter.indent(indent);

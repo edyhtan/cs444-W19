@@ -166,7 +166,7 @@ section .text
 				jl __exception
 
 				;; Access array
-				add eax, 2
+				add eax, 3
 				shl eax, 2
 				add eax, ebx
 
@@ -207,7 +207,7 @@ section .text
 				jl __exception
 
 				;; Access array
-				add eax, 2
+				add eax, 3
 				shl eax, 2
 				add eax, ebx
 
@@ -406,7 +406,7 @@ section .text
 				jl __exception
 
 				;; Access array
-				add eax, 2
+				add eax, 3
 				shl eax, 2
 				add eax, ebx
 
@@ -447,7 +447,7 @@ section .text
 				jl __exception
 
 				;; Access array
-				add eax, 2
+				add eax, 3
 				shl eax, 2
 				add eax, ebx
 

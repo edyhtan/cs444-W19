@@ -9,7 +9,7 @@ public class FieldsVarInfo {
     String name;
     TypeInfo typeInfo;
     ArrayList<Symbol> modifiers;
-    int offset;
+    int offset = 0;
 
     public FieldDeclr fieldsDeclr;
 

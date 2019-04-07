@@ -37,13 +37,9 @@ public class WhileStatement extends HasScope implements Statement, HasExpression
 
     @Override
     public ArrayList<Statement> getBlock() {
-        if (statement instanceof Block) {
-            return ((Block) statement).getBlock();
-        } else {
-            ArrayList<Statement> statements = new ArrayList<>();
-            statements.add(statement);
-            return statements;
-        }
+        ArrayList<Statement> statements = new ArrayList<>();
+        statements.add(statement);
+        return statements;
     }
 
     @Override
@@ -122,6 +118,7 @@ public class WhileStatement extends HasScope implements Statement, HasExpression
     public void codeGen(int indent) {
         this.offset = Program.PER_PROGRAM_COUNT;
         Program.PER_PROGRAM_COUNT++;
+        ((LocalEnv)getEnv()).getSymbolTable().assignOffset();
 
         expression.addWriter(asmWriter);
         statement.addWriter(asmWriter);

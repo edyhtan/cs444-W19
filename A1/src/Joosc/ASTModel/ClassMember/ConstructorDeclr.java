@@ -129,20 +129,10 @@ public class ConstructorDeclr implements ClassBodyDeclr, Method {
             localEnv.assignOffset(param.getValue(), (size - i) * 4);
         }
 
+        localEnv.getSymbolTable().assignOffset();
+
         if (!getModifiers().contains(Symbol.Static)) {
             localEnv.setThis((size+1)*4);
-        }
-
-        for (Statement statement : bodyBlock) {
-            statement.addWriter(asmWriter);
-
-            SymbolTable.assignOffset(statement, localEnv);
-
-            if (statement instanceof ForStatement) {
-                if(((ForStatement)statement).getBlock().size() == 1 && ((ForStatement)statement).getBlock().get(0) instanceof Block) {
-                    SymbolTable.assignOffset(((ForStatement) statement).getStatement(), (LocalEnv)((HasScope)((ForStatement) statement).getStatement().getBlock().get(0)).getEnv());
-                }
-            }
         }
 
         // Ctor label

@@ -114,7 +114,7 @@ section .text
 			jl __exception
 
 			;; Access array
-			add eax, 2
+			add eax, 3
 			shl eax, 2
 			add eax, ebx
 
@@ -302,7 +302,7 @@ section .text
 					jl __exception
 
 					;; Access array
-					add eax, 2
+					add eax, 3
 					shl eax, 2
 					add eax, ebx
 
@@ -341,7 +341,7 @@ section .text
 					jl __exception
 
 					;; Access array
-					add eax, 2
+					add eax, 3
 					shl eax, 2
 					add eax, ebx
 
@@ -506,7 +506,7 @@ section .text
 					jl __exception
 
 					;; Access array
-					add eax, 2
+					add eax, 3
 					shl eax, 2
 					add eax, ebx
 
@@ -551,7 +551,7 @@ section .text
 					jl __exception
 
 					;; Access array
-					add eax, 2
+					add eax, 3
 					shl eax, 2
 					add eax, ebx
 
@@ -670,7 +670,7 @@ section .text
 				jl __exception
 
 				;; Access array
-				add eax, 2
+				add eax, 3
 				shl eax, 2
 				add eax, ebx
 
@@ -930,7 +930,7 @@ section .text
 					jl __exception
 
 					;; Access array
-					add eax, 2
+					add eax, 3
 					shl eax, 2
 					add eax, ebx
 
@@ -1074,7 +1074,7 @@ mov eax, edx
 						jl __exception
 
 						;; Access array
-						add eax, 2
+						add eax, 3
 						shl eax, 2
 						add eax, ebx
 
@@ -1086,7 +1086,7 @@ mov eax, edx
 					;; LHS code...
 					;; Local Var d
 					mov eax, ebp
-					sub eax, 16
+					sub eax, 20
 					mov eax, [eax]
 
 					push eax
@@ -1177,7 +1177,7 @@ mov eax, edx
 					jl __exception
 
 					;; Access array
-					add eax, 2
+					add eax, 3
 					shl eax, 2
 					add eax, ebx
 
@@ -1307,7 +1307,7 @@ mov eax, edx
 					jl __exception
 
 					;; Access array
-					add eax, 2
+					add eax, 3
 					shl eax, 2
 					add eax, ebx
 
@@ -1367,7 +1367,7 @@ mov eax, edx
 					jl __exception
 
 					;; Access array
-					add eax, 2
+					add eax, 3
 					shl eax, 2
 					add eax, ebx
 
@@ -2143,7 +2143,7 @@ mov eax, edx
 					jl __exception
 
 					;; Access array
-					add eax, 2
+					add eax, 3
 					shl eax, 2
 					add eax, ebx
 
@@ -2754,7 +2754,7 @@ mov eax, edx
 					jl __exception
 
 					;; Access array
-					add eax, 2
+					add eax, 3
 					shl eax, 2
 					add eax, ebx
 
@@ -3125,7 +3125,7 @@ mov eax, edx
 				jl __exception
 
 				;; Access array
-				add eax, 2
+				add eax, 3
 				shl eax, 2
 				add eax, ebx
 
@@ -3173,7 +3173,7 @@ mov eax, edx
 				jl __exception
 
 				;; Access array
-				add eax, 2
+				add eax, 3
 				shl eax, 2
 				add eax, ebx
 
@@ -3241,7 +3241,7 @@ mov eax, edx
 				jl __exception
 
 				;; Access array
-				add eax, 2
+				add eax, 3
 				shl eax, 2
 				add eax, ebx
 
@@ -3289,7 +3289,7 @@ mov eax, edx
 				jl __exception
 
 				;; Access array
-				add eax, 2
+				add eax, 3
 				shl eax, 2
 				add eax, ebx
 
@@ -3459,7 +3459,7 @@ mov eax, edx
 					jl __exception
 
 					;; Access array
-					add eax, 2
+					add eax, 3
 					shl eax, 2
 					add eax, ebx
 
@@ -3498,7 +3498,7 @@ mov eax, edx
 					jl __exception
 
 					;; Access array
-					add eax, 2
+					add eax, 3
 					shl eax, 2
 					add eax, ebx
 
@@ -3818,7 +3818,7 @@ mov eax, edx
 						jl __exception
 
 						;; Access array
-						add eax, 2
+						add eax, 3
 						shl eax, 2
 						add eax, ebx
 
@@ -3866,7 +3866,7 @@ mov eax, edx
 						jl __exception
 
 						;; Access array
-						add eax, 2
+						add eax, 3
 						shl eax, 2
 						add eax, ebx
 
@@ -4166,7 +4166,7 @@ mov eax, 0
 						jl __exception
 
 						;; Access array
-						add eax, 2
+						add eax, 3
 						shl eax, 2
 						add eax, ebx
 
@@ -4204,7 +4204,7 @@ mov eax, 0
 						jl __exception
 
 						;; Access array
-						add eax, 2
+						add eax, 3
 						shl eax, 2
 						add eax, ebx
 
