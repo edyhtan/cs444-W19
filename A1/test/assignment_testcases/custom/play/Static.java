@@ -4,5 +4,6 @@ public class Static extends Main {
 
     public Static(int x) {
         a = x;
+        this.a = 70;
     }
 }

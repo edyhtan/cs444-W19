@@ -13,7 +13,7 @@ import Joosc.util.Tri;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class ExpressionArrayAccess extends ExpressionPrimary {
+public class ExpressionArrayAccess extends ExpressionPrimary implements LeftValue {
 
     private ArrayList<String> referenceName;
     private Expression referenceExpression;
@@ -128,6 +128,11 @@ public class ExpressionArrayAccess extends ExpressionPrimary {
             referenceExpression.addEnv(getEnv());
         }
         indexExpression.addEnv(getEnv());
+    }
+
+    @Override
+    public void getCodeAddr(int indent) {
+
     }
 
     @Override

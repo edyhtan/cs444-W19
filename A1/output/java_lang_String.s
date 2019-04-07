@@ -971,6 +971,9 @@ mov eax, edx
 
 			push eax
 
+			;; field access
+			mov eax, [eax]
+			mov eax, [eax+4]
 			push eax
 
 		call __STATIC_method__java_util_Arrays__equals$char@$char@$
@@ -1651,7 +1654,8 @@ mov eax, edx
 		push ebp
 		mov ebp, esp
 
-				jmp _method_return___method__java_lang_String__toString
+				mov eax, [ebp + 0]
+		jmp _method_return___method__java_lang_String__toString
 
 		_method_return___method__java_lang_String__toString:
 			mov esp, ebp
@@ -2405,7 +2409,11 @@ mov eax, 0
 ;; Field init end, pop object
 		add esp, 4
 ;; Constructor Body
-						push eax
+							;; field access
+				mov eax, [ebp + 12]
+				mov eax, [eax]
+				add eax, 4
+			push eax
 			pop ebx
 			mov [ebx], eax
 
@@ -2510,7 +2518,11 @@ mov eax, 0
 ;; Field init end, pop object
 		add esp, 4
 ;; Constructor Body
-						push eax
+							;; field access
+				mov eax, [ebp + 12]
+				mov eax, [eax]
+				add eax, 4
+			push eax
 				;; Local Var other
 				mov eax, ebp
 				add eax, 8

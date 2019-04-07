@@ -17,7 +17,7 @@ import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class Names extends ExpressionContent implements HasAddress {
+public class Names extends ExpressionContent implements HasAddress, LeftValue {
     ArrayList<String> name;
     FieldsVarInfo info;
     boolean staticPrefix = false;

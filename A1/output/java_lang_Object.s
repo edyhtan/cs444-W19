@@ -31,6 +31,7 @@ section .text
 
 				;; ompare_eq
 		;; LHS code...
+		mov eax, [ebp + 0]
 		push eax
 		;; RHS code...
 		;; Local Var other
@@ -84,7 +85,8 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				jmp _method_return___method__java_lang_Object__clone
+				mov eax, [ebp + 0]
+		jmp _method_return___method__java_lang_Object__clone
 
 		_method_return___method__java_lang_Object__clone:
 			mov esp, ebp

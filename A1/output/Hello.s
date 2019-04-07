@@ -56,6 +56,7 @@ section .text
 				;; Method Invocation:
 		;; o.code
 		;; Pushing args
+			mov eax, [ebp + 0]
 			push eax
 
 		call __method__Hello__like$Hello$
@@ -73,7 +74,8 @@ section .text
 		push ebp
 		mov ebp, esp
 
-				jmp _method_return___method__Hello__k
+				mov eax, [ebp + 0]
+		jmp _method_return___method__Hello__k
 
 		_method_return___method__Hello__k:
 			mov esp, ebp

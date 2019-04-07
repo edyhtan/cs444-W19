@@ -281,10 +281,8 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 break;
             case Equal:
                 asmWriter.indent(indent);
-                if (LHS instanceof Names)
-                    ((Names)LHS).getCodeAddr(indent+1);
-                else  // Array Access Expression
-                    LHS.codeGen(indent + 1);
+                ((LeftValue)LHS).getCodeAddr(indent+1);
+
                 asmWriter.indent(indent);
                 asmWriter.push(Register.eax);
                 RHS.codeGen(indent + 1);
@@ -292,6 +290,8 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 asmWriter.pop(Register.ebx);
                 asmWriter.indent(indent);
                 asmWriter.movToAddr(Register.ebx, Register.eax);
+
+                //TODO: array assignment
 
                 break;
             // arithmetic operations

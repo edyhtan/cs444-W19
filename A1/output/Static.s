@@ -89,6 +89,15 @@ section .text
 			pop ebx
 			mov [ebx], eax
 
+							;; field access
+				mov eax, [ebp + 12]
+				mov eax, [eax]
+				add eax, 12
+			push eax
+				mov eax, 70
+			pop ebx
+			mov [ebx], eax
+
 ;; Epilogue
 		mov esp, ebp
 		pop ebp

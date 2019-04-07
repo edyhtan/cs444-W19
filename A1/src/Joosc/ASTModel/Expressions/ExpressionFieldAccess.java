@@ -4,6 +4,7 @@ import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionFieldAccessNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.ClassMember.MethodDeclr;
 import Joosc.AsmWriter.AsmWriter;
+import Joosc.AsmWriter.Register;
 import Joosc.Environment.Env;
 import Joosc.Environment.FieldsVarInfo;
 import Joosc.Exceptions.NamingResolveException;
@@ -11,11 +12,14 @@ import Joosc.Exceptions.TypeCheckException;
 import Joosc.Exceptions.UnreachableStatementException;
 import Joosc.TypeSystem.JoosType;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
-public class ExpressionFieldAccess extends Expression {
+public class ExpressionFieldAccess extends Expression implements LeftValue {
     private String fieldIdentifier;
     private Expression fieldParentExpression;
+
+    JoosType parentType;
 
     public int a = 0;
 
@@ -47,6 +51,7 @@ public class ExpressionFieldAccess extends Expression {
     @Override
     public JoosType getType() throws TypeCheckException {
         JoosType fieldParentType = fieldParentExpression.getType();
+        parentType = fieldParentType;
         if (fieldParentType.getClassEnv().isFieldDeclared(fieldIdentifier)) {
             FieldsVarInfo fieldInfo = fieldParentType.getClassEnv().getFieldInfo(fieldIdentifier);
             joosType = fieldInfo.getTypeInfo().getJoosType();
@@ -105,6 +110,32 @@ public class ExpressionFieldAccess extends Expression {
     @Override
     public void codeGen(int indent) {
         fieldParentExpression.addEnv(getEnv());
+        int offset = parentType.getClassEnv().symbolTable.get(parentType.getQualifiedName()+"::"+fieldIdentifier).getOffset();
+
+        asmWriter.indent(indent);
+        asmWriter.comment("field access");
+        fieldParentExpression.addWriter(asmWriter);
+        fieldParentExpression.codeGen(indent);
+        asmWriter.indent(indent);
+        asmWriter.movFromAddr(Register.eax, Register.eax);
+        asmWriter.indent(indent);
+        asmWriter.movFromAddr(Register.eax, Register.eax + "+" + offset);
+
+    }
+
+    @Override
+    public void getCodeAddr(int indent) {
+        fieldParentExpression.addEnv(getEnv());
+        int offset = parentType.getClassEnv().symbolTable.get(parentType.getQualifiedName()+"::"+fieldIdentifier).getOffset();
+
+        asmWriter.indent(indent);
+        asmWriter.comment("field access");
+        fieldParentExpression.addWriter(asmWriter);
+        fieldParentExpression.codeGen(indent);
+        asmWriter.indent(indent);
+        asmWriter.movFromAddr(Register.eax, Register.eax);
+        asmWriter.indent(indent);
+        asmWriter.add(Register.eax, offset);
     }
 
     @Override
