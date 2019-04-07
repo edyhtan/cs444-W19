@@ -8,11 +8,11 @@ extern __method__java_lang_Object__getClass
 extern __method__java_lang_Object__equals$java_lang_Object$
 extern __class_java_io_PrintStream
 
-	global __class_java_lang_System
-__class_java_lang_System:
 
 section .data
 
+	global __class_java_lang_System
+__class_java_lang_System:
 		global __ref_SIT_java_lang_System
 	__ref_SIT_java_lang_System:
 		dd 0

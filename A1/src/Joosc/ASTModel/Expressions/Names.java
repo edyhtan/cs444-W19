@@ -274,10 +274,10 @@ public class Names extends ExpressionContent implements HasAddress {
 
     @Override
     public void codeGen(int indent) {
-        codeGenName(new ArrayList<>(name), getEnv(),false, false, indent);
+        codeGenName(new ArrayList<>(name), getEnv(),false, false, false, indent);
     }
 
-    private void codeGenName(ArrayList<String> name, Env env, boolean hasPrefix, boolean isAddress, int indent) {
+    private Env codeGenName(ArrayList<String> name, Env env, boolean hasPrefix, boolean isAddress, boolean isStatic,  int indent) {
         String curname = name.get(0);
         name.remove(0);
         JoosType type = env.getJoosType();
@@ -287,7 +287,18 @@ public class Names extends ExpressionContent implements HasAddress {
         // Used for next instance call
         Env nextEnv = null;
 
-        if (!hasPrefix && localVarPtr != 0) {
+        if (isStatic) {
+            FieldsVarInfo info = env.getStaticFieldInfo(curname);
+
+            String labelName = info.fieldsDeclr.getStaticFieldLabel();
+
+            asmWriter.extern(labelName);
+            asmWriter.indent(indent);
+            asmWriter.mov(Register.eax, labelName);
+
+            nextEnv = info.getTypeInfo().getJoosType().getClassEnv();
+            isStatic = false;
+        } else if (!hasPrefix && localVarPtr != 0) {
             asmWriter.indent(indent);
             asmWriter.comment("Local Var " + curname);
             asmWriter.indent(indent);
@@ -332,7 +343,8 @@ public class Names extends ExpressionContent implements HasAddress {
             } else {
                 ArrayList<String> prefix = new ArrayList<>();
                 prefix.add(curname);
-                ClassEnv fullTypeEnv = null;
+                ClassEnv fullTypeEnv;
+
                 do {
                     fullTypeEnv = GlobalEnv.instance.getClassEnv(prefix, getEnv().getCurrentClass().getClassEnv().getPackageDeclr() == null);
 
@@ -346,20 +358,10 @@ public class Names extends ExpressionContent implements HasAddress {
 
                 nextEnv = fullTypeEnv;
             }
-            curname = name.get(0);
-            name.remove(0);
-
-            FieldsVarInfo info = nextEnv.getStaticFieldInfo(curname);
-
-            String labelName = info.fieldsDeclr.getStaticFieldLabel();
-
-            asmWriter.indent(indent);
-            asmWriter.mov(Register.eax, labelName);
-
-            nextEnv = info.getTypeInfo().getJoosType().getClassEnv();
+            isStatic = true;
         }
 
-        if ( !isAddress || name.size() > 0 ) {
+        if ((!isAddress || name.size() > 0) && !isStatic) {
             asmWriter.indent(indent);
             asmWriter.movFromAddr(Register.eax, Register.eax);
         }
@@ -367,13 +369,15 @@ public class Names extends ExpressionContent implements HasAddress {
         asmWriter.println("");
 
         if (name.size() != 0) {
-            codeGenName(name, nextEnv, true, isAddress, indent);
+            return codeGenName(name, nextEnv, true, isAddress, isStatic, indent);
         }
+
+        return nextEnv;
     }
 
     @Override
     public void getCodeAddr(int indent) {
-        codeGenName(new ArrayList<>(name), getEnv(), false, true, indent);
+        codeGenName(new ArrayList<>(name), getEnv(), false, true, false, indent);
     }
 
     @Override

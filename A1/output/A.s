@@ -30,11 +30,11 @@ extern __ref_SIT_java_lang_System
 extern __field_java_lang_Integer_MAX_VALUE
 extern __ref_SIT_java_io_OutputStream
 
-	global __class_A
-__class_A:
 
 section .data
 
+	global __class_A
+__class_A:
 		global __ref_SIT_A
 	__ref_SIT_A:
 		dd 0
@@ -441,6 +441,7 @@ global @@@@main
 		;; ---end of declare x
 
 		;; ---declare y
+
 		mov eax, __field_java_lang_Integer_MAX_VALUE
 		mov eax, [eax]
 
@@ -457,23 +458,14 @@ global @@@@main
 		mov eax, [eax]
 
 		mov eax, [eax]
-		mov eax, [eax+8]
-		test eax, 524288
-		jnz .instance_true0
-		mov eax, 0
-		jmp .end_instance0
-		.instance_true0:
-			mov eax, 1
-		.end_instance0:
-
+		mov eax, [eax+4]
+		shr eax, 19
+		and eax, 0x1
+		
 		cmp eax, 0
 		je .else0
 		;thenClause ...
-			;; Local Var y
-			mov eax, ebp
-			sub eax, 8
-			mov eax, [eax]
-
+			mov eax, 123
 			jmp _method_return___STATIC_method__A__test
 
 

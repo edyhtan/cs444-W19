@@ -7,11 +7,11 @@ extern __method__java_lang_Object__getClass
 extern __method__java_lang_Object__equals$java_lang_Object$
 extern __STATIC_method__java_lang_String__valueOf$short$
 
-	global __class_java_lang_Short
-__class_java_lang_Short:
 
 section .data
 
+	global __class_java_lang_Short
+__class_java_lang_Short:
 		global __ref_SIT_java_lang_Short
 	__ref_SIT_java_lang_Short:
 		dd 0

@@ -8,11 +8,11 @@ extern __STATIC_method__java_util_Arrays__equals$char@$char@$
 extern __method__java_lang_Object__clone
 extern __method__java_lang_Object__hashCode
 
-	global __class_java_lang_String
-__class_java_lang_String:
 
 section .data
 
+	global __class_java_lang_String
+__class_java_lang_String:
 		global __ref_SIT_java_lang_String
 	__ref_SIT_java_lang_String:
 		dd 0

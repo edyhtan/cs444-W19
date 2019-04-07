@@ -295,6 +295,14 @@ public class AsmWriter {
         println(String.format(binaryTemplate, "test", reg, i));
     }
 
+    public void shr(Register reg, int i) {
+        println(String.format(binaryTemplate, "shr", reg, i));
+    }
+
+    public void and(Register reg, String i) {
+        println(String.format(binaryTemplate, "and", reg, i));
+    }
+
     public void iffalse(Expression expression, String label, int indent) {
         indent(indent);
         println(";expression code...");
