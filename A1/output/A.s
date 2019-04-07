@@ -387,7 +387,10 @@ global @@@@main
 		push ebp
 		mov ebp, esp
 
-				;; Unary number negation
+				;; ---declare x
+		;; Unary number negation
+		;; Unary number negation
+		;; Unary number negation
 		;; Unary number negation
 		mov eax, 123
 		mov ebx, 0
@@ -396,6 +399,19 @@ global @@@@main
 		mov ebx, 0
 		sub ebx, eax
 		mov eax, ebx
+		mov ebx, 0
+		sub ebx, eax
+		mov eax, ebx
+		mov ebx, 0
+		sub ebx, eax
+		mov eax, ebx
+		push eax
+
+		;; Local Var x
+		mov eax, ebp
+		sub eax, 4
+		mov eax, [eax]
+
 		jmp _method_return___STATIC_method__A__test
 
 		_method_return___STATIC_method__A__test:

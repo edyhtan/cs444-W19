@@ -2,7 +2,8 @@ public class A {
 
     public A() {}
     public static int test() {
-        return - - '{';
+        int x = - - - -123;
+        return x;
     }
 
 }
