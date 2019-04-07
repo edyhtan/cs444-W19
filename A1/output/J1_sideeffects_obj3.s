@@ -558,7 +558,7 @@ global @@@@main
 		mov ebp, esp
 
 					;; Implicit This
-			mov eax, [ebp + 0]
+			mov eax, [ebp + 8]
 			;; Field a
 			add eax, 4
 
@@ -566,7 +566,7 @@ global @@@@main
 			;; Plus
 			;; LHS code...
 			;; Implicit This
-			mov eax, [ebp + 0]
+			mov eax, [ebp + 8]
 			;; Field a
 			add eax, 4
 			mov eax, [eax]
@@ -582,7 +582,7 @@ global @@@@main
 		mov [ebx], eax
 
 		;; Implicit This
-		mov eax, [ebp + 0]
+		mov eax, [ebp + 8]
 		;; Field subject
 		add eax, 8
 		mov eax, [eax]
@@ -600,7 +600,7 @@ global @@@@main
 		mov ebp, esp
 
 					;; Implicit This
-			mov eax, [ebp + 0]
+			mov eax, [ebp + 8]
 			;; Field subject
 			add eax, 8
 
@@ -619,7 +619,7 @@ global @@@@main
 				;; Plus
 				;; LHS code...
 				;; Implicit This
-				mov eax, [ebp + 0]
+				mov eax, [ebp + 8]
 				;; Field a
 				add eax, 4
 				mov eax, [eax]
@@ -632,7 +632,7 @@ global @@@@main
 				push eax
 				;; RHS code...
 				;; Implicit This
-				mov eax, [ebp + 0]
+				mov eax, [ebp + 8]
 				;; Field subject
 				add eax, 8
 				mov eax, [eax]
@@ -675,7 +675,7 @@ global @@@@main
 		mov [ebx], eax
 
 					;; Implicit This
-			mov eax, [ebp + 0]
+			mov eax, [ebp + 8]
 			;; Field a
 			add eax, 4
 
@@ -683,7 +683,7 @@ global @@@@main
 			;; Plus
 			;; LHS code...
 			;; Implicit This
-			mov eax, [ebp + 0]
+			mov eax, [ebp + 8]
 			;; Field a
 			add eax, 4
 			mov eax, [eax]
@@ -701,7 +701,7 @@ global @@@@main
 		;; Plus
 		;; LHS code...
 		;; Implicit This
-		mov eax, [ebp + 0]
+		mov eax, [ebp + 8]
 		;; Field a
 		add eax, 4
 		mov eax, [eax]

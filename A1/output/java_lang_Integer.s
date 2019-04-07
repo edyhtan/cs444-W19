@@ -45,7 +45,7 @@ section .text
 		mov ebp, esp
 
 		;; Implicit This
-		mov eax, [ebp + 0]
+		mov eax, [ebp + 8]
 		;; Field value
 		add eax, 4
 		mov eax, [eax]
@@ -524,7 +524,7 @@ section .text
 
 		;; Pushing args
 			;; Implicit This
-			mov eax, [ebp + 0]
+			mov eax, [ebp + 8]
 			;; Field value
 			add eax, 4
 			mov eax, [eax]

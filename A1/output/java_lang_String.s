@@ -55,7 +55,7 @@ section .text
 		mov ebp, esp
 
 		;; Implicit This
-		mov eax, [ebp + 0]
+		mov eax, [ebp + 8]
 		;; Field chars
 		add eax, 4
 		mov eax, [eax]
@@ -1075,7 +1075,7 @@ mov eax, edx
 
 		;; Pushing args
 			;; Implicit This
-			mov eax, [ebp + 0]
+			mov eax, [ebp + 12]
 			;; Field chars
 			add eax, 4
 			mov eax, [eax]
@@ -1794,7 +1794,7 @@ mov eax, edx
 			push eax
 			;; RHS code...
 			;; Implicit This
-			mov eax, [ebp + 0]
+			mov eax, [ebp + 8]
 			;; Field chars
 			add eax, 4
 			mov eax, [eax]
@@ -1896,7 +1896,7 @@ mov eax, edx
 		push ebp
 		mov ebp, esp
 
-		mov eax, [ebp + 0]
+		mov eax, [ebp + 8]
 		jmp _method_return___method__java_lang_String__toString
 
 		_method_return___method__java_lang_String__toString:
@@ -1995,7 +1995,7 @@ mov eax, edx
 			push eax
 			;; RHS code...
 			;; Implicit This
-			mov eax, [ebp + 0]
+			mov eax, [ebp + 12]
 			;; Field chars
 			add eax, 4
 			mov eax, [eax]
@@ -2077,7 +2077,7 @@ mov eax, edx
 			push eax
 			;; RHS code...
 			;; Implicit This
-			mov eax, [ebp + 0]
+			mov eax, [ebp + 12]
 			;; Field chars
 			add eax, 4
 			mov eax, [eax]
