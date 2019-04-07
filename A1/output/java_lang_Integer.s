@@ -106,7 +106,7 @@ section .text
 			push eax
 
 			;; Pushing args
-			;; class method:
+			;; class method: length
 			;; addr of o
 			mov eax, [esp + 0]
 			;; vtable
@@ -155,9 +155,9 @@ section .text
 
 				push eax
 
-			;; class method:
+			;; class method: charAt
 			;; addr of o
-			mov eax, [esp + 4]
+			mov eax, [esp + 0]
 			;; vtable
 			mov eax, [eax]
 			;; addr of m body
@@ -207,9 +207,9 @@ section .text
 
 				push eax
 
-			;; class method:
+			;; class method: charAt
 			;; addr of o
-			mov eax, [esp + 4]
+			mov eax, [esp + 0]
 			;; vtable
 			mov eax, [eax]
 			;; addr of m body
@@ -258,9 +258,9 @@ section .text
 
 				push eax
 
-			;; class method:
+			;; class method: charAt
 			;; addr of o
-			mov eax, [esp + 4]
+			mov eax, [esp + 0]
 			;; vtable
 			mov eax, [eax]
 			;; addr of m body
@@ -318,9 +318,9 @@ section .text
 
 				push eax
 
-			;; class method:
+			;; class method: charAt
 			;; addr of o
-			mov eax, [esp + 4]
+			mov eax, [esp + 0]
 			;; vtable
 			mov eax, [eax]
 			;; addr of m body
@@ -415,9 +415,9 @@ section .text
 
 						push eax
 
-					;; class method:
+					;; class method: charAt
 					;; addr of o
-					mov eax, [esp + 4]
+					mov eax, [esp + 0]
 					;; vtable
 					mov eax, [eax]
 					;; addr of m body

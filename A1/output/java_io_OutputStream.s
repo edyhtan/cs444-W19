@@ -59,9 +59,9 @@ section .text
 
 						push eax
 
-		;; class method:
+		;; class method: write
 		;; addr of o
-		mov eax, [esp + 4]
+		mov eax, [esp + 12]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body

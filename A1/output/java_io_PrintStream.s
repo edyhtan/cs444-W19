@@ -98,9 +98,9 @@ section .text
 			push eax
 
 			;; Pushing args
-			;; class method:
+			;; class method: length
 			;; addr of o
-			mov eax, [esp + 0]
+			mov eax, [esp + 12]
 			;; vtable
 			mov eax, [eax]
 			;; addr of m body
@@ -154,9 +154,9 @@ section .text
 
 					push eax
 
-				;; class method:
+				;; class method: charAt
 				;; addr of o
-				mov eax, [esp + 4]
+				mov eax, [esp + 0]
 				;; vtable
 				mov eax, [eax]
 				;; addr of m body
@@ -170,9 +170,9 @@ section .text
 				;; ---End of method invocation
 				push eax
 
-			;; class method:
+			;; class method: write
 			;; addr of o
-			mov eax, [esp + 4]
+			mov eax, [esp + 0]
 			;; vtable
 			mov eax, [eax]
 			;; addr of m body
@@ -238,9 +238,9 @@ section .text
 		;; Pushing args
 						push eax
 
-		;; class method:
+		;; class method: println
 		;; addr of o
-		mov eax, [esp + 4]
+		mov eax, [esp + 8]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
@@ -279,9 +279,9 @@ section .text
 
 			push eax
 
-		;; class method:
+		;; class method: print
 		;; addr of o
-		mov eax, [esp + 4]
+		mov eax, [esp + 12]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
@@ -305,9 +305,9 @@ section .text
 			mov eax, 92
 			push eax
 
-		;; class method:
+		;; class method: write
 		;; addr of o
-		mov eax, [esp + 4]
+		mov eax, [esp + 12]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
@@ -360,9 +360,9 @@ section .text
 			;; ---End of method invocation
 			push eax
 
-		;; class method:
+		;; class method: println
 		;; addr of o
-		mov eax, [esp + 4]
+		mov eax, [esp + 12]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
@@ -415,9 +415,9 @@ section .text
 			;; ---End of method invocation
 			push eax
 
-		;; class method:
+		;; class method: println
 		;; addr of o
-		mov eax, [esp + 4]
+		mov eax, [esp + 12]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
@@ -470,9 +470,9 @@ section .text
 			;; ---End of method invocation
 			push eax
 
-		;; class method:
+		;; class method: println
 		;; addr of o
-		mov eax, [esp + 4]
+		mov eax, [esp + 12]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
@@ -525,9 +525,9 @@ section .text
 			;; ---End of method invocation
 			push eax
 
-		;; class method:
+		;; class method: println
 		;; addr of o
-		mov eax, [esp + 4]
+		mov eax, [esp + 12]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
@@ -580,9 +580,9 @@ section .text
 			;; ---End of method invocation
 			push eax
 
-		;; class method:
+		;; class method: println
 		;; addr of o
-		mov eax, [esp + 4]
+		mov eax, [esp + 12]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
@@ -635,9 +635,9 @@ section .text
 			;; ---End of method invocation
 			push eax
 
-		;; class method:
+		;; class method: println
 		;; addr of o
-		mov eax, [esp + 4]
+		mov eax, [esp + 12]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
@@ -690,9 +690,9 @@ section .text
 			;; ---End of method invocation
 			push eax
 
-		;; class method:
+		;; class method: print
 		;; addr of o
-		mov eax, [esp + 4]
+		mov eax, [esp + 12]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
@@ -745,9 +745,9 @@ section .text
 			;; ---End of method invocation
 			push eax
 
-		;; class method:
+		;; class method: print
 		;; addr of o
-		mov eax, [esp + 4]
+		mov eax, [esp + 12]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
@@ -800,9 +800,9 @@ section .text
 			;; ---End of method invocation
 			push eax
 
-		;; class method:
+		;; class method: print
 		;; addr of o
-		mov eax, [esp + 4]
+		mov eax, [esp + 12]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
@@ -855,9 +855,9 @@ section .text
 			;; ---End of method invocation
 			push eax
 
-		;; class method:
+		;; class method: print
 		;; addr of o
-		mov eax, [esp + 4]
+		mov eax, [esp + 12]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
@@ -910,9 +910,9 @@ section .text
 			;; ---End of method invocation
 			push eax
 
-		;; class method:
+		;; class method: print
 		;; addr of o
-		mov eax, [esp + 4]
+		mov eax, [esp + 12]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
@@ -965,9 +965,9 @@ section .text
 			;; ---End of method invocation
 			push eax
 
-		;; class method:
+		;; class method: print
 		;; addr of o
-		mov eax, [esp + 4]
+		mov eax, [esp + 12]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body

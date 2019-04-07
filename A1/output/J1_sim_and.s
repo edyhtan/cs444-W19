@@ -426,9 +426,9 @@ global @@@@main
 
 			push eax
 
-		;; class method:
+		;; class method: sim_and
 		;; addr of o
-		mov eax, [esp + 8]
+		mov eax, [esp + 0]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
@@ -629,9 +629,9 @@ mov eax, edx
 
 			push eax
 
-		;; class method:
+		;; class method: sim_and
 		;; addr of o
-		mov eax, [esp + 8]
+		mov eax, [esp + 16]
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
