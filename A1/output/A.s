@@ -450,7 +450,7 @@ global @@@@main
 		mov eax, [eax]
 		mov eax, [eax+4]
 		shr eax, 18
-		and eax, 1
+		and eax, 0x1
 		
 		cmp eax, 0
 		je .else0
@@ -474,7 +474,7 @@ global @@@@main
 			mov eax, [eax]
 			mov eax, [eax+4]
 			shr eax, 17
-			and eax, 1
+			and eax, 0x1
 			
 			cmp eax, 0
 			je .else1

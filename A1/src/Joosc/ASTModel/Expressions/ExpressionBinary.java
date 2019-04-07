@@ -379,7 +379,7 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 asmWriter.indent(indent);
                 asmWriter.shr(Register.eax, column);
                 asmWriter.indent(indent);
-                asmWriter.and(Register.eax,0x1);
+                asmWriter.and(Register.eax,"0x1");
                 asmWriter.indent(indent);
                 break;
             // logical operations

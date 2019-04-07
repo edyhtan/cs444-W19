@@ -295,7 +295,7 @@ public class AsmWriter {
         println(String.format(binaryTemplate, "shr", reg, i));
     }
 
-    public void and(Register reg, int i) {
+    public void and(Register reg, String i) {
         println(String.format(binaryTemplate, "and", reg, i));
     }
 
