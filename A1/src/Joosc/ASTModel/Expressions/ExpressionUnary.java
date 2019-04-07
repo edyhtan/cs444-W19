@@ -157,6 +157,7 @@ public class ExpressionUnary extends Expression implements ConstantExpression {
                 asmWriter.indent(indent);
                 asmWriter.cmp(Register.eax, "0");
                 asmWriter.indent(indent);
+                asmWriter.extern("__exception");
                 asmWriter.je("__exception");
             } else { // casting primitive types
                 // TODO
