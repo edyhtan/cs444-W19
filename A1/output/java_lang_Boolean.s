@@ -17,7 +17,7 @@ __class_java_lang_Boolean:
 
 		global __ref_PARENTS_java_lang_Boolean
 	__ref_PARENTS_java_lang_Boolean:
-		dd 000000100001000000000b
+		dd 0100001000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
