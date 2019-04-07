@@ -49,6 +49,14 @@ __class_A:
 		dd __STATIC_method__A__test
 
 ;; Static fields
+		global __field_A_b
+__field_A_b:
+		dd 0
+
+		global __field_A_a
+__field_A_a:
+		dd 0
+
 
 section .text
 
@@ -400,6 +408,16 @@ mov eax, 3
 mov ebx, __field_java_lang_Boolean_MAX_VALUE
 mov [ebx], eax
 
+;; Static Field: __field_A_b
+mov eax, 3
+mov ebx, __field_A_b
+mov [ebx], eax
+
+;; Static Field: __field_A_a
+mov eax, 3
+mov ebx, __field_A_a
+mov [ebx], eax
+
 call @@@@main
 mov ebx, eax
 mov eax, 1
@@ -413,15 +431,29 @@ global @@@@main
 		push ebp
 		mov ebp, esp
 
-		;; Minus
+		;; Plus
 		;; LHS code...
-		;; constant primitive casting to [char]
-		mov eax, 65413
+		;; Plus
+		;; LHS code...
+
+		mov eax, __field_A_a
+		mov eax, [eax]
+
 		push eax
 		;; RHS code...
-		mov eax, 65290
+
+		mov eax, __field_A_b
+		mov eax, [eax]
+
 		pop ebx
-		sub ebx, eax
+		add ebx, eax
+		mov eax, ebx
+
+		push eax
+		;; RHS code...
+		mov eax, 101
+		pop ebx
+		add ebx, eax
 		mov eax, ebx
 
 		jmp _method_return___STATIC_method__A__test
@@ -444,6 +476,19 @@ global @@@@main
 ;; Field init, push object to stack
 		mov eax, [ebp + 8]
 		push eax
+;; Field init:: b
+
+				mov eax, __field_A_a
+				mov eax, [eax]
+
+		mov ebx, [esp]
+		add ebx, 0
+		mov [ebx], eax
+;; Field init:: a
+				mov eax, 22
+		mov ebx, [esp]
+		add ebx, 0
+		mov [ebx], eax
 ;; Field init end, pop object
 		add esp, 4
 ;; Constructor Body
