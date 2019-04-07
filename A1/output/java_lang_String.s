@@ -785,29 +785,29 @@ section .text
 			mov ebx, 0
 			call __new_array
 				mov ecx, 45
-				mov [eax + 8], ecx
-				mov ecx, 50
 				mov [eax + 12], ecx
-				mov ecx, 49
+				mov ecx, 50
 				mov [eax + 16], ecx
-				mov ecx, 52
+				mov ecx, 49
 				mov [eax + 20], ecx
-				mov ecx, 55
+				mov ecx, 52
 				mov [eax + 24], ecx
-				mov ecx, 52
+				mov ecx, 55
 				mov [eax + 28], ecx
-				mov ecx, 56
-				mov [eax + 32], ecx
-				mov ecx, 51
-				mov [eax + 36], ecx
-				mov ecx, 54
-				mov [eax + 40], ecx
 				mov ecx, 52
-				mov [eax + 44], ecx
+				mov [eax + 32], ecx
 				mov ecx, 56
+				mov [eax + 36], ecx
+				mov ecx, 51
+				mov [eax + 40], ecx
+				mov ecx, 54
+				mov [eax + 44], ecx
+				mov ecx, 52
 				mov [eax + 48], ecx
-				mov ecx, 0
+				mov ecx, 56
 				mov [eax + 52], ecx
+				mov ecx, 0
+				mov [eax + 56], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8
@@ -1528,15 +1528,15 @@ mov eax, edx
 			mov ebx, 0
 			call __new_array
 				mov ecx, 116
-				mov [eax + 8], ecx
-				mov ecx, 114
 				mov [eax + 12], ecx
-				mov ecx, 117
+				mov ecx, 114
 				mov [eax + 16], ecx
-				mov ecx, 101
+				mov ecx, 117
 				mov [eax + 20], ecx
-				mov ecx, 0
+				mov ecx, 101
 				mov [eax + 24], ecx
+				mov ecx, 0
+				mov [eax + 28], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8
@@ -1556,17 +1556,17 @@ mov eax, edx
 			mov ebx, 0
 			call __new_array
 				mov ecx, 102
-				mov [eax + 8], ecx
-				mov ecx, 97
 				mov [eax + 12], ecx
-				mov ecx, 108
+				mov ecx, 97
 				mov [eax + 16], ecx
-				mov ecx, 115
+				mov ecx, 108
 				mov [eax + 20], ecx
-				mov ecx, 101
+				mov ecx, 115
 				mov [eax + 24], ecx
-				mov ecx, 0
+				mov ecx, 101
 				mov [eax + 28], ecx
+				mov ecx, 0
+				mov [eax + 32], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8
@@ -1618,15 +1618,15 @@ mov eax, edx
 			mov ebx, 0
 			call __new_array
 				mov ecx, 110
-				mov [eax + 8], ecx
-				mov ecx, 117
 				mov [eax + 12], ecx
-				mov ecx, 108
+				mov ecx, 117
 				mov [eax + 16], ecx
 				mov ecx, 108
 				mov [eax + 20], ecx
-				mov ecx, 0
+				mov ecx, 108
 				mov [eax + 24], ecx
+				mov ecx, 0
+				mov [eax + 28], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8
@@ -1712,15 +1712,15 @@ mov eax, edx
 			mov ebx, 0
 			call __new_array
 				mov ecx, 110
-				mov [eax + 8], ecx
-				mov ecx, 117
 				mov [eax + 12], ecx
-				mov ecx, 108
+				mov ecx, 117
 				mov [eax + 16], ecx
 				mov ecx, 108
 				mov [eax + 20], ecx
-				mov ecx, 0
+				mov ecx, 108
 				mov [eax + 24], ecx
+				mov ecx, 0
+				mov [eax + 28], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8
@@ -1898,7 +1898,7 @@ mov eax, edx
 			mov ebx, 0
 			call __new_array
 				mov ecx, 0
-				mov [eax + 8], ecx
+				mov [eax + 12], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8
@@ -1964,7 +1964,7 @@ mov eax, edx
 			mov ebx, 0
 			call __new_array
 				mov ecx, 0
-				mov [eax + 8], ecx
+				mov [eax + 12], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8
@@ -2012,7 +2012,7 @@ mov eax, edx
 			mov ebx, 0
 			call __new_array
 				mov ecx, 0
-				mov [eax + 8], ecx
+				mov [eax + 12], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8
@@ -2578,7 +2578,7 @@ mov eax, edx
 			mov ebx, 0
 			call __new_array
 				mov ecx, 0
-				mov [eax + 8], ecx
+				mov [eax + 12], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8

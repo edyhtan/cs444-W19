@@ -74,43 +74,43 @@ section .text
 		mov ebx, 0
 		call __new_array
 			mov ecx, 83
-			mov [eax + 8], ecx
-			mov ecx, 111
 			mov [eax + 12], ecx
-			mov ecx, 109
+			mov ecx, 111
 			mov [eax + 16], ecx
-			mov ecx, 101
-			mov [eax + 20], ecx
-			mov ecx, 32
-			mov [eax + 24], ecx
-			mov ecx, 114
-			mov [eax + 28], ecx
-			mov ecx, 97
-			mov [eax + 32], ecx
-			mov ecx, 110
-			mov [eax + 36], ecx
-			mov ecx, 100
-			mov [eax + 40], ecx
-			mov ecx, 111
-			mov [eax + 44], ecx
 			mov ecx, 109
-			mov [eax + 48], ecx
-			mov ecx, 32
-			mov [eax + 52], ecx
-			mov ecx, 111
-			mov [eax + 56], ecx
-			mov ecx, 98
-			mov [eax + 60], ecx
-			mov ecx, 106
-			mov [eax + 64], ecx
+			mov [eax + 20], ecx
 			mov ecx, 101
+			mov [eax + 24], ecx
+			mov ecx, 32
+			mov [eax + 28], ecx
+			mov ecx, 114
+			mov [eax + 32], ecx
+			mov ecx, 97
+			mov [eax + 36], ecx
+			mov ecx, 110
+			mov [eax + 40], ecx
+			mov ecx, 100
+			mov [eax + 44], ecx
+			mov ecx, 111
+			mov [eax + 48], ecx
+			mov ecx, 109
+			mov [eax + 52], ecx
+			mov ecx, 32
+			mov [eax + 56], ecx
+			mov ecx, 111
+			mov [eax + 60], ecx
+			mov ecx, 98
+			mov [eax + 64], ecx
+			mov ecx, 106
 			mov [eax + 68], ecx
-			mov ecx, 99
+			mov ecx, 101
 			mov [eax + 72], ecx
-			mov ecx, 116
+			mov ecx, 99
 			mov [eax + 76], ecx
-			mov ecx, 0
+			mov ecx, 116
 			mov [eax + 80], ecx
+			mov ecx, 0
+			mov [eax + 84], ecx
 		push eax
 		call __constructor__java_lang_String__String$char@$
 		add esp, 8

@@ -477,13 +477,13 @@ global @@@@main
 		mov ebx, 0
 		call __new_array
 			mov ecx, 49
-			mov [eax + 8], ecx
-			mov ecx, 50
 			mov [eax + 12], ecx
-			mov ecx, 51
+			mov ecx, 50
 			mov [eax + 16], ecx
-			mov ecx, 0
+			mov ecx, 51
 			mov [eax + 20], ecx
+			mov ecx, 0
+			mov [eax + 24], ecx
 		push eax
 		call __constructor__java_lang_String__String$char@$
 		add esp, 8
@@ -518,13 +518,13 @@ global @@@@main
 			mov ebx, 0
 			call __new_array
 				mov ecx, 49
-				mov [eax + 8], ecx
-				mov ecx, 50
 				mov [eax + 12], ecx
-				mov ecx, 51
+				mov ecx, 50
 				mov [eax + 16], ecx
-				mov ecx, 0
+				mov ecx, 51
 				mov [eax + 20], ecx
+				mov ecx, 0
+				mov [eax + 24], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 8
