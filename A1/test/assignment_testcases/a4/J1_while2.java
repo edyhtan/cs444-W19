@@ -11,7 +11,7 @@ public class J1_while2 {
 //    }
     public static int test() {
 //	return new J1_while2().m(17)+123;
-
+        int x = 17;
 		while (x>0) {
 			int y = x;
 			y=y-1;
