@@ -86,10 +86,8 @@ mov eax, 0
 		add ebx, 4
 		mov [ebx], eax
 ;; Field init:: MAX_VALUE
-				;; casting
-				;; primitive run-time casting to [byte]
-								mov eax, 127
-				and eax, 0xff
+				;; constant primitive casting to [byte]
+				mov eax, 127
 		mov ebx, [esp]
 		add ebx, 0
 		mov [ebx], eax
@@ -132,10 +130,8 @@ mov eax, 0
 		add ebx, 4
 		mov [ebx], eax
 ;; Field init:: MAX_VALUE
-				;; casting
-				;; primitive run-time casting to [byte]
-								mov eax, 127
-				and eax, 0xff
+				;; constant primitive casting to [byte]
+				mov eax, 127
 		mov ebx, [esp]
 		add ebx, 0
 		mov [ebx], eax

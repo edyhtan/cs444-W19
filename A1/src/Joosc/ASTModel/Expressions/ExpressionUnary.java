@@ -88,43 +88,45 @@ public class ExpressionUnary extends Expression implements ConstantExpression {
     @Override
     public boolean isConstantExpression() {
         // Type checked before static analysis, all should be valid
-        if (constantLiteral != null) {
-            return true;
-        }
-        if (targetNode.isConstantExpression() && unaryOperator !=null) {
+//        if (constantLiteral != null) {
+//            return true;
+//        }
+        if (targetNode.isConstantExpression() && unaryOperator != null) {
             ConstantLiteral targetConstant = ((ConstantExpression) targetNode).evaluateConstant();
             switch (unaryOperator) {
                 case Plus:
                     constantLiteral = targetConstant;
                     return true;
                 case Minus:
-                    constantLiteral = new ConstantLiteral((int)-targetConstant.toLong(), targetConstant.type);
+                    constantLiteral = new ConstantLiteral((int) -targetConstant.toLong(), targetConstant.type);
                     return true;
                 case Bang:
                     constantLiteral = new ConstantLiteral(!targetConstant.toBoolean(), targetConstant.type);
                     return true;
             }
-            if (castingType != null) {
-                if (joosType.isPrimitive()) {
-                    long targetNum = Long.valueOf(targetConstant.literal);
-                    System.err.println(targetNum);
-                    String result = targetConstant.literal;
-                    if(joosType.getTypeName().get(0).equals("int")) {
-                        result = String.valueOf((int) targetNum);
-                    } if (joosType.getTypeName().get(0).equals("char")) {
-                        result = String.valueOf((char) targetNum);
-                    } else if (joosType.getTypeName().get(0).equals("short")) {
-                        result = String.valueOf((short) targetNum);
-                    } else if (joosType.getTypeName().get(0).equals("byte")) {
-                        result = String.valueOf((byte) targetNum);
-                    }
-                    constantLiteral = new ConstantLiteral(result, joosType);
-                    return true;
+        }
+        if (targetNode.isConstantExpression() && castingType != null) {
+            ConstantLiteral targetConstant = ((ConstantExpression) targetNode).evaluateConstant();
+            if (joosType.isPrimitive()) {
+                long targetNum = Long.valueOf(targetConstant.literal);
+                String result = targetConstant.literal;
+                if (joosType.getTypeName().get(0).equals("int")) {
+                    result = String.valueOf((int) targetNum);
                 }
+                if (joosType.getTypeName().get(0).equals("char")) {
+                    result = String.valueOf((int)(char) targetNum);
+                } else if (joosType.getTypeName().get(0).equals("short")) {
+                    result = String.valueOf((short) targetNum);
+                } else if (joosType.getTypeName().get(0).equals("byte")) {
+                    result = String.valueOf((byte) targetNum);
+                }
+                constantLiteral = new ConstantLiteral(result, joosType);
+                return true;
             }
         }
         return false;
     }
+
 
     @Override
     public ConstantLiteral evaluateConstant() {
@@ -154,12 +156,11 @@ public class ExpressionUnary extends Expression implements ConstantExpression {
             offset = MethodDeclr.PER_METHOD_COUNT;
             MethodDeclr.PER_METHOD_COUNT++;
 
-            asmWriter.indent(indent);
-            asmWriter.comment("casting");
-
             int column = AsmWriter.parentMatrix.indexOf(joosType);
 
             if (!joosType.isPrimitive()) {
+                asmWriter.indent(indent);
+                asmWriter.comment("casting");
                 asmWriter.indent(indent);
                 targetNode.codeGen(indent);
 
@@ -189,13 +190,12 @@ public class ExpressionUnary extends Expression implements ConstantExpression {
                 asmWriter.indent(indent);
                 asmWriter.label(".cast_end" + offset);
             } else { // casting primitive types
-                if (this.isConstantExpression()) {
+                if (isConstantExpression()) {
                     // compute at compile time and put value directly to eax
                     asmWriter.indent(indent);
                     asmWriter.comment("constant primitive casting to " + joosType.getTypeName());
                     asmWriter.indent(indent);
-                    asmWriter.mov(Register.eax, this.constantLiteral.literal);
-                    System.out.println(this.constantLiteral.literal);
+                    asmWriter.mov(Register.eax, this.evaluateConstant().literal);
                 } else {
                     // compute at run-time, get lower bits by eax & 0xff or eax & 0xffff
                     asmWriter.indent(indent);
@@ -204,8 +204,8 @@ public class ExpressionUnary extends Expression implements ConstantExpression {
                     targetNode.codeGen(indent);
                     asmWriter.indent(indent);
                     if (joosType.getTypeName().get(0).equals("short") || joosType.getTypeName().get(0).equals("char")) {
-                        asmWriter.and(Register.eax, "0xfff");
-                    } else if(joosType.getTypeName().get(0).equals("byte")) {
+                        asmWriter.and(Register.eax, "0xffff");
+                    } else if (joosType.getTypeName().get(0).equals("byte")) {
                         asmWriter.and(Register.eax, "0xff");
                     }
                 }

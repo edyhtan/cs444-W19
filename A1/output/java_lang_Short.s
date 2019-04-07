@@ -38,7 +38,6 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; casting
 		;; primitive run-time casting to [int]
 				;; Implicit This
 		mov eax, [ebp + 8]

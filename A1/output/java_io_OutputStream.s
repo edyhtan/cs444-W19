@@ -49,7 +49,6 @@ section .text
 		push eax
 
 		;; Pushing args
-			;; casting
 			;; primitive run-time casting to [int]
 						;; Local Var c
 			mov eax, ebp

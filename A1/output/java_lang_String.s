@@ -610,7 +610,6 @@ mov eax, edx
 
 
 								push eax
-					;; casting
 					;; primitive run-time casting to [char]
 										;; Plus
 					;; LHS code...
@@ -626,7 +625,7 @@ mov eax, edx
 					add ebx, eax
 					mov eax, ebx
 
-					and eax, 0xfff
+					and eax, 0xffff
 				pop ebx
 				mov [ebx], eax
 
@@ -828,7 +827,6 @@ mov eax, edx
 		;; static method, dont push this
 
 		;; Pushing args
-			;; casting
 			;; primitive run-time casting to [int]
 						;; Local Var i
 			mov eax, ebp
@@ -861,7 +859,6 @@ mov eax, edx
 		;; static method, dont push this
 
 		;; Pushing args
-			;; casting
 			;; primitive run-time casting to [int]
 						;; Local Var i
 			mov eax, ebp
