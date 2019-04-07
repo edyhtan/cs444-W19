@@ -41,7 +41,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation: o.m(...)
+		;; ---Method Invocation: 
 		;; Names(ArgList)
 		cmp eax, 0
 		je __exception
@@ -65,6 +65,7 @@ section .text
 		;; pop arguments
 		add esp, 8
 
+		;; ---End of method invocation
 
 		_method_return___method__java_io_OutputStream__write$char$:
 			mov esp, ebp
@@ -76,7 +77,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation: o.m(...)
+		;; ---Method Invocation: 
 		;; Names(ArgList)
 
 		;; static method, dont push this
@@ -94,6 +95,7 @@ section .text
 
 		add esp, 4
 
+		;; ---End of method invocation
 
 		_method_return___method__java_io_OutputStream__write$int$:
 			mov esp, ebp

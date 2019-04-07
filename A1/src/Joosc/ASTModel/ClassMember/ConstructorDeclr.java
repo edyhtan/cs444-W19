@@ -129,7 +129,7 @@ public class ConstructorDeclr implements ClassBodyDeclr, Method {
             localEnv.assignOffset(param.getValue(), (size - i) * 4);
         }
 
-        if (getModifiers().contains(Symbol.Static)) {
+        if (!getModifiers().contains(Symbol.Static)) {
             localEnv.setThis((size+1)*4);
         }
 

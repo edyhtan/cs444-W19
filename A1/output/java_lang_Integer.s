@@ -45,7 +45,7 @@ section .text
 		mov ebp, esp
 
 		;; Implicit This
-		mov eax, [ebp + 0]
+		mov eax, [ebp + 8]
 		;; Field value
 		add eax, 4
 		mov eax, [eax]
@@ -92,7 +92,7 @@ section .text
 
 			push eax
 			;; RHS code...
-			;; Method Invocation: o.m(...)
+			;; ---Method Invocation: 
 			;; Names(ArgList)
 				;; Local Var s
 				mov eax, ebp
@@ -118,6 +118,7 @@ section .text
 			;; pop arguments
 			add esp, 4
 
+			;; ---End of method invocation
 			pop ebx
 			cmp ebx, eax
 			jl .lt1
@@ -132,7 +133,7 @@ section .text
 			;; logical_or
 			;; ompare_eq
 			;; LHS code...
-			;; Method Invocation: o.m(...)
+			;; ---Method Invocation: 
 			;; Names(ArgList)
 				;; Local Var s
 				mov eax, ebp
@@ -165,6 +166,7 @@ section .text
 			;; pop arguments
 			add esp, 8
 
+			;; ---End of method invocation
 			push eax
 			;; RHS code...
 			mov eax, 45
@@ -182,7 +184,7 @@ section .text
 			;; logical_and
 			;; ompare_ge
 			;; LHS code...
-			;; Method Invocation: o.m(...)
+			;; ---Method Invocation: 
 			;; Names(ArgList)
 				;; Local Var s
 				mov eax, ebp
@@ -215,6 +217,7 @@ section .text
 			;; pop arguments
 			add esp, 8
 
+			;; ---End of method invocation
 			push eax
 			;; RHS code...
 			mov eax, 48
@@ -231,7 +234,7 @@ section .text
 			je .end_and4
 			;; ompare_le
 			;; LHS code...
-			;; Method Invocation: o.m(...)
+			;; ---Method Invocation: 
 			;; Names(ArgList)
 				;; Local Var s
 				mov eax, ebp
@@ -264,6 +267,7 @@ section .text
 			;; pop arguments
 			add esp, 8
 
+			;; ---End of method invocation
 			push eax
 			;; RHS code...
 			mov eax, 57
@@ -289,7 +293,7 @@ section .text
 			;expression code...
 			;; ompare_eq
 			;; LHS code...
-			;; Method Invocation: o.m(...)
+			;; ---Method Invocation: 
 			;; Names(ArgList)
 				;; Local Var s
 				mov eax, ebp
@@ -322,6 +326,7 @@ section .text
 			;; pop arguments
 			add esp, 8
 
+			;; ---End of method invocation
 			push eax
 			;; RHS code...
 			mov eax, 45
@@ -384,7 +389,7 @@ section .text
 
 					push eax
 					;; RHS code...
-					;; Method Invocation: o.m(...)
+					;; ---Method Invocation: 
 					;; Names(ArgList)
 						;; Local Var s
 						mov eax, ebp
@@ -417,6 +422,7 @@ section .text
 					;; pop arguments
 					add esp, 8
 
+					;; ---End of method invocation
 					pop ebx
 					add ebx, eax
 					mov eax, ebx
@@ -511,14 +517,14 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation: o.m(...)
+		;; ---Method Invocation: 
 		;; Names(ArgList)
 
 		;; static method, dont push this
 
 		;; Pushing args
 			;; Implicit This
-			mov eax, [ebp + 0]
+			mov eax, [ebp + 8]
 			;; Field value
 			add eax, 4
 			mov eax, [eax]
@@ -530,6 +536,7 @@ section .text
 
 		add esp, 4
 
+		;; ---End of method invocation
 		jmp _method_return___method__java_lang_Integer__toString
 
 		_method_return___method__java_lang_Integer__toString:
@@ -612,7 +619,7 @@ mov eax, 0
 				add eax, 4
 
 			push eax
-				;; Method Invocation: o.m(...)
+				;; ---Method Invocation: 
 				;; Names(ArgList)
 
 				;; static method, dont push this
@@ -630,6 +637,7 @@ mov eax, 0
 
 				add esp, 4
 
+				;; ---End of method invocation
 			pop ebx
 			mov [ebx], eax
 

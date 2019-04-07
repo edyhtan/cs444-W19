@@ -84,7 +84,7 @@ section .text
 
 			push eax
 			;; RHS code...
-			;; Method Invocation: o.m(...)
+			;; ---Method Invocation: 
 			;; Names(ArgList)
 				;; Local Var s
 				mov eax, ebp
@@ -110,6 +110,7 @@ section .text
 			;; pop arguments
 			add esp, 4
 
+			;; ---End of method invocation
 			pop ebx
 			cmp ebx, eax
 			jl .lt0
@@ -122,7 +123,7 @@ section .text
 			cmp eax, 0
 			je .endfor0
 			;statement code...
-			;; Method Invocation: o.m(...)
+			;; ---Method Invocation: 
 			;; Names(ArgList)
 			cmp eax, 0
 			je __exception
@@ -130,7 +131,7 @@ section .text
 			push eax
 
 			;; Pushing args
-				;; Method Invocation: o.m(...)
+				;; ---Method Invocation: 
 				;; Names(ArgList)
 					;; Local Var s
 					mov eax, ebp
@@ -163,6 +164,7 @@ section .text
 				;; pop arguments
 				add esp, 8
 
+				;; ---End of method invocation
 				push eax
 
 			;; class method:
@@ -178,6 +180,7 @@ section .text
 			;; pop arguments
 			add esp, 8
 
+			;; ---End of method invocation
 
 
 
@@ -221,7 +224,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation: o.m(...)
+		;; ---Method Invocation: 
 		;; Names(ArgList)
 		cmp eax, 0
 		je __exception
@@ -244,6 +247,7 @@ section .text
 		;; pop arguments
 		add esp, 8
 
+		;; ---End of method invocation
 
 		_method_return___method__java_io_PrintStream__println:
 			mov esp, ebp
@@ -255,7 +259,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation: o.m(...)
+		;; ---Method Invocation: 
 		;; Names(ArgList)
 		cmp eax, 0
 		je __exception
@@ -283,7 +287,8 @@ section .text
 		;; pop arguments
 		add esp, 8
 
-		;; Method Invocation: o.m(...)
+		;; ---End of method invocation
+		;; ---Method Invocation: 
 		;; Names(ArgList)
 		cmp eax, 0
 		je __exception
@@ -307,6 +312,7 @@ section .text
 		;; pop arguments
 		add esp, 8
 
+		;; ---End of method invocation
 
 		_method_return___method__java_io_PrintStream__println$java_lang_String$:
 			mov esp, ebp
@@ -318,7 +324,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation: o.m(...)
+		;; ---Method Invocation: 
 		;; Names(ArgList)
 		cmp eax, 0
 		je __exception
@@ -326,7 +332,7 @@ section .text
 		push eax
 
 		;; Pushing args
-			;; Method Invocation: o.m(...)
+			;; ---Method Invocation: 
 			;; Names(ArgList)
 
 			;; static method, dont push this
@@ -344,6 +350,7 @@ section .text
 
 			add esp, 4
 
+			;; ---End of method invocation
 			push eax
 
 		;; class method:
@@ -359,6 +366,7 @@ section .text
 		;; pop arguments
 		add esp, 8
 
+		;; ---End of method invocation
 
 		_method_return___method__java_io_PrintStream__println$java_lang_Object$:
 			mov esp, ebp
@@ -370,7 +378,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation: o.m(...)
+		;; ---Method Invocation: 
 		;; Names(ArgList)
 		cmp eax, 0
 		je __exception
@@ -378,7 +386,7 @@ section .text
 		push eax
 
 		;; Pushing args
-			;; Method Invocation: o.m(...)
+			;; ---Method Invocation: 
 			;; Names(ArgList)
 
 			;; static method, dont push this
@@ -396,6 +404,7 @@ section .text
 
 			add esp, 4
 
+			;; ---End of method invocation
 			push eax
 
 		;; class method:
@@ -411,6 +420,7 @@ section .text
 		;; pop arguments
 		add esp, 8
 
+		;; ---End of method invocation
 
 		_method_return___method__java_io_PrintStream__println$boolean$:
 			mov esp, ebp
@@ -422,7 +432,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation: o.m(...)
+		;; ---Method Invocation: 
 		;; Names(ArgList)
 		cmp eax, 0
 		je __exception
@@ -430,7 +440,7 @@ section .text
 		push eax
 
 		;; Pushing args
-			;; Method Invocation: o.m(...)
+			;; ---Method Invocation: 
 			;; Names(ArgList)
 
 			;; static method, dont push this
@@ -448,6 +458,7 @@ section .text
 
 			add esp, 4
 
+			;; ---End of method invocation
 			push eax
 
 		;; class method:
@@ -463,6 +474,7 @@ section .text
 		;; pop arguments
 		add esp, 8
 
+		;; ---End of method invocation
 
 		_method_return___method__java_io_PrintStream__println$byte$:
 			mov esp, ebp
@@ -474,7 +486,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation: o.m(...)
+		;; ---Method Invocation: 
 		;; Names(ArgList)
 		cmp eax, 0
 		je __exception
@@ -482,7 +494,7 @@ section .text
 		push eax
 
 		;; Pushing args
-			;; Method Invocation: o.m(...)
+			;; ---Method Invocation: 
 			;; Names(ArgList)
 
 			;; static method, dont push this
@@ -500,6 +512,7 @@ section .text
 
 			add esp, 4
 
+			;; ---End of method invocation
 			push eax
 
 		;; class method:
@@ -515,6 +528,7 @@ section .text
 		;; pop arguments
 		add esp, 8
 
+		;; ---End of method invocation
 
 		_method_return___method__java_io_PrintStream__println$char$:
 			mov esp, ebp
@@ -526,7 +540,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation: o.m(...)
+		;; ---Method Invocation: 
 		;; Names(ArgList)
 		cmp eax, 0
 		je __exception
@@ -534,7 +548,7 @@ section .text
 		push eax
 
 		;; Pushing args
-			;; Method Invocation: o.m(...)
+			;; ---Method Invocation: 
 			;; Names(ArgList)
 
 			;; static method, dont push this
@@ -552,6 +566,7 @@ section .text
 
 			add esp, 4
 
+			;; ---End of method invocation
 			push eax
 
 		;; class method:
@@ -567,6 +582,7 @@ section .text
 		;; pop arguments
 		add esp, 8
 
+		;; ---End of method invocation
 
 		_method_return___method__java_io_PrintStream__println$short$:
 			mov esp, ebp
@@ -578,7 +594,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation: o.m(...)
+		;; ---Method Invocation: 
 		;; Names(ArgList)
 		cmp eax, 0
 		je __exception
@@ -586,7 +602,7 @@ section .text
 		push eax
 
 		;; Pushing args
-			;; Method Invocation: o.m(...)
+			;; ---Method Invocation: 
 			;; Names(ArgList)
 
 			;; static method, dont push this
@@ -604,6 +620,7 @@ section .text
 
 			add esp, 4
 
+			;; ---End of method invocation
 			push eax
 
 		;; class method:
@@ -619,6 +636,7 @@ section .text
 		;; pop arguments
 		add esp, 8
 
+		;; ---End of method invocation
 
 		_method_return___method__java_io_PrintStream__println$int$:
 			mov esp, ebp
@@ -630,7 +648,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation: o.m(...)
+		;; ---Method Invocation: 
 		;; Names(ArgList)
 		cmp eax, 0
 		je __exception
@@ -638,7 +656,7 @@ section .text
 		push eax
 
 		;; Pushing args
-			;; Method Invocation: o.m(...)
+			;; ---Method Invocation: 
 			;; Names(ArgList)
 
 			;; static method, dont push this
@@ -656,6 +674,7 @@ section .text
 
 			add esp, 4
 
+			;; ---End of method invocation
 			push eax
 
 		;; class method:
@@ -671,6 +690,7 @@ section .text
 		;; pop arguments
 		add esp, 8
 
+		;; ---End of method invocation
 
 		_method_return___method__java_io_PrintStream__print$java_lang_Object$:
 			mov esp, ebp
@@ -682,7 +702,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation: o.m(...)
+		;; ---Method Invocation: 
 		;; Names(ArgList)
 		cmp eax, 0
 		je __exception
@@ -690,7 +710,7 @@ section .text
 		push eax
 
 		;; Pushing args
-			;; Method Invocation: o.m(...)
+			;; ---Method Invocation: 
 			;; Names(ArgList)
 
 			;; static method, dont push this
@@ -708,6 +728,7 @@ section .text
 
 			add esp, 4
 
+			;; ---End of method invocation
 			push eax
 
 		;; class method:
@@ -723,6 +744,7 @@ section .text
 		;; pop arguments
 		add esp, 8
 
+		;; ---End of method invocation
 
 		_method_return___method__java_io_PrintStream__print$boolean$:
 			mov esp, ebp
@@ -734,7 +756,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation: o.m(...)
+		;; ---Method Invocation: 
 		;; Names(ArgList)
 		cmp eax, 0
 		je __exception
@@ -742,7 +764,7 @@ section .text
 		push eax
 
 		;; Pushing args
-			;; Method Invocation: o.m(...)
+			;; ---Method Invocation: 
 			;; Names(ArgList)
 
 			;; static method, dont push this
@@ -760,6 +782,7 @@ section .text
 
 			add esp, 4
 
+			;; ---End of method invocation
 			push eax
 
 		;; class method:
@@ -775,6 +798,7 @@ section .text
 		;; pop arguments
 		add esp, 8
 
+		;; ---End of method invocation
 
 		_method_return___method__java_io_PrintStream__print$byte$:
 			mov esp, ebp
@@ -786,7 +810,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation: o.m(...)
+		;; ---Method Invocation: 
 		;; Names(ArgList)
 		cmp eax, 0
 		je __exception
@@ -794,7 +818,7 @@ section .text
 		push eax
 
 		;; Pushing args
-			;; Method Invocation: o.m(...)
+			;; ---Method Invocation: 
 			;; Names(ArgList)
 
 			;; static method, dont push this
@@ -812,6 +836,7 @@ section .text
 
 			add esp, 4
 
+			;; ---End of method invocation
 			push eax
 
 		;; class method:
@@ -827,6 +852,7 @@ section .text
 		;; pop arguments
 		add esp, 8
 
+		;; ---End of method invocation
 
 		_method_return___method__java_io_PrintStream__print$char$:
 			mov esp, ebp
@@ -838,7 +864,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation: o.m(...)
+		;; ---Method Invocation: 
 		;; Names(ArgList)
 		cmp eax, 0
 		je __exception
@@ -846,7 +872,7 @@ section .text
 		push eax
 
 		;; Pushing args
-			;; Method Invocation: o.m(...)
+			;; ---Method Invocation: 
 			;; Names(ArgList)
 
 			;; static method, dont push this
@@ -864,6 +890,7 @@ section .text
 
 			add esp, 4
 
+			;; ---End of method invocation
 			push eax
 
 		;; class method:
@@ -879,6 +906,7 @@ section .text
 		;; pop arguments
 		add esp, 8
 
+		;; ---End of method invocation
 
 		_method_return___method__java_io_PrintStream__print$short$:
 			mov esp, ebp
@@ -890,7 +918,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; Method Invocation: o.m(...)
+		;; ---Method Invocation: 
 		;; Names(ArgList)
 		cmp eax, 0
 		je __exception
@@ -898,7 +926,7 @@ section .text
 		push eax
 
 		;; Pushing args
-			;; Method Invocation: o.m(...)
+			;; ---Method Invocation: 
 			;; Names(ArgList)
 
 			;; static method, dont push this
@@ -916,6 +944,7 @@ section .text
 
 			add esp, 4
 
+			;; ---End of method invocation
 			push eax
 
 		;; class method:
@@ -931,6 +960,7 @@ section .text
 		;; pop arguments
 		add esp, 8
 
+		;; ---End of method invocation
 
 		_method_return___method__java_io_PrintStream__print$int$:
 			mov esp, ebp

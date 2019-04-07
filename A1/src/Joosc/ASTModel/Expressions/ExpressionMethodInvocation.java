@@ -233,7 +233,7 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
     @Override
     public void codeGen(int indent) {
         asmWriter.indent(indent);
-        asmWriter.comment("Method Invocation: o.m(...)");
+        asmWriter.comment("---Method Invocation: ");
 
         Env methodEnv;
 
@@ -333,7 +333,8 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
         }
         asmWriter.println();
 
-
+        asmWriter.indent(indent);
+        asmWriter.comment("---End of method invocation");
     }
 
     @Override
