@@ -256,6 +256,11 @@ section .text
 
 		push eax
 		;; RHS code...
+		;; Unary number negation
+		mov eax, 2147483648
+		mov ebx, 0
+		sub ebx, eax
+		mov eax, ebx
 		pop ebx
 		cmp ebx, eax
 		je .eq0
@@ -678,6 +683,21 @@ mov eax, edx
 		.endif11:
 		;; if statement12
 		;expression code...
+		;; Unary boolean negation
+		;; Instanceof
+				;; Local Var o
+		mov eax, ebp
+		add eax, 8
+		mov eax, [eax]
+
+		mov eax, [eax]
+		mov eax, [eax+4]
+		shr eax, 10
+		and eax, 0x1
+
+		mov ebx, 1
+		sub ebx, eax
+		mov eax, ebx
 		cmp eax, 0
 		je .else12
 		;thenClause ...
@@ -1270,6 +1290,11 @@ mov eax, edx
 			cmp eax, 0
 			je .else23
 			;thenClause ...
+				;; Unary number negation
+				mov eax, 1
+				mov ebx, 0
+				sub ebx, eax
+				mov eax, ebx
 				jmp _method_return___method__java_lang_String__compareTo$java_lang_String$
 
 			jmp .endif23
@@ -1341,6 +1366,11 @@ mov eax, edx
 			cmp eax, 0
 			je .else25
 			;thenClause ...
+				;; Unary number negation
+				mov eax, 1
+				mov ebx, 0
+				sub ebx, eax
+				mov eax, ebx
 				jmp _method_return___method__java_lang_String__compareTo$java_lang_String$
 
 			jmp .endif25
@@ -1641,6 +1671,11 @@ mov eax, edx
 
 		.endfor28:
 
+		;; Unary number negation
+		mov eax, 1
+		mov ebx, 0
+		sub ebx, eax
+		mov eax, ebx
 		jmp _method_return___method__java_lang_String__indexOf$java_lang_String$
 
 		_method_return___method__java_lang_String__indexOf$java_lang_String$:

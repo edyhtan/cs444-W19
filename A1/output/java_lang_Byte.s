@@ -62,6 +62,7 @@ mov eax, 0
 		add ebx, 4
 		mov [ebx], eax
 ;; Field init:: MAX_VALUE
+				;; casting
 		mov ebx, [esp]
 		add ebx, 0
 		mov [ebx], eax
@@ -91,6 +92,7 @@ mov eax, 0
 		add ebx, 4
 		mov [ebx], eax
 ;; Field init:: MAX_VALUE
+				;; casting
 		mov ebx, [esp]
 		add ebx, 0
 		mov [ebx], eax

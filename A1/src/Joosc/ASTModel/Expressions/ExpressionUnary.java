@@ -4,6 +4,7 @@ import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionUnaryNode;
 import Joosc.ASTBuilding.Constants.Symbol;
 import Joosc.ASTModel.Type;
 import Joosc.AsmWriter.AsmWriter;
+import Joosc.AsmWriter.Register;
 import Joosc.Environment.Env;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
@@ -131,7 +132,60 @@ public class ExpressionUnary extends Expression implements ConstantExpression {
 
     @Override
     public void codeGen(int indent) {
+        targetNode.addWriter(asmWriter);
 
+        if (castingType != null) { // casting
+            asmWriter.indent(indent);
+            asmWriter.comment("casting");
+
+            int column = AsmWriter.parentMatrix.indexOf(joosType);
+
+            if(!joosType.isPrimitive()) {
+                asmWriter.indent(indent);
+                targetNode.codeGen(indent);
+                asmWriter.indent(indent);
+                // mov to class tag
+                asmWriter.movFromAddr(Register.eax, Register.eax);
+                asmWriter.indent(indent);
+                // parent matrix
+                String addr = String.join("+", Register.eax.toString(), "4");
+                asmWriter.movFromAddr(Register.eax, addr);
+                asmWriter.indent(indent);
+                asmWriter.shr(Register.eax, column);
+                asmWriter.indent(indent);
+                asmWriter.and(Register.eax,"0x1");
+                asmWriter.indent(indent);
+                asmWriter.cmp(Register.eax, "0");
+                asmWriter.indent(indent);
+                asmWriter.je("__exception");
+            } else { // casting primitive types
+                // TODO
+            }
+
+        } else { // unaryExpression
+            if (unaryOperator.equals(Symbol.Minus)) {
+                asmWriter.indent(indent);
+                asmWriter.comment("Unary number negation");
+                targetNode.codeGen(indent);
+                asmWriter.indent(indent);
+                asmWriter.mov(Register.ebx, 0);
+                asmWriter.indent(indent);
+                asmWriter.sub(Register.ebx, Register.eax);
+                asmWriter.indent(indent);
+                asmWriter.mov(Register.eax, Register.ebx);
+            }
+            if (unaryOperator.equals(Symbol.Bang)) {
+                asmWriter.indent(indent);
+                asmWriter.comment("Unary boolean negation");
+                targetNode.codeGen(indent);
+                asmWriter.indent(indent);
+                asmWriter.mov(Register.ebx, 1);
+                asmWriter.indent(indent);
+                asmWriter.sub(Register.ebx, Register.eax);
+                asmWriter.indent(indent);
+                asmWriter.mov(Register.eax, Register.ebx);
+            }
+        }
     }
 
     @Override

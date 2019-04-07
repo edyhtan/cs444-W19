@@ -1,20 +1,9 @@
 public class A {
 
     public A() {}
-    public static int test(int a, int b) {
-        A someA = new A();
-//        Hello hello = new Hello();
-        Static s = new Static();
-        Main m = new Main();
-//        Main ms = new Static();
-//        Static sm = new Main();
+    public static int test() {
 
-        if(m instanceof Static) {
-            return 111;
-        } else if(m instanceof Main) {
-            return 3333;
-        }
-        return 2;
+        return -123;
     }
 
 }

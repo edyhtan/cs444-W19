@@ -1,28 +1,24 @@
 extern __ref_SIT_java_lang_Number
 extern __malloc
+extern __ref_SIT_java_lang_Integer
+extern __method__java_lang_Object__toString
 extern __constructor__java_lang_Object__Object
 extern __method__java_lang_Object__getClass
-extern __ref_SIT_foo_bar
-extern __ref_SIT_java_lang_Short
-extern __class_Main
-extern __ref_SIT_Main
-extern __ref_SIT_java_lang_Character
-extern __ref_SIT_java_lang_String
-extern __ref_SIT_Hello
-extern __constructor__Static__Static
-extern __constructor__Main__Main
-extern __ref_SIT_java_lang_Integer
-extern __class_Static
-extern __method__java_lang_Object__toString
 extern __ref_SIT_java_lang_Class
 extern __ref_SIT_java_lang_Boolean
+extern __ref_SIT_foo_bar
 extern __ref_SIT_java_util_Arrays
 extern __method__java_lang_Object__equals$java_lang_Object$
+extern __ref_SIT_java_lang_Short
 extern __ref_SIT_java_io_PrintStream
+extern __ref_SIT_Main
+extern __ref_SIT_java_lang_Character
 extern __method__java_lang_Object__clone
 extern __ref_SIT_java_lang_Object
 extern __method__java_lang_Object__hashCode
+extern __ref_SIT_java_lang_String
 extern __ref_SIT_java_lang_Byte
+extern __ref_SIT_Hello
 extern __ref_SIT_Static
 extern __ref_SIT_java_lang_System
 extern __ref_SIT_java_io_OutputStream
@@ -46,7 +42,7 @@ section .data
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
 		dd __method__java_lang_Object__toString
-		dd __STATIC_method__A__test$int$int$
+		dd __STATIC_method__A__test
 
 section .text
 
@@ -386,113 +382,19 @@ int 0x80
 
 global @@@@main
 @@@@main:
-		global __STATIC_method__A__test$int$int$
-	__STATIC_method__A__test$int$int$:
+		global __STATIC_method__A__test
+	__STATIC_method__A__test:
 		push ebp
 		mov ebp, esp
 
-				;; ---declare someA
-		;; Allocating size of 0
-		mov eax, 0
-				call __malloc
-					mov ebx, __class_A
-		mov [eax], ebx
+				;; Unary number negation
+		mov eax, 123
+		mov ebx, 0
+		sub ebx, eax
+		mov eax, ebx
+		jmp _method_return___STATIC_method__A__test
 
-		;; Pushing object
-		push eax
-
-		;; Pushing args:
-					call __constructor__A__A
-		add esp, 0
-		pop eax
-		push eax
-
-		;; ---declare s
-		;; Allocating size of 2
-		mov eax, 2
-				call __malloc
-					mov ebx, __class_Static
-		mov [eax], ebx
-
-		;; Pushing object
-		push eax
-
-		;; Pushing args:
-					call __constructor__Static__Static
-		add esp, 0
-		pop eax
-		push eax
-
-		;; ---declare m
-		;; Allocating size of 1
-		mov eax, 1
-				call __malloc
-					mov ebx, __class_Main
-		mov [eax], ebx
-
-		;; Pushing object
-		push eax
-
-		;; Pushing args:
-					call __constructor__Main__Main
-		add esp, 0
-		pop eax
-		push eax
-
-		;; if statement0
-		;expression code...
-		;; Instanceof
-				;; Local Var m
-		mov eax, ebp
-		sub eax, 12
-		mov eax, [eax]
-
-		mov eax, [eax]
-		mov eax, [eax+4]
-		shr eax, 18
-		and eax, 0x1
-		
-		cmp eax, 0
-		je .else0
-		;thenClause ...
-			mov eax, 111
-			jmp _method_return___STATIC_method__A__test$int$int$
-
-
-		jmp .endif0
-
-		.else0:
-			;elseClause ...
-			;; if statement1
-			;expression code...
-			;; Instanceof
-						;; Local Var m
-			mov eax, ebp
-			sub eax, 12
-			mov eax, [eax]
-
-			mov eax, [eax]
-			mov eax, [eax+4]
-			shr eax, 17
-			and eax, 0x1
-			
-			cmp eax, 0
-			je .else1
-			;thenClause ...
-				mov eax, 3333
-				jmp _method_return___STATIC_method__A__test$int$int$
-
-
-			jmp .endif1
-
-			.else1:
-			.endif1:
-
-		.endif0:
-		mov eax, 2
-		jmp _method_return___STATIC_method__A__test$int$int$
-
-		_method_return___STATIC_method__A__test$int$int$:
+		_method_return___STATIC_method__A__test:
 			mov esp, ebp
 			pop ebp
 			ret
