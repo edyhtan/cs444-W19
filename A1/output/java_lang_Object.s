@@ -70,7 +70,7 @@ section .text
 		mov [eax], ebx
 		push eax
 
-		mov eax, 21
+		mov eax, 19
 		mov ebx, 0
 		call __new_array
 			mov ecx, 83

@@ -473,7 +473,7 @@ global @@@@main
 		mov [eax], ebx
 		push eax
 
-		mov eax, 6
+		mov eax, 4
 		mov ebx, 0
 		call __new_array
 			mov ecx, 49
@@ -514,7 +514,7 @@ global @@@@main
 			mov [eax], ebx
 			push eax
 
-			mov eax, 6
+			mov eax, 4
 			mov ebx, 0
 			call __new_array
 				mov ecx, 49

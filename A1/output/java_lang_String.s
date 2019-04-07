@@ -781,7 +781,7 @@ section .text
 			mov [eax], ebx
 			push eax
 
-			mov eax, 14
+			mov eax, 12
 			mov ebx, 0
 			call __new_array
 				mov ecx, 45
@@ -1524,7 +1524,7 @@ mov eax, edx
 			mov [eax], ebx
 			push eax
 
-			mov eax, 7
+			mov eax, 5
 			mov ebx, 0
 			call __new_array
 				mov ecx, 116
@@ -1552,7 +1552,7 @@ mov eax, edx
 			mov [eax], ebx
 			push eax
 
-			mov eax, 8
+			mov eax, 6
 			mov ebx, 0
 			call __new_array
 				mov ecx, 102
@@ -1614,7 +1614,7 @@ mov eax, edx
 			mov [eax], ebx
 			push eax
 
-			mov eax, 7
+			mov eax, 5
 			mov ebx, 0
 			call __new_array
 				mov ecx, 110
@@ -1708,7 +1708,7 @@ mov eax, edx
 			mov [eax], ebx
 			push eax
 
-			mov eax, 7
+			mov eax, 5
 			mov ebx, 0
 			call __new_array
 				mov ecx, 110
@@ -1894,7 +1894,7 @@ mov eax, edx
 			mov [eax], ebx
 			push eax
 
-			mov eax, 3
+			mov eax, 1
 			mov ebx, 0
 			call __new_array
 				mov ecx, 0
@@ -1960,7 +1960,7 @@ mov eax, edx
 			mov [eax], ebx
 			push eax
 
-			mov eax, 3
+			mov eax, 1
 			mov ebx, 0
 			call __new_array
 				mov ecx, 0
@@ -2008,7 +2008,7 @@ mov eax, edx
 			mov [eax], ebx
 			push eax
 
-			mov eax, 3
+			mov eax, 1
 			mov ebx, 0
 			call __new_array
 				mov ecx, 0
@@ -2574,7 +2574,7 @@ mov eax, edx
 			mov [eax], ebx
 			push eax
 
-			mov eax, 3
+			mov eax, 1
 			mov ebx, 0
 			call __new_array
 				mov ecx, 0
