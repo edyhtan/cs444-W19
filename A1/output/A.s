@@ -6,6 +6,7 @@ extern __ref_SIT_foo_bar
 extern __ref_SIT_java_lang_Short
 extern __ref_SIT_Main
 extern __ref_SIT_java_lang_Character
+extern __constructor__java_io_PrintStream__PrintStream
 extern __ref_SIT_java_lang_String
 extern __ref_SIT_Hello
 extern __ref_SIT_java_lang_Integer
@@ -15,6 +16,7 @@ extern __ref_SIT_java_lang_Boolean
 extern __ref_SIT_java_util_Arrays
 extern __method__java_lang_Object__equals$java_lang_Object$
 extern __ref_SIT_java_io_PrintStream
+extern __class_java_io_PrintStream
 extern __method__java_lang_Object__clone
 extern __field_java_lang_Boolean_MAX_VALUE
 extern __ref_SIT_java_lang_Object
@@ -389,32 +391,52 @@ mov [ebx], eax
 	mov [eax + 12], ebx
 
 ;; Static Field: __field_java_lang_System_out
-mov eax, 3
+	;; ---new [java, io, PrintStream] ()
+	;; Allocating size of 4
+	mov eax, 4
+		call __malloc
+			mov ebx, __class_java_io_PrintStream
+	mov [eax], ebx
+
+	;; Pushing object
+	push eax
+
+	;; Pushing args:
+	call __constructor__java_io_PrintStream__PrintStream
+	add esp, 0
+	pop eax
+
+	;; ---end of new [java, io, PrintStream] ()
 mov ebx, __field_java_lang_System_out
 mov [ebx], eax
 
 ;; Static Field: __field_java_lang_Integer_MAX_VALUE
-mov eax, 3
+	mov eax, 2147483647
 mov ebx, __field_java_lang_Integer_MAX_VALUE
 mov [ebx], eax
 
 ;; Static Field: __field_java_lang_Byte_MAX_VALUE
-mov eax, 3
+	;; constant primitive casting to [byte]
+	mov eax, 127
 mov ebx, __field_java_lang_Byte_MAX_VALUE
 mov [ebx], eax
 
 ;; Static Field: __field_java_lang_Boolean_MAX_VALUE
-mov eax, 3
+	;; constant primitive casting to [byte]
+	mov eax, 127
 mov ebx, __field_java_lang_Boolean_MAX_VALUE
 mov [ebx], eax
 
 ;; Static Field: __field_A_b
-mov eax, 3
+
+	mov eax, __field_A_a
+	mov eax, [eax]
+
 mov ebx, __field_A_b
 mov [ebx], eax
 
 ;; Static Field: __field_A_a
-mov eax, 3
+	mov eax, 22
 mov ebx, __field_A_a
 mov [ebx], eax
 

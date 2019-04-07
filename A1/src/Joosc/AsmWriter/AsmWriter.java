@@ -440,8 +440,7 @@ public class AsmWriter {
                         comment("Static Field: " + field.getStaticFieldLabel());
                         extern(field.getStaticFieldLabel());
                         field.addWriter(this);
-                        //field.codeGen(0);
-                        mov(Register.eax, 3);
+                        field.codeGen(0);
                         mov(Register.ebx, field.getStaticFieldLabel());
                         movToAddr(Register.ebx, Register.eax);
                     }
