@@ -126,6 +126,7 @@ section .text
 			;statement code...
 			;; ---Method Invocation: 
 			;; Names(ArgList)
+			mov eax, ebp+0
 			;; Null Check:
 			cmp eax, 0
 			je __exception
@@ -229,6 +230,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		mov eax, ebp+8
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -265,6 +267,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		mov eax, ebp+12
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -295,6 +298,7 @@ section .text
 		;; ---End of method invocation
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		mov eax, ebp+12
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -332,6 +336,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		mov eax, ebp+12
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -387,6 +392,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		mov eax, ebp+12
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -442,6 +448,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		mov eax, ebp+12
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -497,6 +504,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		mov eax, ebp+12
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -552,6 +560,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		mov eax, ebp+12
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -607,6 +616,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		mov eax, ebp+12
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -662,6 +672,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		mov eax, ebp+12
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -717,6 +728,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		mov eax, ebp+12
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -772,6 +784,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		mov eax, ebp+12
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -827,6 +840,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		mov eax, ebp+12
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -882,6 +896,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		mov eax, ebp+12
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -937,6 +952,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		mov eax, ebp+12
 		;; Null Check:
 		cmp eax, 0
 		je __exception
