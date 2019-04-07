@@ -20,6 +20,8 @@ public interface TypeDeclr extends AST {
     ClassEnv getClassEnv();
     String getSimpleName();
 
+    String getClassTagName();
+
     ArrayList<MethodDeclr> getMethods();
     ArrayList<Symbol> getModifiers();
 

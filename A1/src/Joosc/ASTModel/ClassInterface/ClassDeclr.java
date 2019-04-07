@@ -130,6 +130,7 @@ public class ClassDeclr implements TypeDeclr {
     public String classSIT;
     public String classParentMatrix;
 
+    @Override
     public String getClassTagName() {
         return classTagName;
     }

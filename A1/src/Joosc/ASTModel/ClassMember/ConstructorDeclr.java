@@ -193,6 +193,9 @@ public class ConstructorDeclr implements ClassBodyDeclr, Method {
         asmWriter.indent(indent);
         asmWriter.push(Register.eax);
         for(FieldDeclr fieldDeclr : curClass.getFields()) {
+            if (fieldDeclr.getModifiers().contains(Symbol.Static)) {
+                continue;
+            }
             fieldDeclr.addWriter(asmWriter);
             asmWriter.comment("Field init:: " + fieldDeclr.getName());
             fieldDeclr.addEnv(localEnv);

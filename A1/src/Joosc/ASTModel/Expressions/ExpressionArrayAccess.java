@@ -2,6 +2,7 @@ package Joosc.ASTModel.Expressions;
 
 import Joosc.ASTBuilding.ASTStructures.Expressions.ExpressionArrayAccessNode;
 import Joosc.AsmWriter.AsmWriter;
+import Joosc.AsmWriter.Register;
 import Joosc.Environment.Env;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
@@ -124,15 +125,60 @@ public class ExpressionArrayAccess extends ExpressionPrimary implements LeftValu
 
     @Override
     public void codeGen(int indent) {
-        if (referenceExpression != null) {
-            referenceExpression.addEnv(getEnv());
-        }
-        indexExpression.addEnv(getEnv());
+        getCodeAddr(indent);
+        asmWriter.indent(indent);
+        asmWriter.comment("Dereference array addr to value");
+        asmWriter.indent(indent);
+        asmWriter.movFromAddr(Register.eax, Register.eax);
     }
 
     @Override
     public void getCodeAddr(int indent) {
+        asmWriter.indent(indent);
+        asmWriter.comment("---Array Access get Addr:");
+        indent++;
 
+        asmWriter.startParagraph(indent,"Get array instance:");
+        if (referenceName != null) {
+            Names arrName = new Names(referenceName);
+            arrName.addEnv(getEnv());
+            arrName.addWriter(asmWriter);
+            arrName.codeGen(indent + 1);
+        } else {
+            referenceExpression.addEnv(getEnv());
+            referenceExpression.addWriter(asmWriter);
+            referenceExpression.codeGen(indent + 1);
+        }
+        asmWriter.nullCheck(indent);
+        asmWriter.indent(indent);
+        asmWriter.comment("Push array instance addr");
+        asmWriter.indent(indent);
+        asmWriter.push(Register.eax);
+
+        asmWriter.startParagraph(indent, "Get array index");
+        indexExpression.addWriter(asmWriter);
+        indexExpression.addEnv(getEnv());
+        indexExpression.codeGen(indent + 1);
+
+        asmWriter.startParagraph(indent, "Pop arr instance addr to ebx:");
+        asmWriter.indent(indent);
+        asmWriter.pop(Register.ebx);
+
+        asmWriter.startParagraph(indent, "Bound check");
+        asmWriter.extern("__exception");
+        asmWriter.indent(indent);
+        asmWriter.movFromAddr(Register.ecx, "ebx + " + 8);
+        asmWriter.indent(indent);
+        asmWriter.cmp(Register.eax, Register.ecx);
+        asmWriter.indent(indent);
+        asmWriter.jge("__exception");
+        asmWriter.indent(indent);
+        asmWriter.cmp(Register.ecx, "0");
+        asmWriter.indent(indent);
+        asmWriter.jl("__exception");
+
+        indent--;
+        asmWriter.startParagraph(indent, "---End Array Access get Addr");
     }
 
     @Override
