@@ -1,8 +1,10 @@
 extern __ref_SIT_java_lang_Number
+extern __exception
 extern __malloc
 extern __constructor__java_lang_Object__Object
 extern __method__java_lang_Object__getClass
 extern __ref_SIT_foo_bar
+extern __constructor__Hello__Hello
 extern __ref_SIT_java_lang_Short
 extern __class_Main
 extern __ref_SIT_Main
@@ -21,6 +23,7 @@ extern __method__java_lang_Object__clone
 extern __ref_SIT_java_lang_Object
 extern __method__java_lang_Object__hashCode
 extern __ref_SIT_java_lang_Byte
+extern __class_Hello
 extern __ref_SIT_Static
 extern __ref_SIT_java_lang_System
 extern __ref_SIT_java_io_OutputStream
@@ -36,7 +39,7 @@ section .data
 
 		global __ref_PARENTS_A
 	__ref_PARENTS_A:
-		dd 10000000001000000000b
+		dd 100000000001000000000b
 
 	; Methods	
 																	dd __method__java_lang_Object__getClass
@@ -414,12 +417,52 @@ global @@@@main
 
 		mov eax, [eax]
 		mov eax, [eax+4]
-		shr eax, 18
+		shr eax, 19
 		and eax, 0x1
 		cmp eax, 0
 		je __exception
 		push eax
 
+		;; ---declare h
+		;; Allocating size of 1
+		mov eax, 1
+				call __malloc
+					mov ebx, __class_Hello
+		mov [eax], ebx
+
+		;; Pushing object
+		push eax
+
+		;; Pushing args:
+					call __constructor__Hello__Hello
+		add esp, 0
+		pop eax
+		push eax
+
+		;; if statement0
+		;expression code...
+		;; Instanceof
+				;; Local Var h
+		mov eax, ebp
+		sub eax, 12
+		mov eax, [eax]
+
+		mov eax, [eax]
+		mov eax, [eax+4]
+		shr eax, 15
+		and eax, 0x1
+
+		cmp eax, 0
+		je .else0
+		;thenClause ...
+			mov eax, 6
+			jmp _method_return___STATIC_method__A__test
+
+
+		jmp .endif0
+
+		.else0:
+		.endif0:
 		mov eax, 1
 		jmp _method_return___STATIC_method__A__test
 

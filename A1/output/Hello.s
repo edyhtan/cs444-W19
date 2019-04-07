@@ -17,7 +17,7 @@ section .data
 
 		global __ref_PARENTS_Hello
 	__ref_PARENTS_Hello:
-		dd 00001000001000000000b
+		dd 000011000001000000000b
 
 	; Methods	
 																	dd __method__java_lang_Object__getClass

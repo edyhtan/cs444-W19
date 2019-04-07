@@ -20,7 +20,7 @@ section .data
 
 		global __ref_PARENTS_java_io_PrintStream
 	__ref_PARENTS_java_io_PrintStream:
-		dd 00000000001000001010b
+		dd 000000000001000001010b
 
 	; Methods	
 																													dd __method__java_lang_Object__getClass

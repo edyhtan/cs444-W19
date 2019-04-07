@@ -17,7 +17,7 @@ section .data
 
 		global __ref_PARENTS_Static
 	__ref_PARENTS_Static:
-		dd 01100000001000000000b
+		dd 011000000001000000000b
 
 	; Methods	
 																				dd __method__java_lang_Object__getClass

@@ -16,7 +16,7 @@ section .data
 
 		global __ref_PARENTS_java_lang_Byte
 	__ref_PARENTS_java_lang_Byte:
-		dd 00000000001001000000b
+		dd 000000000001001000000b
 
 	; Methods	
 																	dd __method__java_lang_Object__getClass

@@ -17,7 +17,7 @@ section .data
 
 		global __ref_PARENTS_java_lang_Short
 	__ref_PARENTS_java_lang_Short:
-		dd 00000001001010000000b
+		dd 000000001001010000000b
 
 	; Methods	
 																				dd __method__java_lang_Object__getClass

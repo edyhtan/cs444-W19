@@ -1,4 +1,4 @@
-public class Hello {
+public class Hello implements Interface {
 
     public Hello k = null;
 
