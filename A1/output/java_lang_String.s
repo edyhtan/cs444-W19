@@ -20,7 +20,7 @@ __class_java_lang_String:
 
 		global __ref_PARENTS_java_lang_String
 	__ref_PARENTS_java_lang_String:
-		dd 0001010000000000b
+		dd 000000001010000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass

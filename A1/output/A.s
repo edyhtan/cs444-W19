@@ -1,4 +1,5 @@
 extern __ref_SIT_java_lang_Number
+extern __exception
 extern __malloc
 extern __constructor__java_lang_Object__Object
 extern __method__java_lang_Object__getClass
@@ -462,84 +463,69 @@ global @@@@main
 		push ebp
 		mov ebp, esp
 
-		;; ---declare x
-		mov eax, 17
-
+		;; ---declare s
+		
 		push eax
-		;; ---end of declare x
+		;; ---end of declare s
 
-		.while0:
-			;expression code...
-			;; ompare_gt
-			;; LHS code...
-			;; Local Var x
+		;; if statement0
+		;expression code...
+		;; ---Method Invocation: 
+		;; Names(ArgList)
+			;; Local Var s
 			mov eax, ebp
 			sub eax, 4
 			mov eax, [eax]
 
-			push eax
-			;; RHS code...
-			mov eax, 0
-			pop ebx
-			cmp ebx, eax
-			jg .gt2
-			mov eax, 0
-			jmp .end_gt2
-			.gt2:
-				mov eax, 1
-			.end_gt2:
+		;; Null Check:
+		cmp eax, 0
+		je __exception
+		;; non-static, pushing reference
+		push eax
 
+		;; Pushing args
+			;; casting
+									cmp eax, 0
+			je .cast_end2
+			mov eax, [eax]
+			mov eax, [eax+4]
+			shr eax, 10
+			and eax, 0x1
 			cmp eax, 0
-			je .endwhile0
-			;; while statement code...
-			;; ---declare y
-			;; Local Var x
-			mov eax, ebp
-			sub eax, 4
-			mov eax, [eax]
-
-
+			je __exception
+			.cast_end2:
 			push eax
-			;; ---end of declare y
 
-
-							;; Local Var y
-				mov eax, ebp
-				sub eax, 12
-
-			push eax
-				;; Minus
-				;; LHS code...
-				;; Local Var y
-				mov eax, ebp
-				sub eax, 12
-				mov eax, [eax]
-
-				push eax
-				;; RHS code...
-				mov eax, 1
-				pop ebx
-				sub ebx, eax
-				mov eax, ebx
-
-			pop ebx
-			mov [ebx], eax
-
-
-			add esp, 4
-
-			jmp .while0
-
-		.endwhile0:
-
-			add esp, 4
-
-		;; Local Var x
-		mov eax, ebp
-		sub eax, 4
+		;; class method:
+		;; addr of o
+		mov eax, [esp + 4]
+		;; vtable
 		mov eax, [eax]
+		;; addr of m body
+		mov eax, [eax + 0]
 
-		jmp _method_return___STATIC_method__A__test
+		call eax
+
+		;; pop arguments
+		add esp, 8
+
+		;; ---End of method invocation
+		cmp eax, 0
+		je .else0
+		;thenClause ...
+			mov eax, 233
+			jmp _method_return___STATIC_method__A__test
+
+
+		jmp .endif0
+
+		.else0:
+			;elseClause ...
+			mov eax, 111
+			jmp _method_return___STATIC_method__A__test
+
+
+		.endif0:
 
 		_method_return___STATIC_method__A__test:
 			mov esp, ebp

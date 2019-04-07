@@ -8,15 +8,15 @@ extern __method__java_lang_Object__equals$java_lang_Object$
 
 section .data
 
-	global __class_java_lang_Number
-__class_java_lang_Number:
-		global __ref_SIT_java_lang_Number
-	__ref_SIT_java_lang_Number:
+	global __class_foo_bar
+__class_foo_bar:
+		global __ref_SIT_foo_bar
+	__ref_SIT_foo_bar:
 		dd 0
 
-		global __ref_PARENTS_java_lang_Number
-	__ref_PARENTS_java_lang_Number:
-		dd 000000000011000000000b
+		global __ref_PARENTS_foo_bar
+	__ref_PARENTS_foo_bar:
+		dd 000010000010000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -24,27 +24,15 @@ __class_java_lang_Number:
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
 		dd __method__java_lang_Object__toString
-		dd __method__java_lang_Number__intValue
 
 ;; Static fields
 
 section .text
 
 ;; -----Methods-----
-		global __method__java_lang_Number__intValue
-	__method__java_lang_Number__intValue:
-		push ebp
-		mov ebp, esp
-
-
-		_method_return___method__java_lang_Number__intValue:
-			mov esp, ebp
-			pop ebp
-			ret
-
 ;; -----Constructors-----
-		global __constructor__java_lang_Number__Number
-	__constructor__java_lang_Number__Number:
+		global __constructor__foo_bar__bar
+	__constructor__foo_bar__bar:
 		push ebp
 		mov ebp, esp
 		mov eax, [ebp + 8]
