@@ -113,6 +113,11 @@ section .text
 			cmp ecx, 0
 			jl __exception
 
+			;; Access array
+			add eax, 2
+			imul eax, 4
+			add eax, ebx
+
 		;; ---End Array Access get Addr
 		;; Dereference array addr to value
 		mov eax, [eax]
@@ -296,6 +301,11 @@ section .text
 					cmp ecx, 0
 					jl __exception
 
+					;; Access array
+					add eax, 2
+					imul eax, 4
+					add eax, ebx
+
 				;; ---End Array Access get Addr
 			push eax
 				;; ---Array Access get Addr:
@@ -329,6 +339,11 @@ section .text
 					jge __exception
 					cmp ecx, 0
 					jl __exception
+
+					;; Access array
+					add eax, 2
+					imul eax, 4
+					add eax, ebx
 
 				;; ---End Array Access get Addr
 				;; Dereference array addr to value
@@ -490,6 +505,11 @@ section .text
 					cmp ecx, 0
 					jl __exception
 
+					;; Access array
+					add eax, 2
+					imul eax, 4
+					add eax, ebx
+
 				;; ---End Array Access get Addr
 			push eax
 				;; ---Array Access get Addr:
@@ -529,6 +549,11 @@ section .text
 					jge __exception
 					cmp ecx, 0
 					jl __exception
+
+					;; Access array
+					add eax, 2
+					imul eax, 4
+					add eax, ebx
 
 				;; ---End Array Access get Addr
 				;; Dereference array addr to value
@@ -643,6 +668,11 @@ section .text
 				jge __exception
 				cmp ecx, 0
 				jl __exception
+
+				;; Access array
+				add eax, 2
+				imul eax, 4
+				add eax, ebx
 
 			;; ---End Array Access get Addr
 		push eax
@@ -863,6 +893,11 @@ section .text
 					cmp ecx, 0
 					jl __exception
 
+					;; Access array
+					add eax, 2
+					imul eax, 4
+					add eax, ebx
+
 				;; ---End Array Access get Addr
 			push eax
 				mov eax, 48
@@ -1002,6 +1037,11 @@ mov eax, edx
 						cmp ecx, 0
 						jl __exception
 
+						;; Access array
+						add eax, 2
+						imul eax, 4
+						add eax, ebx
+
 					;; ---End Array Access get Addr
 				push eax
 					;; casting
@@ -1099,6 +1139,11 @@ mov eax, edx
 					jge __exception
 					cmp ecx, 0
 					jl __exception
+
+					;; Access array
+					add eax, 2
+					imul eax, 4
+					add eax, ebx
 
 				;; ---End Array Access get Addr
 			push eax
@@ -1225,6 +1270,11 @@ mov eax, edx
 					cmp ecx, 0
 					jl __exception
 
+					;; Access array
+					add eax, 2
+					imul eax, 4
+					add eax, ebx
+
 				;; ---End Array Access get Addr
 			push eax
 				;; ---Array Access get Addr:
@@ -1279,6 +1329,11 @@ mov eax, edx
 					jge __exception
 					cmp ecx, 0
 					jl __exception
+
+					;; Access array
+					add eax, 2
+					imul eax, 4
+					add eax, ebx
 
 				;; ---End Array Access get Addr
 				;; Dereference array addr to value
@@ -1919,6 +1974,11 @@ mov eax, edx
 					cmp ecx, 0
 					jl __exception
 
+					;; Access array
+					add eax, 2
+					imul eax, 4
+					add eax, ebx
+
 				;; ---End Array Access get Addr
 			push eax
 				;; ---Method Invocation: 
@@ -2511,6 +2571,11 @@ mov eax, edx
 					cmp ecx, 0
 					jl __exception
 
+					;; Access array
+					add eax, 2
+					imul eax, 4
+					add eax, ebx
+
 				;; ---End Array Access get Addr
 				;; Dereference array addr to value
 				mov eax, [eax]
@@ -2877,6 +2942,11 @@ mov eax, edx
 				cmp ecx, 0
 				jl __exception
 
+				;; Access array
+				add eax, 2
+				imul eax, 4
+				add eax, ebx
+
 			;; ---End Array Access get Addr
 			;; Dereference array addr to value
 			mov eax, [eax]
@@ -2919,6 +2989,11 @@ mov eax, edx
 				jge __exception
 				cmp ecx, 0
 				jl __exception
+
+				;; Access array
+				add eax, 2
+				imul eax, 4
+				add eax, ebx
 
 			;; ---End Array Access get Addr
 			;; Dereference array addr to value
@@ -2983,6 +3058,11 @@ mov eax, edx
 				cmp ecx, 0
 				jl __exception
 
+				;; Access array
+				add eax, 2
+				imul eax, 4
+				add eax, ebx
+
 			;; ---End Array Access get Addr
 			;; Dereference array addr to value
 			mov eax, [eax]
@@ -3025,6 +3105,11 @@ mov eax, edx
 				jge __exception
 				cmp ecx, 0
 				jl __exception
+
+				;; Access array
+				add eax, 2
+				imul eax, 4
+				add eax, ebx
 
 			;; ---End Array Access get Addr
 			;; Dereference array addr to value
@@ -3191,6 +3276,11 @@ mov eax, edx
 					cmp ecx, 0
 					jl __exception
 
+					;; Access array
+					add eax, 2
+					imul eax, 4
+					add eax, ebx
+
 				;; ---End Array Access get Addr
 			push eax
 				;; ---Array Access get Addr:
@@ -3224,6 +3314,11 @@ mov eax, edx
 					jge __exception
 					cmp ecx, 0
 					jl __exception
+
+					;; Access array
+					add eax, 2
+					imul eax, 4
+					add eax, ebx
 
 				;; ---End Array Access get Addr
 				;; Dereference array addr to value
@@ -3540,6 +3635,11 @@ mov eax, edx
 						cmp ecx, 0
 						jl __exception
 
+						;; Access array
+						add eax, 2
+						imul eax, 4
+						add eax, ebx
+
 					;; ---End Array Access get Addr
 					;; Dereference array addr to value
 					mov eax, [eax]
@@ -3582,6 +3682,11 @@ mov eax, edx
 						jge __exception
 						cmp ecx, 0
 						jl __exception
+
+						;; Access array
+						add eax, 2
+						imul eax, 4
+						add eax, ebx
 
 					;; ---End Array Access get Addr
 					;; Dereference array addr to value
@@ -3878,6 +3983,11 @@ mov eax, 0
 						cmp ecx, 0
 						jl __exception
 
+						;; Access array
+						add eax, 2
+						imul eax, 4
+						add eax, ebx
+
 					;; ---End Array Access get Addr
 				push eax
 					;; ---Array Access get Addr:
@@ -3910,6 +4020,11 @@ mov eax, 0
 						jge __exception
 						cmp ecx, 0
 						jl __exception
+
+						;; Access array
+						add eax, 2
+						imul eax, 4
+						add eax, ebx
 
 					;; ---End Array Access get Addr
 					;; Dereference array addr to value

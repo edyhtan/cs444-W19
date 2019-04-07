@@ -5,6 +5,7 @@ public class A {
 
     public static int test() {
         int[] x = new int [3];
-        return 0;
+        x[0] = 1;
+        return x[0];
     }
 }
