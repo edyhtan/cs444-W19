@@ -382,12 +382,15 @@ global @@@@main
 
 					;; casting
 										mov eax, 0
+					cmp eax, 0
+					je .cast_end
 					mov eax, [eax]
 					mov eax, [eax+4]
 					shr eax, 15
 					and eax, 0x1
 					cmp eax, 0
 					je __exception
+					.cast_end:
 					push eax
 
 				call __constructor__J1_sideeffects_obj3__J1_sideeffects_obj3$int$J1_sideeffects_obj3$
@@ -652,12 +655,15 @@ global @@@@main
 
 				;; casting
 								mov eax, 0
+				cmp eax, 0
+				je .cast_end
 				mov eax, [eax]
 				mov eax, [eax+4]
 				shr eax, 15
 				and eax, 0x1
 				cmp eax, 0
 				je __exception
+				.cast_end:
 				push eax
 
 			call __constructor__J1_sideeffects_obj3__J1_sideeffects_obj3$int$J1_sideeffects_obj3$

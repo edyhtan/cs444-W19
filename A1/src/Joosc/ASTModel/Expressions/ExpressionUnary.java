@@ -144,6 +144,13 @@ public class ExpressionUnary extends Expression implements ConstantExpression {
             if(!joosType.isPrimitive()) {
                 asmWriter.indent(indent);
                 targetNode.codeGen(indent);
+
+                // Skip casting if target is null
+                asmWriter.indent(indent);
+                asmWriter.cmp(Register.eax, "0");
+                asmWriter.indent(indent);
+                asmWriter.je(".cast_end");
+
                 asmWriter.indent(indent);
                 // mov to class tag
                 asmWriter.movFromAddr(Register.eax, Register.eax);
@@ -160,6 +167,9 @@ public class ExpressionUnary extends Expression implements ConstantExpression {
                 asmWriter.indent(indent);
                 asmWriter.extern("__exception");
                 asmWriter.je("__exception");
+                
+                asmWriter.indent(indent);
+                asmWriter.label(".cast_end");
             } else { // casting primitive types
                 // TODO: primitive casting
             }
