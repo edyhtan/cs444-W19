@@ -364,9 +364,6 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 }
 
                 int column = AsmWriter.parentMatrix.indexOf(rhsType);
-                String row = AsmWriter.parentMatrix.get(lhsType);
-                int res = Integer.parseInt(row, 2);
-                int testbit = calcTestBit(column);
 
                 asmWriter.indent(indent);
                 asmWriter.comment("Instanceof");
@@ -377,22 +374,13 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 asmWriter.movFromAddr(Register.eax, Register.eax);
                 asmWriter.indent(indent);
                 // parent matrix
-                String addr = String.join("+", Register.eax.toString(), "8");
+                String addr = String.join("+", Register.eax.toString(), "4");
                 asmWriter.movFromAddr(Register.eax, addr);
                 asmWriter.indent(indent);
-                asmWriter.test(Register.eax, testbit);
+                asmWriter.shr(Register.eax, column);
                 asmWriter.indent(indent);
-                asmWriter.jnz(".instance_true"+offset);
+                asmWriter.and(Register.eax,0x1);
                 asmWriter.indent(indent);
-                asmWriter.mov(Register.eax, "0");
-                asmWriter.indent(indent);
-                asmWriter.jmp(".end_instance"+offset);
-                asmWriter.indent(indent);
-                asmWriter.label(".instance_true"+offset);
-                asmWriter.indent(indent+1);
-                asmWriter.mov(Register.eax, "1");
-                asmWriter.indent(indent);
-                asmWriter.label(".end_instance"+offset);
                 break;
             // logical operations
             case And:

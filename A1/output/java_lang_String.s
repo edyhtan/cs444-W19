@@ -1705,13 +1705,16 @@ mov eax, 0
 				;expression code...
 				;; ompare_lt
 				;; LHS code...
+				;; Local Var i
+				mov eax, ebp
+				sub eax, 4
+				mov eax, [eax]
+
 				push eax
 				;; RHS code...
-				;; Implicit This
-				mov eax, [ebp + 0]
-				;; Field chars
+				;; Local Var chars
 				mov eax, ebp
-				add eax, 4
+				add eax, 8
 				mov eax, [eax]
 
 				;; Field length
