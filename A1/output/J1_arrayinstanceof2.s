@@ -386,11 +386,13 @@ global @@@@main
 		sub eax, 4
 		mov eax, [eax]
 
+		cmp eax, 0
+		je .end_instanceof2
 		mov eax, [eax+4]
 		mov eax, [eax+4]
 		shr eax, 9
 		and eax, 0x1
-;; ----end instanceof
+		.end_instanceof2:
 
 		cmp eax, 0
 		je .else0

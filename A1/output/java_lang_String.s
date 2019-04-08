@@ -1695,11 +1695,13 @@ section .text
 		add eax, 8
 		mov eax, [eax]
 
+		cmp eax, 0
+		je .end_instanceof1
 		mov eax, [eax]
 		mov eax, [eax+4]
 		shr eax, 10
 		and eax, 0x1
-;; ----end instanceof
+		.end_instanceof1:
 
 		mov ebx, 1
 		sub ebx, eax

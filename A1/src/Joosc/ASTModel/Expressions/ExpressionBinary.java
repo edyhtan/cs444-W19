@@ -386,6 +386,10 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 asmWriter.indent(indent);
                 LHS.codeGen(indent);
                 asmWriter.indent(indent);
+                asmWriter.cmp(Register.eax, "0");
+                asmWriter.indent(indent);
+                asmWriter.je(".end_instanceof"+offset);
+                asmWriter.indent(indent);
                 if(lhsType instanceof ArrayType) {
                     asmWriter.movFromAddr(Register.eax, Register.eax+"+4");
                 } else {
@@ -400,7 +404,8 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 asmWriter.shr(Register.eax, column);
                 asmWriter.indent(indent);
                 asmWriter.and(Register.eax,"0x1");
-                asmWriter.comment("----end instanceof");
+                asmWriter.indent(indent);
+                asmWriter.label(".end_instanceof"+offset);
                 break;
             // logical operations
             case And:
