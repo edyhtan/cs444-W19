@@ -147,6 +147,7 @@ section .text
 				;; LHS code...
 				;; ---Method Invocation: 
 				;; Names(ArgList)
+				mov eax, [esp + 12]
 				;; Null Check:
 				cmp eax, 0
 				je __exception
@@ -237,6 +238,7 @@ section .text
 			;; RHS code...
 			;; ---Method Invocation: 
 			;; Names(ArgList)
+			mov eax, [esp + 12]
 			;; Null Check:
 			cmp eax, 0
 			je __exception
@@ -469,6 +471,7 @@ section .text
 						;; RHS code...
 						;; ---Method Invocation: 
 						;; Names(ArgList)
+						mov eax, [esp + 0]
 						;; Null Check:
 						cmp eax, 0
 						je __exception
@@ -1927,6 +1930,7 @@ mov eax, edx
 		;; RHS code...
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		mov eax, [esp + 16]
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -2159,6 +2163,7 @@ mov eax, edx
 			push eax
 				;; ---Method Invocation: 
 				;; Names(ArgList)
+				mov eax, [esp + 0]
 				;; Null Check:
 				cmp eax, 0
 				je __exception
@@ -2292,6 +2297,7 @@ mov eax, edx
 			;; RHS code...
 			;; ---Method Invocation: 
 			;; Names(ArgList)
+			mov eax, [esp + 8]
 			;; Null Check:
 			cmp eax, 0
 			je __exception
@@ -2328,6 +2334,7 @@ mov eax, edx
 			;; LHS code...
 			;; ---Method Invocation: 
 			;; Names(ArgList)
+			mov eax, [esp + 8]
 			;; Null Check:
 			cmp eax, 0
 			je __exception
@@ -2413,6 +2420,7 @@ mov eax, edx
 			;; LHS code...
 			;; ---Method Invocation: 
 			;; Names(ArgList)
+			mov eax, [esp + 8]
 			;; Null Check:
 			cmp eax, 0
 			je __exception
@@ -2473,6 +2481,7 @@ mov eax, edx
 			;; LHS code...
 			;; ---Method Invocation: 
 			;; Names(ArgList)
+			mov eax, [esp + 8]
 			;; Null Check:
 			cmp eax, 0
 			je __exception
@@ -2599,6 +2608,7 @@ mov eax, edx
 			;elseClause ...
 			;; ---Method Invocation: 
 			;; Names(ArgList)
+			mov eax, [esp + 8]
 			;; Null Check:
 			cmp eax, 0
 			je __exception
@@ -2841,6 +2851,7 @@ mov eax, edx
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		mov eax, [esp + 12]
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -3602,6 +3613,7 @@ mov eax, edx
 			;; RHS code...
 			;; ---Method Invocation: 
 			;; Names(ArgList)
+			mov eax, [esp + 12]
 			;; Null Check:
 			cmp eax, 0
 			je __exception
@@ -3730,6 +3742,7 @@ mov eax, edx
 				;; RHS code...
 				;; ---Method Invocation: 
 				;; Names(ArgList)
+				mov eax, [esp + 0]
 				;; Null Check:
 				cmp eax, 0
 				je __exception
