@@ -401,9 +401,8 @@ global @@@@main
 		cmp eax, 0
 		je .cast_end2
 		push eax
-		mov eax, [eax]
 		mov eax, [eax+4]
-mov eax, [eax+4]
+		mov eax, [eax+4]
 		shr eax, 9
 		and eax, 0x1
 		cmp eax, 0

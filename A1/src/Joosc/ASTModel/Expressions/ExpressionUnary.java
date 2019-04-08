@@ -182,14 +182,13 @@ public class ExpressionUnary extends Expression implements ConstantExpression {
                 asmWriter.indent(indent);
                 asmWriter.push(Register.eax);
                 asmWriter.indent(indent);
-                // mov to class tag
-                asmWriter.movFromAddr(Register.eax, Register.eax);
-                asmWriter.indent(indent);
-                // parent matrix
                 String addr = String.join("+", Register.eax.toString(), "4");
-                if(joosType instanceof ArrayType) { // dereference twice
+                if(joosType instanceof ArrayType) { // array obj class tag
                     asmWriter.movFromAddr(Register.eax, addr);
+                } else { // mov to class tag
+                    asmWriter.movFromAddr(Register.eax, Register.eax);
                 }
+                asmWriter.indent(indent);
                 asmWriter.movFromAddr(Register.eax, addr);
                 asmWriter.indent(indent);
                 asmWriter.shr(Register.eax, column);
