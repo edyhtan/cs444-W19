@@ -7,7 +7,6 @@ extern __ref_SIT_java_lang_Character
 extern __class_ArrayTemplate
 extern __constructor__java_io_PrintStream__PrintStream
 extern __ref_SIT_java_lang_String
-extern __new_array
 extern __ref_SIT_java_lang_Integer
 extern __method__java_lang_Object__toString
 extern __ref_SIT_java_lang_Class
@@ -31,14 +30,14 @@ extern __ref_SIT_java_io_OutputStream
 
 section .data
 
-	global __class_J1_arrayinstanceof1
-__class_J1_arrayinstanceof1:
-		global __ref_SIT_J1_arrayinstanceof1
-	__ref_SIT_J1_arrayinstanceof1:
+	global __class_J1_arrayinstanceof2
+__class_J1_arrayinstanceof2:
+		global __ref_SIT_J1_arrayinstanceof2
+	__ref_SIT_J1_arrayinstanceof2:
 		dd 0
 
-		global __ref_PARENTS_J1_arrayinstanceof1
-	__ref_PARENTS_J1_arrayinstanceof1:
+		global __ref_PARENTS_J1_arrayinstanceof2
+	__ref_PARENTS_J1_arrayinstanceof2:
 		dd 1000001000000000b
 
 	; Methods	
@@ -47,7 +46,7 @@ __class_J1_arrayinstanceof1:
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
 		dd __method__java_lang_Object__toString
-		dd __STATIC_method__J1_arrayinstanceof1__test
+		dd __STATIC_method__J1_arrayinstanceof2__test
 
 ;; Static fields
 
@@ -294,7 +293,7 @@ mov [ebx], eax
 mov eax, 16
 call __malloc
 
-mov ebx, __ref_SIT_J1_arrayinstanceof1
+mov ebx, __ref_SIT_J1_arrayinstanceof2
 mov [ebx], eax
 
 		mov ebx, __method__java_lang_Object__hashCode
@@ -368,23 +367,13 @@ int 0x80
 
 global @@@@main
 @@@@main:
-		global __STATIC_method__J1_arrayinstanceof1__test
-	__STATIC_method__J1_arrayinstanceof1__test:
+		global __STATIC_method__J1_arrayinstanceof2__test
+	__STATIC_method__J1_arrayinstanceof2__test:
 		push ebp
 		mov ebp, esp
 
 		;; ---declare s
-		;; ---Array Creation: [String]
-
-			;; Size Expression:
-				mov eax, 0
-
-			;; Class Tag
-			mov ebx, __class_ArrayTemplate
-
-			mov edx, __new_array
-			call edx
-		;; --- End Array Creation
+		mov eax, 0
 
 		push eax
 		;; ---end of declare s
@@ -406,26 +395,26 @@ global @@@@main
 		cmp eax, 0
 		je .else0
 		;thenClause ...
-			mov eax, 123
-			jmp _method_return___STATIC_method__J1_arrayinstanceof1__test
+			mov eax, 100
+			jmp _method_return___STATIC_method__J1_arrayinstanceof2__test
 
 		jmp .endif0
 
 		.else0:
 			;elseClause ...
-			mov eax, 100
-			jmp _method_return___STATIC_method__J1_arrayinstanceof1__test
+			mov eax, 123
+			jmp _method_return___STATIC_method__J1_arrayinstanceof2__test
 
 		.endif0:
 
-		_method_return___STATIC_method__J1_arrayinstanceof1__test:
+		_method_return___STATIC_method__J1_arrayinstanceof2__test:
 			mov esp, ebp
 			pop ebp
 			ret
 
 ;; -----Constructors-----
-		global __constructor__J1_arrayinstanceof1__J1_arrayinstanceof1
-	__constructor__J1_arrayinstanceof1__J1_arrayinstanceof1:
+		global __constructor__J1_arrayinstanceof2__J1_arrayinstanceof2
+	__constructor__J1_arrayinstanceof2__J1_arrayinstanceof2:
 		push ebp
 		mov ebp, esp
 		mov eax, [ebp + 8]
