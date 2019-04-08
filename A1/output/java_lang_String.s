@@ -145,7 +145,7 @@ section .text
 			;; Size Expression:
 				;; Plus
 				;; LHS code...
-				;; ---Method Invocation: 
+				;; ---Method Invocation: length
 				;; Names(ArgList)
 				mov eax, [esp + 12]
 				;; Null Check:
@@ -171,7 +171,7 @@ section .text
 				;; ---End of method invocation
 				push eax
 				;; RHS code...
-				;; ---Method Invocation: 
+				;; ---Method Invocation: length
 				;; Names(ArgList)
 					;; Local Var s2
 					mov eax, ebp
@@ -236,7 +236,7 @@ section .text
 
 			push eax
 			;; RHS code...
-			;; ---Method Invocation: 
+			;; ---Method Invocation: length
 			;; Names(ArgList)
 			mov eax, [esp + 12]
 			;; Null Check:
@@ -405,7 +405,7 @@ section .text
 
 			push eax
 			;; RHS code...
-			;; ---Method Invocation: 
+			;; ---Method Invocation: length
 			;; Names(ArgList)
 				;; Local Var s2
 				mov eax, ebp
@@ -469,7 +469,7 @@ section .text
 
 						push eax
 						;; RHS code...
-						;; ---Method Invocation: 
+						;; ---Method Invocation: length
 						;; Names(ArgList)
 						mov eax, [esp + 0]
 						;; Null Check:
@@ -784,7 +784,7 @@ section .text
 			mov [eax], ebx
 			push eax
 
-			mov eax, 12
+			mov eax, 11
 			mov ebx, 0
 			call __new_array
 				mov ecx, 45
@@ -809,8 +809,6 @@ section .text
 				mov [eax + 48], ecx
 				mov ecx, 56
 				mov [eax + 52], ecx
-				mov ecx, 0
-				mov [eax + 56], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 4
@@ -1446,7 +1444,7 @@ mov eax, edx
 		push ebp
 		mov ebp, esp
 
-		;; ---Method Invocation: 
+		;; ---Method Invocation: valueOf,int
 		;; Names(ArgList)
 
 		;; static method, dont push this
@@ -1479,7 +1477,7 @@ mov eax, edx
 		push ebp
 		mov ebp, esp
 
-		;; ---Method Invocation: 
+		;; ---Method Invocation: valueOf,int
 		;; Names(ArgList)
 
 		;; static method, dont push this
@@ -1528,7 +1526,7 @@ mov eax, edx
 			mov [eax], ebx
 			push eax
 
-			mov eax, 5
+			mov eax, 4
 			mov ebx, 0
 			call __new_array
 				mov ecx, 116
@@ -1539,8 +1537,6 @@ mov eax, edx
 				mov [eax + 20], ecx
 				mov ecx, 101
 				mov [eax + 24], ecx
-				mov ecx, 0
-				mov [eax + 28], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 4
@@ -1557,7 +1553,7 @@ mov eax, edx
 			mov [eax], ebx
 			push eax
 
-			mov eax, 6
+			mov eax, 5
 			mov ebx, 0
 			call __new_array
 				mov ecx, 102
@@ -1570,8 +1566,6 @@ mov eax, edx
 				mov [eax + 24], ecx
 				mov ecx, 101
 				mov [eax + 28], ecx
-				mov ecx, 0
-				mov [eax + 32], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 4
@@ -1620,7 +1614,7 @@ mov eax, edx
 			mov [eax], ebx
 			push eax
 
-			mov eax, 5
+			mov eax, 4
 			mov ebx, 0
 			call __new_array
 				mov ecx, 110
@@ -1631,8 +1625,6 @@ mov eax, edx
 				mov [eax + 20], ecx
 				mov ecx, 108
 				mov [eax + 24], ecx
-				mov ecx, 0
-				mov [eax + 28], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 4
@@ -1643,7 +1635,7 @@ mov eax, edx
 
 		.else9:
 			;elseClause ...
-			;; ---Method Invocation: 
+			;; ---Method Invocation: toString
 			;; Names(ArgList)
 				;; Local Var o
 				mov eax, ebp
@@ -1715,7 +1707,7 @@ mov eax, edx
 			mov [eax], ebx
 			push eax
 
-			mov eax, 5
+			mov eax, 4
 			mov ebx, 0
 			call __new_array
 				mov ecx, 110
@@ -1726,8 +1718,6 @@ mov eax, edx
 				mov [eax + 20], ecx
 				mov ecx, 108
 				mov [eax + 24], ecx
-				mov ecx, 0
-				mov [eax + 28], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 4
@@ -1815,7 +1805,7 @@ mov eax, edx
 
 		.else12:
 		.endif12:
-		;; ---Method Invocation: 
+		;; ---Method Invocation: equals,char[],char[]
 		;; Names(ArgList)
 
 		;; static method, dont push this
@@ -1904,11 +1894,9 @@ mov eax, edx
 			mov [eax], ebx
 			push eax
 
-			mov eax, 1
+			mov eax, 0
 			mov ebx, 0
 			call __new_array
-				mov ecx, 0
-				mov [eax + 12], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 4
@@ -1930,7 +1918,7 @@ mov eax, edx
 
 		push eax
 		;; RHS code...
-		;; ---Method Invocation: 
+		;; ---Method Invocation: length
 		;; Names(ArgList)
 		mov eax, [esp + 16]
 		;; Null Check:
@@ -1972,11 +1960,9 @@ mov eax, edx
 			mov [eax], ebx
 			push eax
 
-			mov eax, 1
+			mov eax, 0
 			mov ebx, 0
 			call __new_array
-				mov ecx, 0
-				mov [eax + 12], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 4
@@ -2021,11 +2007,9 @@ mov eax, edx
 			mov [eax], ebx
 			push eax
 
-			mov eax, 1
+			mov eax, 0
 			mov ebx, 0
 			call __new_array
-				mov ecx, 0
-				mov [eax + 12], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 4
@@ -2163,7 +2147,7 @@ mov eax, edx
 
 				;; ---End Array Access get Addr
 			push eax
-				;; ---Method Invocation: 
+				;; ---Method Invocation: charAt,int
 				;; Names(ArgList)
 				mov eax, [esp + 0]
 				;; Null Check:
@@ -2297,7 +2281,7 @@ mov eax, edx
 
 			push eax
 			;; RHS code...
-			;; ---Method Invocation: 
+			;; ---Method Invocation: length
 			;; Names(ArgList)
 			mov eax, [esp + 8]
 			;; Null Check:
@@ -2334,7 +2318,7 @@ mov eax, edx
 			je .end_and0
 			;; ompare_le
 			;; LHS code...
-			;; ---Method Invocation: 
+			;; ---Method Invocation: charAt,int
 			;; Names(ArgList)
 			mov eax, [esp + 8]
 			;; Null Check:
@@ -2420,7 +2404,7 @@ mov eax, edx
 		push eax
 			;; Minus
 			;; LHS code...
-			;; ---Method Invocation: 
+			;; ---Method Invocation: length
 			;; Names(ArgList)
 			mov eax, [esp + 8]
 			;; Null Check:
@@ -2481,7 +2465,7 @@ mov eax, edx
 			je .end_and3
 			;; ompare_le
 			;; LHS code...
-			;; ---Method Invocation: 
+			;; ---Method Invocation: charAt,int
 			;; Names(ArgList)
 			mov eax, [esp + 8]
 			;; Null Check:
@@ -2593,11 +2577,9 @@ mov eax, edx
 			mov [eax], ebx
 			push eax
 
-			mov eax, 1
+			mov eax, 0
 			mov ebx, 0
 			call __new_array
-				mov ecx, 0
-				mov [eax + 12], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 4
@@ -2608,7 +2590,7 @@ mov eax, edx
 
 		.else19:
 			;elseClause ...
-			;; ---Method Invocation: 
+			;; ---Method Invocation: substring,int,int
 			;; Names(ArgList)
 			mov eax, [esp + 8]
 			;; Null Check:
@@ -2851,7 +2833,7 @@ mov eax, edx
 		push ebp
 		mov ebp, esp
 
-		;; ---Method Invocation: 
+		;; ---Method Invocation: compareTo,java.lang.String
 		;; Names(ArgList)
 		mov eax, [esp + 12]
 		;; Null Check:
@@ -3615,7 +3597,7 @@ mov eax, edx
 
 			push eax
 			;; RHS code...
-			;; ---Method Invocation: 
+			;; ---Method Invocation: length
 			;; Names(ArgList)
 			mov eax, [esp + 12]
 			;; Null Check:
@@ -3680,7 +3662,7 @@ mov eax, edx
 
 				push eax
 				;; RHS code...
-				;; ---Method Invocation: 
+				;; ---Method Invocation: length
 				;; Names(ArgList)
 					;; Local Var needle
 					mov eax, ebp
@@ -3744,7 +3726,7 @@ mov eax, edx
 
 				push eax
 				;; RHS code...
-				;; ---Method Invocation: 
+				;; ---Method Invocation: length
 				;; Names(ArgList)
 				mov eax, [esp + 0]
 				;; Null Check:

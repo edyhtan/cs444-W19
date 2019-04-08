@@ -473,7 +473,7 @@ global @@@@main
 		mov [eax], ebx
 		push eax
 
-		mov eax, 4
+		mov eax, 3
 		mov ebx, 0
 		call __new_array
 			mov ecx, 49
@@ -482,8 +482,6 @@ global @@@@main
 			mov [eax + 16], ecx
 			mov ecx, 51
 			mov [eax + 20], ecx
-			mov ecx, 0
-			mov [eax + 24], ecx
 		push eax
 		call __constructor__java_lang_String__String$char@$
 		add esp, 4
@@ -499,7 +497,7 @@ global @@@@main
 		mov [eax], ebx
 		push eax
 
-		mov eax, 4
+		mov eax, 3
 		mov ebx, 0
 		call __new_array
 			mov ecx, 51
@@ -508,8 +506,6 @@ global @@@@main
 			mov [eax + 16], ecx
 			mov ecx, 49
 			mov [eax + 20], ecx
-			mov ecx, 0
-			mov [eax + 24], ecx
 		push eax
 		call __constructor__java_lang_String__String$char@$
 		add esp, 4
@@ -519,7 +515,7 @@ global @@@@main
 		;; ---end of declare str2
 
 		;; ---declare str3
-		;; ---Method Invocation: 
+		;; ---Method Invocation: concat,java.lang.String
 		;; Names(ArgList)
 			;; Local Var str1
 			mov eax, ebp
@@ -579,7 +575,7 @@ global @@@@main
 		push eax
 		;; ---end of declare ps
 
-		;; ---Method Invocation: 
+		;; ---Method Invocation: println,java.lang.String
 		;; Names(ArgList)
 			;; Local Var ps
 			mov eax, ebp

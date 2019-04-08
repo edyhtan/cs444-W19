@@ -92,7 +92,7 @@ section .text
 
 			push eax
 			;; RHS code...
-			;; ---Method Invocation: 
+			;; ---Method Invocation: length
 			;; Names(ArgList)
 				;; Local Var s
 				mov eax, ebp
@@ -134,7 +134,7 @@ section .text
 			;; logical_or
 			;; ompare_eq
 			;; LHS code...
-			;; ---Method Invocation: 
+			;; ---Method Invocation: charAt,int
 			;; Names(ArgList)
 				;; Local Var s
 				mov eax, ebp
@@ -186,7 +186,7 @@ section .text
 			;; logical_and
 			;; ompare_ge
 			;; LHS code...
-			;; ---Method Invocation: 
+			;; ---Method Invocation: charAt,int
 			;; Names(ArgList)
 				;; Local Var s
 				mov eax, ebp
@@ -237,7 +237,7 @@ section .text
 			je .end_and4
 			;; ompare_le
 			;; LHS code...
-			;; ---Method Invocation: 
+			;; ---Method Invocation: charAt,int
 			;; Names(ArgList)
 				;; Local Var s
 				mov eax, ebp
@@ -297,7 +297,7 @@ section .text
 			;expression code...
 			;; ompare_eq
 			;; LHS code...
-			;; ---Method Invocation: 
+			;; ---Method Invocation: charAt,int
 			;; Names(ArgList)
 				;; Local Var s
 				mov eax, ebp
@@ -394,7 +394,7 @@ section .text
 
 					push eax
 					;; RHS code...
-					;; ---Method Invocation: 
+					;; ---Method Invocation: charAt,int
 					;; Names(ArgList)
 						;; Local Var s
 						mov eax, ebp
@@ -523,7 +523,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ---Method Invocation: 
+		;; ---Method Invocation: valueOf,int
 		;; Names(ArgList)
 
 		;; static method, dont push this
@@ -615,7 +615,7 @@ mov eax, 0
 				add eax, 4
 
 			push eax
-				;; ---Method Invocation: 
+				;; ---Method Invocation: parseInt,java.lang.String
 				;; Names(ArgList)
 
 				;; static method, dont push this

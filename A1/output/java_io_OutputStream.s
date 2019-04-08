@@ -41,7 +41,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ---Method Invocation: 
+		;; ---Method Invocation: write,int
 		;; Names(ArgList)
 		mov eax, [esp + 12]
 		;; Null Check:
@@ -85,7 +85,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ---Method Invocation: 
+		;; ---Method Invocation: nativeWrite,int
 		;; Names(ArgList)
 
 		;; static method, dont push this

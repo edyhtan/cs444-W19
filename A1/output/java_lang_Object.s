@@ -70,7 +70,7 @@ section .text
 		mov [eax], ebx
 		push eax
 
-		mov eax, 19
+		mov eax, 18
 		mov ebx, 0
 		call __new_array
 			mov ecx, 83
@@ -109,8 +109,6 @@ section .text
 			mov [eax + 76], ecx
 			mov ecx, 116
 			mov [eax + 80], ecx
-			mov ecx, 0
-			mov [eax + 84], ecx
 		push eax
 		call __constructor__java_lang_String__String$char@$
 		add esp, 4

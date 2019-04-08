@@ -40,7 +40,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ---Method Invocation: 
+		;; ---Method Invocation: valueOf,boolean
 		;; Names(ArgList)
 
 		;; static method, dont push this

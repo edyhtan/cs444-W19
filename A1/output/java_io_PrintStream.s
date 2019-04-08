@@ -88,7 +88,7 @@ section .text
 
 			push eax
 			;; RHS code...
-			;; ---Method Invocation: 
+			;; ---Method Invocation: length
 			;; Names(ArgList)
 				;; Local Var s
 				mov eax, ebp
@@ -128,7 +128,7 @@ section .text
 			cmp eax, 0
 			je .endfor0
 			;statement code...
-			;; ---Method Invocation: 
+			;; ---Method Invocation: write,char
 			;; Names(ArgList)
 			mov eax, [esp + 0]
 			;; Null Check:
@@ -138,7 +138,7 @@ section .text
 			push eax
 
 			;; Pushing args
-				;; ---Method Invocation: 
+				;; ---Method Invocation: charAt,int
 				;; Names(ArgList)
 					;; Local Var s
 					mov eax, ebp
@@ -232,7 +232,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ---Method Invocation: 
+		;; ---Method Invocation: println,java.lang.String
 		;; Names(ArgList)
 		mov eax, [esp + 8]
 		;; Null Check:
@@ -248,11 +248,9 @@ section .text
 			mov [eax], ebx
 			push eax
 
-			mov eax, 1
+			mov eax, 0
 			mov ebx, 0
 			call __new_array
-				mov ecx, 0
-				mov [eax + 12], ecx
 			push eax
 			call __constructor__java_lang_String__String$char@$
 			add esp, 4
@@ -284,7 +282,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ---Method Invocation: 
+		;; ---Method Invocation: print,java.lang.String
 		;; Names(ArgList)
 		mov eax, [esp + 12]
 		;; Null Check:
@@ -315,7 +313,7 @@ section .text
 		add esp, 8
 
 		;; ---End of method invocation
-		;; ---Method Invocation: 
+		;; ---Method Invocation: write,char
 		;; Names(ArgList)
 		mov eax, [esp + 12]
 		;; Null Check:
@@ -353,7 +351,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ---Method Invocation: 
+		;; ---Method Invocation: println,java.lang.String
 		;; Names(ArgList)
 		mov eax, [esp + 12]
 		;; Null Check:
@@ -363,7 +361,7 @@ section .text
 		push eax
 
 		;; Pushing args
-			;; ---Method Invocation: 
+			;; ---Method Invocation: valueOf,java.lang.Object
 			;; Names(ArgList)
 
 			;; static method, dont push this
@@ -409,7 +407,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ---Method Invocation: 
+		;; ---Method Invocation: println,java.lang.String
 		;; Names(ArgList)
 		mov eax, [esp + 12]
 		;; Null Check:
@@ -419,7 +417,7 @@ section .text
 		push eax
 
 		;; Pushing args
-			;; ---Method Invocation: 
+			;; ---Method Invocation: valueOf,boolean
 			;; Names(ArgList)
 
 			;; static method, dont push this
@@ -465,7 +463,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ---Method Invocation: 
+		;; ---Method Invocation: println,java.lang.String
 		;; Names(ArgList)
 		mov eax, [esp + 12]
 		;; Null Check:
@@ -475,7 +473,7 @@ section .text
 		push eax
 
 		;; Pushing args
-			;; ---Method Invocation: 
+			;; ---Method Invocation: valueOf,byte
 			;; Names(ArgList)
 
 			;; static method, dont push this
@@ -521,7 +519,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ---Method Invocation: 
+		;; ---Method Invocation: println,java.lang.String
 		;; Names(ArgList)
 		mov eax, [esp + 12]
 		;; Null Check:
@@ -531,7 +529,7 @@ section .text
 		push eax
 
 		;; Pushing args
-			;; ---Method Invocation: 
+			;; ---Method Invocation: valueOf,char
 			;; Names(ArgList)
 
 			;; static method, dont push this
@@ -577,7 +575,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ---Method Invocation: 
+		;; ---Method Invocation: println,java.lang.String
 		;; Names(ArgList)
 		mov eax, [esp + 12]
 		;; Null Check:
@@ -587,7 +585,7 @@ section .text
 		push eax
 
 		;; Pushing args
-			;; ---Method Invocation: 
+			;; ---Method Invocation: valueOf,short
 			;; Names(ArgList)
 
 			;; static method, dont push this
@@ -633,7 +631,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ---Method Invocation: 
+		;; ---Method Invocation: println,java.lang.String
 		;; Names(ArgList)
 		mov eax, [esp + 12]
 		;; Null Check:
@@ -643,7 +641,7 @@ section .text
 		push eax
 
 		;; Pushing args
-			;; ---Method Invocation: 
+			;; ---Method Invocation: valueOf,int
 			;; Names(ArgList)
 
 			;; static method, dont push this
@@ -689,7 +687,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ---Method Invocation: 
+		;; ---Method Invocation: print,java.lang.String
 		;; Names(ArgList)
 		mov eax, [esp + 12]
 		;; Null Check:
@@ -699,7 +697,7 @@ section .text
 		push eax
 
 		;; Pushing args
-			;; ---Method Invocation: 
+			;; ---Method Invocation: valueOf,java.lang.Object
 			;; Names(ArgList)
 
 			;; static method, dont push this
@@ -745,7 +743,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ---Method Invocation: 
+		;; ---Method Invocation: print,java.lang.String
 		;; Names(ArgList)
 		mov eax, [esp + 12]
 		;; Null Check:
@@ -755,7 +753,7 @@ section .text
 		push eax
 
 		;; Pushing args
-			;; ---Method Invocation: 
+			;; ---Method Invocation: valueOf,boolean
 			;; Names(ArgList)
 
 			;; static method, dont push this
@@ -801,7 +799,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ---Method Invocation: 
+		;; ---Method Invocation: print,java.lang.String
 		;; Names(ArgList)
 		mov eax, [esp + 12]
 		;; Null Check:
@@ -811,7 +809,7 @@ section .text
 		push eax
 
 		;; Pushing args
-			;; ---Method Invocation: 
+			;; ---Method Invocation: valueOf,byte
 			;; Names(ArgList)
 
 			;; static method, dont push this
@@ -857,7 +855,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ---Method Invocation: 
+		;; ---Method Invocation: print,java.lang.String
 		;; Names(ArgList)
 		mov eax, [esp + 12]
 		;; Null Check:
@@ -867,7 +865,7 @@ section .text
 		push eax
 
 		;; Pushing args
-			;; ---Method Invocation: 
+			;; ---Method Invocation: valueOf,char
 			;; Names(ArgList)
 
 			;; static method, dont push this
@@ -913,7 +911,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ---Method Invocation: 
+		;; ---Method Invocation: print,java.lang.String
 		;; Names(ArgList)
 		mov eax, [esp + 12]
 		;; Null Check:
@@ -923,7 +921,7 @@ section .text
 		push eax
 
 		;; Pushing args
-			;; ---Method Invocation: 
+			;; ---Method Invocation: valueOf,short
 			;; Names(ArgList)
 
 			;; static method, dont push this
@@ -969,7 +967,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ---Method Invocation: 
+		;; ---Method Invocation: print,java.lang.String
 		;; Names(ArgList)
 		mov eax, [esp + 12]
 		;; Null Check:
@@ -979,7 +977,7 @@ section .text
 		push eax
 
 		;; Pushing args
-			;; ---Method Invocation: 
+			;; ---Method Invocation: valueOf,int
 			;; Names(ArgList)
 
 			;; static method, dont push this

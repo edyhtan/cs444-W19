@@ -58,7 +58,7 @@ section .text
 		push ebp
 		mov ebp, esp
 
-		;; ---Method Invocation: 
+		;; ---Method Invocation: valueOf,short
 		;; Names(ArgList)
 
 		;; static method, dont push this
