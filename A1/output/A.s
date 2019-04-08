@@ -549,7 +549,7 @@ global @@@@main
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
-		mov eax, [eax + 0]
+		mov eax, [eax + 16]
 
 		call eax
 
