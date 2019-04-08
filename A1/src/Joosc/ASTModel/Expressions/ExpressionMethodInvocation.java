@@ -237,6 +237,8 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
 
         Env methodEnv;
 
+        System.err.println((methodName == null) + " " + (methodParentExpression != null));
+
         // This enigma
         if (methodName != null) {
             asmWriter.indent(indent);
@@ -249,8 +251,9 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
             } else {
                 methodEnv = getEnv();
                 if (!matchingMethod.getModifiers().contains(Symbol.Static)) {
+                    int offset = ((LocalEnv) methodEnv).getThis();
                     asmWriter.indent(indent);
-                    asmWriter.movFromAddr(Register.eax, "ebp + " + ((LocalEnv) getEnv()).getThis());
+                    asmWriter.movFromAddr(Register.eax, Register.ebp + "+" + offset);
                 }
             }
 
@@ -269,12 +272,12 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
             asmWriter.indent(indent);
             asmWriter.comment("Primary.id(ArgList)");
             methodParentExpression.addWriter(asmWriter);
+            methodEnv = methodParentExpression.joosType.getClassEnv();
             methodParentExpression.addEnv(getEnv());
             methodParentExpression.codeGen(indent + 1);
             asmWriter.nullCheck(indent);
             asmWriter.indent(indent);
             asmWriter.push(Register.eax);
-            methodEnv = methodParentExpression.getEnv();
         }
         matchingMethod = methodEnv.getClassEnv().methodCallTable.get(matchingMethod.getSignatureStr());
         asmWriter.println();
@@ -324,7 +327,7 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
             asmWriter.add(Register.esp, argList.size() * 4 + 4);
         } else {
             asmWriter.indent(indent);
-            asmWriter.comment("class method:");
+            asmWriter.comment("class method: " + matchingMethod.getMethodSimpleName());
             int methodOffset = matchingMethod.methodOffset;
             asmWriter.indent(indent);
             asmWriter.comment("addr of o");
@@ -337,7 +340,8 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
             asmWriter.indent(indent);
             asmWriter.comment("addr of m body");
             asmWriter.indent(indent);
-            asmWriter.movFromAddr(Register.eax, "eax + " + methodOffset);
+            System.err.println(methodEnv.getJoosType().getQualifiedName());
+            asmWriter.movFromAddr(Register.eax, "eax + " + methodEnv.getClassEnv().methodCallTable.get(matchingMethod.getSignatureStr()).methodOffset);
             asmWriter.println();
             asmWriter.indent(indent);
             asmWriter.call(Register.eax);

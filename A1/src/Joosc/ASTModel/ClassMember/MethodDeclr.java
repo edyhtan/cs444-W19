@@ -280,7 +280,6 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
         asmWriter.ret();
 
         asmWriter.println("");
-
     }
 
     @Override
