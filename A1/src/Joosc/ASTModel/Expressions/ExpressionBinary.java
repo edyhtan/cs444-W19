@@ -9,6 +9,7 @@ import Joosc.Environment.Env;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.Exceptions.UnreachableStatementException;
+import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
@@ -270,6 +271,19 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
 
         switch (operator) {
             case Plus:
+                ArrayList<String> jls = new ArrayList<>();
+                jls.add("java"); jls.add("lang"); jls.add("String");
+                if (LHS.joosType.equals(jls)) {
+                    if (RHS.joosType.equals(jls)) {
+                        LHS.codeGen(indent);
+                        asmWriter.push(Register.eax);
+                        RHS.codeGen(indent);
+                        asmWriter.push(Register.eax);
+                        asmWriter.extern("__method__java_lang_String__concat$java_lang_String$");
+                        asmWriter.call("__method__java_lang_String__concat$java_lang_String$");
+                        break;
+                    }
+                }
                 asmWriter.indent(indent);
                 asmWriter.comment("Plus");
                 asmWriter.evalLHSthenRHS(LHS, RHS, indent);

@@ -10,6 +10,7 @@ import Joosc.Environment.FieldsVarInfo;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.Exceptions.UnreachableStatementException;
+import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
@@ -110,7 +111,12 @@ public class ExpressionFieldAccess extends Expression implements LeftValue {
     @Override
     public void codeGen(int indent) {
         fieldParentExpression.addEnv(getEnv());
-        int offset = parentType.getClassEnv().symbolTable.get(parentType.getQualifiedName()+"::"+fieldIdentifier).getOffset();
+        int offset;
+        if (parentType instanceof ArrayType) {
+            offset = 8;
+        } else {
+            offset = parentType.getClassEnv().symbolTable.get(parentType.getQualifiedName() + "::" + fieldIdentifier).getOffset();
+        }
 
         asmWriter.indent(indent);
         asmWriter.comment("field access");
