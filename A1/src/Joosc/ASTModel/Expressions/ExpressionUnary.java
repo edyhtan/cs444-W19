@@ -154,12 +154,22 @@ public class ExpressionUnary extends Expression implements ConstantExpression {
         targetNode.addEnv(getEnv());
         targetNode.addWriter(asmWriter);
 
+
+
         if (castingType != null) { // casting
             offset = MethodDeclr.PER_METHOD_COUNT;
             MethodDeclr.PER_METHOD_COUNT++;
+
+            JoosType targetType = null;
+            try {
+                targetType = targetNode.getType();
+            } catch (TypeCheckException e) {
+                // do nothing
+            }
+
 //            System.out.println(joosType.getTypeName() + " " + (joosType instanceof ArrayType));
             int column;
-            if(!(joosType instanceof ArrayType)) {
+            if(!(targetType instanceof ArrayType)) {
                 column = AsmWriter.parentMatrix.indexOf(joosType);
             } else {
                 column = AsmWriter.parentMatrix.indexOf(((ArrayType) joosType).getJoosType());
@@ -183,7 +193,7 @@ public class ExpressionUnary extends Expression implements ConstantExpression {
                 asmWriter.push(Register.eax);
                 asmWriter.indent(indent);
                 String addr = String.join("+", Register.eax.toString(), "4");
-                if(joosType instanceof ArrayType) { // array obj class tag
+                if(targetType instanceof ArrayType) { // array obj class tag
                     asmWriter.movFromAddr(Register.eax, addr);
                 } else { // mov to class tag
                     asmWriter.movFromAddr(Register.eax, Register.eax);
