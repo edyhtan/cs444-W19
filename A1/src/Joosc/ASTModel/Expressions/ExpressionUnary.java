@@ -170,6 +170,8 @@ public class ExpressionUnary extends Expression implements ConstantExpression {
                 asmWriter.je(".cast_end" + offset);
 
                 asmWriter.indent(indent);
+                asmWriter.push(Register.eax);
+                asmWriter.indent(indent);
                 // mov to class tag
                 asmWriter.movFromAddr(Register.eax, Register.eax);
                 asmWriter.indent(indent);
@@ -185,6 +187,8 @@ public class ExpressionUnary extends Expression implements ConstantExpression {
                 asmWriter.indent(indent);
                 asmWriter.extern("__exception");
                 asmWriter.je("__exception");
+                asmWriter.indent(indent);
+                asmWriter.pop(Register.eax);
 
                 asmWriter.indent(indent);
                 asmWriter.label(".cast_end" + offset);

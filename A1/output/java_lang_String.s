@@ -147,7 +147,7 @@ section .text
 				;; LHS code...
 				;; ---Method Invocation: length
 				;; Names(ArgList)
-				mov eax, [esp + 12]
+				mov eax, [ebp + 12]
 				;; Null Check:
 				cmp eax, 0
 				je __exception
@@ -238,7 +238,7 @@ section .text
 			;; RHS code...
 			;; ---Method Invocation: length
 			;; Names(ArgList)
-			mov eax, [esp + 12]
+			mov eax, [ebp + 12]
 			;; Null Check:
 			cmp eax, 0
 			je __exception
@@ -471,7 +471,7 @@ section .text
 						;; RHS code...
 						;; ---Method Invocation: length
 						;; Names(ArgList)
-						mov eax, [esp + 0]
+						mov eax, [ebp + 0]
 						;; Null Check:
 						cmp eax, 0
 						je __exception
@@ -1920,7 +1920,7 @@ mov eax, edx
 		;; RHS code...
 		;; ---Method Invocation: length
 		;; Names(ArgList)
-		mov eax, [esp + 16]
+		mov eax, [ebp + 16]
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -2149,7 +2149,7 @@ mov eax, edx
 			push eax
 				;; ---Method Invocation: charAt,int
 				;; Names(ArgList)
-				mov eax, [esp + 0]
+				mov eax, [ebp + 0]
 				;; Null Check:
 				cmp eax, 0
 				je __exception
@@ -2283,7 +2283,7 @@ mov eax, edx
 			;; RHS code...
 			;; ---Method Invocation: length
 			;; Names(ArgList)
-			mov eax, [esp + 8]
+			mov eax, [ebp + 8]
 			;; Null Check:
 			cmp eax, 0
 			je __exception
@@ -2320,7 +2320,7 @@ mov eax, edx
 			;; LHS code...
 			;; ---Method Invocation: charAt,int
 			;; Names(ArgList)
-			mov eax, [esp + 8]
+			mov eax, [ebp + 8]
 			;; Null Check:
 			cmp eax, 0
 			je __exception
@@ -2406,7 +2406,7 @@ mov eax, edx
 			;; LHS code...
 			;; ---Method Invocation: length
 			;; Names(ArgList)
-			mov eax, [esp + 8]
+			mov eax, [ebp + 8]
 			;; Null Check:
 			cmp eax, 0
 			je __exception
@@ -2467,7 +2467,7 @@ mov eax, edx
 			;; LHS code...
 			;; ---Method Invocation: charAt,int
 			;; Names(ArgList)
-			mov eax, [esp + 8]
+			mov eax, [ebp + 8]
 			;; Null Check:
 			cmp eax, 0
 			je __exception
@@ -2592,7 +2592,7 @@ mov eax, edx
 			;elseClause ...
 			;; ---Method Invocation: substring,int,int
 			;; Names(ArgList)
-			mov eax, [esp + 8]
+			mov eax, [ebp + 8]
 			;; Null Check:
 			cmp eax, 0
 			je __exception
@@ -2835,7 +2835,7 @@ mov eax, edx
 
 		;; ---Method Invocation: compareTo,java.lang.String
 		;; Names(ArgList)
-		mov eax, [esp + 12]
+		mov eax, [ebp + 12]
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -3599,7 +3599,7 @@ mov eax, edx
 			;; RHS code...
 			;; ---Method Invocation: length
 			;; Names(ArgList)
-			mov eax, [esp + 12]
+			mov eax, [ebp + 12]
 			;; Null Check:
 			cmp eax, 0
 			je __exception
@@ -3728,7 +3728,7 @@ mov eax, edx
 				;; RHS code...
 				;; ---Method Invocation: length
 				;; Names(ArgList)
-				mov eax, [esp + 0]
+				mov eax, [ebp + 0]
 				;; Null Check:
 				cmp eax, 0
 				je __exception

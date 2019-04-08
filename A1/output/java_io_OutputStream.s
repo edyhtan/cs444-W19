@@ -43,7 +43,7 @@ section .text
 
 		;; ---Method Invocation: write,int
 		;; Names(ArgList)
-		mov eax, [esp + 12]
+		mov eax, [ebp + 12]
 		;; Null Check:
 		cmp eax, 0
 		je __exception

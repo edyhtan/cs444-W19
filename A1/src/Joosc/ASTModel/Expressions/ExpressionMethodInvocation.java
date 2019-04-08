@@ -6,6 +6,7 @@ import Joosc.ASTModel.ClassInterface.InterfaceDeclr;
 import Joosc.AsmWriter.AsmWriter;
 import Joosc.AsmWriter.Register;
 import Joosc.Environment.Env;
+import Joosc.Environment.LocalEnv;
 import Joosc.Environment.MethodInfo;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
@@ -232,7 +233,7 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
     @Override
     public void codeGen(int indent) {
         asmWriter.indent(indent);
-        asmWriter.comment("---Method Invocation: ");
+        asmWriter.comment("---Method Invocation: " + matchingMethod.getSignatureStr());
 
         Env methodEnv;
 
@@ -247,6 +248,10 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
                 methodEnv = tempName.codeGenWithEnv(indent + 1);
             } else {
                 methodEnv = getEnv();
+                if (!matchingMethod.getModifiers().contains(Symbol.Static)) {
+                    asmWriter.indent(indent);
+                    asmWriter.movFromAddr(Register.eax, "ebp + " + ((LocalEnv) getEnv()).getThis());
+                }
             }
 
             // Push this if the method is not static
@@ -271,6 +276,7 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
             asmWriter.push(Register.eax);
             methodEnv = methodParentExpression.getEnv();
         }
+        matchingMethod = methodEnv.getClassEnv().methodCallTable.get(matchingMethod.getSignatureStr());
         asmWriter.println();
 
         asmWriter.indent(indent);

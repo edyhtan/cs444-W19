@@ -791,15 +791,16 @@ public class ClassEnv implements Env {
             }
         }
 
+        index = 0;
         methodCallTable.forEach((k, v) -> {
-            int ind = (new ArrayList<>(methodCallTable.keySet())).indexOf(k);
             if (v.callReference == null) {
                 v.callReference = v.methodLabel;
                 v.external = false;
             }
-            v.methodOffset = 8 + 4 * ind;
+            v.methodOffset = 8 + 4 * index++;
         });
     }
+    public static int index = 0;
 
     public void createMethodLabel(String k, MethodInfo v) {
         v.methodLabel = (v.modifiers.contains(Symbol.Static) ? "__STATIC_" : "__")

@@ -124,7 +124,7 @@ public class Literal extends ExpressionContent implements ConstantExpression {
             asmWriter.println();
 
             asmWriter.indent(indent);
-            asmWriter.mov(Register.eax, literal.length() + 1);
+            asmWriter.mov(Register.eax, literal.length() - 2);
             asmWriter.indent(indent);
             asmWriter.mov(Register.ebx, 0);
             asmWriter.indent(indent);
@@ -136,12 +136,8 @@ public class Literal extends ExpressionContent implements ConstantExpression {
                 asmWriter.indent(indent + 1);
                 asmWriter.mov(Register.ecx, (int)c);
                 asmWriter.indent(indent + 1);
-                asmWriter.movToAddr("eax + " + (index++ * 4 + 8), Register.ecx);
+                asmWriter.movToAddr("eax + " + (index++ * 4 + 12), Register.ecx);
             }
-            asmWriter.indent(indent + 1);
-            asmWriter.mov(Register.ecx, 0);
-            asmWriter.indent(indent + 1);
-            asmWriter.movToAddr("eax + " + ((index * 4) + 8), Register.ecx);
             asmWriter.indent(indent);
             asmWriter.push(Register.eax);
 
@@ -149,7 +145,9 @@ public class Literal extends ExpressionContent implements ConstantExpression {
             asmWriter.extern("__constructor__java_lang_String__String$char@$");
             asmWriter.call("__constructor__java_lang_String__String$char@$");
             asmWriter.indent(indent);
-            asmWriter.add(Register.esp, 8);
+            asmWriter.add(Register.esp, 4);
+            asmWriter.indent(indent);
+            asmWriter.pop(Register.eax);
             movLit = null;
         }
 

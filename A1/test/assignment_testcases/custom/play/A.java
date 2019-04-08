@@ -1,11 +1,15 @@
+import java.io.PrintStream;
 public class A {
 
     public A() {
     }
 
     public static int test() {
-        int[] x = new int [3];
-        x[0] = 1;
-        return x[0];
+        String str1 = "123";
+        String str2 = "321";
+        String str3 = str1.concat(str2);
+        PrintStream ps = new PrintStream();
+        ps.println(str3);
+        return 233;
     }
 }

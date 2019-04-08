@@ -130,7 +130,7 @@ section .text
 			;statement code...
 			;; ---Method Invocation: write,char
 			;; Names(ArgList)
-			mov eax, [esp + 0]
+			mov eax, [ebp + 0]
 			;; Null Check:
 			cmp eax, 0
 			je __exception
@@ -234,7 +234,7 @@ section .text
 
 		;; ---Method Invocation: println,java.lang.String
 		;; Names(ArgList)
-		mov eax, [esp + 8]
+		mov eax, [ebp + 8]
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -284,7 +284,7 @@ section .text
 
 		;; ---Method Invocation: print,java.lang.String
 		;; Names(ArgList)
-		mov eax, [esp + 12]
+		mov eax, [ebp + 12]
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -315,7 +315,7 @@ section .text
 		;; ---End of method invocation
 		;; ---Method Invocation: write,char
 		;; Names(ArgList)
-		mov eax, [esp + 12]
+		mov eax, [ebp + 12]
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -353,7 +353,7 @@ section .text
 
 		;; ---Method Invocation: println,java.lang.String
 		;; Names(ArgList)
-		mov eax, [esp + 12]
+		mov eax, [ebp + 12]
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -409,7 +409,7 @@ section .text
 
 		;; ---Method Invocation: println,java.lang.String
 		;; Names(ArgList)
-		mov eax, [esp + 12]
+		mov eax, [ebp + 12]
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -465,7 +465,7 @@ section .text
 
 		;; ---Method Invocation: println,java.lang.String
 		;; Names(ArgList)
-		mov eax, [esp + 12]
+		mov eax, [ebp + 12]
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -521,7 +521,7 @@ section .text
 
 		;; ---Method Invocation: println,java.lang.String
 		;; Names(ArgList)
-		mov eax, [esp + 12]
+		mov eax, [ebp + 12]
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -577,7 +577,7 @@ section .text
 
 		;; ---Method Invocation: println,java.lang.String
 		;; Names(ArgList)
-		mov eax, [esp + 12]
+		mov eax, [ebp + 12]
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -633,7 +633,7 @@ section .text
 
 		;; ---Method Invocation: println,java.lang.String
 		;; Names(ArgList)
-		mov eax, [esp + 12]
+		mov eax, [ebp + 12]
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -689,7 +689,7 @@ section .text
 
 		;; ---Method Invocation: print,java.lang.String
 		;; Names(ArgList)
-		mov eax, [esp + 12]
+		mov eax, [ebp + 12]
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -745,7 +745,7 @@ section .text
 
 		;; ---Method Invocation: print,java.lang.String
 		;; Names(ArgList)
-		mov eax, [esp + 12]
+		mov eax, [ebp + 12]
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -801,7 +801,7 @@ section .text
 
 		;; ---Method Invocation: print,java.lang.String
 		;; Names(ArgList)
-		mov eax, [esp + 12]
+		mov eax, [ebp + 12]
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -857,7 +857,7 @@ section .text
 
 		;; ---Method Invocation: print,java.lang.String
 		;; Names(ArgList)
-		mov eax, [esp + 12]
+		mov eax, [ebp + 12]
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -913,7 +913,7 @@ section .text
 
 		;; ---Method Invocation: print,java.lang.String
 		;; Names(ArgList)
-		mov eax, [esp + 12]
+		mov eax, [ebp + 12]
 		;; Null Check:
 		cmp eax, 0
 		je __exception
@@ -969,7 +969,7 @@ section .text
 
 		;; ---Method Invocation: print,java.lang.String
 		;; Names(ArgList)
-		mov eax, [esp + 12]
+		mov eax, [ebp + 12]
 		;; Null Check:
 		cmp eax, 0
 		je __exception
