@@ -1731,24 +1731,7 @@ section .text
 			push eax
 
 			;; field access
-			;; casting
-						;; Local Var o
-			mov eax, ebp
-			add eax, 8
-			mov eax, [eax]
-
-			;; null check
-			cmp eax, 0
-			je .cast_end2
-			push eax
-			mov eax, [eax]
-			mov eax, [eax+4]
-			shr eax, 10
-			and eax, 0x1
-			cmp eax, 0
-			je __exception
-			.cast_end2:
-				pop eax
+			jmp __exception
 			mov eax, [eax+4]
 			push eax
 
@@ -2713,24 +2696,7 @@ section .text
 		push eax
 
 		;; Pushing args
-			;; casting
-						;; Local Var other
-			mov eax, ebp
-			add eax, 8
-			mov eax, [eax]
-
-			;; null check
-			cmp eax, 0
-			je .cast_end0
-			push eax
-			mov eax, [eax]
-			mov eax, [eax+4]
-			shr eax, 10
-			and eax, 0x1
-			cmp eax, 0
-			je __exception
-			.cast_end0:
-				pop eax
+			jmp __exception
 			push eax
 
 		;; class method:

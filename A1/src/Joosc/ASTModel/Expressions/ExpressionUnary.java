@@ -14,6 +14,8 @@ import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 
 public class ExpressionUnary extends Expression implements ConstantExpression {
@@ -154,8 +156,6 @@ public class ExpressionUnary extends Expression implements ConstantExpression {
         targetNode.addEnv(getEnv());
         targetNode.addWriter(asmWriter);
 
-
-
         if (castingType != null) { // casting
             offset = MethodDeclr.PER_METHOD_COUNT;
             MethodDeclr.PER_METHOD_COUNT++;
@@ -175,45 +175,53 @@ public class ExpressionUnary extends Expression implements ConstantExpression {
                 column = AsmWriter.parentMatrix.indexOf(((ArrayType) joosType).getJoosType());
             }
 
-            if (!joosType.isPrimitive()) {
-                asmWriter.indent(indent);
-                asmWriter.comment("casting");
-                asmWriter.indent(indent);
-                targetNode.codeGen(indent);
+            if ((joosType instanceof ArrayType && !((ArrayType) joosType).getJoosType().isPrimitive())
+                    || !joosType.isPrimitive()) {
 
-                // Skip casting if target is null
-                asmWriter.indent(indent);
-                asmWriter.comment("null check");
-                asmWriter.indent(indent);
-                asmWriter.cmp(Register.eax, "0");
-                asmWriter.indent(indent);
-                asmWriter.je(".cast_end" + offset);
+                if(! (targetType instanceof ArrayType) ||(targetType.equals(new ArrayList<>(Arrays.asList("java", "lang", "Object"))))) {
+                    asmWriter.indent(indent);
+                    asmWriter.extern("__exception");
+                    asmWriter.jmp("__exception");
+                } else {
+                    asmWriter.indent(indent);
+                    asmWriter.comment("casting");
+                    asmWriter.indent(indent);
+                    targetNode.codeGen(indent);
 
-                asmWriter.indent(indent);
-                asmWriter.push(Register.eax);
-                asmWriter.indent(indent);
-                String addr = String.join("+", Register.eax.toString(), "4");
-                if(targetType instanceof ArrayType) { // array obj class tag
+                    // Skip casting if target is null
+                    asmWriter.indent(indent);
+                    asmWriter.comment("null check");
+                    asmWriter.indent(indent);
+                    asmWriter.cmp(Register.eax, "0");
+                    asmWriter.indent(indent);
+                    asmWriter.je(".cast_end" + offset);
+
+                    asmWriter.indent(indent);
+                    asmWriter.push(Register.eax);
+                    asmWriter.indent(indent);
+                    String addr = String.join("+", Register.eax.toString(), "4");
+                    if (targetType instanceof ArrayType) { // array obj class tag
+                        asmWriter.movFromAddr(Register.eax, addr);
+                    } else { // mov to class tag
+                        asmWriter.movFromAddr(Register.eax, Register.eax);
+                    }
+                    asmWriter.indent(indent);
                     asmWriter.movFromAddr(Register.eax, addr);
-                } else { // mov to class tag
-                    asmWriter.movFromAddr(Register.eax, Register.eax);
-                }
-                asmWriter.indent(indent);
-                asmWriter.movFromAddr(Register.eax, addr);
-                asmWriter.indent(indent);
-                asmWriter.shr(Register.eax, column);
-                asmWriter.indent(indent);
-                asmWriter.and(Register.eax, "0x1");
-                asmWriter.indent(indent);
-                asmWriter.cmp(Register.eax, "0");
-                asmWriter.indent(indent);
-                asmWriter.extern("__exception");
-                asmWriter.je("__exception");
+                    asmWriter.indent(indent);
+                    asmWriter.shr(Register.eax, column);
+                    asmWriter.indent(indent);
+                    asmWriter.and(Register.eax, "0x1");
+                    asmWriter.indent(indent);
+                    asmWriter.cmp(Register.eax, "0");
+                    asmWriter.indent(indent);
+                    asmWriter.extern("__exception");
+                    asmWriter.je("__exception");
 
-                asmWriter.indent(indent);
-                asmWriter.label(".cast_end" + offset);
-                asmWriter.indent(indent+1);
-                asmWriter.pop(Register.eax);
+                    asmWriter.indent(indent);
+                    asmWriter.label(".cast_end" + offset);
+                    asmWriter.indent(indent + 1);
+                    asmWriter.pop(Register.eax);
+                }
             } else { // casting primitive types
                 if (isConstantExpression()) {
                     // compute at compile time and put value directly to eax

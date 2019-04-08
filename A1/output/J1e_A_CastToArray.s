@@ -400,24 +400,7 @@ global @@@@main
 		;; ---end of declare o
 
 		;; ---declare ia
-		;; casting
-				;; Local Var o
-		mov eax, ebp
-		sub eax, 4
-		mov eax, [eax]
-
-		;; null check
-		cmp eax, 0
-		je .cast_end2
-		push eax
-		mov eax, [eax]
-		mov eax, [eax+4]
-		shr eax, -1
-		and eax, 0x1
-		cmp eax, 0
-		je __exception
-		.cast_end2:
-			pop eax
+		jmp __exception
 
 		push eax
 		;; ---end of declare ia
