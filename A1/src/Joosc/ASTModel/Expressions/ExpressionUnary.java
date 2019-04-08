@@ -169,7 +169,7 @@ public class ExpressionUnary extends Expression implements ConstantExpression {
 
 //            System.out.println(joosType.getTypeName() + " " + (joosType instanceof ArrayType));
             int column;
-            if(!(targetType instanceof ArrayType)) {
+            if(!(joosType instanceof ArrayType)) {
                 column = AsmWriter.parentMatrix.indexOf(joosType);
             } else {
                 column = AsmWriter.parentMatrix.indexOf(((ArrayType) joosType).getJoosType());
