@@ -532,12 +532,14 @@ global @@@@main
 			pop eax
 			cmp eax, 0
 			je .cast_end2
+			push eax
 			mov eax, [eax]
 			mov eax, [eax+4]
 			shr eax, 10
 			and eax, 0x1
 			cmp eax, 0
 			je __exception
+			pop eax
 			.cast_end2:
 			push eax
 

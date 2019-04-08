@@ -1838,12 +1838,14 @@ mov eax, edx
 
 			cmp eax, 0
 			je .cast_end2
+			push eax
 			mov eax, [eax]
 			mov eax, [eax+4]
 			shr eax, 12
 			and eax, 0x1
 			cmp eax, 0
 			je __exception
+			pop eax
 			.cast_end2:
 			mov eax, [eax+4]
 			push eax
@@ -2867,12 +2869,14 @@ mov eax, edx
 
 			cmp eax, 0
 			je .cast_end0
+			push eax
 			mov eax, [eax]
 			mov eax, [eax+4]
 			shr eax, 12
 			and eax, 0x1
 			cmp eax, 0
 			je __exception
+			pop eax
 			.cast_end0:
 			push eax
 
