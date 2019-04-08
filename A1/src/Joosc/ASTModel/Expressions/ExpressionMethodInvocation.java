@@ -237,8 +237,6 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
 
         Env methodEnv;
 
-        System.err.println((methodName == null) + " " + (methodParentExpression != null));
-
         // This enigma
         if (methodName != null) {
             asmWriter.indent(indent);
@@ -340,7 +338,6 @@ public class ExpressionMethodInvocation extends ExpressionPrimary {
             asmWriter.indent(indent);
             asmWriter.comment("addr of m body");
             asmWriter.indent(indent);
-            System.err.println(methodEnv.getJoosType().getQualifiedName());
             asmWriter.movFromAddr(Register.eax, "eax + " + methodEnv.getClassEnv().methodCallTable.get(matchingMethod.getSignatureStr()).methodOffset);
             asmWriter.println();
             asmWriter.indent(indent);
