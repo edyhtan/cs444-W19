@@ -1,4 +1,5 @@
 extern __ref_SIT_java_lang_Number
+extern __exception
 extern __malloc
 extern __constructor__java_lang_Object__Object
 extern __method__java_lang_Object__getClass
@@ -6,12 +7,14 @@ extern __ref_SIT_java_lang_Short
 extern __ref_SIT_java_lang_Character
 extern __class_ArrayTemplate
 extern __constructor__java_io_PrintStream__PrintStream
+extern __constructor__java_lang_Integer__Integer$int$
 extern __ref_SIT_java_lang_String
 extern __ref_SIT_java_lang_Integer
 extern __method__java_lang_Object__toString
 extern __ref_SIT_java_lang_Class
 extern __ref_SIT_java_lang_Boolean
 extern __ref_SIT_java_util_Arrays
+extern __class_java_lang_Integer
 extern __method__java_lang_Object__equals$java_lang_Object$
 extern __ref_SIT_java_io_PrintStream
 extern __class_java_io_PrintStream
@@ -30,14 +33,14 @@ extern __ref_SIT_java_io_OutputStream
 
 section .data
 
-	global __class_J1_arrayinstanceof2
-__class_J1_arrayinstanceof2:
-		global __ref_SIT_J1_arrayinstanceof2
-	__ref_SIT_J1_arrayinstanceof2:
+	global __class_J1e_A_CastToArray
+__class_J1e_A_CastToArray:
+		global __ref_SIT_J1e_A_CastToArray
+	__ref_SIT_J1e_A_CastToArray:
 		dd 0
 
-		global __ref_PARENTS_J1_arrayinstanceof2
-	__ref_PARENTS_J1_arrayinstanceof2:
+		global __ref_PARENTS_J1e_A_CastToArray
+	__ref_PARENTS_J1e_A_CastToArray:
 		dd 1000001000000000b
 
 	; Methods	
@@ -46,7 +49,7 @@ __class_J1_arrayinstanceof2:
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
 		dd __method__java_lang_Object__toString
-		dd __STATIC_method__J1_arrayinstanceof2__test
+		dd __STATIC_method__J1e_A_CastToArray__test
 
 ;; Static fields
 
@@ -293,7 +296,7 @@ mov [ebx], eax
 mov eax, 16
 call __malloc
 
-mov ebx, __ref_SIT_J1_arrayinstanceof2
+mov ebx, __ref_SIT_J1e_A_CastToArray
 mov [ebx], eax
 
 		mov ebx, __method__java_lang_Object__hashCode
@@ -367,56 +370,69 @@ int 0x80
 
 global @@@@main
 @@@@main:
-		global __STATIC_method__J1_arrayinstanceof2__test
-	__STATIC_method__J1_arrayinstanceof2__test:
+		global __STATIC_method__J1e_A_CastToArray__test
+	__STATIC_method__J1e_A_CastToArray__test:
 		push ebp
 		mov ebp, esp
 
-		;; ---declare s
-		mov eax, 0
+		;; ---declare o
+		;; ---new [java, lang, Integer] ()
+		;; Allocating size of 8
+		mov eax, 8
+				call __malloc
+					mov ebx, __class_java_lang_Integer
+		mov [eax], ebx
+
+		;; Pushing object
+		push eax
+
+		;; Pushing args:
+			mov eax, 123
+			push eax
+
+		call __constructor__java_lang_Integer__Integer$int$
+		add esp, 4
+		pop eax
+
+		;; ---end of new [java, lang, Integer] ()
 
 		push eax
-		;; ---end of declare s
+		;; ---end of declare o
 
-		;; if statement0
-		;expression code...
-		;; Instanceof
-				;; Local Var s
+		;; ---declare ia
+		;; casting
+				;; Local Var o
 		mov eax, ebp
 		sub eax, 4
 		mov eax, [eax]
 
+		;; null check
 		cmp eax, 0
-		je .end_instanceof2
+		je .cast_end2
+		push eax
 		mov eax, [eax+4]
 		mov eax, [eax+4]
-		shr eax, 9
+		shr eax, -1
 		and eax, 0x1
-		.end_instanceof2:
-
 		cmp eax, 0
-		je .else0
-		;thenClause ...
-			mov eax, 100
-			jmp _method_return___STATIC_method__J1_arrayinstanceof2__test
+		je __exception
+		.cast_end2:
+			pop eax
 
-		jmp .endif0
+		push eax
+		;; ---end of declare ia
 
-		.else0:
-			;elseClause ...
-			mov eax, 123
-			jmp _method_return___STATIC_method__J1_arrayinstanceof2__test
+		mov eax, 123
+		jmp _method_return___STATIC_method__J1e_A_CastToArray__test
 
-		.endif0:
-
-		_method_return___STATIC_method__J1_arrayinstanceof2__test:
+		_method_return___STATIC_method__J1e_A_CastToArray__test:
 			mov esp, ebp
 			pop ebp
 			ret
 
 ;; -----Constructors-----
-		global __constructor__J1_arrayinstanceof2__J1_arrayinstanceof2
-	__constructor__J1_arrayinstanceof2__J1_arrayinstanceof2:
+		global __constructor__J1e_A_CastToArray__J1e_A_CastToArray
+	__constructor__J1e_A_CastToArray__J1e_A_CastToArray:
 		push ebp
 		mov ebp, esp
 		mov eax, [ebp + 8]

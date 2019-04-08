@@ -72,19 +72,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AsmWriter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Joosc/AsmWriter/AsmWriter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="388" column="0" lean-forward="false" selection-start-line="388" selection-start-column="0" selection-end-line="388" selection-end-column="0" />
-              <folding>
-                <element signature="e#7193#7194#0" expanded="true" />
-                <element signature="e#7262#7263#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ExpressionBinary.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Joosc/ASTModel/Expressions/ExpressionBinary.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -108,21 +95,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="J1_arrayinstanceof2.s" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/output/J1_arrayinstanceof2.s">
+      <file leaf-file-name="J1_charadd.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/assignment_testcases/a1/J1_charadd.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
-              <caret line="388" column="18" lean-forward="true" selection-start-line="388" selection-start-column="18" selection-end-line="388" selection-end-column="18" />
+            <state relative-caret-position="102">
+              <caret line="6" column="39" lean-forward="true" selection-start-line="6" selection-start-column="39" selection-end-line="6" selection-end-column="39" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="String.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/stdlib5.0/java/lang/String.java">
+      <file leaf-file-name="J1_concat_in_binop.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/assignment_testcases/a1/J1_concat_in_binop.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="142">
-              <caret line="81" column="28" lean-forward="false" selection-start-line="81" selection-start-column="22" selection-end-line="81" selection-end-column="28" />
+            <state relative-caret-position="153">
+              <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="J1e_A_CastToArray.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test/assignment_testcases/a5/J1e_A_CastToArray.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="23" lean-forward="false" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -156,6 +153,8 @@
         <option value="$PROJECT_DIR$/src/Joosc/ASTModel/Expressions/ExpressionUnary.java" />
         <option value="$PROJECT_DIR$/output/J1_arrayinstanceof1.s" />
         <option value="$PROJECT_DIR$/src/Joosc/ASTModel/Expressions/ExpressionBinary.java" />
+        <option value="$PROJECT_DIR$/test/assignment_testcases/a1/J1_charadd.java" />
+        <option value="$PROJECT_DIR$/test/assignment_testcases/a1/J1_concat_in_binop.java" />
       </list>
     </option>
   </component>
@@ -269,7 +268,7 @@
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="configurable.group.build" />
-    <property name="SearchEverywhereHistoryKey" value="J1_arrayinstanceof2&#9;PSI&#9;JAVA://J1_arrayinstanceof2&#10;J1_arrayinstanceof1&#9;PSI&#9;JAVA://J1_arrayinstanceof1&#10;unar&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/ASTModel/Expressions/ExpressionUnary.java&#10;asm&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/AsmWriter/AsmWriter.java&#10;local&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/Environment/LocalEnv.java&#10;unary&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/ASTModel/Expressions/ExpressionUnary.java&#10;J1_6_Assignable_Object_ObjectArray&#9;PSI&#9;JAVA://J1_6_Assignable_Object_ObjectArray&#10;binar&#9;PSI&#9;JAVA://Joosc.ASTModel.Expressions.ExpressionBinary&#10;J1_1_Instanceof_OfCastExpression&#9;PSI&#9;JAVA://J1_1_Instanceof_OfCastExpression" />
+    <property name="SearchEverywhereHistoryKey" value="J1e_A_CastToArray&#9;PSI&#9;JAVA://J1e_A_CastToArray&#10;J1_constructorbodycast&#9;PSI&#9;JAVA://J1_constructorbodycast&#10;J1_concat_in_binop&#9;PSI&#9;JAVA://J1_concat_in_binop&#10;J1_charadd&#9;PSI&#9;JAVA://J1_charadd&#10;J1_arrayinstanceof2&#9;PSI&#9;JAVA://J1_arrayinstanceof2&#10;J1_arrayinstanceof1&#9;PSI&#9;JAVA://J1_arrayinstanceof1&#10;unar&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/ASTModel/Expressions/ExpressionUnary.java&#10;asm&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/AsmWriter/AsmWriter.java&#10;local&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/Environment/LocalEnv.java&#10;unary&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/ASTModel/Expressions/ExpressionUnary.java&#10;J1_6_Assignable_Object_ObjectArray&#9;PSI&#9;JAVA://J1_6_Assignable_Object_ObjectArray&#10;binar&#9;PSI&#9;JAVA://Joosc.ASTModel.Expressions.ExpressionBinary&#10;J1_1_Instanceof_OfCastExpression&#9;PSI&#9;JAVA://J1_1_Instanceof_OfCastExpression" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -300,7 +299,7 @@
       </extension>
       <option name="MAIN_CLASS_NAME" value="Joosc.MultiFileTest" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="a5 J1_arrayinstanceof2.java" />
+      <option name="PROGRAM_PARAMETERS" value="a5 J1e_A_CastToArray.java" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -413,7 +412,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="811" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -424,11 +422,11 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32960895" sideWeight="0.5028612" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13128492" sideWeight="0.49713877" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13128492" sideWeight="0.49713877" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24964234" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24964234" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32960895" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Learn" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297568" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -637,14 +635,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/assignment_testcases/a3/J1_arrayinstanceof2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="25" lean-forward="false" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Joosc/ASTModel/Expressions/ExpressionBinary.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="439">
@@ -658,8 +648,48 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/output/J1_arrayinstanceof2.s">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="388" column="18" lean-forward="true" selection-start-line="388" selection-start-column="18" selection-end-line="388" selection-end-column="18" />
+        <state relative-caret-position="341">
+          <caret line="391" column="24" lean-forward="true" selection-start-line="391" selection-start-column="24" selection-end-line="391" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/assignment_testcases/a3/J1_arrayinstanceof2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="25" lean-forward="false" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/assignment_testcases/a1/J1_charadd.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="39" lean-forward="true" selection-start-line="6" selection-start-column="39" selection-end-line="6" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/assignment_testcases/a1/J1_constructorbodycast.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="26" lean-forward="false" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/assignment_testcases/a1/J1_concat_in_binop.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/assignment_testcases/a5/J1e_A_CastToArray.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="23" lean-forward="false" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
           <folding />
         </state>
       </provider>
