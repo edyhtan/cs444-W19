@@ -130,7 +130,7 @@ section .text
 			;statement code...
 			;; ---Method Invocation: write,char
 			;; Names(ArgList)
-			mov eax, [ebp + 0]
+			mov eax, [ebp + 12]
 			;; Null Check:
 			cmp eax, 0
 			je __exception

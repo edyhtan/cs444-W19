@@ -314,6 +314,13 @@ public class LocalEnv implements Env {
     }
 
     public int getThis() {
+        LocalEnv localEnv = this;
+        int tempThis = __this;
+        while (tempThis == 0 && localEnv.getParent() instanceof LocalEnv) {
+            localEnv = (LocalEnv) localEnv.getParent();
+            tempThis = localEnv.__this;
+        }
+        __this = tempThis;
         return __this;
     }
 }

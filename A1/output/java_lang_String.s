@@ -314,7 +314,7 @@ section .text
 
 					;; Get array instance:
 						;; Implicit This
-						mov eax, [ebp + 0]
+						mov eax, [ebp + 12]
 						;; Field chars
 						add eax, 4
 						mov eax, [eax]
@@ -471,7 +471,7 @@ section .text
 						;; RHS code...
 						;; ---Method Invocation: length
 						;; Names(ArgList)
-						mov eax, [ebp + 0]
+						mov eax, [ebp + 12]
 						;; Null Check:
 						cmp eax, 0
 						je __exception
@@ -2149,7 +2149,7 @@ mov eax, edx
 			push eax
 				;; ---Method Invocation: charAt,int
 				;; Names(ArgList)
-				mov eax, [ebp + 0]
+				mov eax, [ebp + 16]
 				;; Null Check:
 				cmp eax, 0
 				je __exception
@@ -2728,7 +2728,7 @@ mov eax, edx
 
 					;; Get array instance:
 						;; Implicit This
-						mov eax, [ebp + 0]
+						mov eax, [ebp + 8]
 						;; Field chars
 						add eax, 4
 						mov eax, [eax]
@@ -3475,7 +3475,7 @@ mov eax, edx
 
 					;; Get array instance:
 						;; Implicit This
-						mov eax, [ebp + 0]
+						mov eax, [ebp + 8]
 						;; Field chars
 						add eax, 4
 						mov eax, [eax]
@@ -3728,7 +3728,7 @@ mov eax, edx
 				;; RHS code...
 				;; ---Method Invocation: length
 				;; Names(ArgList)
-				mov eax, [ebp + 0]
+				mov eax, [ebp + 12]
 				;; Null Check:
 				cmp eax, 0
 				je __exception
@@ -3784,7 +3784,7 @@ mov eax, edx
 
 						;; Get array instance:
 							;; Implicit This
-							mov eax, [ebp + 0]
+							mov eax, [ebp + 12]
 							;; Field chars
 							add eax, 4
 							mov eax, [eax]
@@ -4148,7 +4148,7 @@ mov eax, 0
 
 						;; Get array instance:
 							;; field access
-							mov eax, [ebp + 0]
+							mov eax, [ebp + 12]
 							mov eax, [eax+4]
 						;; Null Check:
 						cmp eax, 0
