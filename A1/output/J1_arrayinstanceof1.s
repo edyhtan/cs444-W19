@@ -1,5 +1,4 @@
 extern __ref_SIT_java_lang_Number
-extern __exception
 extern __malloc
 extern __constructor__java_lang_Object__Object
 extern __method__java_lang_Object__getClass
@@ -32,14 +31,14 @@ extern __ref_SIT_java_io_OutputStream
 
 section .data
 
-	global __class_J1_6_Assignable_Object_ObjectArray
-__class_J1_6_Assignable_Object_ObjectArray:
-		global __ref_SIT_J1_6_Assignable_Object_ObjectArray
-	__ref_SIT_J1_6_Assignable_Object_ObjectArray:
+	global __class_J1_arrayinstanceof1
+__class_J1_arrayinstanceof1:
+		global __ref_SIT_J1_arrayinstanceof1
+	__ref_SIT_J1_arrayinstanceof1:
 		dd 0
 
-		global __ref_PARENTS_J1_6_Assignable_Object_ObjectArray
-	__ref_PARENTS_J1_6_Assignable_Object_ObjectArray:
+		global __ref_PARENTS_J1_arrayinstanceof1
+	__ref_PARENTS_J1_arrayinstanceof1:
 		dd 1000001000000000b
 
 	; Methods	
@@ -48,7 +47,7 @@ __class_J1_6_Assignable_Object_ObjectArray:
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
 		dd __method__java_lang_Object__toString
-		dd __STATIC_method__J1_6_Assignable_Object_ObjectArray__test
+		dd __STATIC_method__J1_arrayinstanceof1__test
 
 ;; Static fields
 
@@ -295,7 +294,7 @@ mov [ebx], eax
 mov eax, 16
 call __malloc
 
-mov ebx, __ref_SIT_J1_6_Assignable_Object_ObjectArray
+mov ebx, __ref_SIT_J1_arrayinstanceof1
 mov [ebx], eax
 
 		mov ebx, __method__java_lang_Object__hashCode
@@ -369,16 +368,16 @@ int 0x80
 
 global @@@@main
 @@@@main:
-		global __STATIC_method__J1_6_Assignable_Object_ObjectArray__test
-	__STATIC_method__J1_6_Assignable_Object_ObjectArray__test:
+		global __STATIC_method__J1_arrayinstanceof1__test
+	__STATIC_method__J1_arrayinstanceof1__test:
 		push ebp
 		mov ebp, esp
 
-		;; ---declare j
-		;; ---Array Creation: [Object]
+		;; ---declare s
+		;; ---Array Creation: [String]
 
 			;; Size Expression:
-				mov eax, 123
+				mov eax, 0
 
 			;; Class Tag
 			mov ebx, __class_ArrayTemplate
@@ -388,38 +387,45 @@ global @@@@main
 		;; --- End Array Creation
 
 		push eax
-		;; ---end of declare j
+		;; ---end of declare s
 
-		;; field access
-		;; casting
-				;; Local Var j
+		;; if statement0
+		;expression code...
+		;; Instanceof
+				;; Local Var s
 		mov eax, ebp
 		sub eax, 4
 		mov eax, [eax]
 
-		;; null check
-		cmp eax, 0
-		je .cast_end2
-		push eax
 		mov eax, [eax+4]
 		mov eax, [eax+4]
 		shr eax, 9
 		and eax, 0x1
-		cmp eax, 0
-		je __exception
-		.cast_end2:
-			pop eax
-		mov eax, [eax+8]
-		jmp _method_return___STATIC_method__J1_6_Assignable_Object_ObjectArray__test
+;; ----end instanceof
 
-		_method_return___STATIC_method__J1_6_Assignable_Object_ObjectArray__test:
+		cmp eax, 0
+		je .else0
+		;thenClause ...
+			mov eax, 123
+			jmp _method_return___STATIC_method__J1_arrayinstanceof1__test
+
+		jmp .endif0
+
+		.else0:
+			;elseClause ...
+			mov eax, 100
+			jmp _method_return___STATIC_method__J1_arrayinstanceof1__test
+
+		.endif0:
+
+		_method_return___STATIC_method__J1_arrayinstanceof1__test:
 			mov esp, ebp
 			pop ebp
 			ret
 
 ;; -----Constructors-----
-		global __constructor__J1_6_Assignable_Object_ObjectArray__J1_6_Assignable_Object_ObjectArray
-	__constructor__J1_6_Assignable_Object_ObjectArray__J1_6_Assignable_Object_ObjectArray:
+		global __constructor__J1_arrayinstanceof1__J1_arrayinstanceof1
+	__constructor__J1_arrayinstanceof1__J1_arrayinstanceof1:
 		push ebp
 		mov ebp, esp
 		mov eax, [ebp + 8]

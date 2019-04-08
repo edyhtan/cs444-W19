@@ -9,6 +9,7 @@ import Joosc.Environment.Env;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.Exceptions.UnreachableStatementException;
+import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 
 import java.util.ArrayList;
@@ -385,8 +386,12 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 asmWriter.indent(indent);
                 LHS.codeGen(indent);
                 asmWriter.indent(indent);
-                // mov to class tag
-                asmWriter.movFromAddr(Register.eax, Register.eax);
+                if(lhsType instanceof ArrayType) {
+                    asmWriter.movFromAddr(Register.eax, Register.eax+"+4");
+                } else {
+                    // mov to class tag
+                    asmWriter.movFromAddr(Register.eax, Register.eax);
+                }
                 asmWriter.indent(indent);
                 // parent matrix
                 String addr = String.join("+", Register.eax.toString(), "4");
