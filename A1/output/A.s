@@ -466,7 +466,7 @@ global @@@@main
 		push ebp
 		mov ebp, esp
 
-		;; ---declare str
+		;; ---declare str1
 		mov eax, 8
 		call __malloc
 		mov ebx, __class_java_lang_String
@@ -490,13 +490,38 @@ global @@@@main
 		pop eax
 
 		push eax
-		;; ---end of declare str
+		;; ---end of declare str1
 
-		;; if statement0
-		;expression code...
+		;; ---declare str2
+		mov eax, 8
+		call __malloc
+		mov ebx, __class_java_lang_String
+		mov [eax], ebx
+		push eax
+
+		mov eax, 4
+		mov ebx, 0
+		call __new_array
+			mov ecx, 51
+			mov [eax + 12], ecx
+			mov ecx, 50
+			mov [eax + 16], ecx
+			mov ecx, 49
+			mov [eax + 20], ecx
+			mov ecx, 0
+			mov [eax + 24], ecx
+		push eax
+		call __constructor__java_lang_String__String$char@$
+		add esp, 4
+		pop eax
+
+		push eax
+		;; ---end of declare str2
+
+		;; ---declare str3
 		;; ---Method Invocation: 
 		;; Names(ArgList)
-			;; Local Var str
+			;; Local Var str1
 			mov eax, ebp
 			sub eax, 4
 			mov eax, [eax]
@@ -508,39 +533,11 @@ global @@@@main
 		push eax
 
 		;; Pushing args
-			;; casting
-						mov eax, 8
-			call __malloc
-			mov ebx, __class_java_lang_String
-			mov [eax], ebx
-			push eax
-
-			mov eax, 4
-			mov ebx, 0
-			call __new_array
-				mov ecx, 49
-				mov [eax + 12], ecx
-				mov ecx, 50
-				mov [eax + 16], ecx
-				mov ecx, 51
-				mov [eax + 20], ecx
-				mov ecx, 0
-				mov [eax + 24], ecx
-			push eax
-			call __constructor__java_lang_String__String$char@$
-			add esp, 4
-			pop eax
-			cmp eax, 0
-			je .cast_end2
-			push eax
+			;; Local Var str2
+			mov eax, ebp
+			sub eax, 8
 			mov eax, [eax]
-			mov eax, [eax+4]
-			shr eax, 10
-			and eax, 0x1
-			cmp eax, 0
-			je __exception
-			pop eax
-			.cast_end2:
+
 			push eax
 
 		;; class method:
@@ -549,7 +546,7 @@ global @@@@main
 		;; vtable
 		mov eax, [eax]
 		;; addr of m body
-		mov eax, [eax + 16]
+		mov eax, [eax + 60]
 
 		call eax
 
@@ -557,22 +554,68 @@ global @@@@main
 		add esp, 8
 
 		;; ---End of method invocation
+
+		push eax
+		;; ---end of declare str3
+
+		;; ---declare ps
+		;; ---new [java, io, PrintStream] ()
+		;; Allocating size of 4
+		mov eax, 4
+				call __malloc
+					mov ebx, __class_java_io_PrintStream
+		mov [eax], ebx
+
+		;; Pushing object
+		push eax
+
+		;; Pushing args:
+		call __constructor__java_io_PrintStream__PrintStream
+		add esp, 0
+		pop eax
+
+		;; ---end of new [java, io, PrintStream] ()
+
+		push eax
+		;; ---end of declare ps
+
+		;; ---Method Invocation: 
+		;; Names(ArgList)
+			;; Local Var ps
+			mov eax, ebp
+			sub eax, 16
+			mov eax, [eax]
+
+		;; Null Check:
 		cmp eax, 0
-		je .else0
-		;thenClause ...
-			mov eax, 233
-			jmp _method_return___STATIC_method__A__test
+		je __exception
+		;; non-static, pushing reference
+		push eax
 
+		;; Pushing args
+			;; Local Var str3
+			mov eax, ebp
+			sub eax, 12
+			mov eax, [eax]
 
-		jmp .endif0
+			push eax
 
-		.else0:
-			;elseClause ...
-			mov eax, 111
-			jmp _method_return___STATIC_method__A__test
+		;; class method:
+		;; addr of o
+		mov eax, [esp + 4]
+		;; vtable
+		mov eax, [eax]
+		;; addr of m body
+		mov eax, [eax + 80]
 
+		call eax
 
-		.endif0:
+		;; pop arguments
+		add esp, 8
+
+		;; ---End of method invocation
+		mov eax, 233
+		jmp _method_return___STATIC_method__A__test
 
 		_method_return___STATIC_method__A__test:
 			mov esp, ebp
