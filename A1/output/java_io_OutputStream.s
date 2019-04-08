@@ -18,7 +18,7 @@ __class_java_io_OutputStream:
 
 		global __ref_PARENTS_java_io_OutputStream
 	__ref_PARENTS_java_io_OutputStream:
-		dd 00000000010000000001b
+		dd 0000001000001000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -43,6 +43,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		;; Null Check:
 		cmp eax, 0
 		je __exception
 		;; non-static, pushing reference

@@ -27,7 +27,7 @@ __class_java_io_PrintStream:
 
 		global __ref_PARENTS_java_io_PrintStream
 	__ref_PARENTS_java_io_PrintStream:
-		dd 00000000010000000011b
+		dd 0000001000001010b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -91,6 +91,7 @@ section .text
 				add eax, 8
 				mov eax, [eax]
 
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; non-static, pushing reference
@@ -125,6 +126,7 @@ section .text
 			;statement code...
 			;; ---Method Invocation: 
 			;; Names(ArgList)
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; non-static, pushing reference
@@ -138,6 +140,7 @@ section .text
 					add eax, 8
 					mov eax, [eax]
 
+				;; Null Check:
 				cmp eax, 0
 				je __exception
 				;; non-static, pushing reference
@@ -228,6 +231,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		;; Null Check:
 		cmp eax, 0
 		je __exception
 		;; non-static, pushing reference
@@ -263,6 +267,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		;; Null Check:
 		cmp eax, 0
 		je __exception
 		;; non-static, pushing reference
@@ -292,6 +297,7 @@ section .text
 		;; ---End of method invocation
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		;; Null Check:
 		cmp eax, 0
 		je __exception
 		;; non-static, pushing reference
@@ -328,6 +334,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		;; Null Check:
 		cmp eax, 0
 		je __exception
 		;; non-static, pushing reference
@@ -382,6 +389,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		;; Null Check:
 		cmp eax, 0
 		je __exception
 		;; non-static, pushing reference
@@ -436,6 +444,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		;; Null Check:
 		cmp eax, 0
 		je __exception
 		;; non-static, pushing reference
@@ -490,6 +499,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		;; Null Check:
 		cmp eax, 0
 		je __exception
 		;; non-static, pushing reference
@@ -544,6 +554,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		;; Null Check:
 		cmp eax, 0
 		je __exception
 		;; non-static, pushing reference
@@ -598,6 +609,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		;; Null Check:
 		cmp eax, 0
 		je __exception
 		;; non-static, pushing reference
@@ -652,6 +664,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		;; Null Check:
 		cmp eax, 0
 		je __exception
 		;; non-static, pushing reference
@@ -706,6 +719,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		;; Null Check:
 		cmp eax, 0
 		je __exception
 		;; non-static, pushing reference
@@ -760,6 +774,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		;; Null Check:
 		cmp eax, 0
 		je __exception
 		;; non-static, pushing reference
@@ -814,6 +829,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		;; Null Check:
 		cmp eax, 0
 		je __exception
 		;; non-static, pushing reference
@@ -868,6 +884,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		;; Null Check:
 		cmp eax, 0
 		je __exception
 		;; non-static, pushing reference
@@ -922,6 +939,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		;; Null Check:
 		cmp eax, 0
 		je __exception
 		;; non-static, pushing reference

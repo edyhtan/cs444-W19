@@ -17,7 +17,7 @@ __class_java_util_Arrays:
 
 		global __ref_PARENTS_java_util_Arrays
 	__ref_PARENTS_java_util_Arrays:
-		dd 00000100010000000000b
+		dd 0000001000000001b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -47,6 +47,7 @@ section .text
 		add eax, 12
 		mov eax, [eax]
 
+		;; Null Check:
 		cmp eax, 0
 		je __exception
 		;; Field length
@@ -60,6 +61,7 @@ section .text
 		add eax, 8
 		mov eax, [eax]
 
+		;; Null Check:
 		cmp eax, 0
 		je __exception
 		;; Field length
@@ -109,6 +111,7 @@ section .text
 			add eax, 12
 			mov eax, [eax]
 
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; Field length
@@ -131,8 +134,86 @@ section .text
 			;expression code...
 			;; Compare_ne
 			;; LHS code...
+			;; ---Array Access get Addr:
+
+				;; Get array instance:
+					;; Local Var a1
+					mov eax, ebp
+					add eax, 12
+					mov eax, [eax]
+
+				;; Null Check:
+				cmp eax, 0
+				je __exception
+				;; Push array instance addr
+				push eax
+
+				;; Get array index
+					;; Local Var i
+					mov eax, ebp
+					sub eax, 4
+					mov eax, [eax]
+
+
+				;; Pop arr instance addr to ebx:
+				pop ebx
+
+				;; Bound check
+				mov ecx, [ebx + 8]
+				cmp eax, ecx
+				jge __exception
+				cmp ecx, 0
+				jl __exception
+
+				;; Access array
+				add eax, 2
+				imul eax, 4
+				add eax, ebx
+
+			;; ---End Array Access get Addr
+			;; Dereference array addr to value
+			mov eax, [eax]
 			push eax
 			;; RHS code...
+			;; ---Array Access get Addr:
+
+				;; Get array instance:
+					;; Local Var a2
+					mov eax, ebp
+					add eax, 8
+					mov eax, [eax]
+
+				;; Null Check:
+				cmp eax, 0
+				je __exception
+				;; Push array instance addr
+				push eax
+
+				;; Get array index
+					;; Local Var i
+					mov eax, ebp
+					sub eax, 4
+					mov eax, [eax]
+
+
+				;; Pop arr instance addr to ebx:
+				pop ebx
+
+				;; Bound check
+				mov ecx, [ebx + 8]
+				cmp eax, ecx
+				jge __exception
+				cmp ecx, 0
+				jl __exception
+
+				;; Access array
+				add eax, 2
+				imul eax, 4
+				add eax, ebx
+
+			;; ---End Array Access get Addr
+			;; Dereference array addr to value
+			mov eax, [eax]
 			pop ebx
 			cmp ebx, eax
 			jne .ne2
@@ -208,6 +289,7 @@ section .text
 		add eax, 12
 		mov eax, [eax]
 
+		;; Null Check:
 		cmp eax, 0
 		je __exception
 		;; Field length
@@ -221,6 +303,7 @@ section .text
 		add eax, 8
 		mov eax, [eax]
 
+		;; Null Check:
 		cmp eax, 0
 		je __exception
 		;; Field length
@@ -270,6 +353,7 @@ section .text
 			add eax, 12
 			mov eax, [eax]
 
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; Field length
@@ -292,8 +376,86 @@ section .text
 			;expression code...
 			;; Compare_ne
 			;; LHS code...
+			;; ---Array Access get Addr:
+
+				;; Get array instance:
+					;; Local Var a1
+					mov eax, ebp
+					add eax, 12
+					mov eax, [eax]
+
+				;; Null Check:
+				cmp eax, 0
+				je __exception
+				;; Push array instance addr
+				push eax
+
+				;; Get array index
+					;; Local Var i
+					mov eax, ebp
+					sub eax, 4
+					mov eax, [eax]
+
+
+				;; Pop arr instance addr to ebx:
+				pop ebx
+
+				;; Bound check
+				mov ecx, [ebx + 8]
+				cmp eax, ecx
+				jge __exception
+				cmp ecx, 0
+				jl __exception
+
+				;; Access array
+				add eax, 2
+				imul eax, 4
+				add eax, ebx
+
+			;; ---End Array Access get Addr
+			;; Dereference array addr to value
+			mov eax, [eax]
 			push eax
 			;; RHS code...
+			;; ---Array Access get Addr:
+
+				;; Get array instance:
+					;; Local Var a2
+					mov eax, ebp
+					add eax, 8
+					mov eax, [eax]
+
+				;; Null Check:
+				cmp eax, 0
+				je __exception
+				;; Push array instance addr
+				push eax
+
+				;; Get array index
+					;; Local Var i
+					mov eax, ebp
+					sub eax, 4
+					mov eax, [eax]
+
+
+				;; Pop arr instance addr to ebx:
+				pop ebx
+
+				;; Bound check
+				mov ecx, [ebx + 8]
+				cmp eax, ecx
+				jge __exception
+				cmp ecx, 0
+				jl __exception
+
+				;; Access array
+				add eax, 2
+				imul eax, 4
+				add eax, ebx
+
+			;; ---End Array Access get Addr
+			;; Dereference array addr to value
+			mov eax, [eax]
 			pop ebx
 			cmp ebx, eax
 			jne .ne2

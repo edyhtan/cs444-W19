@@ -84,6 +84,11 @@ public class InterfaceDeclr implements TypeDeclr {
     public String classSIT;
     public String classParentMatrix;
 
+    @Override
+    public String getClassTagName() {
+        return classTagName;
+    }
+
     public void buildCompilerLabel() {
         classTagName = "__class_" + String.join("_", getCanonicalName());
         classSIT = "__ref_SIT_" + String.join("_", getCanonicalName());

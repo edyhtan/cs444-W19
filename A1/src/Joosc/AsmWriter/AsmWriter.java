@@ -495,7 +495,19 @@ public class AsmWriter {
         }
     }
 
+    public void startParagraph(int indent, String msg) {
+        if (COMMENT_FLAG) {
+            println();
+            indent(indent);
+            comment(msg);
+        } else {
+            println();
+        }
+    }
+
     public void nullCheck(int indent) {
+        indent(indent);
+        comment("Null Check:");
         extern("__exception");
         indent(indent);
         cmp(Register.eax, "0");

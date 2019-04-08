@@ -19,7 +19,7 @@ __class_java_lang_Integer:
 
 		global __ref_PARENTS_java_lang_Integer
 	__ref_PARENTS_java_lang_Integer:
-		dd 00000000011100000000b
+		dd 0001001000100000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -99,6 +99,7 @@ section .text
 				add eax, 8
 				mov eax, [eax]
 
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; non-static, pushing reference
@@ -140,6 +141,7 @@ section .text
 				add eax, 8
 				mov eax, [eax]
 
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; non-static, pushing reference
@@ -191,6 +193,7 @@ section .text
 				add eax, 8
 				mov eax, [eax]
 
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; non-static, pushing reference
@@ -241,6 +244,7 @@ section .text
 				add eax, 8
 				mov eax, [eax]
 
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; non-static, pushing reference
@@ -300,6 +304,7 @@ section .text
 				add eax, 8
 				mov eax, [eax]
 
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; non-static, pushing reference
@@ -399,6 +404,7 @@ section .text
 						add eax, 8
 						mov eax, [eax]
 
+					;; Null Check:
 					cmp eax, 0
 					je __exception
 					;; non-static, pushing reference

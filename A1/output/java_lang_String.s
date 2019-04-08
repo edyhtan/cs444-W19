@@ -2,6 +2,8 @@ extern __exception
 extern __malloc
 extern __constructor__java_lang_Object__Object
 extern __method__java_lang_Object__getClass
+extern __class_ArrayTemplate
+extern __new_array
 extern __method__java_lang_Object__toString
 extern __method__java_lang_Object__equals$java_lang_Object$
 extern __STATIC_method__java_util_Arrays__equals$char@$char@$
@@ -19,7 +21,7 @@ __class_java_lang_String:
 
 		global __ref_PARENTS_java_lang_String
 	__ref_PARENTS_java_lang_String:
-		dd 00000001010000000000b
+		dd 0000011000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -60,6 +62,7 @@ section .text
 		add eax, 4
 		mov eax, [eax]
 
+		;; Null Check:
 		cmp eax, 0
 		je __exception
 		;; Field length
@@ -78,6 +81,46 @@ section .text
 		push ebp
 		mov ebp, esp
 
+		;; ---Array Access get Addr:
+
+			;; Get array instance:
+				;; Implicit This
+				mov eax, [ebp + 12]
+				;; Field chars
+				add eax, 4
+				mov eax, [eax]
+
+			;; Null Check:
+			cmp eax, 0
+			je __exception
+			;; Push array instance addr
+			push eax
+
+			;; Get array index
+				;; Local Var i
+				mov eax, ebp
+				add eax, 8
+				mov eax, [eax]
+
+
+			;; Pop arr instance addr to ebx:
+			pop ebx
+
+			;; Bound check
+			mov ecx, [ebx + 8]
+			cmp eax, ecx
+			jge __exception
+			cmp ecx, 0
+			jl __exception
+
+			;; Access array
+			add eax, 2
+			imul eax, 4
+			add eax, ebx
+
+		;; ---End Array Access get Addr
+		;; Dereference array addr to value
+		mov eax, [eax]
 		jmp _method_return___method__java_lang_String__charAt$int$
 
 		_method_return___method__java_lang_String__charAt$int$:
@@ -97,6 +140,75 @@ section .text
 		;; ---end of declare i
 
 		;; ---declare newchars
+		;; ---Array Creation: [char]
+
+			;; Size Expression:
+				;; Plus
+				;; LHS code...
+				;; ---Method Invocation: 
+				;; Names(ArgList)
+				;; Null Check:
+				cmp eax, 0
+				je __exception
+				;; non-static, pushing reference
+				push eax
+
+				;; Pushing args
+				;; class method:
+				;; addr of o
+				mov eax, [esp + 0]
+				;; vtable
+				mov eax, [eax]
+				;; addr of m body
+				mov eax, [eax + 48]
+
+				call eax
+
+				;; pop arguments
+				add esp, 4
+
+				;; ---End of method invocation
+				push eax
+				;; RHS code...
+				;; ---Method Invocation: 
+				;; Names(ArgList)
+					;; Local Var s2
+					mov eax, ebp
+					add eax, 8
+					mov eax, [eax]
+
+				;; Null Check:
+				cmp eax, 0
+				je __exception
+				;; non-static, pushing reference
+				push eax
+
+				;; Pushing args
+				;; class method:
+				;; addr of o
+				mov eax, [esp + 0]
+				;; vtable
+				mov eax, [eax]
+				;; addr of m body
+				mov eax, [eax + 48]
+
+				call eax
+
+				;; pop arguments
+				add esp, 4
+
+				;; ---End of method invocation
+				pop ebx
+				add ebx, eax
+				mov eax, ebx
+
+
+			;; Class Tag
+			mov ebx, __class_ArrayTemplate
+
+			mov edx, __new_array
+			call edx
+		;; --- End Array Creation
 
 		push eax
 		;; ---end of declare newchars
@@ -127,6 +239,7 @@ section .text
 			;; RHS code...
 			;; ---Method Invocation: 
 			;; Names(ArgList)
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; non-static, pushing reference
@@ -160,7 +273,84 @@ section .text
 			je .endfor0
 			;statement code...
 			;; Assignment
-						push eax
+							;; ---Array Access get Addr:
+
+					;; Get array instance:
+						;; Local Var newchars
+						mov eax, ebp
+						sub eax, 8
+						mov eax, [eax]
+
+					;; Null Check:
+					cmp eax, 0
+					je __exception
+					;; Push array instance addr
+					push eax
+
+					;; Get array index
+						;; Local Var i
+						mov eax, ebp
+						sub eax, 4
+						mov eax, [eax]
+
+
+					;; Pop arr instance addr to ebx:
+					pop ebx
+
+					;; Bound check
+					mov ecx, [ebx + 8]
+					cmp eax, ecx
+					jge __exception
+					cmp ecx, 0
+					jl __exception
+
+					;; Access array
+					add eax, 2
+					imul eax, 4
+					add eax, ebx
+
+				;; ---End Array Access get Addr
+			push eax
+				;; ---Array Access get Addr:
+
+					;; Get array instance:
+						;; Implicit This
+						mov eax, [ebp + 0]
+						;; Field chars
+						add eax, 4
+						mov eax, [eax]
+
+					;; Null Check:
+					cmp eax, 0
+					je __exception
+					;; Push array instance addr
+					push eax
+
+					;; Get array index
+						;; Local Var i
+						mov eax, ebp
+						sub eax, 4
+						mov eax, [eax]
+
+
+					;; Pop arr instance addr to ebx:
+					pop ebx
+
+					;; Bound check
+					mov ecx, [ebx + 8]
+					cmp eax, ecx
+					jge __exception
+					cmp ecx, 0
+					jl __exception
+
+					;; Access array
+					add eax, 2
+					imul eax, 4
+					add eax, ebx
+
+				;; ---End Array Access get Addr
+				;; Dereference array addr to value
+				mov eax, [eax]
 			pop ebx
 			mov [ebx], eax
 			;; ------end assign
@@ -228,6 +418,7 @@ section .text
 				add eax, 8
 				mov eax, [eax]
 
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; non-static, pushing reference
@@ -261,7 +452,121 @@ section .text
 			je .endfor1
 			;statement code...
 			;; Assignment
+							;; ---Array Access get Addr:
+
+					;; Get array instance:
+						;; Local Var newchars
+						mov eax, ebp
+						sub eax, 8
+						mov eax, [eax]
+
+					;; Null Check:
+					cmp eax, 0
+					je __exception
+					;; Push array instance addr
+					push eax
+
+					;; Get array index
+						;; Plus
+						;; LHS code...
+						;; Local Var i
+						mov eax, ebp
+						sub eax, 4
+						mov eax, [eax]
+
 						push eax
+						;; RHS code...
+						;; ---Method Invocation: 
+						;; Names(ArgList)
+						;; Null Check:
+						cmp eax, 0
+						je __exception
+						;; non-static, pushing reference
+						push eax
+
+						;; Pushing args
+						;; class method:
+						;; addr of o
+						mov eax, [esp + 0]
+						;; vtable
+						mov eax, [eax]
+						;; addr of m body
+						mov eax, [eax + 48]
+
+						call eax
+
+						;; pop arguments
+						add esp, 4
+
+						;; ---End of method invocation
+						pop ebx
+						add ebx, eax
+						mov eax, ebx
+
+
+					;; Pop arr instance addr to ebx:
+					pop ebx
+
+					;; Bound check
+					mov ecx, [ebx + 8]
+					cmp eax, ecx
+					jge __exception
+					cmp ecx, 0
+					jl __exception
+
+					;; Access array
+					add eax, 2
+					imul eax, 4
+					add eax, ebx
+
+				;; ---End Array Access get Addr
+			push eax
+				;; ---Array Access get Addr:
+
+					;; Get array instance:
+						;; Local Var s2
+						mov eax, ebp
+						add eax, 8
+						mov eax, [eax]
+
+						;; Null Check:
+						cmp eax, 0
+						je __exception
+						;; Field chars
+						add eax, 4
+						mov eax, [eax]
+
+					;; Null Check:
+					cmp eax, 0
+					je __exception
+					;; Push array instance addr
+					push eax
+
+					;; Get array index
+						;; Local Var i
+						mov eax, ebp
+						sub eax, 4
+						mov eax, [eax]
+
+
+					;; Pop arr instance addr to ebx:
+					pop ebx
+
+					;; Bound check
+					mov ecx, [ebx + 8]
+					cmp eax, ecx
+					jge __exception
+					cmp ecx, 0
+					jl __exception
+
+					;; Access array
+					add eax, 2
+					imul eax, 4
+					add eax, ebx
+
+				;; ---End Array Access get Addr
+				;; Dereference array addr to value
+				mov eax, [eax]
 			pop ebx
 			mov [ebx], eax
 			;; ------end assign
@@ -334,12 +639,56 @@ section .text
 		mov ebp, esp
 
 		;; ---declare newchars
+		;; ---Array Creation: [char]
+
+			;; Size Expression:
+				mov eax, 1
+
+			;; Class Tag
+			mov ebx, __class_ArrayTemplate
+
+			mov edx, __new_array
+			call edx
+		;; --- End Array Creation
 
 		push eax
 		;; ---end of declare newchars
 
 		;; Assignment
+					;; ---Array Access get Addr:
+
+				;; Get array instance:
+					;; Local Var newchars
+					mov eax, ebp
+					sub eax, 4
+					mov eax, [eax]
+
+				;; Null Check:
+				cmp eax, 0
+				je __exception
+				;; Push array instance addr
 				push eax
+
+				;; Get array index
+					mov eax, 0
+
+				;; Pop arr instance addr to ebx:
+				pop ebx
+
+				;; Bound check
+				mov ecx, [ebx + 8]
+				cmp eax, ecx
+				jge __exception
+				cmp ecx, 0
+				jl __exception
+
+				;; Access array
+				add eax, 2
+				imul eax, 4
+				add eax, ebx
+
+			;; ---End Array Access get Addr
+		push eax
 			;; Local Var c
 			mov eax, ebp
 			add eax, 8
@@ -385,6 +734,17 @@ section .text
 		mov ebp, esp
 
 		;; ---declare ret
+		;; ---Array Creation: [char]
+
+			;; Size Expression:
+				mov eax, 15
+
+			;; Class Tag
+			mov ebx, __class_ArrayTemplate
+
+			mov edx, __new_array
+			call edx
+		;; --- End Array Creation
 
 		push eax
 		;; ---end of declare ret
@@ -521,7 +881,44 @@ section .text
 		je .else4
 		;thenClause ...
 			;; Assignment
-						push eax
+							;; ---Array Access get Addr:
+
+					;; Get array instance:
+						;; Local Var ret
+						mov eax, ebp
+						sub eax, 4
+						mov eax, [eax]
+
+					;; Null Check:
+					cmp eax, 0
+					je __exception
+					;; Push array instance addr
+					push eax
+
+					;; Get array index
+						;; Local Var j
+						mov eax, ebp
+						sub eax, 8
+						mov eax, [eax]
+
+
+					;; Pop arr instance addr to ebx:
+					pop ebx
+
+					;; Bound check
+					mov ecx, [ebx + 8]
+					cmp eax, ecx
+					jge __exception
+					cmp ecx, 0
+					jl __exception
+
+					;; Access array
+					add eax, 2
+					imul eax, 4
+					add eax, ebx
+
+				;; ---End Array Access get Addr
+			push eax
 				mov eax, 48
 			pop ebx
 			mov [ebx], eax
@@ -634,7 +1031,44 @@ section .text
 
 
 				;; Assignment
-								push eax
+									;; ---Array Access get Addr:
+
+						;; Get array instance:
+							;; Local Var ret
+							mov eax, ebp
+							sub eax, 4
+							mov eax, [eax]
+
+						;; Null Check:
+						cmp eax, 0
+						je __exception
+						;; Push array instance addr
+						push eax
+
+						;; Get array index
+							;; Local Var j
+							mov eax, ebp
+							sub eax, 8
+							mov eax, [eax]
+
+
+						;; Pop arr instance addr to ebx:
+						pop ebx
+
+						;; Bound check
+						mov ecx, [ebx + 8]
+						cmp eax, ecx
+						jge __exception
+						cmp ecx, 0
+						jl __exception
+
+						;; Access array
+						add eax, 2
+						imul eax, 4
+						add eax, ebx
+
+					;; ---End Array Access get Addr
+				push eax
 					;; primitive run-time casting to [char]
 										;; Plus
 					;; LHS code...
@@ -700,7 +1134,44 @@ section .text
 		je .else6
 		;thenClause ...
 			;; Assignment
-						push eax
+							;; ---Array Access get Addr:
+
+					;; Get array instance:
+						;; Local Var ret
+						mov eax, ebp
+						sub eax, 4
+						mov eax, [eax]
+
+					;; Null Check:
+					cmp eax, 0
+					je __exception
+					;; Push array instance addr
+					push eax
+
+					;; Get array index
+						;; Local Var j
+						mov eax, ebp
+						sub eax, 8
+						mov eax, [eax]
+
+
+					;; Pop arr instance addr to ebx:
+					pop ebx
+
+					;; Bound check
+					mov ecx, [ebx + 8]
+					cmp eax, ecx
+					jge __exception
+					cmp ecx, 0
+					jl __exception
+
+					;; Access array
+					add eax, 2
+					imul eax, 4
+					add eax, ebx
+
+				;; ---End Array Access get Addr
+			push eax
 				mov eax, 45
 			pop ebx
 			mov [ebx], eax
@@ -738,6 +1209,21 @@ section .text
 		.else6:
 		.endif6:
 		;; ---declare ret2
+		;; ---Array Creation: [char]
+
+			;; Size Expression:
+				;; Local Var j
+				mov eax, ebp
+				sub eax, 8
+				mov eax, [eax]
+
+
+			;; Class Tag
+			mov ebx, __class_ArrayTemplate
+
+			mov edx, __new_array
+			call edx
+		;; --- End Array Creation
 
 		push eax
 		;; ---end of declare ret2
@@ -784,7 +1270,105 @@ section .text
 			je .endfor7
 			;statement code...
 			;; Assignment
+							;; ---Array Access get Addr:
+
+					;; Get array instance:
+						;; Local Var ret2
+						mov eax, ebp
+						sub eax, 16
+						mov eax, [eax]
+
+					;; Null Check:
+					cmp eax, 0
+					je __exception
+					;; Push array instance addr
+					push eax
+
+					;; Get array index
+						;; Local Var i
+						mov eax, ebp
+						add eax, 8
+						mov eax, [eax]
+
+
+					;; Pop arr instance addr to ebx:
+					pop ebx
+
+					;; Bound check
+					mov ecx, [ebx + 8]
+					cmp eax, ecx
+					jge __exception
+					cmp ecx, 0
+					jl __exception
+
+					;; Access array
+					add eax, 2
+					imul eax, 4
+					add eax, ebx
+
+				;; ---End Array Access get Addr
+			push eax
+				;; ---Array Access get Addr:
+
+					;; Get array instance:
+						;; Local Var ret
+						mov eax, ebp
+						sub eax, 4
+						mov eax, [eax]
+
+					;; Null Check:
+					cmp eax, 0
+					je __exception
+					;; Push array instance addr
+					push eax
+
+					;; Get array index
+						;; Minus
+						;; LHS code...
+						;; Minus
+						;; LHS code...
+						;; Local Var j
+						mov eax, ebp
+						sub eax, 8
+						mov eax, [eax]
+
 						push eax
+						;; RHS code...
+						mov eax, 1
+						pop ebx
+						sub ebx, eax
+						mov eax, ebx
+
+						push eax
+						;; RHS code...
+						;; Local Var i
+						mov eax, ebp
+						add eax, 8
+						mov eax, [eax]
+
+						pop ebx
+						sub ebx, eax
+						mov eax, ebx
+
+
+					;; Pop arr instance addr to ebx:
+					pop ebx
+
+					;; Bound check
+					mov ecx, [ebx + 8]
+					cmp eax, ecx
+					jge __exception
+					cmp ecx, 0
+					jl __exception
+
+					;; Access array
+					add eax, 2
+					imul eax, 4
+					add eax, ebx
+
+				;; ---End Array Access get Addr
+				;; Dereference array addr to value
+				mov eax, [eax]
 			pop ebx
 			mov [ebx], eax
 			;; ------end assign
@@ -987,6 +1571,7 @@ section .text
 				add eax, 8
 				mov eax, [eax]
 
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; non-static, pushing reference
@@ -1112,7 +1697,7 @@ section .text
 
 		mov eax, [eax]
 		mov eax, [eax+4]
-		shr eax, 12
+		shr eax, 10
 		and eax, 0x1
 
 		mov ebx, 1
@@ -1153,7 +1738,7 @@ section .text
 			je .cast_end2
 			mov eax, [eax]
 			mov eax, [eax+4]
-			shr eax, 12
+			shr eax, 10
 			and eax, 0x1
 			cmp eax, 0
 			je __exception
@@ -1228,6 +1813,7 @@ section .text
 		;; RHS code...
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		;; Null Check:
 		cmp eax, 0
 		je __exception
 		;; non-static, pushing reference
@@ -1301,6 +1887,34 @@ section .text
 		.else15:
 		.endif15:
 		;; ---declare ret
+		;; ---Array Creation: [char]
+
+			;; Size Expression:
+				;; Minus
+				;; LHS code...
+				;; Local Var j
+				mov eax, ebp
+				add eax, 8
+				mov eax, [eax]
+
+				push eax
+				;; RHS code...
+				;; Local Var i
+				mov eax, ebp
+				add eax, 12
+				mov eax, [eax]
+
+				pop ebx
+				sub ebx, eax
+				mov eax, ebx
+
+
+			;; Class Tag
+			mov ebx, __class_ArrayTemplate
+
+			mov edx, __new_array
+			call edx
+		;; --- End Array Creation
 
 		push eax
 		;; ---end of declare ret
@@ -1351,9 +1965,60 @@ section .text
 			je .endfor16
 			;statement code...
 			;; Assignment
+							;; ---Array Access get Addr:
+
+					;; Get array instance:
+						;; Local Var ret
+						mov eax, ebp
+						sub eax, 8
+						mov eax, [eax]
+
+					;; Null Check:
+					cmp eax, 0
+					je __exception
+					;; Push array instance addr
+					push eax
+
+					;; Get array index
+						;; Minus
+						;; LHS code...
+						;; Local Var k
+						mov eax, ebp
+						sub eax, 4
+						mov eax, [eax]
+
 						push eax
+						;; RHS code...
+						;; Local Var i
+						mov eax, ebp
+						add eax, 12
+						mov eax, [eax]
+
+						pop ebx
+						sub ebx, eax
+						mov eax, ebx
+
+
+					;; Pop arr instance addr to ebx:
+					pop ebx
+
+					;; Bound check
+					mov ecx, [ebx + 8]
+					cmp eax, ecx
+					jge __exception
+					cmp ecx, 0
+					jl __exception
+
+					;; Access array
+					add eax, 2
+					imul eax, 4
+					add eax, ebx
+
+				;; ---End Array Access get Addr
+			push eax
 				;; ---Method Invocation: 
 				;; Names(ArgList)
+				;; Null Check:
 				cmp eax, 0
 				je __exception
 				;; non-static, pushing reference
@@ -1491,6 +2156,7 @@ section .text
 			;; RHS code...
 			;; ---Method Invocation: 
 			;; Names(ArgList)
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; non-static, pushing reference
@@ -1526,6 +2192,7 @@ section .text
 			;; LHS code...
 			;; ---Method Invocation: 
 			;; Names(ArgList)
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; non-static, pushing reference
@@ -1613,6 +2280,7 @@ section .text
 			;; LHS code...
 			;; ---Method Invocation: 
 			;; Names(ArgList)
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; non-static, pushing reference
@@ -1673,6 +2341,7 @@ section .text
 			;; LHS code...
 			;; ---Method Invocation: 
 			;; Names(ArgList)
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; non-static, pushing reference
@@ -1785,6 +2454,7 @@ section .text
 			;elseClause ...
 			;; ---Method Invocation: 
 			;; Names(ArgList)
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; non-static, pushing reference
@@ -1873,6 +2543,7 @@ section .text
 			add eax, 4
 			mov eax, [eax]
 
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; Field length
@@ -1915,6 +2586,46 @@ section .text
 
 				push eax
 				;; RHS code...
+				;; ---Array Access get Addr:
+
+					;; Get array instance:
+						;; Implicit This
+						mov eax, [ebp + 0]
+						;; Field chars
+						add eax, 4
+						mov eax, [eax]
+
+					;; Null Check:
+					cmp eax, 0
+					je __exception
+					;; Push array instance addr
+					push eax
+
+					;; Get array index
+						;; Local Var i
+						mov eax, ebp
+						sub eax, 8
+						mov eax, [eax]
+
+
+					;; Pop arr instance addr to ebx:
+					pop ebx
+
+					;; Bound check
+					mov ecx, [ebx + 8]
+					cmp eax, ecx
+					jge __exception
+					cmp ecx, 0
+					jl __exception
+
+					;; Access array
+					add eax, 2
+					imul eax, 4
+					add eax, ebx
+
+				;; ---End Array Access get Addr
+				;; Dereference array addr to value
+				mov eax, [eax]
 				pop ebx
 				add ebx, eax
 				mov eax, ebx
@@ -1989,6 +2700,7 @@ section .text
 
 		;; ---Method Invocation: 
 		;; Names(ArgList)
+		;; Null Check:
 		cmp eax, 0
 		je __exception
 		;; non-static, pushing reference
@@ -2005,7 +2717,7 @@ section .text
 			je .cast_end0
 			mov eax, [eax]
 			mov eax, [eax+4]
-			shr eax, 12
+			shr eax, 10
 			and eax, 0x1
 			cmp eax, 0
 			je __exception
@@ -2078,6 +2790,7 @@ section .text
 			add eax, 4
 			mov eax, [eax]
 
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; Field length
@@ -2109,12 +2822,14 @@ section .text
 			add eax, 8
 			mov eax, [eax]
 
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; Field chars
 			add eax, 4
 			mov eax, [eax]
 
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; Field length
@@ -2160,6 +2875,7 @@ section .text
 			add eax, 4
 			mov eax, [eax]
 
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; Field length
@@ -2206,12 +2922,14 @@ section .text
 			add eax, 8
 			mov eax, [eax]
 
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; Field chars
 			add eax, 4
 			mov eax, [eax]
 
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; Field length
@@ -2242,8 +2960,94 @@ section .text
 			;expression code...
 			;; Compare_lt
 			;; LHS code...
+			;; ---Array Access get Addr:
+
+				;; Get array instance:
+					;; Implicit This
+					mov eax, [ebp + 12]
+					;; Field chars
+					add eax, 4
+					mov eax, [eax]
+
+				;; Null Check:
+				cmp eax, 0
+				je __exception
+				;; Push array instance addr
+				push eax
+
+				;; Get array index
+					;; Local Var i
+					mov eax, ebp
+					sub eax, 4
+					mov eax, [eax]
+
+
+				;; Pop arr instance addr to ebx:
+				pop ebx
+
+				;; Bound check
+				mov ecx, [ebx + 8]
+				cmp eax, ecx
+				jge __exception
+				cmp ecx, 0
+				jl __exception
+
+				;; Access array
+				add eax, 2
+				imul eax, 4
+				add eax, ebx
+
+			;; ---End Array Access get Addr
+			;; Dereference array addr to value
+			mov eax, [eax]
 			push eax
 			;; RHS code...
+			;; ---Array Access get Addr:
+
+				;; Get array instance:
+					;; Local Var other
+					mov eax, ebp
+					add eax, 8
+					mov eax, [eax]
+
+					;; Null Check:
+					cmp eax, 0
+					je __exception
+					;; Field chars
+					add eax, 4
+					mov eax, [eax]
+
+				;; Null Check:
+				cmp eax, 0
+				je __exception
+				;; Push array instance addr
+				push eax
+
+				;; Get array index
+					;; Local Var i
+					mov eax, ebp
+					sub eax, 4
+					mov eax, [eax]
+
+
+				;; Pop arr instance addr to ebx:
+				pop ebx
+
+				;; Bound check
+				mov ecx, [ebx + 8]
+				cmp eax, ecx
+				jge __exception
+				cmp ecx, 0
+				jl __exception
+
+				;; Access array
+				add eax, 2
+				imul eax, 4
+				add eax, ebx
+
+			;; ---End Array Access get Addr
+			;; Dereference array addr to value
+			mov eax, [eax]
 			pop ebx
 			cmp ebx, eax
 			jl .lt5
@@ -2272,8 +3076,94 @@ section .text
 			;expression code...
 			;; Compare_gt
 			;; LHS code...
+			;; ---Array Access get Addr:
+
+				;; Get array instance:
+					;; Implicit This
+					mov eax, [ebp + 12]
+					;; Field chars
+					add eax, 4
+					mov eax, [eax]
+
+				;; Null Check:
+				cmp eax, 0
+				je __exception
+				;; Push array instance addr
+				push eax
+
+				;; Get array index
+					;; Local Var i
+					mov eax, ebp
+					sub eax, 4
+					mov eax, [eax]
+
+
+				;; Pop arr instance addr to ebx:
+				pop ebx
+
+				;; Bound check
+				mov ecx, [ebx + 8]
+				cmp eax, ecx
+				jge __exception
+				cmp ecx, 0
+				jl __exception
+
+				;; Access array
+				add eax, 2
+				imul eax, 4
+				add eax, ebx
+
+			;; ---End Array Access get Addr
+			;; Dereference array addr to value
+			mov eax, [eax]
 			push eax
 			;; RHS code...
+			;; ---Array Access get Addr:
+
+				;; Get array instance:
+					;; Local Var other
+					mov eax, ebp
+					add eax, 8
+					mov eax, [eax]
+
+					;; Null Check:
+					cmp eax, 0
+					je __exception
+					;; Field chars
+					add eax, 4
+					mov eax, [eax]
+
+				;; Null Check:
+				cmp eax, 0
+				je __exception
+				;; Push array instance addr
+				push eax
+
+				;; Get array index
+					;; Local Var i
+					mov eax, ebp
+					sub eax, 4
+					mov eax, [eax]
+
+
+				;; Pop arr instance addr to ebx:
+				pop ebx
+
+				;; Bound check
+				mov ecx, [ebx + 8]
+				cmp eax, ecx
+				jge __exception
+				cmp ecx, 0
+				jl __exception
+
+				;; Access array
+				add eax, 2
+				imul eax, 4
+				add eax, ebx
+
+			;; ---End Array Access get Addr
+			;; Dereference array addr to value
+			mov eax, [eax]
 			pop ebx
 			cmp ebx, eax
 			jg .gt6
@@ -2336,6 +3226,29 @@ section .text
 		mov ebp, esp
 
 		;; ---declare ret
+		;; ---Array Creation: [char]
+
+			;; Size Expression:
+				;; Implicit This
+				mov eax, [ebp + 8]
+				;; Field chars
+				add eax, 4
+				mov eax, [eax]
+
+				;; Null Check:
+				cmp eax, 0
+				je __exception
+				;; Field length
+				add eax, 8
+				mov eax, [eax]
+
+
+			;; Class Tag
+			mov ebx, __class_ArrayTemplate
+
+			mov edx, __new_array
+			call edx
+		;; --- End Array Creation
 
 		push eax
 		;; ---end of declare ret
@@ -2364,6 +3277,7 @@ section .text
 			sub eax, 4
 			mov eax, [eax]
 
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; Field length
@@ -2383,7 +3297,84 @@ section .text
 			je .endfor27
 			;statement code...
 			;; Assignment
-						push eax
+							;; ---Array Access get Addr:
+
+					;; Get array instance:
+						;; Local Var ret
+						mov eax, ebp
+						sub eax, 4
+						mov eax, [eax]
+
+					;; Null Check:
+					cmp eax, 0
+					je __exception
+					;; Push array instance addr
+					push eax
+
+					;; Get array index
+						;; Local Var i
+						mov eax, ebp
+						sub eax, 8
+						mov eax, [eax]
+
+
+					;; Pop arr instance addr to ebx:
+					pop ebx
+
+					;; Bound check
+					mov ecx, [ebx + 8]
+					cmp eax, ecx
+					jge __exception
+					cmp ecx, 0
+					jl __exception
+
+					;; Access array
+					add eax, 2
+					imul eax, 4
+					add eax, ebx
+
+				;; ---End Array Access get Addr
+			push eax
+				;; ---Array Access get Addr:
+
+					;; Get array instance:
+						;; Implicit This
+						mov eax, [ebp + 0]
+						;; Field chars
+						add eax, 4
+						mov eax, [eax]
+
+					;; Null Check:
+					cmp eax, 0
+					je __exception
+					;; Push array instance addr
+					push eax
+
+					;; Get array index
+						;; Local Var i
+						mov eax, ebp
+						sub eax, 8
+						mov eax, [eax]
+
+
+					;; Pop arr instance addr to ebx:
+					pop ebx
+
+					;; Bound check
+					mov ecx, [ebx + 8]
+					cmp eax, ecx
+					jge __exception
+					cmp ecx, 0
+					jl __exception
+
+					;; Access array
+					add eax, 2
+					imul eax, 4
+					add eax, ebx
+
+				;; ---End Array Access get Addr
+				;; Dereference array addr to value
+				mov eax, [eax]
 			pop ebx
 			mov [ebx], eax
 			;; ------end assign
@@ -2477,6 +3468,7 @@ section .text
 			;; RHS code...
 			;; ---Method Invocation: 
 			;; Names(ArgList)
+			;; Null Check:
 			cmp eax, 0
 			je __exception
 			;; non-static, pushing reference
@@ -2547,6 +3539,7 @@ section .text
 					add eax, 8
 					mov eax, [eax]
 
+				;; Null Check:
 				cmp eax, 0
 				je __exception
 				;; non-static, pushing reference
@@ -2605,6 +3598,7 @@ section .text
 				;; RHS code...
 				;; ---Method Invocation: 
 				;; Names(ArgList)
+				;; Null Check:
 				cmp eax, 0
 				je __exception
 				;; non-static, pushing reference
@@ -2657,8 +3651,107 @@ section .text
 					;expression code...
 					;; Compare_ne
 					;; LHS code...
+					;; ---Array Access get Addr:
+
+						;; Get array instance:
+							;; Implicit This
+							mov eax, [ebp + 0]
+							;; Field chars
+							add eax, 4
+							mov eax, [eax]
+
+						;; Null Check:
+						cmp eax, 0
+						je __exception
+						;; Push array instance addr
+						push eax
+
+						;; Get array index
+							;; Plus
+							;; LHS code...
+							;; Local Var i
+							mov eax, ebp
+							sub eax, 8
+							mov eax, [eax]
+
+							push eax
+							;; RHS code...
+							;; Local Var offset
+							mov eax, ebp
+							sub eax, 4
+							mov eax, [eax]
+
+							pop ebx
+							add ebx, eax
+							mov eax, ebx
+
+
+						;; Pop arr instance addr to ebx:
+						pop ebx
+
+						;; Bound check
+						mov ecx, [ebx + 8]
+						cmp eax, ecx
+						jge __exception
+						cmp ecx, 0
+						jl __exception
+
+						;; Access array
+						add eax, 2
+						imul eax, 4
+						add eax, ebx
+
+					;; ---End Array Access get Addr
+					;; Dereference array addr to value
+					mov eax, [eax]
 					push eax
 					;; RHS code...
+					;; ---Array Access get Addr:
+
+						;; Get array instance:
+							;; Local Var needle
+							mov eax, ebp
+							add eax, 8
+							mov eax, [eax]
+
+							;; Null Check:
+							cmp eax, 0
+							je __exception
+							;; Field chars
+							add eax, 4
+							mov eax, [eax]
+
+						;; Null Check:
+						cmp eax, 0
+						je __exception
+						;; Push array instance addr
+						push eax
+
+						;; Get array index
+							;; Local Var i
+							mov eax, ebp
+							sub eax, 8
+							mov eax, [eax]
+
+
+						;; Pop arr instance addr to ebx:
+						pop ebx
+
+						;; Bound check
+						mov ecx, [ebx + 8]
+						cmp eax, ecx
+						jge __exception
+						cmp ecx, 0
+						jl __exception
+
+						;; Access array
+						add eax, 2
+						imul eax, 4
+						add eax, ebx
+
+					;; ---End Array Access get Addr
+					;; Dereference array addr to value
+					mov eax, [eax]
 					pop ebx
 					cmp ebx, eax
 					jne .ne3
@@ -2819,6 +3912,17 @@ mov eax, 0
 				add eax, 4
 
 			push eax
+				;; ---Array Creation: [char]
+
+					;; Size Expression:
+						mov eax, 0
+
+					;; Class Tag
+					mov ebx, __class_ArrayTemplate
+
+					mov edx, __new_array
+					call edx
+				;; --- End Array Creation
 			pop ebx
 			mov [ebx], eax
 			;; ------end assign
@@ -2852,6 +3956,28 @@ mov eax, 0
 				mov eax, [ebp + 12]
 				add eax, 4
 			push eax
+				;; ---Array Creation: [char]
+
+					;; Size Expression:
+						;; Local Var chars
+						mov eax, ebp
+						add eax, 8
+						mov eax, [eax]
+
+						;; Null Check:
+						cmp eax, 0
+						je __exception
+						;; Field length
+						add eax, 8
+						mov eax, [eax]
+
+
+					;; Class Tag
+					mov ebx, __class_ArrayTemplate
+
+					mov edx, __new_array
+					call edx
+				;; --- End Array Creation
 			pop ebx
 			mov [ebx], eax
 			;; ------end assign
@@ -2880,6 +4006,7 @@ mov eax, 0
 				add eax, 8
 				mov eax, [eax]
 
+				;; Null Check:
 				cmp eax, 0
 				je __exception
 				;; Field length
@@ -2899,7 +4026,81 @@ mov eax, 0
 				je .endfor33
 				;statement code...
 				;; Assignment
-								push eax
+									;; ---Array Access get Addr:
+
+						;; Get array instance:
+							;; field access
+							mov eax, [ebp + 0]
+							mov eax, [eax+4]
+						;; Null Check:
+						cmp eax, 0
+						je __exception
+						;; Push array instance addr
+						push eax
+
+						;; Get array index
+							;; Local Var i
+							mov eax, ebp
+							sub eax, 4
+							mov eax, [eax]
+
+
+						;; Pop arr instance addr to ebx:
+						pop ebx
+
+						;; Bound check
+						mov ecx, [ebx + 8]
+						cmp eax, ecx
+						jge __exception
+						cmp ecx, 0
+						jl __exception
+
+						;; Access array
+						add eax, 2
+						imul eax, 4
+						add eax, ebx
+
+					;; ---End Array Access get Addr
+				push eax
+					;; ---Array Access get Addr:
+
+						;; Get array instance:
+							;; Local Var chars
+							mov eax, ebp
+							add eax, 8
+							mov eax, [eax]
+
+						;; Null Check:
+						cmp eax, 0
+						je __exception
+						;; Push array instance addr
+						push eax
+
+						;; Get array index
+							;; Local Var i
+							mov eax, ebp
+							sub eax, 4
+							mov eax, [eax]
+
+
+						;; Pop arr instance addr to ebx:
+						pop ebx
+
+						;; Bound check
+						mov ecx, [ebx + 8]
+						cmp eax, ecx
+						jge __exception
+						cmp ecx, 0
+						jl __exception
+
+						;; Access array
+						add eax, 2
+						imul eax, 4
+						add eax, ebx
+
+					;; ---End Array Access get Addr
+					;; Dereference array addr to value
+					mov eax, [eax]
 				pop ebx
 				mov [ebx], eax
 				;; ------end assign
@@ -2971,6 +4172,7 @@ mov eax, 0
 				add eax, 8
 				mov eax, [eax]
 
+				;; Null Check:
 				cmp eax, 0
 				je __exception
 				;; Field chars
