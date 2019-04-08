@@ -16,15 +16,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ExpressionUnary.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ExpressionUnary.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Joosc/ASTModel/Expressions/ExpressionUnary.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1081">
-              <caret line="223" column="17" lean-forward="false" selection-start-line="223" selection-start-column="17" selection-end-line="223" selection-end-column="17" />
+            <state relative-caret-position="488">
+              <caret line="240" column="24" lean-forward="true" selection-start-line="240" selection-start-column="24" selection-end-line="240" selection-end-column="24" />
               <folding>
-                <element signature="e#10965#10966#0" expanded="true" />
-                <element signature="e#10999#11000#0" expanded="true" />
+                <element signature="e#10977#10978#0" expanded="true" />
+                <element signature="e#11011#11012#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="J1_Hello.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/assignment_testcases/a5/J1_Hello.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" column="44" lean-forward="true" selection-start-line="3" selection-start-column="44" selection-end-line="3" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="J2_A_FieldInitialization_Static_NonConstant_Before.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/assignment_testcases/a5/J2_A_FieldInitialization_Static_NonConstant_Before.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="5" lean-forward="true" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -60,16 +80,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="119">
               <caret line="7" column="26" lean-forward="false" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="J1e_A_CastToArray.s" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/output/J1e_A_CastToArray.s">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="402" column="23" lean-forward="true" selection-start-line="402" selection-start-column="23" selection-end-line="402" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -218,7 +228,7 @@
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="configurable.group.build" />
-    <property name="SearchEverywhereHistoryKey" value="unar&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/ASTModel/Expressions/ExpressionUnary.java&#10;J1e_A_CastToArray&#9;PSI&#9;JAVA://J1e_A_CastToArray&#10;J1_constructorbodycast&#9;PSI&#9;JAVA://J1_constructorbodycast&#10;J1_concat_in_binop&#9;PSI&#9;JAVA://J1_concat_in_binop&#10;J1_charadd&#9;PSI&#9;JAVA://J1_charadd&#10;J1_arrayinstanceof2&#9;PSI&#9;JAVA://J1_arrayinstanceof2&#10;J1_arrayinstanceof1&#9;PSI&#9;JAVA://J1_arrayinstanceof1&#10;asm&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/AsmWriter/AsmWriter.java&#10;local&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/Environment/LocalEnv.java&#10;unary&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/ASTModel/Expressions/ExpressionUnary.java&#10;J1_6_Assignable_Object_ObjectArray&#9;PSI&#9;JAVA://J1_6_Assignable_Object_ObjectArray&#10;binar&#9;PSI&#9;JAVA://Joosc.ASTModel.Expressions.ExpressionBinary&#10;J1_1_Instanceof_OfCastExpression&#9;PSI&#9;JAVA://J1_1_Instanceof_OfCastExpression" />
+    <property name="SearchEverywhereHistoryKey" value="J2_A_FieldInitialization_Static_NonConstant_Before&#9;PSI&#9;JAVA://J2_A_FieldInitialization_Static_NonConstant_Before&#10;J1_Hello&#9;PSI&#9;JAVA://J1_Hello&#10;unar&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/ASTModel/Expressions/ExpressionUnary.java&#10;J1e_A_CastToArray&#9;PSI&#9;JAVA://J1e_A_CastToArray&#10;J1_constructorbodycast&#9;PSI&#9;JAVA://J1_constructorbodycast&#10;J1_concat_in_binop&#9;PSI&#9;JAVA://J1_concat_in_binop&#10;J1_charadd&#9;PSI&#9;JAVA://J1_charadd&#10;J1_arrayinstanceof2&#9;PSI&#9;JAVA://J1_arrayinstanceof2&#10;J1_arrayinstanceof1&#9;PSI&#9;JAVA://J1_arrayinstanceof1&#10;asm&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/AsmWriter/AsmWriter.java&#10;local&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/Environment/LocalEnv.java&#10;unary&#9;FILE&#9;file:///Users/surizhang/Documents/W19/cs444-W19/A1/src/Joosc/ASTModel/Expressions/ExpressionUnary.java&#10;J1_6_Assignable_Object_ObjectArray&#9;PSI&#9;JAVA://J1_6_Assignable_Object_ObjectArray&#10;binar&#9;PSI&#9;JAVA://Joosc.ASTModel.Expressions.ExpressionBinary&#10;J1_1_Instanceof_OfCastExpression&#9;PSI&#9;JAVA://J1_1_Instanceof_OfCastExpression" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -249,7 +259,7 @@
       </extension>
       <option name="MAIN_CLASS_NAME" value="Joosc.MultiFileTest" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="a5 J1e_A_CastToArray.java" />
+      <option name="PROGRAM_PARAMETERS" value="a5 J2_A_FieldInitialization_Static_NonConstant_Before.java" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -532,17 +542,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Joosc/ASTModel/Expressions/ExpressionFieldAccess.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="126" column="33" lean-forward="false" selection-start-line="126" selection-start-column="33" selection-end-line="126" selection-end-column="33" />
-          <folding>
-            <element signature="e#5637#5638#0" expanded="true" />
-            <element signature="e#5671#5672#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/output/J1_6_Assignable_Object_ObjectArray.s">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="229">
@@ -634,22 +633,57 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Joosc/ASTModel/Expressions/ExpressionUnary.java">
+    <entry file="file://$PROJECT_DIR$/output/J1e_A_CastToArray.s">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1081">
-          <caret line="223" column="17" lean-forward="false" selection-start-line="223" selection-start-column="17" selection-end-line="223" selection-end-column="17" />
+        <state relative-caret-position="257">
+          <caret line="422" column="24" lean-forward="false" selection-start-line="422" selection-start-column="24" selection-end-line="422" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/assignment_testcases/a5/J1_Hello.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="44" lean-forward="true" selection-start-line="3" selection-start-column="44" selection-end-line="3" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/output/J1_Hello.s">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="399" column="0" lean-forward="true" selection-start-line="399" selection-start-column="0" selection-end-line="399" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/assignment_testcases/a5/J2_A_FieldInitialization_Static_NonConstant_Before.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="5" lean-forward="true" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Joosc/ASTModel/Expressions/ExpressionFieldAccess.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="126" column="33" lean-forward="false" selection-start-line="126" selection-start-column="33" selection-end-line="126" selection-end-column="33" />
           <folding>
-            <element signature="e#10965#10966#0" expanded="true" />
-            <element signature="e#10999#11000#0" expanded="true" />
+            <element signature="e#5637#5638#0" expanded="true" />
+            <element signature="e#5671#5672#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/output/J1e_A_CastToArray.s">
+    <entry file="file://$PROJECT_DIR$/src/Joosc/ASTModel/Expressions/ExpressionUnary.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="402" column="23" lean-forward="true" selection-start-line="402" selection-start-column="23" selection-end-line="402" selection-end-column="23" />
-          <folding />
+        <state relative-caret-position="488">
+          <caret line="240" column="24" lean-forward="true" selection-start-line="240" selection-start-column="24" selection-end-line="240" selection-end-column="24" />
+          <folding>
+            <element signature="e#10977#10978#0" expanded="true" />
+            <element signature="e#11011#11012#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

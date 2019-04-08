@@ -33,14 +33,14 @@ extern __ref_SIT_java_io_OutputStream
 
 section .data
 
-	global __class_J1e_A_CastToArray
-__class_J1e_A_CastToArray:
-		global __ref_SIT_J1e_A_CastToArray
-	__ref_SIT_J1e_A_CastToArray:
+	global __class_J2_A_FieldInitialization_Static_NonConstant_Before
+__class_J2_A_FieldInitialization_Static_NonConstant_Before:
+		global __ref_SIT_J2_A_FieldInitialization_Static_NonConstant_Before
+	__ref_SIT_J2_A_FieldInitialization_Static_NonConstant_Before:
 		dd 0
 
-		global __ref_PARENTS_J1e_A_CastToArray
-	__ref_PARENTS_J1e_A_CastToArray:
+		global __ref_PARENTS_J2_A_FieldInitialization_Static_NonConstant_Before
+	__ref_PARENTS_J2_A_FieldInitialization_Static_NonConstant_Before:
 		dd 1000001000000000b
 
 	; Methods	
@@ -49,9 +49,17 @@ __class_J1e_A_CastToArray:
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
 		dd __method__java_lang_Object__toString
-		dd __STATIC_method__J1e_A_CastToArray__test
+		dd __STATIC_method__J2_A_FieldInitialization_Static_NonConstant_Before__test
 
 ;; Static fields
+		global __field_J2_A_FieldInitialization_Static_NonConstant_Before_b
+__field_J2_A_FieldInitialization_Static_NonConstant_Before_b:
+		dd 0
+
+		global __field_J2_A_FieldInitialization_Static_NonConstant_Before_a
+__field_J2_A_FieldInitialization_Static_NonConstant_Before_a:
+		dd 0
+
 
 section .text
 
@@ -296,7 +304,7 @@ mov [ebx], eax
 mov eax, 16
 call __malloc
 
-mov ebx, __ref_SIT_J1e_A_CastToArray
+mov ebx, __ref_SIT_J2_A_FieldInitialization_Static_NonConstant_Before
 mov [ebx], eax
 
 		mov ebx, __method__java_lang_Object__hashCode
@@ -362,20 +370,17 @@ mov [ebx], eax
 mov ebx, __field_java_lang_Boolean_MAX_VALUE
 mov [ebx], eax
 
-call @@@@main
-mov ebx, eax
-mov eax, 1
-int 0x80
+;; Static Field: __field_J2_A_FieldInitialization_Static_NonConstant_Before_b
 
+	mov eax, __field_J2_A_FieldInitialization_Static_NonConstant_Before_a
+	mov eax, [eax]
 
-global @@@@main
-@@@@main:
-		global __STATIC_method__J1e_A_CastToArray__test
-	__STATIC_method__J1e_A_CastToArray__test:
-		push ebp
-		mov ebp, esp
+mov ebx, __field_J2_A_FieldInitialization_Static_NonConstant_Before_b
+mov [ebx], eax
 
-		;; ---declare o
+;; Static Field: __field_J2_A_FieldInitialization_Static_NonConstant_Before_a
+	;; ---Method Invocation: 
+	;; Primary.id(ArgList)
 		;; ---new [java, lang, Integer] ()
 		;; Allocating size of 8
 		mov eax, 8
@@ -387,7 +392,7 @@ global @@@@main
 		push eax
 
 		;; Pushing args:
-			mov eax, 123
+			mov eax, 22
 			push eax
 
 		call __constructor__java_lang_Integer__Integer$int$
@@ -395,27 +400,77 @@ global @@@@main
 		pop eax
 
 		;; ---end of new [java, lang, Integer] ()
+	;; Null Check:
+	cmp eax, 0
+	je __exception
+	push eax
+
+	;; Pushing args
+	;; class method:
+	;; addr of o
+	mov eax, [esp + 0]
+	;; vtable
+	mov eax, [eax]
+	;; addr of m body
+	mov eax, [eax + 0]
+
+	call eax
+
+	;; pop arguments
+	add esp, 4
+
+	;; ---End of method invocation
+mov ebx, __field_J2_A_FieldInitialization_Static_NonConstant_Before_a
+mov [ebx], eax
+
+call @@@@main
+mov ebx, eax
+mov eax, 1
+int 0x80
+
+
+global @@@@main
+@@@@main:
+		global __STATIC_method__J2_A_FieldInitialization_Static_NonConstant_Before__test
+	__STATIC_method__J2_A_FieldInitialization_Static_NonConstant_Before__test:
+		push ebp
+		mov ebp, esp
+
+		;; Plus
+		;; LHS code...
+		;; Plus
+		;; LHS code...
+
+		mov eax, __field_J2_A_FieldInitialization_Static_NonConstant_Before_a
+		mov eax, [eax]
 
 		push eax
-		;; ---end of declare o
+		;; RHS code...
 
-		;; ---declare ia
-		jmp __exception
+		mov eax, __field_J2_A_FieldInitialization_Static_NonConstant_Before_b
+		mov eax, [eax]
+
+		pop ebx
+		add ebx, eax
+		mov eax, ebx
 
 		push eax
-		;; ---end of declare ia
+		;; RHS code...
+		mov eax, 101
+		pop ebx
+		add ebx, eax
+		mov eax, ebx
 
-		mov eax, 123
-		jmp _method_return___STATIC_method__J1e_A_CastToArray__test
+		jmp _method_return___STATIC_method__J2_A_FieldInitialization_Static_NonConstant_Before__test
 
-		_method_return___STATIC_method__J1e_A_CastToArray__test:
+		_method_return___STATIC_method__J2_A_FieldInitialization_Static_NonConstant_Before__test:
 			mov esp, ebp
 			pop ebp
 			ret
 
 ;; -----Constructors-----
-		global __constructor__J1e_A_CastToArray__J1e_A_CastToArray
-	__constructor__J1e_A_CastToArray__J1e_A_CastToArray:
+		global __constructor__J2_A_FieldInitialization_Static_NonConstant_Before__J2_A_FieldInitialization_Static_NonConstant_Before
+	__constructor__J2_A_FieldInitialization_Static_NonConstant_Before__J2_A_FieldInitialization_Static_NonConstant_Before:
 		push ebp
 		mov ebp, esp
 		mov eax, [ebp + 8]

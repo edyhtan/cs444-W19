@@ -178,11 +178,11 @@ public class ExpressionUnary extends Expression implements ConstantExpression {
             if ((joosType instanceof ArrayType && !((ArrayType) joosType).getJoosType().isPrimitive())
                     || !joosType.isPrimitive()) {
 
-                if(! (targetType instanceof ArrayType) ||(targetType.equals(new ArrayList<>(Arrays.asList("java", "lang", "Object"))))) {
-                    asmWriter.indent(indent);
-                    asmWriter.extern("__exception");
-                    asmWriter.jmp("__exception");
-                } else {
+//                if(! (targetType instanceof ArrayType) ||(targetType.equals(new ArrayList<>(Arrays.asList("java", "lang", "Object"))))) {
+//                    asmWriter.indent(indent);
+//                    asmWriter.extern("__exception");
+//                    asmWriter.jmp("__exception");
+//                } else {
                     asmWriter.indent(indent);
                     asmWriter.comment("casting");
                     asmWriter.indent(indent);
@@ -221,7 +221,7 @@ public class ExpressionUnary extends Expression implements ConstantExpression {
                     asmWriter.label(".cast_end" + offset);
                     asmWriter.indent(indent + 1);
                     asmWriter.pop(Register.eax);
-                }
+//                }
             } else { // casting primitive types
                 if (isConstantExpression()) {
                     // compute at compile time and put value directly to eax
