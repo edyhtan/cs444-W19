@@ -1,14 +1,14 @@
 extern __ref_SIT_java_lang_Number
+extern __exception
 extern __malloc
 extern __constructor__java_lang_Object__Object
 extern __method__java_lang_Object__getClass
-extern __ref_SIT_foo_bar
 extern __ref_SIT_java_lang_Short
-extern __ref_SIT_Main
 extern __ref_SIT_java_lang_Character
+extern __class_ArrayTemplate
 extern __constructor__java_io_PrintStream__PrintStream
 extern __ref_SIT_java_lang_String
-extern __ref_SIT_Hello
+extern __new_array
 extern __ref_SIT_java_lang_Integer
 extern __method__java_lang_Object__toString
 extern __ref_SIT_java_lang_Class
@@ -18,11 +18,11 @@ extern __method__java_lang_Object__equals$java_lang_Object$
 extern __ref_SIT_java_io_PrintStream
 extern __class_java_io_PrintStream
 extern __method__java_lang_Object__clone
+extern __ref_SIT_ArrayTemplate
 extern __field_java_lang_Boolean_MAX_VALUE
 extern __ref_SIT_java_lang_Object
 extern __method__java_lang_Object__hashCode
 extern __ref_SIT_java_lang_Byte
-extern __ref_SIT_Static
 extern __field_java_lang_System_out
 extern __field_java_lang_Byte_MAX_VALUE
 extern __ref_SIT_java_lang_System
@@ -32,15 +32,15 @@ extern __ref_SIT_java_io_OutputStream
 
 section .data
 
-	global __class_A
-__class_A:
-		global __ref_SIT_A
-	__ref_SIT_A:
+	global __class_J1_6_Assignable_Object_ObjectArray
+__class_J1_6_Assignable_Object_ObjectArray:
+		global __ref_SIT_J1_6_Assignable_Object_ObjectArray
+	__ref_SIT_J1_6_Assignable_Object_ObjectArray:
 		dd 0
 
-		global __ref_PARENTS_A
-	__ref_PARENTS_A:
-		dd 100000000001000000000b
+		global __ref_PARENTS_J1_6_Assignable_Object_ObjectArray
+	__ref_PARENTS_J1_6_Assignable_Object_ObjectArray:
+		dd 1000001000000000b
 
 	; Methods	
 		dd __method__java_lang_Object__getClass
@@ -48,7 +48,7 @@ __class_A:
 		dd __method__java_lang_Object__equals$java_lang_Object$
 		dd __method__java_lang_Object__clone
 		dd __method__java_lang_Object__toString
-		dd __STATIC_method__A__test
+		dd __STATIC_method__J1_6_Assignable_Object_ObjectArray__test
 
 ;; Static fields
 
@@ -295,7 +295,7 @@ mov [ebx], eax
 mov eax, 16
 call __malloc
 
-mov ebx, __ref_SIT_Hello
+mov ebx, __ref_SIT_J1_6_Assignable_Object_ObjectArray
 mov [ebx], eax
 
 		mov ebx, __method__java_lang_Object__hashCode
@@ -309,65 +309,7 @@ mov [ebx], eax
 
 		mov ebx, __method__java_lang_Object__toString
 	mov [eax + 12], ebx
-
-mov eax, 16
-call __malloc
-
-mov ebx, __ref_SIT_foo_bar
-mov [ebx], eax
-
-		mov ebx, __method__java_lang_Object__hashCode
-	mov [eax + 0], ebx
-
-		mov ebx, __method__java_lang_Object__equals$java_lang_Object$
-	mov [eax + 4], ebx
-
-		mov ebx, __method__java_lang_Object__clone
-	mov [eax + 8], ebx
-
-		mov ebx, __method__java_lang_Object__toString
-	mov [eax + 12], ebx
-
-mov eax, 16
-call __malloc
-
-mov ebx, __ref_SIT_Main
-mov [ebx], eax
-
-		mov ebx, __method__java_lang_Object__hashCode
-	mov [eax + 0], ebx
-
-		mov ebx, __method__java_lang_Object__equals$java_lang_Object$
-	mov [eax + 4], ebx
-
-		mov ebx, __method__java_lang_Object__clone
-	mov [eax + 8], ebx
-
-		mov ebx, __method__java_lang_Object__toString
-	mov [eax + 12], ebx
-
-mov eax, 16
-call __malloc
-
-mov ebx, __ref_SIT_Static
-mov [ebx], eax
-
-		mov ebx, __method__java_lang_Object__hashCode
-	mov [eax + 0], ebx
-
-		mov ebx, __method__java_lang_Object__equals$java_lang_Object$
-	mov [eax + 4], ebx
-
-		mov ebx, __method__java_lang_Object__clone
-	mov [eax + 8], ebx
-
-		mov ebx, __method__java_lang_Object__toString
-	mov [eax + 12], ebx
-
-mov eax, 16
-call __malloc
-
-mov ebx, __ref_SIT_A
+mov ebx, __ref_SIT_ArrayTemplate
 mov [ebx], eax
 
 		mov ebx, __method__java_lang_Object__hashCode
@@ -427,117 +369,55 @@ int 0x80
 
 global @@@@main
 @@@@main:
-		global __STATIC_method__A__test
-	__STATIC_method__A__test:
+		global __STATIC_method__J1_6_Assignable_Object_ObjectArray__test
+	__STATIC_method__J1_6_Assignable_Object_ObjectArray__test:
 		push ebp
 		mov ebp, esp
 
-		;; ---declare x
-		mov eax, 17
+		;; ---declare j
+		;; ---Array Creation: [Object]
+
+			;; Size Expression:
+				mov eax, 123
+
+			;; Class Tag
+			mov ebx, __class_ArrayTemplate
+
+			mov edx, __new_array
+			call edx
+		;; --- End Array Creation
 
 		push eax
-		;; ---end of declare x
+		;; ---end of declare j
 
-		.while0:
-			;expression code...
-			;; Compare_gt
-			;; LHS code...
-			;; Local Var x
-			mov eax, ebp
-			sub eax, 4
-			mov eax, [eax]
-
-			push eax
-			;; RHS code...
-			mov eax, 0
-			pop ebx
-			cmp ebx, eax
-			jg .gt2
-			mov eax, 0
-			jmp .end_gt2
-			.gt2:
-				mov eax, 1
-			.end_gt2:
-
-			cmp eax, 0
-			je .endwhile0
-			;; while statement code...
-			;; ---declare y
-			;; Local Var x
-			mov eax, ebp
-			sub eax, 4
-			mov eax, [eax]
-
-
-			push eax
-			;; ---end of declare y
-
-
-			;; Assignment
-							;; Local Var y
-				mov eax, ebp
-				sub eax, 12
-
-			push eax
-				;; Minus
-				;; LHS code...
-				;; Local Var y
-				mov eax, ebp
-				sub eax, 12
-				mov eax, [eax]
-
-				push eax
-				;; RHS code...
-				mov eax, 1
-				pop ebx
-				sub ebx, eax
-				mov eax, ebx
-
-			pop ebx
-			mov [ebx], eax
-			;; ------end assign
-
-            mov ebx, [ebx]
-            mov eax, 1
-            int 0x80
-
-
-			;; Assignment
-							;; Local Var x
-				mov eax, ebp
-				sub eax, 4
-
-			push eax
-				;; Local Var y
-				mov eax, ebp
-				sub eax, 12
-				mov eax, [eax]
-
-			pop ebx
-			mov [ebx], eax
-			;; ------end assign
-
-
-			add esp, 4
-
-			jmp .while0
-
-		.endwhile0:
-		;; Local Var x
+		;; field access
+		;; casting
+				;; Local Var j
 		mov eax, ebp
 		sub eax, 4
 		mov eax, [eax]
 
-		jmp _method_return___STATIC_method__A__test
+		;; null check
+		cmp eax, 0
+		je .cast_end2
+		mov eax, [eax]
+		mov eax, [eax+4]
+		shr eax, -1
+		and eax, 0x1
+		cmp eax, 0
+		je __exception
+		.cast_end2:
+		mov eax, [eax+8]
+		jmp _method_return___STATIC_method__J1_6_Assignable_Object_ObjectArray__test
 
-		_method_return___STATIC_method__A__test:
+		_method_return___STATIC_method__J1_6_Assignable_Object_ObjectArray__test:
 			mov esp, ebp
 			pop ebp
 			ret
 
 ;; -----Constructors-----
-		global __constructor__A__A
-	__constructor__A__A:
+		global __constructor__J1_6_Assignable_Object_ObjectArray__J1_6_Assignable_Object_ObjectArray
+	__constructor__J1_6_Assignable_Object_ObjectArray__J1_6_Assignable_Object_ObjectArray:
 		push ebp
 		mov ebp, esp
 		mov eax, [ebp + 8]

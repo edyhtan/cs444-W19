@@ -166,6 +166,8 @@ public class ExpressionUnary extends Expression implements ConstantExpression {
 
                 // Skip casting if target is null
                 asmWriter.indent(indent);
+                asmWriter.comment("null check");
+                asmWriter.indent(indent);
                 asmWriter.cmp(Register.eax, "0");
                 asmWriter.indent(indent);
                 asmWriter.je(".cast_end" + offset);

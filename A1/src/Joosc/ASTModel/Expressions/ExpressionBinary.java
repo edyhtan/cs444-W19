@@ -395,6 +395,7 @@ public class ExpressionBinary extends Expression implements ConstantExpression {
                 asmWriter.shr(Register.eax, column);
                 asmWriter.indent(indent);
                 asmWriter.and(Register.eax,"0x1");
+                asmWriter.comment("----end instanceof");
                 break;
             // logical operations
             case And:

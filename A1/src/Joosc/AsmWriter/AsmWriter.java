@@ -385,6 +385,8 @@ public class AsmWriter {
             }
         }
 
+        parentMatrix.keySet().forEach(x-> System.out.println(x.getTypeName()));
+
         // Array
         for (JoosType type : parentMatrix.keySet()) {
             int bit = type.equals(JoosType.getJoosType(ClassEnv.javaLangObjectName)) ? 1 : 0;

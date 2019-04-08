@@ -1699,6 +1699,7 @@ section .text
 		mov eax, [eax+4]
 		shr eax, 10
 		and eax, 0x1
+;; ----end instanceof
 
 		mov ebx, 1
 		sub ebx, eax
@@ -1734,6 +1735,7 @@ section .text
 			add eax, 8
 			mov eax, [eax]
 
+			;; null check
 			cmp eax, 0
 			je .cast_end2
 			mov eax, [eax]
@@ -2713,6 +2715,7 @@ section .text
 			add eax, 8
 			mov eax, [eax]
 
+			;; null check
 			cmp eax, 0
 			je .cast_end0
 			mov eax, [eax]
