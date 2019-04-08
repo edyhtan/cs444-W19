@@ -10,8 +10,10 @@ import Joosc.Environment.Env;
 import Joosc.Exceptions.NamingResolveException;
 import Joosc.Exceptions.TypeCheckException;
 import Joosc.Exceptions.UnreachableStatementException;
+import Joosc.TypeSystem.ArrayType;
 import Joosc.TypeSystem.JoosType;
 
+import java.lang.reflect.Array;
 import java.util.HashSet;
 
 public class ExpressionUnary extends Expression implements ConstantExpression {
@@ -155,8 +157,13 @@ public class ExpressionUnary extends Expression implements ConstantExpression {
         if (castingType != null) { // casting
             offset = MethodDeclr.PER_METHOD_COUNT;
             MethodDeclr.PER_METHOD_COUNT++;
-
-            int column = AsmWriter.parentMatrix.indexOf(joosType);
+//            System.out.println(joosType.getTypeName() + " " + (joosType instanceof ArrayType));
+            int column;
+            if(!(joosType instanceof ArrayType)) {
+                column = AsmWriter.parentMatrix.indexOf(joosType);
+            } else {
+                column = AsmWriter.parentMatrix.indexOf(((ArrayType) joosType).getJoosType());
+            }
 
             if (!joosType.isPrimitive()) {
                 asmWriter.indent(indent);
@@ -172,6 +179,8 @@ public class ExpressionUnary extends Expression implements ConstantExpression {
                 asmWriter.indent(indent);
                 asmWriter.je(".cast_end" + offset);
 
+                asmWriter.indent(indent);
+                asmWriter.push(Register.eax);
                 asmWriter.indent(indent);
                 // mov to class tag
                 asmWriter.movFromAddr(Register.eax, Register.eax);
@@ -191,6 +200,8 @@ public class ExpressionUnary extends Expression implements ConstantExpression {
 
                 asmWriter.indent(indent);
                 asmWriter.label(".cast_end" + offset);
+                asmWriter.indent(indent+1);
+                asmWriter.pop(Register.eax);
             } else { // casting primitive types
                 if (isConstantExpression()) {
                     // compute at compile time and put value directly to eax

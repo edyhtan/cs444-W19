@@ -1738,6 +1738,7 @@ section .text
 			;; null check
 			cmp eax, 0
 			je .cast_end2
+			push eax
 			mov eax, [eax]
 			mov eax, [eax+4]
 			shr eax, 10
@@ -1745,6 +1746,7 @@ section .text
 			cmp eax, 0
 			je __exception
 			.cast_end2:
+				pop eax
 			mov eax, [eax+4]
 			push eax
 
@@ -2718,6 +2720,7 @@ section .text
 			;; null check
 			cmp eax, 0
 			je .cast_end0
+			push eax
 			mov eax, [eax]
 			mov eax, [eax+4]
 			shr eax, 10
@@ -2725,6 +2728,7 @@ section .text
 			cmp eax, 0
 			je __exception
 			.cast_end0:
+				pop eax
 			push eax
 
 		;; class method:

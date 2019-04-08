@@ -400,13 +400,15 @@ global @@@@main
 		;; null check
 		cmp eax, 0
 		je .cast_end2
+		push eax
 		mov eax, [eax]
 		mov eax, [eax+4]
-		shr eax, -1
+		shr eax, 9
 		and eax, 0x1
 		cmp eax, 0
 		je __exception
 		.cast_end2:
+			pop eax
 		mov eax, [eax+8]
 		jmp _method_return___STATIC_method__J1_6_Assignable_Object_ObjectArray__test
 

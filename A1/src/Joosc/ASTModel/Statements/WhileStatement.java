@@ -120,7 +120,7 @@ public class WhileStatement extends HasScope implements Statement, HasExpression
         Program.PER_PROGRAM_COUNT++;
         ((LocalEnv)getEnv()).getSymbolTable().assignOffset();
 
-        ((LocalEnv) getEnv()).printOffset();
+//        ((LocalEnv) getEnv()).printOffset();
         expression.addWriter(asmWriter);
         statement.addWriter(asmWriter);
 

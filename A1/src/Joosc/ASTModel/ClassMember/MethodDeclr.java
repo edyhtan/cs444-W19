@@ -281,8 +281,8 @@ public class MethodDeclr implements ClassMemberDeclr, Method {
 
         asmWriter.println("");
 
-        System.err.println(localEnv.getJoosType().getQualifiedName() + " " + getName());
-        localEnv.printOffset();
+//        System.err.println(localEnv.getJoosType().getQualifiedName() + " " + getName());
+//        localEnv.printOffset();
     }
 
     @Override

@@ -385,7 +385,7 @@ public class AsmWriter {
             }
         }
 
-        parentMatrix.keySet().forEach(x-> System.out.println(x.getTypeName()));
+//        parentMatrix.keySet().forEach(x-> System.out.println(x.getTypeName()));
 
         // Array
         for (JoosType type : parentMatrix.keySet()) {
